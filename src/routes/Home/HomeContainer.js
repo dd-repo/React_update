@@ -1,18 +1,49 @@
 import React from 'react';
 import Home from './components/HomeView';
 
-class HomeContainer extends React.Component {
+import { RoutedComponent, connect } from 'routes/routedComponent';
+import { addPlan } from 'modules/planSelection';
+import { CONTENT_VIEW_STATIC } from 'layouts/DefaultLayout/modules/layout';
+
+class HomeContainer extends RoutedComponent {
     static contextTypes = {
         router: React.PropTypes.object.isRequired
     }
 
-    componentDidMount() {
-        //this.context.router.push('/start/projects');
+    constructor(props) {
+      super(props)
+      this.handleClick = this.handleClick.bind(this)
+    }
+
+    getLayoutOptions() {
+        return {
+            contentView: CONTENT_VIEW_STATIC,
+            sidebarEnabled: false,
+            navbarEnabled: false,
+            footerEnabled: false,
+            headerEnabled: false
+        }
+    }
+
+    handleClick(type, price) {
+      let plan = {type, price}
+      this.props.addPlan(plan);
+      //this.context.router.push('/signup');
     }
 
     render() {
-      return <Home />;
+      return <Home
+        handleClick={this.handleClick}
+        />;
     }
 }
 
-export default HomeContainer;
+const mapStateToProps = (state) => ({
+  planSelection: state.planSelection
+});
+
+const mapActionCreators = {
+  addPlan
+}
+
+export default connect(mapStateToProps, mapActionCreators)(HomeContainer);

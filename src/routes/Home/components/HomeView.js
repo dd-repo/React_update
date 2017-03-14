@@ -1,33 +1,23 @@
-import React from 'react'
+import React, { PropTypes } from 'react'
 import classes from './HomeView.scss'
 import { RoutedComponent, connect } from './../../routedComponent'
 import { Link } from 'react-router';
 
 import PricingTables from './PricingTables'
-import { CONTENT_VIEW_STATIC } from 'layouts/DefaultLayout/modules/layout';
 
-export class HomeView extends RoutedComponent {
-    getLayoutOptions() {
-        return {
-            contentView: CONTENT_VIEW_STATIC,
-            sidebarEnabled: false,
-            navbarEnabled: false,
-            footerEnabled: false,
-            headerEnabled: false
-        }
-    }
 
-    handleSubmit(type) {
-    }
-    render() {
-        return (
-          <div className='home-page'>
-            <PricingTables
-              handleSubmit={this.handleSubmit}
-            />
-          </div>
-        );
-    }
+const HomeView = (props) => {
+  return (
+    <div className='home-page'>
+      <PricingTables
+        handleClick={props.handleClick}
+      />
+    </div>
+  );
 }
 
-export default connect()(HomeView);
+HomeView.propTypes = {
+  handleClick: PropTypes.func.isRequired
+}
+
+export default HomeView;
