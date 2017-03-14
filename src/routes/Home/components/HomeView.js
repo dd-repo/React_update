@@ -3,7 +3,7 @@ import classes from './HomeView.scss'
 import { RoutedComponent, connect } from './../../routedComponent'
 import { Link } from 'react-router';
 
-import PricingTables from 'components/PricingTables'
+import PricingTables from './PricingTables'
 import { CONTENT_VIEW_STATIC } from 'layouts/DefaultLayout/modules/layout';
 
 export class HomeView extends RoutedComponent {
