@@ -1,5 +1,14 @@
 export default [
     {
+        path: '/',
+        /*  Async WebPack code split  */
+        getComponent: (nextState, cb) => {
+            require.ensure([], require => {
+                cb(null, require('./Home').default);
+            }, 'home');
+        }
+    },
+    {
         path: '/start/monitor',
         /*  Async WebPack code split  */
         getComponent: (nextState, cb) => {
@@ -84,7 +93,6 @@ export default [
         path: '/start/projects',
         /*  Async WebPack code split  */
         getComponent: (nextState, cb) => {
-          debugger;
             require.ensure([], require => {
                 cb(null, require('./Projects').default);
             }, 'start-projects');
