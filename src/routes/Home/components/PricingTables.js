@@ -14,9 +14,6 @@ import {
     Divider
 } from 'components';
 
-import { RoutedComponent, connect } from 'routes/routedComponent';
-import { CONTENT_VIEW_STATIC } from 'layouts/DefaultLayout/modules/layout';
-
 import { Colors } from 'consts';
 
 import classes from './PricingTables.scss';
@@ -105,7 +102,7 @@ const PricingTableClean = props => (
         </Table>
         {
             (props.active ? (
-                <Button onClick={props.handleSubmit.bind(null, props.type) } bsStyle='primary'>
+                <Button onClick={props.handleClick.bind(null, props.type, props.price) } bsStyle='primary'>
                     <i className='fa fa-check m-r-1'></i>
                     Signup
                 </Button>
@@ -177,37 +174,25 @@ PricingTable.propTypes = PricingTableClean.propTypes = {
     bsStyle: PropTypes.string.isRequired,
     capabilities: PropTypes.array.isRequired,
     active: PropTypes.bool,
-    handleSubmit: PropTypes.func.isRequired
+    handleClick: PropTypes.func.isRequired
 };
 
-class PricingTables extends RoutedComponent {
-    getLayoutOptions() {
-        return {
-            contentView: CONTENT_VIEW_STATIC
-        }
-    }
-
-    render() {
-        return (
-            <Row>
-                <Col lg={ 10 }>
-                    <Row>
-                        {
-                            _.map(tablesData, data => (
-                                <Col md={ 4 } className='m-b-3' key={ data.id }>
-                                    <PricingTableClean handleSubmit={this.props.handleSubmit} {...data} />
-                                </Col>
-                            ))
-                        }
-                    </Row>
-                </Col>
-            </Row>
-        );
-    }
+const PricingTables = props => {
+  return (
+    <Row>
+      <Col lg={ 10 }>
+        <Row>
+          {
+            _.map(tablesData, data => (
+              <Col md={ 4 } className='m-b-3' key={ data.id }>
+                <PricingTableClean handleClick={props.handleClick} {...data} />
+              </Col>
+              ))
+          }
+        </Row>
+      </Col>
+    </Row>
+  );
 }
 
-export default connect()(PricingTables);
-export {
-    PricingTable,
-    PricingTableClean
-};
+export default PricingTables
