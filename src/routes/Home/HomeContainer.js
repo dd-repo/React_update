@@ -7,11 +7,11 @@ class HomeContainer extends React.Component {
     }
 
     componentDidMount() {
-        this.context.router.push('/start/projects');
+        //this.context.router.push('/start/projects');
     }
 
     render() {
-        return (<span></span>);
+      return <Home />;
     }
 }
 

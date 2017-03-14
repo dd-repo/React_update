@@ -472,7 +472,6 @@ const renderTimeline = (timeline) => {
 // ------------------------------------
 class ProjectsContainer extends RoutedComponent {
     constructor(props, context) {
-      debugger;
         super(props, context);
 
         this.state = deepAssign({}, getData(projectsData));

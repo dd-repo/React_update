@@ -149,8 +149,8 @@ class DefaultLayout extends React.Component {
             )) ? 'hidden' : 'auto';
 
         // Update page title
-        const activeRoute = _.first(findActiveNodes(ROUTES, this.props.location.pathname));
-        document.title = titleBase + activeRoute.title;
+        //const activeRoute = _.first(findActiveNodes(ROUTES, this.props.location.pathname));
+        //document.title = titleBase + activeRoute.title;
     }
 
     render() {
