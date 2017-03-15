@@ -30,7 +30,7 @@ import {
     SIDEBAR_ADDON_AVATAR_AND_STATS
 } from 'layouts/DefaultLayout/modules/layout';
 
-const thumbnailsContext = require.context("static/sidebars-thumbs", true, /^\.\/.*\.png/);
+//const thumbnailsContext = require.context("static/sidebars-thumbs", true, /^\.\/.*\.png/);
 
 export const sidebars = [
     {
