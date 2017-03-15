@@ -4,6 +4,7 @@ import Signup from './components/Signup';
 import { RoutedComponent, connect } from 'routes/routedComponent';
 import { postUser } from 'modules/currentUser';
 import { CONTENT_VIEW_STATIC } from 'layouts/DefaultLayout/modules/layout';
+import { persistData } from 'localStorage';
 
 class SignupContainer extends RoutedComponent {
   constructor(props) {
@@ -38,7 +39,7 @@ class SignupContainer extends RoutedComponent {
   doNext(res) {
     switch(res.type) {
       case USER_SUCCESS:
-        this.props.router.push('/users/payment');
+        this.context.router.push('/payment-info');
         res.userData.phone_number = '123-123-1234';
         res.userData.password = 'Password12';
 

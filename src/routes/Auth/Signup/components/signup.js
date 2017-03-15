@@ -2,23 +2,22 @@ import React, { PropTypes } from 'react';
 
 import SignupForm from './SignupForm';
 
-const Signup = ({ errorMessage, submitForm, planType, price }) => {
+const Signup = ({ errorMessage, handleSubmit, plan }) => {
   return (
 
         <SignupForm
           errorMessage={errorMessage}
-          submitForm={submitForm}
-          planType={planType}
-          price={price}
+          handleSubmit={handleSubmit}
+          planType={plan.type}
+          price={plan.price}
         />
 
   )
 }
 
 Signup.propTypes = {
-  submitForm: PropTypes.func.isRequired,
-  planType: PropTypes.string.isRequired,
-  price: PropTypes.string.isRequired,
+  handleSubmit: PropTypes.func.isRequired,
+  plan: PropTypes.object.isRequired,
   errorMessage: PropTypes.string
 }
 
