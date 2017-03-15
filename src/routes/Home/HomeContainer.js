@@ -28,7 +28,7 @@ class HomeContainer extends RoutedComponent {
     handleClick(type, price) {
       let plan = {type, price}
       this.props.addPlan(plan);
-      //this.context.router.push('/signup');
+      this.context.router.push('/signup');
     }
 
     render() {
