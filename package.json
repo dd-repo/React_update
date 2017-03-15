@@ -80,6 +80,7 @@
     "@owczar/spin-template": "^1.4.8",
     "assign-deep": "^0.4.5",
     "autocast": "0.0.4",
+    "axios": "^0.15.3",
     "babel-cli": "^6.5.1",
     "babel-core": "^6.3.17",
     "babel-loader": "^6.2.0",

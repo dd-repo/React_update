@@ -1,3 +1,4 @@
+import axios from 'axios'
 import { BASE_URL } from 'consts/apis'
 
 // constants
@@ -47,7 +48,7 @@ const receiveUser = userData => (
 
 const receiveUserError = error => (
   {
-    type: FAILURE,
+    type: USER_FAILURE,
     error
   }
 );

@@ -5,12 +5,13 @@ import { RoutedComponent, connect } from 'routes/routedComponent';
 import { postUser } from 'modules/currentUser';
 import { CONTENT_VIEW_STATIC } from 'layouts/DefaultLayout/modules/layout';
 import { persistData } from 'localStorage';
+import { USER_SUCCESS, USER_FAILURE } from 'modules/currentUser';
 
 class SignupContainer extends RoutedComponent {
   constructor(props) {
     super(props)
 
-    this.handleSubmit = this.handleSubmit.bind(this);
+    this.submitForm = this.submitForm.bind(this);
     this.state = {}
     this.doNext = this.doNext.bind(this);
   }
@@ -29,7 +30,7 @@ class SignupContainer extends RoutedComponent {
     }
   }
 
-  handleSubmit(user) {
+  submitForm(user) {
     user.phone_type = "mobile"
     this.props.postUser(user, 'signup')
     .then(res => { this.doNext(res) })
@@ -39,14 +40,14 @@ class SignupContainer extends RoutedComponent {
   doNext(res) {
     switch(res.type) {
       case USER_SUCCESS:
-        this.context.router.push('/payment-info');
+        //this.context.router.push('/payment-info');
         res.userData.phone_number = '123-123-1234';
         res.userData.password = 'Password12';
 
         persistData(res.userData, 'currentUser');
         persistData(res.userData.accounts, 'accounts');
         break;
-      case FAILURE:
+      case USER_FAILURE:
         this.setState({errorMessage: res.error});
         break;
       default:
@@ -57,10 +58,10 @@ class SignupContainer extends RoutedComponent {
   render() {
     return (
       <Signup
-        handleSubmit={this.handleSubmit}
+        submitForm={this.submitForm}
         plan={this.props.planSelection}
-        errorMessage={this.state.ErrorMessage}
-        />
+        errorMessage={this.state.errorMessage}
+      />
     )
   }
 }

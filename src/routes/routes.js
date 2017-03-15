@@ -8,18 +8,21 @@ export default [
             }, 'home');
         }
     },
+    //{
+      //path: '/signup',
+      //component: require('./Signup').default
+    //},
     {
         path: '/signup',
-        /*  Async WebPack code split  */
         getComponent: (nextState, cb) => {
             require.ensure([], require => {
-              cb(null, require('./Auth/Signup').default);
+              cb(null, require('./Signup').default);
             }, 'signup');
         }
     },
     //{
-        //path: '/start/monitor',
-        //[>  Async WebPack code split  <]
+      //path: '/signup',
+        ////[>  Async WebPack code split  <]
         //getComponent: (nextState, cb) => {
             //require.ensure([], require => {
                 //cb(null, require('./Monitor').default);
@@ -227,10 +230,6 @@ export default [
 
     //// Forms
     //{
-        //path: '/forms/forms',
-        //component: require('./Forms/Forms').default
-    //},
-    //{
         //path: '/forms/forms-layouts',
         //component: require('./Forms/FormsLayouts').default
     //},
@@ -246,10 +245,10 @@ export default [
         //path: '/pages/timeline',
         //component: require('./Pages/Timeline').default
     //},
-    //{
-        //path: '/pages/not-found',
-        //component: require('./Pages/NotFound').default
-    //},
+    {
+        path: '/pages/not-found',
+        component: require('./Pages/NotFound').default
+    },
     //{
         //path: '/pages/register',
         //component: require('./Pages/Register').default

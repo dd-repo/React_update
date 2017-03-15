@@ -14,11 +14,11 @@ import { Link } from 'react-router';
 import { RoutedComponent, connect } from 'routes/routedComponent';
 import { CONTENT_VIEW_FLUID } from 'layouts/DefaultLayout/modules/layout';
 
-import classes from './../Pages.scss';
+import classes from '../../Pages.scss';
 
 import logo from 'static/spin-logo-inverted.png';
 
-class RegisterContainer extends RoutedComponent {
+class RegisterContainer extends React.Component {
     getLayoutOptions() {
         return {
             contentView: CONTENT_VIEW_FLUID,
@@ -113,4 +113,4 @@ class RegisterContainer extends RoutedComponent {
     }
 }
 
-export default connect()(RegisterContainer);
+export default RegisterContainer;
