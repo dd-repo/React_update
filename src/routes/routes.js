@@ -8,15 +8,15 @@ export default [
             }, 'home');
         }
     },
-    {
-        path: '/start/monitor',
+    //{
+        //path: '/start/monitor',
         //[>  Async WebPack code split  <]
-        getComponent: (nextState, cb) => {
-            require.ensure([], require => {
-                cb(null, require('./Monitor').default);
-            }, 'start-monitor');
-        }
-    },
+        //getComponent: (nextState, cb) => {
+            //require.ensure([], require => {
+                //cb(null, require('./Monitor').default);
+            //}, 'start-monitor');
+        //}
+    //},
     //{
         //path: '/start/exchange-and-trading',
         //[>  Async WebPack code split  <]
