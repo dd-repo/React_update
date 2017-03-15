@@ -8,6 +8,15 @@ export default [
             }, 'home');
         }
     },
+    {
+        path: '/signup',
+        /*  Async WebPack code split  */
+        getComponent: (nextState, cb) => {
+            require.ensure([], require => {
+              cb(null, require('./Auth/Signup').default);
+            }, 'signup');
+        }
+    },
     //{
         //path: '/start/monitor',
         //[>  Async WebPack code split  <]
