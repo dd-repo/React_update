@@ -1,0 +1,102 @@
+import React from 'react';
+
+import { RoutedComponent, connect } from 'routes/routedComponent';
+import { postPayment } from 'modules/payment';
+import Payment from './components/Payment';
+import { persistData } from 'localStorage';
+import { PAYMENT_SUCCESS, PAYMENT_FAILURE } from 'modules/payment';
+
+const PaymentSuccess = () => {
+}
+
+class PaymentContainer extends RoutedComponent {
+  constructor() {
+    super()
+    this.state = {}
+
+    this.submitForm = this.submitForm.bind(this);
+    this.buildParams = this.buildParams.bind(this);
+    this.doNext = this.doNext.bind(this);
+  }
+
+  static contextTypes = {
+    router: React.PropTypes.object.isRequired
+  }
+
+  getLayoutOptions() {
+    return {
+      contentView: CONTENT_VIEW_STATIC,
+      sidebarEnabled: false,
+      navbarEnabled: false,
+      footerEnabled: false,
+      headerEnabled: false
+    }
+  }
+
+  sanitizeNums(value) {
+    return value.replace(/[^\d]/gi, '')
+  }
+
+  fullName(first, last) {
+    return `${first} ${last}`
+  }
+
+  buildParams(values) {
+    return {
+      user: this.props.currentUser.id,
+      card_holder_name: this.fullName(values.first_name, values.last_name),
+      card_number: this.sanitizeNums(values.creditCardNumber),
+      card_month: values.expirationDate.slice(0,2),
+      card_year: values.expirationDate.slice(3),
+      card_cvc: values.cvCode,
+      plan: this.props.plan.type,
+    }
+  }
+
+  submitForm(formProps) {
+    let authToken = this.props.currentUser.access_token
+    let params = this.buildParams(formProps)
+    persistData(formProps, 'paymentStatus');
+    this.props.postPayment(params, authToken)
+    .then(res => { this.doNext(res) })
+    .catch(error => { console.log('error in payment submit', error) })
+  }
+
+  doNext(res) {
+    switch(res.type) {
+      case PAYMENT_SUCCESS:
+        this.setState({ paymentSuccess: true });
+        break;
+      case FAILURE:
+        this.setState({ errorMessage: res.error });
+        break;
+      default:
+        return null
+    }
+  }
+
+  render() {
+    if(!this.state.paymentSuccess && this.props.currentUser.id) {
+      return <Payment
+        submitForm={this.submitForm}
+        planType={this.props.plan.type}
+        price={this.props.plan.price}
+        errorMessage={this.state.errorMessage} />
+    } else {
+      return  <PaymentComplete />
+    }
+  }
+}
+
+const mapStateToProps = state => ({
+    currentUser: state.currentUser,
+    errorMessage: state.errorMessage,
+    planSelection: state.planSelection,
+    payment: state.payment
+})
+
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({ postPayment }, dispatch);
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(PaymentContainer);
