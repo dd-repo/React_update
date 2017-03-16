@@ -20,15 +20,15 @@ export default [
             }, 'signup');
         }
     },
-    //{
-      //path: '/signup',
+    {
+      path: '/payment-info',
         ////[>  Async WebPack code split  <]
-        //getComponent: (nextState, cb) => {
-            //require.ensure([], require => {
-                //cb(null, require('./Monitor').default);
-            //}, 'start-monitor');
-        //}
-    //},
+        getComponent: (nextState, cb) => {
+            require.ensure([], require => {
+                cb(null, require('./Payment').default);
+            }, 'payment-info');
+        }
+    },
     //{
         //path: '/start/exchange-and-trading',
         //[>  Async WebPack code split  <]

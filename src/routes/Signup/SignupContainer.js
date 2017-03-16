@@ -40,7 +40,7 @@ class SignupContainer extends RoutedComponent {
   doNext(res) {
     switch(res.type) {
       case USER_SUCCESS:
-        //this.context.router.push('/payment-info');
+        this.context.router.push('/payment-info');
         res.userData.phone_number = '123-123-1234';
         res.userData.password = 'Password12';
 

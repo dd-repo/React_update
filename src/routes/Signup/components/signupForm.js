@@ -138,8 +138,7 @@ let SignupForm = ({ planType, price, errorMessage, submitForm, handleSubmit, inv
         Accept Terms & Privacy Policy
       </Checkbox>
       <button
-        block bsStyle='primary'
-        className='m-b-2'
+        className='btn btn-primary m-b-2'
         disabled={invalid || submitting}
         action="submit"
       >
