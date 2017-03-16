@@ -73,7 +73,7 @@ const Signup = ({ errorMessage, submitForm, plan }) => {
 }
 
 Signup.propTypes = {
-  handleSubmit: PropTypes.func.isRequired,
+  submitForm: PropTypes.func.isRequired,
   plan: PropTypes.object.isRequired,
   errorMessage: PropTypes.string
 }

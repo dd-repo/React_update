@@ -146,7 +146,7 @@ PaymentForm = reduxForm({
 
 PaymentForm = connect(
   state => ({
-    initialValues: state.paymentStatus
+    initialValues: state.payment
   })
 )(PaymentForm);
 

@@ -6,6 +6,7 @@ import { syncHistoryWithStore } from 'react-router-redux'
 import createStore from './store/createStore'
 import AppContainer from './containers/AppContainer'
 import pace from 'pace';
+import { loadPersistedData } from 'localStorage';
 
 // ========================================================
 // Browser History Setup
@@ -21,7 +22,43 @@ const browserHistory = useRouterHistory(createBrowserHistory)({
 // react-router-redux reducer under the routerKey "router" in src/routes/index.js,
 // so we need to provide a custom `selectLocationState` to inform
 // react-router-redux of its location.
-const initialState = window.___INITIAL_STATE__
+const defaultUserInfo = {
+  first_name: 'joe',
+  last_name: 'bob',
+  email: 'joebob@email.com',
+  phone_number: '123-123-1234',
+  password: 'Password12'
+}
+
+const defaultPaymentInfo = {
+  first_name: 'joe',
+  last_name: 'bob',
+  creditCardNumber: '4242424242424242',
+  expirationDate: '02/2020',
+  cvCode: '123'
+}
+
+const defaultKeywords = [{
+  address: 'Sesame Street',
+  city: 'New York City',
+  state: 'NY',
+  zipcode: '12345',
+  dob: '02/02/2000'
+}]
+
+const defaultPlan = {
+  type: 'individual',
+  price: 29
+}
+
+const initialState = {
+  currentUser: loadPersistedData('currentUser') || defaultUserInfo,
+  payment: loadPersistedData('payment') || defaultPaymentInfo,
+  planSelection: loadPersistedData('planSelection') || defaultPlan,
+  //keywords: loadPersistedData('keywords') || defaultKeywords,
+  //accounts: loadPersistedData('accounts')
+}
+
 const store = createStore(initialState, browserHistory)
 const history = syncHistoryWithStore(browserHistory, store, {
   selectLocationState: (state) => state.router
