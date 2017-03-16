@@ -1,12 +1,14 @@
 import React from 'react';
 
+import Payment from './components/Payment';
 import { RoutedComponent, connect } from 'routes/routedComponent';
 import { postPayment } from 'modules/payment';
-import Payment from './components/Payment';
 import { persistData } from 'localStorage';
 import { PAYMENT_SUCCESS, PAYMENT_FAILURE } from 'modules/payment';
+import { CONTENT_VIEW_STATIC } from 'layouts/DefaultLayout/modules/layout';
 
-const PaymentSuccess = () => {
+const PaymentComplete = () => {
+  return(<div>Hello</div>)
 }
 
 class PaymentContainer extends RoutedComponent {
@@ -41,6 +43,10 @@ class PaymentContainer extends RoutedComponent {
     return `${first} ${last}`
   }
 
+  toLowerCase(name) {
+    return name.toLowerCase()
+  }
+
   buildParams(values) {
     return {
       user: this.props.currentUser.id,
@@ -49,7 +55,7 @@ class PaymentContainer extends RoutedComponent {
       card_month: values.expirationDate.slice(0,2),
       card_year: values.expirationDate.slice(3),
       card_cvc: values.cvCode,
-      plan: this.props.plan.type,
+      plan: this.toLowerCase(this.props.planSelection.type),
     }
   }
 
@@ -67,7 +73,7 @@ class PaymentContainer extends RoutedComponent {
       case PAYMENT_SUCCESS:
         this.setState({ paymentSuccess: true });
         break;
-      case FAILURE:
+      case PAYMENT_FAILURE:
         this.setState({ errorMessage: res.error });
         break;
       default:
@@ -79,8 +85,8 @@ class PaymentContainer extends RoutedComponent {
     if(!this.state.paymentSuccess && this.props.currentUser.id) {
       return <Payment
         submitForm={this.submitForm}
-        planType={this.props.plan.type}
-        price={this.props.plan.price}
+        planType={this.props.planSelection.type}
+        price={this.props.planSelection.price}
         errorMessage={this.state.errorMessage} />
     } else {
       return  <PaymentComplete />
@@ -95,8 +101,8 @@ const mapStateToProps = state => ({
     payment: state.payment
 })
 
-function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ postPayment }, dispatch);
+const mapActionCreators = {
+  postPayment
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(PaymentContainer);
+export default connect(mapStateToProps, mapActionCreators)(PaymentContainer);
