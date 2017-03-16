@@ -5,6 +5,7 @@ import { reducer as form } from 'redux-form';
 import planSelection from 'modules/planSelection';
 import currentUser from 'modules/currentUser';
 import payment from 'modules/payment';
+import keywords from 'modules/keywords';
 
 import layout from 'layouts/DefaultLayout/modules/layout';
 
@@ -12,6 +13,7 @@ export const makeRootReducer = (asyncReducers) => {
   return combineReducers({
     // Add sync reducers here
     planSelection,
+    keywords,
     currentUser,
     payment,
     layout,

@@ -29,15 +29,15 @@ export default [
             }, 'payment-info');
         }
     },
-    //{
-        //path: '/start/exchange-and-trading',
+    {
+        path: '/keywords',
         //[>  Async WebPack code split  <]
-        //getComponent: (nextState, cb) => {
-            //require.ensure([], require => {
-                //cb(null, require('./ExchangeAndTrading').default);
-            //}, 'start-exchange-trading');
-        //}
-    //},
+        getComponent: (nextState, cb) => {
+            require.ensure([], require => {
+              cb(null, require('./Keywords').default);
+            }, 'keywords');
+        }
+    },
     //{
         //path: '/start/e-commerce',
         //[>  Async WebPack code split  <]

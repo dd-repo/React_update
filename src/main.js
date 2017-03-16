@@ -55,8 +55,8 @@ const initialState = {
   currentUser: loadPersistedData('currentUser') || defaultUserInfo,
   payment: loadPersistedData('payment') || defaultPaymentInfo,
   planSelection: loadPersistedData('planSelection') || defaultPlan,
-  //keywords: loadPersistedData('keywords') || defaultKeywords,
-  //accounts: loadPersistedData('accounts')
+  keywords: loadPersistedData('keywords') || defaultKeywords,
+  accounts: loadPersistedData('accounts')
 }
 
 const store = createStore(initialState, browserHistory)
