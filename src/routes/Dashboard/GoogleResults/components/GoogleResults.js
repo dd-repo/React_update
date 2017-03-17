@@ -52,6 +52,7 @@ const GoogleResults = ({ results, keywords, getResults, isFetching }) => {
             <div className='container'>
               <div className="spinner">
                 <div className="col-md-12 pricing-left">
+                  <p>Retrieving your google results for <strong>{keywords.currentKeyword.value}</strong></p>
                   <Loading type='bubbles' color='white' />
                 </div>
               </div>

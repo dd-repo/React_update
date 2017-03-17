@@ -10,10 +10,10 @@ export const CURRENT_KEYWORD_ID = 'CURRENT_KEYWORD_ID';
 export const KEYWORD_REQUEST = `${BASE_URL}/users/sign-up/keyword`;
 
 // actions
-export const addCurrentKeywordId = id => (
+export const addCurrentKeyword = keyword => (
   {
     type: CURRENT_KEYWORD_ID,
-    id
+    keyword
   }
 );
 
@@ -82,7 +82,7 @@ const reducer = (state = {}, action) => {
       });
     case CURRENT_KEYWORD_ID:
       return Object.assign({}, state, {
-        currentKeywordId: action.id
+        currentKeyword: action.keyword
       });
     default:
       return state

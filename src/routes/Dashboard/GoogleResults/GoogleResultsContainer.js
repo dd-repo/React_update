@@ -4,7 +4,7 @@ import Loading from 'react-loading';
 import { RoutedComponent, connect } from 'routes/routedComponent';
 import GoogleResults from './components/GoogleResults';
 import { getGoogleResults } from 'modules/googleResults';
-import { addCurrentKeywordId } from 'modules/keywords';
+import { addCurrentKeyword } from 'modules/keywords';
 import { CONTENT_VIEW_STATIC } from 'layouts/DefaultLayout/modules/layout';
 
 class GoogleResultsContainer extends RoutedComponent {
@@ -16,7 +16,7 @@ class GoogleResultsContainer extends RoutedComponent {
   }
 
   componentWillMount() {
-   this.isInitialRendering && this.getResults();
+   this.isInitialRendering && this.getResults(this.props.keywords.all[0]);
   }
 
   isInitialRendering() {
@@ -33,14 +33,15 @@ class GoogleResultsContainer extends RoutedComponent {
     }
   }
 
-  getResults(keywordId) {
+  getResults(keyword) {
     const number = this.props.pageNumber || '1'
     const account_id = this.props.currentUser.account_id
-    const keyword_id = keywordId || this.props.keywords.all[0].id
+    const keyword_id = keyword.id
     const params = { number, keyword_id, account_id }
     const authToken = this.props.currentUser.access_token
-    this.props.addCurrentKeywordId(keyword_id)
+    this.props.addCurrentKeyword(keyword)
     this.props.getGoogleResults(params, authToken);
+    this.setState({ isFetching: true })
   }
 
 
@@ -71,7 +72,7 @@ const mapStateToProps = state => {
 
 const mapActionCreators = {
   getGoogleResults,
-  addCurrentKeywordId
+  addCurrentKeyword
 }
 
 export default connect(mapStateToProps, mapActionCreators)(GoogleResultsContainer);
