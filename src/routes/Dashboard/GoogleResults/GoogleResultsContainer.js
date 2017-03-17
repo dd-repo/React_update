@@ -51,25 +51,12 @@ class GoogleResultsContainer extends RoutedComponent {
 
   render() {
     return (
-      <div>
-      {
-        this.state.isFetching
-          ?
-            <div className='container'>
-              <div className="spinner">
-                <div className="col-md-12 pricing-left">
-                  <Loading type='bubbles' color='white' />
-                </div>
-              </div>
-            </div>
-              : <GoogleResults
-                results={this.props.googleResults.results}
-                keywords={this.props.keywords}
-                isFetching={this.state.isFetching}
-                getResults={this.getResults}
-              />
-              }
-              </div>
+        <GoogleResults
+          results={this.props.googleResults.results}
+          keywords={this.props.keywords}
+          isFetching={this.state.isFetching}
+          getResults={this.getResults}
+        />
     )
   }
 }

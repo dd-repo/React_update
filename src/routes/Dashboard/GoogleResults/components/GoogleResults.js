@@ -1,6 +1,7 @@
 import React from 'react';
-//import uid from 'node-uuid';
+import Loading from 'react-loading';
 import { Link } from 'react-router';
+//import uid from 'node-uuid';
 
 import {
     Row,
@@ -17,14 +18,11 @@ import SearchResultTypes from './SearchResultTypes';
 import SearchKeywords from './SearchKeywords';
 import SearchPeriod from './SearchPeriod';
 
-import Spinner from 'components/Spinner';
 import GoogleResult from './GoogleResult';
 import renderSection from 'modules/sectionRender';
 import { CONTENT_VIEW_STATIC } from 'layouts/DefaultLayout/modules/layout';
-import { Colors } from 'consts';
 
-
-const GoogleResults = ({ results, keywords, getResults }) => {
+const GoogleResults = ({ results, keywords, getResults, isFetching }) => {
   return (
     <Row>
       <Col lg={ 2 }>
@@ -49,6 +47,16 @@ const GoogleResults = ({ results, keywords, getResults }) => {
           All Results
         </Divider>
         {
+          isFetching
+          ?
+            <div className='container'>
+              <div className="spinner">
+                <div className="col-md-12 pricing-left">
+                  <Loading type='bubbles' color='white' />
+                </div>
+              </div>
+            </div>
+            :
           results.map((result, key) => (
             <GoogleResult result={result} key={key} />
             ))
