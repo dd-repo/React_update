@@ -6,6 +6,7 @@ import planSelection from 'modules/planSelection';
 import currentUser from 'modules/currentUser';
 import payment from 'modules/payment';
 import keywords from 'modules/keywords';
+import googleResults from 'modules/googleResults';
 
 import layout from 'layouts/DefaultLayout/modules/layout';
 
@@ -16,6 +17,7 @@ export const makeRootReducer = (asyncReducers) => {
     keywords,
     currentUser,
     payment,
+    googleResults,
     layout,
     router,
     form,
