@@ -22,7 +22,7 @@ import { CONTENT_VIEW_STATIC } from 'layouts/DefaultLayout/modules/layout';
 import { Colors } from 'consts';
 
 
-const GoogleResults = ({ results, keywords, isFetching }) => {
+const GoogleResults = ({ results, keywords, isFetching, getNextPage }) => {
   return (
     <Row>
       <Pagination
@@ -35,6 +35,7 @@ const GoogleResults = ({ results, keywords, isFetching }) => {
         first
         last
         ellipsis
+        onSelect={getNextPage}
       />
       <Col lg={ 10 }>
         <Divider className='m-t-3 m-b-2'>

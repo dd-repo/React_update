@@ -7,6 +7,12 @@ import { getGoogleResults } from 'modules/googleResults';
 import { CONTENT_VIEW_STATIC } from 'layouts/DefaultLayout/modules/layout';
 
 class GoogleResultsContainer extends RoutedComponent {
+  constructor(props) {
+    super(props)
+    this.state = {}
+
+    this.getGoogleResults = this.getGoogleResults.bind(this);
+  }
 
   getLayoutOptions() {
     return {
@@ -18,14 +24,18 @@ class GoogleResultsContainer extends RoutedComponent {
     }
   }
 
-  componentWillMount() {
-    const number = this.props.pageNumber || '1'
+  getGoogleResults(pageNum = 1) {
+    const number = pageNum.toString();
     const account_id = this.props.currentUser.account_id
     const keyword_id = this.props.currentKeyword || this.props.keywords[0].id
     const params = { number, keyword_id, account_id }
     const authToken = this.props.currentUser.access_token
     this.props.getGoogleResults(params, authToken);
     this.setState({isFetching: true})
+  }
+
+  componentWillMount() {
+    this.getGoogleResults();
   }
 
   componentWillReceiveProps(nextProps) {
@@ -50,6 +60,7 @@ class GoogleResultsContainer extends RoutedComponent {
                 results={this.props.googleResults.results}
                 keywords={this.props.kewords}
                 isFetching={this.state.isFetching}
+                getNextPage={this.getGoogleResults}
               />
               }
               </div>
