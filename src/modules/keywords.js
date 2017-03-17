@@ -5,10 +5,18 @@ import { BASE_URL } from 'consts/apis';
 export const KEYWORD_POSTING = 'KEYWORD_POSTING';
 export const KEYWORD_SUCCESS = 'KEYWORD_SUCCESS';
 export const KEYWORD_FAILURE = 'KEYWORD_FAILURE';
+export const CURRENT_KEYWORD_ID = 'CURRENT_KEYWORD_ID';
 
 export const KEYWORD_REQUEST = `${BASE_URL}/users/sign-up/keyword`;
 
 // actions
+export const addCurrentKeywordId = id => (
+  {
+    type: CURRENT_KEYWORD_ID,
+    id
+  }
+);
+
 export const postKeywords = (keywords, authToken) => {
   return dispatch => {
     dispatch(postingKeywords(keywords))
@@ -56,25 +64,26 @@ const keywordFailure = error => (
 );
 
 // reducer
-const reducer = (state = [], action) => {
+const reducer = (state = {}, action) => {
   switch(action.type) {
     case KEYWORD_POSTING:
-      return Object.assign([], state, {
+      return Object.assign({}, state, {
         isFetching: true
       });
     case KEYWORD_SUCCESS:
-      return Object.assign([], state, {
-        0: action.keywords[0],
-        1: action.keywords[1],
-        2: action.keywords[2],
-        3: action.keywords[3],
+      return Object.assign({}, state, {
+        all: action.keywords,
         isFetching: undefined,
       });
     case KEYWORD_FAILURE:
-      return Object.assign([], state, {
+      return Object.assign({}, state, {
         isFetching: false,
         success: false
-      })
+      });
+    case CURRENT_KEYWORD_ID:
+      return Object.assign({}, state, {
+        currentKeywordId: action.id
+      });
     default:
       return state
   }
