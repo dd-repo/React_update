@@ -8,10 +8,6 @@ export default [
             }, 'home');
         }
     },
-    //{
-      //path: '/signup',
-      //component: require('./Signup').default
-    //},
     {
         path: '/signup',
         getComponent: (nextState, cb) => {
@@ -38,15 +34,15 @@ export default [
             }, 'keywords');
         }
     },
-    //{
-        //path: '/start/e-commerce',
+    {
+      path: '/dashboard',
         //[>  Async WebPack code split  <]
-        //getComponent: (nextState, cb) => {
-            //require.ensure([], require => {
-                //cb(null, require('./ECommerce').default);
-            //}, 'start-e-commerce');
-        //}
-    //},
+        getComponent: (nextState, cb) => {
+            require.ensure([], require => {
+              cb(null, require('./Dashboard/GoogleResults').default);
+            }, 'dashboard');
+        }
+    },
     //{
         //path: '/start/performance',
         //[>  Async WebPack code split  <]

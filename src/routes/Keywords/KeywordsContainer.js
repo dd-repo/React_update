@@ -58,7 +58,7 @@ class KeywordContainer extends RoutedComponent {
   doNext(res) {
     switch(res.type) {
       case KEYWORD_SUCCESS:
-        this.context.router.push('/users/account/dashboard')
+        this.context.router.push('/dashboard')
         persistData(res.keywords, 'keywords')
         break;
       case FAILURE:
