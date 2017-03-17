@@ -21,7 +21,7 @@ const SearchKeywords = ({ keywords, getResults }) => {
               <Button
                 bsStyle='link'
                 key={key}
-                onClick={getResults.bind(null, keyword.id)}
+                onClick={getResults.bind(null, keyword)}
               >
                 {keyword.value}
               </Button>
