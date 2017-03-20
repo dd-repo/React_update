@@ -180,12 +180,12 @@ PricingTable.propTypes = PricingTableClean.propTypes = {
 const PricingTables = props => {
   return (
     <Row>
-      <Col lg={ 10 }>
+      <Col lg={ 12 } mdOffset={2}>
         <Row>
           {
             _.map(tablesData, data => (
-              <Col md={ 4 } className='m-b-3' key={ data.id }>
-                <PricingTableClean handleClick={props.handleClick} {...data} />
+              <Col md={ 4 }>
+                <PricingTableClean handleClick={props.handleClick} {...data}  key={ data.id }/>
               </Col>
               ))
           }
