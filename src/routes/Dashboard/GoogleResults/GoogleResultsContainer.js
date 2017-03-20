@@ -13,6 +13,7 @@ class GoogleResultsContainer extends RoutedComponent {
     this.state = { isFetching: true }
 
     this.getResults = this.getResults.bind(this);
+    this.getNextPage = this.getNextPage.bind(this);
   }
 
   componentWillMount() {
@@ -33,17 +34,19 @@ class GoogleResultsContainer extends RoutedComponent {
     }
   }
 
-  getResults(keyword) {
-    const number = this.props.pageNumber || '1'
+  getNextPage(pageNum) {
+    this.getResults(this.props.keywords.currentKeyword, pageNum)
+  }
+
+  getResults(keyword, pageNum = '1') {
     const account_id = this.props.currentUser.account_id
     const keyword_id = keyword.id
-    const params = { number, keyword_id, account_id }
+    const params = { pageNum, keyword_id, account_id }
     const authToken = this.props.currentUser.access_token
     this.props.addCurrentKeyword(keyword)
     this.props.getGoogleResults(params, authToken);
     this.setState({ isFetching: true })
   }
-
 
   componentWillReceiveProps(nextProps) {
     !nextProps.googleResults.isFetching &&
@@ -57,6 +60,7 @@ class GoogleResultsContainer extends RoutedComponent {
           keywords={this.props.keywords}
           isFetching={this.state.isFetching}
           getResults={this.getResults}
+          getNextPage={this.getNextPage}
         />
     )
   }

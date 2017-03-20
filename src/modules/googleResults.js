@@ -20,10 +20,10 @@ export const getGoogleResults = (params, authToken) => {
   }
 }
 
-const googleSearchRequest = ( {keyword_id, account_id}, authToken) => {
+const googleSearchRequest = ( {pageNum, keyword_id, account_id}, authToken) => {
   const config = { headers: { 'Authorization': authToken } }
   return axios.get(
-    `${BASE_URL}/accounts/${account_id}/keywords/${keyword_id}/search_results`, config
+    `${BASE_URL}/accounts/${account_id}/keywords/${keyword_id}/search_results/${pageNum}`, config
   );
 }
 

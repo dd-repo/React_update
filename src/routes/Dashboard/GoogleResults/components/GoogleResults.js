@@ -22,7 +22,7 @@ import GoogleResult from './GoogleResult';
 import renderSection from 'modules/sectionRender';
 import { CONTENT_VIEW_STATIC } from 'layouts/DefaultLayout/modules/layout';
 
-const GoogleResults = ({ results, keywords, getResults, isFetching }) => {
+const GoogleResults = ({ results, keywords, getResults, getNextPage, isFetching }) => {
   return (
     <Row>
       <Col lg={ 2 }>
@@ -41,6 +41,7 @@ const GoogleResults = ({ results, keywords, getResults, isFetching }) => {
         first
         last
         ellipsis
+        onSelect={getNextPage}
       />
       <Col lg={ 10 }>
         <Divider className='m-t-3 m-b-2'>
@@ -52,7 +53,7 @@ const GoogleResults = ({ results, keywords, getResults, isFetching }) => {
             <div className='container'>
               <div className="spinner">
                 <div className="col-md-12 pricing-left">
-                  <p>Retrieving your google results for <strong>{keywords.currentKeyword.value}</strong></p>
+                  <p>Retrieving your google results for <strong>{keywords.currentKeyowrd ? keywords.currentKeyword.value : ''}</strong></p>
                   <Loading type='bubbles' color='white' />
                 </div>
               </div>
