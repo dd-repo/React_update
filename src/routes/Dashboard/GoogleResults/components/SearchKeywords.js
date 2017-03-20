@@ -35,7 +35,7 @@ const SearchKeywords = ({ keywords, getResults }) => {
 }
 
 SearchKeywords.propTypes = {
-  keywords: PropTypes.array.isRequired,
+  keywords: PropTypes.object.isRequired,
   getResults: PropTypes.func.isRequired
 }
 

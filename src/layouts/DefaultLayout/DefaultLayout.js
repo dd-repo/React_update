@@ -9,6 +9,7 @@ import Notifications from 'react-notification-system-redux';
 import treeRandomizer from 'modules/treeRandomizer';
 import getLogoBySkin from './getLogoBySkin.js';
 import ROUTES, { findActiveNodes } from './../../routes/routesStructure';
+import defaultAvatar from 'static/avatars/defaultAvatar.png';
 
 import { Colors } from 'consts';
 
@@ -361,21 +362,12 @@ class DefaultLayout extends React.Component {
                                 </div>
                             )}
                         >
-                            { /* Renders Appropriate SidebarAddOn */ }
-                            {
-                                (() => {
-                                    if(this.props.sidebarAddon === SIDEBAR_ADDON_DEFAULT) {
-                                        return (
-                                            <div className="sidebar-logo">
-                                                <img className="logo-default" width={ 53 } src={ sidebarBigLogo } />
-                                                <img className="logo-slim" height={ 13 } src={ sidebarSlimLogo } />
-                                            </div>
-                                        );
-                                    } else {
-                                        return sidebarAddOns[this.props.sidebarAddon]({ colorSidebar: this.props.sidebarSkin === SKIN_COLOR });
-                                    }
-                                })()
-                            }
+                            { /* Renders SidebarAddOn */ }
+                            <SidebarAddOns.AvatarAndStatsAddOn
+                              avatar={defaultAvatar}
+                              currentUser={this.props.currentUser}
+                              colorSidebar={this.props.sidebarSkin === SKIN_COLOR}
+                            />
                             <div className='sidebar-default-visible text-muted small text-uppercase sidebar-section p-y-2'>
                                 <strong>Navigation</strong>
                             </div>
@@ -514,8 +506,8 @@ const mapStateToProps = (state) => ({
     currentScreenSize: state.layout.currentScreenSize,
     skinColor: state.layout.skinColor,
     rawContent: state.layout.rawContent,
-
-    notifications: state.notifications
+    notifications: state.notifications,
+    currentUser: state.currentUser
 });
 
 const mapActionCreators = {
