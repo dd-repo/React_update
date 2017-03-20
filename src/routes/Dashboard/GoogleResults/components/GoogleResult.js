@@ -7,7 +7,6 @@ const GoogleResult = ({ result, key }) => {
     result.listing_site_id &&
       <button className="danger alert-danger">Request removal</button>
   )
-  console.log('in google result');
 
   return (
     <div className={ classes.searchResultDefault } key={key}>

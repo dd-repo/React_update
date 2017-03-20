@@ -15,7 +15,6 @@ export const loadPersistedData = (selector) => {
       return undefined;
     }
     return JSON.parse(serializedState);
-    console.log('parse json', JSON.parse(serializedState));
   } catch (err) {
     return undefined;
   }

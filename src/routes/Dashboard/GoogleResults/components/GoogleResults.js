@@ -1,8 +1,8 @@
 import React from 'react';
-//import uid from 'node-uuid';
-//import _ from 'underscore';
-//import numeral from 'numeral';
+import Loading from 'react-loading';
 import { Link } from 'react-router';
+//import uid from 'node-uuid';
+
 import {
     Row,
     Col,
@@ -13,18 +13,24 @@ import {
     Divider
 } from 'components';
 
-import { SearchInput } from './SearchInput';
+import SearchInput from './SearchInput';
+import SearchResultTypes from './SearchResultTypes';
+import SearchKeywords from './SearchKeywords';
+import SearchPeriod from './SearchPeriod';
 
-import Spinner from 'components/Spinner';
 import GoogleResult from './GoogleResult';
 import renderSection from 'modules/sectionRender';
 import { CONTENT_VIEW_STATIC } from 'layouts/DefaultLayout/modules/layout';
-import { Colors } from 'consts';
 
-
-const GoogleResults = ({ results, keywords, isFetching, getNextPage }) => {
+const GoogleResults = ({ results, keywords, getResults, getNextPage, isFetching }) => {
   return (
     <Row>
+      <Col lg={ 2 }>
+        <SearchKeywords
+          keywords={keywords}
+          getResults={getResults}
+        />
+      </Col>
       <Pagination
         bsSize="medium"
         items={3}
@@ -42,6 +48,17 @@ const GoogleResults = ({ results, keywords, isFetching, getNextPage }) => {
           All Results
         </Divider>
         {
+          isFetching
+          ?
+            <div className='container'>
+              <div className="spinner">
+                <div className="col-md-12 pricing-left">
+                  <p>Retrieving your google results for <strong>{keywords.currentKeyowrd ? keywords.currentKeyword.value : ''}</strong></p>
+                  <Loading type='bubbles' color='white' />
+                </div>
+              </div>
+            </div>
+            :
           results.map((result, key) => (
             <GoogleResult result={result} key={key} />
             ))

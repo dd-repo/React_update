@@ -165,7 +165,7 @@ Keywords = reduxForm({
 
 Keywords = connect(
   state => ({
-    initialValues: state.keywords[0]
+    initialValues: state.keywords.all[0]
   })
 )(Keywords)
 

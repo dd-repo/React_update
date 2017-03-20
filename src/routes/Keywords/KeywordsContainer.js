@@ -59,7 +59,8 @@ class KeywordContainer extends RoutedComponent {
     switch(res.type) {
       case KEYWORD_SUCCESS:
         this.context.router.push('/dashboard')
-        persistData(res.keywords, 'keywords')
+        const keywordList = {all: res.keywords}
+        persistData(keywordList, 'keywords')
         break;
       case FAILURE:
         this.setState({ errorMessage: res.error });
@@ -88,7 +89,7 @@ class KeywordContainer extends RoutedComponent {
 const mapStateToProps = state => {
   return {
     currentUser: state.currentUser,
-    keywords: state.keywords
+    keywords: state.keywords.all
   }
 }
 

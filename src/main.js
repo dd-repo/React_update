@@ -38,13 +38,17 @@ const defaultPaymentInfo = {
   cvCode: '123'
 }
 
-const defaultKeywords = [{
-  address: 'Sesame Street',
-  city: 'New York City',
-  state: 'NY',
-  zipcode: '12345',
-  dob: '02/02/2000'
-}]
+const defaultKeywords = {
+  all: [
+    {
+      address: 'Sesame Street',
+      city: 'New York City',
+      state: 'NY',
+      zipcode: '12345',
+      dob: '02/02/2000'
+    }
+  ]
+}
 
 const defaultPlan = {
   type: 'individual',

@@ -4,14 +4,24 @@ import Loading from 'react-loading';
 import { RoutedComponent, connect } from 'routes/routedComponent';
 import GoogleResults from './components/GoogleResults';
 import { getGoogleResults } from 'modules/googleResults';
+import { addCurrentKeyword } from 'modules/keywords';
 import { CONTENT_VIEW_STATIC } from 'layouts/DefaultLayout/modules/layout';
 
 class GoogleResultsContainer extends RoutedComponent {
   constructor(props) {
     super(props)
-    this.state = {}
+    this.state = { isFetching: true }
 
-    this.getGoogleResults = this.getGoogleResults.bind(this);
+    this.getResults = this.getResults.bind(this);
+    this.getNextPage = this.getNextPage.bind(this);
+  }
+
+  componentWillMount() {
+   this.isInitialRendering && this.getResults(this.props.keywords.all[0]);
+  }
+
+  isInitialRendering() {
+    !this.props.currentKeyword
   }
 
   getLayoutOptions() {
@@ -24,18 +34,18 @@ class GoogleResultsContainer extends RoutedComponent {
     }
   }
 
-  getGoogleResults(pageNum = 1) {
-    const number = pageNum.toString();
-    const account_id = this.props.currentUser.account_id
-    const keyword_id = this.props.currentKeyword || this.props.keywords[0].id
-    const params = { number, keyword_id, account_id }
-    const authToken = this.props.currentUser.access_token
-    this.props.getGoogleResults(params, authToken);
-    this.setState({isFetching: true})
+  getNextPage(pageNum) {
+    this.getResults(this.props.keywords.currentKeyword, pageNum)
   }
 
-  componentWillMount() {
-    this.getGoogleResults();
+  getResults(keyword, pageNum = '1') {
+    const account_id = this.props.currentUser.account_id
+    const keyword_id = keyword.id
+    const params = { pageNum, keyword_id, account_id }
+    const authToken = this.props.currentUser.access_token
+    this.props.addCurrentKeyword(keyword)
+    this.props.getGoogleResults(params, authToken);
+    this.setState({ isFetching: true })
   }
 
   componentWillReceiveProps(nextProps) {
@@ -45,25 +55,13 @@ class GoogleResultsContainer extends RoutedComponent {
 
   render() {
     return (
-      <div>
-      {
-        this.state.isFetching
-          ?
-            <div className='container'>
-              <div className="spinner">
-                <div className="col-md-12 pricing-left">
-                  <Loading type='bubbles' color='black' />
-                </div>
-              </div>
-            </div>
-              : <GoogleResults
-                results={this.props.googleResults.results}
-                keywords={this.props.kewords}
-                isFetching={this.state.isFetching}
-                getNextPage={this.getGoogleResults}
-              />
-              }
-              </div>
+        <GoogleResults
+          results={this.props.googleResults.results}
+          keywords={this.props.keywords}
+          isFetching={this.state.isFetching}
+          getResults={this.getResults}
+          getNextPage={this.getNextPage}
+        />
     )
   }
 }
@@ -77,7 +75,8 @@ const mapStateToProps = state => {
 }
 
 const mapActionCreators = {
-  getGoogleResults
+  getGoogleResults,
+  addCurrentKeyword
 }
 
 export default connect(mapStateToProps, mapActionCreators)(GoogleResultsContainer);
