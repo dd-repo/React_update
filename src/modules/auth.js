@@ -7,14 +7,14 @@ export const USER_FAILURE = 'USER_FAILURE';
 export const USER_POSTING = 'USER_POSTING';
 const SIGNUP_REQUEST = `${BASE_URL}/users/sign-up/create`;
 const LOGIN_REQUEST = `${BASE_URL}/users/sign-in`;
-const LOGOUT_REQUEST = `${BASE_URL}/authors/sign-out`
+const LOGOUT_REQUEST = `${BASE_URL}/users/sign-out`;
 
 //actions
 export const logoutUser = () => {
   return axios.delete(LOGOUT_REQUEST)
   .then(
-    console.log('response', response.status)
   ).catch(
+  error =>
     console.log('error', error)
   )
 }

@@ -153,9 +153,9 @@ class DefaultLayout extends React.Component {
         //document.title = titleBase + activeRoute.title;
     }
 
-    handleLogout(e) {
-      e.preventDefault()
+    handleLogout() {
       this.props.logoutUser()
+      // clear localStorage
     }
 
     render() {
@@ -328,7 +328,7 @@ class DefaultLayout extends React.Component {
                                             <MenuItem eventKey={3.3}>Faq</MenuItem>
                                         </LinkContainer>
                                         <MenuItem divider />
-                                        <LinkContainer to='javascript:void(0)'>
+                                        <LinkContainer to='/login'>
                                             <MenuItem onClick={this.handleLogout} eventKey={3.4}>Sign Out</MenuItem>
                                         </LinkContainer>
                                     </NavDropdown>
