@@ -9,6 +9,14 @@ export default [
         }
     },
     {
+        path: '/login',
+        getComponent: (nextState, cb) => {
+            require.ensure([], require => {
+              cb(null, require('./Login').default);
+            }, 'login');
+        }
+    },
+    {
         path: '/signup',
         getComponent: (nextState, cb) => {
             require.ensure([], require => {

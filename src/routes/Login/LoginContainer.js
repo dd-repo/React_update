@@ -1,5 +1,5 @@
 import React from 'react';
-import Signup from './components/Signup';
+import Login from './components/Login';
 
 import { RoutedComponent, connect } from 'routes/routedComponent';
 import { postUser } from 'modules/currentUser';
@@ -7,7 +7,7 @@ import { CONTENT_VIEW_STATIC } from 'layouts/DefaultLayout/modules/layout';
 import { persistData } from 'localStorage';
 import { USER_SUCCESS, USER_FAILURE } from 'modules/currentUser';
 
-class SignupContainer extends RoutedComponent {
+class LoginContainer extends RoutedComponent {
   constructor(props) {
     super(props)
 
@@ -31,18 +31,16 @@ class SignupContainer extends RoutedComponent {
   }
 
   submitForm(user) {
-    user.phone_type = "mobile"
-    this.props.postUser(user, 'signup')
+    this.props.postUser(user, 'login')
     .then(res => { this.doNext(res) })
-    .catch(error => { console.log('error user signup', error) })
+    .catch(error => { console.log('error user Login', error) })
   }
 
   doNext(res) {
     switch(res.type) {
       case USER_SUCCESS:
-        this.context.router.push('/payment-info');
-        // this code is only for testing purposes
-        res.userData.phone_number = '123-123-1234';
+        this.context.router.push('/dashboard');
+        // this code is just for testing purposes
         res.userData.password = 'Password12';
 
         persistData(res.userData, 'currentUser');
@@ -58,9 +56,8 @@ class SignupContainer extends RoutedComponent {
 
   render() {
     return (
-      <Signup
+      <Login
         submitForm={this.submitForm}
-        plan={this.props.planSelection}
         errorMessage={this.state.errorMessage}
       />
     )
@@ -68,8 +65,7 @@ class SignupContainer extends RoutedComponent {
 }
 
 const mapStateToProps = state => ({
-  planSelection: state.planSelection,
-  currentUser: state.entity
+  currentUser: state.currentUser
 })
 
 const mapActionCreators = {
@@ -77,3 +73,4 @@ const mapActionCreators = {
 }
 
 export default connect(mapStateToProps, mapActionCreators)(SignupContainer);
+

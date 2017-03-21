@@ -1,9 +1,9 @@
 import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
 
-import SignupForm from './SignupForm';
+import LoginForm from './LoginForm';
 import logo from 'static/spin-logo-inverted.png';
-import classes from './signup.scss';
+import classes from './Login.scss';
 import {
     Row,
     Col,
@@ -15,7 +15,7 @@ import {
     Checkbox
 } from 'components';
 
-const Signup = ({ errorMessage, submitForm, plan }) => {
+const Login = ({ errorMessage, submitForm }) => {
   return (
     <Row>
       <Col lg={ 12 }>
@@ -38,23 +38,21 @@ const Signup = ({ errorMessage, submitForm, plan }) => {
                     <Link to='/forgot-password'>
                       Forgot Password?
                     </Link>
-                    <Link to='/login' className='pull-right'>
-                      Login
+                    <Link to='/' className='pull-right'>
+                      Signup
                     </Link>
                   </div>
                   )}
                 >
                   <h2 className={ classes.panelHeader }>
-                    Register
+                    Login
                   </h2>
                   <p className='text-center m-b-3'>
                     Lorem ipsum dolor sit amet, consectetur adipisicing elit
                   </p>
 
-                  <SignupForm
+                  <LoginForm
                     submitForm={submitForm}
-                    price={plan.price}
-                    planType={plan.type}
                     errorMessage={errorMessage}
                   />
 
@@ -72,11 +70,9 @@ const Signup = ({ errorMessage, submitForm, plan }) => {
   )
 }
 
-Signup.propTypes = {
+Login.propTypes = {
   submitForm: PropTypes.func.isRequired,
-  plan: PropTypes.object.isRequired,
   errorMessage: PropTypes.string
 }
 
-export default Signup;
-
+export default Login;
