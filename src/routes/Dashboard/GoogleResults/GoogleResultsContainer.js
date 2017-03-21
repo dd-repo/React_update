@@ -68,7 +68,6 @@ class GoogleResultsContainer extends RoutedComponent {
   }
 
   render() {
-    console.log('keywords', this.props.keywords.currentKeyword.value)
     return (
         <GoogleResults
           results={this.props.googleResults.results}

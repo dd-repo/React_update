@@ -65,7 +65,7 @@ class LoginContainer extends RoutedComponent {
 }
 
 const mapStateToProps = state => ({
-  currentUser: state.currentUser
+  loggedInUser: state.loggedInUser
 })
 
 const mapActionCreators = {

@@ -154,7 +154,6 @@ let Keywords = ({ errorMessage, currentForm, handleSubmit, invalid, submitting, 
 
 Keywords.propTypes = {
   submitForm: PropTypes.func.isRequired,
-  pathname: PropTypes.string.isRequired
 }
 
 Keywords = reduxForm({

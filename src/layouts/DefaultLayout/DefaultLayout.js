@@ -80,6 +80,7 @@ import {
     SCREEN_SIZE_XS
 } from './modules/layout.js';
 
+import { logoutUser } from 'modules/auth';
 // Sub Components
 import {
     SidebarAddOns,
@@ -120,6 +121,7 @@ class DefaultLayout extends React.Component {
         super(props, context);
 
         this.beforeSlimSidebarStyle = SIDEBAR_STYLE_DEFAULT;
+        this.handleLogout = this.handleLogout.bind(this);
     }
 
     toggleSidebarSlim() {
@@ -149,6 +151,10 @@ class DefaultLayout extends React.Component {
         // Update page title
         //const activeRoute = _.first(findActiveNodes(ROUTES, this.props.location.pathname));
         //document.title = titleBase + activeRoute.title;
+    }
+
+    handleLogout() {
+      this.props.logoutUser()
     }
 
     render() {
@@ -283,7 +289,7 @@ class DefaultLayout extends React.Component {
                                 <Nav pullRight>
                                     <NotificationsDropdown />
                                     <MessagesDropdown />
-
+                                    <Button className='navbar-btn' bsStyle='link' onClick={this.handleLogout}>Logout</Button>
                                     <NavDropdown
                                         title={
                                             <div className={ classes.buttonUser }>
@@ -517,7 +523,8 @@ const mapActionCreators = {
     toggleOverlaySidebarOpen,
     toggleNavbarExpanded,
     setCurrentScreenSize,
-    changeSidebarAddOn
+    changeSidebarAddOn,
+    logoutUser
 };
 
 export default connect(mapStateToProps, mapActionCreators)(DefaultLayout);

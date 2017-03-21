@@ -64,13 +64,7 @@ const renderField = ({ klass, name, type, placeHolder, label, maxLength, normali
     />
 )
 
-let LoginForm = ({ planType, price, errorMessage, submitForm, handleSubmit, invalid, submitting }) => {
-
-  const renderErrorMessage = (
-    <p className="alert-danger">
-      {errorMessage}
-    </p>
-  )
+let LoginForm = ({ submitForm, handleSubmit, invalid, submitting }) => {
 
   return (
     <form onSubmit={handleSubmit(submitForm)}>
@@ -103,13 +97,13 @@ LoginForm.propTypes = {
 }
 
 LoginForm = reduxForm({
-  form: 'signupForm',  // a unique identifier for this form
+  form: 'loginForm',  // a unique identifier for this form
   validate                // <--- validation function given to redux-form
 })(LoginForm)
 
 LoginForm = connect(
   state => ({
-    initialValues: state.LoggedInUser
+    initialValues: state.loggedInUser
   })
 )(LoginForm)
 
