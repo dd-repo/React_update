@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
 
 import SignupForm from './SignupForm';
-import logo from 'static/spin-logo-inverted.png';
+import logo from 'static/logos/logo-small-navbar.png';
 import classes from './signup.scss';
 import {
     Row,
@@ -45,7 +45,7 @@ const Signup = ({ errorMessage, submitForm, plan }) => {
                   )}
                 >
                   <h2 className={ classes.panelHeader }>
-                    Register
+                    Signup
                   </h2>
                   <p className='text-center m-b-3'>
                     Lorem ipsum dolor sit amet, consectetur adipisicing elit

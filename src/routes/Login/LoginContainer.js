@@ -72,5 +72,5 @@ const mapActionCreators = {
   postUser
 }
 
-export default connect(mapStateToProps, mapActionCreators)(SignupContainer);
+export default connect(mapStateToProps, mapActionCreators)(LoginContainer);
 

@@ -1,22 +1,14 @@
 import React, { PropTypes } from 'react';
 import { Field, reduxForm } from 'redux-form';
-//import { connect } from 'react-redux';
-import _ from 'lodash';
 
 import { connect } from 'routes/routedComponent';
 import { checkValidation, normalizePhone } from 'utils/formHelpers';
 import {
-    Row,
-    Col,
-    Panel,
-    Button,
     Form,
     FormGroup,
-    FormControl,
     Checkbox
 } from 'components';
 import logo from 'static/spin-logo-inverted.png';
-import classes from './signup.scss';
 
 const fields = {
   first_name: {
