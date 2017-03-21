@@ -5,12 +5,22 @@ import { BASE_URL } from 'consts/apis'
 export const USER_SUCCESS = 'USER_SUCCESS';
 export const USER_FAILURE = 'USER_FAILURE';
 export const USER_POSTING = 'USER_POSTING';
-export const SIGNUP_REQUEST = `${BASE_URL}/users/sign-up/create`;
-export const SIGNIN_REQUEST = `${BASE_URL}/users/sign-in/create`;
+const SIGNUP_REQUEST = `${BASE_URL}/users/sign-up/create`;
+const LOGIN_REQUEST = `${BASE_URL}/users/sign-in`;
+const LOGOUT_REQUEST = `${BASE_URL}/authors/sign-out`
 
 //actions
+export const logoutUser = () => {
+  return axios.delete(LOGOUT_REQUEST)
+  .then(
+    console.log('response', response.status)
+  ).catch(
+    console.log('error', error)
+  )
+}
+
 const request = (userInfo, selector) => {
-  const urlRequest = selector === 'signup' ? SIGNUP_REQUEST : SIGNIN_REQUEST
+  const urlRequest = selector === 'signup' ? SIGNUP_REQUEST : LOGIN_REQUEST
   return {
     method: 'post',
     url: urlRequest,

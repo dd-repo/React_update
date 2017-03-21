@@ -47,7 +47,7 @@ const Payment = (props) => {
                     )}
                   >
                     <h2 className={ classes.panelHeader }>
-                      Register
+                      Payment Information
                     </h2>
                     <p className='text-center m-b-3'>
                       Lorem ipsum dolor sit amet, consectetur adipisicing elit

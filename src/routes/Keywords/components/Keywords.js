@@ -12,7 +12,7 @@ import { Row, Col, Panel, Button } from 'components';
 import classes from './keywords.scss';
 import AddressForm from './AddressForm';
 import DateOfBirthForm from './DateOfBirthForm';
-import logo from 'static/spin-logo-inverted.png';
+import logo from 'static/logos/logo-small-navbar.png';
 //import ProgressIndicator from './ProgressIndicator';
 
 const fields = {
@@ -132,7 +132,7 @@ let Keywords = ({ errorMessage, currentForm, handleSubmit, invalid, submitting, 
                   )}
                 >
                   <h2 className={ classes.panelHeader }>
-                    Register
+                    Keywords
                   </h2>
                   <p className='text-center m-b-3'>
                     Lorem ipsum dolor sit amet, consectetur adipisicing elit
@@ -154,7 +154,6 @@ let Keywords = ({ errorMessage, currentForm, handleSubmit, invalid, submitting, 
 
 Keywords.propTypes = {
   submitForm: PropTypes.func.isRequired,
-  pathname: PropTypes.string.isRequired
 }
 
 Keywords = reduxForm({

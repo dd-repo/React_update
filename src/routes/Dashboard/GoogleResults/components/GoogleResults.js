@@ -14,7 +14,6 @@ import {
 } from 'components';
 
 import SearchInput from './SearchInput';
-import SearchResultTypes from './SearchResultTypes';
 import SearchKeywords from './SearchKeywords';
 import SearchPeriod from './SearchPeriod';
 

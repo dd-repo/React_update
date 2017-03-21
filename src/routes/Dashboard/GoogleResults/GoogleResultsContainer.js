@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Loading from 'react-loading';
+import { Redirect } from 'react-router';
 
 import { RoutedComponent, connect } from 'routes/routedComponent';
 import GoogleResults from './components/GoogleResults';
@@ -10,14 +11,27 @@ import { CONTENT_VIEW_STATIC } from 'layouts/DefaultLayout/modules/layout';
 class GoogleResultsContainer extends RoutedComponent {
   constructor(props) {
     super(props)
-    this.state = { isFetching: true }
+    this.state = {
+      isFetching: true,
+      isLoggedIn: !!props.currentUser.id
+    }
 
     this.getResults = this.getResults.bind(this);
     this.getNextPage = this.getNextPage.bind(this);
   }
 
+  static contextTypes = {
+    router: React.PropTypes.object.isRequired
+  }
+
   componentWillMount() {
-   this.isInitialRendering && this.getResults(this.props.keywords.all[0]);
+    this.state.isLoggedIn ? (
+       this.isInitialRendering && this.getResults(this.props.keywords.all[0])
+    ) : (
+    this.context.router.push('/login')
+    )
+
+
   }
 
   isInitialRendering() {
@@ -54,7 +68,6 @@ class GoogleResultsContainer extends RoutedComponent {
   }
 
   render() {
-    console.log('keywords', this.props.keywords.currentKeyword.value)
     return (
         <GoogleResults
           results={this.props.googleResults.results}

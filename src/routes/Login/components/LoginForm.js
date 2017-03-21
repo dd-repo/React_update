@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import { Field, reduxForm } from 'redux-form';
 
 import { connect } from 'routes/routedComponent';
-import { checkValidation, normalizePhone } from 'utils/formHelpers';
+import { checkValidation } from 'utils/formHelpers';
 import {
     Form,
     FormGroup,
@@ -11,20 +11,6 @@ import {
 import logo from 'static/spin-logo-inverted.png';
 
 const fields = {
-  first_name: {
-    name: 'first_name',
-    type: 'text',
-    label: 'First name',
-    placeHolder: 'Enter your first name...',
-    klass: 'form-control input-group-lg reg_name'
-  },
-  last_name: {
-    name: 'last_name',
-    type: 'text',
-    label: 'Last name',
-    placeHolder: 'Enter your last name',
-    klass: 'form-control input-group-lg reg_name'
-  },
   email: {
     name: 'email',
     type: 'email',
@@ -32,19 +18,11 @@ const fields = {
     placeHolder: 'Enter your email...',
     klass: 'form-control'
   },
-  phoneNumber: {
-    name: 'phone_number',
-    type: 'tel',
-    label: 'Phone number',
-    placeHolder: 'Enter your phone number...',
-    klass: 'form-control',
-    normalize: normalizePhone
-  },
   password: {
     name: 'password',
     type: 'password',
     label: 'Password',
-    placeHolder: 'Enter a password...',
+    placeHolder: 'Enter your password...',
     klass: 'form-control',
     maxLength: '25',
   }
@@ -86,28 +64,10 @@ const renderField = ({ klass, name, type, placeHolder, label, maxLength, normali
     />
 )
 
-let SignupForm = ({ planType, price, errorMessage, submitForm, handleSubmit, invalid, submitting }) => {
-
-  const renderErrorMessage = (
-    <p className="alert-danger">
-      {errorMessage}
-    </p>
-  )
+let LoginForm = ({ submitForm, handleSubmit, invalid, submitting }) => {
 
   return (
     <form onSubmit={handleSubmit(submitForm)}>
-      <FormGroup>
-        <label>
-          First Name
-        </label>
-        {renderField(fields.first_name)}
-      </FormGroup>
-      <FormGroup>
-        <label>
-          Last Name
-        </label>
-        {renderField(fields.last_name)}
-      </FormGroup>
       <FormGroup>
         <label>
           Email
@@ -116,47 +76,35 @@ let SignupForm = ({ planType, price, errorMessage, submitForm, handleSubmit, inv
       </FormGroup>
       <FormGroup>
         <label>
-          Phone Number
-        </label>
-        {renderField(fields.phoneNumber)}
-      </FormGroup>
-      <FormGroup>
-        <label>
           Password
         </label>
         {renderField(fields.password)}
       </FormGroup>
-      <Checkbox>
-        Accept Terms & Privacy Policy
-      </Checkbox>
       <button
         className='btn btn-primary m-b-2'
         disabled={invalid || submitting}
         action="submit"
       >
-        Register
+        Login
       </button>
     </form>
 
   )
 }
 
-SignupForm.propTypes = {
+LoginForm.propTypes = {
   submitForm: PropTypes.func.isRequired,
-  planType: PropTypes.string.isRequired,
-  price: PropTypes.number.isRequired,
-  errorMessage: PropTypes.string
 }
 
-SignupForm = reduxForm({
-  form: 'signupForm',  // a unique identifier for this form
+LoginForm = reduxForm({
+  form: 'loginForm',  // a unique identifier for this form
   validate                // <--- validation function given to redux-form
-})(SignupForm)
+})(LoginForm)
 
-SignupForm = connect(
+LoginForm = connect(
   state => ({
-    initialValues: state.currentUser
+    initialValues: state.loggedInUser
   })
-)(SignupForm)
+)(LoginForm)
 
-export default SignupForm;
+export default LoginForm;
