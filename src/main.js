@@ -30,6 +30,11 @@ const defaultUserInfo = {
   password: 'Password12'
 }
 
+const defaultLoggedInUser = {
+  email: 'joebob@email.com',
+  password: 'Password12'
+}
+
 const defaultPaymentInfo = {
   first_name: 'joe',
   last_name: 'bob',
@@ -60,7 +65,8 @@ const initialState = {
   payment: loadPersistedData('payment') || defaultPaymentInfo,
   planSelection: loadPersistedData('planSelection') || defaultPlan,
   keywords: loadPersistedData('keywords') || defaultKeywords,
-  accounts: loadPersistedData('accounts')
+  accounts: loadPersistedData('accounts'),
+  loggedInUser: defaultLoggedInUser
 }
 
 const store = createStore(initialState, browserHistory)

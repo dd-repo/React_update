@@ -3,10 +3,13 @@ import { routerReducer as router } from 'react-router-redux';
 import { reducer as notifications } from 'react-notification-system-redux';
 import { reducer as form } from 'redux-form';
 import planSelection from 'modules/planSelection';
-import currentUser from 'modules/currentUser';
+import currentUser from 'modules/auth';
 import payment from 'modules/payment';
 import keywords from 'modules/keywords';
 import googleResults from 'modules/googleResults';
+import accounts from 'modules/accounts';
+// for testing purposes
+import loggedInUser from 'modules/loggedInUser';
 
 import layout from 'layouts/DefaultLayout/modules/layout';
 
@@ -18,6 +21,8 @@ export const makeRootReducer = (asyncReducers) => {
     currentUser,
     payment,
     googleResults,
+    accounts,
+    loggedInUser,
     layout,
     router,
     form,

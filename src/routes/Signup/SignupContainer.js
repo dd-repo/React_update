@@ -2,10 +2,10 @@ import React from 'react';
 import Signup from './components/Signup';
 
 import { RoutedComponent, connect } from 'routes/routedComponent';
-import { postUser } from 'modules/currentUser';
+import { postUser } from 'modules/auth';
 import { CONTENT_VIEW_STATIC } from 'layouts/DefaultLayout/modules/layout';
 import { persistData } from 'localStorage';
-import { USER_SUCCESS, USER_FAILURE } from 'modules/currentUser';
+import { USER_SUCCESS, USER_FAILURE } from 'modules/auth';
 
 class SignupContainer extends RoutedComponent {
   constructor(props) {

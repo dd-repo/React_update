@@ -6,7 +6,7 @@ export const USER_SUCCESS = 'USER_SUCCESS';
 export const USER_FAILURE = 'USER_FAILURE';
 export const USER_POSTING = 'USER_POSTING';
 export const SIGNUP_REQUEST = `${BASE_URL}/users/sign-up/create`;
-export const SIGNIN_REQUEST = `${BASE_URL}/users/sign-in/create`;
+export const SIGNIN_REQUEST = `${BASE_URL}/users/sign-in`;
 
 //actions
 const request = (userInfo, selector) => {

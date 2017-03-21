@@ -100,9 +100,6 @@ let LoginForm = ({ planType, price, errorMessage, submitForm, handleSubmit, inva
 
 LoginForm.propTypes = {
   submitForm: PropTypes.func.isRequired,
-  planType: PropTypes.string.isRequired,
-  price: PropTypes.number.isRequired,
-  errorMessage: PropTypes.string
 }
 
 LoginForm = reduxForm({
@@ -112,7 +109,7 @@ LoginForm = reduxForm({
 
 LoginForm = connect(
   state => ({
-    initialValues: state.currentUser
+    initialValues: state.LoggedInUser
   })
 )(LoginForm)
 
