@@ -9,8 +9,10 @@ import Notifications from 'react-notification-system-redux';
 import treeRandomizer from 'modules/treeRandomizer';
 import getLogoBySkin from './getLogoBySkin.js';
 import ROUTES, { findActiveNodes } from './../../routes/routesStructure';
+import defaultAvatar from 'static/avatars/defaultAvatar.png';
 
 import { Colors } from 'consts';
+import navbarLogo from 'static/logos/logo-big-navbar.png'
 
 // Components
 import {
@@ -102,10 +104,6 @@ const sidebarAddOns = {
     [SIDEBAR_ADDON_AVATAR_AND_STATS]: (props) => ( <SidebarAddOns.AvatarAndStatsAddOn { ...props } /> )
 }
 
-const profileUser = {
-    name: `${faker.name.firstName()} ${faker.name.lastName()}`,
-    avatar: faker.image.avatar()
-};
 
 const rightSidebarData = treeRandomizer(rightSidebarDataRaw);
 
@@ -154,11 +152,15 @@ class DefaultLayout extends React.Component {
     }
 
     render() {
+      const profileUser = {
+        name: `${this.props.currentUser.first_name} ${this.props.currentUser.last_name}`,
+        avatar: defaultAvatar
+      };
         const staticFootNavContainer =
             !this.props.sidebarEnabled && this.props.contentView === CONTENT_VIEW_STATIC;
 
-        const navbarLogo = getLogoBySkin.navbar(this.props.navbarSkin, this.props.skinColor),
-              sidebarOverlayLogo = getLogoBySkin.sidebar(this.props.sidebarSkin, 'overlay', this.props.skinColor),
+        //const navbarLogo = getLogoBySkin.navbar(this.props.navbarSkin, this.props.skinColor),
+           const sidebarOverlayLogo = getLogoBySkin.sidebar(this.props.sidebarSkin, 'overlay', this.props.skinColor),
               sidebarBigLogo = getLogoBySkin.sidebar(this.props.sidebarSkin, 'big', this.props.skinColor),
               sidebarSlimLogo = getLogoBySkin.sidebar(this.props.sidebarSkin, 'slim', this.props.skinColor);
 
@@ -180,7 +182,7 @@ class DefaultLayout extends React.Component {
                         <Navbar.Header>
                             <Navbar.Brand>
                                 <Link to='/'>
-                                    <img src={ navbarLogo } height={ 50 } alt="Spin Dashboard" />
+                                  <img src={ navbarLogo } className={ classes.navbarLogo } height={ 50 } alt="pin Dashboard" />
                                 </Link>
                             </Navbar.Brand>
 
@@ -361,21 +363,12 @@ class DefaultLayout extends React.Component {
                                 </div>
                             )}
                         >
-                            { /* Renders Appropriate SidebarAddOn */ }
-                            {
-                                (() => {
-                                    if(this.props.sidebarAddon === SIDEBAR_ADDON_DEFAULT) {
-                                        return (
-                                            <div className="sidebar-logo">
-                                                <img className="logo-default" width={ 53 } src={ sidebarBigLogo } />
-                                                <img className="logo-slim" height={ 13 } src={ sidebarSlimLogo } />
-                                            </div>
-                                        );
-                                    } else {
-                                        return sidebarAddOns[this.props.sidebarAddon]({ colorSidebar: this.props.sidebarSkin === SKIN_COLOR });
-                                    }
-                                })()
-                            }
+                            { /* Renders SidebarAddOn */ }
+                            <SidebarAddOns.AvatarAndStatsAddOn
+                              avatar={defaultAvatar}
+                              currentUser={this.props.currentUser}
+                              colorSidebar={this.props.sidebarSkin === SKIN_COLOR}
+                            />
                             <div className='sidebar-default-visible text-muted small text-uppercase sidebar-section p-y-2'>
                                 <strong>Navigation</strong>
                             </div>
@@ -514,8 +507,8 @@ const mapStateToProps = (state) => ({
     currentScreenSize: state.layout.currentScreenSize,
     skinColor: state.layout.skinColor,
     rawContent: state.layout.rawContent,
-
-    notifications: state.notifications
+    notifications: state.notifications,
+    currentUser: state.currentUser
 });
 
 const mapActionCreators = {
