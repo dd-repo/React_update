@@ -17,7 +17,7 @@ const SearchKeywords = ({ keywords, getResults }) => {
         <ul>
         {
           keywords.all.map( (keyword, key) => (
-            <li className='list-unstyled'>
+            <li key={key} className='list-unstyled'>
               <Button
                 bsStyle='link'
                 key={key}

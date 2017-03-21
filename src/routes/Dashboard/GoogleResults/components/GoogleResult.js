@@ -2,14 +2,14 @@ import React from 'react';
 
 import classes from './googleResults.scss';
 
-const GoogleResult = ({ result, key }) => {
+const GoogleResult = ( { result } ) => {
   const renderRemovalButton = (
     result.listing_site_id &&
       <button className="danger alert-danger">Request removal</button>
   )
 
   return (
-    <div className={ classes.searchResultDefault } key={key}>
+    <div className={ classes.searchResultDefault }>
       <h4 className='m-b-0'>
         <a href='javascript:void(0)'>
           { result.title }

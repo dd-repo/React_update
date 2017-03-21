@@ -58,8 +58,8 @@ const GoogleResults = ({ results, keywords, getResults, getNextPage, isFetching 
               </div>
             </div>
             :
-          results.map((result, key) => (
-            <GoogleResult result={result} key={key} />
+          results.map((result, i) => (
+            <GoogleResult result={result} key={i} />
             ))
         }
       </Col>
