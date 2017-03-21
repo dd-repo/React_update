@@ -20,15 +20,15 @@ class GoogleResultsContainer extends RoutedComponent {
     this.getNextPage = this.getNextPage.bind(this);
   }
 
+  static contextTypes = {
+    router: React.PropTypes.object.isRequired
+  }
+
   componentWillMount() {
     this.state.isLoggedIn ? (
        this.isInitialRendering && this.getResults(this.props.keywords.all[0])
     ) : (
-    <Redirect to={{
-      pathname:'/login',
-      state: { from: props.location }
-    }}
-    />
+    this.context.router.push('/login')
     )
 
 

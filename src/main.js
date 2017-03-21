@@ -27,7 +27,8 @@ const defaultUserInfo = {
   last_name: 'bob',
   email: 'joebob@email.com',
   phone_number: '123-123-1234',
-  password: 'Password12'
+  password: 'Password12',
+  account_id: 1
 }
 
 const defaultLoggedInUser = {
