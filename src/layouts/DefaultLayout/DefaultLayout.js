@@ -153,7 +153,8 @@ class DefaultLayout extends React.Component {
         //document.title = titleBase + activeRoute.title;
     }
 
-    handleLogout() {
+    handleLogout(e) {
+      e.preventDefault()
       this.props.logoutUser()
     }
 
@@ -230,7 +231,7 @@ class DefaultLayout extends React.Component {
                         >
                             <Navbar.Collapse>
                                 { /* ============= Left Nav ============== */ }
-                                {
+                                { /*
                                     !this.props.sidebarEnabled && (
                                         <Navbar.Menu currentPath={ this.props.location.pathname }>
                                             <Row>
@@ -267,7 +268,7 @@ class DefaultLayout extends React.Component {
                                             </Row>
                                         </Navbar.Menu>
                                     )
-                                }
+                                    */ }
                                 <Nav>
                                     {
                                         this.props.sidebarEnabled && this.props.currentScreenSize !== SCREEN_SIZE_XS && (
@@ -278,18 +279,16 @@ class DefaultLayout extends React.Component {
                                             </NavItem>
                                         )
                                     }
-                                    <SearchBox />
                                     <SearchBoxMobile />
                                 </Nav>
 
                                 { /* ============= Right Nav ============== */ }
-                                <Navbar.Text className='visible-xs text-uppercase m-y-0'>
+                                  <Navbar.Text className='visible-xs text-uppercase m-y-0'>
                                     Your Profile
                                 </Navbar.Text>
                                 <Nav pullRight>
-                                    <NotificationsDropdown />
-                                    <MessagesDropdown />
-                                    <Button className='navbar-btn' bsStyle='link' onClick={this.handleLogout}>Logout</Button>
+                                  { /* <NotificationsDropdown /> */ }
+                                  { /*  <MessagesDropdown /> */ }
                                     <NavDropdown
                                         title={
                                             <div className={ classes.buttonUser }>
@@ -329,11 +328,11 @@ class DefaultLayout extends React.Component {
                                             <MenuItem eventKey={3.3}>Faq</MenuItem>
                                         </LinkContainer>
                                         <MenuItem divider />
-                                        <LinkContainer to='/pages/login'>
-                                            <MenuItem eventKey={3.4}>Sign Out</MenuItem>
+                                        <LinkContainer to='javascript:void(0)'>
+                                            <MenuItem onClick={this.handleLogout} eventKey={3.4}>Sign Out</MenuItem>
                                         </LinkContainer>
                                     </NavDropdown>
-
+                                { /*
                                     <NavItem
                                         onClick={ () => this.props.toggleRightSidebar() }
                                         className='hidden-xs'
@@ -341,6 +340,7 @@ class DefaultLayout extends React.Component {
                                     >
                                         <i className="fa fa-lg fa-align-right"></i>
                                     </NavItem>
+                                */ }
                                 </Nav>
                             </Navbar.Collapse>
                         </OutsideClick>
@@ -405,7 +405,8 @@ class DefaultLayout extends React.Component {
                     )
                 }
 
-                <OutsideClick
+                { /*
+                     <OutsideClick
                     excludedElements={ [rightSidebarTriggerRef] }
                     onClickOutside={
                         () => {
@@ -473,8 +474,9 @@ class DefaultLayout extends React.Component {
                         </Tabs>
                     </RightSidebar>
                 </OutsideClick>
+                */ }
 
-                <LayoutOptions />
+                { /* right sidebar <LayoutOptions /> */ }
 
                 <Footer fluid={ !staticFootNavContainer }>
                     <p className="text-gray-dark">
