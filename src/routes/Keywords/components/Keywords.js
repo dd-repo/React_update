@@ -154,7 +154,6 @@ let Keywords = ({ errorMessage, currentForm, handleSubmit, invalid, submitting, 
 
 Keywords.propTypes = {
   submitForm: PropTypes.func.isRequired,
-  router: PropTypes.object.isRequired,
   pathname: PropTypes.string.isRequired
 }
 
