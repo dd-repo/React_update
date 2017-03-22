@@ -42,6 +42,11 @@ const fields = {
     label: 'Password',
     placeHolder: 'Enter a password...',
     maxLength: '25',
+  },
+  checkbox: {
+    name: 'terms',
+    type: 'checkbox',
+    value: true
   }
 }
 const validate = values => {
@@ -52,7 +57,7 @@ const renderInput = ({ label, input, placeHolder, type, maxLength, meta: { touch
 
   let message = touched && (error && <span className='text-danger'><strong>Opps!</strong> {error}</span>) || ''
   let validationState = touched && ( error && 'error') || ''
-
+  if(type !== 'checkbox') {
   return (
       <FormGroup validationState={validationState}>
         <label>
@@ -65,20 +70,19 @@ const renderInput = ({ label, input, placeHolder, type, maxLength, meta: { touch
       {message}
       </FormGroup>
   )
-}
-
-const renderCheckbox = ({ type, value, meta: {touched, error, warning} }) => {
-  return (
-    <Checkbox validationState='error'>
-      Accept Terms & Privacy Policy
-    </Checkbox>
-  )
+  }else{
+    return (
+      <Checkbox required validationState='error'>
+        Accept Terms & Privacy Policy
+      </Checkbox>
+    )
+  }
 }
 
 const renderFields = () => {
   const fieldKeys = Object.keys(fields)
   return fieldKeys.map(function(key) {
-    const { name, type, placeHolder, label, maxLength, normalize } = fields[key]
+    const { name, type, placeHolder, label, maxLength, normalize, value } = fields[key]
     return (
             <Field
               name={name}
@@ -86,6 +90,7 @@ const renderFields = () => {
               component={renderInput}
               placeHolder={placeHolder}
               label={label}
+              value={value}
               normalize={normalize}
             />
            )
@@ -98,10 +103,6 @@ let SignupForm = ({ planType, price, errorMessage, submitForm, handleSubmit, inv
 
       {renderFields()}
 
-      <Field name='terms'
-        type="checkbox"
-        component={renderCheckbox}
-      />
       <button
         className='btn btn-primary m-b-2'
         disabled={invalid || submitting}
