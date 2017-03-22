@@ -25,6 +25,14 @@ export default [
         }
     },
     {
+        path: '/forgot-password',
+        getComponent: (nextState, cb) => {
+            require.ensure([], require => {
+              cb(null, require('./ForgotPassword').default);
+            }, 'forgotPassword');
+        }
+    },
+    {
       path: '/payment-info',
         ////[>  Async WebPack code split  <]
         getComponent: (nextState, cb) => {

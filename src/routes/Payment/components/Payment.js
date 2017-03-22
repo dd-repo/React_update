@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
 
-import logo from 'static/spin-logo-inverted.png';
+import logo from 'static/logos/logo-small.png';
 import PaymentForm from './PaymentForm';
 import classes from './payment.scss';
 //import ProgressIndicator from './ProgressIndicator';
