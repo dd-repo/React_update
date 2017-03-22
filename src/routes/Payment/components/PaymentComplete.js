@@ -11,12 +11,9 @@ import {
     FormControl,
 } from 'components';
 
-//import { RoutedComponent, connect } from 'routes/routedComponent';
-//import { CONTENT_VIEW_FLUID } from 'layouts/DefaultLayout/modules/layout';
-
 import classes from './payment.scss';
 
-import logo from 'static/spin-logo-inverted.png';
+import logo from 'static/logos/logo-small.png';
 
 const styles = {
   link: {

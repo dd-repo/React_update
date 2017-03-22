@@ -8,7 +8,6 @@ import {
     FormGroup,
     Checkbox
 } from 'components';
-import logo from 'static/spin-logo-inverted.png';
 
 const fields = {
   first_name: {
@@ -137,7 +136,6 @@ let SignupForm = ({ planType, price, errorMessage, submitForm, handleSubmit, inv
         Register
       </button>
     </form>
-
   )
 }
 

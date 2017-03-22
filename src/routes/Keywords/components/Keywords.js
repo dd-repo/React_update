@@ -8,11 +8,12 @@ import {
   normalizeDate,
   normalizeNums
 } from 'utils/formHelpers.js';
+
 import { Row, Col, Panel, Button } from 'components';
 import classes from './keywords.scss';
 import AddressForm from './AddressForm';
 import DateOfBirthForm from './DateOfBirthForm';
-import logo from 'static/logos/logo-small-navbar.png';
+import logo from 'static/logos/logo-small.png';
 //import ProgressIndicator from './ProgressIndicator';
 
 const fields = {
