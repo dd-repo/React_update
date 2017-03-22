@@ -1,5 +1,5 @@
 import React from 'react';
-import _ from 'lodash';
+import _ from 'underscore';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import faker from 'faker';

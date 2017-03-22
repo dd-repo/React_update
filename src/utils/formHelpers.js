@@ -7,6 +7,7 @@ export const checkValidation = (values, fields) => {
   _.each(fields, (type, field) => {
     if(!values[field]) {
       errors[field] = `Please enter your ${type.label}`
+      console.log('error', errors[field])
     }
   })
   if(!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {

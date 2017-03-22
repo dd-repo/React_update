@@ -8,9 +8,10 @@ import {
   normalizeExDate,
   normalizeNums
 } from 'utils/formHelpers.js';
-import { FormGroup } from 'components';
-import logo from 'static/spin-logo-inverted.png';
-import classes from './payment.scss';
+import {
+  FormGroup,
+  FormControl
+} from 'components';
 
 const fields = {
   first_name: {
@@ -47,31 +48,41 @@ const fields = {
 const validate = values => {
   return checkValidation(values, fields)
 }
-const renderInput = ({ input, label, type, maxLength, field, meta: { touched, error, warning } }) => {
+const renderInput = ({ input, label, placeHolder, type, maxLength, meta: { touched, error, warning } }) => {
+
+  let message = touched && (error && <span className='text-danger'><strong>Opps!</strong> {error}</span>) || ''
+  let validationState = touched && ( error && 'error') || ''
+
   return (
-    <div>
-      <input {...input}
-        className='form-control input-group-lg reg_name'
-        placeholder={label}
+      <FormGroup validationState={validationState}>
+        <label>
+          {label}
+        </label>
+      <FormControl {...input}
+        placeholder={placeHolder}
         maxLength={maxLength}
-        type={type}/>
-      {warning && <span>{warning}</span>}
-      {touched && ((error && <span className='alert-danger'>{error}</span>) )}
-    </div>
+        type={type} />
+      {message}
+      </FormGroup>
   )
 }
 
-const renderField = ({ klass, name, type, label, maxLength, normalize }) => (
-    <Field
-      field={klass}
-      name={name}
-      type={type}
-      maxLength={maxLength}
-      component={renderInput}
-      label={label}
-      normalize={normalize}
-    />
-  )
+const renderField = () => {
+  const fieldKeys = Object.keys(fields)
+  return fieldKeys.map(function(key) {
+    const { name, type, placeHolder, label, maxLength, normalize } = fields[key]
+    return (
+      <Field
+        name={name}
+        type={type}
+        maxLength={maxLength}
+        component={renderInput}
+        label={label}
+        normalize={normalize}
+      />
+    )
+  })
+}
 const renderErrorMessage = (error) => (
     <p className="alert-danger">
       {error}
@@ -81,36 +92,7 @@ const renderErrorMessage = (error) => (
 let PaymentForm = ({ submitForm, errorMessage, planType, price, handleSubmit, invalid, submitting }) => {
  return(
     <form onSubmit={handleSubmit(submitForm)}>
-      <FormGroup>
-        <label>
-          First Name
-        </label>
-        {renderField(fields.first_name)}
-      </FormGroup>
-      <FormGroup>
-        <label>
-          Last Name
-        </label>
-        {renderField(fields.last_name)}
-      </FormGroup>
-      <FormGroup>
-        <label>
-          Credit Card Number
-        </label>
-        {renderField(fields.creditCardNumber)}
-      </FormGroup>
-      <FormGroup>
-        <label>
-          Expiration Date
-        </label>
-        {renderField(fields.expirationDate)}
-      </FormGroup>
-      <FormGroup>
-        <label>
-          CVC
-        </label>
-        {renderField(fields.cvCode)}
-      </FormGroup>
+      {renderField()}
       <p>
         All major credit cards are accepted through a secure payment process
       </p>

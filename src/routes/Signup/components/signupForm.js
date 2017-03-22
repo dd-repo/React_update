@@ -5,11 +5,9 @@ import { Field, reduxForm } from 'redux-form';
 import { connect } from 'routes/routedComponent';
 import { checkValidation, normalizePhone } from 'utils/formHelpers';
 import {
-    Form,
     FormGroup,
     FormControl,
-    Checkbox,
-    Alert
+    Checkbox
 } from 'components';
 
 const fields = {
@@ -18,28 +16,24 @@ const fields = {
     type: 'text',
     label: 'First name',
     placeHolder: 'Enter your first name...',
-    klass: 'form-control input-group-lg reg_name'
   },
   last_name: {
     name: 'last_name',
     type: 'text',
     label: 'Last name',
     placeHolder: 'Enter your last name',
-    klass: 'form-control input-group-lg reg_name'
   },
   email: {
     name: 'email',
     type: 'email',
     label: 'Email',
     placeHolder: 'Enter your email...',
-    klass: 'form-control'
   },
   phoneNumber: {
     name: 'phone_number',
     type: 'tel',
     label: 'Phone number',
     placeHolder: 'Enter your phone number...',
-    klass: 'form-control',
     normalize: normalizePhone
   },
   password: {
@@ -47,7 +41,6 @@ const fields = {
     type: 'password',
     label: 'Password',
     placeHolder: 'Enter a password...',
-    klass: 'form-control',
     maxLength: '25',
   }
 }
@@ -55,25 +48,22 @@ const validate = values => {
   return checkValidation(values, fields)
 }
 
-const renderInput = ({ label, input, placeHolder, type, maxLength, field, meta: { touched, error, warning } }) => {
+const renderInput = ({ label, input, placeHolder, type, maxLength, meta: { touched, error, warning } }) => {
 
-  let message = touched && (error && <span className='text-danger'><strong>Opps!</strong> {error}</span>)
+  let message = touched && (error && <span className='text-danger'><strong>Opps!</strong> {error}</span>) || ''
   let validationState = touched && ( error && 'error') || ''
 
   return (
-    <div>
       <FormGroup validationState={validationState}>
         <label>
           {label}
         </label>
       <FormControl {...input}
-        className={field}
         placeholder={placeHolder}
         maxLength={maxLength}
         type={type} />
       {message}
       </FormGroup>
-    </div>
   )
 }
 
@@ -85,27 +75,31 @@ const renderCheckbox = ({ type, value, meta: {touched, error, warning} }) => {
   )
 }
 
+const renderFields = () => {
+  const fieldKeys = Object.keys(fields)
+  return fieldKeys.map(function(key) {
+    const { name, type, placeHolder, label, maxLength, normalize } = fields[key]
+    return (
+            <Field
+              name={name}
+              type={type}
+              component={renderInput}
+              placeHolder={placeHolder}
+              label={label}
+              normalize={normalize}
+            />
+           )
+  })
+}
+
 let SignupForm = ({ planType, price, errorMessage, submitForm, handleSubmit, invalid, submitting }) => {
   return (
     <form onSubmit={handleSubmit(submitForm)}>
-      { Object.keys(fields).map(function(key) {
-        const { klass, name, type, placeHolder, label, maxLength, normalize } = fields[key]
-        return <Field
-          field={klass}
-          name={name}
-          type={type}
-          component={renderInput}
-          placeHolder={placeHolder}
-          label={label}
-          normalize={normalize}
-        />
-        })
-      }
-      { /* <Checkbox validationState='error'>
-           Accept Terms & Privacy Policy
-           </Checkbox> */ }
-           <Field name='terms'
-             type="checkbox"
+
+      {renderFields()}
+
+      <Field name='terms'
+        type="checkbox"
         component={renderCheckbox}
       />
       <button
