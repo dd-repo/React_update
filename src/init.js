@@ -11,7 +11,7 @@
             setTimeout(function() {
                 bodyElement.removeChild(loaderElement);
                 bodyElement.classList.remove('loading', 'loaded');
-            }, 200);
+            }, 100);
         }
     });
 })();

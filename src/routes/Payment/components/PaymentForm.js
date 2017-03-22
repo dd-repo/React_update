@@ -50,8 +50,8 @@ const validate = values => {
 }
 const renderInput = ({ input, label, placeHolder, type, maxLength, meta: { touched, error, warning } }) => {
 
-  let message = touched && (error && <span className='text-danger'><strong>Opps!</strong> {error}</span>) || ''
-  let validationState = touched && ( error && 'error') || ''
+  let message = touched && (error && <span className='text-danger'><strong>Opps!</strong> {error}</span>)
+  let validationState = touched && ( error && 'error') || null
 
   return (
       <FormGroup validationState={validationState}>
@@ -69,10 +69,11 @@ const renderInput = ({ input, label, placeHolder, type, maxLength, meta: { touch
 
 const renderField = () => {
   const fieldKeys = Object.keys(fields)
-  return fieldKeys.map(function(key) {
+  return fieldKeys.map(function(key, i) {
     const { name, type, placeHolder, label, maxLength, normalize } = fields[key]
     return (
       <Field
+        key={i}
         name={name}
         type={type}
         maxLength={maxLength}
