@@ -73,6 +73,7 @@ const reducer = (state = {}, action) => {
     case KEYWORD_SUCCESS:
       return Object.assign({}, state, {
         all: action.keywords,
+        currentKeyword: action.keywords[0],
         isFetching: undefined,
       });
     case KEYWORD_FAILURE:

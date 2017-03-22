@@ -8,7 +8,7 @@ const DateOfBirthForm = ({ fields, renderField, handleSubmit, submitForm, invali
     <form onSubmit={handleSubmit(submitForm)}>
       <FormGroup>
         <label>
-          Address
+          Date of Birth
         </label>
         {renderField(fields.dob)}
       </FormGroup>

@@ -59,7 +59,7 @@ class KeywordContainer extends RoutedComponent {
     switch(res.type) {
       case KEYWORD_SUCCESS:
         this.context.router.push('/dashboard')
-        const keywordList = {all: res.keywords}
+        const keywordList = {all: res.keywords, currentKeyword: res.keywords[0]}
         persistData(keywordList, 'keywords')
         break;
       case FAILURE:
