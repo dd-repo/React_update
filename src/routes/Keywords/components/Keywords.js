@@ -105,10 +105,10 @@ let Keywords = ({ errorMessage, currentForm, handleSubmit, invalid, submitting, 
   return (
     <Row>
       <Col lg={ 12 }>
-        <Button className='m-t-2 m-b-1' onClick={ () => this.props.history.goBack() }>
+        { /* <Button className='m-t-2 m-b-1' onClick={ () => this.props.history.goBack() }>
           <i className='fa fa-angle-left m-r-1'></i>
           Back
-        </Button>
+          </Button> */}
 
         <Row>
           {error}

@@ -81,6 +81,7 @@ class KeywordContainer extends RoutedComponent {
         renderNextForm={this.renderNextForm}
         currentForm={this.state.currentForm}
         doNext={this.doNext}
+        history={this.props.history}
         />
     )
   }
