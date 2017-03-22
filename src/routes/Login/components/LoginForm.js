@@ -4,11 +4,9 @@ import { Field, reduxForm } from 'redux-form';
 import { connect } from 'routes/routedComponent';
 import { checkValidation } from 'utils/formHelpers';
 import {
-    Form,
     FormGroup,
-    Checkbox
+    FormControl
 } from 'components';
-import logo from 'static/spin-logo-inverted.png';
 
 const fields = {
   email: {
@@ -16,14 +14,12 @@ const fields = {
     type: 'email',
     label: 'Email',
     placeHolder: 'Enter your email...',
-    klass: 'form-control'
   },
   password: {
     name: 'password',
     type: 'password',
     label: 'Password',
     placeHolder: 'Enter your password...',
-    klass: 'form-control',
     maxLength: '25',
   }
 }
@@ -31,55 +27,47 @@ const validate = values => {
   return checkValidation(values, fields)
 }
 
-const renderInput = ({ input, placeHolder, type, maxLength, field, meta: { touched, error, warning } }) => (
-  <div>
-    <input {...input}
-      className={field}
-      placeholder={placeHolder}
-      maxLength={maxLength}
-      type={type} />
-    {
-      touched &&
-      (
-       (error && <span className='alert-danger'>{error}</span>)
-         || (warning && <span>{warning}</span>)
-      )
-    }
-  </div>
-)
+const renderInput = ({ label, input, placeHolder, type, maxLength, meta: { touched, error, warning } }) => {
 
-const renderCheckbox = ({ type, value, meta: {touched, error, warning} }) => (
-  <input type={type} required='true' />
-)
+  let message = touched && (error && <span className='text-danger'><strong>Opps!</strong> {error}</span>) || ''
+  let validationState = touched && ( error && 'error') || ''
 
-const renderField = ({ klass, name, type, placeHolder, label, maxLength, normalize }) => (
-    <Field
-      field={klass}
-      name={name}
-      type={type}
-      component={renderInput}
-      placeHolder={placeHolder}
-      label={label}
-      normalize={normalize}
-    />
-)
+  return (
+    <FormGroup validationState={validationState}>
+      <label>
+        {label}
+      </label>
+      <FormControl {...input}
+        placeholder={placeHolder}
+        maxLength={maxLength}
+        type={type} />
+      {message}
+    </FormGroup>
+  )
+}
+
+const renderFields = () => {
+  const fieldKeys = Object.keys(fields)
+  return fieldKeys.map(function(key) {
+    const { name, type, placeHolder, label, maxLength, normalize } = fields[key]
+    return (
+      <Field
+        name={name}
+        type={type}
+        component={renderInput}
+        placeHolder={placeHolder}
+        label={label}
+        normalize={normalize}
+      />
+    )
+  })
+}
 
 let LoginForm = ({ submitForm, handleSubmit, invalid, submitting }) => {
 
   return (
     <form onSubmit={handleSubmit(submitForm)}>
-      <FormGroup>
-        <label>
-          Email
-        </label>
-        {renderField(fields.email)}
-      </FormGroup>
-      <FormGroup>
-        <label>
-          Password
-        </label>
-        {renderField(fields.password)}
-      </FormGroup>
+      {renderFields()}
       <button
         className='btn btn-primary m-b-2'
         disabled={invalid || submitting}
