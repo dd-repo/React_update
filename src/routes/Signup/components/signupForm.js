@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react';
+import _ from 'lodash';
 import { Field, reduxForm } from 'redux-form';
 
 import { connect } from 'routes/routedComponent';
@@ -77,7 +78,6 @@ const renderInput = ({ label, input, placeHolder, type, maxLength, field, meta: 
 }
 
 const renderCheckbox = ({ type, value, meta: {touched, error, warning} }) => {
-  console.log('checkBox', error)
   return (
     <Checkbox validationState='error'>
       Accept Terms & Privacy Policy
@@ -85,35 +85,27 @@ const renderCheckbox = ({ type, value, meta: {touched, error, warning} }) => {
   )
 }
 
-const renderField = ({ klass, name, type, placeHolder, label, maxLength, normalize }) => (
-    <Field
-      field={klass}
-      name={name}
-      type={type}
-      component={renderInput}
-      placeHolder={placeHolder}
-      label={label}
-      normalize={normalize}
-    />
-)
-
 let SignupForm = ({ planType, price, errorMessage, submitForm, handleSubmit, invalid, submitting }) => {
-
-
   return (
     <form onSubmit={handleSubmit(submitForm)}>
-        {renderField(fields.first_name)}
-
-        {renderField(fields.last_name)}
-
-        {renderField(fields.email)}
-        {renderField(fields.phoneNumber)}
-        {renderField(fields.password)}
+      { Object.keys(fields).map(function(key) {
+        const { klass, name, type, placeHolder, label, maxLength, normalize } = fields[key]
+        return <Field
+          field={klass}
+          name={name}
+          type={type}
+          component={renderInput}
+          placeHolder={placeHolder}
+          label={label}
+          normalize={normalize}
+        />
+        })
+      }
       { /* <Checkbox validationState='error'>
-        Accept Terms & Privacy Policy
-      </Checkbox> */ }
-      <Field name='terms'
-        type="checkbox"
+           Accept Terms & Privacy Policy
+           </Checkbox> */ }
+           <Field name='terms'
+             type="checkbox"
         component={renderCheckbox}
       />
       <button
