@@ -1,11 +1,12 @@
 import React, { PropTypes } from 'react';
+import _ from 'lodash';
 import { Field, reduxForm } from 'redux-form';
 
 import { connect } from 'routes/routedComponent';
 import { checkValidation, normalizePhone } from 'utils/formHelpers';
 import {
-    Form,
     FormGroup,
+    FormControl,
     Checkbox
 } from 'components';
 
@@ -15,28 +16,24 @@ const fields = {
     type: 'text',
     label: 'First name',
     placeHolder: 'Enter your first name...',
-    klass: 'form-control input-group-lg reg_name'
   },
   last_name: {
     name: 'last_name',
     type: 'text',
     label: 'Last name',
     placeHolder: 'Enter your last name',
-    klass: 'form-control input-group-lg reg_name'
   },
   email: {
     name: 'email',
     type: 'email',
     label: 'Email',
     placeHolder: 'Enter your email...',
-    klass: 'form-control'
   },
   phoneNumber: {
     name: 'phone_number',
     type: 'tel',
     label: 'Phone number',
     placeHolder: 'Enter your phone number...',
-    klass: 'form-control',
     normalize: normalizePhone
   },
   password: {
@@ -44,90 +41,68 @@ const fields = {
     type: 'password',
     label: 'Password',
     placeHolder: 'Enter a password...',
-    klass: 'form-control',
     maxLength: '25',
+  },
+  checkbox: {
+    name: 'terms',
+    type: 'checkbox',
+    value: true
   }
 }
 const validate = values => {
   return checkValidation(values, fields)
 }
 
-const renderInput = ({ input, placeHolder, type, maxLength, field, meta: { touched, error, warning } }) => (
-  <div>
-    <input {...input}
-      className={field}
-      placeholder={placeHolder}
-      maxLength={maxLength}
-      type={type} />
-    {
-      touched &&
-      (
-       (error && <span className='alert-danger'>{error}</span>)
-         || (warning && <span>{warning}</span>)
-      )
-    }
-  </div>
-)
+const renderInput = ({ label, input, placeHolder, type, maxLength, meta: { touched, error, warning } }) => {
 
-const renderCheckbox = ({ type, value, meta: {touched, error, warning} }) => (
-  <input type={type} required='true' />
-)
-
-const renderField = ({ klass, name, type, placeHolder, label, maxLength, normalize }) => (
-    <Field
-      field={klass}
-      name={name}
-      type={type}
-      component={renderInput}
-      placeHolder={placeHolder}
-      label={label}
-      normalize={normalize}
-    />
-)
-
-let SignupForm = ({ planType, price, errorMessage, submitForm, handleSubmit, invalid, submitting }) => {
-
-  const renderErrorMessage = (
-    <p className="alert-danger">
-      {errorMessage}
-    </p>
-  )
-
+  let message = touched && (error && <span className='text-danger'><strong>Opps!</strong> {error}</span>) || ''
+  let validationState = touched && ( error && 'error') || ''
+  if(type !== 'checkbox') {
   return (
-    <form onSubmit={handleSubmit(submitForm)}>
-      <FormGroup>
+      <FormGroup validationState={validationState}>
         <label>
-          First Name
+          {label}
         </label>
-        {renderField(fields.first_name)}
+      <FormControl {...input}
+        placeholder={placeHolder}
+        maxLength={maxLength}
+        type={type} />
+      {message}
       </FormGroup>
-      <FormGroup>
-        <label>
-          Last Name
-        </label>
-        {renderField(fields.last_name)}
-      </FormGroup>
-      <FormGroup>
-        <label>
-          Email
-        </label>
-        {renderField(fields.email)}
-      </FormGroup>
-      <FormGroup>
-        <label>
-          Phone Number
-        </label>
-        {renderField(fields.phoneNumber)}
-      </FormGroup>
-      <FormGroup>
-        <label>
-          Password
-        </label>
-        {renderField(fields.password)}
-      </FormGroup>
-      <Checkbox>
+  )
+  }else{
+    return (
+      <Checkbox required validationState='error'>
         Accept Terms & Privacy Policy
       </Checkbox>
+    )
+  }
+}
+
+const renderFields = () => {
+  const fieldKeys = Object.keys(fields)
+  return fieldKeys.map(function(key) {
+    const { name, type, placeHolder, label, maxLength, normalize, value } = fields[key]
+    return (
+            <Field
+              name={name}
+              type={type}
+              component={renderInput}
+              placeHolder={placeHolder}
+              label={label}
+              value={value}
+              normalize={normalize}
+            />
+           )
+  })
+}
+
+let SignupForm = ({ planType, price, errorMessage, submitForm, handleSubmit, invalid, submitting }) => {
+  return (
+    <form onSubmit={handleSubmit(submitForm)}>
+
+      {renderFields()}
+
       <button
         className='btn btn-primary m-b-2'
         disabled={invalid || submitting}

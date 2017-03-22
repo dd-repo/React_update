@@ -11,13 +11,21 @@ import {
     Col,
     Panel,
     Button,
-    Form,
-    FormGroup,
-    FormControl,
-    Checkbox
+    Alert
 } from 'components';
 
 const Payment = (props) => {
+
+  const { errorMessage } = props
+
+  const renderErrorMessage = (
+   errorMessage &&
+  <Alert bsStyle='danger'>
+    <i className="fa fa-fw text-danger m-r-1"></i>
+    <strong>Oh Snap!</strong> {errorMessage}
+  </Alert>
+  )
+
     return (
       <Row>
         <Col lg={ 12 }>
@@ -25,7 +33,7 @@ const Payment = (props) => {
             <i className='fa fa-angle-left m-r-1'></i>
             Back
             </Button> */ }
-
+            {renderErrorMessage}
           <Row>
             <Col className={ classes.centerCol } md={ 4 }>
               <Panel
