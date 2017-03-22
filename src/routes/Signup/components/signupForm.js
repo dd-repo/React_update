@@ -6,7 +6,9 @@ import { checkValidation, normalizePhone } from 'utils/formHelpers';
 import {
     Form,
     FormGroup,
-    Checkbox
+    FormControl,
+    Checkbox,
+    Alert
 } from 'components';
 
 const fields = {
@@ -52,26 +54,36 @@ const validate = values => {
   return checkValidation(values, fields)
 }
 
-const renderInput = ({ input, placeHolder, type, maxLength, field, meta: { touched, error, warning } }) => (
-  <div>
-    <input {...input}
-      className={field}
-      placeholder={placeHolder}
-      maxLength={maxLength}
-      type={type} />
-    {
-      touched &&
-      (
-       (error && <span className='alert-danger'>{error}</span>)
-         || (warning && <span>{warning}</span>)
-      )
-    }
-  </div>
-)
+const renderInput = ({ label, input, placeHolder, type, maxLength, field, meta: { touched, error, warning } }) => {
 
-const renderCheckbox = ({ type, value, meta: {touched, error, warning} }) => (
-  <input type={type} required='true' />
-)
+  let message = touched && (error && <span className='text-danger'><strong>Opps!</strong> {error}</span>)
+  let validationState = touched && ( error && 'error') || ''
+
+  return (
+    <div>
+      <FormGroup validationState={validationState}>
+        <label>
+          {label}
+        </label>
+      <FormControl {...input}
+        className={field}
+        placeholder={placeHolder}
+        maxLength={maxLength}
+        type={type} />
+      {message}
+      </FormGroup>
+    </div>
+  )
+}
+
+const renderCheckbox = ({ type, value, meta: {touched, error, warning} }) => {
+  console.log('checkBox', error)
+  return (
+    <Checkbox validationState='error'>
+      Accept Terms & Privacy Policy
+    </Checkbox>
+  )
+}
 
 const renderField = ({ klass, name, type, placeHolder, label, maxLength, normalize }) => (
     <Field
@@ -90,39 +102,20 @@ let SignupForm = ({ planType, price, errorMessage, submitForm, handleSubmit, inv
 
   return (
     <form onSubmit={handleSubmit(submitForm)}>
-      <FormGroup>
-        <label>
-          First Name
-        </label>
         {renderField(fields.first_name)}
-      </FormGroup>
-      <FormGroup>
-        <label>
-          Last Name
-        </label>
+
         {renderField(fields.last_name)}
-      </FormGroup>
-      <FormGroup>
-        <label>
-          Email
-        </label>
+
         {renderField(fields.email)}
-      </FormGroup>
-      <FormGroup>
-        <label>
-          Phone Number
-        </label>
         {renderField(fields.phoneNumber)}
-      </FormGroup>
-      <FormGroup>
-        <label>
-          Password
-        </label>
         {renderField(fields.password)}
-      </FormGroup>
-      <Checkbox>
+      { /* <Checkbox validationState='error'>
         Accept Terms & Privacy Policy
-      </Checkbox>
+      </Checkbox> */ }
+      <Field name='terms'
+        type="checkbox"
+        component={renderCheckbox}
+      />
       <button
         className='btn btn-primary m-b-2'
         disabled={invalid || submitting}
