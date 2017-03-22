@@ -8,16 +8,7 @@ import {
   normalizeExDate,
   normalizeNums
 } from 'utils/formHelpers.js';
-import {
-    Row,
-    Col,
-    Panel,
-    Button,
-    Form,
-    FormGroup,
-    FormControl,
-    Checkbox
-} from 'components';
+import { FormGroup } from 'components';
 import logo from 'static/spin-logo-inverted.png';
 import classes from './payment.scss';
 
@@ -135,8 +126,7 @@ let PaymentForm = ({ submitForm, errorMessage, planType, price, handleSubmit, in
 PaymentForm.propTypes = {
   submitForm: PropTypes.func.isRequired,
   planType: PropTypes.string.isRequired,
-  price: PropTypes.number.isRequired,
-  errorMessage: PropTypes.string
+  price: PropTypes.number.isRequired
 }
 
 PaymentForm = reduxForm({

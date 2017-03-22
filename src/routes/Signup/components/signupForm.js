@@ -87,11 +87,6 @@ const renderField = ({ klass, name, type, placeHolder, label, maxLength, normali
 
 let SignupForm = ({ planType, price, errorMessage, submitForm, handleSubmit, invalid, submitting }) => {
 
-  const renderErrorMessage = (
-    <p className="alert-danger">
-      {errorMessage}
-    </p>
-  )
 
   return (
     <form onSubmit={handleSubmit(submitForm)}>

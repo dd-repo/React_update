@@ -9,13 +9,19 @@ import {
     Col,
     Panel,
     Button,
-    Form,
-    FormGroup,
-    FormControl,
-    Checkbox
+    Alert
 } from 'components';
 
 const Login = ({ errorMessage, submitForm }) => {
+
+  const renderErrorMessage = (
+   errorMessage &&
+  <Alert bsStyle='danger'>
+    <i className="fa fa-fw text-danger m-r-1"></i>
+    <strong>Oh Snap!</strong> {errorMessage}
+  </Alert>
+  )
+
   return (
     <Row>
       <Col lg={ 12 }>
@@ -23,6 +29,7 @@ const Login = ({ errorMessage, submitForm }) => {
           <i className='fa fa-angle-left m-r-1'></i>
           Back
           </Button> */ }
+          {renderErrorMessage}
 
         <Row>
           <Col className={ classes.centerCol } md={ 4 }>
