@@ -26,10 +26,10 @@ const PaymentComplete = (props) => {
   return (
     <Row>
       <Col lg={ 12 }>
-        <Button className='m-t-2 m-b-1' onClick={ () => this.props.history.goBack() }>
+        { /* <Button className='m-t-2 m-b-1' onClick={ () => this.props.history.goBack() }>
           <i className='fa fa-angle-left m-r-1'></i>
           Back
-        </Button>
+          </Button> */ }
 
         <Row>
           <Col className={ classes.centerCol } md={ 4 }>
@@ -39,16 +39,6 @@ const PaymentComplete = (props) => {
                   <img src={ logo } alt='Back to Home' />
                 </Link>
                 )}
-                footer={(
-                  <div>
-                    <Link to='/pages/login'>
-                      Login
-                    </Link>
-                    <Link to='/pages/register' className='pull-right'>
-                      Register
-                    </Link>
-                  </div>
-                  )}
                 >
                   <h2 className={ classes.panelHeader }>
                     Congratulations your payment was successful
