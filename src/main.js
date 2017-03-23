@@ -53,7 +53,8 @@ const defaultKeywords = {
       zipcode: '12345',
       dob: '02/02/2000'
     }
-  ]
+  ],
+  currentKeyword: {value:'joe bob'}
 }
 
 const defaultPlan = {

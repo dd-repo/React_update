@@ -184,8 +184,8 @@ const PricingTables = props => {
         <Row>
           {
             _.map(tablesData, data => (
-              <Col md={ 4 }>
-                <PricingTableClean handleClick={props.handleClick} {...data}  key={ data.id }/>
+              <Col md={ 4 } key={ hash(data) }>
+                <PricingTableClean handleClick={props.handleClick} {...data} />
               </Col>
               ))
           }

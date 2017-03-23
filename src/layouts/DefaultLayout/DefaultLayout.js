@@ -378,7 +378,7 @@ class DefaultLayout extends React.Component {
                             <div className='sidebar-default-visible text-muted small text-uppercase sidebar-section p-y-2'>
                                 <strong>Navigation</strong>
                             </div>
-                            <Sidebar.Menu
+                              <Sidebar.Menu
                                 currentUrl={ this.props.location.pathname }
                             />
                         </Sidebar>
