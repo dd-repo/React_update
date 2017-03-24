@@ -22,10 +22,10 @@ class ProfileContainer extends RoutedComponent {
   }
 }
 
-  mapStateToProps = state => {
-  }
+const mapStateToProps = state => {
+}
 
-  const mapActionCreators = {
+const mapActionCreators = {
   }
 
 export default connect()(ProfileContainer);

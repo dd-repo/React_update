@@ -15,7 +15,7 @@ import {
 
 import { Colors } from 'consts';
 
-import { Upload } from './Upload';
+import  Upload  from './Upload';
 
 import classes from './Profile.scss';
 
