@@ -7,7 +7,7 @@ export const USER_FAILURE = 'USER_FAILURE';
 export const USER_POSTING = 'USER_POSTING';
 const SIGNUP_REQUEST = `${BASE_URL}/users/sign-up/create`;
 const LOGIN_REQUEST = `${BASE_URL}/users/sign-in`;
-const LOGOUT_REQUEST = `${BASE_URL}/users/sign-out`;
+const LOGOUT_REQUEST = `${BASE_URL}/users/sign-out`
 
 //actions
 export const logoutUser = () => {

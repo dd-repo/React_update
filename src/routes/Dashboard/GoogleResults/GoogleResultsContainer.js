@@ -1,6 +1,5 @@
-import React, { Component } from 'react';
+import React from 'react';
 import Loading from 'react-loading';
-import { Redirect } from 'react-router';
 
 import { RoutedComponent, connect } from 'routes/routedComponent';
 import GoogleResults from './components/GoogleResults';
