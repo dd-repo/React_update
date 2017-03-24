@@ -13,8 +13,8 @@ const LOGOUT_REQUEST = `${BASE_URL}/users/sign-out`
 export const logoutUser = () => {
   return axios.delete(LOGOUT_REQUEST)
   .then(
-    console.log('response', response.status)
   ).catch(
+  error =>
     console.log('error', error)
   )
 }
