@@ -10,7 +10,7 @@ import {
 const SearchKeywords = ({ keywords, getResults }) => {
   return (
     <div>
-      <Divider className='m-b-1'>
+      <Divider className='m-t-2'>
         Keywords
       </Divider>
       <div>
