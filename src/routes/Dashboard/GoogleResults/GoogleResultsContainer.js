@@ -58,7 +58,7 @@ class GoogleResultsContainer extends RoutedComponent {
     const authToken = this.props.currentUser.access_token
     this.props.addCurrentKeyword(keyword)
     this.props.getGoogleResults(params, authToken);
-    this.setState({ isFetching: true })
+    this.setState({ isFetching: true, pageNum: parseInt(pageNum) })
   }
 
   componentWillReceiveProps(nextProps) {
@@ -74,6 +74,7 @@ class GoogleResultsContainer extends RoutedComponent {
           isFetching={this.state.isFetching}
           getResults={this.getResults}
           getNextPage={this.getNextPage}
+          pageNum={this.state.pageNum}
         />
     )
   }
