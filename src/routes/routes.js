@@ -56,18 +56,18 @@ export default [
         getComponent: (nextState, cb) => {
             require.ensure([], require => {
               cb(null, require('./Dashboard/GoogleResults').default);
-            }, 'dashboard');
+            }, 'dashboard-googleResults');
         }
     },
-    //{
-        //path: '/start/performance',
-        //[>  Async WebPack code split  <]
-        //getComponent: (nextState, cb) => {
-            //require.ensure([], require => {
-                //cb(null, require('./Performance').default);
-            //}, 'start-performance');
-        //}
-    //},
+    {
+      path: '/dashboard/profile',
+      //[>  Async WebPack code split  <]
+      getComponent: (nextState, cb) => {
+        require.ensure([], require => {
+          cb(null, require('./Dashboard/Profile').default);
+        }, 'dashboard-profile');
+      }
+    },
     //{
         //path: '/start/financial',
         //[>  Async WebPack code split  <]
