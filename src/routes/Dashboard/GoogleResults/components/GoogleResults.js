@@ -21,7 +21,7 @@ import GoogleResult from './GoogleResult';
 import renderSection from 'modules/sectionRender';
 import { CONTENT_VIEW_STATIC } from 'layouts/DefaultLayout/modules/layout';
 
-const GoogleResults = ({ results, keywords, getResults, getNextPage, isFetching }) => {
+const GoogleResults = ({ results, keywords, getResults, getNextPage, isFetching, pageNum=1 }) => {
   return (
     <Row>
       <Col lg={ 2 }>
@@ -33,7 +33,7 @@ const GoogleResults = ({ results, keywords, getResults, getNextPage, isFetching 
       <Pagination
         bsSize="medium"
         items={3}
-        activePage={1}
+        activePage={pageNum}
         boundaryLinks
         prev
         next
