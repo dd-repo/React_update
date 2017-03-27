@@ -12,7 +12,7 @@ class GoogleResultsContainer extends RoutedComponent {
     super(props)
     this.state = {
       isFetching: true,
-      isLoggedIn: !!props.currentUser.id
+      isLoggedIn: !!props.currentUser.id && !!props.currentUser.access_token
     }
 
     this.getResults = this.getResults.bind(this);
