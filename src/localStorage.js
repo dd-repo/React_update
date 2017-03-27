@@ -20,6 +20,10 @@ export const loadPersistedData = (selector) => {
   }
 }
 
+export const removePersistedData = () => {
+  localStorage.removeItem('currentUser')
+}
+
 const formatState = (state, selector) => {
   switch(selector) {
     case 'currentUser':

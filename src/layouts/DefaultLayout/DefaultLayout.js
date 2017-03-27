@@ -10,6 +10,7 @@ import treeRandomizer from 'modules/treeRandomizer';
 import getLogoBySkin from './getLogoBySkin.js';
 import ROUTES, { findActiveNodes } from './../../routes/routesStructure';
 import defaultAvatar from 'static/avatars/defaultAvatar.png';
+import { removePersistedData } from 'localStorage';
 
 import { Colors } from 'consts';
 import navbarLogo from 'static/logos/logo-big-navbar.png'
@@ -155,7 +156,7 @@ class DefaultLayout extends React.Component {
 
     handleLogout() {
       this.props.logoutUser()
-      // clear localStorage
+      removePersistedData();
     }
 
     render() {
@@ -318,13 +319,13 @@ class DefaultLayout extends React.Component {
                                             </strong>
                                         </MenuItem>
                                         <MenuItem divider className='hidden-xs'/>
-                                        <LinkContainer to='/apps/profile-details'>
+                                        <LinkContainer to='/dashboard/profile'>
                                             <MenuItem eventKey={3.1}>Your Profile</MenuItem>
                                         </LinkContainer>
-                                        <LinkContainer to='/apps/user-profile/edit/settings'>
+                                        <LinkContainer to='#'>
                                             <MenuItem eventKey={3.2}>Settings</MenuItem>
                                         </LinkContainer>
-                                        <LinkContainer to='/apps/faq'>
+                                        <LinkContainer to='#'>
                                             <MenuItem eventKey={3.3}>Faq</MenuItem>
                                         </LinkContainer>
                                         <MenuItem divider />

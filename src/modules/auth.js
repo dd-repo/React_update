@@ -5,19 +5,17 @@ import { BASE_URL } from 'consts/apis'
 export const USER_SUCCESS = 'USER_SUCCESS';
 export const USER_FAILURE = 'USER_FAILURE';
 export const USER_POSTING = 'USER_POSTING';
+export const USER_LOGOUT = 'USER_LOGOUT';
 const SIGNUP_REQUEST = `${BASE_URL}/users/sign-up/create`;
 const LOGIN_REQUEST = `${BASE_URL}/users/sign-in`;
-const LOGOUT_REQUEST = `${BASE_URL}/users/sign-out`
 
 //actions
-export const logoutUser = () => {
-  return axios.delete(LOGOUT_REQUEST)
-  .then(
-  ).catch(
-  error =>
-    console.log('error', error)
-  )
-}
+export const logoutUser = () => (
+  {
+    type: USER_LOGOUT
+  }
+
+)
 
 const request = (userInfo, selector) => {
   const urlRequest = selector === 'signup' ? SIGNUP_REQUEST : LOGIN_REQUEST
@@ -34,7 +32,9 @@ export const postUser = (userInfo, selector) => {
     dispatch(postingUser(userInfo))
     return axios(request(userInfo, selector))
     .then(
-      response => dispatch(receiveUser(response.data))
+      res =>
+      console.log('response', res)
+      //response => dispatch(receiveUser(response.data))
     ).catch(
     error =>
       dispatch(receiveUserError(error.response.data.errorMessage))
@@ -79,6 +79,11 @@ const reducer = (state = {}, action) => {
         access_token: action.userData.access_token,
         isFetching: false,
         account_id: action.userData.accounts[0].id
+      });
+    case USER_LOGOUT:
+      return Object.assign({}, state, {
+        id: undefined,
+        access_token: undefined
       });
     default:
       return state
