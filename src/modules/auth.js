@@ -32,9 +32,7 @@ export const postUser = (userInfo, selector) => {
     dispatch(postingUser(userInfo))
     return axios(request(userInfo, selector))
     .then(
-      res =>
-      console.log('response', res)
-      //response => dispatch(receiveUser(response.data))
+      response => dispatch(receiveUser(response.data))
     ).catch(
     error =>
       dispatch(receiveUserError(error.response.data.errorMessage))
