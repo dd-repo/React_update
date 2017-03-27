@@ -2,7 +2,7 @@
 
 ## Installation
 1. Make sure you have NodeJS >= 6.0.0 installed on your machine.
-2. Clone this repository to local directory - `git clone https://github.com/marca-development/blitz-monitoring-frontend.git`
+2. Clone this repository to local directory - `git clone git@github.com:marca-development/blitz-monitoring-frontend.git`
 3. Run `npm install` to install nescessary NPM dependecies
 
 ## Usage
