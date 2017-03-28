@@ -26,7 +26,7 @@ class ProfileContainer extends RoutedComponent {
     this.setState({avatar: image[0]});
   }
 
-  submitForm(formData) {
+  getBase64(file) {
     let reader = new FileReader();
     reader.onload = function(event) {
       console.log('event.target.results', event.target.result)
@@ -35,6 +35,9 @@ class ProfileContainer extends RoutedComponent {
       console.log(`File could not be read! code ${event.target.error}`)
     }
     reader.readAsDataURL(this.state.avatar)
+  }
+
+  submitForm(data) {
   }
 
   render() {
