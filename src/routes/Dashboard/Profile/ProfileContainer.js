@@ -2,6 +2,7 @@ import React from 'react';
 
 import { RoutedComponent, connect } from 'routes/routedComponent';
 import Profile from './components/Profile';
+import { postUserProfile } from 'modules/profile';
 import { CONTENT_VIEW_STATIC } from 'layouts/DefaultLayout/modules/layout';
 
 class ProfileContainer extends RoutedComponent {
@@ -56,9 +57,11 @@ class ProfileContainer extends RoutedComponent {
 }
 
 const mapStateToProps = state => ({
+  profile: state.profile
 });
 
 const mapActionCreators = {
-  }
+  postUserProfile
+}
 
-export default connect()(ProfileContainer);
+export default connect(mapStateToProps, mapActionCreators)(ProfileContainer);

@@ -21,7 +21,7 @@ const profileRequest = (profileInfo, profile_id) => (
   }
 );
 
-export const postProfile = profileInfo => {
+export const postUserProfile = profileInfo => {
   return dispatch => {
     dispatch(postingProfile())
     return axios(profileRequest(profileInfo, profile_id))
