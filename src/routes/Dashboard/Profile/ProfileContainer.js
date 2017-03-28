@@ -11,6 +11,7 @@ class ProfileContainer extends RoutedComponent {
 
     this.submitForm = this.submitForm.bind(this);
     this.onImageUpload = this.onImageUpload.bind(this);
+    this.getBase64 = this.getBase64.bind(this);
   }
   getLayoutOptions() {
     return {
@@ -23,21 +24,24 @@ class ProfileContainer extends RoutedComponent {
   }
 
   onImageUpload(image) {
-    this.setState({avatar: image[0]});
+    this.setState({avatar: image[0].preview});
+    this.getBase64(image[0])
   }
 
   getBase64(file) {
     let reader = new FileReader();
-    reader.onload = function(event) {
-      console.log('event.target.results', event.target.result)
+    reader.readAsDataURL(file)
+
+    reader.onload = event => {
+      this.setState({...this.state, base64: event.target.result})
     }
     reader.onerror = function(event) {
       console.log(`File could not be read! code ${event.target.error}`)
     }
-    reader.readAsDataURL(this.state.avatar)
   }
 
   submitForm(data) {
+
   }
 
   render() {

@@ -36,7 +36,7 @@ const Upload = ({ name, input, onImageUpload, avatar }) => {
   } else {
     return (
       <Panel className={`text-center ${classes.uploadPanel}`}>
-        <img src={avatar.preview} style={{width:200, height:200}}/>
+        <img src={avatar} style={{width:200, height:200}}/>
       </Panel>
     )
   }
