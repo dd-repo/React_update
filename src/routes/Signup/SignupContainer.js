@@ -5,7 +5,7 @@ import { RoutedComponent, connect } from 'routes/routedComponent';
 import { postUserSignup } from 'modules/auth';
 import { CONTENT_VIEW_STATIC } from 'layouts/DefaultLayout/modules/layout';
 import { persistData } from 'localStorage';
-import { USER_SUCCESS, USER_FAILURE } from 'modules/auth';
+import { USER_SIGNUP_SUCCESS, USER_SIGNUP_FAILURE } from 'modules/auth';
 
 class SignupContainer extends RoutedComponent {
   constructor(props) {
@@ -39,15 +39,15 @@ class SignupContainer extends RoutedComponent {
 
   doNext(res) {
     switch(res.type) {
-      case USER_SUCCESS:
+      case USER_SIGNUP_SUCCESS:
         this.context.router.push('/payment-info');
         res.userData.phone_number = '123-123-1234';
-        res.userData.password = 'Password12';
+        res.userData.password = 'password12';
 
         persistData(res.userData, 'currentUser');
         persistData(res.userData.accounts, 'accounts');
         break;
-      case USER_FAILURE:
+      case USER_SIGNUP_FAILURE:
         this.setState({errorMessage: res.error});
         break;
       default:

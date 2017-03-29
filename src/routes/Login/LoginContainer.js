@@ -5,7 +5,7 @@ import { RoutedComponent, connect } from 'routes/routedComponent';
 import { postUserLogin } from 'modules/auth';
 import { CONTENT_VIEW_STATIC } from 'layouts/DefaultLayout/modules/layout';
 import { persistData } from 'localStorage';
-import { USER_SUCCESS, USER_FAILURE } from 'modules/auth';
+import { USER_LOGIN_SUCCESS, USER_LOGIN_FAILURE } from 'modules/auth';
 
 class LoginContainer extends RoutedComponent {
   constructor(props) {
@@ -38,15 +38,15 @@ class LoginContainer extends RoutedComponent {
 
   doNext(res) {
     switch(res.type) {
-      case USER_SUCCESS:
+      case USER_LOGIN_SUCCESS:
         this.context.router.push('/dashboard');
         // this code is just for testing purposes
-        res.userData.password = 'Password12';
+        res.userData.password = 'password12';
 
         persistData(res.userData, 'currentUser');
         persistData(res.userData.accounts, 'accounts');
         break;
-      case USER_FAILURE:
+      case USER_LOGIN_FAILURE:
         this.setState({errorMessage: res.error});
         break;
       default:

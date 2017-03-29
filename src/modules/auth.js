@@ -21,7 +21,6 @@ export const logoutUser = () => (
 )
 
 const request = (userInfo, userRequest) => {
-  console.log('request', userRequest)
   return {
     method: 'post',
     url: userRequest,
@@ -32,14 +31,13 @@ const request = (userInfo, userRequest) => {
 
 export const postUserSignup = (userInfo) => {
   return dispatch => {
-    dispatch(postingUser(userInfo))
+    dispatch(postingUserSignup(userInfo))
     return axios(request(userInfo, SIGNUP_REQUEST))
     .then(
-      //response => console.log('response', response)
-      response => dispatch(receiveUser(response.data))
+      response => dispatch(receiveUserSignup(response.data))
     ).catch(
     error =>
-      dispatch(receiveUserError(error.response.data.errorMessage))
+      dispatch(receiveUserSignupError(error.response.data.errorMessage))
     )
   }
 }
@@ -49,32 +47,33 @@ export const postUserLogin = (userInfo) => {
     dispatch(postingUserLogin(userInfo))
     return axios(request(userInfo, LOGIN_REQUEST))
     .then(
-      //response => console.log('response', response)
       response => dispatch(receiveUserLogin(response.data))
+      //response => console.log('response', response)
     ).catch(
     error =>
-      dispatch(receiveUserLoginError(error.response.data.errorMessage))
+    console.log('in error', error)
+      //dispatch(receiveUserLoginError(error.response.data.errorMessage))
     )
   }
 }
 
-const postingUser = userInfo => (
+const postingUserSignup = userInfo => (
   {
-    type: USER_POSTING,
+    type: USER_SIGNUP_POSTING,
     userInfo
   }
 );
 
-const receiveUser = userData => (
+const receiveUserSignup = userData => (
   {
-    type: USER_SUCCESS,
+    type: USER_SIGNUP_SUCCESS,
     userData
   }
 );
 
-const receiveUserError = error => (
+const receiveUserSignupError = error => (
   {
-    type: USER_FAILURE,
+    type: USER_SIGNUP_FAILURE,
     error
   }
 );
@@ -91,7 +90,7 @@ const receiveUserLogin = userData => (
     type: USER_LOGIN_SUCCESS,
     userData
   }
-);
+)
 
 const receiveUserLoginError = error => (
   {
