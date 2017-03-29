@@ -45,10 +45,10 @@ const Payment = (props) => {
                   )}
                   footer={(
                     <div>
-                      <Link to='/pages/forgot-password'>
+                      <Link to='/forgot-password'>
                         Forgot Password?
                       </Link>
-                      <Link to='/pages/login' className='pull-right'>
+                      <Link to='/login' className='pull-right'>
                         Login
                       </Link>
                     </div>

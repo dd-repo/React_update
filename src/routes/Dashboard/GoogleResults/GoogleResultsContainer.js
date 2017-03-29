@@ -25,12 +25,10 @@ class GoogleResultsContainer extends RoutedComponent {
 
   componentWillMount() {
     this.state.isLoggedIn ? (
-       this.isInitialRendering && this.getResults(this.props.keywords.all[0])
+      this.isInitialRendering && this.getResults(this.props.keywords.all[0])
     ) : (
     this.context.router.push('/login')
     )
-
-
   }
 
   isInitialRendering() {
@@ -63,7 +61,7 @@ class GoogleResultsContainer extends RoutedComponent {
 
   componentWillReceiveProps(nextProps) {
     !nextProps.googleResults.isFetching &&
-      setTimeout(() => this.setState({isFetching: false}), 3000)
+      setTimeout(() => this.setState({isFetching: false}), 2000)
   }
 
   render() {

@@ -1,18 +1,19 @@
 import axios from 'axios';
 import { BASE_URL } from 'consts/apis';
+import { USER_LOGIN_SUCCESS } from './auth';
 
 // action types
 export const KEYWORD_POSTING = 'KEYWORD_POSTING';
 export const KEYWORD_SUCCESS = 'KEYWORD_SUCCESS';
 export const KEYWORD_FAILURE = 'KEYWORD_FAILURE';
-export const CURRENT_KEYWORD_ID = 'CURRENT_KEYWORD_ID';
+export const CURRENT_KEYWORD_ADD = 'CURRENT_KEYWORD_ADD';
 
 export const KEYWORD_REQUEST = `${BASE_URL}/users/sign-up/keyword`;
 
 // actions
 export const addCurrentKeyword = keyword => (
   {
-    type: CURRENT_KEYWORD_ID,
+    type: CURRENT_KEYWORD_ADD,
     keyword
   }
 );
@@ -74,16 +75,22 @@ const reducer = (state = {}, action) => {
       return Object.assign({}, state, {
         all: action.keywords,
         currentKeyword: action.keywords[0],
-        isFetching: undefined,
+        isFetching: false,
       });
     case KEYWORD_FAILURE:
       return Object.assign({}, state, {
         isFetching: false,
         success: false
       });
-    case CURRENT_KEYWORD_ID:
+    case CURRENT_KEYWORD_ADD:
       return Object.assign({}, state, {
         currentKeyword: action.keyword
+      });
+    case USER_LOGIN_SUCCESS:
+      return Object.assign({}, state, {
+        all: action.userData.keywords,
+        currentKeyword: action.userData.keywords[0],
+        isFetching: false,
       });
     default:
       return state
