@@ -47,6 +47,7 @@ class LoginContainer extends RoutedComponent {
         persistData(res.userData.accounts, 'accounts');
         break;
       case USER_LOGIN_FAILURE:
+        console.log('login fail', res.error)
         this.setState({errorMessage: res.error});
         break;
       default:

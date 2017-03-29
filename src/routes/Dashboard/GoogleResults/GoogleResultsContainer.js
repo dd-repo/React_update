@@ -61,7 +61,7 @@ class GoogleResultsContainer extends RoutedComponent {
 
   componentWillReceiveProps(nextProps) {
     !nextProps.googleResults.isFetching &&
-      setTimeout(() => this.setState({isFetching: false}), 3000)
+      setTimeout(() => this.setState({isFetching: false}), 2000)
   }
 
   render() {

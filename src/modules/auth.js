@@ -48,11 +48,9 @@ export const postUserLogin = (userInfo) => {
     return axios(request(userInfo, LOGIN_REQUEST))
     .then(
       response => dispatch(receiveUserLogin(response.data))
-      //response => console.log('response', response)
     ).catch(
     error =>
-    console.log('in error', error)
-      //dispatch(receiveUserLoginError(error.response.data.errorMessage))
+      dispatch(receiveUserLoginError(error.response.data.errorMessage))
     )
   }
 }
