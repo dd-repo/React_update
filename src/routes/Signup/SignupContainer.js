@@ -2,7 +2,7 @@ import React from 'react';
 import Signup from './components/Signup';
 
 import { RoutedComponent, connect } from 'routes/routedComponent';
-import { postUser } from 'modules/auth';
+import { postUserSignup } from 'modules/auth';
 import { CONTENT_VIEW_STATIC } from 'layouts/DefaultLayout/modules/layout';
 import { persistData } from 'localStorage';
 import { USER_SUCCESS, USER_FAILURE } from 'modules/auth';
@@ -32,7 +32,7 @@ class SignupContainer extends RoutedComponent {
 
   submitForm(user) {
     user.phone_type = "mobile"
-    this.props.postUser(user, 'signup')
+    this.props.postUserSignup(user)
     .then(res => { this.doNext(res) })
     .catch(error => { console.log('error user signup', error) })
   }
@@ -72,7 +72,7 @@ const mapStateToProps = state => ({
 })
 
 const mapActionCreators = {
-  postUser
+  postUserSignup
 }
 
 export default connect(mapStateToProps, mapActionCreators)(SignupContainer);

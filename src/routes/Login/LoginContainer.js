@@ -2,7 +2,7 @@ import React from 'react';
 import Login from './components/Login';
 
 import { RoutedComponent, connect } from 'routes/routedComponent';
-import { postUser } from 'modules/auth';
+import { postUserLogin } from 'modules/auth';
 import { CONTENT_VIEW_STATIC } from 'layouts/DefaultLayout/modules/layout';
 import { persistData } from 'localStorage';
 import { USER_SUCCESS, USER_FAILURE } from 'modules/auth';
@@ -31,7 +31,7 @@ class LoginContainer extends RoutedComponent {
   }
 
   submitForm(user) {
-    this.props.postUser(user, 'login')
+    this.props.postUserLogin(user)
     .then(res => { this.doNext(res) })
     .catch(error => { console.log('error user Login', error) })
   }
@@ -69,7 +69,7 @@ const mapStateToProps = state => ({
 })
 
 const mapActionCreators = {
-  postUser
+  postUserLogin
 }
 
 export default connect(mapStateToProps, mapActionCreators)(LoginContainer);
