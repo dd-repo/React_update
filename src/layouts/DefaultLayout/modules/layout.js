@@ -70,12 +70,12 @@ export const SIDEBAR_ADDON_AVATAR_AND_STATS = 'Avatar & Stats';
 
 export const DEFAULT_SETTINGS = {
     navbarEnabled: true,
-    navbarFixed: false,
+    navbarFixed: true,
     navbarExpanded: false,
     navbarSkin: SKIN_LIGHT,
     sidebarEnabled: false,
     sidebarStyle: SIDEBAR_STYLE_DEFAULT,
-    sidebarFixed: false,
+    sidebarFixed: true,
     sidebarAside: false,
     sidebarAddon: SIDEBAR_ADDON_AVATAR_AND_STATS,
     sidebarSkin: SKIN_DARK,
