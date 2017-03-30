@@ -5,54 +5,58 @@ import { BASE_URL } from 'consts/apis';
 export const PROFILE_POSTING = 'PROFILE_POSTING';
 export const PROFILE_SUCCESS = 'PROFILE_SUCCESS';
 export const PROFILE_FAILURE = 'PROFILE_FAILURE';
-const PROFILE_REQUEST = `${BASE_URL}/profile/`;
-const authToken = localStorage.getItem('access_token')
 
 // actions
-const profileRequest = (profileInfo, profile_id) => (
+const profileRequest = (profileInfo, profile_id, access_token) => (
   {
-    method: 'post',
-    url: `${PROFILE_REQUEST}/${profile_id}`,
+    method: 'patch',
+    url: `${BASE_URL}/profiles/${profile_id}`,
     header: {
       'Content-Type': 'application/json',
-      'Authorization': authToken
+      'Authorization': access_token
     },
     data: JSON.stringify({ profile: profileInfo })
   }
 );
 
-export const postUserProfile = profileInfo => {
+export const postUserProfile = (profileInfo, profile_id, access_token) => {
   return dispatch => {
     dispatch(postingProfile())
-    return axios(profileRequest(profileInfo, profile_id))
+    return axios(profileRequest(profileInfo, profile_id, access_token))
     .then(
-      response => dispatch(profileSuccess(response.data))
+      response => console.log('res', response)
+      //response => dispatch(profileSuccess(response.data))
     ).catch(
     error => dispatch(profileFailure(error.response.data.errorMessage))
     )
   }
 }
 
-const postingProfile = () => (
+const postingProfile = () => {
+return (
   {
     type: PROFILE_POSTING
   }
 )
+}
 
-const profileSuccess = response => (
+const profileSuccess = response => {
+  return (
   {
     type: PROFILE_SUCCESS,
     response
   }
 )
+}
 
-const profileFailure = error => (
+const profileFailure = error => {
+  return (
   {
     type: PROFILE_FAILURE,
     error
   }
 )
-
+}
 // reducer
 const reducer = (state = {}, action) => {
   switch(action.type) {

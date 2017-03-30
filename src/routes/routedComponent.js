@@ -19,11 +19,11 @@ export class RoutedComponent extends React.Component{
         }
 
         // Apply the layout settings from the ones provided in the URL
-        //if(this.props.location.query) {
-            //const urlSettings = _.mapObject(this.props.location.query,
-                //val => autocast(val));
-            //this.props.setLayoutSettingsSafe(urlSettings);
-        //}
+        if(this.props.location.query) {
+            const urlSettings = _.mapObject(this.props.location.query,
+                val => autocast(val));
+            this.props.setLayoutSettingsSafe(urlSettings);
+        }
     }
 }
 

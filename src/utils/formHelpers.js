@@ -14,7 +14,7 @@ export const checkValidation = (values, fields) => {
   }
   if(values.password && values.password.length < 8) {
     errors.password = 'Password must be at least 8 characters'
-  } else if(values.password && !/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/.test(values.password)) {
+  } else if(values.password && !/^(?=.*\d)(?=.*[a-z]).{8,}$/.test(values.password)) {
     errors.password = 'Password should contain atleast one number and one capital letter'
   }
   if (values.creditCardNumber && values.creditCardNumber.length < 16) {

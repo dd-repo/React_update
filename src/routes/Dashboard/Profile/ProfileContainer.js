@@ -34,15 +34,23 @@ class ProfileContainer extends RoutedComponent {
     reader.readAsDataURL(file)
 
     reader.onload = event => {
-      this.setState({...this.state, base64: event.target.result})
+      this.setState({...this.state, avatarBase64: event.target.result})
     }
     reader.onerror = function(event) {
       console.log(`File could not be read! code ${event.target.error}`)
     }
   }
 
-  submitForm(data) {
+  buildParams() {
+    return {
+      profile: {
+        avatar: 'base64string'
+      }
+    }
+  }
 
+  submitForm(data) {
+    this.props.postUserProfile(this.buildParams(), 3, data.access_token)
   }
 
   render() {
