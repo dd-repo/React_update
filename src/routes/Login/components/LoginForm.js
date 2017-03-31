@@ -1,8 +1,8 @@
 import React, { PropTypes } from 'react';
 import { Field, reduxForm } from 'redux-form';
+import _ from 'lodash';
 
 import { connect } from 'routes/routedComponent';
-import { checkValidation } from 'utils/formHelpers';
 import {
     FormGroup,
     FormControl
@@ -24,7 +24,13 @@ const fields = {
   }
 }
 const validate = values => {
-  return checkValidation(values, fields)
+  const errors = {}
+  _.each(fields, (type, field) => {
+    if(!values[field]) {
+      errors[field] = `Please enter your ${type.label}`
+    }
+  })
+  return errors;
 }
 
 const renderInput = ({ label, input, placeHolder, type, maxLength, meta: { touched, error, warning } }) => {
@@ -64,14 +70,13 @@ const renderFields = () => {
   })
 }
 
-let LoginForm = ({ submitForm, handleSubmit, invalid, submitting }) => {
+let LoginForm = ({ submitForm, handleSubmit }) => {
 
   return (
     <form onSubmit={handleSubmit(submitForm)}>
       {renderFields()}
       <button
         className='btn btn-primary m-b-2'
-        disabled={invalid || submitting}
         action="submit"
       >
         Login

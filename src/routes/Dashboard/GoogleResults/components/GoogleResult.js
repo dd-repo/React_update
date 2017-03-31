@@ -20,7 +20,7 @@ const GoogleResult = ( { result } ) => {
             </a>
           </h4>
           <a href={result.friendly_url} className='text-success m-r-2'>
-            { result.friendly_url }
+            { result.url }
           </a>
           <p className='m-y-1'>
             { result.description }
