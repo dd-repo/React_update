@@ -26,7 +26,7 @@ const renderInput = ({ input, type }) => {
   )
   }
 
-const ProfileForm = ({ submitForm, handleSubmit, onImageUpload, avatar }) => {
+const ProfileForm = ({ submitForm, handleSubmit, onImageUpload, avatar, driverLicense }) => {
   return (
     <Form onSubmit={handleSubmit(submitForm)} horizontal>
       <FormGroup>
@@ -36,16 +36,36 @@ const ProfileForm = ({ submitForm, handleSubmit, onImageUpload, avatar }) => {
         <Col sm={6}>
           <Field
             name='avatar'
+            label='Avatar'
+            height={ 140 }
+            width={ 140 }
+            shape='circle'
             component={Upload}
-            avatar={avatar}
+            image={avatar}
             onImageUpload={onImageUpload}
           />
         </Col>
       </FormGroup>
       <FormGroup>
         <Col componentClass={ControlLabel} sm={3}>
-          <span className='text-danger'> * </span>
-          First Name
+          Driver License
+        </Col>
+        <Col sm={6}>
+          <Field
+            name='driverLicense'
+            label='Driver license'
+            height={ 140 }
+            width={ 240 }
+            shape='rounded'
+            component={Upload}
+            image={driverLicense}
+            onImageUpload={onImageUpload}
+          />
+        </Col>
+      </FormGroup>
+      <FormGroup>
+        <Col componentClass={ControlLabel} sm={3}>
+        First name
         </Col>
         <Col sm={6}>
           <Field
@@ -58,6 +78,30 @@ const ProfileForm = ({ submitForm, handleSubmit, onImageUpload, avatar }) => {
       <FormGroup>
         <Col componentClass={ControlLabel} sm={3}>
           Last Name
+        </Col>
+        <Col sm={6}>
+          <Field
+            name='last_name'
+            type='text'
+            component={renderInput}
+          />
+        </Col>
+      </FormGroup>
+      <FormGroup>
+        <Col componentClass={ControlLabel} sm={3}>
+         Middle name
+        </Col>
+        <Col sm={6}>
+          <Field
+            name='first_name'
+            type='text'
+            component={renderInput}
+          />
+        </Col>
+      </FormGroup>
+      <FormGroup>
+        <Col componentClass={ControlLabel} sm={3}>
+          Maiden Name
         </Col>
         <Col sm={6}>
           <Field

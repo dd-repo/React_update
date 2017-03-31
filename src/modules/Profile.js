@@ -7,17 +7,20 @@ export const PROFILE_SUCCESS = 'PROFILE_SUCCESS';
 export const PROFILE_FAILURE = 'PROFILE_FAILURE';
 
 // actions
-const profileRequest = (profileInfo, profile_id, access_token) => (
+const profileRequest = (profileInfo, profile_id, access_token) => {
+  console.log('access_token', access_token)
+return (
   {
-    method: 'patch',
+    method: 'put',
     url: `${BASE_URL}/profiles/${profile_id}`,
-    header: {
+    headers: {
       'Content-Type': 'application/json',
-      'Authorization': access_token
+      'Authorization': '2:-UfKgzH3y9rEzwk6ryaE'
     },
     data: JSON.stringify({ profile: profileInfo })
   }
 );
+}
 
 export const postUserProfile = (profileInfo, profile_id, access_token) => {
   return dispatch => {

@@ -24,17 +24,20 @@ class ProfileContainer extends RoutedComponent {
     }
   }
 
-  onImageUpload(image) {
-    this.setState({avatar: image[0].preview});
-    this.getBase64(image[0])
+  onImageUpload(image, name) {
+    if(!image[0]) {
+      return
+    }
+    this.setState({[name]: image[0].preview});
+    this.getBase64(image[0], name)
   }
 
-  getBase64(file) {
+  getBase64(file, name) {
     let reader = new FileReader();
     reader.readAsDataURL(file)
 
     reader.onload = event => {
-      this.setState({...this.state, avatarBase64: event.target.result})
+      this.setState({...this.state, [`${name}Base64`]: event.target.result})
     }
     reader.onerror = function(event) {
       console.log(`File could not be read! code ${event.target.error}`)
@@ -43,14 +46,13 @@ class ProfileContainer extends RoutedComponent {
 
   buildParams() {
     return {
-      profile: {
-        avatar: 'base64string'
-      }
+      avatar: this.state.avatarBase64,
+      driverLicense: this.state.driverLicenseBase64
     }
   }
 
   submitForm(data) {
-    this.props.postUserProfile(this.buildParams(), 3, data.access_token)
+    this.props.postUserProfile(this.buildParams(), 1, data.access_token)
   }
 
   render() {
@@ -59,6 +61,7 @@ class ProfileContainer extends RoutedComponent {
         submitForm={this.submitForm}
         onImageUpload={this.onImageUpload}
         avatar={this.state.avatar}
+        driverLicense={this.state.driverLicense}
       />
     )
   }

@@ -7,7 +7,7 @@ import { Colors } from 'consts';
 
 import classes from './Profile.scss';
 
-const Profile = ({ submitForm, avatar, onImageUpload }) => {
+const Profile = ({ submitForm, avatar, driverLicense, onImageUpload }) => {
   return (
     <div>
         <Panel
@@ -20,6 +20,7 @@ const Profile = ({ submitForm, avatar, onImageUpload }) => {
           <ProfileForm
             submitForm={submitForm}
             avatar={avatar}
+            driverLicense={driverLicense}
             onImageUpload={onImageUpload}
           />
         </Panel>
