@@ -3,7 +3,16 @@ import React from 'react';
 import { FormGroup } from 'components';
 import classes from './keywords.scss';
 
-const DateOfBirthForm = ({ fields, renderField, handleSubmit, submitForm, invalid, submitting}) => {
+const DateOfBirthForm = (props) => {
+  const {
+    fields,
+    renderField,
+    handleSubmit,
+    submitForm,
+    invalid,
+    submitting
+  } = props
+
   return (
     <form onSubmit={handleSubmit(submitForm)}>
       <FormGroup>

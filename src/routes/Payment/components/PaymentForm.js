@@ -48,9 +48,25 @@ const fields = {
 const validate = values => {
   return checkValidation(values, fields)
 }
-const renderInput = ({ input, label, placeHolder, type, maxLength, meta: { touched, error, warning } }) => {
+const renderInput = (props) => {
+  const {
+    input,
+    label,
+    placeHolder,
+    type,
+    maxLength,
+    meta: { touched, error, warning }
+  } = props
 
-  let message = touched && (error && <span className='text-danger'><strong>Opps!</strong> {error}</span>)
+  let message = touched &&
+    (
+      error && <span className='text-danger'>
+        <strong>
+          Opps!
+        </strong>
+      {error}
+    </span>
+    )
   let validationState = touched && ( error && 'error') || null
 
   return (
@@ -90,7 +106,17 @@ const renderErrorMessage = (error) => (
     </p>
 )
 
-let PaymentForm = ({ submitForm, errorMessage, planType, price, handleSubmit, invalid, submitting }) => {
+let PaymentForm = (props) => {
+  const {
+    submitForm,
+    errorMessage,
+    planType,
+    price,
+    handleSubmit,
+    invalid,
+    submitting
+  } = props
+
  return(
     <form onSubmit={handleSubmit(submitForm)}>
       {renderField()}
