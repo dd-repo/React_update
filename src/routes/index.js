@@ -7,11 +7,23 @@ import ROUTES from './routes';
 /*  Note: Instead of using JSX, we recommend using react-router
     PlainRoute objects to build route definitions.   */
 
+const authTransition = (store, nextState, replace) => {
+  const state = store.getState()
+  const loggedIn = !!state.currentUser.access_token
+  const pathname = nextState.location.pathname
+  if(pathname.includes('/dashboard')) {
+    !loggedIn && replace('/login')
+  }
+}
+
 export const createRoutes = (store) => ({
     path: '/',
     component: DefaultLayout,
     indexRoute: Home,
-    childRoutes: ROUTES
+    childRoutes: ROUTES,
+    onEnter: (nextState, replace) => {
+      authTransition(store, nextState, replace)
+    }
 })
 
 /*  Note: childRoutes can be chunked or otherwise loaded programmatically

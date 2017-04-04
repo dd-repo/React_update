@@ -1,4 +1,3 @@
-import authenticate from 'utils/authenticate'
 export default [
     {
         path: '/',
@@ -54,7 +53,6 @@ export default [
     {
       path: '/dashboard',
         //[>  Async WebPack code split  <]
-        onEnter: () => { authenticate },
         getComponent: (nextState, cb) => {
             require.ensure([], require => {
               cb(null, require('./Dashboard/GoogleResults').default);

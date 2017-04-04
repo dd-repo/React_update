@@ -24,11 +24,7 @@ class GoogleResultsContainer extends RoutedComponent {
   }
 
   componentWillMount() {
-    this.state.isLoggedIn ? (
-      this.isInitialRendering && this.getResults(this.props.keywords.all[0])
-    ) : (
-    this.context.router.push('/login')
-    )
+    this.getResults(this.props.keywords.all[0])
   }
 
   isInitialRendering() {
