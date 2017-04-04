@@ -15,7 +15,7 @@ const GoogleResult = ( { result } ) => {
       <Col lg={10}>
         <div className={ classes.searchResultDefault }>
           <h4 className='m-b-0'>
-            <a href={result.title} target='_blank'>
+            <a href={result.url} target='_blank'>
               { result.title }
             </a>
           </h4>
