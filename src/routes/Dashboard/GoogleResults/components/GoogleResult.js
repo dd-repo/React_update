@@ -15,11 +15,11 @@ const GoogleResult = ( { result } ) => {
       <Col lg={10}>
         <div className={ classes.searchResultDefault }>
           <h4 className='m-b-0'>
-            <a href='javascript:void(0)'>
+            <a href={result.title} target='_blank'>
               { result.title }
             </a>
           </h4>
-          <a href={result.friendly_url} className='text-success m-r-2'>
+          <a href={result.url} target='_blank' className='text-success m-r-2'>
             { result.url }
           </a>
           <p className='m-y-1'>
