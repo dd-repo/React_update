@@ -80,7 +80,6 @@ const reducer = (state = {}, action) => {
     case KEYWORD_FAILURE:
       return Object.assign({}, state, {
         isFetching: false,
-        success: false
       });
     case CURRENT_KEYWORD_ADD:
       return Object.assign({}, state, {

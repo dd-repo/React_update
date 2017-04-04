@@ -15,15 +15,15 @@ export const getGoogleResults = (params, authToken) => {
     .then(
       response => dispatch(googleResultSuccess(response.data))
     ).catch(
-    error => dispatch(googleResultFailure(error.response.data.errorMessage))
+    error => dispatch(googleResultFailure())
     )
   }
 }
 
 const googleSearchRequest = ( {pageNum, keyword_id, account_id}, authToken) => {
-  const config = { headers: { 'Authorization': authToken } }
-  return axios.get(
-    `${BASE_URL}/accounts/${account_id}/keywords/${keyword_id}/search_results/${pageNum}`, config
+  let request = axios.create({ baseURL: BASE_URL, timeout: 15000, headers: {'Authorization': authToken} });
+  return request.get(
+    `/accounts/${account_id}/keywords/${keyword_id}/search_results/${pageNum}`
   );
 }
 
@@ -61,7 +61,8 @@ const reducer = (state = {}, action) => {
       });
     case GOOGLE_RESULTS_FAILURE:
       return Object.assign({}, state, {
-        failure: action.error
+        isFetching: false,
+        results: null
       })
     default:
       return state

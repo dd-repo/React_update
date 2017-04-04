@@ -1,4 +1,5 @@
 import React from 'react';
+
 import Loading from 'react-loading';
 
 import { RoutedComponent, connect } from 'routes/routedComponent';
@@ -24,15 +25,11 @@ class GoogleResultsContainer extends RoutedComponent {
   }
 
   componentWillMount() {
-    this.state.isLoggedIn ? (
-      this.isInitialRendering && this.getResults(this.props.keywords.all[0])
-    ) : (
+    this.state.isLoggedIn
+      ?
+      this.getResults(this.props.keywords.all[0])
+     :
     this.context.router.push('/login')
-    )
-  }
-
-  isInitialRendering() {
-    !this.props.currentKeyword
   }
 
   getLayoutOptions() {
@@ -61,7 +58,7 @@ class GoogleResultsContainer extends RoutedComponent {
 
   componentWillReceiveProps(nextProps) {
     !nextProps.googleResults.isFetching &&
-      setTimeout(() => this.setState({isFetching: false}), 2000)
+      setTimeout(() => this.setState({isFetching: false}), 1500)
   }
 
   render() {
