@@ -37,15 +37,18 @@ class SignupContainer extends RoutedComponent {
     .catch(error => { console.log('error user signup', error) })
   }
 
+  persistDataToLocalStorage(user) {
+    user.phone_number = '808-555-5555'
+    user.password = 'password12';
+    persistData(user, 'currentUser');
+    persistData(user.accounts, 'accounts');
+  }
+
   doNext(res) {
     switch(res.type) {
       case USER_SIGNUP_SUCCESS:
         this.context.router.push('/payment-info');
-        res.userData.phone_number = '123-123-1234';
-        res.userData.password = 'password12';
-
-        persistData(res.userData, 'currentUser');
-        persistData(res.userData.accounts, 'accounts');
+        this.persistDataToLocalStorage(res.userData)
         break;
       case USER_SIGNUP_FAILURE:
         this.setState({errorMessage: res.error});

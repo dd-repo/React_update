@@ -34,7 +34,6 @@ export default [
     },
     {
       path: '/payment-info',
-        ////[>  Async WebPack code split  <]
         getComponent: (nextState, cb) => {
             require.ensure([], require => {
                 cb(null, require('./Payment').default);
@@ -43,7 +42,6 @@ export default [
     },
     {
         path: '/keywords',
-        //[>  Async WebPack code split  <]
         getComponent: (nextState, cb) => {
             require.ensure([], require => {
               cb(null, require('./Keywords').default);
@@ -52,7 +50,6 @@ export default [
     },
     {
       path: '/dashboard',
-        //[>  Async WebPack code split  <]
         getComponent: (nextState, cb) => {
             require.ensure([], require => {
               cb(null, require('./Dashboard/GoogleResults').default);
@@ -61,22 +58,20 @@ export default [
     },
     {
       path: '/dashboard/profile',
-      //[>  Async WebPack code split  <]
       getComponent: (nextState, cb) => {
         require.ensure([], require => {
           cb(null, require('./Dashboard/Profile').default);
         }, 'dashboard-profile');
       }
     },
-    //{
-        //path: '/start/financial',
-        //[>  Async WebPack code split  <]
-        //getComponent: (nextState, cb) => {
-            //require.ensure([], require => {
-                //cb(null, require('./Financial').default);
-            //}, 'start-financial');
-        //}
-    //},
+    {
+        path: '/dashboard/privacy',
+        getComponent: (nextState, cb) => {
+            require.ensure([], require => {
+              cb(null, require('./Dashboard/Monitoring').default);
+            }, 'dashboard-monitoring');
+        }
+    },
     //{
         //path: '/start/system',
         //[>  Async WebPack code split  <]

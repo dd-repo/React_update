@@ -36,15 +36,21 @@ class LoginContainer extends RoutedComponent {
     .catch(error => { console.log('error user Login', error) })
   }
 
+  persistDataToLocalStorage(data) {
+    const { keywords, user, accounts } = data
+    const keywordList = {all: keywords, currentKeyword: keywords[0]}
+    user.password = 'password12'
+
+    persistData(keywordList, 'keywords')
+    persistData(user, 'currentUser');
+    persistData(accounts, 'accounts');
+  }
+
   doNext(res) {
     switch(res.type) {
       case USER_LOGIN_SUCCESS:
         this.context.router.push('/dashboard');
-        // this code is just for testing purposes
-        res.userData.password = 'password12';
-
-        persistData(res.userData, 'currentUser');
-        persistData(res.userData.accounts, 'accounts');
+        this.persistDataToLocalStorage(res.userData)
         break;
       case USER_LOGIN_FAILURE:
         console.log('login fail', res.error)
