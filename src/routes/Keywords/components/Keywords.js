@@ -14,7 +14,6 @@ import classes from './keywords.scss';
 import AddressForm from './AddressForm';
 import DateOfBirthForm from './DateOfBirthForm';
 import logo from 'static/logos/logo-small.png';
-//import ProgressIndicator from './ProgressIndicator';
 
 const fields = {
   address: {
@@ -124,10 +123,10 @@ let Keywords = ({ errorMessage, currentForm, handleSubmit, invalid, submitting, 
                 )}
                 footer={(
                   <div>
-                    <Link to='/pages/forgot-password'>
+                    <Link to='/forgot-password'>
                       Forgot Password?
                     </Link>
-                    <Link to='/pages/login' className='pull-right'>
+                    <Link to='/login' className='pull-right'>
                       Login
                     </Link>
                   </div>
@@ -163,10 +162,10 @@ Keywords = reduxForm({
   validate                // <--- validation function given to redux-form
 })(Keywords);
 
-Keywords = connect(
-  state => ({
-    initialValues: state.keywords.all[0]
-  })
-)(Keywords)
+//Keywords = connect(
+  //state => ({
+    //initialValues: state.keywords.all[0]
+  //})
+//)(Keywords)
 
 export default Keywords;

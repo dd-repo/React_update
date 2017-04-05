@@ -1,5 +1,6 @@
-import axios from 'axios'
-import { BASE_URL } from 'consts/apis'
+import axios from 'axios';
+import { BASE_URL } from 'consts/apis';
+import { PAYMENT_SUCCESS } from './payment';
 
 // constants
 export const USER_SIGNUP_SUCCESS = 'USER_SIGNUP_SUCCESS';
@@ -112,7 +113,8 @@ const reducer = (state = {}, action) => {
         email: action.userData.email,
         access_token: action.userData.access_token,
         isFetching: false,
-        account_id: action.userData.accounts[0].id
+        account_id: action.userData.accounts[0].id,
+        role: action.userData.role
       });
     case USER_LOGIN_POSTING:
       return Object.assign({}, state, {
@@ -126,7 +128,8 @@ const reducer = (state = {}, action) => {
         email: action.userData.user.email,
         access_token: action.userData.user.access_token,
         isFetching: false,
-        account_id: action.userData.accounts[0].id
+        account_id: action.userData.accounts[0].id,
+        role: action.userData.user.role
       });
     case USER_LOGIN_FAILURE:
       return Object.assign({}, state, {
@@ -137,6 +140,10 @@ const reducer = (state = {}, action) => {
       return Object.assign({}, state, {
         id: undefined,
         access_token: undefined
+      });
+    case PAYMENT_SUCCESS:
+      return Object.assign({}, state, {
+        role: action.response.user.role
       });
     default:
       return state

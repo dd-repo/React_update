@@ -24,11 +24,10 @@ class GoogleResultsContainer extends RoutedComponent {
   }
 
   componentWillMount() {
-    this.getResults(this.props.keywords.all[0])
-  }
-
-  isInitialRendering() {
-    !this.props.currentKeyword
+    this.props.keywords.all.length > 0 ?
+      this.getResults(this.props.keywords.all[0])
+        :
+          this.context.router.push('/keywords')
   }
 
   getLayoutOptions() {

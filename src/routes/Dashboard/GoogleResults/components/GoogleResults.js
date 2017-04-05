@@ -21,7 +21,18 @@ import GoogleResult from './GoogleResult';
 import renderSection from 'modules/sectionRender';
 import { CONTENT_VIEW_STATIC } from 'layouts/DefaultLayout/modules/layout';
 
-const GoogleResults = ({ results, keywords, getResults, getNextPage, isFetching, pageNum=1 }) => {
+const GoogleResults = (props) => {
+  const {
+    results,
+    keywords,
+    getResults,
+    getNextPage,
+    isFetching,
+    pageNum = 1
+  } = props
+
+  const currentKeyword = keywords.currentKeyword ? keywords.currentKeyword.value : ''
+
   return (
     <Row>
       <Pagination
@@ -52,15 +63,15 @@ const GoogleResults = ({ results, keywords, getResults, getNextPage, isFetching,
             <div className='container'>
               <div className="spinner">
                 <div className="col-md-12 pricing-left">
-                  <p>Retrieving your google results for <strong>{keywords.currentKeyword.value}</strong></p>
+                  <p>Retrieving your google results for <strong>{currentKeyword}</strong></p>
                   <Loading type='bubbles' color='white' />
                 </div>
               </div>
             </div>
             :
-          results.map((result, i) => (
-            <GoogleResult result={result} key={i} />
-            ))
+              results.map((result, i) => (
+                <GoogleResult result={result} key={i} />
+                ))
         }
       </Col>
     </Row>

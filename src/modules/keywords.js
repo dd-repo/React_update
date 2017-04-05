@@ -59,7 +59,7 @@ const keywordSuccess = keywords => (
 
 const keywordFailure = error => (
   {
-    type: FAILURE,
+    type: KEYWORD_FAILURE,
     error
   }
 );
