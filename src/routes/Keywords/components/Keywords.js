@@ -50,30 +50,61 @@ const validate = values => {
   return checkValidation(values, fields)
 }
 
-const renderInput = ({ input, label, type, maxLength, field, meta: { touched, error, warning } }) => (
-  <div>
-    <input {...input}
-      className="form-control input-group-lg reg_name"
-      placeholder={label}
+const renderInput = (props) => {
+  const {
+    input,
+    label,
+    type,
+    maxLength,
+    field,
+    meta: { touched, error, warning }
+  } = props
+
+  return (
+    <div>
+      <input {...input}
+        className="form-control input-group-lg reg_name"
+        placeholder={label}
+        maxLength={maxLength}
+        type={type}/>
+      {warning && <span>{warning}</span>}
+      {touched && ((error && <span className='alert-danger'>{error}</span>) )}
+    </div>
+  )
+}
+
+const renderField = (props) => {
+  const {
+    name,
+    type,
+    label,
+    maxLength,
+    normalize
+  } = props
+
+  return (
+    <Field
+      name={name}
+      type={type}
+      label={label}
+      component={renderInput}
+      normalize={normalize}
       maxLength={maxLength}
-      type={type}/>
-    {warning && <span>{warning}</span>}
-    {touched && ((error && <span className='alert-danger'>{error}</span>) )}
-  </div>
-)
+    />
+  )
+}
 
-const renderField = ({name, type, label, maxLength, normalize}) => (
-  <Field
-    name={name}
-    type={type}
-    label={label}
-    component={renderInput}
-    normalize={normalize}
-    maxLength={maxLength}
-  />
-)
+let Keywords = (props) => {
+  const {
+    errorMessage,
+    currentForm,
+    handleSubmit,
+    invalid,
+    submitting,
+    renderNextForm,
+    submitForm
+  } = props
 
-let Keywords = ({ errorMessage, currentForm, handleSubmit, invalid, submitting, renderNextForm, submitForm }) => {
   const error = (
     <p className="alert-danger">
       {errorMessage}

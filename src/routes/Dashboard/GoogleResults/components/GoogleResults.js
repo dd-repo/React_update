@@ -4,6 +4,7 @@ import { Link } from 'react-router';
 //import uid from 'node-uuid';
 
 import {
+    Alert,
     Row,
     Col,
     Panel,
@@ -57,6 +58,7 @@ const GoogleResults = (props) => {
         <Divider className='m-t-3 m-b-2'>
           All Results
         </Divider>
+
         {
           isFetching
           ?
@@ -69,10 +71,22 @@ const GoogleResults = (props) => {
               </div>
             </div>
             :
-              results.map((result, i) => (
-                <GoogleResult result={result} key={i} />
-                ))
+
+              !results
+                ?
+                  <Alert bsStyle='danger' noBackground>
+                    <h5 className='m-y-0'>Oh Snap!</h5>
+                    <p className='m-b-1'>
+                      Could not retreive your search results.
+                    </p>
+                    <Button bsStyle="danger" onClick={() => getResults(keywords.currentKeyword)}>Try again</Button>
+                  </Alert>
+                  :
+                    results.map((result, i) => (
+                      <GoogleResult result={result} key={i} />
+                      ))
         }
+
       </Col>
     </Row>
   )

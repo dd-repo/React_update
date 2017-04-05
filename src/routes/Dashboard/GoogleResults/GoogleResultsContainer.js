@@ -1,4 +1,5 @@
 import React from 'react';
+
 import Loading from 'react-loading';
 
 import { RoutedComponent, connect } from 'routes/routedComponent';
@@ -24,6 +25,7 @@ class GoogleResultsContainer extends RoutedComponent {
   }
 
   componentWillMount() {
+
     this.props.keywords.all.length > 0 ?
       this.getResults(this.props.keywords.all[0])
         :
@@ -56,7 +58,7 @@ class GoogleResultsContainer extends RoutedComponent {
 
   componentWillReceiveProps(nextProps) {
     !nextProps.googleResults.isFetching &&
-      setTimeout(() => this.setState({isFetching: false}), 2000)
+      setTimeout(() => this.setState({isFetching: false}), 1500)
   }
 
   render() {

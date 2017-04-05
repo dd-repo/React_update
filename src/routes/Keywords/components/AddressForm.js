@@ -14,7 +14,17 @@ const dropDownSelect = ({ input }) => (
     }
   </FormControl>
 )
-const AddressForm = ({ Field, fields, renderField, handleSubmit, renderNextForm, invalid, submitting}) => {
+const AddressForm = (props) => {
+  const {
+    Field,
+    fields,
+    renderField,
+    handleSubmit,
+    renderNextForm,
+    invalid,
+    submitting
+  } = props
+
   return (
     <form onSubmit={handleSubmit(renderNextForm)}>
       <FormGroup>
