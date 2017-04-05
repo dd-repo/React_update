@@ -58,15 +58,15 @@ class KeywordContainer extends RoutedComponent {
   doNext(res) {
     switch(res.type) {
       case KEYWORD_SUCCESS:
-        this.context.router.push('/dashboard')
         const keywordList = {all: res.keywords, currentKeyword: res.keywords[0]}
         persistData(keywordList, 'keywords')
+        this.context.router.push('/dashboard')
         break;
-      case FAILURE:
+      case KEYWORD_FAILURE:
         this.setState({ errorMessage: res.error });
         break;
       default:
-        this.props.router.push('/users/account/protect-date-of-birth')
+        this.props.router.push('/keywords')
     }
   }
 

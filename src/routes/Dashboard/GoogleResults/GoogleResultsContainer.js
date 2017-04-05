@@ -25,11 +25,11 @@ class GoogleResultsContainer extends RoutedComponent {
   }
 
   componentWillMount() {
-    this.state.isLoggedIn
-      ?
+
+    this.props.keywords.all.length > 0 ?
       this.getResults(this.props.keywords.all[0])
-     :
-    this.context.router.push('/login')
+        :
+          this.context.router.push('/keywords')
   }
 
   getLayoutOptions() {
