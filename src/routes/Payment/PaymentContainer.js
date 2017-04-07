@@ -69,6 +69,7 @@ class PaymentContainer extends RoutedComponent {
     switch(res.type) {
       case PAYMENT_SUCCESS:
         this.setState({ paymentSuccess: true });
+        persistData(res.user, 'currentUser');
         break;
       case PAYMENT_FAILURE:
         this.setState({ errorMessage: res.error });

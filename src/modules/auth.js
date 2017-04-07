@@ -21,19 +21,19 @@ export const logoutUser = () => (
 
 )
 
-const request = (userInfo, userRequest) => {
+const request = (data, userRequest) => {
   return {
     method: 'post',
     url: userRequest,
     headers: {'Content-Type': 'application/json'},
-    data: JSON.stringify({ user: userInfo })
+    data: JSON.stringify({ user: data })
   }
 }
 
-export const postUserSignup = (userInfo) => {
+export const postUserSignup = (data) => {
   return dispatch => {
-    dispatch(postingUserSignup(userInfo))
-    return axios(request(userInfo, SIGNUP_REQUEST))
+    dispatch(postingUserSignup(data))
+    return axios(request(data, SIGNUP_REQUEST))
     .then(
       response => dispatch(receiveUserSignup(response.data))
     ).catch(
@@ -43,30 +43,30 @@ export const postUserSignup = (userInfo) => {
   }
 }
 
-export const postUserLogin = (userInfo) => {
+export const postUserLogin = (data) => {
   return dispatch => {
-    dispatch(postingUserLogin(userInfo))
-    return axios(request(userInfo, LOGIN_REQUEST))
+    dispatch(postingUserLogin())
+    return axios(request(data, LOGIN_REQUEST))
     .then(
       response => dispatch(receiveUserLogin(response.data))
     ).catch(
     error =>
-      dispatch(receiveUserLoginError(error.response.data.errorMessage))
+      dispatch(receiveUserLoginError(error.response))
     )
   }
 }
 
-const postingUserSignup = userInfo => (
+const postingUserSignup = data => (
   {
     type: USER_SIGNUP_POSTING,
-    userInfo
+    data
   }
 );
 
-const receiveUserSignup = userData => (
+const receiveUserSignup = data => (
   {
     type: USER_SIGNUP_SUCCESS,
-    userData
+    data
   }
 );
 
@@ -77,17 +77,16 @@ const receiveUserSignupError = error => (
   }
 );
 
-const postingUserLogin = userInfo => (
+const postingUserLogin = () => (
   {
     type: USER_LOGIN_POSTING,
-    userInfo
   }
 );
 
-const receiveUserLogin = userData => (
+const receiveUserLogin = data => (
   {
     type: USER_LOGIN_SUCCESS,
-    userData
+    data
   }
 )
 
@@ -107,14 +106,14 @@ const reducer = (state = {}, action) => {
       });
     case USER_SIGNUP_SUCCESS:
       return Object.assign({}, state, {
-        id: action.userData.id,
-        first_name: action.userData.first_name,
-        last_name: action.userData.last_name,
-        email: action.userData.email,
-        access_token: action.userData.access_token,
+        id: action.data.id,
+        first_name: action.data.first_name,
+        last_name: action.data.last_name,
+        email: action.data.email,
+        access_token: action.data.access_token,
         isFetching: false,
-        account_id: action.userData.accounts[0].id,
-        role: action.userData.role
+        account_id: action.data.accounts[0].id,
+        role: action.data.role
       });
     case USER_LOGIN_POSTING:
       return Object.assign({}, state, {
@@ -122,14 +121,14 @@ const reducer = (state = {}, action) => {
       });
     case USER_LOGIN_SUCCESS:
       return Object.assign({}, state, {
-        id: action.userData.user.id,
-        first_name: action.userData.user.first_name,
-        last_name: action.userData.user.last_name,
-        email: action.userData.user.email,
-        access_token: action.userData.user.access_token,
+        id: action.data.user.id,
+        first_name: action.data.user.first_name,
+        last_name: action.data.user.last_name,
+        email: action.data.user.email,
+        access_token: action.data.user.access_token,
         isFetching: false,
-        account_id: action.userData.accounts[0].id,
-        role: action.userData.user.role
+        account_id: action.data.user.accounts[0].id,
+        role: action.data.user.role
       });
     case USER_LOGIN_FAILURE:
       return Object.assign({}, state, {
@@ -143,7 +142,7 @@ const reducer = (state = {}, action) => {
       });
     case PAYMENT_SUCCESS:
       return Object.assign({}, state, {
-        role: action.response.user.role
+        role: action.user.role
       });
     default:
       return state
