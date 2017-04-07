@@ -2,7 +2,11 @@ import React from 'react';
 
 import { RoutedComponent, connect } from 'routes/routedComponent';
 import Profile from './components/Profile';
-import { postUserProfile } from 'modules/profile';
+import {
+  PROFILE_UPDATE_SUCCESS,
+  PROFILE_UPDATE_FAILURE
+} from 'modules/profile';
+import { postUserProfile, getProfile } from 'modules/profile';
 import { CONTENT_VIEW_STATIC } from 'layouts/DefaultLayout/modules/layout';
 
 class ProfileContainer extends RoutedComponent {
@@ -14,6 +18,7 @@ class ProfileContainer extends RoutedComponent {
     this.onImageUpload = this.onImageUpload.bind(this);
     this.getBase64 = this.getBase64.bind(this);
   }
+
   getLayoutOptions() {
     return {
       contentView: CONTENT_VIEW_STATIC,
@@ -44,15 +49,39 @@ class ProfileContainer extends RoutedComponent {
     }
   }
 
-  buildParams() {
+  buildParams(data) {
     return {
       avatar: this.state.avatarBase64,
-      driverLicense: this.state.driverLicenseBase64
+      driverLicense: this.state.driverLicenseBase64,
+      first_name: data.first_name,
+      last_name: data.last_name,
+      middle_name: data.middle_name,
+      maiden_name: data.maiden_name
     }
   }
 
   submitForm(data) {
-    this.props.postUserProfile(this.buildParams(), 1, data.access_token)
+    this.props.postUserProfile(this.buildParams(data), this.props.profile.id, data.access_token)
+    .then( res => { this.doNext(res) })
+    .catch(error => { console.log('error profile update', error) })
+  }
+
+  doNext(res) {
+    switch(res.type) {
+      case PROFILE_UPDATE_SUCCESS:
+        this.props.getProfile(
+          this.props.profile.id,
+          this.props.currentUser.access_token
+        )
+        break;
+      case PROFILE_UPDATE_FAILURE:
+        this.setState({
+          errorMessage: res.error.data.errorMessage
+        })
+        break;
+      default:
+       return null;
+    }
   }
 
   render() {
@@ -68,11 +97,13 @@ class ProfileContainer extends RoutedComponent {
 }
 
 const mapStateToProps = state => ({
+  currentUser: state.currentUser,
   profile: state.profile
 });
 
 const mapActionCreators = {
-  postUserProfile
+  postUserProfile,
+  getProfile
 }
 
 export default connect(mapStateToProps, mapActionCreators)(ProfileContainer);
