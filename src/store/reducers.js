@@ -9,6 +9,7 @@ import keywords from 'modules/keywords';
 import googleResults from 'modules/googleResults';
 import accounts from 'modules/accounts';
 import profile from 'modules/profile';
+import monitoring from 'modules/monitoring';
 // for testing purposes
 import loggedInUser from 'modules/loggedInUser';
 
@@ -26,6 +27,7 @@ export const makeRootReducer = (asyncReducers) => {
     loggedInUser,
     layout,
     profile,
+    monitoring,
     router,
     form,
     notifications,

@@ -5,6 +5,7 @@ import Loading from 'react-loading';
 import { RoutedComponent, connect } from 'routes/routedComponent';
 import GoogleResults from './components/GoogleResults';
 import { getGoogleResults } from 'modules/googleResults';
+import { getMonitoring } from 'modules/monitoring';
 import { addCurrentKeyword } from 'modules/keywords';
 import { CONTENT_VIEW_STATIC } from 'layouts/DefaultLayout/modules/layout';
 
@@ -25,7 +26,6 @@ class GoogleResultsContainer extends RoutedComponent {
   }
 
   componentWillMount() {
-
     this.props.keywords.all.length > 0 ?
       this.getResults(this.props.keywords.all[0])
         :
@@ -47,12 +47,11 @@ class GoogleResultsContainer extends RoutedComponent {
   }
 
   getResults(keyword, pageNum = '1') {
-    const account_id = this.props.currentUser.account_id
+    const { account_id, access_token } = this.props.currentUser
     const keyword_id = keyword.id
     const params = { pageNum, keyword_id, account_id }
-    const authToken = this.props.currentUser.access_token
     this.props.addCurrentKeyword(keyword)
-    this.props.getGoogleResults(params, authToken);
+    this.props.getGoogleResults(params, access_token);
     this.setState({ isFetching: true, pageNum: parseInt(pageNum) })
   }
 

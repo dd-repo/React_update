@@ -18,10 +18,10 @@ const CONFIG = [
         icon: 'fa fa-google fa-lg',
     },
     {
-        slug: 'Privacy Guard',
-        title: 'Privacy Guard',
+        slug: 'Privacy',
+        title: 'Privacy',
         icon: 'fa fa-shield fa-lg',
-        url: '/dashboard/privacy-guard'
+        url: '/dashboard/privacy'
     },
     {
         slug: 'Alerts',

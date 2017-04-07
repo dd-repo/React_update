@@ -55,12 +55,16 @@ class KeywordContainer extends RoutedComponent {
     .catch(error => { console.log(error) });
   }
 
+  persistDataToLocalStorage(keywords) {
+    const keywordList = {all: keywords, currentKeyword: keywords[0]}
+    persistData(keywordList, 'keywords')
+  }
+
   doNext(res) {
     switch(res.type) {
       case KEYWORD_SUCCESS:
-        const keywordList = {all: res.keywords, currentKeyword: res.keywords[0]}
-        persistData(keywordList, 'keywords')
         this.context.router.push('/dashboard')
+        this.persistDataToLocalStorage(res.keywords)
         break;
       case KEYWORD_FAILURE:
         this.setState({ errorMessage: res.error });

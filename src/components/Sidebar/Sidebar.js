@@ -156,6 +156,7 @@ class Sidebar extends React.Component {
                         className={ classes.sidebarScroll }
                         active={ (this.props.fixed && this.props.style === SIDEBAR_STYLE_DEFAULT) }
                     >
+
                         {
                             this.props.header && React.cloneElement(this.props.header, {
                                 className: `${ this.props.header } sidebar-overlay-head`

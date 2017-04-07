@@ -4,7 +4,7 @@ export const persistData = (state, selector) => {
       const serializedState = JSON.stringify(formatedState)
       localStorage.setItem([selector], serializedState)
     } catch (err) {
-      console.log('error in saveState function')
+      console.log('error in saveState function', err)
     }
 }
 
@@ -34,7 +34,8 @@ const formatState = (state, selector) => {
         email: state.email,
         access_token: state.access_token,
         isFetching: false,
-        account_id: state.accounts[0].id
+        account_id: state.accounts[0].id,
+        role: state.role
       }
       case 'accounts':
         return {
