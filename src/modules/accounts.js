@@ -6,7 +6,7 @@ const reducer = (state = [], action) => {
   switch(action.type) {
     case USER_SIGNUP_SUCCESS:
       return Object.assign({}, state, {
-        accounts: action.data.user.accounts
+        accounts: action.data.accounts
       });
     case USER_LOGIN_SUCCESS:
       return Object.assign({}, state, {

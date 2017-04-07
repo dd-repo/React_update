@@ -38,8 +38,10 @@ class SignupContainer extends RoutedComponent {
   }
 
   persistDataToLocalStorage(user) {
+    // testing purposes
     user.phone_number = '808-555-5555'
     user.password = 'password12';
+
     persistData(user, 'currentUser');
     persistData(user.accounts, 'accounts');
   }
@@ -48,7 +50,7 @@ class SignupContainer extends RoutedComponent {
     switch(res.type) {
       case USER_SIGNUP_SUCCESS:
         this.context.router.push('/payment-info');
-        this.persistDataToLocalStorage(res.userData)
+        this.persistDataToLocalStorage(res.data)
         break;
       case USER_SIGNUP_FAILURE:
         this.setState({errorMessage: res.error});
