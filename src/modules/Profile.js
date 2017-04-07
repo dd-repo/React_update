@@ -8,7 +8,6 @@ export const PROFILE_FAILURE = 'PROFILE_FAILURE';
 
 // actions
 const profileRequest = (profileInfo, profile_id, access_token) => {
-  console.log('access_token', access_token)
 return (
   {
     method: 'put',
@@ -27,8 +26,7 @@ export const postUserProfile = (profileInfo, profile_id, access_token) => {
     dispatch(postingProfile())
     return axios(profileRequest(profileInfo, profile_id, access_token))
     .then(
-      response => console.log('res', response)
-      //response => dispatch(profileSuccess(response.data))
+      response => dispatch(profileSuccess(response.data))
     ).catch(
     error => dispatch(profileFailure(error.response.data.errorMessage))
     )

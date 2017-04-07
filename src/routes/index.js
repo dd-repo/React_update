@@ -16,18 +16,23 @@ const handleRouteOnEnter = (store, nextState, replace) => {
 }
 
 const authTransition = (store, nextState, replace) => {
-  const state = store.getState()
-  const user = state.currentUser
-  const loggedIn = !!user.access_token
-  const client = user.role === 'client'
-  //const keywords = state.keywords.all > 0
   const pathname = nextState.location.pathname
+
   if(pathname.includes('/dashboard')) {
-    !loggedIn && replace('/login')
-    loggedIn && !client && replace('/payment-info')
-    //loggedIn && !keywords && replace('/keywords')
+    validateUser(store, replace)
   }
 }
+
+const validateUser = (store, replace) => {
+  const { currentUser } = store.getState()
+  const { access_token, role } = currentUser
+  const client = role === 'client'
+  //const loggedIn = !!currentUser.access_token
+
+  !access_token && replace('/login')
+  access_token && !client && replace('/payment-info')
+}
+
 
 export const createRoutes = (store) => ({
     path: '/',

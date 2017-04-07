@@ -50,10 +50,9 @@ class LoginContainer extends RoutedComponent {
     switch(res.type) {
       case USER_LOGIN_SUCCESS:
         this.context.router.push('/dashboard');
-        this.persistDataToLocalStorage(res.userData)
+        this.persistDataToLocalStorage(res.data.user)
         break;
       case USER_LOGIN_FAILURE:
-        console.log('login fail', res.error)
         this.setState({errorMessage: res.error});
         break;
       default:

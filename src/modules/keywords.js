@@ -87,8 +87,8 @@ const reducer = (state = {}, action) => {
       });
     case USER_LOGIN_SUCCESS:
       return Object.assign({}, state, {
-        all: action.userData.keywords,
-        currentKeyword: action.userData.keywords[0],
+        all: action.data.account.keywords,
+        currentKeyword: action.data.account.keywords[0],
         isFetching: false,
       });
     default:

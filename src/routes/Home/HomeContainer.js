@@ -2,6 +2,7 @@ import React from 'react';
 import Home from './components/HomeView';
 
 import { RoutedComponent, connect } from 'routes/routedComponent';
+import { persistData } from 'localStorage';
 import { addPlan } from 'modules/planSelection';
 import { CONTENT_VIEW_STATIC } from 'layouts/DefaultLayout/modules/layout';
 
@@ -28,6 +29,7 @@ class HomeContainer extends RoutedComponent {
     handleClick(type, price) {
       let plan = {type, price}
       this.props.addPlan(plan);
+      persistData(plan, 'planSelection')
       this.context.router.push('/signup');
     }
 

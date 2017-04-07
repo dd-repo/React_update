@@ -6,11 +6,11 @@ const reducer = (state = [], action) => {
   switch(action.type) {
     case USER_SIGNUP_SUCCESS:
       return Object.assign({}, state, {
-        accounts: action.userData.accounts
+        accounts: action.data.user.accounts
       });
     case USER_LOGIN_SUCCESS:
       return Object.assign({}, state, {
-        accounts: action.userData.accounts
+        accounts: action.data.user.accounts
       });
     default:
       return state
