@@ -1,5 +1,3 @@
-import dashboardChildRoutes from './dashboardChildRoutes';
-
 export default [
   // Home
     {

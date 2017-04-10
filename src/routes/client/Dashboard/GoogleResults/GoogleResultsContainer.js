@@ -19,7 +19,6 @@ class GoogleResultsContainer extends RoutedComponent {
 
     this.getResults = this.getResults.bind(this);
     this.getNextPage = this.getNextPage.bind(this);
-    console.log('child routes', this.props)
   }
 
   static contextTypes = {
