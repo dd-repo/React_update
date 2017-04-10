@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react';
 import { Field, reduxForm } from 'redux-form';
+import Loading from 'react-loading';
 
 import { connect } from 'routes/routedComponent';
 import {
@@ -12,6 +13,7 @@ import {
   FormGroup,
   FormControl
 } from 'components';
+import classes from './payment.scss';
 
 const fields = {
   first_name: {
@@ -83,6 +85,7 @@ const renderInput = (props) => {
   )
 }
 
+
 const renderField = () => {
   const fieldKeys = Object.keys(fields)
   return fieldKeys.map(function(key, i) {
@@ -100,10 +103,18 @@ const renderField = () => {
     )
   })
 }
+
+const renderStatus = isFetching => {
+ return isFetching ?
+     "Submitting Subscription..."
+     :
+       "Start Subscription"
+}
+
 const renderErrorMessage = (error) => (
-    <p className="alert-danger">
-      {error}
-    </p>
+  <p className="alert-danger">
+    {error}
+  </p>
 )
 
 let PaymentForm = (props) => {
@@ -114,7 +125,8 @@ let PaymentForm = (props) => {
     price,
     handleSubmit,
     invalid,
-    submitting
+    submitting,
+    isFetching
   } = props
 
  return(
@@ -126,7 +138,7 @@ let PaymentForm = (props) => {
       <button className="btn btn-success"
         disabled={invalid || submitting}
         action="submit">
-        Start Subscription
+          {renderStatus(isFetching)}
       </button>
     </form>
   )

@@ -59,7 +59,10 @@ class PaymentContainer extends RoutedComponent {
   submitForm(formProps) {
     let authToken = this.props.currentUser.access_token
     let params = this.buildParams(formProps)
+
     persistData(formProps, 'paymentStatus');
+    this.setState({isFetching: true})
+
     this.props.postPayment(params, authToken)
     .then(res => { this.doNext(res) })
     .catch(error => { console.log('error in payment submit', error) })
@@ -68,11 +71,11 @@ class PaymentContainer extends RoutedComponent {
   doNext(res) {
     switch(res.type) {
       case PAYMENT_SUCCESS:
-        this.setState({ paymentSuccess: true });
+        this.setState({ paymentSuccess: true, isFetching: false });
         persistData(res.user, 'currentUser');
         break;
       case PAYMENT_FAILURE:
-        this.setState({ errorMessage: res.error.data.errorMessage });
+        this.setState({ errorMessage: res.error.data.errorMessage, isFetching: false });
         break;
       default:
         return null
@@ -85,7 +88,9 @@ class PaymentContainer extends RoutedComponent {
         submitForm={this.submitForm}
         planType={this.props.planSelection.type}
         price={this.props.planSelection.price}
-        errorMessage={this.state.errorMessage} />
+        errorMessage={this.state.errorMessage}
+        isFetching={this.state.isFetching}
+        />
     } else {
       return  <PaymentComplete
         router={this.context.router}
