@@ -50,8 +50,8 @@ export const getProfile = (profile_id, authToken) => {
   return dispatch => {
     return axios(profileGetRequest(profile_id, authToken))
     .then(
-      //response => dispatch(profileGetSuccess(response.data))
-      response => console.log('profile response', response)
+      response => dispatch(profileGetSuccess(response.data))
+      //response => console.log('profile response', response)
     ).catch(
     error => dispatch(profileGetFailure(error.response))
     )
