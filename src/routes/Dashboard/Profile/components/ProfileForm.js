@@ -93,7 +93,7 @@ const ProfileForm = ({ submitForm, handleSubmit, onImageUpload, avatar, driverLi
         </Col>
         <Col sm={6}>
           <Field
-            name='first_name'
+            name='middle_name'
             type='text'
             component={renderInput}
           />
@@ -105,7 +105,7 @@ const ProfileForm = ({ submitForm, handleSubmit, onImageUpload, avatar, driverLi
         </Col>
         <Col sm={6}>
           <Field
-            name='last_name'
+            name='maiden_name'
             type='text'
             component={renderInput}
           />

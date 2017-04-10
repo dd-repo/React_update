@@ -68,6 +68,7 @@ const initialState = {
   planSelection: loadPersistedData('planSelection') || defaultPlan,
   keywords: loadPersistedData('keywords') || defaultKeywords,
   accounts: loadPersistedData('accounts'),
+  profile: loadPersistedData('profile'),
   loggedInUser: defaultLoggedInUser
 }
 

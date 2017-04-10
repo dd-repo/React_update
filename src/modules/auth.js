@@ -38,7 +38,7 @@ export const postUserSignup = (data) => {
       response => dispatch(receiveUserSignup(response.data))
     ).catch(
     error =>
-      dispatch(receiveUserSignupError(error.response.data.errorMessage))
+      dispatch(receiveUserSignupError(error))
     )
   }
 }
@@ -133,7 +133,7 @@ const reducer = (state = {}, action) => {
     case USER_LOGIN_FAILURE:
       return Object.assign({}, state, {
         idFetching: false,
-        error: action.error
+        error: action.error.data.errorMessage
       });
     case USER_LOGOUT:
       return Object.assign({}, state, {

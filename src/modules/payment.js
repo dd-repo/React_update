@@ -28,7 +28,8 @@ export const postPayment = (paymentInfo, authToken) => {
     .then(
       response => dispatch(paymentSuccess(response.data))
     ).catch(
-    error => console.log('error', error)
+    //error => console.log('error', error)
+    error => paymentFailure(error)
     )
   }
 }
