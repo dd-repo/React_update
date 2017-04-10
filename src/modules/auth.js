@@ -49,6 +49,7 @@ export const postUserLogin = (data) => {
     return axios(request(data, LOGIN_REQUEST))
     .then(
       response => dispatch(receiveUserLogin(response.data))
+      //response => console.log('response', response.data)
     ).catch(
     error =>
       dispatch(receiveUserLoginError(error.response))

@@ -123,13 +123,16 @@ const reducer = (state = {}, action) => {
 
       })
     case USER_LOGIN_SUCCESS:
-      return Object.assign({}, state, {
-        avatar: action.data.account.profile.avatar,
-        driver_license: action.data.account.profile.driver_license,
-        id: action.data.account.profile.id,
-        maiden_name: action.data.account.profile.maiden_name,
-        middle_name: action.data.account.profile.middle_name
-      })
+      if(action.data.account.profile) {
+        return Object.assign({}, state, {
+          avatar: action.data.account.profile.avatar,
+          driver_license: action.data.account.profile.driver_license,
+          id: action.data.account.profile.id,
+          maiden_name: action.data.account.profile.maiden_name,
+          middle_name: action.data.account.profile.middle_name
+        })
+        return state
+      }
     default:
       return state
   }
