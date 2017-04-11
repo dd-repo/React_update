@@ -48,8 +48,8 @@ class GoogleResultsContainer extends RoutedComponent {
   }
 
   handleRemoval(id) {
-    const authToken = this.props.currentUser.access_token
-    this.props.requestRemoval(id, authToken)
+    //const authToken = this.props.currentUser.access_token
+    //this.props.requestRemoval(id, authToken)
   }
 
   getResults(keyword, pageNum = '1') {
@@ -91,7 +91,8 @@ const mapStateToProps = state => {
 
 const mapActionCreators = {
   getGoogleResults,
-  addCurrentKeyword
+  addCurrentKeyword,
+  requestRemoval
 }
 
 export default connect(mapStateToProps, mapActionCreators)(GoogleResultsContainer);
