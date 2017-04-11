@@ -11,17 +11,16 @@ export const PROFILE_GET_FAILURE = 'PROFILE_GET_FAILURE';
 
 // actions
 const profilePutRequest = (profileInfo, profile_id, access_token) => {
-return (
-  {
-    method: 'put',
-    url: `${BASE_URL}/profiles/${profile_id}`,
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': access_token
-    },
-    data: JSON.stringify({ profile: profileInfo })
-  }
-);
+  return (
+    {
+      method: 'put',
+      url: `${BASE_URL}/profiles/${profile_id}`,
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': access_token
+      },
+      data: JSON.stringify({ profile: profileInfo })
+    });
 }
 
 const profileGetRequest = (profile_id, authToken) => {

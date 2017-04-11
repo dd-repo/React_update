@@ -1,7 +1,9 @@
 import React from 'react';
+import _ from 'underscore';
 
 import { RoutedComponent, connect } from 'routes/routedComponent';
-import { getMonitoring } from 'modules/monitoring';
+import { MONITORING_UPDATE_SUCCESS, MONITORING_UPDATE_FAILURE } from 'modules/monitoring';
+import { getMonitoring, requestRemoval } from 'modules/monitoring';
 import Monitoring from './components/Monitoring';
 import { CONTENT_VIEW_STATIC } from 'layouts/DefaultLayout/modules/layout';
 
@@ -11,18 +13,6 @@ class MonitoringContainer extends RoutedComponent {
     this.state = {siteIds: [], isFetching: true }
 
     this.handleClick = this.handleClick.bind(this);
-  }
-
-  componentWillMount() {
-    const { account_id, access_token } = this.props.currentUser
-    this.props.getMonitoring(account_id, access_token)
-}
-
-  componentWillReceiveProps(nextProps) {
-    nextProps.monitoring.isFetching !== this.state.isFetching &&
-      this.setState({
-        isFetching: nextProps.monitoring.isFetching,
-      });
   }
 
   getLayoutOptions() {
@@ -35,16 +25,51 @@ class MonitoringContainer extends RoutedComponent {
     }
   }
 
+  componentWillMount() {
+    this.fetchMonitoringRequests()
+}
+
+  fetchMonitoringRequests() {
+    const { account_id, access_token } = this.props.currentUser
+    this.props.getMonitoring(account_id, access_token)
+  }
+
+  componentWillReceiveProps(nextProps) {
+    nextProps.monitoring.isFetching !== this.state.isFetching &&
+      this.setState({
+        isFetching: nextProps.monitoring.isFetching,
+      });
+  }
+
   handleClick(siteId) {
-    this.setState(prevState => ({
-      siteIds: [...prevState.siteIds, siteId],
-    }));
+    const { access_token } = this.props.currentUser
+    this.setState({ isFetching: true })
+    this.props.requestRemoval(siteId, access_token)
+    .then( res => { this.doNext(res) })
+    .catch( error => { console.log('error in monitoring removal', error) })
+  }
+
+  doNext(res) {
+    switch(res.type) {
+      case MONITORING_UPDATE_SUCCESS:
+        this.fetchMonitoringRequests();
+        break;
+        case MONITORING_UPDATE_FAILURE:
+          this.setState({ isFetching: false });
+          break;
+        default:
+          return null;
+    }
+  }
+
+  orderMonitoringSites() {
+    return _.sortBy( this.props.monitoring.sites, 'id' )
   }
 
   render() {
     return (
       <Monitoring
-        monitoringSites={this.props.monitoring.sites}
+        monitoringSites={this.orderMonitoringSites()}
         siteIds={this.state.siteIds}
         handleClick={this.handleClick}
         isFetching={this.state.isFetching}
@@ -61,7 +86,8 @@ const mapStateToProps = state => {
 }
 
 const mapActionCreators = {
-  getMonitoring
+  getMonitoring,
+  requestRemoval
 }
 
 export default connect(mapStateToProps, mapActionCreators)(MonitoringContainer);
