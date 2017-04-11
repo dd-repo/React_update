@@ -29,6 +29,7 @@ const GoogleResults = (props) => {
     getResults,
     getNextPage,
     isFetching,
+    handleRemoval,
     pageNum = 1
   } = props
 
@@ -83,7 +84,11 @@ const GoogleResults = (props) => {
                   </Alert>
                   :
                     results.map((result, i) => (
-                      <GoogleResult result={result} key={i} />
+                      <GoogleResult
+                        result={result}
+                        key={i}
+                        handleRemoval={handleRemoval}
+                      />
                       ))
         }
 

@@ -27,6 +27,17 @@ const googleSearchRequest = ( {pageNum, keyword_id, account_id}, authToken) => {
   );
 }
 
+export const requestRemoval = (id, authToken) => {
+  return dispatch => {
+    return(googleSearchRemovalRequest(id, authToken))
+  }
+}
+
+const googleSearchRemovalRequest = (id, authToken) => {
+  let request = axios.create({ baseURL: BASE_URL, headers: {'Authorization': authToken} });
+  return request.post('/removal_requests', {'request': {'search_result_id': id}})
+}
+
 const gettingGoogleResults = () => (
   {
     type: GOOGLE_RESULTS_POSTING

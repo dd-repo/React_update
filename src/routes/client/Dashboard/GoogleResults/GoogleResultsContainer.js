@@ -4,8 +4,8 @@ import Loading from 'react-loading';
 
 import { RoutedComponent, connect } from 'routes/routedComponent';
 import GoogleResults from './components/GoogleResults';
-import { getGoogleResults } from 'modules/googleResults';
 import { getMonitoring } from 'modules/monitoring';
+import { getGoogleResults, requestRemoval } from 'modules/googleResults';
 import { addCurrentKeyword } from 'modules/keywords';
 import { CONTENT_VIEW_STATIC } from 'layouts/DefaultLayout/modules/layout';
 
@@ -19,6 +19,7 @@ class GoogleResultsContainer extends RoutedComponent {
 
     this.getResults = this.getResults.bind(this);
     this.getNextPage = this.getNextPage.bind(this);
+    this.handleRemoval = this.handleRemoval.bind(this);
   }
 
   static contextTypes = {
@@ -46,6 +47,11 @@ class GoogleResultsContainer extends RoutedComponent {
     this.getResults(this.props.keywords.currentKeyword, pageNum)
   }
 
+  handleRemoval(id) {
+    const authToken = this.props.currentUser.access_token
+    this.props.requestRemoval(id, authToken)
+  }
+
   getResults(keyword, pageNum = '1') {
     const { account_id, access_token } = this.props.currentUser
     const keyword_id = keyword.id
@@ -69,6 +75,7 @@ class GoogleResultsContainer extends RoutedComponent {
           getResults={this.getResults}
           getNextPage={this.getNextPage}
           pageNum={this.state.pageNum}
+          handleRemoval={this.handleRemoval}
         />
     )
   }
