@@ -80,15 +80,15 @@ export default [
         }
     },
 
-    // admin dashboard
-    //{
-      //path: '/admin/dashboard',
-        //getComponent: (nextState, cb) => {
-            //require.ensure([], require => {
-              //cb(null, require('./admin/Dashboard').default);
-            //}, 'admin-dashboard');
-        //}
-    //},
+     //admin dashboard
+    {
+      path: '/admin/dashboard',
+        getComponent: (nextState, cb) => {
+            require.ensure([], require => {
+              cb(null, require('./admin/Dashboard/Monitoring').default);
+            }, 'admin-dashboard');
+        }
+    },
     {
         path: '*',
         component: require('./Pages/NotFound').default

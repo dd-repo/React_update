@@ -49,10 +49,18 @@ class LoginContainer extends RoutedComponent {
     persistData(profile, 'profile');
   }
 
+  transitionBasedOnUserRole({ user }) {
+    user.role === 'admin'
+      ?
+        this.context.router.push('admin/dashboard')
+          :
+            this.context.router.push('/dashboard')
+  }
+
   doNext(res) {
     switch(res.type) {
       case USER_LOGIN_SUCCESS:
-        this.context.router.push('/dashboard');
+        this.transitionBasedOnUserRole(res.data)
         this.persistDataToLocalStorage(res.data)
         break;
       case USER_LOGIN_FAILURE:
