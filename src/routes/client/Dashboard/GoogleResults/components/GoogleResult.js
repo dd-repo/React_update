@@ -4,10 +4,11 @@ import { Row, Col, Button, Divider } from 'components'
 
 import classes from './googleResults.scss';
 
-const GoogleResult = ( { result } ) => {
+const GoogleResult = ( { result, handleRemoval } ) => {
+
   const renderRemovalButton = (
     result.listing_site_id &&
-      <Button bsStyle='danger'>Remove</Button>
+      <Button bsStyle='danger' disabled={false} onClick={() => handleRemoval(result.id)}>Request Removal</Button>
   )
 
   return (
