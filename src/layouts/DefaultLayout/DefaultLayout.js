@@ -481,9 +481,9 @@ class DefaultLayout extends React.Component {
 
                 <Footer fluid={ !staticFootNavContainer }>
                     <p className="text-gray-dark">
-                        <strong className="m-r-1">SPIN Dashboard </strong>
-                        <span className="text-gray-dark">© 2009 - 2016. Made by
-                        <i className="fa fa-fw fa-heart text-danger"></i> New York, US</span>
+                        <strong className="m-r-1">Blitz Monitoring </strong>
+                        <span className="text-gray-dark">© 2009 - 2017. Made by
+                        <i className="fa fa-fw fa-heart text-danger"></i> Denver, US</span>
                     </p>
                 </Footer>
 

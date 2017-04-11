@@ -10,29 +10,18 @@ import {
 
 const Monitoring = props => {
   const { monitoringSites, handleClick, siteIds, isFetching } = props
-  const firstThree = siteIds.slice(0, 3)
-  let labelStatus;
 
-  const getStatus = id => {
-    if(_.contains(firstThree, id)) {
-      labelStatus = 'danger'
-      return 'requested'
-    }else if(_.contains(siteIds, id)) {
-      labelStatus = 'info'
-      return 'in queue'
-    }else{
-      labelStatus = null
-      return 'pending'
-    }
-  }
+  const statusLabel = {
+    'requested': 'danger',
+    'queued': 'info',
+  };
 
   const renderMonitoringSites = monitoring => {
-      const { id, site } = monitoring
+      const { id, site, status } = monitoring
       const siteURL = `http://www.${site}`
       const friendlyURL = `www.${site}`
       const title = site.slice(0, -4)
-      const status = getStatus(id)
-      const clicked = ( _.contains(siteIds, id) )
+      const clicked =  status !== 'pending'
 
       return (
         <tr className='bg-gray-darker' key={id}>
@@ -49,7 +38,7 @@ const Monitoring = props => {
             <Label
               outline
               className='text-uppercase'
-              bsStyle={labelStatus}>
+              bsStyle={statusLabel[status]}>
               { status }
             </Label>
           </td>

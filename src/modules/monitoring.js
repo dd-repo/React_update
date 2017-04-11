@@ -6,6 +6,8 @@ import { BASE_URL } from 'consts/apis';
 export const MONITORING_PENDING = 'MONITORING_PENDING';
 export const MONITORING_SUCCESS = 'MONITORING_SUCCESS';
 export const MONITORING_FAILURE = 'MONITORING_FAILURE';
+export const MONITORING_UPDATE_SUCCESS = 'MONITORING_UPDATE_SUCCESS';
+export const MONITORING_UPDATE_FAILURE = 'MONITORING_UPDATE_FAILURE';
 
 //actions
 export const getMonitoring = (account_id, authToken) => {
@@ -20,12 +22,52 @@ export const getMonitoring = (account_id, authToken) => {
   }
 }
 
+export const requestRemoval = (request_id, authToken) => {
+  return dispatch => {
+    return axios(removalRequest(request_id, authToken))
+    .then(
+      response => dispatch(removalRequestSuccess(response.status))
+    ).catch(
+    error => dispatch(removalRequestFailure(error))
+    )
+  }
+}
+
+const removalRequest = (request_id, authToken) => {
+  return (
+    {
+      method: 'patch',
+      url: `${BASE_URL}/monitoring/${request_id}`,
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': authToken
+      },
+      data: JSON.stringify({ request_status: 'requested' })
+    });
+}
+
 const monitoringRequest = (account_id, authToken) => {
-  let request = axios.create({baseURL: BASE_URL, headers: {'Authorization': authToken} });
+  let request = axios.create({
+    baseURL: BASE_URL,
+    headers: {'Authorization': authToken}
+  });
+
   return request.get(
     `/accounts/${account_id}/monitoring`
   );
 }
+
+const removalRequestSuccess = () => (
+  {
+    type: MONITORING_UPDATE_SUCCESS,
+  }
+)
+
+const removalRequestFailure = () => (
+  {
+    type: MONITORING_UPDATE_FAILURE
+  }
+)
 
 const gettingMonitoring = () => (
   {
