@@ -71,6 +71,7 @@ const animateCloseNode = (nodeElement, cbComplete, cbStart, animationSettings) =
 class Menu extends React.Component {
     static propTypes = {
         currentUrl: PropTypes.string,
+        currentUserRole: PropTypes.string.isRequired,
         sidebarStyle: PropTypes.string,
         onHeightChange: PropTypes.func,
 
@@ -140,7 +141,7 @@ class Menu extends React.Component {
 
     setSidebarNodesHighlights(url) {
         if(this.props.currentUrl) {
-            const activeNodes = findActiveNodes(SIDEBAR_CONFIG, url);
+            const activeNodes = findActiveNodes(SIDEBAR_CONFIG(this.props.currentUserRole), url);
 
             this.setState(Object.assign({}, this.state,
                 { activeNodes, expandedNodes: activeNodes }));
@@ -266,7 +267,7 @@ class Menu extends React.Component {
     render() {
         return (
             <ul className="side-menu">
-                { this.generateRootNodes(SIDEBAR_CONFIG) }
+                { this.generateRootNodes(SIDEBAR_CONFIG(this.props.currentUserRole)) }
             </ul>
         );
     }
