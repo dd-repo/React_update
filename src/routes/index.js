@@ -18,19 +18,22 @@ const handleRouteOnEnter = (store, nextState, replace) => {
 const authTransition = (store, nextState, replace) => {
   const pathname = nextState.location.pathname
 
-  if(pathname.includes('/dashboard')) {
-    validateUser(store, replace)
+  if(pathname.startsWith('/dashboard')) {
+    validateClient(store, replace)
+  }
+
+  if(pathname.startsWith('/admin/dashboard')) {
   }
 }
 
-const validateUser = (store, replace) => {
+const validateClient = (store, replace) => {
   const { currentUser } = store.getState()
   const { access_token, role } = currentUser
-  const client = role === 'client'
-  //const loggedIn = !!currentUser.access_token
+  const prospect = role === 'prospect'
 
   !access_token && replace('/login')
-  access_token && !client && replace('/payment-info')
+  access_token && prospect && replace('/payment-info')
+  //access_token && admin && replace('/admin/dashboard')
 }
 
 

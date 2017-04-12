@@ -10,7 +10,7 @@ import { CONTENT_VIEW_STATIC } from 'layouts/DefaultLayout/modules/layout';
 class MonitoringContainer extends RoutedComponent {
   constructor(props) {
     super(props)
-    this.state = {siteIds: [], isFetching: true }
+    this.state = { isFetching: true }
 
     this.handleClick = this.handleClick.bind(this);
   }
