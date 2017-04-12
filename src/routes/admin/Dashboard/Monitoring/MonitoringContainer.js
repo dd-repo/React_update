@@ -13,10 +13,10 @@ class AdminMonitoringContainer extends RoutedComponent {
   getLayoutOptions() {
     return {
       contentView: CONTENT_VIEW_STATIC,
-      sidebarEnabled: true,
+      sidebarEnabled: false,
       navbarEnabled: true,
       footerEnabled: true,
-      headerEnabled: true
+      headerEnabled: false
     }
   }
 
