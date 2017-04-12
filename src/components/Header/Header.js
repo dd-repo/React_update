@@ -99,7 +99,7 @@ const headers = {
 };
 
 const Header = (props) => {
-    const path = findActiveNodes(ROUTES_STRUCTURE, props.currentUrl);
+    const path = findActiveNodes(ROUTES_STRUCTURE(props.currentUserRole), props.currentUrl);
     const { title } = (path && path.length > 0) ? path[0] : '';
 
     return headers[props.style](title, path, props.fluid, props.children);
@@ -109,7 +109,8 @@ Header.propTypes = {
     currentUrl: React.PropTypes.string.isRequired,
     style: React.PropTypes.string.isRequired,
     fluid: React.PropTypes.bool.isRequired,
-    children: React.PropTypes.node
+    children: React.PropTypes.node,
+    currentUserRole: React.PropTypes.string.isRequired
 }
 
 Header.defaultProps = {

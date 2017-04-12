@@ -10,7 +10,8 @@ import _ from 'underscore';
 import { getMenuEntries as getSkinMenuEntries } from './Skins';
 import { getMenuEntries as getSidebarsMenuEntries } from './Sidebars';
 
-const CONFIG = [
+const CONFIGS = {
+  'client': [
     {
         slug: 'Google Results',
         title: 'Google Results',
@@ -42,11 +43,13 @@ const CONFIG = [
         title: 'Preferences',
         icon: 'fa fa-cog fa-lg',
         url: 'dashboard/preferences'
-    },
-];
+    }
+],
+  'admin': []
+}
 
 // Add keys to the sidebar definitions
-const assignKeys = (input, level = 0) => _.map(input, (def) => {
+const assignKeys = (input, level = 0) => _.map(CONFIGS[input], (def) => {
     const newObj = { key: uuid.v4(), subMenuLevel: level };
     if(def.children) {
         newObj.children = assignKeys(def.children, level + 1);
@@ -105,4 +108,4 @@ export function findSectionBySlug(nodes, slugName) {
     return _.findWhere(sections, { slug: slugName });
 }
 
-export default assignKeys(CONFIG);
+export default assignKeys;

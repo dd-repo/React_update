@@ -95,7 +95,7 @@ import {
 
 import rightSidebarDataRaw from 'consts/data/right-sidebar.json';
 
-const titleBase = 'SPIN (React) - ';
+const titleBase = 'Blitz Monitoring ';
 
 const sidebarAddOns = {
     [SIDEBAR_ADDON_PROGRESS]: (props) => ( <SidebarAddOns.ProgressAddOn { ...props } /> ),
@@ -160,6 +160,8 @@ class DefaultLayout extends React.Component {
     }
 
     render() {
+      const isClient = !this.props.currentUser.role === 'client'
+      const isAdmin = this.props.currentUser.role === 'admin'
       const profileUser = {
         name: `${this.props.currentUser.first_name} ${this.props.currentUser.last_name}`,
         avatar: defaultAvatar
@@ -284,55 +286,86 @@ class DefaultLayout extends React.Component {
                                 </Nav>
 
                                 { /* ============= Right Nav ============== */ }
-                                  <Navbar.Text className='visible-xs text-uppercase m-y-0'>
-                                    Your Profile
+                                <Navbar.Text className='visible-xs text-uppercase m-y-0'>
+                                  Your Profile
                                 </Navbar.Text>
                                 <Nav pullRight>
                                   { /* <NotificationsDropdown /> */ }
                                   { /*  <MessagesDropdown /> */ }
-                                    <NavDropdown
+                                  {
+                                    isClient && (
+                                      <NavDropdown
                                         title={
-                                            <div className={ classes.buttonUser }>
-                                                <span className="m-r-1 v-a-m">
-                                                    { profileUser.name }
-                                                </span>
-                                                <AvatarImage
-                                                    size='small'
-                                                    src={ profileUser.avatar }
-                                                    style={{
-                                                        width: '19px',
-                                                        height: '19px'
-                                                    }}
-                                                />
-                                            </div>
-                                        }
-                                        id="user-profile-dropdown"
-                                        eventKey={ 3 }
-                                        noCaret
-                                    >
-                                        <MenuItem
+                                          <div className={ classes.buttonUser }>
+                                            <span className="m-r-1 v-a-m">
+                                              { profileUser.name }
+                                            </span>
+                                            <AvatarImage
+                                              size='small'
+                                              src={ profileUser.avatar }
+                                              style={{
+                                                width: '19px',
+                                                height: '19px'
+                                              }}
+                                            />
+                                          </div>
+                                          }
+                                          id="user-profile-dropdown"
+                                          eventKey={ 3 }
+                                        >
+                                          <MenuItem
                                             header
                                             className='text-uppercase hidden-xs'
-                                        >
+                                          >
                                             <strong className='text-gray-lighter'>
-                                                Account
+                                              Account
                                             </strong>
-                                        </MenuItem>
-                                        <MenuItem divider className='hidden-xs'/>
-                                        <LinkContainer to='/dashboard/profile'>
+                                          </MenuItem>
+                                          <MenuItem divider className='hidden-xs'/>
+                                          <LinkContainer to='/dashboard/profile'>
                                             <MenuItem eventKey={3.1}>Your Profile</MenuItem>
-                                        </LinkContainer>
-                                        <LinkContainer to='#'>
+                                          </LinkContainer>
+                                          <LinkContainer to='/dashboard/settings'>
                                             <MenuItem eventKey={3.2}>Settings</MenuItem>
-                                        </LinkContainer>
-                                        <LinkContainer to='#'>
+                                          </LinkContainer>
+                                          <LinkContainer to='/dashboard/faq'>
                                             <MenuItem eventKey={3.3}>Faq</MenuItem>
-                                        </LinkContainer>
-                                        <MenuItem divider />
-                                        <LinkContainer to='/login'>
+                                          </LinkContainer>
+                                          <MenuItem divider />
+                                          <LinkContainer to='/login'>
                                             <MenuItem onClick={this.handleLogout} eventKey={3.4}>Sign Out</MenuItem>
-                                        </LinkContainer>
-                                    </NavDropdown>
+                                          </LinkContainer>
+                                        </NavDropdown>
+                                        )
+                                  }
+                                  {
+                                    isAdmin && (
+                                      <NavDropdown
+                                        title={
+                                          <div className={ classes.buttonUser }>
+                                            <span className="m-r-1 v-a-m">
+                                              { profileUser.name }
+                                            </span>
+                                          </div>
+                                          }
+                                          id="user-profile-dropdown"
+                                          eventKey={ 3 }
+                                        >
+                                          <MenuItem
+                                            header
+                                            className='text-uppercase hidden-xs'
+                                          >
+                                            <strong className='text-gray-lighter'>
+                                              Account
+                                            </strong>
+                                          </MenuItem>
+                                          <MenuItem divider className='hidden-xs'/>
+                                          <LinkContainer to='/login'>
+                                            <MenuItem onClick={this.handleLogout} eventKey={3.4}>Sign Out</MenuItem>
+                                          </LinkContainer>
+                                        </NavDropdown>
+                                    )
+                                  }
                                 { /*
                                     <NavItem
                                         onClick={ () => this.props.toggleRightSidebar() }
@@ -352,6 +385,7 @@ class DefaultLayout extends React.Component {
                         onClickOutside={ () => { this.props.toggleOverlaySidebarOpen(false) } }
                         excludedElements={ [sidebarTriggerRef] }
                     >
+                      { isAdmin ? (
                         <Sidebar
                             className='p-b-3'
                             affixOffset={ this.props.navbarEnabled ? 50 : 0 }
@@ -381,8 +415,46 @@ class DefaultLayout extends React.Component {
                             </div>
                               <Sidebar.Menu
                                 currentUrl={ this.props.location.pathname }
+                                currentUserRole={ this.props.currentUser.role }
                             />
                         </Sidebar>
+                        )
+                        :
+                          (
+                        <Sidebar
+                            className='p-b-3'
+                            affixOffset={ this.props.navbarEnabled ? 50 : 0 }
+                            overlay={ this.props.currentScreenSize === SCREEN_SIZE_XS }
+                            overlayVisible={ this.props.overlaySidebarOpen }
+                            header={(
+                                <div>
+                                    <img src={ sidebarOverlayLogo } width={ 90 } alt="Logo" />
+                                    <a
+                                        href="javascript:void(0)"
+                                        className="sidebar-switch"
+                                        onClick={ () => this.props.toggleOverlaySidebarOpen(false) }
+                                    >
+                                        <i className="fa fa-times"></i>
+                                    </a>
+                                </div>
+                            )}
+                        >
+                            { /* Renders SidebarAddOn */ }
+                            <SidebarAddOns.AvatarAndStatsAddOn
+                              avatar={defaultAvatar}
+                              currentUser={this.props.currentUser}
+                              colorSidebar={this.props.sidebarSkin === SKIN_COLOR}
+                            />
+                            <div className='sidebar-default-visible text-muted small text-uppercase sidebar-section p-y-2'>
+                                <strong>Navigation</strong>
+                            </div>
+                              <Sidebar.Menu
+                                currentUrl={ this.props.location.pathname }
+                                currentUserRole={ this.props.currentUser.role }
+                            />
+                        </Sidebar>
+                          )
+                      }
                     </OutsideClick>
                 </Layout.Navigation>
 
@@ -398,6 +470,7 @@ class DefaultLayout extends React.Component {
                                 style={ this.props.headerStyle }
                                 fluid={ this.props.contentView !== CONTENT_VIEW_STATIC }
                                 currentUrl={ this.props.location.pathname }
+                                currentUserRole={ this.props.currentUser.role }
                             />
                             <Grid fluid={ this.props.contentView !== CONTENT_VIEW_STATIC }>
                                 { this.props.children }
