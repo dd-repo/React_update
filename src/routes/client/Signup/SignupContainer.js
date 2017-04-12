@@ -53,7 +53,7 @@ class SignupContainer extends RoutedComponent {
         this.persistDataToLocalStorage(res.data)
         break;
       case USER_SIGNUP_FAILURE:
-        this.setState({errorMessage: res.error});
+        this.setState({errorMessage: res.error.response.data.errorMessage});
         break;
       default:
         return null;

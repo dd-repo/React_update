@@ -64,7 +64,7 @@ class LoginContainer extends RoutedComponent {
         this.persistDataToLocalStorage(res.data)
         break;
       case USER_LOGIN_FAILURE:
-        this.setState({errorMessage: res.error.data.errorMessage});
+        this.setState({errorMessage: res.error.response.data.errorMessage});
         break;
       default:
         return null;
