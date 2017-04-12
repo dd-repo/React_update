@@ -75,7 +75,7 @@ class PaymentContainer extends RoutedComponent {
         persistData(res.user, 'currentUser');
         break;
       case PAYMENT_FAILURE:
-        this.setState({ errorMessage: res.error.data.errorMessage, isFetching: false });
+        this.setState({ errorMessage: res.error.response.data.errorMessage, isFetching: false });
         break;
       default:
         return null
