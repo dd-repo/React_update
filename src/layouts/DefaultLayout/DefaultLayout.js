@@ -160,7 +160,7 @@ class DefaultLayout extends React.Component {
     }
 
     render() {
-      const isClient = !this.props.currentUser.role === 'client'
+      const isClient = this.props.currentUser.role === 'client'
       const isAdmin = this.props.currentUser.role === 'admin'
       const profileUser = {
         name: `${this.props.currentUser.first_name} ${this.props.currentUser.last_name}`,
