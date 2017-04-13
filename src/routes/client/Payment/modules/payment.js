@@ -8,7 +8,7 @@ export const PAYMENT_FAILURE = 'PAYMENT_FAILURE';
 
 export const PAYMENT_REQUEST = `${BASE_URL}/users/sign-up/payment`;
 
-const authToken = localStorage.getItem('authToken')
+const authToken = localStorage.getItem('authToken');
 
 // actions
 const paymentRequest = paymentInfo => (

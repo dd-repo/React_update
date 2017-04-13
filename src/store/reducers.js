@@ -5,7 +5,6 @@ import { reducer as form } from 'redux-form';
 import planSelection from 'modules/planSelection';
 import currentUser from 'modules/auth';
 import accounts from 'modules/accounts';
-import authToken from 'modules/authToken';
 import payment from 'routes/client/Payment/modules/payment';
 import keywords from 'routes/client/Keywords/modules/keywords';
 import googleResults from 'routes/client/Dashboard/GoogleResults/modules/googleResults';
@@ -20,7 +19,6 @@ export const makeRootReducer = (asyncReducers) => {
   return combineReducers({
     // Add sync reducers here
     accounts,
-    authToken,
     currentUser,
     googleResults,
     keywords,

@@ -10,6 +10,8 @@ export const CURRENT_KEYWORD_ADD = 'CURRENT_KEYWORD_ADD';
 
 export const KEYWORD_REQUEST = `${BASE_URL}/users/sign-up/keyword`;
 
+const authToken = JSON.parse(localStorage.getItem('authToken'));
+
 // actions
 export const addCurrentKeyword = keyword => (
   {
@@ -18,10 +20,10 @@ export const addCurrentKeyword = keyword => (
   }
 );
 
-export const postKeywords = (keywords, authToken) => {
+export const postKeywords = keywords => {
   return dispatch => {
     dispatch(postingKeywords(keywords))
-    return axios(keywordRequest(keywords, authToken))
+    return axios(keywordRequest(keywords))
     .then(
       response => dispatch(keywordSuccess(response.data))
     ).catch(
@@ -30,7 +32,7 @@ export const postKeywords = (keywords, authToken) => {
   }
 }
 
-const keywordRequest = (keywords, authToken) => (
+const keywordRequest = keywords => (
   {
     method: 'post',
     url: KEYWORD_REQUEST,
