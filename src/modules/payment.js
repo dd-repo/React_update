@@ -7,24 +7,25 @@ export const PAYMENT_SUCCESS = 'PAYMENT_SUCCESS';
 export const PAYMENT_FAILURE = 'PAYMENT_FAILURE';
 export const PAYMENT_REQUEST = `${BASE_URL}/users/sign-up/payment`;
 
+const authToken = localStorage.getItem('authToken')
 
 // actions
-const paymentRequest = (paymentInfo, authToken) => (
+const paymentRequest = paymentInfo => (
   {
     method: 'post',
     url: PAYMENT_REQUEST,
     headers: {
       'Content-Type': 'application/json',
-      'Authorization': authToken
+      'Authorization': JSON.parse(authToken)
     },
     data: JSON.stringify({ signup: paymentInfo })
   }
 );
 
-export const postPayment = (paymentInfo, authToken) => {
+export const postPayment = paymentInfo => {
   return dispatch => {
     dispatch(postingPayment(paymentInfo))
-    return axios(paymentRequest(paymentInfo, authToken))
+    return axios(paymentRequest(paymentInfo))
     .then(
       response => dispatch(paymentSuccess(response.data))
     ).catch(
