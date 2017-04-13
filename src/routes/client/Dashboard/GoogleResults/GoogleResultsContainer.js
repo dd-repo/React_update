@@ -4,8 +4,8 @@ import Loading from 'react-loading';
 
 import { RoutedComponent, connect } from 'routes/routedComponent';
 import GoogleResults from './components/GoogleResults';
-import { getMonitoring } from 'modules/monitoring';
-import { getGoogleResults, requestRemoval } from 'modules/googleResults';
+import { getMonitoring } from '../Monitoring/modules/monitoring';
+import { getGoogleResults, requestRemoval } from './modules/googleResults';
 import { addCurrentKeyword } from 'routes/client/Keywords/modules/keywords';
 import { CONTENT_VIEW_STATIC } from 'layouts/DefaultLayout/modules/layout';
 

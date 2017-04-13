@@ -1,11 +1,15 @@
 import React from 'react';
 import _ from 'underscore';
 
-import { RoutedComponent, connect } from 'routes/routedComponent';
-import { MONITORING_UPDATE_SUCCESS, MONITORING_UPDATE_FAILURE } from 'modules/monitoring';
-import { getMonitoring, requestRemoval } from 'modules/monitoring';
 import Monitoring from './components/Monitoring';
 import { CONTENT_VIEW_STATIC } from 'layouts/DefaultLayout/modules/layout';
+import { RoutedComponent, connect } from 'routes/routedComponent';
+import {
+  MONITORING_UPDATE_SUCCESS,
+  MONITORING_UPDATE_FAILURE,
+  getMonitoring,
+  requestRemoval
+} from './modules/monitoring';
 
 class MonitoringContainer extends RoutedComponent {
   constructor(props) {

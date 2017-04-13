@@ -6,10 +6,10 @@ import planSelection from 'modules/planSelection';
 import currentUser from 'modules/auth';
 import payment from 'routes/client/Payment/modules/payment';
 import keywords from 'routes/client/Keywords/modules/keywords';
-import googleResults from 'modules/googleResults';
+import googleResults from 'routes/client/Dashboard/GoogleResults/modules/googleResults';
 import accounts from 'modules/accounts';
 import profile from 'modules/profile';
-import monitoring from 'modules/monitoring';
+import monitoring from 'routes/client/Dashboard/Monitoring/modules/monitoring';
 import layout from 'layouts/DefaultLayout/modules/layout';
 
 // for testing purposes
