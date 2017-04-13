@@ -38,12 +38,14 @@ class SignupContainer extends RoutedComponent {
   }
 
   persistDataToLocalStorage(user) {
+    const { accounts, access_token } = user
     // testing purposes
     user.phone_number = '808-555-5555'
     user.password = 'password12';
 
     persistData(user, 'currentUser');
-    persistData(user.accounts, 'accounts');
+    persistData(accounts, 'accounts');
+    persistData(access_token, 'authToken');
   }
 
   doNext(res) {
