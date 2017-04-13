@@ -48,9 +48,8 @@ class KeywordContainer extends RoutedComponent {
   }
 
   submitForm(formProps) {
-    let authToken = this.props.currentUser.access_token
     let params = this.buildParams(formProps)
-    this.props.postKeywords(params, authToken)
+    this.props.postKeywords(params)
     .then(res => { this.doNext(res) })
     .catch(error => { console.log(error) });
   }

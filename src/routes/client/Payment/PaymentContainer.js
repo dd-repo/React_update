@@ -57,13 +57,12 @@ class PaymentContainer extends RoutedComponent {
   }
 
   submitForm(formProps) {
-    let authToken = this.props.currentUser.access_token
     let params = this.buildParams(formProps)
 
     persistData(formProps, 'paymentStatus');
     this.setState({isFetching: true})
 
-    this.props.postPayment(params, authToken)
+    this.props.postPayment(params)
     .then(res => { this.doNext(res) })
     .catch(error => { console.log('error in payment submit', error) })
   }

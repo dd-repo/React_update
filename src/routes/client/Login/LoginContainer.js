@@ -38,7 +38,7 @@ class LoginContainer extends RoutedComponent {
 
   persistDataToLocalStorage(data) {
     const { user, account } = data
-    const { accounts } = user
+    const { accounts, access_token } = user
     const { keywords, profile } = account
     const keywordList = {all: keywords, currentKeyword: keywords[0]}
     user.password = 'password12'
@@ -47,6 +47,7 @@ class LoginContainer extends RoutedComponent {
     persistData(user, 'currentUser');
     persistData(accounts, 'accounts');
     persistData(profile, 'profile');
+    persistData(access_token, 'authToken');
   }
 
   transitionBasedOnUserRole({ user }) {
