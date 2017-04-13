@@ -2,12 +2,13 @@ import React from 'react';
 
 import { RoutedComponent, connect } from 'routes/routedComponent';
 import Profile from './components/Profile';
+import { CONTENT_VIEW_STATIC } from 'layouts/DefaultLayout/modules/layout';
 import {
   PROFILE_UPDATE_SUCCESS,
-  PROFILE_UPDATE_FAILURE
-} from 'modules/profile';
-import { postUserProfile, getProfile } from 'modules/profile';
-import { CONTENT_VIEW_STATIC } from 'layouts/DefaultLayout/modules/layout';
+  PROFILE_UPDATE_FAILURE,
+  postUserProfile,
+  getProfile
+} from './modules/profile';
 
 class ProfileContainer extends RoutedComponent {
   constructor(props) {

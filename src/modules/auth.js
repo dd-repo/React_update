@@ -111,10 +111,14 @@ const reducer = (state = {}, action) => {
         first_name: action.data.first_name,
         last_name: action.data.last_name,
         email: action.data.email,
-        access_token: action.data.access_token,
         isFetching: false,
         account_id: action.data.accounts[0].id,
         role: action.data.role
+      });
+    case USER_SIGNUP_FAILURE:
+      return Object.assign({}, state, {
+        isFetching: false,
+        errorMessage: action.error.response.data.errorMessage
       });
     case USER_LOGIN_POSTING:
       return Object.assign({}, state, {
@@ -134,7 +138,7 @@ const reducer = (state = {}, action) => {
     case USER_LOGIN_FAILURE:
       return Object.assign({}, state, {
         idFetching: false,
-        error: action.error.data.errorMessage
+        error: action.error.response.data.errorMessage
       });
     case USER_LOGOUT:
       return Object.assign({}, state, {
