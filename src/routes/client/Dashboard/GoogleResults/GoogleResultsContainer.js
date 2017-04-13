@@ -6,7 +6,7 @@ import { RoutedComponent, connect } from 'routes/routedComponent';
 import GoogleResults from './components/GoogleResults';
 import { getMonitoring } from 'modules/monitoring';
 import { getGoogleResults, requestRemoval } from 'modules/googleResults';
-import { addCurrentKeyword } from 'modules/keywords';
+import { addCurrentKeyword } from 'routes/client/Keywords/modules/keywords';
 import { CONTENT_VIEW_STATIC } from 'layouts/DefaultLayout/modules/layout';
 
 class GoogleResultsContainer extends RoutedComponent {

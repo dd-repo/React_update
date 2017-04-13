@@ -5,7 +5,7 @@ import { RoutedComponent, connect } from 'routes/routedComponent';
 import { postUserSignup } from 'modules/auth';
 import { CONTENT_VIEW_STATIC } from 'layouts/DefaultLayout/modules/layout';
 import { persistData } from 'localStorage';
-import { USER_SIGNUP_SUCCESS, USER_SIGNUP_FAILURE } from 'modules/auth';
+import { USER_SIGNUP_SUCCESS , USER_SIGNUP_FAILURE } from 'modules/auth';
 
 class SignupContainer extends RoutedComponent {
   constructor(props) {

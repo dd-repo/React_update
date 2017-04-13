@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { BASE_URL } from 'consts/apis';
-import { PAYMENT_SUCCESS } from './payment';
+import { PAYMENT_SUCCESS } from 'routes/client/Payment/modules/payment';
 
 // constants
 export const USER_SIGNUP_SUCCESS = 'USER_SIGNUP_SUCCESS';

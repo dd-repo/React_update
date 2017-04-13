@@ -5,22 +5,11 @@ import { BASE_URL } from 'consts/apis';
 export const PAYMENT_POSTING = 'PAYMENT_POSTING';
 export const PAYMENT_SUCCESS = 'PAYMENT_SUCCESS';
 export const PAYMENT_FAILURE = 'PAYMENT_FAILURE';
+
 export const PAYMENT_REQUEST = `${BASE_URL}/users/sign-up/payment`;
 
 
 // actions
-const paymentRequest = (paymentInfo, authToken) => (
-  {
-    method: 'post',
-    url: PAYMENT_REQUEST,
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': authToken
-    },
-    data: JSON.stringify({ signup: paymentInfo })
-  }
-);
-
 export const postPayment = (paymentInfo, authToken) => {
   return dispatch => {
     dispatch(postingPayment(paymentInfo))
@@ -33,6 +22,18 @@ export const postPayment = (paymentInfo, authToken) => {
     )
   }
 }
+
+const paymentRequest = (paymentInfo, authToken) => (
+  {
+    method: 'post',
+    url: PAYMENT_REQUEST,
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': authToken
+    },
+    data: JSON.stringify({ signup: paymentInfo })
+  }
+);
 
 const postingPayment = paymentInfo => (
   {
