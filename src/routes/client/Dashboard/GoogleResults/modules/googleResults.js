@@ -7,7 +7,7 @@ export const GOOGLE_RESULTS_SUCCESS = 'GOOGLE_RESULTS_SUCCESS';
 export const GOOGLE_RESULTS_POSTING = 'GOOGLE_RESULTS_POSTING';
 export const GOOGLE_RESULTS_FAILURE = 'GOOGLE_RESULTS_FAILURE';
 
-const authToken = JSON.parse(localStorage.getItem('authToken'))
+//const authToken = JSON.parse(localStorage.getItem('authToken'))
 
 // actions
 export const getGoogleResults = params => {
@@ -23,7 +23,7 @@ export const getGoogleResults = params => {
 }
 
 const googleSearchRequest = ( {pageNum, keyword_id, account_id} ) => {
-  let request = axios.create({ baseURL: BASE_URL, timeout: 15000, headers: {'Authorization': authToken} });
+  let request = axios.create({ baseURL: BASE_URL, timeout: 15000, headers: {'Authorization': JSON.parse(localStorage.getItem('authToken')) } });
   return request.get(
     `/accounts/${account_id}/keywords/${keyword_id}/search_results/${pageNum}`
   );

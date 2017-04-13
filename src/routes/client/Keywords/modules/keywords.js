@@ -38,7 +38,7 @@ const keywordRequest = keywords => (
     url: KEYWORD_REQUEST,
     headers: {
       'Content-Type': 'application/json',
-      'Authorization': authToken
+      'Authorization': JSON.parse(localStorage.getItem('authToken'))
     },
     data: JSON.stringify({ signup_keyword: keywords })
   }

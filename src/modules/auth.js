@@ -111,6 +111,7 @@ const reducer = (state = {}, action) => {
         first_name: action.data.first_name,
         last_name: action.data.last_name,
         email: action.data.email,
+        access_token: action.data.access_token,
         isFetching: false,
         account_id: action.data.accounts[0].id,
         role: action.data.role
