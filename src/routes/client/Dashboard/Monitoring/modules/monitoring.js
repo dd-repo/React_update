@@ -9,8 +9,10 @@ export const MONITORING_FAILURE = 'MONITORING_FAILURE';
 export const MONITORING_UPDATE_SUCCESS = 'MONITORING_UPDATE_SUCCESS';
 export const MONITORING_UPDATE_FAILURE = 'MONITORING_UPDATE_FAILURE';
 
+const authToken = JSON.parse(localStorage.getItem('authToken'));
+
 //actions
-export const getMonitoring = (account_id, authToken) => {
+export const getMonitoring = account_id => {
   return dispatch => {
     dispatch(gettingMonitoring())
     return(monitoringRequest(account_id, authToken))
@@ -22,9 +24,9 @@ export const getMonitoring = (account_id, authToken) => {
   }
 }
 
-export const requestRemoval = (request_id, authToken) => {
+export const requestRemoval = request_id => {
   return dispatch => {
-    return axios(removalRequest(request_id, authToken))
+    return axios(removalRequest(request_id))
     .then(
       response => dispatch(removalRequestSuccess(response.status))
     ).catch(
@@ -33,7 +35,7 @@ export const requestRemoval = (request_id, authToken) => {
   }
 }
 
-const removalRequest = (request_id, authToken) => {
+const removalRequest = request_id => {
   return (
     {
       method: 'patch',
@@ -46,7 +48,7 @@ const removalRequest = (request_id, authToken) => {
     });
 }
 
-const monitoringRequest = (account_id, authToken) => {
+const monitoringRequest = account_id => {
   let request = axios.create({
     baseURL: BASE_URL,
     headers: {'Authorization': authToken}

@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 
 import { RoutedComponent, connect } from 'routes/routedComponent';
-import { postKeywords } from 'modules/keywords';
+import { postKeywords } from './modules/keywords';
 import Keywords from './components/Keywords';
 import { persistData } from 'localStorage';
-import { KEYWORD_SUCCESS, KEYWORD_FAILURE } from 'modules/keywords';
+import { KEYWORD_SUCCESS, KEYWORD_FAILURE } from './modules/keywords';
 import { CONTENT_VIEW_STATIC } from 'layouts/DefaultLayout/modules/layout';
 
 class KeywordContainer extends RoutedComponent {

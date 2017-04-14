@@ -4,9 +4,9 @@ import Loading from 'react-loading';
 
 import { RoutedComponent, connect } from 'routes/routedComponent';
 import GoogleResults from './components/GoogleResults';
-import { getMonitoring } from 'modules/monitoring';
-import { getGoogleResults, requestRemoval } from 'modules/googleResults';
-import { addCurrentKeyword } from 'modules/keywords';
+import { getMonitoring } from '../Monitoring/modules/monitoring';
+import { getGoogleResults, requestRemoval } from './modules/googleResults';
+import { addCurrentKeyword } from 'routes/client/Keywords/modules/keywords';
 import { CONTENT_VIEW_STATIC } from 'layouts/DefaultLayout/modules/layout';
 
 class GoogleResultsContainer extends RoutedComponent {
@@ -53,11 +53,11 @@ class GoogleResultsContainer extends RoutedComponent {
   }
 
   getResults(keyword, pageNum = '1') {
-    const { account_id, access_token } = this.props.currentUser
+    const { account_id } = this.props.currentUser
     const keyword_id = keyword.id
     const params = { pageNum, keyword_id, account_id }
     this.props.addCurrentKeyword(keyword)
-    this.props.getGoogleResults(params, access_token);
+    this.props.getGoogleResults(params);
     this.setState({ isFetching: true, pageNum: parseInt(pageNum) })
   }
 

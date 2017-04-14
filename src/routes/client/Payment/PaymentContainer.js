@@ -3,9 +3,9 @@ import React from 'react';
 import Payment from './components/Payment';
 import PaymentComplete from './components/paymentComplete';
 import { RoutedComponent, connect } from 'routes/routedComponent';
-import { postPayment } from 'modules/payment';
+import { postPayment } from './modules/payment';
 import { persistData } from 'localStorage';
-import { PAYMENT_SUCCESS, PAYMENT_FAILURE } from 'modules/payment';
+import { PAYMENT_SUCCESS, PAYMENT_FAILURE } from './modules/payment';
 import { CONTENT_VIEW_STATIC } from 'layouts/DefaultLayout/modules/layout';
 
 class PaymentContainer extends RoutedComponent {

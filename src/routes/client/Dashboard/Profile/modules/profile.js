@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 import { BASE_URL } from 'consts/apis';
-import { USER_LOGIN_SUCCESS } from './auth';
+import { USER_LOGIN_SUCCESS } from 'modules/auth';
 
 export const PROFILE_UPDATE_POSTING = 'PROFILE_UPDATE_POSTING';
 export const PROFILE_UPDATE_SUCCESS = 'PROFILE_UPDATE_SUCCESS';

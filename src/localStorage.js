@@ -20,6 +20,11 @@ export const loadPersistedData = (selector) => {
   }
 }
 
+export const getAuthToken = () => {
+  const authToken = localStorage.getItem('authToken')
+  return JSON.parse(authToken)
+}
+
 export const removePersistedData = () => {
   localStorage.removeItem('currentUser')
 }

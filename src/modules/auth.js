@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { BASE_URL } from 'consts/apis';
-import { PAYMENT_SUCCESS } from './payment';
+import { PAYMENT_SUCCESS } from 'routes/client/Payment/modules/payment';
 
 // constants
 export const USER_SIGNUP_SUCCESS = 'USER_SIGNUP_SUCCESS';
@@ -116,6 +116,11 @@ const reducer = (state = {}, action) => {
         account_id: action.data.accounts[0].id,
         role: action.data.role
       });
+    case USER_SIGNUP_FAILURE:
+      return Object.assign({}, state, {
+        isFetching: false,
+        errorMessage: action.error.response.data.errorMessage
+      });
     case USER_LOGIN_POSTING:
       return Object.assign({}, state, {
         isFetching: true
@@ -134,7 +139,7 @@ const reducer = (state = {}, action) => {
     case USER_LOGIN_FAILURE:
       return Object.assign({}, state, {
         idFetching: false,
-        error: action.error.data.errorMessage
+        error: action.error.response.data.errorMessage
       });
     case USER_LOGOUT:
       return Object.assign({}, state, {
