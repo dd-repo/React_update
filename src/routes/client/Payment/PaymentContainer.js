@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Payment from './components/Payment';
-import PaymentComplete from './components/paymentComplete';
+import PaymentComplete from './components/PaymentComplete';
 import { RoutedComponent, connect } from 'routes/routedComponent';
 import { postPayment } from './modules/payment';
 import { persistData } from 'localStorage';
