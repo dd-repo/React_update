@@ -1,6 +1,5 @@
 import React, { PropTypes } from 'react';
 import { Field, reduxForm } from 'redux-form';
-import { connect } from 'routes/RoutedComponent';
 import { Link } from 'react-router';
 
 import {
