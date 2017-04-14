@@ -22,7 +22,7 @@ const Payment = (props) => {
    errorMessage &&
   <Alert bsStyle='danger'>
     <i className="fa fa-fw text-danger m-r-1"></i>
-    <strong>Oh Snap!</strong> {errorMessage}
+    <strong>Transaction Failed:</strong> {errorMessage} - If you need help, please call us at (844) 641-7829
   </Alert>
   )
 
