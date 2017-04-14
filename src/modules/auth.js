@@ -52,7 +52,7 @@ export const postUserLogin = (data) => {
       //response => console.log('response', response.data)
     ).catch(
     error =>
-      dispatch(receiveUserLoginError(error.response))
+      dispatch(receiveUserLoginError(error))
     )
   }
 }
