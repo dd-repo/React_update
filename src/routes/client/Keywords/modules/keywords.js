@@ -1,5 +1,4 @@
-import axios from 'axios';
-import { BASE_URL } from 'consts/apis';
+import ClientApi from 'services/ClientApi';
 import { USER_LOGIN_SUCCESS } from 'modules/auth';
 
 // action types
@@ -8,9 +7,8 @@ export const KEYWORD_SUCCESS = 'KEYWORD_SUCCESS';
 export const KEYWORD_FAILURE = 'KEYWORD_FAILURE';
 export const CURRENT_KEYWORD_ADD = 'CURRENT_KEYWORD_ADD';
 
-export const KEYWORD_REQUEST = `${BASE_URL}/users/sign-up/keyword`;
+export const KEYWORD_REQUEST = `/users/sign-up/keyword`;
 
-const authToken = JSON.parse(localStorage.getItem('authToken'));
 
 // actions
 export const addCurrentKeyword = keyword => (
@@ -20,10 +18,10 @@ export const addCurrentKeyword = keyword => (
   }
 );
 
-export const postKeywords = keywords => {
+export const postKeywords = payload => {
   return dispatch => {
-    dispatch(postingKeywords(keywords))
-    return axios(keywordRequest(keywords))
+    dispatch(postingKeywords())
+    return ClientApi.post(KEYWORD_REQUEST, { signup_keyword: payload })
     .then(
       response => dispatch(keywordSuccess(response.data))
     ).catch(
@@ -31,19 +29,6 @@ export const postKeywords = keywords => {
     )
   }
 }
-
-const keywordRequest = keywords => (
-  {
-    method: 'post',
-    url: KEYWORD_REQUEST,
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': JSON.parse(localStorage.getItem('authToken'))
-    },
-    data: JSON.stringify({ signup_keyword: keywords })
-  }
-);
-
 
 const postingKeywords = keywords => (
   {

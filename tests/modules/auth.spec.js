@@ -1,9 +1,7 @@
-import axios from 'axios';
-import moxios from 'moxios';
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
-import nock from 'nock';
 
+import ClientApi from 'services/ClientApi';
 import { BASE_URL } from 'consts/apis';
 import { PAYMENT_SUCCESS } from 'routes/client/Payment/modules/payment';
 import {
@@ -33,14 +31,6 @@ const mockStore = configureMockStore(middlewares)
 
 describe('(auth module) Auth', () => {
 
-    beforeEach(() => {
-      moxios.install()
-    })
-
-    afterEach(() => {
-      moxios.uninstall()
-    })
-
   it('Should export a constants.', () => {
     expect(USER_SIGNUP_SUCCESS).to.equal('USER_SIGNUP_SUCCESS')
     expect(USER_SIGNUP_FAILURE).to.equal('USER_SIGNUP_FAILURE')
@@ -52,6 +42,7 @@ describe('(auth module) Auth', () => {
   })
 
   describe('(Reducer)', () => {
+
     it('Should be a function.', () => {
       expect(reducer).to.be.a('function')
     })
@@ -134,6 +125,16 @@ describe('(auth module) Auth', () => {
 
   describe('(Async Action Creator) postUserSignup', () => {
 
+    let signupApi;
+
+    beforeEach(() => {
+    signupApi = sinon.stub(ClientApi, 'post')
+    })
+
+    afterEach(() => {
+      signupApi.restore()
+    })
+
     it('Should be exported as a function', () => {
       expect(postUserSignup).to.be.a('function')
     })
@@ -154,23 +155,19 @@ describe('(auth module) Auth', () => {
       }
 
       const fakeResponse = {
-        id: 1,
-        first_name: 'Fred',
-        last_name: 'Flintstone',
-        email: 'fred@email.com',
-        role: 'client',
-        access_token: '1:aaaaaaaaaaa',
-        account_id: 1,
-        isFetching: false
+            id: 1,
+            first_name: 'Fred',
+            last_name: 'Flintstone',
+            email: 'fred@email.com',
+            role: 'client',
+            access_token: '1:aaaaaaaaaaa',
+            account_id: 1,
+            isFetching: false
       }
 
-      moxios.wait(() => {
-        const request = moxios.requests.mostRecent();
-        request.respondWith({
-          status: 200,
-          response: fakeResponse,
-        });
-      });
+      const resolved = new Promise((r) => r({ data: fakeResponse }));
+      signupApi.returns(resolved);
+
 
       const expectedActions = [
         { type: USER_SIGNUP_POSTING },
@@ -203,10 +200,13 @@ describe('(auth module) Auth', () => {
         response: { data: { errorMessage: 'error message' } },
       }
 
-      moxios.wait(() => {
-        const request = moxios.requests.mostRecent();
-        request.reject(errRes);
-      });
+      const rejected = new Promise((_, r) => r(errRes));
+      signupApi.returns(rejected)
+
+      //moxios.wait(() => {
+        //const request = moxios.requests.mostRecent();
+        //request.reject(errRes);
+      //});
 
       const expectedActions = [
         { type: USER_SIGNUP_POSTING },
@@ -229,6 +229,16 @@ describe('(auth module) Auth', () => {
   })
 
   describe('(Async Action Creator), postUserLogin()', () => {
+
+    let loginApi;
+
+    beforeEach(() => {
+    loginApi = sinon.stub(ClientApi, 'post')
+    })
+
+    afterEach(() => {
+      loginApi.restore()
+    })
 
     it('Should be exported as a function', () => {
       expect(postUserLogin).to.be.a('function')
@@ -258,13 +268,16 @@ describe('(auth module) Auth', () => {
         isFetching: false
       }
 
-      moxios.wait(() => {
-        const request = moxios.requests.mostRecent();
-        request.respondWith({
-          status: 200,
-          response: fakeResponse,
-        });
-      });
+      //moxios.wait(() => {
+        //const request = moxios.requests.mostRecent();
+        //request.respondWith({
+          //status: 200,
+          //response: fakeResponse,
+        //});
+      //});
+
+      const resolved = new Promise((r) => r({ data: fakeResponse }));
+      loginApi.returns(resolved);
 
       const expectedActions = [
         { type: USER_LOGIN_POSTING },
@@ -295,10 +308,13 @@ describe('(auth module) Auth', () => {
         response: { data: { errorMessage: 'error message' } },
       }
 
-      moxios.wait(() => {
-        const request = moxios.requests.mostRecent();
-        request.reject(errRes);
-      });
+      const rejected = new Promise((_, r) => r(errRes));
+      loginApi.returns(rejected)
+
+      //moxios.wait(() => {
+        //const request = moxios.requests.mostRecent();
+        //request.reject(errRes);
+      //});
 
       const expectedActions = [
         { type: USER_LOGIN_POSTING },
