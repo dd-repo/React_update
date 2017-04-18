@@ -10,8 +10,8 @@ export const USER_LOGIN_SUCCESS = 'USER_LOGIN_SUCCESS';
 export const USER_LOGIN_FAILURE = 'USER_LOGIN_FAILURE';
 export const USER_LOGIN_POSTING = 'USER_LOGIN_POSTING';
 export const USER_LOGOUT = 'USER_LOGOUT';
-const SIGNUP_REQUEST = `${BASE_URL}/users/sign-up/create`;
-const LOGIN_REQUEST = `${BASE_URL}/users/sign-in`;
+export const SIGNUP_REQUEST = `${BASE_URL}/users/sign-up/create`;
+export const LOGIN_REQUEST = `${BASE_URL}/users/sign-in`;
 
 //actions
 export const logoutUser = () => (
@@ -57,41 +57,40 @@ export const postUserLogin = (data) => {
   }
 }
 
-const postingUserSignup = data => (
+export const postingUserSignup = data => (
   {
-    type: USER_SIGNUP_POSTING,
-    data
+    type: USER_SIGNUP_POSTING
   }
 );
 
-const receiveUserSignup = data => (
+export const receiveUserSignup = data => (
   {
     type: USER_SIGNUP_SUCCESS,
     data
   }
 );
 
-const receiveUserSignupError = error => (
+export const receiveUserSignupError = error => (
   {
     type: USER_SIGNUP_FAILURE,
     error
   }
 );
 
-const postingUserLogin = () => (
+export const postingUserLogin = () => (
   {
     type: USER_LOGIN_POSTING,
   }
 );
 
-const receiveUserLogin = data => (
+export const receiveUserLogin = data => (
   {
     type: USER_LOGIN_SUCCESS,
     data
   }
 )
 
-const receiveUserLoginError = error => (
+export const receiveUserLoginError = error => (
   {
     type: USER_LOGIN_FAILURE,
     error
@@ -138,13 +137,13 @@ const reducer = (state = {}, action) => {
       });
     case USER_LOGIN_FAILURE:
       return Object.assign({}, state, {
-        idFetching: false,
-        error: action.error.response.data.errorMessage
+        isFetching: false,
+        errorMessage: action.error.response.data.errorMessage
       });
     case USER_LOGOUT:
       return Object.assign({}, state, {
         id: undefined,
-        access_token: undefined
+        access_token: undefined,
       });
     case PAYMENT_SUCCESS:
       return Object.assign({}, state, {
