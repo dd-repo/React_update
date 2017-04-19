@@ -1,4 +1,4 @@
-import ClientApi from 'services/ClientApi';
+import BlitzApi from 'services/BlitzApi';
 import { USER_LOGIN_SUCCESS } from 'modules/auth';
 
 // action types
@@ -7,7 +7,7 @@ export const KEYWORD_SUCCESS = 'KEYWORD_SUCCESS';
 export const KEYWORD_FAILURE = 'KEYWORD_FAILURE';
 export const CURRENT_KEYWORD_ADD = 'CURRENT_KEYWORD_ADD';
 
-export const KEYWORD_REQUEST = `/users/sign-up/keyword`;
+export const KEYWORD_REQUEST = `/dashboard/api/v1/users/sign-up/keyword`;
 
 
 // actions
@@ -21,7 +21,7 @@ export const addCurrentKeyword = keyword => (
 export const postKeywords = payload => {
   return dispatch => {
     dispatch(postingKeywords())
-    return ClientApi.post(KEYWORD_REQUEST, { signup_keyword: payload })
+    return BlitzApi.post(KEYWORD_REQUEST, { signup_keyword: payload })
     .then(
       response => dispatch(keywordSuccess(response.data))
     ).catch(

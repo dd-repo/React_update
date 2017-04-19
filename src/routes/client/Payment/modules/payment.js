@@ -1,16 +1,16 @@
-import ClientApi from 'services/ClientApi';
+import BlitzApi from 'services/BlitzApi';
 
 export const PAYMENT_POSTING = 'PAYMENT_POSTING';
 export const PAYMENT_SUCCESS = 'PAYMENT_SUCCESS';
 export const PAYMENT_FAILURE = 'PAYMENT_FAILURE';
 
-export const PAYMENT_REQUEST = `/users/sign-up/payment`;
+export const PAYMENT_REQUEST = `/dashboard/api/v1/users/sign-up/payment`;
 
 // actions
 export const postPayment = payload => {
   return dispatch => {
     dispatch(postingPayment(payload))
-    return ClientApi.post(PAYMENT_REQUEST, { signup: payload })
+    return BlitzApi.post(PAYMENT_REQUEST, { signup: payload })
     .then(
       response => dispatch(paymentSuccess(response.data))
     ).catch(

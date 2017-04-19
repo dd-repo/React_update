@@ -1,5 +1,8 @@
-import { USER_SIGNUP_SUCCESS } from './auth';
-import { USER_LOGIN_SUCCESS } from './auth';
+import {
+  USER_SIGNUP_SUCCESS,
+  USER_LOGIN_SUCCESS
+} from './auth';
+
 // reducer
 
 const reducer = (state = [], action) => {
