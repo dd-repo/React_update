@@ -1,40 +1,24 @@
-import axios from 'axios';
-
-import { BASE_URL } from 'consts/apis';
-import { getAuthToken } from 'localStorage';
+import ClientApi from 'services/ClientApi';
 
 export const PAYMENT_POSTING = 'PAYMENT_POSTING';
 export const PAYMENT_SUCCESS = 'PAYMENT_SUCCESS';
 export const PAYMENT_FAILURE = 'PAYMENT_FAILURE';
 
-export const PAYMENT_REQUEST = `${BASE_URL}/users/sign-up/payment`;
+export const PAYMENT_REQUEST = `/users/sign-up/payment`;
 
 // actions
-const paymentRequest = paymentInfo => (
-  {
-    method: 'post',
-    url: PAYMENT_REQUEST,
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': getAuthToken()
-    },
-    data: JSON.stringify({ signup: paymentInfo })
-  }
-);
-
-export const postPayment = paymentInfo => {
-  console.log('paymentInfo', paymentInfo)
+export const postPayment = payload => {
   return dispatch => {
-    dispatch(postingPayment(paymentInfo))
-    return axios(paymentRequest(paymentInfo))
+    dispatch(postingPayment(payload))
+    return ClientApi.post(PAYMENT_REQUEST, { signup: payload })
     .then(
       response => dispatch(paymentSuccess(response.data))
     ).catch(
-    //error => console.log('error', error)
     error => paymentFailure(error)
     )
   }
 }
+
 
 const postingPayment = paymentInfo => (
   {

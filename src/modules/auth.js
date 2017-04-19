@@ -1,5 +1,4 @@
-import axios from 'axios';
-import { BASE_URL } from 'consts/apis';
+import ClientApi from 'services/ClientApi';
 import { PAYMENT_SUCCESS } from 'routes/client/Payment/modules/payment';
 
 // constants
@@ -10,8 +9,8 @@ export const USER_LOGIN_SUCCESS = 'USER_LOGIN_SUCCESS';
 export const USER_LOGIN_FAILURE = 'USER_LOGIN_FAILURE';
 export const USER_LOGIN_POSTING = 'USER_LOGIN_POSTING';
 export const USER_LOGOUT = 'USER_LOGOUT';
-export const SIGNUP_REQUEST = `${BASE_URL}/users/sign-up/create`;
-export const LOGIN_REQUEST = `${BASE_URL}/users/sign-in`;
+export const SIGNUP_REQUEST = `/users/sign-up/create`;
+export const LOGIN_REQUEST = `/users/sign-in`;
 
 //actions
 export const logoutUser = () => (
@@ -21,19 +20,10 @@ export const logoutUser = () => (
 
 )
 
-const request = (data, userRequest) => {
-  return {
-    method: 'post',
-    url: userRequest,
-    headers: {'Content-Type': 'application/json'},
-    data: JSON.stringify({ user: data })
-  }
-}
-
-export const postUserSignup = (data) => {
+export const postUserSignup = (payload) => {
   return dispatch => {
-    dispatch(postingUserSignup(data))
-    return axios(request(data, SIGNUP_REQUEST))
+    dispatch(postingUserSignup())
+    return ClientApi.post(SIGNUP_REQUEST, { user: payload })
     .then(
       response => dispatch(receiveUserSignup(response.data))
     ).catch(
@@ -43,13 +33,12 @@ export const postUserSignup = (data) => {
   }
 }
 
-export const postUserLogin = (data) => {
+export const postUserLogin = (payload) => {
   return dispatch => {
     dispatch(postingUserLogin())
-    return axios(request(data, LOGIN_REQUEST))
+    return ClientApi.post(LOGIN_REQUEST, { user: payload })
     .then(
       response => dispatch(receiveUserLogin(response.data))
-      //response => console.log('response', response.data)
     ).catch(
     error =>
       dispatch(receiveUserLoginError(error))
