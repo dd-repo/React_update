@@ -57,8 +57,8 @@ class ClientApi {
   }
 
   post(path, payload) {
-    //const authToken = getAuthToken();
-    //this.client.defaults.headers.common['Authorization'] = authToken
+    const authToken = getAuthToken();
+    this.client.defaults.headers.common['Authorization'] = authToken
     return this.client.request({
       method: 'POST',
       url: path,
