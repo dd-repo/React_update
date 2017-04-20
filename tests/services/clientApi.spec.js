@@ -1,32 +1,32 @@
 import axios from 'axios';
 import moxios from 'moxios';
 
-import ClientApi from 'services/ClientApi';
+import BlitzApi from 'services/BlitzApi';
 import {
   SIGNUP_REQUEST,
   LOGIN_REQUEST
 } from 'modules/auth';
 
-describe('ClientApi', () => {
+describe('BlitzApi', () => {
 
   it('GET Should be a function', () => {
-    expect(ClientApi.get).to.be.a('function')
+    expect(BlitzApi.get).to.be.a('function')
   })
 
   it('PATCH Should be a function', () => {
-    expect(ClientApi.patch).to.be.a('function')
+    expect(BlitzApi.patch).to.be.a('function')
   })
 
   it('POST Should be a function', () => {
-    expect(ClientApi.post).to.be.a('function')
+    expect(BlitzApi.post).to.be.a('function')
   })
 
   it('handleSuccess Should be a function', () => {
-    expect(ClientApi.handleSuccess).to.be.a('function')
+    expect(BlitzApi.handleSuccess).to.be.a('function')
   })
 
   it('handleError Should be a function', () => {
-    expect(ClientApi.handleError).to.be.a('function')
+    expect(BlitzApi.handleError).to.be.a('function')
   })
 
   describe('POST user signup', () => {
@@ -52,7 +52,7 @@ describe('ClientApi', () => {
       //}
       //moxios.withMock(() => {
         //let onFulfilled = sinon.spy()
-        //ClientApi.post(SIGNUP_REQUEST, payload) .then(onFulfilled)
+        //BlitzApi.post(SIGNUP_REQUEST, payload) .then(onFulfilled)
 
         //moxios.wait(() => {
           //let request = moxios.requests.mostRecent();

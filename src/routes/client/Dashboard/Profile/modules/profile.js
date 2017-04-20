@@ -14,7 +14,7 @@ const profilePutRequest = (profileInfo, profile_id, access_token) => {
   return (
     {
       method: 'put',
-      url: `${BASE_URL}/profiles/${profile_id}`,
+      url: `${BASE_URL}/dashboard/api/v1/profiles/${profile_id}`,
       headers: {
         'Content-Type': 'application/json',
         'Authorization': access_token
@@ -29,7 +29,7 @@ const profileGetRequest = (profile_id, authToken) => {
     headers: {'Authorization': authToken}
   });
   return request.get(
-    `profiles/${profile_id}`
+    `/dashboard/api/v1profiles/${profile_id}`
   );
 }
 

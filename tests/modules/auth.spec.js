@@ -1,7 +1,7 @@
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 
-import ClientApi from 'services/ClientApi';
+import BlitzApi from 'services/BlitzApi';
 import { BASE_URL } from 'consts/apis';
 import { PAYMENT_SUCCESS } from 'routes/client/Payment/modules/payment';
 import {
@@ -39,25 +39,6 @@ describe('(auth module) Auth', () => {
     expect(USER_LOGIN_FAILURE).to.equal('USER_LOGIN_FAILURE')
     expect(USER_LOGIN_POSTING).to.equal('USER_LOGIN_POSTING')
     expect(USER_LOGOUT).to.equal('USER_LOGOUT')
-  })
-
-  describe('(Reducer)', () => {
-
-    it('Should be a function.', () => {
-      expect(reducer).to.be.a('function')
-    })
-
-    it('Should initilaize with a currentUser object.', () => {
-      expect(reducer(undefined, {})).to.be.an('object')
-    })
-
-    it('Should return the previous state if an action was not matched.', () => {
-      let state = reducer({}, { type: USER_SIGNUP_POSTING })
-      expect(state).to.be.an('object')
-      expect(state).to.have.property('isFetching', true)
-      state = reducer(state, { type: 'NOT_AUTH_ACTION' })
-      expect(state).to.have.property('isFetching', true)
-    })
   })
 
   describe('(Action Creator) postingUserSignup', () => {
@@ -128,7 +109,7 @@ describe('(auth module) Auth', () => {
     let signupApi;
 
     beforeEach(() => {
-    signupApi = sinon.stub(ClientApi, 'post')
+      signupApi = sinon.stub(BlitzApi, 'post')
     })
 
     afterEach(() => {
@@ -167,7 +148,6 @@ describe('(auth module) Auth', () => {
 
       const resolved = new Promise((r) => r({ data: fakeResponse }));
       signupApi.returns(resolved);
-
 
       const expectedActions = [
         { type: USER_SIGNUP_POSTING },
@@ -233,7 +213,7 @@ describe('(auth module) Auth', () => {
     let loginApi;
 
     beforeEach(() => {
-    loginApi = sinon.stub(ClientApi, 'post')
+    loginApi = sinon.stub(BlitzApi, 'post')
     })
 
     afterEach(() => {
@@ -336,7 +316,8 @@ describe('(auth module) Auth', () => {
     })
   })
 
-  describe('auth reducer', () => {
+  describe('(Reducer)', () => {
+
     const fakeResponse = {
       id: 1,
       first_name: 'Fred',
@@ -347,7 +328,14 @@ describe('(auth module) Auth', () => {
       accounts: [ { id: 1 } ],
     }
 
-    const { id, first_name, last_name, email, role, access_token } = fakeResponse
+    const {
+      id,
+      first_name,
+      last_name,
+      email,
+      role,
+      access_token
+    } = fakeResponse
 
     const currentUserSuccess = {
       id,
@@ -384,8 +372,20 @@ describe('(auth module) Auth', () => {
       isFetching: false
     }
 
-    it('should return the initial state', () => {
-      expect(reducer(undefined, {})).to.eql({})
+    it('Should be a function.', () => {
+      expect(reducer).to.be.a('function')
+    })
+
+    it('Should initilaize with a currentUser object.', () => {
+      expect(reducer(undefined, {})).to.be.an('object')
+    })
+
+    it('Should return the previous state if an action was not matched.', () => {
+      let state = reducer({}, { type: USER_SIGNUP_POSTING })
+      expect(state).to.be.an('object')
+      expect(state).to.have.property('isFetching', true)
+      state = reducer(state, { type: 'NOT_AUTH_ACTION' })
+      expect(state).to.have.property('isFetching', true)
     })
 
     it('should handle USER_SIGNUP_POSTING', () => {

@@ -1,5 +1,5 @@
 import axios from 'axios'
-import ClientApi from 'services/ClientApi';
+import BlitzApi from 'services/BlitzApi';
 
 // action types
 export const GOOGLE_RESULTS_SUCCESS = 'GOOGLE_RESULTS_SUCCESS';
@@ -9,15 +9,15 @@ export const GOOGLE_RESULTS_FAILURE = 'GOOGLE_RESULTS_FAILURE';
 // actions
 export const getGoogleResults = params => {
   const {pageNum, keyword_id, account_id} = params
-  const path = `/accounts/${account_id}/keywords/${keyword_id}/search_results/${pageNum}`
+  const path = `/dashboard/api/v1/accounts/${account_id}/keywords/${keyword_id}/search_results/${pageNum}`
 
   return dispatch => {
     dispatch(gettingGoogleResults())
-    return ClientApi.get(path)
+    return BlitzApi.get(path)
     .then(
       response => dispatch(googleResultSuccess(response.data))
     ).catch(
-    error => dispatch(googleResultFailure())
+    error => dispatch(googleResultFailure(error))
     )
   }
 }
@@ -30,7 +30,7 @@ export const requestRemoval = (id, authToken) => {
 
 const googleSearchRemovalRequest = (id, authToken) => {
   let request = axios.create({ baseURL: BASE_URL, headers: {'Authorization': authToken} });
-  return request.post('/removal_requests', {'request': {'search_result_id': id}})
+  return request.post('/dashboard/api/v1/removal_requests', {'request': {'search_result_id': id}})
 }
 
 const gettingGoogleResults = () => (

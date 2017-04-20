@@ -1,6 +1,4 @@
-import axios from 'axios'
-
-import { BASE_URL } from 'consts/apis';
+import BlitzApi from 'services/BlitzApi';
 
 //action types
 export const MONITORING_PENDING = 'MONITORING_PENDING';
@@ -9,13 +7,15 @@ export const MONITORING_FAILURE = 'MONITORING_FAILURE';
 export const MONITORING_UPDATE_SUCCESS = 'MONITORING_UPDATE_SUCCESS';
 export const MONITORING_UPDATE_FAILURE = 'MONITORING_UPDATE_FAILURE';
 
-const authToken = JSON.parse(localStorage.getItem('authToken'));
 
 //actions
 export const getMonitoring = account_id => {
+
+  const path = `dashboard/api/v1/accounts/${account_id}/monitoring`
+
   return dispatch => {
     dispatch(gettingMonitoring())
-    return(monitoringRequest(account_id, authToken))
+    return BlitzApi.get(path)
     .then(
       response => dispatch(monitoringSuccess(response.data))
     ).catch(
@@ -25,38 +25,17 @@ export const getMonitoring = account_id => {
 }
 
 export const requestRemoval = request_id => {
+  const path = `/dashboard/api/v1/monitoring/${request_id}`
+  const payload = { request_status: 'requested' }
+
   return dispatch => {
-    return axios(removalRequest(request_id))
+    return BlitzApi.patch(path, payload)
     .then(
       response => dispatch(removalRequestSuccess(response.status))
     ).catch(
     error => dispatch(removalRequestFailure(error))
     )
   }
-}
-
-const removalRequest = request_id => {
-  return (
-    {
-      method: 'patch',
-      url: `${BASE_URL}/monitoring/${request_id}`,
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': authToken
-      },
-      data: JSON.stringify({ request_status: 'requested' })
-    });
-}
-
-const monitoringRequest = account_id => {
-  let request = axios.create({
-    baseURL: BASE_URL,
-    headers: {'Authorization': authToken}
-  });
-
-  return request.get(
-    `/accounts/${account_id}/monitoring`
-  );
 }
 
 const removalRequestSuccess = () => (

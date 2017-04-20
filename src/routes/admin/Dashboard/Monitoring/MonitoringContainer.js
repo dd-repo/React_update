@@ -2,6 +2,7 @@ import React from 'react';
 
 import { RoutedComponent, connect } from 'routes/routedComponent';
 import { CONTENT_VIEW_STATIC } from 'layouts/DefaultLayout/modules/layout';
+import { getRemovalsRequested } from './modules/removalRequests'
 import AdminMonitoring from './components/Monitoring';
 
 class AdminMonitoringContainer extends RoutedComponent {
@@ -20,11 +21,31 @@ class AdminMonitoringContainer extends RoutedComponent {
     }
   }
 
+  componentWillMount() {
+    this.fetchRemovalsRequested()
+  }
+
+  fetchRemovalsRequested() {
+    this.props.getRemovalsRequested()
+  }
+
   render() {
     return (
-      <AdminMonitoring />
+      <AdminMonitoring
+        removalsRequested={this.props.requestedRemovals}
+      />
     )
   }
 }
 
-export default connect()(AdminMonitoringContainer)
+const mapStateToProps = state => {
+  return {
+    requestedRemovals: state.requestedRemovals
+  }
+}
+
+const mapActionCreators = {
+  getRemovalsRequested
+}
+
+export default connect(mapStateToProps, mapActionCreators)(AdminMonitoringContainer)

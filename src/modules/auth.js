@@ -1,4 +1,4 @@
-import ClientApi from 'services/ClientApi';
+import BlitzApi from 'services/BlitzApi';
 import { PAYMENT_SUCCESS } from 'routes/client/Payment/modules/payment';
 
 // constants
@@ -9,8 +9,8 @@ export const USER_LOGIN_SUCCESS = 'USER_LOGIN_SUCCESS';
 export const USER_LOGIN_FAILURE = 'USER_LOGIN_FAILURE';
 export const USER_LOGIN_POSTING = 'USER_LOGIN_POSTING';
 export const USER_LOGOUT = 'USER_LOGOUT';
-export const SIGNUP_REQUEST = `/users/sign-up/create`;
-export const LOGIN_REQUEST = `/users/sign-in`;
+export const SIGNUP_REQUEST = `/dashboard/api/v1/users/sign-up/create`;
+export const LOGIN_REQUEST = `/dashboard/api/v1/users/sign-in`;
 
 //actions
 export const logoutUser = () => (
@@ -23,7 +23,7 @@ export const logoutUser = () => (
 export const postUserSignup = (payload) => {
   return dispatch => {
     dispatch(postingUserSignup())
-    return ClientApi.post(SIGNUP_REQUEST, { user: payload })
+    return BlitzApi.post(SIGNUP_REQUEST, { user: payload })
     .then(
       response => dispatch(receiveUserSignup(response.data))
     ).catch(
@@ -36,7 +36,7 @@ export const postUserSignup = (payload) => {
 export const postUserLogin = (payload) => {
   return dispatch => {
     dispatch(postingUserLogin())
-    return ClientApi.post(LOGIN_REQUEST, { user: payload })
+    return BlitzApi.post(LOGIN_REQUEST, { user: payload })
     .then(
       response => dispatch(receiveUserLogin(response.data))
     ).catch(
