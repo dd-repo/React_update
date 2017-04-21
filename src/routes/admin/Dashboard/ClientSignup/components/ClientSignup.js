@@ -23,13 +23,9 @@ const Signup = ({ errorMessage, submitForm }) => {
   return (
     <Row>
       <Col lg={ 12 }>
-        { /* <Button className='m-t-2 m-b-1' onClick={ () => this.props.history.goBack() }>
-          <i className='fa fa-angle-left m-r-1'></i>
-          Back
-          </Button> */ }
           {renderErrorMessage}
         <Row>
-          <Col className={ classes.centerCol } lg={ 12 }>
+          <Col className={ classes.centerCol } lg={ 9 }>
             <Panel
               className={ classes.registerPanel }
               header={(

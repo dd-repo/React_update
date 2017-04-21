@@ -196,11 +196,11 @@ let ClientSignupForm = (props) => {
         <form onSubmit={handleSubmit(submitForm)}>
 
           <Row>
-            <h4 className="m-t-3">
+            <h4 className="m-l-2">
               Client Info
             </h4>
           <FormGroup controlId="formSizingColumn">
-            <Col sm={9}>
+            <Col lg={12}>
               <Row>
                 <Col sm={ 6 }>
                   {renderField(fields.first_name)}
@@ -212,12 +212,12 @@ let ClientSignupForm = (props) => {
             </Col>
           </FormGroup>
           <FormGroup controlId="formSizingColumn">
-            <Col sm={9}>
+            <Col sm={12}>
               <Row>
-                <Col xs={ 6 }>
+                <Col sm={ 6 }>
                   {renderField(fields.email)}
                 </Col>
-                <Col xs={ 6 }>
+                <Col sm={ 6 }>
                   {renderField(fields.phoneNumber)}
                 </Col>
               </Row>
@@ -225,23 +225,23 @@ let ClientSignupForm = (props) => {
           </FormGroup>
         </Row>
         <Row>
-            <h4 className="m-t-3">
+            <h4 className="m-l-2">
               Payment Info
             </h4>
           <FormGroup controlId="formSizingColumn">
-            <Col sm={9}>
+            <Col sm={12}>
               <Row>
-                <Col xs={ 6 }>
+                <Col sm={ 6 }>
                   {renderField(fields.first_name)}
                 </Col>
-                <Col xs={ 6 }>
+                <Col sm={ 6 }>
                   {renderField(fields.last_name)}
                 </Col>
               </Row>
             </Col>
           </FormGroup>
           <FormGroup controlId="formSizingColumn">
-            <Col sm={9}>
+            <Col sm={12}>
               <Row>
                 <Col sm={ 4 }>
                   {renderField(fields.creditCardNumber)}
@@ -258,23 +258,23 @@ let ClientSignupForm = (props) => {
         </Row>
 
         <Row>
-          <h4 className="m-y-4">
+          <h4 className="m-l-2">
             Keywords
           </h4>
           <FormGroup controlId="formSizingColumn">
-            <Col sm={9}>
+            <Col sm={12}>
               <Row>
-                <Col xs={ 6 }>
+                <Col sm={ 6 }>
                   {renderField(fields.address)}
                 </Col>
-                <Col xs={ 6 }>
+                <Col sm={ 6 }>
                   {renderField(fields.city)}
                 </Col>
               </Row>
             </Col>
           </FormGroup>
           <FormGroup controlId="formSizingColumn">
-            <Col sm={9}>
+            <Col sm={12}>
               <Row>
                 <Col sm={ 4 }>
                   <label>
@@ -288,17 +288,20 @@ let ClientSignupForm = (props) => {
                 <Col sm={ 4 }>
                   {renderField(fields.zipcode)}
                 </Col>
+                <Col sm={ 4 }>
+                  {renderField(fields.dob)}
+                </Col>
               </Row>
             </Col>
           </FormGroup>
         </Row>
 
           <button
-            className='btn btn-primary m-b-2'
+            className='btn btn-primary btn-lg pull-right m-b-2'
             disabled={invalid || submitting}
             action="submit"
           >
-            Register
+            Register Client
           </button>
         </form>
       </Col>
