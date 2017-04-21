@@ -1,5 +1,4 @@
 import React, { PropTypes } from 'react';
-import _ from 'lodash';
 import { Field, reduxForm } from 'redux-form';
 
 import { connect } from 'routes/routedComponent';

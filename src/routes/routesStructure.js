@@ -28,7 +28,7 @@ const CONFIGS = {
       slug: 'Alerts',
       title: 'Alerts',
       icon: 'fa fa-fw fa-lg fa-bell',
-      url: 'dashboard/alerts',
+      url: '/dashboard/alerts',
       //sidebarElement: (<Badge bsStyle='info' outline className='pull-right'>2</Badge>)
       //children: getSidebarsMenuEntries()
     },
@@ -36,26 +36,31 @@ const CONFIGS = {
       slug: 'Profile',
       title: 'Profile',
       icon: 'fa fa-lock fa-lg',
-      url: 'dashboard/profile',
+      url: '/dashboard/profile',
     },
     {
       slug: 'Preferences',
       title: 'Preferences',
       icon: 'fa fa-cog fa-lg',
-      url: 'dashboard/preferences'
+      url: '/dashboard/preferences'
     }
   ],
   'admin': [
     {
       slug: 'Removals',
       title: 'Removals',
-      url: 'admin/dashboard',
+      url: '/admin/dashboard',
       children: [
         {
           title: 'In Progress',
-          url: 'admin/dashboard/removals/in-progress'
+          url: '/admin/dashboard/removals/in-progress'
         }
       ]
+    },
+    {
+      slug: 'Client Signup Form',
+      title: 'Client Signup',
+      url: '/admin/dashboard/client-signup'
     }
   ]
 }

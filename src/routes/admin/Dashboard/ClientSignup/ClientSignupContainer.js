@@ -1,16 +1,13 @@
 import React from 'react';
-import Signup from './components/Signup';
+import ClientSignup from './components/ClientSignup';
 
 import { RoutedComponent, connect } from 'routes/routedComponent';
+//import { postUserSignup } from 'modules/auth';
 import { CONTENT_VIEW_STATIC } from 'layouts/DefaultLayout/modules/layout';
-import { persistData } from 'localStorage';
-import {
-  postUserSignup,
-  USER_SIGNUP_SUCCESS,
-  USER_SIGNUP_FAILURE
-} from 'modules/auth';
+//import { persistData } from 'localStorage';
+//import { USER_SIGNUP_SUCCESS , USER_SIGNUP_FAILURE } from 'modules/auth';
 
-class SignupContainer extends RoutedComponent {
+class ClientSignupContainer extends RoutedComponent {
   constructor(props) {
     super(props)
 
@@ -26,9 +23,9 @@ class SignupContainer extends RoutedComponent {
   getLayoutOptions() {
     return {
       contentView: CONTENT_VIEW_STATIC,
-      sidebarEnabled: false,
-      navbarEnabled: false,
-      footerEnabled: false,
+      sidebarEnabled: true,
+      navbarEnabled: true,
+      footerEnabled: true,
       headerEnabled: false
     }
   }
@@ -67,22 +64,22 @@ class SignupContainer extends RoutedComponent {
 
   render() {
     return (
-      <Signup
+      <ClientSignup
         submitForm={this.submitForm}
-        plan={this.props.planSelection}
         errorMessage={this.state.errorMessage}
       />
     )
   }
 }
 
-const mapStateToProps = state => ({
-  planSelection: state.planSelection,
-  currentUser: state.entity
-})
+//const mapStateToProps = state => ({
+  //planSelection: state.planSelection,
+  //currentUser: state.entity
+//})
 
-const mapActionCreators = {
-  postUserSignup
-}
+//const mapActionCreators = {
+  //postUserSignup
+//}
 
-export default connect(mapStateToProps, mapActionCreators)(SignupContainer);
+export default connect()(ClientSignupContainer);
+
