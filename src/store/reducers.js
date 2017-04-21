@@ -11,7 +11,7 @@ import googleResults from 'routes/client/Dashboard/GoogleResults/modules/googleR
 import profile from 'routes/client/Dashboard/Profile/modules/profile';
 import monitoring from 'routes/client/Dashboard/Monitoring/modules/monitoring';
 import layout from 'layouts/DefaultLayout/modules/layout';
-import requestedRemovals from 'routes/admin/Dashboard/Monitoring/modules/removalRequests';
+import requestedRemovals from 'routes/admin/Dashboard/Removals/modules/removalRequests';
 
 // for testing purposes
 import loggedInUser from 'modules/loggedInUser';

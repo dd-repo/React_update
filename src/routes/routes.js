@@ -85,8 +85,16 @@ export default [
       path: '/admin/dashboard',
         getComponent: (nextState, cb) => {
             require.ensure([], require => {
-              cb(null, require('./admin/Dashboard/Monitoring').default);
-            }, 'admin-dashboard');
+              cb(null, require('./admin/Dashboard/Removals/RequestedRemovalsContainer').default);
+            }, 'admin-dashboard-removals-pending');
+        }
+    },
+    {
+      path: '/admin/dashboard/removals/in-progress',
+        getComponent: (nextState, cb) => {
+            require.ensure([], require => {
+              cb(null, require('./admin/Dashboard/Removals/RequestedRemovalsContainer').default);
+            }, 'admin-dashboard-removals-in-progress');
         }
     },
     {

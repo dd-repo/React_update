@@ -5,8 +5,10 @@ import BlitzApi from 'services/BlitzApi';
 export const ADMIN_REQUESTED_REMOVALS_PENDING = 'ADMIN_REQUESTED_REMOVALS_PENDING';
 export const ADMIN_REQUESTED_REMOVALS_SUCCESS = 'ADMIN_REQUESTED_REMOVALS_SUCCESS';
 export const ADMIN_REQUESTED_REMOVALS_FAILURE = 'ADMIN_REQUESTED_REMOVALS_FAILURE';
-
-export const ADMIN_REMOVAL_REQUEST_PATH = '/admin/api/monitoring-requests'
+export const UPDATING_STATUS = 'UPDATING_STATUS';
+export const UPDATING_STATUS_SUCCESS = 'UPDATING_STATUS_SUCCESS';
+export const UPDATE_STATUS_FAILURE = 'UPDATE_STATUS_FAILURE';
+export const ADMIN_REMOVAL_REQUEST_PATH = '/admin/api/monitoring-requests';
 
 // actions
 export const getRemovalsRequested = () => {
@@ -17,6 +19,20 @@ export const getRemovalsRequested = () => {
       response => dispatch(receivedRemovalRequests(response.data))
     ).catch(
     error => dispatch(rejectedRemovalRequests(error))
+    )
+  }
+}
+
+export const updateStatus = payload => {
+  return dispatch => {
+    dispatch(updatingStatus())
+    return BlitzApi.patch(ADMIN_REMOVAL_REQUEST_PATH, payload)
+    .then(
+      response => dispatch(receivedUpdateStatus())
+    ).catch(
+    //error => dispatch(rejectedUpdateStatus(error))
+    error => console.log('error', error.response)
+
     )
   }
 }
@@ -41,6 +57,24 @@ export const rejectedRemovalRequests = error => (
   }
 )
 
+export const updatingStatus = () => (
+  {
+    type: UPDATING_STATUS
+  }
+)
+
+export const receivedUpdateStatus = () => (
+  {
+    type: UPDATE_STATUS_SUCCESS
+  }
+)
+
+export const rejectedUpdateStatus = error => (
+  {
+    type: UPDATE_STATUS_FAILURE
+  }
+)
+
 // reducer
 const reducer = (state = {}, action) => {
   switch(action.type) {
@@ -56,7 +90,7 @@ const reducer = (state = {}, action) => {
     case ADMIN_REQUESTED_REMOVALS_FAILURE:
       return Object.assign({}, state, {
         isFetching: false,
-        error: action.error.response.data.errorMessage
+        error: action.error
       });
     default:
       return state

@@ -13,39 +13,51 @@ import { getMenuEntries as getSidebarsMenuEntries } from './Sidebars';
 const CONFIGS = {
   'client': [
     {
-        slug: 'Google Results',
-        title: 'Google Results',
-        url: '/dashboard',
-        icon: 'fa fa-google fa-lg',
+      slug: 'Google Results',
+      title: 'Google Results',
+      url: '/dashboard',
+      icon: 'fa fa-google fa-lg',
     },
     {
-        slug: 'Privacy',
-        title: 'Privacy',
-        icon: 'fa fa-shield fa-lg',
-        url: '/dashboard/privacy'
+      slug: 'Privacy',
+      title: 'Privacy',
+      icon: 'fa fa-shield fa-lg',
+      url: '/dashboard/privacy'
     },
     {
-        slug: 'Alerts',
-        title: 'Alerts',
-        icon: 'fa fa-fw fa-lg fa-bell',
-        url: 'dashboard/alerts',
-        //sidebarElement: (<Badge bsStyle='info' outline className='pull-right'>2</Badge>)
-        //children: getSidebarsMenuEntries()
+      slug: 'Alerts',
+      title: 'Alerts',
+      icon: 'fa fa-fw fa-lg fa-bell',
+      url: 'dashboard/alerts',
+      //sidebarElement: (<Badge bsStyle='info' outline className='pull-right'>2</Badge>)
+      //children: getSidebarsMenuEntries()
     },
     {
-        slug: 'Profile',
-        title: 'Profile',
-        icon: 'fa fa-lock fa-lg',
-        url: 'dashboard/profile',
+      slug: 'Profile',
+      title: 'Profile',
+      icon: 'fa fa-lock fa-lg',
+      url: 'dashboard/profile',
     },
     {
-        slug: 'Preferences',
-        title: 'Preferences',
-        icon: 'fa fa-cog fa-lg',
-        url: 'dashboard/preferences'
+      slug: 'Preferences',
+      title: 'Preferences',
+      icon: 'fa fa-cog fa-lg',
+      url: 'dashboard/preferences'
     }
-],
-  'admin': []
+  ],
+  'admin': [
+    {
+      slug: 'Removals',
+      title: 'Removals',
+      url: 'admin/dashboard',
+      children: [
+        {
+          title: 'In Progress',
+          url: 'admin/dashboard/removals/in-progress'
+        }
+      ]
+    }
+  ]
 }
 
 // Add keys to the sidebar definitions
