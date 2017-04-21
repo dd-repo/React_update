@@ -45,10 +45,9 @@ class MonitoringContainer extends RoutedComponent {
       });
   }
 
-  handleClick(siteId) {
-    const { access_token } = this.props.currentUser
+  handleClick(request_id) {
     this.setState({ isFetching: true })
-    this.props.requestRemoval(siteId, access_token)
+    this.props.requestRemoval(request_id)
     .then( res => { this.doNext(res) })
     .catch( error => { console.log('error in monitoring removal', error) })
   }

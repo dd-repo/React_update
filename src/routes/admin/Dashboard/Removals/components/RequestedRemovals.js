@@ -4,7 +4,9 @@ import Loading from 'react-loading';
 import {
   Table,
   Label,
-  Button
+  Button,
+  Row,
+  Pagination
 } from 'components'
 
 const STATUS_LABEL = {
@@ -20,7 +22,19 @@ const BUTTON_LABEL = {
 }
 
 const RequestedRemovals = (props) => {
-  const { removals, isFetching, handleClick } = props
+  const {
+    removals,
+    pagination,
+    isFetching,
+    handleClick,
+    pageNum,
+    getNextPage
+  } = props
+
+  const paginationItems = () => {
+    const { total, limit } = pagination
+    return  Math.ceil(total / limit)
+  }
 
   const renderRequestedRemovals = removal => {
     const {
@@ -31,7 +45,7 @@ const RequestedRemovals = (props) => {
       client_name,
       age,
       addresses,
-      is_active
+      is_active,
     } = removal
     const siteURL = `http://www.${site}`
     const friendlyURL = `www.${site}`
@@ -84,6 +98,21 @@ const RequestedRemovals = (props) => {
       {
         !isFetching
           ?
+            <Row>
+              <Pagination
+                bsSize="medium"
+                items={paginationItems()}
+                activePage={pageNum}
+                boundaryLinks
+                maxButtons={5}
+                prev
+                next
+                first
+                last
+                ellipsis
+                onSelect={getNextPage}
+              />
+
             <Table>
               <thead>
                 <tr>
@@ -112,8 +141,9 @@ const RequestedRemovals = (props) => {
                   removals.map(
                     removal => renderRequestedRemovals(removal)
                   )}
-              </tbody>
-            </Table>
+                </tbody>
+              </Table>
+            </Row>
             :
               <div className='container'>
                 <div className="spinner">
@@ -122,9 +152,9 @@ const RequestedRemovals = (props) => {
                   </div>
                 </div>
               </div>
-            }
+              }
 
-    </div>
+            </div>
   )
 }
 

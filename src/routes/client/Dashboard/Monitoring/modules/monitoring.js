@@ -79,7 +79,7 @@ const reducer = (state = {}, action) => {
       });
     case MONITORING_SUCCESS:
       return Object.assign({}, state, {
-        sites: action.response,
+        sites: action.response.monitoring_requests,
         isFetching: false
       });
     case MONITORING_FAILURE:
