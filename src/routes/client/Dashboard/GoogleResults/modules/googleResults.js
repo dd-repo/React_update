@@ -16,6 +16,7 @@ export const getGoogleResults = params => {
     return BlitzApi.get(path)
     .then(
       response => dispatch(googleResultSuccess(response.data))
+      //response => console.log('response', response.data)
     ).catch(
     error => dispatch(googleResultFailure(error))
     )
@@ -63,7 +64,8 @@ const reducer = (state = {}, action) => {
     case GOOGLE_RESULTS_SUCCESS:
       return Object.assign({}, state, {
         isFetching: false,
-        results: action.results
+        all: action.results.search_results,
+        pagination: action.results.meta.pagination
       });
     case GOOGLE_RESULTS_FAILURE:
       return Object.assign({}, state, {

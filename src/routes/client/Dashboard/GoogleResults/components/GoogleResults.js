@@ -25,6 +25,7 @@ import { CONTENT_VIEW_STATIC } from 'layouts/DefaultLayout/modules/layout';
 const GoogleResults = (props) => {
   const {
     results,
+    pagination,
     keywords,
     getResults,
     getNextPage,
@@ -33,13 +34,16 @@ const GoogleResults = (props) => {
     pageNum = 1
   } = props
 
+
+  const paginationItems = pagination !== undefined && Math.ceil(pagination.total / pagination.limit)
+
   const currentKeyword = keywords.currentKeyword ? keywords.currentKeyword.value : ''
 
   return (
     <Row>
       <Pagination
         bsSize="medium"
-        items={3}
+        items={paginationItems}
         activePage={pageNum}
         boundaryLinks
         prev

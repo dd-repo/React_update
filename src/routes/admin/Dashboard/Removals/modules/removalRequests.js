@@ -6,15 +6,17 @@ export const ADMIN_REQUESTED_REMOVALS_PENDING = 'ADMIN_REQUESTED_REMOVALS_PENDIN
 export const ADMIN_REQUESTED_REMOVALS_SUCCESS = 'ADMIN_REQUESTED_REMOVALS_SUCCESS';
 export const ADMIN_REQUESTED_REMOVALS_FAILURE = 'ADMIN_REQUESTED_REMOVALS_FAILURE';
 export const UPDATING_STATUS = 'UPDATING_STATUS';
-export const UPDATING_STATUS_SUCCESS = 'UPDATING_STATUS_SUCCESS';
+export const UPDATE_STATUS_SUCCESS = 'UPDATE_STATUS_SUCCESS';
 export const UPDATE_STATUS_FAILURE = 'UPDATE_STATUS_FAILURE';
 export const ADMIN_REMOVAL_REQUEST_PATH = '/admin/api/monitoring-requests';
 
 // actions
-export const getRemovalsRequested = () => {
+export const getRemovalsRequested = pageNum => {
+  //const path = ADMIN_REMOVAL_REQUEST_PATH + `/${pageNum}`
+  const path = ADMIN_REMOVAL_REQUEST_PATH
   return dispatch => {
     dispatch(gettingRemovalRequests())
-    return BlitzApi.get(ADMIN_REMOVAL_REQUEST_PATH)
+    return BlitzApi.get(path)
     .then(
       response => dispatch(receivedRemovalRequests(response.data))
     ).catch(
@@ -85,12 +87,25 @@ const reducer = (state = {}, action) => {
     case ADMIN_REQUESTED_REMOVALS_SUCCESS:
       return Object.assign({}, state, {
         isFetching: false,
-        all: action.removals
+        all: action.removals.monitoring_requests,
+        pagination: action.removals.meta.pagination
       });
     case ADMIN_REQUESTED_REMOVALS_FAILURE:
       return Object.assign({}, state, {
         isFetching: false,
         error: action.error
+      });
+    case UPDATING_STATUS:
+      return Object.assign({}, state, {
+        isFetching: true
+      });
+    case UPDATE_STATUS_SUCCESS:
+      return Object.assign({}, state, {
+        isFetching: false
+      });
+    case UPDATE_STATUS_FAILURE:
+      return Object.assign({}, state, {
+        isFetching: false
       });
     default:
       return state

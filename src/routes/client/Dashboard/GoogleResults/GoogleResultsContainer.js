@@ -69,7 +69,8 @@ class GoogleResultsContainer extends RoutedComponent {
   render() {
     return (
         <GoogleResults
-          results={this.props.googleResults.results}
+          results={this.props.googleResults.all}
+          pagination={this.props.googleResults.pagination}
           keywords={this.props.keywords}
           isFetching={this.state.isFetching}
           getResults={this.getResults}
