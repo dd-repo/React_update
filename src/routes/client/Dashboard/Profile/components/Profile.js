@@ -1,30 +1,58 @@
 import React, { PropTypes } from 'react';
 
-import { Panel } from 'components';
+import {
+    Row,
+    Col,
+    Panel,
+    Button,
+    Media,
+    Tabs,
+    Tab,
+    Nav,
+    NavItem,
+    Badge,
+    AvatarImage,
+    FavoriteStar,
+    Divider,
+    Label
+} from 'components';
 import ProfileForm from './ProfileForm';
+import ProfileDetails from './ProfileDetails';
 
 import { Colors } from 'consts';
 
 import classes from './Profile.scss';
 
-const Profile = ({ submitForm, avatar, driverLicense, onImageUpload }) => {
+const Profile = ({
+  submitForm,
+  avatarPreview,
+  driverLicensePreview,
+  profile,
+  onImageUpload
+}) => {
   return (
     <div>
-        <Panel
-            header={
-                <h4 className='panel-title'>
-                    Edit Profile
-                </h4>
-            }
-        >
-          <ProfileForm
-            submitForm={submitForm}
-            avatar={avatar}
-            driverLicense={driverLicense}
-            onImageUpload={onImageUpload}
-          />
-        </Panel>
-    </div>
+        <Row>
+          <Col lg={ 8 }>
+            <Tab.Container id="profile-tabs" defaultActiveKey="profile-details">
+              <div>
+                <Nav bsStyle='tabs'>
+                  <NavItem eventKey='profile-details'>
+                    Profile Details
+                  </NavItem>
+                </Nav>
+                <Tab.Content animation>
+                  <Tab.Pane eventKey='profile-details'>
+                    <ProfileDetails
+                      profile={profile}
+                    />
+                  </Tab.Pane>
+                </Tab.Content>
+              </div>
+            </Tab.Container>
+          </Col>
+        </Row>
+      </div>
   )
 }
 

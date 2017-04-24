@@ -1,42 +1,21 @@
-import axios from 'axios';
+import BlitzApi from 'services/BlitzApi';
 
-import { BASE_URL } from 'consts/apis';
+//import { BASE_URL } from 'consts/apis';
 import { USER_LOGIN_SUCCESS } from 'modules/auth';
 
 export const PROFILE_UPDATE_POSTING = 'PROFILE_UPDATE_POSTING';
 export const PROFILE_UPDATE_SUCCESS = 'PROFILE_UPDATE_SUCCESS';
 export const PROFILE_UPDATE_FAILURE = 'PROFILE_UPDATE_FAILURE';
-export const PROFILE_GET_SUCCESS = 'PROFILE_GET_SUCCESS';
-export const PROFILE_GET_FAILURE = 'PROFILE_GET_FAILURE';
+export const PROFILE_SUCCESS = 'PROFILE_SUCCESS';
+export const PROFILE_FAILURE = 'PROFILE_FAILURE';
 
 // actions
-const profilePutRequest = (profileInfo, profile_id, access_token) => {
-  return (
-    {
-      method: 'put',
-      url: `${BASE_URL}/dashboard/api/v1/profiles/${profile_id}`,
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': access_token
-      },
-      data: JSON.stringify({ profile: profileInfo })
-    });
-}
 
-const profileGetRequest = (profile_id, authToken) => {
-  let request = axios.create({
-    baseURL: BASE_URL,
-    headers: {'Authorization': authToken}
-  });
-  return request.get(
-    `/dashboard/api/v1profiles/${profile_id}`
-  );
-}
-
-export const postUserProfile = (profileInfo, profile_id, access_token) => {
+export const postUserProfile = (payload, profile_id) => {
+  const path = `/dashboard/api/v1/profiles/${profile_id}`
   return dispatch => {
     dispatch(postingProfile())
-    return axios(profilePutRequest(profileInfo, profile_id, access_token))
+    return BlitzApi.patch(path, payload)
     .then(
       response => dispatch(profileUpdateSuccess(response.data))
     ).catch(
@@ -45,9 +24,10 @@ export const postUserProfile = (profileInfo, profile_id, access_token) => {
   }
 }
 
-export const getProfile = (profile_id, authToken) => {
+export const getProfile = (profile_id) => {
+  const path = `/dashboard/api/v1/profiles/${profile_id}`
   return dispatch => {
-    return axios(profileGetRequest(profile_id, authToken))
+    return BlitzApi.get(path)
     .then(
       response => dispatch(profileGetSuccess(response.data))
       //response => console.log('profile response', response)
@@ -86,7 +66,7 @@ const profileUpdateFailure = error => {
 const profileGetSuccess = profile => {
   return (
     {
-      type: PROFILE_GET_SUCCESS,
+      type: PROFILE_SUCCESS,
       profile
     }
   )
@@ -95,7 +75,7 @@ const profileGetSuccess = profile => {
 const profileGetFailure = error => {
   return (
     {
-      type: PROFILE_GET_FAILURE,
+      type: PROFILE_FAILURE,
       error
     }
   )
@@ -117,9 +97,13 @@ const reducer = (state = {}, action) => {
         isFetching: false,
         error: action.error
       })
-    case PROFILE_GET_SUCCESS:
+    case PROFILE_SUCCESS:
       return Object.assign({}, state, {
-
+        avatar: action.profile.avatar,
+        driver_license: action.profile.driver_license,
+        id: action.profile.id,
+        maiden_name: action.profile.maiden_name,
+        middle_name: action.profile.middle_name
       })
     case USER_LOGIN_SUCCESS:
       return Object.assign({}, state, {

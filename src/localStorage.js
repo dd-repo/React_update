@@ -25,6 +25,11 @@ export const getAuthToken = () => {
   return JSON.parse(authToken)
 }
 
+export const getUserRole = () => {
+  const userRole = localStorage.getItem('userRole')
+  return JSON.parse(userRole)
+}
+
 export const removePersistedData = () => {
   localStorage.removeItem('currentUser')
   localStorage.removeItem('authToken')

@@ -67,7 +67,6 @@ const animateCloseNode = (nodeElement, cbComplete, cbStart, animationSettings) =
     });
 }
 
-
 class Menu extends React.Component {
     static propTypes = {
         currentUrl: PropTypes.string,
@@ -105,6 +104,7 @@ class Menu extends React.Component {
         const currentLevelExpandedNode = _.find(state.expandedNodes,
             (node) => node.subMenuLevel === nodeDef.subMenuLevel);
 
+
         const nextExpandedNodes = _.without(state.expandedNodes,
             currentLevelExpandedNode);
 
@@ -112,6 +112,7 @@ class Menu extends React.Component {
             const newState = Object.assign({}, state, { expandedNodes });
             this.setState(newState);
         }
+
         // Animate close and update state if no other node will be expanded
         if(currentLevelExpandedNode){
             animateCloseNode(currentLevelExpandedNode.element,
@@ -136,12 +137,13 @@ class Menu extends React.Component {
 
     toggleNode(nodeDef) {
         const isExpanded = this.isNodeExpanded(nodeDef);
+
         this.expandNode(nodeDef, !isExpanded);
     }
 
     setSidebarNodesHighlights(url) {
         if(this.props.currentUrl) {
-            const activeNodes = findActiveNodes(SIDEBAR_CONFIG(this.props.currentUserRole), url);
+            const activeNodes = findActiveNodes(SIDEBAR_CONFIG, url);
 
             this.setState(Object.assign({}, this.state,
                 { activeNodes, expandedNodes: activeNodes }));
@@ -267,7 +269,7 @@ class Menu extends React.Component {
     render() {
         return (
             <ul className="side-menu">
-                { this.generateRootNodes(SIDEBAR_CONFIG(this.props.currentUserRole)) }
+                { this.generateRootNodes(SIDEBAR_CONFIG) }
             </ul>
         );
     }

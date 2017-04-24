@@ -10,7 +10,8 @@ const Avatar = (props) => {
         [`${classes.avatarCircle}`]: props.type === 'circle',
         [`${classes.avatarRounded}`]: props.type === 'rounded',
         [`${classes.avatarSm}`]: props.size === 'small',
-        [`${classes.avatarLg}`]: props.size === 'large'
+        [`${classes.avatarLg}`]: props.size === 'large',
+        [`${classes.avatarExlg}`]: props.size === 'ex-large'
     }, props.className);
 
     const statusStyle = {

@@ -6,11 +6,15 @@ import {
 
 import uuid from 'node-uuid';
 import _ from 'underscore';
+import { getUserRole } from 'localStorage';
 
-import { getMenuEntries as getSkinMenuEntries } from './Skins';
-import { getMenuEntries as getSidebarsMenuEntries } from './Sidebars';
+//const userRole = JSON.parse(localStorage.getItem('userRole'))
+const userRole = getUserRole()
 
-const CONFIGS = {
+//import { getMenuEntries as getSkinMenuEntries } from './Skins';
+//import { getMenuEntries as getSidebarsMenuEntries } from './Sidebars';
+
+export const CONFIGS = {
   'client': [
     {
       slug: 'Google Results',
@@ -33,10 +37,19 @@ const CONFIGS = {
       //children: getSidebarsMenuEntries()
     },
     {
-      slug: 'Profile',
+      slug: 'profile',
       title: 'Profile',
       icon: 'fa fa-lock fa-lg',
-      url: '/dashboard/profile',
+      children: [
+        {
+          title: 'Profile Details',
+          url: '/dashboard/user-profile',
+        },
+        {
+          title: 'Profile Edit',
+          url: '/dashboard/user-profile/edit',
+        }
+      ]
     },
     {
       slug: 'Preferences',
@@ -66,7 +79,7 @@ const CONFIGS = {
 }
 
 // Add keys to the sidebar definitions
-const assignKeys = (input, level = 0) => _.map(CONFIGS[input], (def) => {
+const assignKeys = (input, level = 0) => _.map(input, (def) => {
     const newObj = { key: uuid.v4(), subMenuLevel: level };
     if(def.children) {
         newObj.children = assignKeys(def.children, level + 1);
@@ -121,8 +134,6 @@ export function findSectionBySlug(nodes, slugName) {
     };
 
     const sections = Array.from(getSections(nodes));
-
-    return _.findWhere(sections, { slug: slugName });
+return _.findWhere(sections, { slug: slugName });
 }
-
-export default assignKeys;
+export default assignKeys(CONFIGS[userRole]);

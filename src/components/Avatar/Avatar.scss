@@ -6,6 +6,8 @@ $avatar-size-sm: 19px;
 $avatar-size-default: 35px;
 $avatar-size-lg: 84px;
 
+$avatar-size-ex-lg: 140px;
+
 .avatar {
     position: relative;
     width: $avatar-size-default;
@@ -115,6 +117,23 @@ $avatar-size-lg: 84px;
 
         .avatarPlaceholder {
             font-size: 48px;
+        }
+
+        .avatarText.avatarContent {
+            font-size: 33px;
+        }
+
+        .infoWrap {
+            top: 10px;
+            right: 10px;
+        }
+    }
+    &.avatarExlg {
+        width: $avatar-size-ex-lg;
+        height: $avatar-size-ex-lg;
+
+        .avatarPlaceholder {
+            font-size: 100px;
         }
 
         .avatarText.avatarContent {
