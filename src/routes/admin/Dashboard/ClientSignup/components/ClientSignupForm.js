@@ -38,27 +38,20 @@ const fields = {
     label: 'Email',
     placeHolder: 'Enter your email...',
   },
-  phoneNumber: {
+  phone_number: {
     name: 'phone_number',
     type: 'tel',
     label: 'Phone number',
     placeHolder: 'Enter your phone number...',
     normalize: normalizePhone
   },
-  password: {
-    name: 'password',
-    type: 'password',
-    label: 'Password',
-    placeHolder: 'Enter a password...',
-    maxLength: '25',
-  },
   cc_first_name: {
-    name: 'first_name',
+    name: 'cc_first_name',
     type: 'text',
     label: 'First name',
   },
   cc_last_name: {
-    name: 'last_name',
+    name: 'cc_last_name',
     type: 'text',
     label: 'Last name',
   },
@@ -104,17 +97,27 @@ const fields = {
     label: 'MM / DD / YYYY',
     normalize: normalizeDate
   },
+  state: {
+    list: states
+  },
+  plan: {
+    list: ['indiviual', 'family']
+  }
 }
 
-const dropDownSelect = ({ input }) => (
+const dropDownSelect = ({ input }) => {
+  const { name } = input
+  const list = fields[[name]].list
+return (
   <FormControl {...input} componentClass='select'>
-    <option value=''>Select a state...</option>
-    {states.map(state =>
+    <option value=''>Select a {name}...</option>
+    {list.map(state =>
                 <option value={state} key={state}>{state}</option>
                 )
     }
   </FormControl>
 )
+}
 
 const validate = values => {
   return checkValidation(values, fields)
@@ -218,7 +221,24 @@ let ClientSignupForm = (props) => {
                   {renderField(fields.email)}
                 </Col>
                 <Col sm={ 6 }>
-                  {renderField(fields.phoneNumber)}
+                  {renderField(fields.phone_number)}
+                </Col>
+              </Row>
+            </Col>
+          </FormGroup>
+        </Row>
+        <Row>
+          <h4 className="m-l-2">
+            Plan
+          </h4>
+          <FormGroup controlId="formSizingColumn">
+            <Col sm={12}>
+              <Row>
+                <Col sm={ 4 }>
+                  <Field
+                    name='plan'
+                    component={dropDownSelect}
+                  />
                 </Col>
               </Row>
             </Col>
@@ -232,10 +252,10 @@ let ClientSignupForm = (props) => {
             <Col sm={12}>
               <Row>
                 <Col sm={ 6 }>
-                  {renderField(fields.first_name)}
+                  {renderField(fields.cc_first_name)}
                 </Col>
                 <Col sm={ 6 }>
-                  {renderField(fields.last_name)}
+                  {renderField(fields.cc_last_name)}
                 </Col>
               </Row>
             </Col>
@@ -282,6 +302,7 @@ let ClientSignupForm = (props) => {
                   </label>
                   <Field
                     name='state'
+                    list={states}
                     component={dropDownSelect}
                   />
                 </Col>
