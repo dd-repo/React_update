@@ -28,7 +28,7 @@ const fields = {
     label: 'Email',
     placeHolder: 'Enter your email...',
   },
-  phoneNumber: {
+  phone_number: {
     name: 'phone_number',
     type: 'tel',
     label: 'Phone number',
