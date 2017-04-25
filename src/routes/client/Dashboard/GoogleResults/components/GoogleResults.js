@@ -43,7 +43,7 @@ const GoogleResults = (props) => {
     <Row>
       <Pagination
         bsSize="medium"
-        items={paginationItems}
+        items={paginationItems || 1}
         activePage={pageNum}
         boundaryLinks
         prev

@@ -64,11 +64,19 @@ export default [
       }
     },
     {
-      path: '/dashboard/profile',
+      path: '/dashboard/user-profile',
       getComponent: (nextState, cb) => {
         require.ensure([], require => {
-          cb(null, require('./client/Dashboard/Profile').default);
-        }, 'dashboard-profile');
+          cb(null, require('./client/Dashboard/Profile/Details').default);
+        }, 'dashboard-profile-details');
+      }
+    },
+    {
+      path: '/dashboard/user-profile/edit',
+      getComponent: (nextState, cb) => {
+        require.ensure([], require => {
+          cb(null, require('./client/Dashboard/Profile/Edit').default);
+        }, 'dashboard-profile-edit');
       }
     },
     {

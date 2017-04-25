@@ -22,97 +22,106 @@ const renderInput = ({ input, type }) => {
     <FormControl
       {...input}
       type={type}
-      />
+    />
   )
-  }
+}
 
-const ProfileForm = ({ submitForm, handleSubmit, onImageUpload, avatar, driverLicense }) => {
+const ProfileForm = ({
+  submitForm,
+  handleSubmit,
+  onImageUpload,
+  avatarPreview,
+  driverLicensePreview,
+  profile
+}) => {
   return (
-    <Form onSubmit={handleSubmit(submitForm)} horizontal>
-      <FormGroup>
-        <Col componentClass={ControlLabel} sm={3}>
-          Avatar
-        </Col>
-        <Col sm={6}>
-          <Field
-            name='avatar'
-            label='Avatar'
-            height={ 140 }
-            width={ 140 }
-            shape='circle'
-            component={Upload}
-            image={avatar}
-            onImageUpload={onImageUpload}
-          />
-        </Col>
-      </FormGroup>
-      <FormGroup>
-        <Col componentClass={ControlLabel} sm={3}>
-          Driver License
-        </Col>
-        <Col sm={6}>
-          <Field
-            name='driverLicense'
-            label='Driver license'
-            height={ 140 }
-            width={ 240 }
-            shape='rounded'
-            component={Upload}
-            image={driverLicense}
-            onImageUpload={onImageUpload}
-          />
-        </Col>
-      </FormGroup>
-      <FormGroup>
-        <Col componentClass={ControlLabel} sm={3}>
-        First name
-        </Col>
-        <Col sm={6}>
-          <Field
-            name='first_name'
-            type='text'
-            component={renderInput}
-          />
-        </Col>
-      </FormGroup>
-      <FormGroup>
-        <Col componentClass={ControlLabel} sm={3}>
-          Last Name
-        </Col>
-        <Col sm={6}>
-          <Field
-            name='last_name'
-            type='text'
-            component={renderInput}
-          />
-        </Col>
-      </FormGroup>
-      <FormGroup>
-        <Col componentClass={ControlLabel} sm={3}>
-         Middle name
-        </Col>
-        <Col sm={6}>
-          <Field
-            name='middle_name'
-            type='text'
-            component={renderInput}
-          />
-        </Col>
-      </FormGroup>
-      <FormGroup>
-        <Col componentClass={ControlLabel} sm={3}>
-          Maiden Name
-        </Col>
-        <Col sm={6}>
-          <Field
-            name='maiden_name'
-            type='text'
-            component={renderInput}
-          />
-        </Col>
-      </FormGroup>
-      <button className='btn btn-primary pull-right'>Update Profile</button>
-    </Form>
+    <div>
+      <Form onSubmit={handleSubmit(submitForm)} horizontal>
+        <FormGroup>
+          <Col componentClass={ControlLabel} sm={3}>
+            Avatar
+          </Col>
+          <Col sm={6}>
+            <Field
+              name='avatarPreview'
+              label='Avatar'
+              height={ 140 }
+              width={ 140 }
+              shape='circle'
+              component={Upload}
+              image={avatarPreview}
+              onImageUpload={onImageUpload}
+            />
+          </Col>
+        </FormGroup>
+        <FormGroup>
+          <Col componentClass={ControlLabel} sm={3}>
+            Driver License
+          </Col>
+          <Col sm={6}>
+            <Field
+              name='driverLicensePreview'
+              label='Driver license'
+              height={ 140 }
+              width={ 240 }
+              shape='rounded'
+              component={Upload}
+              image={driverLicensePreview}
+              onImageUpload={onImageUpload}
+            />
+          </Col>
+        </FormGroup>
+        <FormGroup>
+          <Col componentClass={ControlLabel} sm={3}>
+            First name
+          </Col>
+          <Col sm={6}>
+            <Field
+              name='first_name'
+              type='text'
+              component={renderInput}
+            />
+          </Col>
+        </FormGroup>
+        <FormGroup>
+          <Col componentClass={ControlLabel} sm={3}>
+            Last Name
+          </Col>
+          <Col sm={6}>
+            <Field
+              name='last_name'
+              type='text'
+              component={renderInput}
+            />
+          </Col>
+        </FormGroup>
+        <FormGroup>
+          <Col componentClass={ControlLabel} sm={3}>
+            Middle name
+          </Col>
+          <Col sm={6}>
+            <Field
+              name='middle_name'
+              type='text'
+              component={renderInput}
+            />
+          </Col>
+        </FormGroup>
+        <FormGroup>
+          <Col componentClass={ControlLabel} sm={3}>
+            Maiden Name
+          </Col>
+          <Col sm={6}>
+            <Field
+              name='maiden_name'
+              type='text'
+              component={renderInput}
+            />
+          </Col>
+        </FormGroup>
+        <button className='btn btn-primary pull-right'>Update Profile</button>
+      </Form>
+    </div>
   )
 }
 
@@ -122,6 +131,6 @@ const reduxProfileForm = reduxForm({
 
 export default connect(
   state => ({
-    initialValues: state.currentUser
+    initialValues: state.profile
   })
 )(reduxProfileForm)

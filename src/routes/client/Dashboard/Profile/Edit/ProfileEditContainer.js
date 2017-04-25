@@ -1,16 +1,18 @@
 import React from 'react';
 
 import { RoutedComponent, connect } from 'routes/routedComponent';
-import Profile from './components/Profile';
+import ProfileForm from '../components/ProfileForm';
 import { CONTENT_VIEW_STATIC } from 'layouts/DefaultLayout/modules/layout';
 import {
   PROFILE_UPDATE_SUCCESS,
   PROFILE_UPDATE_FAILURE,
-  postUserProfile,
-  getProfile
-} from './modules/profile';
+  PROFILE_SUCCESS,
+  getProfile,
+  postUserProfile
+} from '../modules/profile';
+import { persistData } from 'localStorage';
 
-class ProfileContainer extends RoutedComponent {
+class ProfileEditContainer extends RoutedComponent {
   constructor(props) {
     super(props)
     this.state = {}
@@ -18,6 +20,11 @@ class ProfileContainer extends RoutedComponent {
     this.submitForm = this.submitForm.bind(this);
     this.onImageUpload = this.onImageUpload.bind(this);
     this.getBase64 = this.getBase64.bind(this);
+    this.fetchProfile = this.fetchProfile.bind(this);
+  }
+
+  static contextTypes = {
+    router: React.PropTypes.object.isRequired
   }
 
   getLayoutOptions() {
@@ -28,6 +35,10 @@ class ProfileContainer extends RoutedComponent {
       footerEnabled: true,
       headerEnabled: true
     }
+  }
+
+  componentWillMount() {
+    this.fetchProfile()
   }
 
   onImageUpload(image, name) {
@@ -53,7 +64,7 @@ class ProfileContainer extends RoutedComponent {
   buildParams(data) {
     return {
       avatar: this.state.avatarBase64,
-      driverLicense: this.state.driverLicenseBase64,
+      driver_license: this.state.driverLicenseBase64,
       first_name: data.first_name,
       last_name: data.last_name,
       middle_name: data.middle_name,
@@ -62,23 +73,32 @@ class ProfileContainer extends RoutedComponent {
   }
 
   submitForm(data) {
-    this.props.postUserProfile(this.buildParams(data), this.props.profile.id, data.access_token)
-    .then( res => { this.doNext(res) })
+    const payload = this.buildParams(data)
+    const profile_id = this.props.profile.id
+    this.props.postUserProfile(payload, profile_id)
+    .then( res => { this.doNext(res, profile_id) })
     .catch(error => { console.log('error profile update', error) })
+  }
+
+  fetchProfile() {
+    this.props.getProfile(this.props.profile.id)
+    .then( res => { this.doNext(res) })
+    .catch( error => { console.log('error profile fetch', error) })
   }
 
   doNext(res) {
     switch(res.type) {
       case PROFILE_UPDATE_SUCCESS:
-        this.props.getProfile(
-          this.props.profile.id,
-          this.props.currentUser.access_token
-        )
+        this.fetchProfile()
+        this.setState({isFetching: false})
         break;
       case PROFILE_UPDATE_FAILURE:
         this.setState({
           errorMessage: res.error.data.errorMessage
         })
+      case PROFILE_SUCCESS:
+        this.setState({isFetching: false})
+        persistData(res.profile, 'profile')
         break;
       default:
        return null;
@@ -87,11 +107,12 @@ class ProfileContainer extends RoutedComponent {
 
   render() {
     return (
-      <Profile
+      <ProfileForm
         submitForm={this.submitForm}
         onImageUpload={this.onImageUpload}
-        avatar={this.state.avatar}
-        driverLicense={this.state.driverLicense}
+        profile={this.props.profile}
+        avatarPreview={this.state.avatar}
+        driverLicensePreview={this.state.driverLicense}
       />
     )
   }
@@ -107,4 +128,5 @@ const mapActionCreators = {
   getProfile
 }
 
-export default connect(mapStateToProps, mapActionCreators)(ProfileContainer);
+export default connect(mapStateToProps, mapActionCreators)(ProfileEditContainer);
+

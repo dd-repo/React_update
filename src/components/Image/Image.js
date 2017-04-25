@@ -20,6 +20,7 @@ const getDimension = (dimension) => {
 class Image extends React.Component {
     static propTypes = {
         src: PropTypes.string,
+        backgroundText: PropTypes.string,
         phIcon: PropTypes.node,
         phBackgroundColor: PropTypes.string,
         phForegroundColor: PropTypes.string,
@@ -46,7 +47,8 @@ class Image extends React.Component {
         className: '',
         width: null,
         height: '100px',
-        block: false
+        block: false,
+        backgroundText: true
     };
 
     constructor(props, context) {
@@ -89,7 +91,8 @@ class Image extends React.Component {
                     placeholder={{
                         updateOnResize: true,
                         fg: this.props.phForegroundColor.replace('#', ''),
-                        bg: this.props.phBackgroundColor.replace('#', '')
+                        bg: this.props.phBackgroundColor.replace('#', ''),
+                        text: this.props.backgroundText
                     }}
                 />
             );
