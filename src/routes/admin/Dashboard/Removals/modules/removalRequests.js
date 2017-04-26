@@ -32,9 +32,8 @@ export const updateStatus = payload => {
     .then(
       response => dispatch(receivedUpdateStatus())
     ).catch(
-    //error => dispatch(rejectedUpdateStatus(error))
-    error => console.log('error', error.response)
-
+    error => dispatch(rejectedUpdateStatus(error))
+    //error => console.log('error', error.response)
     )
   }
 }
@@ -73,7 +72,8 @@ export const receivedUpdateStatus = () => (
 
 export const rejectedUpdateStatus = error => (
   {
-    type: UPDATE_STATUS_FAILURE
+    type: UPDATE_STATUS_FAILURE,
+    error
   }
 )
 
