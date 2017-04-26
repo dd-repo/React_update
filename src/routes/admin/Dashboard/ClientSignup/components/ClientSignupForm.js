@@ -101,13 +101,14 @@ const fields = {
     list: states
   },
   plan: {
-    list: ['indiviual', 'family']
+    list: ['individual', 'family']
   }
 }
 
 const dropDownSelect = ({ input }) => {
   const { name } = input
   const list = fields[[name]].list
+
 return (
   <FormControl {...input} componentClass='select'>
     <option value=''>Select a {name}...</option>
@@ -183,21 +184,24 @@ const renderField = (props) => {
 
 let ClientSignupForm = (props) => {
   const {
-    planType,
-    price,
-    errorMessage,
+    isFetching,
     submitForm,
     handleSubmit,
     invalid,
     submitting
   } = props
 
+  const buttonLabel = (
+    isFetching ?
+      'Registering Client...'
+        :
+          'Register Client'
+  )
+
   return (
     <Row>
       <Col lg={ 12 }>
-
         <form onSubmit={handleSubmit(submitForm)}>
-
           <Row>
             <h4 className="m-l-2">
               Client Info
@@ -322,7 +326,7 @@ let ClientSignupForm = (props) => {
             disabled={invalid || submitting}
             action="submit"
           >
-            Register Client
+            { buttonLabel }
           </button>
         </form>
       </Col>
