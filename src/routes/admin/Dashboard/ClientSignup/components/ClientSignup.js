@@ -12,18 +12,17 @@ import {
     Alert
 } from 'components';
 
-const Signup = ({ errorMessage, submitForm }) => {
-  const renderErrorMessage = (
-   errorMessage &&
-  <Alert bsStyle='danger'>
-    <i className="fa fa-fw text-danger m-r-1"></i>
-    {errorMessage}
-  </Alert>
-  )
+const Signup = ({ notification, submitForm, resetForm, isFetching }) => {
+
+  const renderMessage = notification &&
+    <Alert bsStyle={notification.status}>
+      { notification.message }
+    </Alert>
+
   return (
     <Row>
       <Col lg={ 12 }>
-          {renderErrorMessage}
+          {renderMessage}
         <Row>
           <Col className={ classes.centerCol } lg={ 9 }>
             <Panel
@@ -40,7 +39,7 @@ const Signup = ({ errorMessage, submitForm }) => {
 
                   <ClientSignupForm
                     submitForm={submitForm}
-                    errorMessage={errorMessage}
+                    isFetching={isFetching}
                   />
 
                 </Panel>

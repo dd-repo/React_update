@@ -104,12 +104,6 @@ const renderField = () => {
   })
 }
 
-const renderStatus = isFetching => {
- return isFetching ?
-     "Submitting Subscription..."
-     :
-       "Start Subscription"
-}
 
 const renderErrorMessage = (error) => (
   <p className="alert-danger">
@@ -129,6 +123,13 @@ let PaymentForm = (props) => {
     isFetching
   } = props
 
+  const buttonLabel = (
+    isFetching ?
+      "Submitting Subscription..."
+        :
+          "Start Subscription"
+  )
+
  return(
     <form onSubmit={handleSubmit(submitForm)}>
       {renderField()}
@@ -138,7 +139,7 @@ let PaymentForm = (props) => {
       <button className="btn btn-success"
         disabled={invalid || submitting}
         action="submit">
-          {renderStatus(isFetching)}
+          { buttonLabel }
       </button>
     </form>
   )
