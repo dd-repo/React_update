@@ -9,16 +9,21 @@ import {
   Pagination
 } from 'components'
 
-const STATUS_LABEL = {
-  'requested'  : 'danger',
-  'in progress': 'info',
-  'completed'  : 'success'
-}
-
-const BUTTON_LABEL = {
-  'requested'   : 'Mark as in progress',
-  'in progress' : 'Mark as completed',
-  'completed'   : 'Complete'
+const REMOVAL_STATUS = {
+  'requested': {
+    style: 'danger',
+    buttonLabel: 'Mark as in progress',
+    nextStatus: 'inprogress'
+  },
+  'inprogress': {
+    style:'info',
+    buttonLabel: 'Mark as complete',
+    nextStatus: 'completed'
+  },
+  'completed': {
+    style:'success',
+    buttonLabel: 'Complete'
+  }
 }
 
 const RequestedRemovals = (props) => {
@@ -47,12 +52,11 @@ const RequestedRemovals = (props) => {
       addresses,
       is_active,
     } = removal
+    const removalStatus = REMOVAL_STATUS[status]
     const siteURL = `http://www.${site}`
     const friendlyURL = `www.${site}`
     const address = addresses[0].address1
-    const statusLabel = STATUS_LABEL[status]
     const isComplete = status === 'completed'
-    const buttonLabel = BUTTON_LABEL[status]
 
     return (
       <tr className='bg-gray-darker' key={id}>
@@ -75,18 +79,18 @@ const RequestedRemovals = (props) => {
           <Label
             outline
             className='text-uppercase'
-            bsStyle={statusLabel}
+            bsStyle={removalStatus.style}
           >
             { status }
           </Label>
         </td>
         <td>
           <Button
-            bsStyle={statusLabel}
+            bsStyle={removalStatus.style}
             disabled={isComplete}
-            onClick={() => handleClick(id, 'completed')}
+            onClick={() => handleClick(id, removalStatus.nextStatus)}
           >
-            { buttonLabel }
+            { removalStatus.buttonLabel }
           </Button>
         </td>
       </tr>
