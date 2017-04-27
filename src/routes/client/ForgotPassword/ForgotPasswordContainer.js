@@ -11,6 +11,10 @@ class ForgotPasswordContainer extends RoutedComponent {
     this.submitForm = this.submitForm.bind(this);
   }
 
+  static contexttypes = {
+    router: React.PropTypes.object.isRequired
+  }
+
   getLayoutOptions() {
     return {
       contentView: CONTENT_VIEW_STATIC,

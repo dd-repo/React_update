@@ -25,10 +25,9 @@ export const postUserSignup = (payload) => {
     dispatch(postingUserSignup())
     return BlitzApi.post(SIGNUP_REQUEST, { user: payload })
     .then(
-      response => dispatch(receiveUserSignup(response.data))
-    ).catch(
-    error =>
-      dispatch(receiveUserSignupError(error))
+    response => dispatch(receiveUserSignup(response.data)))
+    .catch(
+      error => dispatch(receiveUserSignupError(error))
     )
   }
 }

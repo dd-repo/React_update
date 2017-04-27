@@ -35,7 +35,7 @@ const fields = {
   expirationDate: {
     name: 'expirationDate',
     type: 'text',
-    label: 'MM/YYY',
+    label: 'Expiration date',
     normalize: normalizeExDate
   },
   cvCode: {

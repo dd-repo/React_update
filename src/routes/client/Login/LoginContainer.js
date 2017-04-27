@@ -2,10 +2,13 @@ import React from 'react';
 import Login from './components/Login';
 
 import { RoutedComponent, connect } from 'routes/routedComponent';
-import { postUserLogin } from 'modules/auth';
 import { CONTENT_VIEW_STATIC } from 'layouts/DefaultLayout/modules/layout';
 import { persistData } from 'localStorage';
-import { USER_LOGIN_SUCCESS, USER_LOGIN_FAILURE } from 'modules/auth';
+import {
+  postUserLogin,
+  USER_LOGIN_SUCCESS,
+  USER_LOGIN_FAILURE
+} from 'modules/auth';
 
 class LoginContainer extends RoutedComponent {
   constructor(props) {
