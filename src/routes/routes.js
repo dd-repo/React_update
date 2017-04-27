@@ -46,12 +46,20 @@ export default [
         }
     },
     {
-        path: '/keywords',
-        getComponent: (nextState, cb) => {
-            require.ensure([], require => {
-              cb(null, require('./client/Keywords').default);
-            }, 'keywords');
-        }
+      path: '/keywords',
+      getComponent: (nextState, cb) => {
+        require.ensure([], require => {
+          cb(null, require('./client/Keywords').default);
+        }, 'keywords');
+      }
+    },
+    {
+      path: '/create-password(?:token=)',
+      getComponent: (nextState, cb) => {
+        require.ensure([], require => {
+          cb(null, require('./client/CreatePassword').default);
+        }, 'password-create');
+      }
     },
 
     // client dashboard
