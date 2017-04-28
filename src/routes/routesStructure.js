@@ -52,10 +52,10 @@ export const CONFIGS = {
       ]
     },
     {
-      slug: 'Preferences',
-      title: 'Preferences',
+      slug: 'Account',
+      title: 'Account',
       icon: 'fa fa-cog fa-lg',
-      url: '/dashboard/preferences'
+      url: '/dashboard/account-settings'
     }
   ],
   'admin': [

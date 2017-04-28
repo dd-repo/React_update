@@ -78,7 +78,6 @@ const CreatePasswordForm = (props) => {
   const {
     submitForm,
     handleSubmit,
-    invalid,
     submitting,
     passwordErrorMsg,
     disableButton
@@ -111,7 +110,9 @@ const CreatePasswordForm = (props) => {
 }
 
 CreatePasswordForm.propTypes = {
-  submitForm: PropTypes.func.isRequired
+  submitForm: PropTypes.func.isRequired,
+  passwordErrorMsg: PropTypes.string,
+  disableButton: PropTypes.bool.isRequired
 }
 
 export default reduxForm({
