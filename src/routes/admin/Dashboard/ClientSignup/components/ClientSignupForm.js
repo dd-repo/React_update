@@ -344,6 +344,12 @@ ClientSignupForm = reduxForm({
   validate                // <--- validation function given to redux-form
 })(ClientSignupForm)
 
-export default connect()(ClientSignupForm)
+ClientSignupForm = connect(
+  state => ({
+    initialValues: state.clientSignupForm
+  })
+)(ClientSignupForm)
+
+export default ClientSignupForm
 
 

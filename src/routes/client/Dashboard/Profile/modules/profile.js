@@ -1,6 +1,5 @@
 import BlitzApi from 'services/BlitzApi';
 
-//import { BASE_URL } from 'consts/apis';
 import { USER_LOGIN_SUCCESS } from 'modules/auth';
 
 export const PROFILE_UPDATE_POSTING = 'PROFILE_UPDATE_POSTING';
@@ -30,7 +29,6 @@ export const getProfile = (profile_id) => {
     return BlitzApi.get(path)
     .then(
       response => dispatch(profileGetSuccess(response.data))
-      //response => console.log('profile response', response)
     ).catch(
     error => dispatch(profileGetFailure(error.response))
     )

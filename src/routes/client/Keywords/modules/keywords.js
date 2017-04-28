@@ -1,5 +1,7 @@
 import BlitzApi from 'services/BlitzApi';
-import { USER_LOGIN_SUCCESS } from 'modules/auth';
+import {
+  USER_LOGIN_SUCCESS,
+} from 'modules/auth';
 
 // action types
 export const KEYWORD_POSTING = 'KEYWORD_POSTING';

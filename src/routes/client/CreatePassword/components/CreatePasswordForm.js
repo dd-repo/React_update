@@ -80,7 +80,7 @@ const CreatePasswordForm = (props) => {
     handleSubmit,
     invalid,
     submitting,
-    errorMessage,
+    passwordErrorMsg,
     disableButton
   } = props
 
@@ -97,7 +97,7 @@ const CreatePasswordForm = (props) => {
          Password Confirmation
        </label>
        {renderField(fields.passwordConfirmation)}
-       <span className='text-danger'>{errorMessage}</span>
+       <span className='text-danger'>{passwordErrorMsg}</span>
      </FormGroup>
      <button
         className='btn btn-primary m-b-2'

@@ -8,6 +8,11 @@ import { persistData } from 'localStorage';
 import { KEYWORD_SUCCESS, KEYWORD_FAILURE } from './modules/keywords';
 import { CONTENT_VIEW_STATIC } from 'layouts/DefaultLayout/modules/layout';
 
+const persistDataToLocalStorage = keywords => {
+  const keywordList = {all: keywords, currentKeyword: keywords[0]}
+  persistData(keywordList, 'keywords')
+}
+
 class KeywordContainer extends RoutedComponent {
   constructor(props) {
     super(props)
@@ -54,16 +59,12 @@ class KeywordContainer extends RoutedComponent {
     .catch(error => { console.log(error) });
   }
 
-  persistDataToLocalStorage(keywords) {
-    const keywordList = {all: keywords, currentKeyword: keywords[0]}
-    persistData(keywordList, 'keywords')
-  }
 
   doNext(res) {
     switch(res.type) {
       case KEYWORD_SUCCESS:
+        persistDataToLocalStorage(res.keywords)
         this.context.router.push('/dashboard')
-        this.persistDataToLocalStorage(res.keywords)
         break;
       case KEYWORD_FAILURE:
         this.setState({ errorMessage: res.error });
