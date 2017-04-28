@@ -95,6 +95,14 @@ export default [
             }, 'dashboard-monitoring');
         }
     },
+    {
+      path: '/dashboard/account-settings',
+      getComponent: (nextState, cb) => {
+        require.ensure([], require => {
+              cb(null, require('./client/Dashboard/AccountEdit').default);
+        }, 'dashboard-account-settings');
+      }
+    },
 
      //admin dashboard
     {
