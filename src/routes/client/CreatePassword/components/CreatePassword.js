@@ -10,16 +10,25 @@ import {
     Form,
     FormGroup,
     FormControl,
+    Alert
 } from 'components';
 
 import classes from './CreatePassword.scss';
 import logo from 'static/logos/logo-small.png';
 
-const CreatePassword = ({ submitForm, errorMessage, disableButton }) => {
+const CreatePassword = ({ submitForm, passwordErrorMsg, errorMessage, disableButton }) => {
+
+  const renderErrorMsg = errorMessage &&
+    <Alert bsStyle='danger'>
+      <i className='fa fa-fw text-danger m-r-1'></i>
+      {errorMessage}
+    </Alert>
+
   return (
     <Row>
       <Col lg={ 12 }>
         <Row>
+          {renderErrorMsg}
           <Col className={ classes.centerCol } md={ 4 }>
             <Panel
               header={(
@@ -46,7 +55,7 @@ const CreatePassword = ({ submitForm, errorMessage, disableButton }) => {
 
                   <CreatePasswordForm
                     submitForm={submitForm}
-                    errorMessage={errorMessage}
+                    passwordErrorMsg={passwordErrorMsg}
                     disableButton={disableButton}
                   />
 

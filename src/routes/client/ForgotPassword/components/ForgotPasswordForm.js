@@ -33,7 +33,7 @@ const renderInput = ({ input, placeHolder, type, maxLength, field, meta: { touch
     {
       touched &&
       (
-       (error && <span className='alert-danger'>{error}</span>)
+       (error && <span className='text-danger'>{error}</span>)
          || (warning && <span>{warning}</span>)
       )
     }

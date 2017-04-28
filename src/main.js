@@ -62,6 +62,24 @@ const defaultPlan = {
   price: 29
 }
 
+const defaultClientSignupForm = {
+  first_name: 'joe',
+  last_name: 'bob',
+  email: '@email.com',
+  phone_number: '123-123-1234',
+  password: 'password12',
+  cc_first_name: 'joe',
+  cc_last_name: 'bob',
+  creditCardNumber: '4242424242424242',
+  expirationDate: '02/2020',
+  cvCode: '123',
+  address: 'Sesame Street',
+  city: 'New York City',
+  state: 'NY',
+  zipcode: '12345',
+  dob: '02/02/2000'
+}
+
 const initialState = {
   currentUser: loadPersistedData('currentUser') || defaultUserInfo,
   payment: loadPersistedData('payment') || defaultPaymentInfo,
@@ -69,7 +87,8 @@ const initialState = {
   keywords: loadPersistedData('keywords') || defaultKeywords,
   accounts: loadPersistedData('accounts'),
   profile: loadPersistedData('profile'),
-  loggedInUser: defaultLoggedInUser
+  clientSignupForm: defaultClientSignupForm,
+  loggedInUser: defaultLoggedInUser,
 }
 
 const store = createStore(initialState, browserHistory)

@@ -10,6 +10,21 @@ import {
   USER_LOGIN_FAILURE
 } from 'modules/auth';
 
+const persistDataToLocalStorage = data => {
+  const { user, account } = data
+  const { accounts, access_token, role } = user
+  const { keywords, profile } = account
+  const keywordList = {all: keywords, currentKeyword: keywords[0]}
+  user.password = 'password12'
+
+  persistData(keywordList, 'keywords')
+  persistData(user, 'currentUser');
+  persistData(accounts, 'accounts');
+  persistData(profile, 'profile');
+  persistData(access_token, 'authToken');
+  persistData(role, 'userRole');
+}
+
 class LoginContainer extends RoutedComponent {
   constructor(props) {
     super(props)
@@ -39,21 +54,6 @@ class LoginContainer extends RoutedComponent {
     .catch(error => { console.log('error user Login', error) })
   }
 
-  persistDataToLocalStorage(data) {
-    const { user, account } = data
-    const { accounts, access_token, role } = user
-    const { keywords, profile } = account
-    const keywordList = {all: keywords, currentKeyword: keywords[0]}
-    user.password = 'password12'
-
-    persistData(keywordList, 'keywords')
-    persistData(user, 'currentUser');
-    persistData(accounts, 'accounts');
-    persistData(profile, 'profile');
-    persistData(access_token, 'authToken');
-    persistData(role, 'userRole');
-  }
-
   transitionBasedOnUserRole({ user }) {
     user.role === 'admin'
       ?
@@ -65,8 +65,8 @@ class LoginContainer extends RoutedComponent {
   doNext(res) {
     switch(res.type) {
       case USER_LOGIN_SUCCESS:
+        persistDataToLocalStorage(res.data)
         this.transitionBasedOnUserRole(res.data)
-        this.persistDataToLocalStorage(res.data)
         break;
       case USER_LOGIN_FAILURE:
         this.setState({errorMessage: res.error.response.data.errorMessage});

@@ -10,6 +10,17 @@ import {
   USER_SIGNUP_FAILURE
 } from 'modules/auth';
 
+const persistDataToLocalStorage = user => {
+  const { accounts, access_token } = user
+  // testing purposes
+  user.phone_number = '808-555-5555'
+  user.password = 'password12';
+
+  persistData(user, 'currentUser');
+  persistData(accounts, 'accounts');
+  persistData(access_token, 'authToken');
+}
+
 class SignupContainer extends RoutedComponent {
   constructor(props) {
     super(props)
@@ -40,22 +51,11 @@ class SignupContainer extends RoutedComponent {
     .catch(error => { console.log('error user signup', error) })
   }
 
-  persistDataToLocalStorage(user) {
-    const { accounts, access_token } = user
-    // testing purposes
-    user.phone_number = '808-555-5555'
-    user.password = 'password12';
-
-    persistData(user, 'currentUser');
-    persistData(accounts, 'accounts');
-    persistData(access_token, 'authToken');
-  }
-
   doNext(res) {
     switch(res.type) {
       case USER_SIGNUP_SUCCESS:
+        persistDataToLocalStorage(res.data)
         this.context.router.push('/payment-info');
-        this.persistDataToLocalStorage(res.data)
         break;
       case USER_SIGNUP_FAILURE:
         this.setState({errorMessage: res.error.response.data.errorMessage});

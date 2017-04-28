@@ -1,13 +1,15 @@
 import React from 'react';
 import ForgotPassword from './components/ForgotPassword';
+import ForgotPasswordComplete from './components/ForgotPasswordComplete';
 
 import { RoutedComponent, connect } from 'routes/routedComponent';
 import { CONTENT_VIEW_STATIC } from 'layouts/DefaultLayout/modules/layout';
+import { resetUserPassword } from 'modules/auth';
 
 class ForgotPasswordContainer extends RoutedComponent {
   constructor(props) {
     super(props)
-
+    this.state = {validEmail: true}
     this.submitForm = this.submitForm.bind(this);
   }
 
@@ -27,33 +29,46 @@ class ForgotPasswordContainer extends RoutedComponent {
 
   submitForm(email) {
     console.log('email', email)
+    this.props.resetUserPassword(email)
+    .then( (res) => this.doNext(res))
+    .catch( (error) => console.log('error in forgot password', error))
   }
 
   doNext(res) {
-    //switch(res.type) {
-      //case USER_SUCCESS:
-        //this.context.router.push('/payment-info');
-        //res.userData.phone_number = '123-123-1234';
-        //res.userData.password = 'Password12';
-
-        //persistData(res.userData, 'currentUser');
-        //persistData(res.userData.accounts, 'accounts');
-        //break;
-      //case USER_FAILURE:
-        //this.setState({errorMessage: res.error});
-        //break;
-      //default:
-        //return null;
-    //}
+    switch(res.type) {
+      case FORGOT_USER_PASSWORD_SUCCESS:
+        this.setState({validEmail: true})
+        break;
+      case FORGOT_USER_PASSWORD_FAILURE:
+        this.setState({errorMessage: res.error});
+        break;
+      default:
+        return null;
+    }
   }
 
   render() {
+    if(!this.state.validEmail) {
     return (
       <ForgotPassword
         submitForm={this.submitForm}
+        errorMessage={this.state.errorMessage}
       />
     )
+    } else {
+      return <ForgotPasswordComplete
+        userEmail={this.props.currentUser.email}
+      />
+    }
   }
 }
 
-export default connect()(ForgotPasswordContainer);
+const mapStateToProps = state => ({
+  currentUser: state.currentUser,
+})
+
+const mapActionCreators = {
+  resetUserPassword
+}
+
+export default connect(mapStateToProps, mapActionCreators)(ForgotPasswordContainer);

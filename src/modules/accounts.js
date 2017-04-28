@@ -1,6 +1,6 @@
 import {
   USER_SIGNUP_SUCCESS,
-  USER_LOGIN_SUCCESS
+  USER_LOGIN_SUCCESS,
 } from './auth';
 
 // reducer

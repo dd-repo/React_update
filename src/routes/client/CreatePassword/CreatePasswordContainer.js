@@ -1,13 +1,29 @@
 import React from 'react';
 import CreatePassword from './components/CreatePassword';
+import { persistData } from 'localStorage';
 
 import { RoutedComponent, connect } from 'routes/routedComponent';
 import { CONTENT_VIEW_STATIC } from 'layouts/DefaultLayout/modules/layout';
 import {
-  postUserLogin,
+  updateUserPassword,
   USER_LOGIN_SUCCESS,
   USER_LOGIN_FAILURE
 } from 'modules/auth';
+
+const persistDataToLocalStorage = data => {
+  const { user, account } = data
+  const { accounts, access_token, role } = user
+  const { keywords, profile } = account
+  const keywordList = {all: keywords, currentKeyword: keywords[0]}
+  user.password = 'password12'
+
+  persistData(keywordList, 'keywords')
+  persistData(user, 'currentUser');
+  persistData(accounts, 'accounts');
+  persistData(profile, 'profile');
+  persistData(access_token, 'authToken');
+  persistData(role, 'userRole');
+}
 
 class CreatePasswordContainer extends RoutedComponent {
   constructor(props) {
@@ -18,7 +34,7 @@ class CreatePasswordContainer extends RoutedComponent {
     this.submitForm = this.submitForm.bind(this);
   }
 
-  static contexttypes = {
+  static contextTypes = {
     router: React.PropTypes.object.isRequired
   }
 
@@ -47,27 +63,28 @@ class CreatePasswordContainer extends RoutedComponent {
 
       letter !== password.charAt(index)
         ?
-          this.setState({errorMessage: 'Passwords do not match'})
+          this.setState({passwordErrorMsg: 'Passwords do not match'})
             :
-              this.setState({errorMessage: null})
+              this.setState({passwordErrorMsg: null})
     }
   }
 
   submitForm(formData) {
     const searchParam = this.props.location.search
     const token = searchParam.split('=').pop().trim();
-    formData.token = token
-    console.log('form data', formData)
-    //this.props.postUserLogin(user)
-    //.then(res => { this.doNext(res) })
-    //.catch(error => { console.log('error user Login', error) })
+    formData.reset_password_token = token
+    this.props.updateUserPassword(formData)
+    .then(res => {
+      this.doNext(res)
+    })
+    .catch(error => { console.log('error user password create', error) })
   }
 
   doNext(res) {
     switch(res.type) {
       case USER_LOGIN_SUCCESS:
+        persistDataToLocalStorage(res.data)
         this.context.router.push('/dashboard')
-        this.persistDataToLocalStorage(res.data)
         break;
       case USER_LOGIN_FAILURE:
         this.setState({errorMessage: res.error.response.data.errorMessage});
@@ -77,26 +94,12 @@ class CreatePasswordContainer extends RoutedComponent {
     }
   }
 
-  persistDataToLocalStorage(data) {
-    const { user, account } = data
-    const { accounts, access_token, role } = user
-    const { keywords, profile } = account
-    const keywordList = {all: keywords, currentKeyword: keywords[0]}
-    user.password = 'password12'
-
-    persistData(keywordList, 'keywords')
-    persistData(user, 'currentUser');
-    persistData(accounts, 'accounts');
-    persistData(profile, 'profile');
-    persistData(access_token, 'authToken');
-    persistData(role, 'userRole');
-  }
-
   render() {
     return (
       <CreatePassword
         submitForm={this.submitForm}
         errorMessage={this.state.errorMessage}
+        passwordErrorMsg={this.state.passwordErrorMsg}
         disableButton={this.state.disableButton}
       />
     )
@@ -108,7 +111,7 @@ const mapStateToProps = state => ({
 })
 
 const mapActionCreators = {
-  postUserLogin
+  updateUserPassword
 }
 
 export default connect(mapStateToProps, mapActionCreators)(CreatePasswordContainer);

@@ -89,7 +89,7 @@ class ClientSignupContainer extends RoutedComponent {
           message: 'Client was successfully created',
           status: 'success'
         }})
-        this.resetForm();
+        //this.resetForm();
         setTimeout(() => {
           this.setState({notification: null});
         }, 5000)
