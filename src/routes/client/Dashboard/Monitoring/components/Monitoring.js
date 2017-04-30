@@ -11,9 +11,12 @@ import {
 const Monitoring = props => {
   const { monitoringSites, handleClick, siteIds, isFetching } = props
 
-  const statusLabel = {
-    'requested': 'danger',
-    'queued': 'info',
+  const REMOVAL_STATUS = {
+    'requested': { style: 'danger', label: 'requested' },
+    'queued': { style: 'warning', label: 'in queue' },
+    'inprogress': { style: 'info', label: 'in progress' },
+    'pending': { style: '', label: 'pending' },
+    'completed': { style: 'success', label: 'protected' },
   };
 
   const renderMonitoringSites = monitoring => {
@@ -22,6 +25,7 @@ const Monitoring = props => {
       const friendlyURL = `www.${site}`
       const title = site.slice(0, -4)
       const clicked =  status !== 'pending'
+      const { style, label } = REMOVAL_STATUS[status]
 
       return (
         <tr className='bg-gray-darker' key={id}>
@@ -38,8 +42,8 @@ const Monitoring = props => {
             <Label
               outline
               className='text-uppercase'
-              bsStyle={statusLabel[status]}>
-              { status }
+              bsStyle={style}>
+              { label }
             </Label>
           </td>
           <td>
