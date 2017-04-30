@@ -385,7 +385,7 @@ class DefaultLayout extends React.Component {
                         onClickOutside={ () => { this.props.toggleOverlaySidebarOpen(false) } }
                         excludedElements={ [sidebarTriggerRef] }
                     >
-                      { isAdmin ? (
+                      { /* { isAdmin ? (
                         <Sidebar
                             className='p-b-3'
                             affixOffset={ this.props.navbarEnabled ? 50 : 0 }
@@ -404,7 +404,6 @@ class DefaultLayout extends React.Component {
                                 </div>
                             )}
                         >
-                            { /* Renders SidebarAddOn */ }
                             <SidebarAddOns.AvatarAndStatsAddOn
                               avatar={defaultAvatar}
                               currentUser={this.props.currentUser}
@@ -420,7 +419,7 @@ class DefaultLayout extends React.Component {
                         </Sidebar>
                         )
                         :
-                          (
+                        ( */ }
                         <Sidebar
                             className='p-b-3'
                             affixOffset={ this.props.navbarEnabled ? 50 : 0 }
@@ -453,8 +452,7 @@ class DefaultLayout extends React.Component {
                                 currentUserRole={ this.props.currentUser.role }
                             />
                         </Sidebar>
-                          )
-                      }
+
                     </OutsideClick>
                 </Layout.Navigation>
 

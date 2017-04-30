@@ -9,7 +9,7 @@ import { resetUserPassword } from 'modules/auth';
 class ForgotPasswordContainer extends RoutedComponent {
   constructor(props) {
     super(props)
-    this.state = {validEmail: true}
+    this.state = {emailSent: false}
     this.submitForm = this.submitForm.bind(this);
   }
 
@@ -28,31 +28,16 @@ class ForgotPasswordContainer extends RoutedComponent {
   }
 
   submitForm(email) {
-    console.log('email', email)
     this.props.resetUserPassword(email)
-    .then( (res) => this.doNext(res))
+    .then( (res) => this.setState({emailSent: true}))
     .catch( (error) => console.log('error in forgot password', error))
   }
 
-  doNext(res) {
-    switch(res.type) {
-      case FORGOT_USER_PASSWORD_SUCCESS:
-        this.setState({validEmail: true})
-        break;
-      case FORGOT_USER_PASSWORD_FAILURE:
-        this.setState({errorMessage: res.error});
-        break;
-      default:
-        return null;
-    }
-  }
-
   render() {
-    if(!this.state.validEmail) {
+    if(!this.state.emailSent) {
     return (
       <ForgotPassword
         submitForm={this.submitForm}
-        errorMessage={this.state.errorMessage}
       />
     )
     } else {

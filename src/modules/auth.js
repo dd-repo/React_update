@@ -8,7 +8,7 @@ export const USER_SIGNUP_POSTING = 'USER_SIGNUP_POSTING';
 export const USER_LOGIN_SUCCESS = 'USER_LOGIN_SUCCESS';
 export const USER_LOGIN_FAILURE = 'USER_LOGIN_FAILURE';
 export const USER_LOGIN_POSTING = 'USER_LOGIN_POSTING';
-export const FORGOT_USET_PASSWORD_POSTING = 'FORGOT_USET_PASSWORD_POSTING'
+export const FORGOT_USER_PASSWORD_POSTING = 'FORGOT_USET_PASSWORD_POSTING'
 export const FORGOT_USER_PASSWORD_SUCCESS = 'FORGOT_USER_PASSWORD_SUCCESS'
 export const FORGOT_USER_PASSWORD_FAILURE = 'FORGOT_USER_PASSWORD_FAILURE'
 export const USER_LOGOUT = 'USER_LOGOUT';
@@ -17,7 +17,7 @@ const CLIENT_API = '/dashboard/api/v1/users';
 export const SIGNUP_REQUEST = `${CLIENT_API}/sign-up/create`;
 export const LOGIN_REQUEST = `${CLIENT_API}/sign-in`;
 export const UPDATE_PASSWORD_REQUEST = `${CLIENT_API}/password/update`;
-export const RESET_PASSWORD_REQUEST = `${CLIENT_API}/`;
+export const RESET_PASSWORD_REQUEST = `${CLIENT_API}/password/forgot`;
 
 
 //actions
@@ -67,8 +67,8 @@ export const updateUserPassword = payload => {
 
 export const resetUserPassword = payload => {
   return dispatch => {
-    dispatch(postingForgotPassword(payload))
-    return Blitz.post(RESET_PASSWORD_REQUEST, payload)
+    dispatch(postingForgotPassword(payload.email))
+    return BlitzApi.patch(RESET_PASSWORD_REQUEST, { user: payload })
     .then(
       response =>
       dispatch(receiveForgotPassword()))
@@ -120,7 +120,7 @@ export const receiveUserLoginError = error => (
 
 export const postingForgotPassword = email => (
   {
-    type: FORGOT_USET_PASSWORD_POSTING,
+    type: FORGOT_USER_PASSWORD_POSTING,
     email
   }
 )
@@ -181,7 +181,7 @@ const reducer = (state = {}, action) => {
         isFetching: false,
         errorMessage: action.error.response.data.errorMessage
       });
-    case FORGOT_USET_PASSWORD_POSTING:
+    case FORGOT_USER_PASSWORD_POSTING:
       return Object.assign({}, state, {
         isFetching: true,
         email: action.email
