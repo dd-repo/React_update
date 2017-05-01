@@ -9,31 +9,15 @@ import {
   Pagination
 } from 'components';
 
-const REMOVAL_STATUS = {
-  'requested': {
-    style: 'danger',
-    buttonLabel: 'Mark as in progress',
-    nextStatus: 'inprogress'
-  },
-  'inprogress': {
-    style:'info',
-    buttonLabel: 'Mark as complete',
-    nextStatus: 'completed'
-  },
-  'completed': {
-    style:'success',
-    buttonLabel: 'Complete'
-  }
-}
 
-const RequestedRemovals = (props) => {
+
+const Transactions = props => {
   const {
-    removals,
+    transactions,
     pagination,
-    isFetching,
-    handleClick,
     pageNum,
-    getNextPage
+    getNextPage,
+    isFetching,
   } = props
 
   const paginationItems = () => {
@@ -41,22 +25,17 @@ const RequestedRemovals = (props) => {
     return  Math.ceil(total / limit)
   }
 
-  const renderRequestedRemovals = removal => {
+  const renderTransaction = transaction => {
     const {
       id,
-      site,
-      status,
-      status_label,
+      state,
+      processed_at,
+      type_of_deal,
+      round,
+      subscription_id,
+      sales_rep_name,
       client_name,
-      age,
-      addresses,
-      is_active,
-    } = removal
-    const removalStatus = REMOVAL_STATUS[status]
-    const siteURL = `http://www.${site}`
-    const friendlyURL = `www.${site}`
-    const address = addresses[0].address1
-    const isComplete = status === 'completed'
+    } = transaction
 
     return (
       <tr className='bg-gray-darker' key={id}>
@@ -64,34 +43,25 @@ const RequestedRemovals = (props) => {
           { client_name }
         </td>
         <td>
-          { age }
+          email
         </td>
         <td>
-          { address }
-        </td>
-        <td className='text-white'>
-          <a href={siteURL} target='_blank'>
-            { friendlyURL }
-          </a>
-
-        </td>
-        <td className='text-right'>
-          <Label
-            outline
-            className='text-uppercase'
-            bsStyle={removalStatus.style}
-          >
-            { status }
-          </Label>
+          { id }
         </td>
         <td>
-          <Button
-            bsStyle={removalStatus.style}
-            disabled={isComplete}
-            onClick={() => handleClick(id, removalStatus.nextStatus)}
-          >
-            { removalStatus.buttonLabel }
-          </Button>
+          { processed_at }
+        </td>
+        <td>
+          { round }
+        </td>
+        <td>
+          { subscription_id }
+        </td>
+        <td>
+          { type_of_deal }
+        </td>
+        <td>
+          { sales_rep_name }
         </td>
       </tr>
     )
@@ -124,26 +94,32 @@ const RequestedRemovals = (props) => {
                     client name
                   </th>
                   <th>
-                    client age
+                    client email
                   </th>
                   <th>
-                    client address
+                    transaction id
                   </th>
                   <th>
-                    site Link
-                  </th>
-                  <th className='text-right'>
-                    status
+                    process date
                   </th>
                   <th>
-                    action
+                    # of rounds
+                  </th>
+                  <th>
+                    subscription id
+                  </th>
+                  <th>
+                    type of deal
+                  </th>
+                  <th>
+                    sales rep
                   </th>
                 </tr>
               </thead>
               <tbody>
                 {
-                  removals.map(
-                    removal => renderRequestedRemovals(removal)
+                  transactions.map(
+                    transaction => renderTransaction(transaction)
                   )}
                 </tbody>
               </Table>
@@ -162,4 +138,4 @@ const RequestedRemovals = (props) => {
   )
 }
 
-export default RequestedRemovals;
+export default Transactions;

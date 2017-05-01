@@ -1,4 +1,3 @@
-//import { default as callApi } from 'services/clientApi';
 import BlitzApi from 'services/BlitzApi';
 
 // action types

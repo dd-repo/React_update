@@ -526,7 +526,7 @@ class DefaultLayout extends React.Component {
                     <p className="text-gray-dark">
                         <strong className="m-r-1">Blitz Monitoring </strong>
                         <span className="text-gray-dark">© 2009 - 2017. Made by
-                        <i className="fa fa-fw fa-heart text-danger"></i> Denver, US</span>
+                        <i className="fa fa-fw fa-flash text-primary"></i> Denver, US</span>
                     </p>
                 </Footer>
 
