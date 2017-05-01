@@ -12,7 +12,7 @@ import {
 
 const persistDataToLocalStorage = data => {
   const { user, account } = data
-  const { accounts, access_token, role } = user
+  const { accounts, access_token } = user
   const { keywords, profile } = account
   const keywordList = {all: keywords, currentKeyword: keywords[0]}
   user.password = 'password12'
@@ -22,7 +22,6 @@ const persistDataToLocalStorage = data => {
   persistData(accounts, 'accounts');
   persistData(profile, 'profile');
   persistData(access_token, 'authToken');
-  persistData(role, 'userRole');
 }
 
 class LoginContainer extends RoutedComponent {

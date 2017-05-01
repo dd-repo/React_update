@@ -8,7 +8,7 @@ import Notifications from 'react-notification-system-redux';
 
 import treeRandomizer from 'modules/treeRandomizer';
 import getLogoBySkin from './getLogoBySkin.js';
-import ROUTES, { findActiveNodes } from './../../routes/routesStructure';
+import assignKeys, { findActiveNodes, CONFIGS } from './../../routes/routesStructure';
 import defaultAvatar from 'static/avatars/defaultAvatar.png';
 import { removePersistedData } from 'localStorage';
 
@@ -120,7 +120,7 @@ class DefaultLayout extends React.Component {
 
     constructor(props, context) {
         super(props, context);
-
+        this.state = { sidebarConfigs: assignKeys(CONFIGS[this.props.currentUser.role]) }
         this.beforeSlimSidebarStyle = SIDEBAR_STYLE_DEFAULT;
         this.handleLogout = this.handleLogout.bind(this);
     }
@@ -138,6 +138,12 @@ class DefaultLayout extends React.Component {
 
     componentDidMount() {
         this.bodyElement = document.querySelector('body');
+    }
+
+    componentWillReceiveProps(nextProps) {
+      if(nextProps.currentUser !== this.props.currentUser) {
+        this.setState({ sidebarConfigs: assignKeys(CONFIGS[nextProps.currentUser.role]) })
+      }
     }
 
     componentDidUpdate(prevProps) {
@@ -381,80 +387,45 @@ class DefaultLayout extends React.Component {
                     </Navbar>
 
                     <OutsideClick
-                        active={ this.props.currentScreenSize === SCREEN_SIZE_XS }
-                        onClickOutside={ () => { this.props.toggleOverlaySidebarOpen(false) } }
-                        excludedElements={ [sidebarTriggerRef] }
+                      active={ this.props.currentScreenSize === SCREEN_SIZE_XS }
+                      onClickOutside={ () => { this.props.toggleOverlaySidebarOpen(false) } }
+                      excludedElements={ [sidebarTriggerRef] }
                     >
-                      { /* { isAdmin ? (
-                        <Sidebar
-                            className='p-b-3'
-                            affixOffset={ this.props.navbarEnabled ? 50 : 0 }
-                            overlay={ this.props.currentScreenSize === SCREEN_SIZE_XS }
-                            overlayVisible={ this.props.overlaySidebarOpen }
-                            header={(
-                                <div>
-                                    <img src={ sidebarOverlayLogo } width={ 90 } alt="Logo" />
-                                    <a
-                                        href="javascript:void(0)"
-                                        className="sidebar-switch"
-                                        onClick={ () => this.props.toggleOverlaySidebarOpen(false) }
-                                    >
-                                        <i className="fa fa-times"></i>
-                                    </a>
-                                </div>
-                            )}
+                      <Sidebar
+                        className='p-b-3'
+                        affixOffset={ this.props.navbarEnabled ? 50 : 0 }
+                        overlay={ this.props.currentScreenSize === SCREEN_SIZE_XS }
+                        overlayVisible={ this.props.overlaySidebarOpen }
+                        header={(
+                          <div>
+                            <img src={ sidebarOverlayLogo } width={ 90 } alt="Logo" />
+                            <a
+                              href="javascript:void(0)"
+                              className="sidebar-switch"
+                              onClick={ () => this.props.toggleOverlaySidebarOpen(false) }
+                            >
+                              <i className="fa fa-times"></i>
+                            </a>
+                          </div>
+                          )}
                         >
-                            <SidebarAddOns.AvatarAndStatsAddOn
-                              avatar={defaultAvatar}
-                              currentUser={this.props.currentUser}
-                              colorSidebar={this.props.sidebarSkin === SKIN_COLOR}
-                            />
-                            <div className='sidebar-default-visible text-muted small text-uppercase sidebar-section p-y-2'>
-                                <strong>Navigation</strong>
-                            </div>
-                              <Sidebar.Menu
-                                currentUrl={ this.props.location.pathname }
-                                currentUserRole={ this.props.currentUser.role }
-                            />
+                          { /* Renders SidebarAddOn */ }
+                          <SidebarAddOns.AvatarAndStatsAddOn
+                            avatar={defaultAvatar}
+                            currentUser={this.props.currentUser}
+                            colorSidebar={this.props.sidebarSkin === SKIN_COLOR}
+                          />
+                          <div className='sidebar-default-visible text-muted small text-uppercase sidebar-section p-y-2'>
+                            <strong>Navigation</strong>
+                          </div>
+                          <Sidebar.Menu
+                            currentUrl={ this.props.location.pathname }
+                            currentUserRole={ this.props.currentUser.role }
+                            sidebarConfigs={this.state.sidebarConfigs}
+                          />
                         </Sidebar>
-                        )
-                        :
-                        ( */ }
-                        <Sidebar
-                            className='p-b-3'
-                            affixOffset={ this.props.navbarEnabled ? 50 : 0 }
-                            overlay={ this.props.currentScreenSize === SCREEN_SIZE_XS }
-                            overlayVisible={ this.props.overlaySidebarOpen }
-                            header={(
-                                <div>
-                                    <img src={ sidebarOverlayLogo } width={ 90 } alt="Logo" />
-                                    <a
-                                        href="javascript:void(0)"
-                                        className="sidebar-switch"
-                                        onClick={ () => this.props.toggleOverlaySidebarOpen(false) }
-                                    >
-                                        <i className="fa fa-times"></i>
-                                    </a>
-                                </div>
-                            )}
-                        >
-                            { /* Renders SidebarAddOn */ }
-                            <SidebarAddOns.AvatarAndStatsAddOn
-                              avatar={defaultAvatar}
-                              currentUser={this.props.currentUser}
-                              colorSidebar={this.props.sidebarSkin === SKIN_COLOR}
-                            />
-                            <div className='sidebar-default-visible text-muted small text-uppercase sidebar-section p-y-2'>
-                                <strong>Navigation</strong>
-                            </div>
-                              <Sidebar.Menu
-                                currentUrl={ this.props.location.pathname }
-                                currentUserRole={ this.props.currentUser.role }
-                            />
-                        </Sidebar>
-
-                    </OutsideClick>
-                </Layout.Navigation>
+                      </OutsideClick>
+                    </Layout.Navigation>
 
                 {
                     // RawContent - displays the content directly without the header nor container
