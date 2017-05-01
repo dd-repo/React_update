@@ -43,12 +43,6 @@ const Signup = ({ notification, submitForm, resetForm, isFetching }) => {
                   />
 
                 </Panel>
-                <p className='text-center text-gray-light'>
-                  <strong>Blitz Monitoring </strong>
-                  <span className='text-gray-light'>
-                    © 2017. Made by <i className="fa fa-fw fa-heart text-danger"></i> Denver, CO
-                  </span>
-                </p>
               </Col>
             </Row>
           </Col>
