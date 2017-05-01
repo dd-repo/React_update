@@ -70,7 +70,12 @@ export const CONFIGS = {
       slug: 'Client Signup Form',
       title: 'Client Signup',
       url: '/admin/dashboard/client-signup'
-    }
+    },
+    {
+      slug: 'transactions',
+      title: 'Transactions',
+      url: '/admin/dashboard/transactions'
+    },
   ]
 }
 

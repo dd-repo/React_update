@@ -130,6 +130,14 @@ export default [
         }
     },
     {
+      path: '/admin/dashboard/transactions',
+        getComponent: (nextState, cb) => {
+            require.ensure([], require => {
+              cb(null, require('./admin/Dashboard/Transactions').default);
+            }, 'admin-dashboard-transactions');
+        }
+    },
+    {
         path: '*',
         component: require('./Pages/NotFound').default
     }
