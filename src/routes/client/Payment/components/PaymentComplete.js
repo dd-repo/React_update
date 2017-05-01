@@ -41,7 +41,7 @@ const PaymentComplete = (props) => {
                 )}
                 >
                   <h2 className={ classes.panelHeader }>
-                    Congratulations your payment was successful
+                     Your payment has been securely processed and you're ready to start protecting your privacy online!
                   </h2>
                   <p className='text-center m-b-3'>
                   </p>
@@ -51,9 +51,9 @@ const PaymentComplete = (props) => {
                     </Button>
                 </Panel>
                 <p className='text-center text-gray-light'>
-                  <strong>SPIN Dashboard </strong>
+                  <strong>Blitz Monitoring</strong>
                   <span className='text-gray-light'>
-                    © 2009 - 2016. Made by <i className="fa fa-fw fa-heart text-danger"></i> New York, US
+                    © 2009 - 2017. Made by <i className="fa fa-fw fa-flash text-primary"></i> Denver, US
                   </span>
                 </p>
               </Col>

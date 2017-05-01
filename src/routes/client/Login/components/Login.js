@@ -54,7 +54,7 @@ const Login = ({ errorMessage, submitForm }) => {
                     Login
                   </h2>
                   <p className='text-center m-b-3'>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit
+                    Enter the email address and password that you chose at signup to access your online privacy portal
                   </p>
 
                   <LoginForm
@@ -66,7 +66,7 @@ const Login = ({ errorMessage, submitForm }) => {
                 <p className='text-center text-gray-light'>
                   <strong>Blitz Monitoring </strong>
                   <span className='text-gray-light'>
-                    © 2017. Made by <i className="fa fa-fw fa-heart text-danger"></i> Denver, CO
+                    © 2009 - 2017. Made by <i className="fa fa-fw fa-flash text-primary"></i> Denver, CO
                   </span>
                 </p>
               </Col>
