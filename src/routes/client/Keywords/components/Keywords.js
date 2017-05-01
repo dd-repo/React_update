@@ -14,6 +14,9 @@ import AddressForm from './AddressForm';
 import DateOfBirthForm from './DateOfBirthForm';
 import logo from 'static/logos/logo-small.png';
 
+let title;
+let description;
+
 const fields = {
   address: {
     name: 'address',
@@ -112,6 +115,8 @@ let Keywords = (props) => {
 
   const form = () => {
     if(currentForm === 'address') {
+      title = 'Which Address Should We Protect?'
+      description = "Quite a few websites sites share either all or part of your address. By filling in your address information, we can ensure that we're protecting your information even if the sites that share it don't have your full name, or if they have errors such as misspellings in your name. Only you can access this secure information, and we'll never share it with anyone."
       return <AddressForm
         renderNextForm={renderNextForm}
         handleSubmit={handleSubmit}
@@ -122,6 +127,8 @@ let Keywords = (props) => {
         Field={Field}
       />
     } else {
+      title = 'What is Your Date of Birth'
+      description = "Many sites list a date of birth or age range along with the information that they post about you. When you provide us with your date of birth, we can check for sites that are spreading this information around. Of course we'll never give that information to anyone for any reason"
       return <DateOfBirthForm
         handleSubmit={handleSubmit}
         invalid={invalid}
@@ -163,17 +170,17 @@ let Keywords = (props) => {
                   )}
                 >
                   <h2 className={ classes.panelHeader }>
-                    Keywords
+                    { title }
                   </h2>
                   <p className='text-center m-b-3'>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit
+                    { description }
                   </p>
                   {form()}
                 </Panel>
                 <p className='text-center text-gray-light'>
                   <strong>Blitz Monitoring </strong>
                   <span className='text-gray-light'>
-                    © 2009 - 2016. Made by <i className="fa fa-fw fa-heart text-danger"></i> Denver CO, US
+                    © 2009 - 2017. Made by <i className="fa fa-fw fa-flash text-primary"></i> Denver CO, US
                   </span>
                 </p>
               </Col>

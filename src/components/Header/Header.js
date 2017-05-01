@@ -22,7 +22,7 @@ import assignKeys, { findActiveNodes, CONFIGS } from 'routes/routesStructure';
 import classes from './Header.scss';
 
 const headers = {
-    [HEADER_STYLE_SIMPLE]: ( title, path, containerFluid, children ) => (
+    [HEADER_STYLE_SIMPLE]: ( title, path, containerFluid, children, dashboardPath ) => (
         <div className="sub-navbar sub-navbar__header">
             <Grid fluid={ containerFluid }>
                 <Row>
@@ -52,7 +52,7 @@ const headers = {
             </Grid>
         </div>
     ),
-    [HEADER_STYLE_BREADCRUMBS]: ( title, path, containerFluid, children ) => (
+    [HEADER_STYLE_BREADCRUMBS]: ( title, path, containerFluid, children, dashboardPath ) => (
         <div className="sub-navbar sub-navbar__header-breadcrumbs">
             <Grid fluid={ containerFluid }>
                 <Row>
@@ -66,7 +66,7 @@ const headers = {
                                     <Breadcrumb
                                         className='navbar-text navbar-right no-bg'
                                     >
-                                        <LinkContainer to='/' onlyActiveOnIndex>
+                                        <LinkContainer to={dashboardPath} onlyActiveOnIndex>
                                             <Breadcrumb.Item active={ false }>
                                                 <i className="fa fa-fw fa-home"></i>
                                             </Breadcrumb.Item>
@@ -98,11 +98,17 @@ const headers = {
     )
 };
 
-const Header = (props) => {
-    const path = findActiveNodes(assignKeys(CONFIGS[props.currentUserRole]), props.currentUrl);
-    const { title } = (path && path.length > 0) ? path[0] : '';
+const PATH = {
+  'client': '/dashboard',
+  'admin': '/admin/dashboard'
+}
 
-    return headers[props.style](title, path, props.fluid, props.children);
+const Header = (props) => {
+    const path = findActiveNodes(props.sidebarConfigs, props.currentUrl);
+    const { title } = (path && path.length > 0) ? path[0] : '';
+    const dashboardPath = PATH[props.currentUserRole]
+
+    return headers[props.style](title, path, props.fluid, props.children, dashboardPath);
 }
 
 Header.propTypes = {
@@ -110,6 +116,7 @@ Header.propTypes = {
     style: React.PropTypes.string.isRequired,
     fluid: React.PropTypes.bool.isRequired,
     children: React.PropTypes.node,
+    sidebarConfigs: React.PropTypes.array,
     currentUserRole: React.PropTypes.string
 }
 

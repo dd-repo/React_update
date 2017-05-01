@@ -58,7 +58,7 @@ const Payment = (props) => {
                       Payment Information
                     </h2>
                     <p className='text-center m-b-3'>
-                      Lorem ipsum dolor sit amet, consectetur adipisicing elit
+                       Your card will be billed monthly until you choose to end the subscription. You can cancel any time without fees or penalties.
                     </p>
 
                     <PaymentForm
@@ -67,9 +67,9 @@ const Payment = (props) => {
 
                 </Panel>
                 <p className='text-center text-gray-light'>
-                  <strong>SPIN Dashboard </strong>
+                  <strong>Blitz Monitoring</strong>
                   <span className='text-gray-light'>
-                    © 2009 - 2016. Made by <i className="fa fa-fw fa-heart text-danger"></i> New York, US
+                    © 2009 - 2017. Made by <i className="fa fa-fw fa-flash text-primary"></i> Denver, US
                   </span>
                 </p>
               </Col>

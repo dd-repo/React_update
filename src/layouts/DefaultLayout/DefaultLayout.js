@@ -439,6 +439,7 @@ class DefaultLayout extends React.Component {
                                 style={ this.props.headerStyle }
                                 fluid={ this.props.contentView !== CONTENT_VIEW_STATIC }
                                 currentUrl={ this.props.location.pathname }
+                                sidebarConfigs={this.state.sidebarConfigs}
                                 currentUserRole={ this.props.currentUser.role }
                             />
                             <Grid fluid={ this.props.contentView !== CONTENT_VIEW_STATIC }>
