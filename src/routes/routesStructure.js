@@ -6,10 +6,6 @@ import {
 
 import uuid from 'node-uuid';
 import _ from 'underscore';
-import { getUserRole } from 'localStorage';
-
-//const userRole = JSON.parse(localStorage.getItem('userRole'))
-const userRole = getUserRole()
 
 //import { getMenuEntries as getSkinMenuEntries } from './Skins';
 //import { getMenuEntries as getSidebarsMenuEntries } from './Sidebars';
@@ -136,4 +132,5 @@ export function findSectionBySlug(nodes, slugName) {
     const sections = Array.from(getSections(nodes));
 return _.findWhere(sections, { slug: slugName });
 }
-export default assignKeys(CONFIGS[userRole]);
+
+export default assignKeys;

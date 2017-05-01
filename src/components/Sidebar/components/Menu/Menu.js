@@ -9,7 +9,7 @@ import {
     SIDEBAR_STYLE_DEFAULT,
     SIDEBAR_STYLE_BIGICONS
 } from 'layouts/DefaultLayout/modules/layout';
-import SIDEBAR_CONFIG, { findActiveNodes } from 'routes/routesStructure';
+import assignKeys, { findActiveNodes, CONFIGS } from 'routes/routesStructure';
 
 import classes from './../../Sidebar.scss';
 
@@ -70,7 +70,7 @@ const animateCloseNode = (nodeElement, cbComplete, cbStart, animationSettings) =
 class Menu extends React.Component {
     static propTypes = {
         currentUrl: PropTypes.string,
-        currentUserRole: PropTypes.string.isRequired,
+        currentUserRole: PropTypes.string,
         sidebarStyle: PropTypes.string,
         onHeightChange: PropTypes.func,
 
@@ -86,11 +86,10 @@ class Menu extends React.Component {
         animationEasing: 'ease-in-out'
     }
 
-    constructor() {
-        super();
-
+    constructor(props) {
+        super(props);
         this.state = Object.assign({}, this.state, {
-            expandedNodes: []
+          expandedNodes: []
         });
     }
 
@@ -143,7 +142,7 @@ class Menu extends React.Component {
 
     setSidebarNodesHighlights(url) {
         if(this.props.currentUrl) {
-            const activeNodes = findActiveNodes(SIDEBAR_CONFIG, url);
+            const activeNodes = findActiveNodes(this.props.sidebarConfigs, url);
 
             this.setState(Object.assign({}, this.state,
                 { activeNodes, expandedNodes: activeNodes }));
@@ -226,7 +225,8 @@ class Menu extends React.Component {
         )
     }
 
-    generateRootNodes(nodeDefs) {
+    generateRootNodes() {
+        const nodeDefs = this.props.sidebarConfigs
         const { state } = this;
 
         const nodes = _.map(nodeDefs, (nodeDef) => {
@@ -269,7 +269,7 @@ class Menu extends React.Component {
     render() {
         return (
             <ul className="side-menu">
-                { this.generateRootNodes(SIDEBAR_CONFIG) }
+                { this.generateRootNodes() }
             </ul>
         );
     }

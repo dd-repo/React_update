@@ -17,7 +17,7 @@ import {
 
 import { Colors } from 'consts';
 
-import ROUTES_STRUCTURE, { findActiveNodes } from 'routes/routesStructure';
+import assignKeys, { findActiveNodes, CONFIGS } from 'routes/routesStructure';
 
 import classes from './Header.scss';
 
@@ -99,7 +99,7 @@ const headers = {
 };
 
 const Header = (props) => {
-    const path = findActiveNodes(ROUTES_STRUCTURE, props.currentUrl);
+    const path = findActiveNodes(assignKeys(CONFIGS[props.currentUserRole]), props.currentUrl);
     const { title } = (path && path.length > 0) ? path[0] : '';
 
     return headers[props.style](title, path, props.fluid, props.children);
@@ -110,7 +110,7 @@ Header.propTypes = {
     style: React.PropTypes.string.isRequired,
     fluid: React.PropTypes.bool.isRequired,
     children: React.PropTypes.node,
-    currentUserRole: React.PropTypes.string.isRequired
+    currentUserRole: React.PropTypes.string
 }
 
 Header.defaultProps = {
