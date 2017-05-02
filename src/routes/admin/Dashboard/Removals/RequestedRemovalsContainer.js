@@ -33,19 +33,13 @@ class RequestedRemovalsContainer extends RoutedComponent {
     router: React.PropTypes.object.isRequired
   }
 
-  componentWillReceiveProps(nextProps) {
-    nextProps.requestedRemovals.isFetching !== this.state.isFetching &&
-      this.setState({
-        isFetching: nextProps.requestedRemovals.isFetching,
-      });
-  }
-
   componentWillMount() {
     this.fetchRemovalsRequested()
   }
 
-  fetchRemovalsRequested(pageNum=1) {
-    this.props.getRemovalsRequested(pageNum)
+  fetchRemovalsRequested() {
+    console.log('fetching')
+    this.props.getRemovalsRequested(this.state.pageNum)
   }
 
   getNextPage(pageNum) {
@@ -57,21 +51,8 @@ class RequestedRemovalsContainer extends RoutedComponent {
   handleClick(request_id, status) {
     const payload = { request_id, status }
     this.props.updateStatus(payload)
-    .then( res => { this.doNext(res) })
+    .then( (res) =>  this.fetchRemovalsRequested())
     .catch( error => { console.log('error in admin removals', error) })
-  }
-
-  doNext(res) {
-    switch(res.type) {
-      case UPDATE_STATUS_SUCCESS:
-        this.fetchRemovalsRequested(this.state.pageNum)
-        break;
-      case UPDATE_STATUS_FAILURE:
-        this.setState({ isFetching: false });
-        break;
-  default:
-    return null;
-    }
   }
 
   render() {
@@ -80,7 +61,7 @@ class RequestedRemovalsContainer extends RoutedComponent {
         removals={this.props.requestedRemovals.all}
         pagination={this.props.requestedRemovals.pagination}
         pageNum={this.state.pageNum}
-        isFetching={this.state.isFetching}
+        isFetching={this.props.requestedRemovals.isFetching}
         handleClick={this.handleClick}
         getNextPage={this.getNextPage}
       />

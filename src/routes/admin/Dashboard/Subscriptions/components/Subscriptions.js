@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import Loading from 'react-loading';
 
-import Transaction from './Transaction';
+import Subscription from './Subscription';
+
 import {
   Table,
   Label,
@@ -10,13 +11,11 @@ import {
   Pagination
 } from 'components';
 
-
-
-export default class Transactions extends Component {
+export default class Subscriptions extends Component {
   constructor(props) {
     super(props)
 
-    this.paginationItems = this.paginationItems.bind(this);
+    this.paginationItems = this.paginationItems.bind(this)
   }
 
   paginationItems() {
@@ -26,11 +25,12 @@ export default class Transactions extends Component {
 
   render() {
     const {
-      transactions,
+      subscriptions,
       pagination,
       pageNum,
       getNextPage,
       isFetching,
+      handleClick,
     } = this.props
 
     return (
@@ -57,25 +57,31 @@ export default class Transactions extends Component {
                 <thead>
                   <tr>
                     <th>
-                      client name
-                    </th>
-                    <th>
-                      client email
-                    </th>
-                    <th>
-                      transaction id
-                    </th>
-                    <th>
-                      process date
-                    </th>
-                    <th>
-                      # of rounds
-                    </th>
-                    <th>
                       subscription id
                     </th>
                     <th>
-                      type of deal
+                      client name
+                    </th>
+                    <th>
+                      user id
+                    </th>
+                    <th>
+                      start date
+                    </th>
+                    <th>
+                      end date
+                    </th>
+                    <th>
+                      cancel date
+                    </th>
+                    <th>
+                      is active
+                    </th>
+                    <th>
+                      plan id
+                    </th>
+                    <th>
+                      plan description
                     </th>
                     <th>
                       sales rep
@@ -84,23 +90,23 @@ export default class Transactions extends Component {
                 </thead>
                 <tbody>
                   {
-                    transactions.map(
-                      transaction => <Transaction transaction={transaction} key={transaction.id} />
-                    )}
-                  </tbody>
-                </Table>
-              </Row>
-              :
-                <div className='container'>
-                  <div className="spinner">
-                    <div className="col-md-12">
-                      <Loading type='bubbles' color='white' />
+                    subscriptions.map(
+                      subscription => <Subscription subscription={subscription} key={subscription.id} handleClick={handleClick} />
+                      )}
+                    </tbody>
+                  </Table>
+                </Row>
+                :
+                  <div className='container'>
+                    <div className="spinner">
+                      <div className="col-md-12">
+                        <Loading type='bubbles' color='white' />
+                      </div>
                     </div>
                   </div>
-                </div>
-                }
+                  }
 
-              </div>
+                </div>
     )
   }
 }

@@ -76,6 +76,11 @@ export const CONFIGS = {
       title: 'Transactions',
       url: '/admin/dashboard/transactions'
     },
+    {
+      slug: 'subscriptions',
+      title: 'Subscriptions',
+      url: '/admin/dashboard/subscriptions'
+    },
   ]
 }
 
