@@ -14,6 +14,7 @@ import layout from 'layouts/DefaultLayout/modules/layout';
 import requestedRemovals from 'routes/admin/Dashboard/Removals/modules/removalRequests';
 import clientSignupForm from 'routes/admin/Dashboard/ClientSignup/modules/clientSignup';
 import transactions from 'routes/admin/Dashboard/Transactions/modules/transactions';
+import subscriptions from 'routes/admin/Dashboard/Subscriptions/modules/subscriptions';
 
 // for testing purposes
 import loggedInUser from 'modules/loggedInUser';
@@ -37,6 +38,7 @@ export const makeRootReducer = (asyncReducers) => {
     clientSignupForm,
     notifications,
     transactions,
+    subscriptions,
     ...asyncReducers
   })
 }

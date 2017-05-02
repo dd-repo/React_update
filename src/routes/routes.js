@@ -138,6 +138,14 @@ export default [
         }
     },
     {
+      path: '/admin/dashboard/subscriptions',
+        getComponent: (nextState, cb) => {
+            require.ensure([], require => {
+              cb(null, require('./admin/Dashboard/Subscriptions').default);
+            }, 'admin-dashboard-subscriptions');
+        }
+    },
+    {
         path: '*',
         component: require('./Pages/NotFound').default
     }

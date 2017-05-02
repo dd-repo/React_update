@@ -27,13 +27,6 @@ class TransactionsContainer extends RoutedComponent {
     router: React.PropTypes.object.isRequired
   }
 
-  componentWillReceiveProps(nextProps) {
-    nextProps.transactions.isFetching !== this.state.isFetching &&
-      this.setState({
-        isFetching: nextProps.transactions.isFetching,
-      });
-  }
-
   componentWillMount() {
     this.fetchTransactions()
   }
@@ -54,7 +47,7 @@ class TransactionsContainer extends RoutedComponent {
         transactions={this.props.transactions.all}
         pagination={this.props.transactions.pagination}
         pageNum={this.state.pageNum}
-        isFetching={this.state.isFetching}
+        isFetching={this.props.transactions.isFetching}
         getNextPage={this.getNextPage}
       />
     )
