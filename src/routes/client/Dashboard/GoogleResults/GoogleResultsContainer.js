@@ -14,7 +14,7 @@ class GoogleResultsContainer extends RoutedComponent {
     super(props)
     this.state = {
       isFetching: true,
-      isLoggedIn: !!props.currentUser.id && !!props.currentUser.access_token
+      pageNum: 1
     }
 
     this.getResults = this.getResults.bind(this);
@@ -48,16 +48,18 @@ class GoogleResultsContainer extends RoutedComponent {
   }
 
   handleRemoval(id) {
-    //const authToken = this.props.currentUser.access_token
-    //this.props.requestRemoval(id, authToken)
+    const payload = { request: { search_result_id: id }}
+    this.props.requestRemoval(payload)
+    //.then( (res) => getResults(this.props.keywords.currentKeyword))
+    //.catch( (error) => console.log('error in removal request google search results', error))
   }
 
-  getResults(keyword, pageNum = '1') {
+  getResults(keyword, pageNum=1) {
     const { account_id } = this.props.currentUser
     const keyword_id = keyword.id
-    const params = { pageNum, keyword_id, account_id }
+    const payload = { pageNum, keyword_id, account_id }
     this.props.addCurrentKeyword(keyword)
-    this.props.getGoogleResults(params);
+    this.props.getGoogleResults(payload);
     this.setState({ isFetching: true, pageNum: parseInt(pageNum) })
   }
 

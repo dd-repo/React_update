@@ -1,7 +1,7 @@
 import React from 'react';
 import _ from 'underscore';
 
-import Monitoring from './components/Monitoring';
+import MonitoringSites from './components/MonitoringSites';
 import { CONTENT_VIEW_STATIC } from 'layouts/DefaultLayout/modules/layout';
 import { RoutedComponent, connect } from 'routes/routedComponent';
 import {
@@ -14,7 +14,7 @@ import {
 class MonitoringContainer extends RoutedComponent {
   constructor(props) {
     super(props)
-    this.state = { isFetching: true }
+    this.state = {}
 
     this.handleClick = this.handleClick.bind(this);
   }
@@ -34,19 +34,11 @@ class MonitoringContainer extends RoutedComponent {
 }
 
   fetchMonitoringRequests() {
-    const { account_id, access_token } = this.props.currentUser
-    this.props.getMonitoring(account_id, access_token)
-  }
-
-  componentWillReceiveProps(nextProps) {
-    nextProps.monitoring.isFetching !== this.state.isFetching &&
-      this.setState({
-        isFetching: nextProps.monitoring.isFetching,
-      });
+    const { account_id } = this.props.currentUser
+    this.props.getMonitoring(account_id)
   }
 
   handleClick(request_id) {
-    this.setState({ isFetching: true })
     this.props.requestRemoval(request_id)
     .then( res => { this.doNext(res) })
     .catch( error => { console.log('error in monitoring removal', error) })
@@ -65,17 +57,17 @@ class MonitoringContainer extends RoutedComponent {
     }
   }
 
-  orderMonitoringSites() {
-    return _.sortBy( this.props.monitoring.sites, 'id' )
-  }
-
   render() {
+    const sortedMonitoringSites = (
+     _.sortBy( this.props.monitoring.sites, 'id' )
+    )
+
     return (
-      <Monitoring
-        monitoringSites={this.orderMonitoringSites()}
+      <MonitoringSites
+        monitoringSites={sortedMonitoringSites}
         siteIds={this.state.siteIds}
         handleClick={this.handleClick}
-        isFetching={this.state.isFetching}
+        isFetching={this.props.monitoring.isFetching}
       />
     )
   }
