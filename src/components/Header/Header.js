@@ -100,7 +100,8 @@ const headers = {
 
 const PATH = {
   'client': '/dashboard',
-  'admin': '/admin/dashboard'
+  'admin': '/admin/dashboard',
+  'signup': '/signup'
 }
 
 const Header = (props) => {

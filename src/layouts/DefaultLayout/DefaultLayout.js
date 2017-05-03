@@ -434,7 +434,9 @@ class DefaultLayout extends React.Component {
                             { this.props.children }
                         </Layout.Content>
                     ) : (
-                        <Layout.Content style={ { paddingTop: !this.props.headerEnabled ? '19px' : '0' } }>
+                    <Layout.Content
+                      style={ { paddingTop: !this.props.headerEnabled ? '19px' : '0' } }
+                    >
                             <Header
                                 style={ this.props.headerStyle }
                                 fluid={ this.props.contentView !== CONTENT_VIEW_STATIC }

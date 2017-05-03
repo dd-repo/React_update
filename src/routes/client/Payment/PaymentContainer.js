@@ -52,7 +52,7 @@ class PaymentContainer extends RoutedComponent {
       card_month: values.expirationDate.slice(0,2),
       card_year: values.expirationDate.slice(3),
       card_cvc: values.cvCode,
-      plan: this.toLowerCase(this.props.planSelection.type),
+      plan: 'individual',
     }
   }
 

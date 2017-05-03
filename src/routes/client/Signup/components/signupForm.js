@@ -107,9 +107,7 @@ const renderFields = () => {
 
 let SignupForm = (props) => {
   const {
-    planType,
     price,
-    errorMessage,
     submitForm,
     handleSubmit,
     invalid,
@@ -134,9 +132,6 @@ let SignupForm = (props) => {
 
 SignupForm.propTypes = {
   submitForm: PropTypes.func.isRequired,
-  planType: PropTypes.string.isRequired,
-  price: PropTypes.number.isRequired,
-  errorMessage: PropTypes.string
 }
 
 SignupForm = reduxForm({

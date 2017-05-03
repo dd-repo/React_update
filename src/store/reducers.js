@@ -2,7 +2,6 @@ import { combineReducers } from 'redux';
 import { routerReducer as router } from 'react-router-redux';
 import { reducer as notifications } from 'react-notification-system-redux';
 import { reducer as form } from 'redux-form';
-import planSelection from 'modules/planSelection';
 import currentUser from 'modules/auth';
 import accounts from 'modules/accounts';
 import payment from 'routes/client/Payment/modules/payment';
@@ -30,7 +29,6 @@ export const makeRootReducer = (asyncReducers) => {
     layout,
     monitoring,
     payment,
-    planSelection,
     profile,
     requestedRemovals,
     router,

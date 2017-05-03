@@ -28,7 +28,8 @@ const defaultUserInfo = {
   email: 'joebob@email.com',
   phone_number: '123-123-1234',
   password: 'password12',
-  account_id: 1
+  account_id: 1,
+  role: 'signup'
 }
 
 const defaultLoggedInUser = {
@@ -57,11 +58,6 @@ const defaultKeywords = {
   currentKeyword: {value:'joe bob'}
 }
 
-const defaultPlan = {
-  type: 'individual',
-  price: 29
-}
-
 const defaultClientSignupForm = {
   first_name: 'joe',
   last_name: 'bob',
@@ -83,7 +79,6 @@ const defaultClientSignupForm = {
 const initialState = {
   currentUser: loadPersistedData('currentUser') || defaultUserInfo,
   payment: loadPersistedData('payment') || defaultPaymentInfo,
-  planSelection: loadPersistedData('planSelection') || defaultPlan,
   keywords: loadPersistedData('keywords') || defaultKeywords,
   accounts: loadPersistedData('accounts'),
   profile: loadPersistedData('profile'),
