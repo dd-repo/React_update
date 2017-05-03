@@ -1,10 +1,10 @@
-import axios from 'axios'
 import BlitzApi from 'services/BlitzApi';
 
 // action types
 export const GOOGLE_RESULTS_SUCCESS = 'GOOGLE_RESULTS_SUCCESS';
 export const GOOGLE_RESULTS_POSTING = 'GOOGLE_RESULTS_POSTING';
 export const GOOGLE_RESULTS_FAILURE = 'GOOGLE_RESULTS_FAILURE';
+export const REMOVAL_REQUEST = '/dashboard/api/v1/removal_requests';
 
 // actions
 export const getGoogleResults = params => {
@@ -16,22 +16,20 @@ export const getGoogleResults = params => {
     return BlitzApi.get(path)
     .then(
       response => dispatch(googleResultSuccess(response.data))
-      //response => console.log('response', response.data)
     ).catch(
     error => dispatch(googleResultFailure(error))
     )
   }
 }
 
-export const requestRemoval = (id, authToken) => {
+export const requestRemoval = payload => {
   return dispatch => {
-    return(googleSearchRemovalRequest(id, authToken))
+    return(BlitzApi.post(REMOVAL_REQUEST, payload))
+    //.then(
+      //response => )
+      //.catch(
+        //error => )
   }
-}
-
-const googleSearchRemovalRequest = (id, authToken) => {
-  let request = axios.create({ baseURL: BASE_URL, headers: {'Authorization': authToken} });
-  return request.post('/dashboard/api/v1/removal_requests', {'request': {'search_result_id': id}})
 }
 
 const gettingGoogleResults = () => (

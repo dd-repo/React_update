@@ -1,14 +1,31 @@
-import React from 'react';
+import React, { Component } from 'react';
 
 import { Row, Col, Button, Divider } from 'components'
 
 import classes from './googleResults.scss';
 
-const GoogleResult = ( { result, handleRemoval } ) => {
+export default class GoogleResult extends Component {
+  constructor(props) {
+    super(props)
 
-  const renderRemovalButton = (
-    result.listing_site_id &&
-      <Button bsStyle='danger' disabled={false} onClick={() => handleRemoval(result.id)}>Request Removal</Button>
+    this._onClick = this._onClick.bind(this)
+  }
+
+ _onClick() {
+   this.props.handleRemoval(this.props.result.id)
+ }
+
+ render() {
+   const { result } = this.props
+   const renderRemovalButton = (
+     result.listing_site_id &&
+      <Button
+        bsStyle='danger'
+        disabled={false}
+        onClick={this._onClick}
+      >
+        Request Removal
+      </Button>
   )
 
   return (
@@ -33,6 +50,5 @@ const GoogleResult = ( { result, handleRemoval } ) => {
       </Col>
     </Row>
   )
+ }
 }
-
-export default GoogleResult;
