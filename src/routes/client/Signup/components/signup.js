@@ -8,11 +8,11 @@ import {
     Row,
     Col,
     Panel,
-    Button,
     Alert
 } from 'components';
 
-const Signup = ({ errorMessage, submitForm, plan }) => {
+const Signup = ({ errorMessage, submitForm }) => {
+
   const renderErrorMessage = (
    errorMessage &&
   <Alert bsStyle='danger'>
@@ -20,13 +20,10 @@ const Signup = ({ errorMessage, submitForm, plan }) => {
     {errorMessage}
   </Alert>
   )
+
   return (
     <Row>
       <Col lg={ 12 }>
-        { /* <Button className='m-t-2 m-b-1' onClick={ () => this.props.history.goBack() }>
-          <i className='fa fa-angle-left m-r-1'></i>
-          Back
-          </Button> */ }
           {renderErrorMessage}
         <Row>
           <Col className={ classes.centerCol } md={ 4 }>
@@ -39,11 +36,10 @@ const Signup = ({ errorMessage, submitForm, plan }) => {
                 )}
                 footer={(
                   <div>
-                    <Link to='/forgot-password'>
-                      Forgot Password?
+                    <Link to='/login'>
+                      Login
                     </Link>
                     <Link to='/login' className='pull-right'>
-                      Login
                     </Link>
                   </div>
                   )}
@@ -57,9 +53,6 @@ const Signup = ({ errorMessage, submitForm, plan }) => {
 
                   <SignupForm
                     submitForm={submitForm}
-                    price={plan.price}
-                    planType={plan.type}
-                    errorMessage={errorMessage}
                   />
 
                 </Panel>
@@ -78,9 +71,7 @@ const Signup = ({ errorMessage, submitForm, plan }) => {
 
 Signup.propTypes = {
   submitForm: PropTypes.func.isRequired,
-  plan: PropTypes.object.isRequired,
   errorMessage: PropTypes.string
 }
 
 export default Signup;
-

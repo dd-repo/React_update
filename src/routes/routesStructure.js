@@ -11,6 +11,13 @@ import _ from 'underscore';
 //import { getMenuEntries as getSidebarsMenuEntries } from './Sidebars';
 
 export const CONFIGS = {
+  'signup': [
+    {
+      slug: 'Sign Up',
+      title: 'Sign Up',
+      url: '/signup',
+    },
+  ],
   'client': [
     {
       slug: 'Google Results',

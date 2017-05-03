@@ -38,9 +38,11 @@ class SignupContainer extends RoutedComponent {
     return {
       contentView: CONTENT_VIEW_STATIC,
       sidebarEnabled: false,
-      navbarEnabled: false,
+      navbarEnabled: true,
+      navbarSkin: 'dark',
       footerEnabled: false,
-      headerEnabled: false
+      headerEnabled: true,
+      headerStyle: 'breadcrumbs',
     }
   }
 
@@ -58,7 +60,6 @@ class SignupContainer extends RoutedComponent {
         this.context.router.push('/payment-info');
         break;
       case USER_SIGNUP_FAILURE:
-        this.setState({errorMessage: res.error.response.data.errorMessage});
         break;
       default:
         return null;
@@ -69,16 +70,14 @@ class SignupContainer extends RoutedComponent {
     return (
       <Signup
         submitForm={this.submitForm}
-        plan={this.props.planSelection}
-        errorMessage={this.state.errorMessage}
+        errorMessage={this.props.currentUser.errorMessage}
       />
     )
   }
 }
 
 const mapStateToProps = state => ({
-  planSelection: state.planSelection,
-  currentUser: state.entity
+  currentUser: state.currentUser
 })
 
 const mapActionCreators = {
