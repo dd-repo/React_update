@@ -17,6 +17,16 @@ export const CONFIGS = {
       title: 'Sign Up',
       url: '/signup',
     },
+    {
+      slug: 'Payment',
+      title: 'Payment',
+      url: '/payment-info',
+    },
+    {
+      slug: 'Keywords',
+      title: 'Keywords',
+      url: '/keywords',
+    },
   ],
   'client': [
     {

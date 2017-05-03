@@ -86,7 +86,6 @@ export const DEFAULT_SETTINGS = {
     headerStyle: HEADER_STYLE_BREADCRUMBS,
     skinColor: SKIN_COLOR_PRIMARY,
     rawContent: false,
-    bgColor: SKIN_LIGHT
 };
 // ------------------------------------
 // Actions
