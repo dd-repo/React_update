@@ -52,7 +52,7 @@ const headers = {
             </Grid>
         </div>
     ),
-    [HEADER_STYLE_BREADCRUMBS]: ( title, path, containerFluid, children, dashboardPath ) => (
+    [HEADER_STYLE_BREADCRUMBS]: ( title, path, containerFluid, children, dashboardPath = '/signup' ) => (
         <div className="sub-navbar sub-navbar__header-breadcrumbs">
             <Grid fluid={ containerFluid }>
                 <Row>
@@ -101,13 +101,12 @@ const headers = {
 const PATH = {
   'client': '/dashboard',
   'admin': '/admin/dashboard',
-  'signup': '/signup'
 }
 
 const Header = (props) => {
     const path = findActiveNodes(props.sidebarConfigs, props.currentUrl);
     const { title } = (path && path.length > 0) ? path[0] : '';
-    const dashboardPath = PATH[props.currentUserRole]
+    const dashboardPath = PATH[props.currentUser.role]
 
     return headers[props.style](title, path, props.fluid, props.children, dashboardPath);
 }

@@ -34,9 +34,9 @@ class KeywordContainer extends RoutedComponent {
     return {
       contentView: CONTENT_VIEW_STATIC,
       sidebarEnabled: false,
-      navbarEnabled: false,
-      footerEnabled: false,
-      headerEnabled: false
+      navbarEnabled: true,
+      footerEnabled: true,
+      headerEnabled: false,
     }
   }
 
@@ -56,7 +56,7 @@ class KeywordContainer extends RoutedComponent {
     let params = this.buildParams(formProps)
     this.props.postKeywords(params)
     .then(res => { this.doNext(res) })
-    .catch(error => { console.log(error) });
+    .catch(error => { console.log('error in keywords', error) });
   }
 
 

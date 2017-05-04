@@ -22,7 +22,7 @@ const DateOfBirthForm = (props) => {
         {renderField(fields.dob)}
       </FormGroup>
       <button
-        className="btn btn-success"
+        className="btn btn-success pull-right"
         disabled={invalid || submitting}
         action="submit">
         Protect Date of Birth

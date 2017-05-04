@@ -41,7 +41,8 @@ const formatState = (state, selector) => {
         access_token: state.access_token,
         isFetching: false,
         account_id: state.accounts[0].id,
-        role: state.role
+        role: state.role,
+        isLoggedIn: state.isLoggedIn
       }
       case 'accounts':
         return {

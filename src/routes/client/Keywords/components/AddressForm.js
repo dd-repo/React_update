@@ -1,17 +1,13 @@
 import React from 'react';
-const { DOM: { select } } = React;
 
 import { FormGroup, FormControl } from 'components';
 import classes from './keywords.scss';
 import states from 'utils/states';
 
-const dropDownSelect = ({ input }) => (
+const dropDownSelect = ({ input, meta: { touched, error}, children }) => (
   <FormControl {...input} componentClass='select'>
     <option value=''>Select a state...</option>
-    {states.map(state =>
-                <option value={state} key={state}>{state}</option>
-                )
-    }
+    { children }
   </FormControl>
 )
 const AddressForm = (props) => {
@@ -46,7 +42,13 @@ const AddressForm = (props) => {
           <Field
             name='state'
             component={dropDownSelect}
-          />
+          >
+            {
+              states.map(
+                state => <option value={state} key={state}>{state}</option>
+                )
+            }
+          </Field>
         </FormGroup>
         <FormGroup>
         <label>
@@ -55,7 +57,7 @@ const AddressForm = (props) => {
         {renderField(fields.zipcode)}
       </FormGroup>
       <button
-        className="btn btn-success"
+        className="btn btn-success pull-right"
         disabled={invalid || submitting}
         action="submit">
         Protect Address

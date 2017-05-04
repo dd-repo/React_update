@@ -26,9 +26,9 @@ class PaymentContainer extends RoutedComponent {
     return {
       contentView: CONTENT_VIEW_STATIC,
       sidebarEnabled: false,
-      navbarEnabled: false,
-      footerEnabled: false,
-      headerEnabled: false
+      navbarEnabled: true,
+      footerEnabled: true,
+      headerEnabled: false,
     }
   }
 
@@ -85,8 +85,6 @@ class PaymentContainer extends RoutedComponent {
     if(!this.state.paymentSuccess && this.props.currentUser.id) {
       return <Payment
         submitForm={this.submitForm}
-        planType={this.props.planSelection.type}
-        price={this.props.planSelection.price}
         errorMessage={this.state.errorMessage}
         isFetching={this.state.isFetching}
         />

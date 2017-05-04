@@ -136,7 +136,7 @@ let PaymentForm = (props) => {
       <p>
         All major credit cards are accepted through a secure payment process
       </p>
-      <button className="btn btn-success"
+      <button className="btn btn-success pull-right"
         disabled={invalid || submitting}
         action="submit">
           { buttonLabel }
@@ -147,8 +147,6 @@ let PaymentForm = (props) => {
 
 PaymentForm.propTypes = {
   submitForm: PropTypes.func.isRequired,
-  planType: PropTypes.string.isRequired,
-  price: PropTypes.number.isRequired
 }
 
 PaymentForm = reduxForm({

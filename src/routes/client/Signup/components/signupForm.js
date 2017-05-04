@@ -1,4 +1,4 @@
-import React, { PropTypes } from 'react';
+import React, { Component, PropTypes } from 'react';
 import { Field, reduxForm } from 'redux-form';
 
 import { connect } from 'routes/routedComponent';
@@ -6,7 +6,8 @@ import { checkValidation, normalizePhone } from 'utils/formHelpers';
 import {
     FormGroup,
     FormControl,
-    Checkbox
+    Checkbox,
+    Button
 } from 'components';
 
 const fields = {
@@ -42,11 +43,6 @@ const fields = {
     placeHolder: 'Enter a password...',
     maxLength: '25',
   },
-  checkbox: {
-    name: 'terms',
-    type: 'checkbox',
-    value: true
-  }
 }
 const validate = values => {
   return checkValidation(values, fields)
@@ -64,7 +60,6 @@ const renderInput = (props) => {
 
   let message = touched && (error && <span className='text-danger'><strong>Opps!</strong> {error}</span>)
   let validationState = touched && ( error && 'error') || null
-  if(type !== 'checkbox') {
   return (
       <FormGroup validationState={validationState}>
         <label>
@@ -77,13 +72,6 @@ const renderInput = (props) => {
       {message}
       </FormGroup>
   )
-  }else{
-    return (
-      <Checkbox required validationState='error'>
-        Accept Terms & Privacy Policy
-      </Checkbox>
-    )
-  }
 }
 
 const renderFields = () => {
@@ -105,29 +93,48 @@ const renderFields = () => {
   })
 }
 
-let SignupForm = (props) => {
-  const {
-    price,
-    submitForm,
-    handleSubmit,
-    invalid,
-    submitting
-  } = props
+class SignupForm extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {showModal: false}
 
-  return (
-    <form onSubmit={handleSubmit(submitForm)}>
+    this._onClick = this._onClick.bind(this)
+  }
 
-      {renderFields()}
+  _onClick() {
+    this.props.toggleModal()
+  }
 
-      <button
-        className='btn btn-primary m-b-2'
-        disabled={invalid || submitting}
-        action="submit"
-      >
-        Register
-      </button>
-    </form>
-  )
+  render() {
+    const {
+      price,
+      submitForm,
+      handleSubmit,
+      invalid,
+      submitting
+    } = this.props
+
+    return (
+      <form onSubmit={handleSubmit(submitForm)}>
+
+        {renderFields()}
+
+        <Checkbox required validationState='error'>
+          <a className='text-danger' onClick={this._onClick}>
+            Accept Terms & Privacy Policy
+          </a>
+        </Checkbox>
+
+        <button
+          className='btn btn-primary m-b-2'
+          disabled={invalid || submitting}
+          action="submit"
+        >
+          Register
+        </button>
+      </form>
+    )
+  }
 }
 
 SignupForm.propTypes = {
