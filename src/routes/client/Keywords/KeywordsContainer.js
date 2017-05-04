@@ -11,6 +11,7 @@ import { CONTENT_VIEW_STATIC } from 'layouts/DefaultLayout/modules/layout';
 const persistDataToLocalStorage = keywords => {
   const keywordList = {all: keywords, currentKeyword: keywords[0]}
   persistData(keywordList, 'keywords')
+  persistData(true, 'isLoggedIn')
 }
 
 class KeywordContainer extends RoutedComponent {

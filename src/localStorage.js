@@ -28,6 +28,11 @@ export const getAuthToken = () => {
 export const removePersistedData = () => {
   localStorage.removeItem('currentUser')
   localStorage.removeItem('authToken')
+  localStorage.removeItem('isLoggedIn')
+  localStorage.removeItem('accounts')
+  localStorage.removeItem('keywords')
+  localStorage.removeItem('profile')
+  localStorage.removeItem('paymentStatus')
 }
 
 const formatState = (state, selector) => {

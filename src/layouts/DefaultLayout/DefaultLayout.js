@@ -171,7 +171,8 @@ class DefaultLayout extends React.Component {
     }
 
     render() {
-      const { role, isLoggedIn } = this.props.currentUser
+      const { role } = this.props.currentUser
+      const isLoggedIn = localStorage.getItem('isLoggedIn')
       const isClient = role === 'client' && isLoggedIn
       const isAdmin = role === 'admin'
       const profileUser = {

@@ -22,6 +22,7 @@ const persistDataToLocalStorage = data => {
   persistData(accounts, 'accounts');
   persistData(profile, 'profile');
   persistData(access_token, 'authToken');
+  persistData(true, 'isLoggedIn');
 }
 
 class LoginContainer extends RoutedComponent {
