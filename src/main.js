@@ -30,7 +30,6 @@ const defaultUserInfo = {
   password: 'password12',
   account_id: 1,
   role: 'signup',
-  isLoggedIn: false
 }
 
 const defaultLoggedInUser = {

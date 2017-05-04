@@ -57,6 +57,9 @@ export default class Transactions extends Component {
                 <thead>
                   <tr>
                     <th>
+                      id
+                    </th>
+                    <th>
                       client name
                     </th>
                     <th>

@@ -180,7 +180,6 @@ const reducer = (state = {}, action) => {
         isFetching: false,
         account_id: action.data.user.accounts[0].id,
         role: action.data.user.role,
-        isLoggedIn: true
       });
     case USER_LOGIN_FAILURE:
       return Object.assign({}, state, {
@@ -201,10 +200,6 @@ const reducer = (state = {}, action) => {
     case PAYMENT_SUCCESS:
       return Object.assign({}, state, {
         role: action.user.role
-      });
-    case KEYWORD_SUCCESS:
-      return Object.assign({}, state, {
-        isLoggedIn: true
       });
     default:
       return state

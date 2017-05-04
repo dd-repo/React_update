@@ -11,6 +11,8 @@ export default class Transaction extends Component {
       state,
       processed_at,
       type_of_deal,
+      user_email,
+      third_party_id,
       round,
       subscription_id,
       sales_rep_name,
@@ -20,13 +22,16 @@ export default class Transaction extends Component {
     return (
       <tr className='bg-gray-darker' key={id}>
         <td>
+          { id }
+        </td>
+        <td>
           { client_name }
         </td>
         <td>
-          email
+          { user_email }
         </td>
         <td>
-          { id }
+          { third_party_id }
         </td>
         <td>
           { processed_at }
