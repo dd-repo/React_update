@@ -39,9 +39,8 @@ class SignupContainer extends RoutedComponent {
       contentView: CONTENT_VIEW_STATIC,
       sidebarEnabled: false,
       navbarEnabled: true,
-      footerEnabled: false,
-      headerEnabled: true,
-      headerStyle: 'breadcrumbs',
+      footerEnabled: true,
+      headerEnabled: false,
     }
   }
 

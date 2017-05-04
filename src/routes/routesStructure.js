@@ -16,16 +16,20 @@ export const CONFIGS = {
       slug: 'Sign Up',
       title: 'Sign Up',
       url: '/signup',
-    },
-    {
-      slug: 'Payment',
-      title: 'Payment',
-      url: '/payment-info',
-    },
-    {
-      slug: 'Keywords',
-      title: 'Keywords',
-      url: '/keywords',
+      children: [
+        {
+          slug: 'Payment',
+          title: 'Payment',
+          url: '/payment-info',
+          children: [
+            {
+              slug: 'Keywords',
+              title: 'Keywords',
+              url: '/keywords',
+            },
+          ]
+        },
+      ]
     },
   ],
   'client': [

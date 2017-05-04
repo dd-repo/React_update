@@ -29,10 +29,6 @@ const Payment = (props) => {
     return (
       <Row>
         <Col lg={ 12 }>
-          { /* <Button className='m-t-2 m-b-1' onClick={ () => this.props.history.goBack() }>
-            <i className='fa fa-angle-left m-r-1'></i>
-            Back
-            </Button> */ }
             {renderErrorMessage}
           <Row>
             <Col className={ classes.centerCol } md={ 4 }>
@@ -43,16 +39,6 @@ const Payment = (props) => {
                     <img src={ logo } alt='Back to Home' />
                   </Link>
                   )}
-                  footer={(
-                    <div>
-                      <Link to='/forgot-password'>
-                        Forgot Password?
-                      </Link>
-                      <Link to='/login' className='pull-right'>
-                        Login
-                      </Link>
-                    </div>
-                    )}
                   >
                     <h2 className={ classes.panelHeader }>
                       Payment Information
@@ -66,12 +52,12 @@ const Payment = (props) => {
                     />
 
                 </Panel>
-                <p className='text-center text-gray-light'>
+                { /* <p className='text-center text-gray-light'>
                   <strong>Blitz Monitoring</strong>
                   <span className='text-gray-light'>
                     © 2009 - 2017. Made by <i className="fa fa-fw fa-flash text-primary"></i> Denver, US
                   </span>
-                </p>
+                  </p> */ }
               </Col>
             </Row>
           </Col>
@@ -81,8 +67,6 @@ const Payment = (props) => {
 
 Payment.propTypes = {
   submitForm: PropTypes.func.isRequired,
-  planType: PropTypes.string.isRequired,
-  price: PropTypes.number.isRequired,
   errorMessage: PropTypes.string
 }
 

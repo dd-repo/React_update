@@ -120,9 +120,14 @@ class DefaultLayout extends React.Component {
 
     constructor(props, context) {
         super(props, context);
-        this.state = { sidebarConfigs: assignKeys(CONFIGS[this.props.currentUser.role]) }
+        this.state = { sidebarConfigs: this.setSidebarConfigs(this.props.currentUser.role) }
         this.beforeSlimSidebarStyle = SIDEBAR_STYLE_DEFAULT;
         this.handleLogout = this.handleLogout.bind(this);
+        this.setSidebarConfigs = this.setSidebarConfigs.bind(this);
+    }
+
+    setSidebarConfigs(role) {
+        return assignKeys(CONFIGS[role])
     }
 
     toggleSidebarSlim() {
@@ -141,8 +146,8 @@ class DefaultLayout extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
-      if(nextProps.currentUser !== this.props.currentUser) {
-        this.setState({ sidebarConfigs: assignKeys(CONFIGS[nextProps.currentUser.role]) })
+      if(nextProps.currentUser.isLoggedIn !== this.props.currentUser.isLoggedIn) {
+        this.setState({ sidebarConfigs: this.setSidebarConfigs(nextProps.currentUser.role) })
       }
     }
 
@@ -166,8 +171,9 @@ class DefaultLayout extends React.Component {
     }
 
     render() {
-      const isClient = this.props.currentUser.role === 'client'
-      const isAdmin = this.props.currentUser.role === 'admin'
+      const { role, isLoggedIn } = this.props.currentUser
+      const isClient = role === 'client' && isLoggedIn
+      const isAdmin = role === 'admin'
       const profileUser = {
         name: `${this.props.currentUser.first_name} ${this.props.currentUser.last_name}`,
         avatar: defaultAvatar
@@ -442,7 +448,7 @@ class DefaultLayout extends React.Component {
                                 fluid={ this.props.contentView !== CONTENT_VIEW_STATIC }
                                 currentUrl={ this.props.location.pathname }
                                 sidebarConfigs={this.state.sidebarConfigs}
-                                currentUserRole={ this.props.currentUser.role }
+                                currentUser={ this.props.currentUser }
                             />
                             <Grid fluid={ this.props.contentView !== CONTENT_VIEW_STATIC }>
                                 { this.props.children }

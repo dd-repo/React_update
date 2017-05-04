@@ -1,5 +1,6 @@
 import BlitzApi from 'services/BlitzApi';
 import { PAYMENT_SUCCESS } from 'routes/client/Payment/modules/payment';
+import { KEYWORD_SUCCESS } from 'routes/client/Keywords/modules/keywords';
 
 // constants
 export const USER_SIGNUP_SUCCESS = 'USER_SIGNUP_SUCCESS';
@@ -138,6 +139,10 @@ export const recieveForgotPasswordError = (error) => (
   }
 )
 
+const initialState = {
+  isLoggedIn: false
+}
+
 // reducer
 const reducer = (state = {}, action) => {
   switch(action.type) {
@@ -174,7 +179,8 @@ const reducer = (state = {}, action) => {
         access_token: action.data.user.access_token,
         isFetching: false,
         account_id: action.data.user.accounts[0].id,
-        role: action.data.user.role
+        role: action.data.user.role,
+        isLoggedIn: true
       });
     case USER_LOGIN_FAILURE:
       return Object.assign({}, state, {
@@ -190,10 +196,15 @@ const reducer = (state = {}, action) => {
       return Object.assign({}, state, {
         id: undefined,
         access_token: undefined,
+        isLoggedIn: false,
       });
     case PAYMENT_SUCCESS:
       return Object.assign({}, state, {
         role: action.user.role
+      });
+    case KEYWORD_SUCCESS:
+      return Object.assign({}, state, {
+        isLoggedIn: true
       });
     default:
       return state

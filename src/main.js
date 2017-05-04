@@ -29,7 +29,8 @@ const defaultUserInfo = {
   phone_number: '123-123-1234',
   password: 'password12',
   account_id: 1,
-  role: 'signup'
+  role: 'signup',
+  isLoggedIn: false
 }
 
 const defaultLoggedInUser = {

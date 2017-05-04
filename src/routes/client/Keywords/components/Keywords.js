@@ -70,7 +70,16 @@ const renderInput = (props) => {
         maxLength={maxLength}
         type={type}/>
       {warning && <span>{warning}</span>}
-      {touched && ((error && <span className='alert-danger'>{error}</span>) )}
+      {touched &&
+        ((error &&
+          <span className='text-danger'>
+            <strong>
+              Opps!
+            </strong>
+            {error}
+        </span>
+        ))
+      }
     </div>
   )
 }
@@ -104,7 +113,8 @@ let Keywords = (props) => {
     invalid,
     submitting,
     renderNextForm,
-    submitForm
+    submitForm,
+    inputErrorMsg
   } = props
 
   const error = (
@@ -125,6 +135,7 @@ let Keywords = (props) => {
         renderField={renderField}
         fields={fields}
         Field={Field}
+        inputErrorMsg={inputErrorMsg}
       />
     } else {
       title = 'What is Your Date of Birth'
@@ -143,11 +154,6 @@ let Keywords = (props) => {
   return (
     <Row>
       <Col lg={ 12 }>
-        { /* <Button className='m-t-2 m-b-1' onClick={ () => this.props.history.goBack() }>
-          <i className='fa fa-angle-left m-r-1'></i>
-          Back
-          </Button> */}
-
         <Row>
           {error}
           <Col className={ classes.centerCol } md={ 4 }>
@@ -158,16 +164,6 @@ let Keywords = (props) => {
                   <img src={ logo } alt='Back to Home' />
                 </Link>
                 )}
-                footer={(
-                  <div>
-                    <Link to='/forgot-password'>
-                      Forgot Password?
-                    </Link>
-                    <Link to='/login' className='pull-right'>
-                      Login
-                    </Link>
-                  </div>
-                  )}
                 >
                   <h2 className={ classes.panelHeader }>
                     { title }
@@ -177,12 +173,12 @@ let Keywords = (props) => {
                   </p>
                   {form()}
                 </Panel>
-                <p className='text-center text-gray-light'>
+                { /*  <p className='text-center text-gray-light'>
                   <strong>Blitz Monitoring </strong>
                   <span className='text-gray-light'>
                     © 2009 - 2017. Made by <i className="fa fa-fw fa-flash text-primary"></i> Denver CO, US
                   </span>
-                </p>
+                  </p> */ }
               </Col>
             </Row>
           </Col>
