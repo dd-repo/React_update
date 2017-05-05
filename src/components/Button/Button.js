@@ -64,7 +64,7 @@ class Button extends React.Component {
 
         const buttonClass = classNames({
             [`${classes.outline}`]: outline && !isBsStyle,
-            'btn-outline': outline && isBsStyle
+            'btn-outline': outline && isBsStyle,
         }, className);
 
         const additionalStyle = {

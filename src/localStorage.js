@@ -28,7 +28,6 @@ export const getAuthToken = () => {
 export const removePersistedData = () => {
   localStorage.removeItem('currentUser')
   localStorage.removeItem('authToken')
-  localStorage.removeItem('isLoggedIn')
   localStorage.removeItem('accounts')
   localStorage.removeItem('keywords')
   localStorage.removeItem('profile')
@@ -38,6 +37,7 @@ export const removePersistedData = () => {
 const formatState = (state, selector) => {
   switch(selector) {
     case 'currentUser':
+      const accountId = state.accounts.length > 0 ? state.accounts[0].id : null
       return {
         id: state.id,
         first_name: state.first_name,
@@ -45,9 +45,9 @@ const formatState = (state, selector) => {
         email: state.email,
         access_token: state.access_token,
         isFetching: false,
-        //account_id: state.accounts[0].id,
+        account_id: accountId,
+        group: state.group,
         role: state.role,
-        isLoggedIn: state.isLoggedIn
       }
       case 'accounts':
         return {

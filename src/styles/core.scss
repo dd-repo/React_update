@@ -21,4 +21,8 @@
   *:after {
     box-sizing: inherit;
   }
+
+  .form-control {
+    border: 1px solid #444444 !important;
+  }
 }

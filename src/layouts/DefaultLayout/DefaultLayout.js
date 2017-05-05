@@ -166,7 +166,6 @@ class DefaultLayout extends React.Component {
     }
 
     handleLogout() {
-      this.props.logoutUser()
       removePersistedData();
     }
 
@@ -174,7 +173,7 @@ class DefaultLayout extends React.Component {
       const { role } = this.props.currentUser
       const isLoggedIn = localStorage.getItem('isLoggedIn')
       const isClient = role === 'client' && isLoggedIn
-      const isAdmin = role === 'admin'
+      const isAdmin = role === 'admin' && isLoggedIn
       const profileUser = {
         name: `${this.props.currentUser.first_name} ${this.props.currentUser.last_name}`,
         avatar: defaultAvatar
