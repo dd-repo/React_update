@@ -154,12 +154,7 @@ export const recieveForgotPasswordError = (error) => (
   }
 )
 
-const initialState = {
-  isLoggedIn: false
-}
-
 // reducer
-
 const setCurrentUser = (state, user) => (
   Object.assign({}, state, {
     id: user.id,
