@@ -6,9 +6,12 @@ import { KEYWORD_SUCCESS } from 'routes/client/Keywords/modules/keywords';
 export const USER_SIGNUP_SUCCESS = 'USER_SIGNUP_SUCCESS';
 export const USER_SIGNUP_FAILURE = 'USER_SIGNUP_FAILURE';
 export const USER_SIGNUP_POSTING = 'USER_SIGNUP_POSTING';
+
 export const USER_LOGIN_SUCCESS = 'USER_LOGIN_SUCCESS';
+export const ADMIN_LOGIN_SUCCESS = 'ADMIN_LOGIN_SUCCESS'
 export const USER_LOGIN_FAILURE = 'USER_LOGIN_FAILURE';
 export const USER_LOGIN_POSTING = 'USER_LOGIN_POSTING';
+
 export const FORGOT_USER_PASSWORD_POSTING = 'FORGOT_USET_PASSWORD_POSTING'
 export const FORGOT_USER_PASSWORD_SUCCESS = 'FORGOT_USER_PASSWORD_SUCCESS'
 export const FORGOT_USER_PASSWORD_FAILURE = 'FORGOT_USER_PASSWORD_FAILURE'
@@ -46,11 +49,16 @@ export const postUserLogin = payload => {
     dispatch(postingUserLogin())
     return BlitzApi.post(LOGIN_REQUEST, { user: payload })
     .then(
-      response => dispatch(receiveUserLogin(response.data)))
-      .catch(
-        error =>
-        dispatch(receiveUserLoginError(error))
-      )
+      response =>
+      response.data.user.role === 'client'
+        ?
+          dispatch(receiveClientLogin(response.data))
+            :
+              dispatch(receiveAdminLogin(response.data))
+    ).catch(
+    error =>
+    dispatch(receiveUserLoginError(error))
+    )
   }
 }
 
@@ -105,9 +113,16 @@ export const postingUserLogin = () => (
   }
 );
 
-export const receiveUserLogin = data => (
+export const receiveClientLogin = data => (
   {
     type: USER_LOGIN_SUCCESS,
+    data
+  }
+)
+
+export const receiveAdminLogin = data => (
+  {
+    type: ADMIN_LOGIN_SUCCESS,
     data
   }
 )
@@ -139,11 +154,19 @@ export const recieveForgotPasswordError = (error) => (
   }
 )
 
-const initialState = {
-  isLoggedIn: false
-}
-
 // reducer
+const setCurrentUser = (state, user) => (
+  Object.assign({}, state, {
+    id: user.id,
+    first_name: user.first_name,
+    last_name: user.last_name,
+    email: user.email,
+    access_token: user.access_token,
+    isFetching: false,
+    account_id: user.accounts[0].id || null,
+    role: user.role
+  })
+)
 const reducer = (state = {}, action) => {
   switch(action.type) {
     case USER_SIGNUP_POSTING:
@@ -151,16 +174,7 @@ const reducer = (state = {}, action) => {
         isFetching: true
       });
     case USER_SIGNUP_SUCCESS:
-      return Object.assign({}, state, {
-        id: action.data.id,
-        first_name: action.data.first_name,
-        last_name: action.data.last_name,
-        email: action.data.email,
-        access_token: action.data.access_token,
-        isFetching: false,
-        account_id: action.data.accounts[0].id,
-        role: action.data.role
-      });
+      return setCurrentUser(state, action.data)
     case USER_SIGNUP_FAILURE:
       return Object.assign({}, state, {
         isFetching: false,
@@ -171,16 +185,9 @@ const reducer = (state = {}, action) => {
         isFetching: true
       });
     case USER_LOGIN_SUCCESS:
-      return Object.assign({}, state, {
-        id: action.data.user.id,
-        first_name: action.data.user.first_name,
-        last_name: action.data.user.last_name,
-        email: action.data.user.email,
-        access_token: action.data.user.access_token,
-        isFetching: false,
-        account_id: action.data.user.accounts[0].id,
-        role: action.data.user.role,
-      });
+      return setCurrentUser(state, action.data.user)
+    case ADMIN_LOGIN_SUCCESS:
+      return setCurrentUser(state, action.data.user)
     case USER_LOGIN_FAILURE:
       return Object.assign({}, state, {
         isFetching: false,
