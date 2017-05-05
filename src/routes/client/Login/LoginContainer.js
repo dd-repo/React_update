@@ -7,22 +7,28 @@ import { persistData } from 'localStorage';
 import {
   postUserLogin,
   USER_LOGIN_SUCCESS,
-  USER_LOGIN_FAILURE
+  USER_LOGIN_FAILURE,
+  ADMIN_LOGIN_SUCCESS
 } from 'modules/auth';
 
 const persistDataToLocalStorage = data => {
-  const { user, account } = data
-  const { accounts, access_token } = user
-  const { keywords, profile } = account
-  const keywordList = {all: keywords, currentKeyword: keywords[0]}
+  const { user } = data
+  const { access_token } = user
   user.password = 'password12'
 
-  persistData(keywordList, 'keywords')
   persistData(user, 'currentUser');
-  persistData(accounts, 'accounts');
-  persistData(profile, 'profile');
   persistData(access_token, 'authToken');
   persistData(true, 'isLoggedIn');
+
+  if(user.role === 'client') {
+    const { accounts } = user
+    const { keywords, profile } = account
+    const keywordList = {all: keywords, currentKeyword: keywords[0]}
+
+    persistData(keywordList, 'keywords')
+    persistData(accounts, 'accounts');
+    persistData(profile, 'profile');
+  }
 }
 
 class LoginContainer extends RoutedComponent {
@@ -54,22 +60,17 @@ class LoginContainer extends RoutedComponent {
     .catch(error => { console.log('error user Login', error) })
   }
 
-  transitionBasedOnUserRole({ user }) {
-    user.role === 'admin'
-      ?
-        this.context.router.push('admin/dashboard')
-          :
-            this.context.router.push('/dashboard')
-  }
-
   doNext(res) {
     switch(res.type) {
       case USER_LOGIN_SUCCESS:
         persistDataToLocalStorage(res.data)
-        this.transitionBasedOnUserRole(res.data)
+        this.context.router.push('/dashboard')
+        break;
+      case ADMIN_LOGIN_SUCCESS:
+        persistDataToLocalStorage(res.data)
+        this.context.router.push('admin/dashboard')
         break;
       case USER_LOGIN_FAILURE:
-        this.setState({errorMessage: res.error.response.data.errorMessage});
         break;
       default:
         return null;
@@ -80,14 +81,14 @@ class LoginContainer extends RoutedComponent {
     return (
       <Login
         submitForm={this.submitForm}
-        errorMessage={this.state.errorMessage}
+        errorMessage={this.props.currentUser.errorMessage}
       />
     )
   }
 }
 
 const mapStateToProps = state => ({
-  loggedInUser: state.loggedInUser
+  currentUser: state.currentUser
 })
 
 const mapActionCreators = {

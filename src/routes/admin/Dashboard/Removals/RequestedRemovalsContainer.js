@@ -38,12 +38,10 @@ class RequestedRemovalsContainer extends RoutedComponent {
   }
 
   fetchRemovalsRequested() {
-    console.log('fetching')
     this.props.getRemovalsRequested(this.state.pageNum)
   }
 
   getNextPage(pageNum) {
-    console.log('pageNum', pageNum)
     this.setState({ pageNum: parseInt(pageNum) })
     this.fetchRemovalsRequested(pageNum)
   }
