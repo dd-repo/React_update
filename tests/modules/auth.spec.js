@@ -9,6 +9,7 @@ import {
   USER_SIGNUP_FAILURE,
   USER_SIGNUP_POSTING,
   USER_LOGIN_SUCCESS,
+  CLIENT_LOGIN_SUCCESS,
   USER_LOGIN_FAILURE,
   USER_LOGIN_POSTING,
   USER_LOGOUT,
@@ -19,7 +20,8 @@ import {
   receiveUserSignup,
   receiveUserSignupError,
   postingUserLogin,
-  receiveUserLogin,
+  receiveClientLogin,
+  receiveAdminLogin,
   receiveUserLoginError,
   SIGNUP_REQUEST,
   LOGIN_REQUEST,
@@ -75,15 +77,15 @@ describe('(auth module) Auth', () => {
     })
   })
 
-  describe('(Action Creator) receiveUserLogin', () => {
+  describe('(Action Creator) receiveClientLogin', () => {
     it('Should return an action with type "USER_LOGIN_SUCCESS"', () => {
       let data = {test: 'login'}
-      expect(receiveUserLogin()).to.have.property('type', USER_LOGIN_SUCCESS)
+      expect(receiveClientLogin()).to.have.property('type', USER_LOGIN_SUCCESS)
     })
 
     it('Should return an action with', () => {
       let data = {test: 'login'}
-      expect(receiveUserLogin(data)).to.have.property('data', data)
+      expect(receiveClientLogin(data)).to.have.property('data', data)
     })
   })
 
@@ -237,31 +239,25 @@ describe('(auth module) Auth', () => {
           }
       }
 
-      const fakeResponse = {
-        id: 1,
-        first_name: 'Fred',
-        last_name: 'Flintstone',
-        email: 'fred@email.com',
-        role: 'client',
-        access_token: '1:aaaaaaaaaaa',
-        account_id: 1,
-        isFetching: false
+      const user = {
+        user: {
+          id: 1,
+          first_name: 'Fred',
+          last_name: 'Flintstone',
+          email: 'fred@email.com',
+          role: 'client',
+          access_token: '1:aaaaaaaaaaa',
+          account_id: 1,
+          isFetching: false
+        }
       }
 
-      //moxios.wait(() => {
-        //const request = moxios.requests.mostRecent();
-        //request.respondWith({
-          //status: 200,
-          //response: fakeResponse,
-        //});
-      //});
-
-      const resolved = new Promise((r) => r({ data: fakeResponse }));
+      const resolved = new Promise((r) => r({ data: user }));
       loginApi.returns(resolved);
 
       const expectedActions = [
         { type: USER_LOGIN_POSTING },
-        { type: USER_LOGIN_SUCCESS, data: fakeResponse }
+        { type: USER_LOGIN_SUCCESS, data: user }
       ]
 
       const store = mockStore({ currentUser: {} })
@@ -290,11 +286,6 @@ describe('(auth module) Auth', () => {
 
       const rejected = new Promise((_, r) => r(errRes));
       loginApi.returns(rejected)
-
-      //moxios.wait(() => {
-        //const request = moxios.requests.mostRecent();
-        //request.reject(errRes);
-      //});
 
       const expectedActions = [
         { type: USER_LOGIN_POSTING },

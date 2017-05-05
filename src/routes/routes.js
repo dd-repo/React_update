@@ -10,33 +10,41 @@ export default [
         }
     },
 
-    // Login
-    {
-        path: '/login',
-        getComponent: (nextState, cb) => {
-            require.ensure([], require => {
-              cb(null, require('./client/Login').default);
-            }, 'login');
-        }
-    },
-
-    // client signup process
+    // auth
     {
         path: '/signup',
         getComponent: (nextState, cb) => {
             require.ensure([], require => {
-              cb(null, require('./client/Signup').default);
+              cb(null, require('./auth/Signup').default);
             }, 'signup');
         }
+    },
+    {
+        path: '/login',
+        getComponent: (nextState, cb) => {
+            require.ensure([], require => {
+              cb(null, require('./auth/Login').default);
+            }, 'login');
+        }
+    },
+    {
+      path: '/create-password(?:token=)',
+      getComponent: (nextState, cb) => {
+        require.ensure([], require => {
+          cb(null, require('./auth/CreatePassword').default);
+        }, 'password-create');
+      }
     },
     {
         path: '/forgot-password',
         getComponent: (nextState, cb) => {
             require.ensure([], require => {
-              cb(null, require('./client/ForgotPassword').default);
+              cb(null, require('./auth/ForgotPassword').default);
             }, 'forgotPassword');
         }
     },
+
+    // client signup process
     {
       path: '/payment-info',
         getComponent: (nextState, cb) => {
@@ -51,14 +59,6 @@ export default [
         require.ensure([], require => {
           cb(null, require('./client/Keywords').default);
         }, 'keywords');
-      }
-    },
-    {
-      path: '/create-password(?:token=)',
-      getComponent: (nextState, cb) => {
-        require.ensure([], require => {
-          cb(null, require('./client/CreatePassword').default);
-        }, 'password-create');
       }
     },
 

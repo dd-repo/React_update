@@ -68,7 +68,7 @@ const reducer = (state = {}, action) => {
     case GOOGLE_RESULTS_FAILURE:
       return Object.assign({}, state, {
         isFetching: false,
-        results: null
+        results: null,
       })
     default:
       return state

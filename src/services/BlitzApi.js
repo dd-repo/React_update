@@ -21,17 +21,14 @@ class BlitzApi {
   }
 
   handleError = (error) => {
-    //switch ( error.response.status) {
-      //case 401:
-        //this.redirectTo(document, '/login')
-        //break;
-      //case 404:
-        //this.redirectTo(document, '/404')
-        //break;
-      //default:
-        //return error
-        //break;
-    //}
+    switch ( error.response.status) {
+      case 408:
+        this.redirectTo(document, '/login')
+        break;
+      default:
+        return error
+        break;
+    }
     return Promise.reject(error)
   }
 

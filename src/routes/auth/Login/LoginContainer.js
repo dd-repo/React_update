@@ -13,12 +13,12 @@ import {
 
 const persistDataToLocalStorage = data => {
   const { user } = data
-  const { access_token } = user
+  const { auth_token } = data
   user.password = 'password12'
 
   persistData(user, 'currentUser');
-  persistData(access_token, 'authToken');
-  persistData(true, 'isLoggedIn');
+  persistData(auth_token, 'authToken');
+  persistData(true, 'isLoggedIn')
 
   if(user.role === 'client') {
     const { accounts } = user

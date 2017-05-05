@@ -11,7 +11,7 @@ import {
   gettingRemovalRequests,
   receivedRemovalRequests,
   rejectedRemovalRequests
-} from 'routes/admin/Dashboard/Monitoring/modules/removalRequests';
+} from 'routes/admin/Dashboard/Removals/modules/removalRequests';
 
 const middlewares = [ thunk ]
 const mockStore = configureMockStore(middlewares)

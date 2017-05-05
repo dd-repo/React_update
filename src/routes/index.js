@@ -28,19 +28,20 @@ const authTransition = (store, nextState, replace) => {
   }
 }
 
-const validateClient = (currentUser, replace) => {
-  const { access_token, role } = currentUser
-  const isProspect = role === 'prospect'
 
-  !access_token && replace('/login')
-  access_token && isProspect && replace('/payment-info')
+const validateClient = (currentUser, replace) => {
+  const isProspect = currentUser.role === 'prospect'
+  const auth_token = localStorage.getItem('authToken')
+
+  !auth_token && replace('/login')
+  auth_token && isProspect && replace('/payment-info')
 }
 
 const validateAdmin = (currentUser, replace) => {
-  const { access_token, role } = currentUser
-  const isAdmin = role === 'admin'
+  const isAdmin = currentUser.role === 'admin'
+  const auth_token = localStorage.getItem('authToken')
 
-  !access_token && replace('/login')
+  !auth_token && replace('/login')
   !isAdmin && replace('/login')
 }
 

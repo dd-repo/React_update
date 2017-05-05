@@ -10,15 +10,16 @@ import {
   USER_SIGNUP_FAILURE
 } from 'modules/auth';
 
-const persistDataToLocalStorage = user => {
-  const { accounts, access_token } = user
+const persistDataToLocalStorage = data => {
+  const { user, auth_token } = data
+  const { accounts } = user
   // testing purposes
   user.phone_number = '808-555-5555'
   user.password = 'password12';
 
   persistData(user, 'currentUser');
   persistData(accounts, 'accounts');
-  persistData(access_token, 'authToken');
+  persistData(auth_token, 'authToken');
 }
 
 class SignupContainer extends RoutedComponent {
