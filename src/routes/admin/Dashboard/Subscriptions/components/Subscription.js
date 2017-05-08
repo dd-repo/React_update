@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-
 import { Button } from 'components';
 
 export default class Subscription extends Component {
@@ -9,7 +8,8 @@ export default class Subscription extends Component {
   }
 
   _onClick() {
-    this.props.handleClick(this.props.subscription.id, !this.props.subscription.is_active)
+    this.props.confirmCancelation(this.props.subscription)
+    //this.props.handleClick(this.props.subscription.id, !this.props.subscription.is_active)
   }
 
   render() {
@@ -26,12 +26,23 @@ export default class Subscription extends Component {
       sales_rep_name,
     } = this.props.subscription
 
-    const buttonLabel = is_active ? 'Cancel Subscription' : 'Canceled'
-    const style = is_active ? 'danger' : 'success'
-    const isActive = is_active ? 'true' : 'false'
+    const isActive = is_active ? 'Active' : 'Canceled'
+    let newDate = new Date(cancel_date)
+
+    const renderButton = (
+      is_active ?
+          <Button
+            bsStyle='danger'
+            onClick={this._onClick}
+          >
+            Cancel Subscription
+          </Button>
+            :
+             cancel_date
+    )
 
     return (
-      <tr className='bg-gray-darker' key={id}>
+      <tr className='bg-gray-dark' key={id}>
         <td>
           { id }
         </td>
@@ -48,12 +59,6 @@ export default class Subscription extends Component {
           { end_date }
         </td>
         <td>
-          { cancel_date }
-        </td>
-        <td>
-          { isActive }
-        </td>
-        <td>
           { plan_id }
         </td>
         <td>
@@ -63,13 +68,10 @@ export default class Subscription extends Component {
           { sales_rep_name }
         </td>
         <td>
-          <Button
-            bsStyle={style}
-            disabled={!is_active}
-            onClick={this._onClick}
-          >
-            { buttonLabel }
-          </Button>
+          { isActive }
+        </td>
+        <td>
+          { renderButton }
         </td>
       </tr>
     )
