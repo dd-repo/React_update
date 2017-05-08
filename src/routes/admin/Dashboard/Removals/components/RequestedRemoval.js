@@ -29,8 +29,11 @@ export default class RemovalRequested extends Component {
   _onClick() {
     const { id, status } = this.props.removal
     const nextStatus = REMOVAL_STATUS[status].nextStatus
-
-    this.props.handleClick(id, nextStatus)
+    if(nextStatus === 'completed') {
+     this.props.confirmRemovalComplete(this.props.removal)
+    } else {
+      this.props.handleClick(id, nextStatus)
+    }
   }
 
   render() {

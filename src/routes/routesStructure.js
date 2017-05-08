@@ -80,12 +80,12 @@ export const CONFIGS = {
       slug: 'Removals',
       title: 'Removals',
       url: '/admin/dashboard',
-      children: [
-        {
-          title: 'In Progress',
-          url: '/admin/dashboard/removals/in-progress'
-        }
-      ]
+      //children: [
+        //{
+          //title: 'In Progress',
+          //url: '/admin/dashboard/removals/in-progress'
+        //}
+      //]
     },
     {
       slug: 'Client Signup Form',

@@ -8,20 +8,37 @@ import {
   Label,
   Button,
   Row,
-  Pagination
+  Pagination,
+  Modal,
 } from 'components';
-
 
 class RequestedRemovals extends Component {
   constructor(props) {
     super(props)
+    this.state = {showModal: false, removal: {}}
 
-    this.paginationItems = this.paginationItems.bind(this)
+    this.paginationItems = this.paginationItems.bind(this);
+    this.confirmRemovalComplete = this.confirmRemovalComplete.bind(this);
+    this._handleClick = this._handleClick.bind(this);
+    this.toggleModal = this.toggleModal.bind(this);
   }
 
   paginationItems() {
     const { total, limit } = this.props.pagination
     Math.ceil(total / limit)
+  }
+
+  confirmRemovalComplete(removal) {
+    this.setState({showModal: true, removal: removal})
+  }
+
+  _handleClick() {
+    this.props.handleClick(this.state.removal.id, 'completed')
+    this.toggleModal()
+  }
+
+  toggleModal() {
+    this.setState({showModal: !this.state.showModal, removal: {}})
   }
 
   render() {
@@ -40,22 +57,24 @@ class RequestedRemovals extends Component {
           !isFetching && pagination
             ?
               <Row>
-                <Pagination
-                  bsSize="medium"
-                  items={this.paginationItems()}
-                  activePage={pageNum}
-                  boundaryLinks
-                  maxButtons={5}
-                  prev
-                  next
-                  first
-                  last
-                  ellipsis
-                  onSelect={getNextPage}
-                />
+                <div className='text-center'>
+                  <Pagination
+                    bsSize="medium"
+                    items={this.paginationItems()}
+                    activePage={pageNum}
+                    boundaryLinks
+                    maxButtons={5}
+                    prev
+                    next
+                    first
+                    last
+                    ellipsis
+                    onSelect={getNextPage}
+                  />
+                </div>
 
-              <Table>
-                <thead>
+                <Table>
+                  <thead>
                   <tr>
                     <th>
                       id
@@ -83,7 +102,13 @@ class RequestedRemovals extends Component {
                 <tbody>
                   {
                     removals.map(
-                      removal => <RequestedRemoval removal={removal} key={removal.id} handleClick={handleClick} />
+                      removal =>
+                      <RequestedRemoval
+                        removal={removal}
+                        key={removal.id}
+                        handleClick={handleClick}
+                        confirmRemovalComplete={this.confirmRemovalComplete}
+                      />
                     )}
                   </tbody>
                 </Table>
@@ -97,6 +122,60 @@ class RequestedRemovals extends Component {
                   </div>
                 </div>
                 }
+
+                <Modal  show={this.state.showModal} onHide={this.toggleModal}>
+                  <Modal.Header>
+                    <Modal.Title>Please Confirm</Modal.Title>
+                  </Modal.Header>
+
+                  <Modal.Body>
+                    <Table>
+                      <thead>
+                        <tr>
+                          <th>
+                            id
+                          </th>
+                          <th>
+                            client name
+                          </th>
+                          <th>
+                            client age
+                          </th>
+                          <th>
+                            client address
+                          </th>
+                          <th>
+                            site Link
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr className='bg-gray-dark'>
+                          <td>
+                            { this.state.removal.id }
+                          </td>
+                          <td>
+                            { this.state.removal.client_name }
+                          </td>
+                          <td>
+                            { this.state.removal.age }
+                          </td>
+                          <td>
+                            { this.state.removal.addresses ? this.state.removal.addresses[0].address1 : ''}
+                          </td>
+                          <td>
+                            { this.state.removal.site }
+                          </td>
+                       </tr>
+                      </tbody>
+                    </Table>
+                      </Modal.Body>
+
+                  <Modal.Footer>
+                    <Button onClick={this.toggleModal}>Close</Button>
+                    <Button bsStyle="danger" onClick={this._handleClick}>Complete</Button>
+                  </Modal.Footer>
+              </Modal>
 
               </div>
     )

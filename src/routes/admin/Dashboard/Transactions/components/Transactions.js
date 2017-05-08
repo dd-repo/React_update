@@ -39,21 +39,22 @@ export default class Transactions extends Component {
           !isFetching && pagination
             ?
               <Row>
-                <Pagination
-                  bsSize="medium"
-                  items={this.paginationItems()}
-                  activePage={pageNum}
-                  boundaryLinks
-                  maxButtons={5}
-                  prev
-                  next
-                  first
-                  last
-                  ellipsis
-                  onSelect={getNextPage}
-                />
-
-              <Table>
+                <div className="text-center">
+                  <Pagination
+                    bsSize="medium"
+                    items={this.paginationItems()}
+                    activePage={pageNum}
+                    boundaryLinks
+                    maxButtons={5}
+                    prev
+                    next
+                    first
+                    last
+                    ellipsis
+                    onSelect={getNextPage}
+                  />
+                </div>
+                <Table>
                 <thead>
                   <tr>
                     <th>
