@@ -28,4 +28,4 @@ aws ecs register-task-definition --cli-input-json file://frontend.json.tmp
 rm frontend.json.tmp
 
 # update the service
-aws ecs update-service --service frontend --task-definition frontend --desired-count 1 --cluster webapp
+aws ecs update-service --service front --task-definition frontend --desired-count 1 --cluster blitz
