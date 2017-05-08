@@ -12,8 +12,7 @@ import {
 } from 'modules/auth';
 
 const persistDataToLocalStorage = data => {
-  const { user } = data
-  const { auth_token } = data
+  const { user, auth_token, account } = data
   user.password = 'password12'
 
   persistData(user, 'currentUser');
@@ -21,12 +20,11 @@ const persistDataToLocalStorage = data => {
   persistData(true, 'isLoggedIn')
 
   if(user.role === 'client') {
-    const { accounts } = user
     const { keywords, profile } = account
     const keywordList = {all: keywords, currentKeyword: keywords[0]}
 
     persistData(keywordList, 'keywords')
-    persistData(accounts, 'accounts');
+    persistData(account, 'accounts');
     persistData(profile, 'profile');
   }
 }
