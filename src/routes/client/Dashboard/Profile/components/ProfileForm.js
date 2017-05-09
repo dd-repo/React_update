@@ -6,6 +6,7 @@ import  Upload  from './Upload';
 import { checkValidation, normalizePhone } from 'utils/formHelpers';
 import {
   FormGroup,
+  Panel,
   Form,
   Col,
   ControlLabel,
@@ -36,92 +37,76 @@ const ProfileForm = ({
 }) => {
   return (
     <div>
-      <Form onSubmit={handleSubmit(submitForm)} horizontal>
-        <FormGroup>
-          <Col componentClass={ControlLabel} sm={3}>
-            Avatar
-          </Col>
-          <Col sm={6}>
-            <Field
-              name='avatarPreview'
-              label='Avatar'
-              height={ 140 }
-              width={ 140 }
-              shape='circle'
-              component={Upload}
-              image={avatarPreview}
-              onImageUpload={onImageUpload}
-            />
-          </Col>
-        </FormGroup>
-        <FormGroup>
-          <Col componentClass={ControlLabel} sm={3}>
-            Driver License
-          </Col>
-          <Col sm={6}>
-            <Field
-              name='driverLicensePreview'
-              label='Driver license'
-              height={ 140 }
-              width={ 240 }
-              shape='rounded'
-              component={Upload}
-              image={driverLicensePreview}
-              onImageUpload={onImageUpload}
-            />
-          </Col>
-        </FormGroup>
-        <FormGroup>
-          <Col componentClass={ControlLabel} sm={3}>
-            First name
-          </Col>
-          <Col sm={6}>
-            <Field
-              name='first_name'
-              type='text'
-              component={renderInput}
-            />
-          </Col>
-        </FormGroup>
-        <FormGroup>
-          <Col componentClass={ControlLabel} sm={3}>
-            Last Name
-          </Col>
-          <Col sm={6}>
-            <Field
-              name='last_name'
-              type='text'
-              component={renderInput}
-            />
-          </Col>
-        </FormGroup>
-        <FormGroup>
-          <Col componentClass={ControlLabel} sm={3}>
-            Middle name
-          </Col>
-          <Col sm={6}>
-            <Field
-              name='middle_name'
-              type='text'
-              component={renderInput}
-            />
-          </Col>
-        </FormGroup>
-        <FormGroup>
-          <Col componentClass={ControlLabel} sm={3}>
-            Maiden Name
-          </Col>
-          <Col sm={6}>
-            <Field
-              name='maiden_name'
-              type='text'
-              component={renderInput}
-            />
-          </Col>
-        </FormGroup>
-        <button className='btn btn-primary pull-right'>Update Profile</button>
-      </Form>
-    </div>
+      <Panel
+        header={
+          <h4 className='panel-title'>
+            Edit Profile
+          </h4>
+          }
+          >
+            <Form onSubmit={handleSubmit(submitForm)} horizontal>
+              <FormGroup>
+                <Col componentClass={ControlLabel} sm={3}>
+                  Avatar
+                </Col>
+                <Col sm={6}>
+                  <Field
+                    name='avatarPreview'
+                    label='Avatar'
+                    height={ 140 }
+                    width={ 140 }
+                    shape='circle'
+                    component={Upload}
+                    image={avatarPreview}
+                    onImageUpload={onImageUpload}
+                  />
+                </Col>
+              </FormGroup>
+              <FormGroup>
+                <Col componentClass={ControlLabel} sm={3}>
+                  Driver License
+                </Col>
+                <Col sm={6}>
+                  <Field
+                    name='driverLicensePreview'
+                    label='Driver license'
+                    height={ 140 }
+                    width={ 240 }
+                    shape='rounded'
+                    component={Upload}
+                    image={driverLicensePreview}
+                    onImageUpload={onImageUpload}
+                  />
+                </Col>
+              </FormGroup>
+              <FormGroup>
+                <Col componentClass={ControlLabel} sm={3}>
+                  Middle name
+                </Col>
+                <Col sm={6}>
+                  <Field
+                    name='middle_name'
+                    type='text'
+                    component={renderInput}
+                  />
+                </Col>
+              </FormGroup>
+              <FormGroup>
+                <Col componentClass={ControlLabel} sm={3}>
+                  Maiden Name
+                </Col>
+                <Col sm={6}>
+                  <Field
+                    name='maiden_name'
+                    type='text'
+                    component={renderInput}
+                  />
+                </Col>
+              </FormGroup>
+              <button className='btn btn-primary pull-right'>Update Profile</button>
+            </Form>
+          </Panel>
+        </div>
   )
 }
 

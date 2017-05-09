@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { RoutedComponent, connect } from 'routes/routedComponent';
-import ProfileForm from '../components/ProfileForm';
+import ProfileEdit from '../components/ProfileEdit';
 import { CONTENT_VIEW_STATIC } from 'layouts/DefaultLayout/modules/layout';
 import {
   PROFILE_UPDATE_SUCCESS,
@@ -107,12 +107,13 @@ class ProfileEditContainer extends RoutedComponent {
 
   render() {
     return (
-      <ProfileForm
+      <ProfileEdit
         submitForm={this.submitForm}
         onImageUpload={this.onImageUpload}
         profile={this.props.profile}
         avatarPreview={this.state.avatar}
         driverLicensePreview={this.state.driverLicense}
+        currentUser={this.props.currentUser}
       />
     )
   }

@@ -108,11 +108,8 @@ class ProfileContainer extends RoutedComponent {
   render() {
     return (
       <Profile
-        submitForm={this.submitForm}
-        onImageUpload={this.onImageUpload}
         profile={this.props.profile}
-        avatarPreview={this.state.avatar}
-        driverLicensePreview={this.state.driverLicense}
+        currentUser={this.props.currentUser}
       />
     )
   }
