@@ -63,13 +63,13 @@ const defaultClientSignupForm = {
 }
 
 const initialState = {
-  currentUser: loadPersistedData('currentUser') || defaultUserInfo,
-  payment: loadPersistedData('payment') || defaultPaymentInfo,
-  keywords: loadPersistedData('keywords') || defaultKeywords,
-  accounts: loadPersistedData('accounts'),
-  profile: loadPersistedData('profile'),
+  //currentUser: loadPersistedData('currentUser') || defaultUserInfo,
+  payment: defaultClientSignupForm,
+  //keywords: loadPersistedData('keywords') || defaultKeywords,
+  //accounts: loadPersistedData('accounts'),
+  //profile: loadPersistedData('profile'),
   clientSignupForm: defaultClientSignupForm,
-  loggedInUser: defaultLoggedInUser,
+  //loggedInUser: defaultLoggedInUser,
 }
 
 const store = createStore(initialState, browserHistory)
