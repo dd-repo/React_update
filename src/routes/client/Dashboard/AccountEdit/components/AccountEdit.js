@@ -40,7 +40,7 @@ const AccountEdit = (props) => {
             <div>
               <i className="fa fa-fw fa-support m-r-1"></i>
               <span>
-                If you have trouble with the configuration, you can contact us.
+                If you have trouble with changing your password, you can contact us at (844) 641-7829.
               </span>
               { ' ' }
               <Link to='/apps/faq'>
@@ -67,7 +67,7 @@ const AccountEdit = (props) => {
             footer={
               <div>
                 <i className="fa fa-fw fa-exclamation-circle m-r-1"></i>
-                <span> Are you sure you don’t want to just downgrade your account to a Free Account? We won’t charge your PayPal account anymore.</span>
+                <span></span>
               </div>
               }
             >

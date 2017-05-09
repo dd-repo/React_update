@@ -23,14 +23,10 @@ const AvatarAndStats = ({ currentUser, colorSidebar, avatar }) => {
         {/*     Default Sidebar     */}
         <Sidebar.AddOnContent supportedStyle='default'>
             <Media>
-                <Media.Left align='middle'>
-                    <i className="fa fa-fw fa-power-off"></i>
-                </Media.Left>
                 <Media.Body className='text-center'>
-                    <Link to='/apps/profile-details'>
+                  <Link to='/dashboard/user-profile'>
                         <AvatarImage
                             src={ avatar }
-                            showStatus
                             size='large'
                             statusPlacement='bottom'
                             statusColor={ Colors.brandSuccess }
@@ -47,11 +43,6 @@ const AvatarAndStats = ({ currentUser, colorSidebar, avatar }) => {
                         <small></small>
                     </div>
                 </Media.Body>
-                <Media.Right align='middle'>
-                    <Link to='/apps/user-profile/edit/profile'>
-                        <i className="fa fa-fw fa-gear text-gray-lighter"></i>
-                    </Link>
-                </Media.Right>
             </Media>
             <div className='text-center m-t-2'>
                 <div className='m-y-2'>
@@ -60,10 +51,9 @@ const AvatarAndStats = ({ currentUser, colorSidebar, avatar }) => {
         </Sidebar.AddOnContent>
         {/*     Slim Sidebar     */}
         <Sidebar.AddOnContent supportedStyle='big-icons'>
-            <Link to='/dashboard/profile-details'>
+            <Link to='/dashboard/user-profile'>
                 <AvatarImage
                     src={ avatar }
-                    showStatus
                     statusPlacement='bottom'
                     statusColor={ Colors.brandSuccess }
                     statusBorderColor={ colorSidebar ? '#fff' : Colors.grayDarker }
@@ -76,10 +66,9 @@ const AvatarAndStats = ({ currentUser, colorSidebar, avatar }) => {
         </Sidebar.AddOnContent>
         {/*     BigIcons Sidebar     */}
         <Sidebar.AddOnContent supportedStyle='slim'>
-            <Link to='/dashboard/profile-details'>
+            <Link to='/dashboard/user-profile'>
                 <AvatarImage
                     src={ avatar }
-                    showStatus
                     statusPlacement='bottom'
                     statusColor={ Colors.brandSuccess }
                     statusBorderColor={ colorSidebar ? '#fff' : Colors.grayDarker }

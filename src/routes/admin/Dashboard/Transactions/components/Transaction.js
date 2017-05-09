@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 
+import { formatDate } from 'utils/dateHelper';
+
 export default class Transaction extends Component {
   constructor(props) {
     super(props)
@@ -34,7 +36,7 @@ export default class Transaction extends Component {
           { third_party_id }
         </td>
         <td>
-          { processed_at }
+          { formatDate(processed_at) }
         </td>
         <td>
           { round }

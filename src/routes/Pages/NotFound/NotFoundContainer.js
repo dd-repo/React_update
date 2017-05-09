@@ -14,7 +14,13 @@ import { RoutedComponent, connect } from 'routes/routedComponent';
 import { CONTENT_VIEW_FLUID } from 'layouts/DefaultLayout/modules/layout';
 
 import classes from './../Pages.scss';
-import logo from 'static/spin-logo-inverted.png';
+import logo from 'static/logos/logo-small.png';
+
+const HOME_LINK = {
+  'client': '/dashboard',
+  'admin': '/admin/dashboard',
+  'prospect': '/login',
+}
 
 class NotFoundContainer extends RoutedComponent {
     getLayoutOptions() {
@@ -28,6 +34,8 @@ class NotFoundContainer extends RoutedComponent {
     }
 
     render() {
+      const homeLink = HOME_LINK[this.props.currentUser.role]
+
         return (
             <Row>
                 <Col lg={ 12 }>
@@ -41,13 +49,13 @@ class NotFoundContainer extends RoutedComponent {
                             <Panel
                                 className={ classes.registerPanel }
                                 header={(
-                                    <Link to='/' className={ classes.toHomeLink }>
+                                    <Link to={homeLink} className={ classes.toHomeLink }>
                                         <img src={ logo } alt='Back to Home' />
                                     </Link>
                                 )}
                                 footer={
                                     <div className={ classes.infoPanelFooter }>
-                                        <Link to='/'>
+                                        <Link to={homeLink}>
                                             <i className="fa fa-angle-left m-r-1"></i>
                                             Back to Home
                                         </Link>
@@ -58,24 +66,13 @@ class NotFoundContainer extends RoutedComponent {
                                     Error 404
                                 </h2>
                                 <p className='text-center m-b-3'>
-                                    Sorry but the page you are looking for ( <span className='text-white'>{this.props.location.pathname}</span> ) was not found. Try to fix the URL or use the search engine below.
+                                    Sorry but the page you are looking for ( <span className='text-white'>{this.props.location.pathname}</span> ) was not found. Try to fix the URL.
                                 </p>
-                                <InputGroup>
-                                    <FormControl
-                                        type='text'
-                                        placeholder='Search pages...'
-                                    />
-                                    <InputGroup.Button>
-                                        <Button bsStyle='primary'>
-                                            <i className="fa fa-fw fa-search"></i>
-                                        </Button>
-                                    </InputGroup.Button>
-                                </InputGroup>
                             </Panel>
                             <p className='text-center text-gray-light'>
-                                <strong>SPIN Dashboard </strong>
+                                <strong>Blitz Monitoring </strong>
                                 <span className='text-gray-light'>
-                                    © 2009 - 2016. Made by <i className="fa fa-fw fa-heart text-danger"></i> New York, US
+                                    © 2009 - 2017. Made by <i className="fa fa-fw fa-ship text-primary"></i> Denver, US
                                 </span>
                             </p>
                         </Col>
@@ -86,4 +83,8 @@ class NotFoundContainer extends RoutedComponent {
     }
 }
 
-export default connect()(NotFoundContainer);
+const mapStateToProps = state => ({
+  currentUser: state.currentUser
+})
+
+export default connect(mapStateToProps)(NotFoundContainer);
