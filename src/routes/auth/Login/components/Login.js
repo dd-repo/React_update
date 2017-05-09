@@ -44,7 +44,7 @@ const Login = ({ errorMessage, submitForm }) => {
                     <Link to='/forgot-password'>
                       Forgot Password?
                     </Link>
-                    <Link to='/' className='pull-right'>
+                    <Link to='/signup' className='pull-right'>
                       Signup
                     </Link>
                   </div>
