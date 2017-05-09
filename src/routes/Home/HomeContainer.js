@@ -6,7 +6,7 @@ class HomeContainer extends Component {
     }
 
     componentDidMount() {
-      this.context.router.push('/signup');
+      this.context.router.push('/login');
     }
 
     render() {
