@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Button } from 'components';
 
+import { formatDate } from 'utils/dateHelper';
+
 export default class Subscription extends Component {
   constructor(props) {
     super(props)
@@ -27,7 +29,6 @@ export default class Subscription extends Component {
     } = this.props.subscription
 
     const isActive = is_active ? 'Active' : 'Canceled'
-    let newDate = new Date(cancel_date)
 
     const renderButton = (
       is_active ?
@@ -38,7 +39,7 @@ export default class Subscription extends Component {
             Cancel Subscription
           </Button>
             :
-             cancel_date
+             formatDate(cancel_date)
     )
 
     return (
@@ -53,10 +54,10 @@ export default class Subscription extends Component {
           { user_id }
         </td>
         <td>
-          { start_date }
+          { formatDate(start_date) }
         </td>
         <td>
-          { end_date }
+          { formatDate(end_date) }
         </td>
         <td>
           { plan_id }

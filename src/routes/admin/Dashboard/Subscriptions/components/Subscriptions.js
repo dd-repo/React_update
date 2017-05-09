@@ -149,9 +149,6 @@ export default class Subscriptions extends Component {
                             user id
                           </th>
                           <th>
-                            start date
-                          </th>
-                          <th>
                             plan id
                           </th>
                           <th>
@@ -169,9 +166,6 @@ export default class Subscriptions extends Component {
                           </td>
                           <td>
                             { user_id }
-                          </td>
-                          <td>
-                            { start_date }
                           </td>
                           <td>
                             { plan_id }

@@ -106,6 +106,12 @@ const sidebarAddOns = {
     [SIDEBAR_ADDON_AVATAR_AND_STATS]: (props) => ( <SidebarAddOns.AvatarAndStatsAddOn { ...props } /> )
 }
 
+const HOME_LINK = {
+  'client': '/dashboard',
+  'admin': '/admin/dashboard',
+  'prospect': '/login',
+}
+
 
 const rightSidebarData = treeRandomizer(rightSidebarDataRaw);
 
@@ -174,6 +180,7 @@ class DefaultLayout extends React.Component {
       const isLoggedIn = localStorage.getItem('isLoggedIn')
       const isClient = role === 'client' && isLoggedIn
       const isAdmin = role === 'admin' && isLoggedIn
+      const homeLink = HOME_LINK[this.props.currentUser.role]
       const profileUser = {
         name: `${this.props.currentUser.first_name} ${this.props.currentUser.last_name}`,
         avatar: defaultAvatar
@@ -203,7 +210,7 @@ class DefaultLayout extends React.Component {
                     >
                         <Navbar.Header>
                             <Navbar.Brand>
-                                <Link to='/'>
+                                <Link to={homeLink}>
                                   <img src={ navbarLogo } className={ classes.navbarLogo } height={ 50 } alt="pin Dashboard" />
                                 </Link>
                             </Navbar.Brand>
