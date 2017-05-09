@@ -29,7 +29,7 @@ const ProfileDetails = ({ profile }) => {
                     placement='bottom'
                     bsStyle='primary'
                   >
-                    <p className='text-danger'>We ask for a driver’s license only for your protection. Some of the sites that publish your personal information require that we keep a copy of your ID on file to prove that it’s really you who’s requesting the removal. We do not need every piece of information on your ID, however. We need to be able to clearly read your name, date of birth, address, and we need to see the photo. Everything else, including the license number can be blacked out or covered with masking tape.</p>
+                    <p className='text-gray-darker'>We ask for a driver’s license only for your protection. Some of the sites that publish your personal information require that we keep a copy of your ID on file to prove that it’s really you who’s requesting the removal. We do not need every piece of information on your ID, however. We need to be able to clearly read your name, date of birth, address, and we need to see the photo. Everything else, including the license number can be blacked out or covered with masking tape.</p>
                   </Popover>
                   )}
                 >
