@@ -12,8 +12,6 @@ import {
   CLIENT_LOGIN_SUCCESS,
   USER_LOGIN_FAILURE,
   USER_LOGIN_POSTING,
-  USER_LOGOUT,
-  logoutUser,
   postUserSignup,
   postUserLogin,
   postingUserSignup,
@@ -40,7 +38,6 @@ describe('(auth module) Auth', () => {
     expect(USER_LOGIN_SUCCESS).to.equal('USER_LOGIN_SUCCESS')
     expect(USER_LOGIN_FAILURE).to.equal('USER_LOGIN_FAILURE')
     expect(USER_LOGIN_POSTING).to.equal('USER_LOGIN_POSTING')
-    expect(USER_LOGOUT).to.equal('USER_LOGOUT')
   })
 
   describe('(Action Creator) postingUserSignup', () => {
@@ -97,12 +94,6 @@ describe('(auth module) Auth', () => {
     it('Should return an action with error', () => {
       let error = {testErrorMessage: 'errorMessage'}
       expect(receiveUserLoginError(error)).to.have.property('error', error)
-    })
-  })
-
-  describe('(Action Creator) logoutUser', () => {
-    it('Should return an action with type USER_LOGOUT', () => {
-      expect(logoutUser()).to.have.property('type', USER_LOGOUT)
     })
   })
 
@@ -310,13 +301,15 @@ describe('(auth module) Auth', () => {
   describe('(Reducer)', () => {
 
     const fakeResponse = {
-      id: 1,
-      first_name: 'Fred',
-      last_name: 'Flintstone',
-      email: 'fred@email.com',
-      role: 'client',
-      access_token: '1:aaaaaaaaaaa',
-      accounts: [ { id: 1 } ],
+      user: {
+        id: 1,
+        first_name: 'Fred',
+        last_name: 'Flintstone',
+        email: 'fred@email.com',
+        role: 'client',
+        group: 'frontend',
+        accounts: [ { id: 1 } ],
+      }
     }
 
     const {
@@ -325,8 +318,8 @@ describe('(auth module) Auth', () => {
       last_name,
       email,
       role,
-      access_token
-    } = fakeResponse
+      group,
+    } = fakeResponse.user
 
     const currentUserSuccess = {
       id,
@@ -334,7 +327,7 @@ describe('(auth module) Auth', () => {
       last_name,
       email,
       role,
-      access_token,
+      group,
       account_id: 1,
       isFetching: false
     }
@@ -345,7 +338,7 @@ describe('(auth module) Auth', () => {
       last_name,
       email,
       role: 'prospect',
-      access_token,
+      group,
       account_id: 1,
       isFetching: false
     }
@@ -386,6 +379,8 @@ describe('(auth module) Auth', () => {
     })
 
     it('should handle USER_SIGNUP_SUCCESS', () => {
+      //console.log('user success', reducer({isFetching: true}, { type: USER_SIGNUP_SUCCESS, data: fakeResponse}))
+      //console.log('compared to', currentUserSuccess)
       expect(reducer({ isFetching: true }, {
         type: USER_SIGNUP_SUCCESS,
         data: fakeResponse }))
@@ -408,7 +403,7 @@ describe('(auth module) Auth', () => {
     it('should handle USER_LOGIN_SUCCESS', () => {
       expect(reducer({ isFetching: true }, {
         type: USER_LOGIN_SUCCESS,
-        data: { user: fakeResponse }}))
+        data: fakeResponse }))
         .to.eql(currentUserSuccess)
     })
 
@@ -416,20 +411,6 @@ describe('(auth module) Auth', () => {
       expect(reducer({ isFetching: true },
        { type: USER_LOGIN_FAILURE, error: error }))
        .to.eql(currentUserFailure)
-    })
-
-    it('should handle USER_LOGOUT', () => {
-      expect(reducer(currentUserSuccess, { type: USER_LOGOUT }))
-      .to.eql({
-        id: undefined,
-        access_token: undefined,
-        first_name,
-        last_name,
-        email,
-        role,
-        account_id: 1,
-        isFetching: false
-      })
     })
 
     it('should update user role PAYMENT_SUCCESS', () => {
