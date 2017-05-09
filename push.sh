@@ -2,7 +2,7 @@
 
 BRANCH=$(git rev-parse --abbrev-ref HEAD)
 
-if [ "development" != ${BRANCH} ]; then
+if [ "docker-production" != ${BRANCH} ]; then
     echo "you are not on development branch"
     exit 0
 fi
