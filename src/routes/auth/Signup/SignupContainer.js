@@ -6,6 +6,7 @@ import { CONTENT_VIEW_STATIC } from 'layouts/DefaultLayout/modules/layout';
 import { persistData } from 'localStorage';
 import {
   postUserSignup,
+  removeErrorMessage,
   USER_SIGNUP_SUCCESS,
   USER_SIGNUP_FAILURE
 } from 'modules/auth';
@@ -59,6 +60,7 @@ class SignupContainer extends RoutedComponent {
         this.context.router.push('/payment-info');
         break;
       case USER_SIGNUP_FAILURE:
+        setTimeout(this.props.removeErrorMessage, 5000)
         break;
       default:
         return null;
@@ -80,7 +82,8 @@ const mapStateToProps = state => ({
 })
 
 const mapActionCreators = {
-  postUserSignup
+  postUserSignup,
+  removeErrorMessage
 }
 
 export default connect(mapStateToProps, mapActionCreators)(SignupContainer);

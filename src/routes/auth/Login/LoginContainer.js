@@ -6,6 +6,7 @@ import { CONTENT_VIEW_STATIC } from 'layouts/DefaultLayout/modules/layout';
 import { persistData } from 'localStorage';
 import {
   postUserLogin,
+  removeErrorMessage,
   USER_LOGIN_SUCCESS,
   USER_LOGIN_FAILURE,
   ADMIN_LOGIN_SUCCESS
@@ -69,6 +70,7 @@ class LoginContainer extends RoutedComponent {
         this.context.router.push('admin/dashboard')
         break;
       case USER_LOGIN_FAILURE:
+        setTimeout(this.props.removeErrorMessage, 5000)
         break;
       default:
         return null;
@@ -90,7 +92,8 @@ const mapStateToProps = state => ({
 })
 
 const mapActionCreators = {
-  postUserLogin
+  postUserLogin,
+  removeErrorMessage,
 }
 
 export default connect(mapStateToProps, mapActionCreators)(LoginContainer);

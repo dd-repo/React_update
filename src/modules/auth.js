@@ -12,10 +12,11 @@ export const ADMIN_LOGIN_SUCCESS = 'ADMIN_LOGIN_SUCCESS'
 export const USER_LOGIN_FAILURE = 'USER_LOGIN_FAILURE';
 export const USER_LOGIN_POSTING = 'USER_LOGIN_POSTING';
 
-export const FORGOT_USER_PASSWORD_POSTING = 'FORGOT_USET_PASSWORD_POSTING'
-export const FORGOT_USER_PASSWORD_SUCCESS = 'FORGOT_USER_PASSWORD_SUCCESS'
-export const FORGOT_USER_PASSWORD_FAILURE = 'FORGOT_USER_PASSWORD_FAILURE'
-export const USER_LOGOUT = 'USER_LOGOUT';
+export const FORGOT_USER_PASSWORD_POSTING = 'FORGOT_USET_PASSWORD_POSTING';
+export const FORGOT_USER_PASSWORD_SUCCESS = 'FORGOT_USER_PASSWORD_SUCCESS';
+export const FORGOT_USER_PASSWORD_FAILURE = 'FORGOT_USER_PASSWORD_FAILURE';
+
+export const USER_REMOVE_ERROR_MSG = 'USER_REMOVE_ERROR_MSG';
 
 const CLIENT_API = '/dashboard/api/v1/users';
 export const SIGNUP_REQUEST = `${CLIENT_API}/sign-up/create`;
@@ -148,6 +149,12 @@ export const recieveForgotPasswordError = (error) => (
   }
 )
 
+export const removeErrorMessage = () => (
+  {
+    type: USER_REMOVE_ERROR_MSG
+  }
+)
+
 // reducer
 const setClient = (state, user) => {
   return (
@@ -213,6 +220,10 @@ const reducer = (state = {}, action) => {
       return Object.assign({}, state, {
         role: action.user.role
       });
+    case USER_REMOVE_ERROR_MSG:
+      return Object.assign({}, state, {
+        errorMessage: null
+      })
     default:
       return state
   }
