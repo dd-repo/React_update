@@ -21,13 +21,8 @@ class BlitzApi {
   }
 
   handleError = (error) => {
-    switch ( error.response.status) {
-      case 408:
-        this.redirectTo(document, '/login')
-        break;
-      default:
-        return error
-        break;
+    if(error.response.status === 408) {
+      this.redirectTo(document, '/login')
     }
     return Promise.reject(error)
   }
