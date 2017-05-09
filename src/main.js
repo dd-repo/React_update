@@ -63,11 +63,11 @@ const defaultClientSignupForm = {
 }
 
 const initialState = {
-  //currentUser: loadPersistedData('currentUser') || defaultUserInfo,
+  currentUser: loadPersistedData('currentUser'),
   payment: defaultClientSignupForm,
-  //keywords: loadPersistedData('keywords') || defaultKeywords,
-  //accounts: loadPersistedData('accounts'),
-  //profile: loadPersistedData('profile'),
+  keywords: loadPersistedData('keywords'),
+  accounts: loadPersistedData('accounts'),
+  profile: loadPersistedData('profile'),
   clientSignupForm: defaultClientSignupForm,
   //loggedInUser: defaultLoggedInUser,
 }
