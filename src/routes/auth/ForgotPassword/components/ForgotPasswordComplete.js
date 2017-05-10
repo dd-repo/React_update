@@ -48,9 +48,10 @@ const ForgotPasswordComplete = ({ userEmail }) => {
 
                 </Panel>
                 <p className='text-center text-gray-light'>
-                  <strong>SPIN Dashboard </strong>
+                  <strong>Blitz Monitoring </strong>
                   <span className='text-gray-light'>
-                    © 2009 - 2016. Made by <i className="fa fa-fw fa-heart text-danger"></i> New York, US
+                    © 2009 - 2017. Made by <i className="fa fa-fw fa-ship text-primary"></i> Denver, US
+
                   </span>
                 </p>
               </Col>
