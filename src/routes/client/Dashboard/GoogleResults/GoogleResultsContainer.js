@@ -20,6 +20,8 @@ class GoogleResultsContainer extends RoutedComponent {
     this.getResults = this.getResults.bind(this);
     this.getNextPage = this.getNextPage.bind(this);
     this.handleRemoval = this.handleRemoval.bind(this);
+    this.showAlertMessage = this.showAlertMessage.bind(this);
+    this.hideAlertMessage = this.hideAlertMessage.bind(this);
   }
 
   static contextTypes = {
@@ -50,8 +52,16 @@ class GoogleResultsContainer extends RoutedComponent {
   handleRemoval(id) {
     const payload = { request: { search_result_id: id }}
     this.props.requestRemoval(payload)
-    //.then( (res) => getResults(this.props.keywords.currentKeyword))
-    //.catch( (error) => console.log('error in removal request google search results', error))
+    .then( (res) => this.showAlertMessage())
+    .catch( (error) => this.showAlertMessage())
+  }
+
+  showAlertMessage() {
+    this.setState({showModal: true})
+  }
+
+  hideAlertMessage() {
+    this.setState({showModal: false})
   }
 
   getResults(keyword, pageNum=1) {
@@ -79,6 +89,8 @@ class GoogleResultsContainer extends RoutedComponent {
           getNextPage={this.getNextPage}
           pageNum={this.state.pageNum}
           handleRemoval={this.handleRemoval}
+          showModal={this.state.showModal}
+          hideModal={this.hideAlertMessage}
         />
     )
   }

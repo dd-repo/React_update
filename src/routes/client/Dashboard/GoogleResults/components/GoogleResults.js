@@ -10,8 +10,8 @@ import {
   Panel,
   Button,
   Pagination,
-  StarRating,
-  Divider
+  Divider,
+  Modal,
 } from 'components';
 
 import SearchKeywords from './SearchKeywords';
@@ -39,8 +39,23 @@ export default class GoogleResults extends Component {
       getNextPage,
       isFetching,
       handleRemoval,
-      pageNum
+      pageNum,
+      removalAlert,
+      showModal,
+      hideModal,
     } = this.props
+
+    const renderModal = (
+      <Modal bsStyle='success' show={showModal} onHide={hideModal}>
+        <Modal.Body>
+          "We've received your request and we'll need a little bit more information to complete it. An account manager will give you a call within the next 48 hours to discuss this removal.
+          <p>Can't wait? Give us a call at <strong>(844) 641-7829"</strong></p>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button bsStyle='success' onClick={hideModal}>Close</Button>
+        </Modal.Footer>
+      </Modal>
+    )
 
     const paginationItems = pagination !== undefined &&
       Math.ceil(pagination.total / pagination.limit)
@@ -66,6 +81,7 @@ export default class GoogleResults extends Component {
                   result={result}
                   key={i}
                   handleRemoval={handleRemoval}
+                  removalAlert={removalAlert}
                 />
                 ))
               }
@@ -104,13 +120,14 @@ export default class GoogleResults extends Component {
             />
           </Col>
           <Col lg={ 10 }>
+            {' '}
             <Divider className='m-t-3 m-b-2'>
               All Results
             </Divider>
             {
               isFetching ? renderSpinner : renderResults
             }
-
+            { renderModal }
           </Col>
         </Row>
       )
