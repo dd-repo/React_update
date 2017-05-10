@@ -15,7 +15,7 @@ import {
 
 import { Colors } from 'consts';
 
-import classes from './profile.scss';
+import classes from '../../profile.scss';
 
 const urlSectionToName = section => {
     switch(section) {
@@ -65,8 +65,6 @@ const ProfileEdit = (props) => {
                 </span>
               </p>
               <p className='m-y-0'>
-                <Label outline className='m-r-1 v-a-m' bsStyle='primary'>
-                </Label>
                 <span className='v-a-m'>
                 </span>
               </p>

@@ -17,12 +17,11 @@ import {
     FavoriteStar,
     Divider,
 } from 'components';
-import ProfileForm from './ProfileForm';
 import ProfileDetails from './ProfileDetails';
 
 import { Colors } from 'consts';
 
-import classes from './Profile.scss';
+import classes from '../../Profile.scss';
 
 class Profile extends Component {
   constructor(props) {
@@ -51,7 +50,7 @@ class Profile extends Component {
             </div>
             <div>
               { ' ' }
-              <LinkContainer to='/dashbaord/user-profile/edit'>
+              <LinkContainer to='/dashboard/user-profile/edit'>
                 <Button bsStyle='primary' href='javascript:;'>
                   Edit Profile
                 </Button>

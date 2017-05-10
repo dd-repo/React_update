@@ -51,7 +51,6 @@ const Upload = ({ label, height, width, shape, input, onImageUpload, image }) =>
                             for a file to upload.
                           </p>
                           <p className='small'>
-                            JPG and PNG. Please choose a files under 2GB to upload. File sizes are 400 x 300px.
                           </p>
                         </div>
                         }
