@@ -32,6 +32,7 @@ export const removePersistedData = () => {
   localStorage.removeItem('keywords')
   localStorage.removeItem('profile')
   localStorage.removeItem('paymentStatus')
+  localStorage.removeItem('isLoggedIn')
 }
 
 const formatState = (state, selector) => {

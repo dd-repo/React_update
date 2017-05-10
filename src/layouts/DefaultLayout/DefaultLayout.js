@@ -81,7 +81,6 @@ import {
     SCREEN_SIZE_XS
 } from './modules/layout.js';
 
-import { logoutUser } from 'modules/auth';
 // Sub Components
 import {
     SidebarAddOns,
@@ -584,7 +583,6 @@ const mapActionCreators = {
     toggleNavbarExpanded,
     setCurrentScreenSize,
     changeSidebarAddOn,
-    logoutUser
 };
 
 export default connect(mapStateToProps, mapActionCreators)(DefaultLayout);
