@@ -4,7 +4,7 @@ import { actions } from 'redux';
 console.log('actions', actions)
 
 import { connect } from 'routes/routedComponent';
-import { checkValidation, confirmPassword } from 'utils/formHelpers';
+import { checkValidation } from 'utils/formHelpers';
 import {
     Form,
     FormGroup,
@@ -23,7 +23,6 @@ const fields = {
     type: 'password',
     label: 'Password Confirmation',
     klass: 'form-control',
-    normalize: confirmPassword
   }
 }
 
@@ -79,6 +78,7 @@ const CreatePasswordForm = (props) => {
     submitForm,
     handleSubmit,
     submitting,
+    invalid,
     passwordErrorMsg,
     disableButton
   } = props
@@ -100,7 +100,7 @@ const CreatePasswordForm = (props) => {
      </FormGroup>
      <button
         className='btn btn-primary m-b-2'
-        disabled={disableButton || submitting}
+        disabled={disableButton || invalid || submitting}
         action="submit"
       >
         Create New Password

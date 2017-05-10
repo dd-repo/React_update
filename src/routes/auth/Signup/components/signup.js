@@ -27,7 +27,12 @@ export default class Signup extends Component {
   }
 
   render() {
-    const { errorMessage, submitForm } = this.props
+    const {
+      errorMessage,
+      passwordErrorMsg,
+      submitForm,
+      disableButton,
+    } = this.props
     const renderErrorMessage = (
       errorMessage &&
         <Alert bsStyle='danger'>
@@ -68,7 +73,9 @@ export default class Signup extends Component {
 
                     <SignupForm
                       submitForm={submitForm}
+                      passwordErrorMsg={passwordErrorMsg}
                       toggleModal={this.toggleModal}
+                      disableButton={disableButton}
                     />
 
                 </Panel>
