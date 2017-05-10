@@ -21,7 +21,7 @@ const ProfileDetails = ({ profile }) => {
             <span className='pull-left m-l-0 m-r-1'>
               <OverlayTrigger
                 placement='bottom'
-                trigger='click'
+                trigger={['hover','focus']}
                 overlay={(
                   <Popover
                     id="popover-primary-bottom"

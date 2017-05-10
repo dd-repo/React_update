@@ -45,28 +45,29 @@ export const CONFIGS = {
       icon: 'fa fa-shield fa-lg',
       url: '/dashboard/privacy'
     },
-    {
-      slug: 'Alerts',
-      title: 'Alerts',
-      icon: 'fa fa-fw fa-lg fa-bell',
-      url: '/dashboard/alerts',
-      //sidebarElement: (<Badge bsStyle='info' outline className='pull-right'>2</Badge>)
-      //children: getSidebarsMenuEntries()
-    },
+    //{
+      //slug: 'Alerts',
+      //title: 'Alerts',
+      //icon: 'fa fa-fw fa-lg fa-bell',
+      //url: '/dashboard/alerts',
+      ////sidebarElement: (<Badge bsStyle='info' outline className='pull-right'>2</Badge>)
+      ////children: getSidebarsMenuEntries()
+    //},
     {
       slug: 'profile',
       title: 'Profile',
       icon: 'fa fa-lock fa-lg',
-      children: [
-        {
-          title: 'Profile Details',
-          url: '/dashboard/user-profile',
-        },
-        {
-          title: 'Profile Edit',
-          url: '/dashboard/user-profile/edit',
-        }
-      ]
+      url: '/dashboard/user-profile',
+      //children: [
+        //{
+          //title: 'Profile Details',
+          //url: '/dashboard/user-profile',
+        //},
+        //{
+          //title: 'Profile Edit',
+          //url: '/dashboard/user-profile/edit',
+        //}
+      //]
     },
     {
       slug: 'Account',

@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { RoutedComponent, connect } from 'routes/routedComponent';
-import ProfileEdit from '../components/ProfileEdit';
+import ProfileEdit from './components/ProfileEdit';
 import { CONTENT_VIEW_STATIC } from 'layouts/DefaultLayout/modules/layout';
 import {
   PROFILE_UPDATE_SUCCESS,
