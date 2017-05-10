@@ -26,9 +26,9 @@ const persistDataToLocalStorage = data => {
 class SignupContainer extends RoutedComponent {
   constructor(props) {
     super(props)
+    this.state = {disableButton: true}
 
     this.submitForm = this.submitForm.bind(this);
-    this.state = {}
     this.doNext = this.doNext.bind(this);
   }
 
@@ -43,6 +43,27 @@ class SignupContainer extends RoutedComponent {
       navbarEnabled: true,
       footerEnabled: true,
       headerEnabled: false,
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const { signupForm } = nextProps.form
+    signupForm && signupForm.values &&
+      this.validatePassword(signupForm.values)
+  }
+
+  validatePassword({ password, passwordConfirmation }) {
+    if(password && passwordConfirmation) {
+      password === passwordConfirmation && this.setState({disableButton: false})
+
+      let letter = passwordConfirmation.charAt(passwordConfirmation.length-1)
+      let index = passwordConfirmation.indexOf(letter)
+
+      letter !== password.charAt(index)
+        ?
+          this.setState({disableButton: true, passwordErrorMsg: 'Passwords do not match'})
+            :
+              this.setState({passwordErrorMsg: null})
     }
   }
 
@@ -72,13 +93,16 @@ class SignupContainer extends RoutedComponent {
       <Signup
         submitForm={this.submitForm}
         errorMessage={this.props.currentUser.errorMessage}
+        passwordErrorMsg={this.state.passwordErrorMsg}
+        disableButton={this.state.disableButton}
       />
     )
   }
 }
 
 const mapStateToProps = state => ({
-  currentUser: state.currentUser
+  currentUser: state.currentUser,
+  form: state.form
 })
 
 const mapActionCreators = {

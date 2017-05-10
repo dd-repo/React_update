@@ -43,6 +43,12 @@ const fields = {
     placeHolder: 'Enter a password...',
     maxLength: '25',
   },
+  passwordConfirmation: {
+    name: 'passwordConfirmation',
+    type: 'password',
+    label: 'Password Confirmation',
+    placeHolder: 'Re-enter password...',
+  },
 }
 const validate = values => {
   return checkValidation(values, fields)
@@ -111,13 +117,16 @@ class SignupForm extends Component {
       submitForm,
       handleSubmit,
       invalid,
-      submitting
+      submitting,
+      passwordErrorMsg,
+      disableButton,
     } = this.props
 
     return (
       <form onSubmit={handleSubmit(submitForm)}>
 
         {renderFields()}
+       <span className='text-danger'>{passwordErrorMsg}</span>
 
         <Checkbox required validationState='error'>
           <a className='text-danger' onClick={this._onClick}>
@@ -127,7 +136,7 @@ class SignupForm extends Component {
 
         <button
           className='btn btn-primary m-b-2'
-          disabled={invalid || submitting}
+          disabled={disableButton || invalid || submitting}
           action="submit"
         >
           Register

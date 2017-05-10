@@ -63,7 +63,7 @@ class CreatePasswordContainer extends RoutedComponent {
 
       letter !== password.charAt(index)
         ?
-          this.setState({passwordErrorMsg: 'Passwords do not match'})
+          this.setState({disableButton: true, passwordErrorMsg: 'Passwords do not match'})
             :
               this.setState({passwordErrorMsg: null})
     }
