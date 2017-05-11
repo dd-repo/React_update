@@ -33,14 +33,12 @@ export default class AffixWrap extends React.Component {
     const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
 
     if (!affix && scrollTop >= offset) {
-      console.log('setting state 1 if')
       this.setState({
         affix: true
       });
     }
 
     if (affix && scrollTop < offset) {
-      console.log('setting state 2 if')
       this.setState({
         affix: false
       });
@@ -48,12 +46,10 @@ export default class AffixWrap extends React.Component {
   }
 
   componentDidMount() {
-    console.log('affix mounting')
     window.addEventListener('scroll', this.handleScroll.bind(this));
   }
 
   componentWillUnmount() {
-    console.log('affix unmounting')
     window.removeEventListener('scroll', this.handleScroll.bind(this));
   }
 
