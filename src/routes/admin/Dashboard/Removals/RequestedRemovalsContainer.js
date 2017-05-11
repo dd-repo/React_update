@@ -1,4 +1,5 @@
 import React from 'react';
+import _ from 'underscore';
 
 import { RoutedComponent, connect } from 'routes/routedComponent';
 import { CONTENT_VIEW_STATIC } from 'layouts/DefaultLayout/modules/layout';
@@ -54,9 +55,13 @@ class RequestedRemovalsContainer extends RoutedComponent {
   }
 
   render() {
+    const sortedRemovals = (
+     _.sortBy(this.props.requestedRemovals.all, 'id' )
+    )
+
     return (
       <RequestedRemovals
-        removals={this.props.requestedRemovals.all}
+        removals={sortedRemovals}
         pagination={this.props.requestedRemovals.pagination}
         pageNum={this.state.pageNum}
         isFetching={this.props.requestedRemovals.isFetching}
