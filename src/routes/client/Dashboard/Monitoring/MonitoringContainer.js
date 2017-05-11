@@ -40,21 +40,8 @@ class MonitoringContainer extends RoutedComponent {
 
   handleClick(request_id) {
     this.props.requestRemoval(request_id)
-    .then( res => { this.doNext(res) })
+    .then( res => { this.fetchMonitoringRequests() })
     .catch( error => { console.log('error in monitoring removal', error) })
-  }
-
-  doNext(res) {
-    switch(res.type) {
-      case MONITORING_UPDATE_SUCCESS:
-        this.fetchMonitoringRequests();
-        break;
-        case MONITORING_UPDATE_FAILURE:
-          this.setState({ isFetching: false });
-          break;
-        default:
-          return null;
-    }
   }
 
   render() {
