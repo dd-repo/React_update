@@ -14,7 +14,7 @@ export const postPayment = payload => {
     .then(
       response => dispatch(paymentSuccess(response.data))
     ).catch(
-    error => paymentFailure(error)
+    error => dispatch(paymentFailure(error))
     )
   }
 }
@@ -61,6 +61,7 @@ const reducer = (state={}, action) => {
     case PAYMENT_FAILURE:
       return Object.assign({}, state, {
         isFetching: false,
+        errorMessage: action.error.response.data.errorMessage,
         success: false
       })
     default:
