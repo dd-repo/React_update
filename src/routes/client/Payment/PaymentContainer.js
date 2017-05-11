@@ -11,11 +11,10 @@ import { CONTENT_VIEW_STATIC } from 'layouts/DefaultLayout/modules/layout';
 class PaymentContainer extends RoutedComponent {
   constructor() {
     super()
-    this.state = {}
 
     this.submitForm = this.submitForm.bind(this);
     this.buildParams = this.buildParams.bind(this);
-    this.doNext = this.doNext.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
 
   static contextTypes = {
@@ -60,37 +59,26 @@ class PaymentContainer extends RoutedComponent {
     let params = this.buildParams(formProps)
 
     persistData(formProps, 'paymentStatus');
-    this.setState({isFetching: true})
 
     this.props.postPayment(params)
-    .then(res => { this.doNext(res) })
+    .then(res => { persistData(res.user, 'currentUser') })
     .catch(error => { console.log('error in payment submit', error) })
   }
 
-  doNext(res) {
-    switch(res.type) {
-      case PAYMENT_SUCCESS:
-        this.setState({ paymentSuccess: true, isFetching: false });
-        persistData(res.user, 'currentUser');
-        break;
-      case PAYMENT_FAILURE:
-        this.setState({ errorMessage: res.error.response.data.errorMessage, isFetching: false });
-        break;
-      default:
-        return null
-    }
+  handleClick() {
+    this.context.router.push('/keywords')
   }
 
   render() {
-    if(!this.state.paymentSuccess && this.props.currentUser.id) {
+    if(!this.props.payment.success && this.props.currentUser.id) {
       return <Payment
         submitForm={this.submitForm}
-        errorMessage={this.state.errorMessage}
-        isFetching={this.state.isFetching}
+        errorMessage={this.props.payment.errorMessage}
+        isFetching={this.props.payment.isFetching}
         />
     } else {
       return  <PaymentComplete
-        router={this.context.router}
+        handleClick={this.handleClick}
       />
     }
   }
