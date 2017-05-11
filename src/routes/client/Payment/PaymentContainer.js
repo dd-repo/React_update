@@ -5,8 +5,11 @@ import PaymentComplete from './components/PaymentComplete';
 import { RoutedComponent, connect } from 'routes/routedComponent';
 import { postPayment } from './modules/payment';
 import { persistData } from 'localStorage';
-import { PAYMENT_SUCCESS, PAYMENT_FAILURE } from './modules/payment';
 import { CONTENT_VIEW_STATIC } from 'layouts/DefaultLayout/modules/layout';
+
+const persistDataToLocalStorage = data => {
+  data !== undefined && persistData(data, 'currentUser')
+}
 
 class PaymentContainer extends RoutedComponent {
   constructor() {
@@ -61,7 +64,7 @@ class PaymentContainer extends RoutedComponent {
     persistData(formProps, 'paymentStatus');
 
     this.props.postPayment(params)
-    .then(res => { persistData(res.user, 'currentUser') })
+    .then(res => { persistDataToLocalStorage(res.user, 'currentUser') })
     .catch(error => { console.log('error in payment submit', error) })
   }
 
