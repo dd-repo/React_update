@@ -45,7 +45,7 @@ const Login = ({ errorMessage, submitForm }) => {
                       Forgot Password?
                     </Link>
                     <Link to='/signup' className='pull-right'>
-                      Signup
+                      Register
                     </Link>
                   </div>
                   )}
