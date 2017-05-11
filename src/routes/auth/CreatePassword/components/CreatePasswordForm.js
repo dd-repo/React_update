@@ -99,7 +99,7 @@ const CreatePasswordForm = (props) => {
        <span className='text-danger'>{passwordErrorMsg}</span>
      </FormGroup>
      <button
-        className='btn btn-primary m-b-2'
+        className='btn btn-primary m-b-2 pull-right'
         disabled={disableButton || invalid || submitting}
         action="submit"
       >

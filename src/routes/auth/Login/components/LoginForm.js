@@ -76,7 +76,7 @@ let LoginForm = ({ submitForm, handleSubmit }) => {
     <form onSubmit={handleSubmit(submitForm)}>
       {renderFields()}
       <button
-        className='btn btn-primary m-b-2'
+        className='btn btn-primary m-b-2 pull-right'
         action="submit"
       >
         Login

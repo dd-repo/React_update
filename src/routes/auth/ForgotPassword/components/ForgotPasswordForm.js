@@ -62,7 +62,7 @@ const ForgotPasswordForm = ({ submitForm, handleSubmit, invalid, submitting }) =
         {renderField(fields.email)}
       </FormGroup>
       <button
-        className='btn btn-primary m-b-2'
+        className='btn btn-primary m-b-2 pull-right'
         disabled={invalid || submitting}
         action="submit"
       >
