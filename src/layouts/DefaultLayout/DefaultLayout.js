@@ -340,14 +340,17 @@ class DefaultLayout extends React.Component {
                                             </strong>
                                           </MenuItem>
                                           <MenuItem divider className='hidden-xs'/>
-                                          <LinkContainer to='/dashboard/profile'>
-                                            <MenuItem eventKey={3.1}>Your Profile</MenuItem>
+                                          <LinkContainer to='/dashboard'>
+                                            <MenuItem eventKey={3.1}>Home</MenuItem>
                                           </LinkContainer>
-                                          <LinkContainer to='/dashboard/settings'>
-                                            <MenuItem eventKey={3.2}>Settings</MenuItem>
+                                          <LinkContainer to='/dashboard/user-profile'>
+                                            <MenuItem eventKey={3.2}>Profile</MenuItem>
                                           </LinkContainer>
-                                          <LinkContainer to='/dashboard/faq'>
-                                            <MenuItem eventKey={3.3}>Faq</MenuItem>
+                                          <LinkContainer to='/dashboard/account-settings'>
+                                            <MenuItem eventKey={3.3}>Account</MenuItem>
+                                          </LinkContainer>
+                                          <LinkContainer to='/dashboard/privacy'>
+                                            <MenuItem eventKey={3.4}>Privacy</MenuItem>
                                           </LinkContainer>
                                           <MenuItem divider />
                                           <LinkContainer to='/login'>
