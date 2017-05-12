@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { Button, Label } from 'components';
+import { DropdownButton, MenuItem, Button, Label } from 'components';
 
 const REMOVAL_STATUS = {
   'requested': {
@@ -16,6 +16,10 @@ const REMOVAL_STATUS = {
   'completed': {
     style:'success',
     buttonLabel: 'Complete'
+  },
+  'protected': {
+    style:'success',
+    buttonLabel: 'Complete'
   }
 }
 
@@ -23,17 +27,12 @@ export default class RemovalRequested extends Component {
   constructor(props) {
     super(props)
 
-    this._onClick = this._onClick.bind(this)
+    this._onSelect = this._onSelect.bind(this)
   }
 
-  _onClick() {
-    const { id, status } = this.props.removal
-    const nextStatus = REMOVAL_STATUS[status].nextStatus
-    if(nextStatus === 'completed') {
-     this.props.confirmRemovalComplete(this.props.removal)
-    } else {
-      this.props.handleClick(id, nextStatus)
-    }
+  _onSelect(nextStatus) {
+    this.props.removal.nextStatus = nextStatus
+    this.props.handleClick(this.props.removal)
   }
 
   render() {
@@ -53,6 +52,7 @@ export default class RemovalRequested extends Component {
     const address = addresses[0].address1
     const isComplete = status === 'completed'
     const removalStatus = REMOVAL_STATUS[status]
+    const renderStatus = status === 'protected' ? 'completed' : status
 
     return (
       <tr className='bg-gray-darker' key={id}>
@@ -80,19 +80,24 @@ export default class RemovalRequested extends Component {
             className='text-uppercase'
             bsStyle={removalStatus.style}
           >
-            { status }
+            { renderStatus }
           </Label>
         </td>
         <td>
-          <Button
-            bsStyle={removalStatus.style}
-            disabled={isComplete}
-            onClick={this._onClick}
-          >
-            { removalStatus.buttonLabel }
-          </Button>
+          <DropdownButton onSelect={this._onSelect} title='Actions' bsStyle='danger' id='dropdown-basic-4' bsSize='lg' className='m-b-1'>
+            <MenuItem eventKey="inprogress">In Progress</MenuItem>
+            <MenuItem eventKey="completed">Complete</MenuItem>
+            <MenuItem eventKey="protected">Protected</MenuItem>
+          </DropdownButton>
         </td>
       </tr>
     )
   }
 }
+          //<Button
+            //bsStyle={removalStatus.style}
+            //disabled={isComplete}
+            //onClick={this._onClick}
+          //>
+            //{ removalStatus.buttonLabel }
+          //</Button>

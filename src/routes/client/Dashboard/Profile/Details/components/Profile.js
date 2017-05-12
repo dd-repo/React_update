@@ -56,8 +56,6 @@ class Profile extends Component {
                 </Button>
               </LinkContainer>
               { ' ' }
-              <Button bsStyle='link'>
-              </Button>
             </div>
           </Media.Body>
         </Media>

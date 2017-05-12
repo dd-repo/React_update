@@ -1,6 +1,6 @@
 import BlitzApi from 'services/BlitzApi';
 
-import { USER_LOGIN_SUCCESS } from 'modules/auth';
+import { USER_LOGIN_SUCCESS } from 'routes/auth/modules/auth';
 
 export const PROFILE_UPDATE_POSTING = 'PROFILE_UPDATE_POSTING';
 export const PROFILE_UPDATE_SUCCESS = 'PROFILE_UPDATE_SUCCESS';

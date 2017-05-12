@@ -5,7 +5,7 @@ import BlitzApi from 'services/BlitzApi';
 import {
   SIGNUP_REQUEST,
   LOGIN_REQUEST
-} from 'modules/auth';
+} from 'routes/auth/modules/auth';
 
 describe('BlitzApi', () => {
 

@@ -10,7 +10,7 @@ import {
   USER_LOGIN_SUCCESS,
   USER_LOGIN_FAILURE,
   ADMIN_LOGIN_SUCCESS
-} from 'modules/auth';
+} from '../modules/auth';
 
 const persistDataToLocalStorage = data => {
   const { user, auth_token, account } = data

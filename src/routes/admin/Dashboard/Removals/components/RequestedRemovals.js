@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
 import Loading from 'react-loading';
 
 import RequestedRemoval from './RequestedRemoval';
@@ -10,57 +11,148 @@ import {
   Row,
   Pagination,
   Modal,
+  FormGroup,
+  FormControl,
+  Col,
+  ControlLabel,
+  Alert,
 } from 'components';
+
+let validation;
 
 class RequestedRemovals extends Component {
   constructor(props) {
     super(props)
-    this.state = {showModal: false, removal: {}}
+    this.state = {}
 
-    this.paginationItems = this.paginationItems.bind(this);
-    this.confirmRemovalComplete = this.confirmRemovalComplete.bind(this);
     this._handleClick = this._handleClick.bind(this);
-    this.toggleModal = this.toggleModal.bind(this);
-  }
-
-  paginationItems() {
-    const { total, limit } = this.props.pagination
-    Math.ceil(total / limit)
-  }
-
-  confirmRemovalComplete(removal) {
-    this.setState({showModal: true, removal: removal})
+    this.renderModal = this.renderModal.bind(this);
   }
 
   _handleClick() {
-    this.props.handleClick(this.state.removal.id, 'completed')
-    this.toggleModal()
+    const removed_url = ReactDOM.findDOMNode(this.input)
+
+    if(removed_url) {
+      if(removed_url.value !== '') {
+        this.props.updateRemovalStatus(this.props.removalInProcess, removed_url.value)
+        this.props.hideModal()
+      } else {
+        this.setState({validation:'Please enter the removal url'})
+      }
+    } else {
+      this.props.updateRemovalStatus(this.props.removalInProcess)
+      this.props.hideModal()
+    }
   }
 
-  toggleModal() {
-    this.setState({showModal: !this.state.showModal, removal: {}})
+  renderModal() {
+    const {
+      showModal,
+      hideModal,
+      removalInProcess,
+    } = this.props
+
+    const {
+      id,
+      client_name,
+      age,
+      addresses,
+      site,
+      nextStatus,
+    } = removalInProcess
+
+    const renderTitle = removalInProcess.status === 'inprogress' ? 'Please confirm that this removal is complete' : 'Please provide the removal url'
+
+    const renderInput = (
+      <FormGroup>
+          Removal URL
+          <FormControl ref={(input) => this.input = input} type="text" placeholder='http://blitzmonitoring.com/'/>
+          <span className='text-danger'>{this.state.validation}</span>
+      </FormGroup>
+    )
+
+    return (
+      <Modal  show={showModal} onHide={hideModal}>
+        <Modal.Header>
+          <Modal.Title>{renderTitle}</Modal.Title>
+        </Modal.Header>
+
+        <Modal.Body>
+          <Table>
+            <thead>
+              <tr>
+                <th>
+                  id
+                </th>
+                <th>
+                  client name
+                </th>
+                <th>
+                  client age
+                </th>
+                <th>
+                  client address
+                </th>
+                <th>
+                  site Link
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr className='bg-gray-dark'>
+                <td>
+                  { id }
+                </td>
+                <td>
+                  { client_name }
+                </td>
+                <td>
+                  { age }
+                </td>
+                <td>
+                  { addresses ? addresses[0].address1 : ''}
+                </td>
+                <td>
+                  { site }
+                </td>
+              </tr>
+            </tbody>
+          </Table>
+          { nextStatus === 'inprogress' && renderInput }
+        </Modal.Body>
+
+        <Modal.Footer>
+          <Button onClick={hideModal}>Close</Button>
+          <Button bsStyle="danger" onClick={this._handleClick}>Submit</Button>
+        </Modal.Footer>
+      </Modal>
+    )
   }
+
 
   render() {
     const {
       removals,
-      pagination,
       isFetching,
       handleClick,
       pageNum,
-      getNextPage
+      getNextPage,
+      paginationItems,
+      showModal,
+      hideModal,
+      removalInProcess,
     } = this.props
 
     return (
       <div>
         {
-          !isFetching && pagination
+          !isFetching
             ?
               <Row>
                 <div className='text-center'>
                   <Pagination
                     bsSize="medium"
-                    items={this.paginationItems()}
+                    items={paginationItems}
                     activePage={pageNum}
                     boundaryLinks
                     maxButtons={5}
@@ -107,7 +199,6 @@ class RequestedRemovals extends Component {
                         removal={removal}
                         key={removal.id}
                         handleClick={handleClick}
-                        confirmRemovalComplete={this.confirmRemovalComplete}
                       />
                     )}
                   </tbody>
@@ -123,59 +214,7 @@ class RequestedRemovals extends Component {
                 </div>
                 }
 
-                <Modal  show={this.state.showModal} onHide={this.toggleModal}>
-                  <Modal.Header>
-                    <Modal.Title>Please Confirm</Modal.Title>
-                  </Modal.Header>
-
-                  <Modal.Body>
-                    <Table>
-                      <thead>
-                        <tr>
-                          <th>
-                            id
-                          </th>
-                          <th>
-                            client name
-                          </th>
-                          <th>
-                            client age
-                          </th>
-                          <th>
-                            client address
-                          </th>
-                          <th>
-                            site Link
-                          </th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr className='bg-gray-dark'>
-                          <td>
-                            { this.state.removal.id }
-                          </td>
-                          <td>
-                            { this.state.removal.client_name }
-                          </td>
-                          <td>
-                            { this.state.removal.age }
-                          </td>
-                          <td>
-                            { this.state.removal.addresses ? this.state.removal.addresses[0].address1 : ''}
-                          </td>
-                          <td>
-                            { this.state.removal.site }
-                          </td>
-                       </tr>
-                      </tbody>
-                    </Table>
-                      </Modal.Body>
-
-                  <Modal.Footer>
-                    <Button onClick={this.toggleModal}>Close</Button>
-                    <Button bsStyle="danger" onClick={this._handleClick}>Complete</Button>
-                  </Modal.Footer>
-              </Modal>
+                { this.renderModal() }
 
               </div>
     )

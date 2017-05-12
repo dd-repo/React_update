@@ -4,7 +4,7 @@ import ForgotPasswordComplete from './components/ForgotPasswordComplete';
 
 import { RoutedComponent, connect } from 'routes/routedComponent';
 import { CONTENT_VIEW_STATIC } from 'layouts/DefaultLayout/modules/layout';
-import { resetUserPassword } from 'modules/auth';
+import { resetUserPassword } from '../modules/auth';
 
 class ForgotPasswordContainer extends RoutedComponent {
   constructor(props) {
