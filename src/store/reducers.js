@@ -2,7 +2,7 @@ import { combineReducers } from 'redux';
 import { routerReducer as router } from 'react-router-redux';
 import { reducer as notifications } from 'react-notification-system-redux';
 import { reducer as form } from 'redux-form';
-import currentUser from 'modules/auth';
+import currentUser from 'routes/auth/modules/auth';
 import accounts from 'modules/accounts';
 import payment from 'routes/client/Payment/modules/payment';
 import keywords from 'routes/client/Keywords/modules/keywords';
@@ -16,7 +16,7 @@ import transactions from 'routes/admin/Dashboard/Transactions/modules/transactio
 import subscriptions from 'routes/admin/Dashboard/Subscriptions/modules/subscriptions';
 
 // for testing purposes
-import loggedInUser from 'modules/loggedInUser';
+//import loggedInUser from 'modules/loggedInUser';
 
 export const makeRootReducer = (asyncReducers) => {
   return combineReducers({
@@ -25,7 +25,7 @@ export const makeRootReducer = (asyncReducers) => {
     currentUser,
     googleResults,
     keywords,
-    loggedInUser,
+    //loggedInUser,
     layout,
     monitoring,
     payment,

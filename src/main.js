@@ -32,11 +32,6 @@ const defaultUserInfo = {
   role: 'signup',
 }
 
-const defaultLoggedInUser = {
-  email: 'joebob@email.com',
-  password: 'Password12'
-}
-
 const defaultPaymentInfo = {
   first_name: 'joe',
   last_name: 'bob',
@@ -69,7 +64,6 @@ const initialState = {
   accounts: loadPersistedData('accounts'),
   profile: loadPersistedData('profile'),
   clientSignupForm: defaultClientSignupForm,
-  //loggedInUser: defaultLoggedInUser,
 }
 
 const store = createStore(initialState, browserHistory)

@@ -5,7 +5,6 @@ import ProfileEdit from './components/ProfileEdit';
 import { CONTENT_VIEW_STATIC } from 'layouts/DefaultLayout/modules/layout';
 import {
   PROFILE_UPDATE_SUCCESS,
-  PROFILE_UPDATE_FAILURE,
   PROFILE_SUCCESS,
   getProfile,
   postUserProfile
@@ -90,14 +89,8 @@ class ProfileEditContainer extends RoutedComponent {
     switch(res.type) {
       case PROFILE_UPDATE_SUCCESS:
         this.fetchProfile()
-        this.setState({isFetching: false})
         break;
-      case PROFILE_UPDATE_FAILURE:
-        this.setState({
-          errorMessage: res.error.data.errorMessage
-        })
       case PROFILE_SUCCESS:
-        this.setState({isFetching: false})
         persistData(res.profile, 'profile')
         break;
       default:

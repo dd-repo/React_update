@@ -8,7 +8,7 @@ import {
   updateUserPassword,
   USER_LOGIN_SUCCESS,
   USER_LOGIN_FAILURE
-} from 'modules/auth';
+} from '../modules/auth';
 
 const persistDataToLocalStorage = data => {
   const { user, account } = data

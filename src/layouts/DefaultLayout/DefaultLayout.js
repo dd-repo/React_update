@@ -167,6 +167,10 @@ class DefaultLayout extends React.Component {
       removePersistedData();
     }
 
+    openFaqTab() {
+      window.open('http://blitzmonitoring.com/faq', '_blank')
+    }
+
     render() {
       const { role } = this.props.currentUser
       const isLoggedIn = localStorage.getItem('isLoggedIn')
@@ -351,9 +355,10 @@ class DefaultLayout extends React.Component {
                                           <LinkContainer to='/dashboard/privacy'>
                                             <MenuItem eventKey={3.4}>Privacy</MenuItem>
                                           </LinkContainer>
+                                          <MenuItem onClick={this.openFaqTab} eventKey={3.5}>FAQ</MenuItem>
                                           <MenuItem divider />
                                           <LinkContainer to='/login'>
-                                            <MenuItem onClick={this.handleLogout} eventKey={3.4}>Sign Out</MenuItem>
+                                            <MenuItem onClick={this.handleLogout} eventKey={3.6}>Sign Out</MenuItem>
                                           </LinkContainer>
                                         </NavDropdown>
                                         )

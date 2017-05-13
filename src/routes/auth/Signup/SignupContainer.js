@@ -9,7 +9,7 @@ import {
   removeErrorMessage,
   USER_SIGNUP_SUCCESS,
   USER_SIGNUP_FAILURE
-} from 'modules/auth';
+} from '../modules/auth';
 
 const persistDataToLocalStorage = data => {
   const { user, auth_token } = data

@@ -24,7 +24,7 @@ import {
   SIGNUP_REQUEST,
   LOGIN_REQUEST,
   default as reducer
-} from 'modules/auth'
+} from 'routes/auth/modules/auth'
 
 const middlewares = [ thunk ]
 const mockStore = configureMockStore(middlewares)
