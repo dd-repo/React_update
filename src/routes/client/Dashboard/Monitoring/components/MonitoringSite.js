@@ -11,6 +11,7 @@ const REMOVAL_STATUS = {
   'inprogress': { style: 'info', label: 'in progress' },
   'pending': { style: null, label: 'pending' },
   'completed': { style: 'success', label: 'protected' },
+  'protected': { style: 'success', label: 'protected' },
 };
 
 export default class MonitoringSite extends Component {
