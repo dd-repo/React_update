@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import Loading from 'react-loading';
 
 import Transaction from './Transaction';
@@ -12,99 +12,107 @@ import {
 
 
 
-export default class Transactions extends Component {
-  constructor(props) {
-    super(props)
+const Transactions = (props) => {
+  const {
+    transactions,
+    paginationItems,
+    pageNum,
+    getNextPage,
+    isFetching,
+  } = props
 
-    this.paginationItems = this.paginationItems.bind(this);
-  }
+  const renderLoader = (
+    isFetching &&
+      <div className='container'>
+        <div className="spinner">
+          <div className="col-md-12">
+            <Loading type='bubbles' color='white' />
+          </div>
+        </div>
+      </div>
+  )
 
-  paginationItems() {
-    const { total, limit } = this.props.pagination
-    return  Math.ceil(total / limit)
-  }
+  const renderPagination = (
+    !isFetching &&
+      <div className="text-center">
+        <Pagination
+          bsSize="medium"
+          items={paginationItems}
+          activePage={pageNum}
+          boundaryLinks
+          maxButtons={5}
+          prev
+          next
+          first
+          last
+          ellipsis
+          onSelect={getNextPage}
+        />
+      </div>
+  )
 
-  render() {
-    const {
-      transactions,
-      pagination,
-      pageNum,
-      getNextPage,
-      isFetching,
-    } = this.props
-
-    return (
-      <div>
+  const renderTransactions = (
+    !isFetching && transactions &&
+      <tbody>
         {
-          !isFetching && pagination
-            ?
-              <Row>
-                <div className="text-center">
-                  <Pagination
-                    bsSize="medium"
-                    items={this.paginationItems()}
-                    activePage={pageNum}
-                    boundaryLinks
-                    maxButtons={5}
-                    prev
-                    next
-                    first
-                    last
-                    ellipsis
-                    onSelect={getNextPage}
-                  />
-                </div>
-                <Table>
-                <thead>
-                  <tr>
-                    <th>
-                      id
-                    </th>
-                    <th>
-                      client name
-                    </th>
-                    <th>
-                      client email
-                    </th>
-                    <th>
-                      transaction id
-                    </th>
-                    <th>
-                      process date
-                    </th>
-                    <th>
-                      # of rounds
-                    </th>
-                    <th>
-                      subscription id
-                    </th>
-                    <th>
-                      type of deal
-                    </th>
-                    <th>
-                      sales rep
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {
-                    transactions.map(
-                      transaction => <Transaction transaction={transaction} key={transaction.id} />
-                    )}
-                  </tbody>
-                </Table>
-              </Row>
-              :
-                <div className='container'>
-                  <div className="spinner">
-                    <div className="col-md-12">
-                      <Loading type='bubbles' color='white' />
-                    </div>
-                  </div>
-                </div>
-                }
+          transactions.map(transaction => (
+            <Transaction
+              transaction={transaction}
+              key={transaction.id}
+            />
+            ))
+        }
+      </tbody>
+  )
 
-              </div>
-    )
-  }
+  return (
+    <Row>
+      { renderPagination }
+      <Table>
+        <thead>
+          <tr>
+            <th>
+              id
+            </th>
+            <th>
+              client name
+            </th>
+            <th>
+              client email
+            </th>
+            <th>
+              transaction id
+            </th>
+            <th>
+              process date
+            </th>
+            <th>
+              # of rounds
+            </th>
+            <th>
+              subscription id
+            </th>
+            <th>
+              type of deal
+            </th>
+            <th>
+              sales rep
+            </th>
+          </tr>
+        </thead>
+        { renderTransactions }
+      </Table>
+      { renderLoader }
+    </Row>
+  )
 }
+
+Transactions.PropTypes = {
+  transactions: PropTypes.array,
+  paginationItems: PropTypes.number,
+  pageNum: PropTypes.number,
+  isFetching: PropTypes.bool,
+  getNextPage: PropTypes.func.isRequired,
+}
+
+export default Transactions;

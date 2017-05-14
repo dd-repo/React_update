@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 
 import { DropdownButton, MenuItem, Button, Label } from 'components';
 
@@ -94,10 +94,8 @@ export default class RemovalRequested extends Component {
     )
   }
 }
-          //<Button
-            //bsStyle={removalStatus.style}
-            //disabled={isComplete}
-            //onClick={this._onClick}
-          //>
-            //{ removalStatus.buttonLabel }
-          //</Button>
+
+RemovalRequested.propTypes = {
+  removal: PropTypes.object,
+  handleClick: PropTypes.func.isRequired,
+}

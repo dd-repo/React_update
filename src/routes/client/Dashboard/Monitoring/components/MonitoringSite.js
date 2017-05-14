@@ -32,9 +32,9 @@ export default class MonitoringSite extends Component {
       const title = site.slice(0, -4)
       const clicked =  status !== 'pending'
       const { style, label } = REMOVAL_STATUS[status]
-
       const renderButtonLabel = clicked ? 'Requested' : 'Request Removal'
       const buttonStyle = clicked ? 'success' : 'danger'
+
     return (
         <tr className='bg-gray-darker' key={id}>
           <td>

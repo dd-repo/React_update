@@ -42,10 +42,17 @@ class TransactionsContainer extends RoutedComponent {
   }
 
   render() {
+    const { pagination } = this.props.transactions
+
+    const paginationItems = (
+      pagination &&
+        Math.ceil(pagination.total / pagination.limit)
+    )
+
     return (
       <Transactions
         transactions={this.props.transactions.all}
-        pagination={this.props.transactions.pagination}
+        paginationItems={paginationItems}
         pageNum={this.state.pageNum}
         isFetching={this.props.transactions.isFetching}
         getNextPage={this.getNextPage}
