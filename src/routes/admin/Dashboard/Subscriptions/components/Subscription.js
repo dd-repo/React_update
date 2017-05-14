@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import { Button } from 'components';
 
 import { formatDate } from 'utils/dateHelper';
@@ -77,4 +77,10 @@ export default class Subscription extends Component {
       </tr>
     )
   }
+}
+
+Subscription.propTypes = {
+  subscription: PropTypes.object,
+  handleClick: PropTypes.func.isRequired,
+  confirmCancelation: PropTypes.func.isRequired,
 }

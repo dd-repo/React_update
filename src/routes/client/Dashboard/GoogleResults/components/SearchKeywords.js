@@ -1,9 +1,7 @@
 import React, { Component, PropTypes } from 'react';
-import { Link } from 'react-router';
 import _ from 'underscore';
 
-import SearchKeyword from './SearchKeyword';
-import { Divider, FormControl } from 'components';
+import { FormControl } from 'components';
 import classes from './googleResults.scss'
 
 export default class SearchKeywords extends Component {
@@ -33,18 +31,18 @@ export default class SearchKeywords extends Component {
   }
 
   render() {
-    const { keywords, pagination } = this.props
-    const renderNumberOfResults = pagination ? `${pagination.total} Results` : ''
+    const { keywords, paginationTotal } = this.props
+
     return (
-    <div>
+      <div>
         <h3 className={classes.searchHeader}>
-            Google Results for <strong>"{ keywords.currentKeyword.value }"</strong>
-            <small className='m-l-1'>
-              { renderNumberOfResults }
-            </small>
+          Google Results for <strong>"{ keywords.currentKeyword.value }"</strong>
+          <small className='m-l-1'>
+            { paginationTotal } Results
+          </small>
         </h3>
-            { this.renderDropDownMenu() }
-    </div>
+        { this.renderDropDownMenu() }
+      </div>
     )
   }
 }
@@ -52,5 +50,5 @@ export default class SearchKeywords extends Component {
 SearchKeywords.propTypes = {
   keywords: PropTypes.object.isRequired,
   getResults: PropTypes.func.isRequired,
-  pagination: PropTypes.object
+  paginationTotal: PropTypes.number
 }

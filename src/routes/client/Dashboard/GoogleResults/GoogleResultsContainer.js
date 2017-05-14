@@ -12,10 +12,7 @@ import { CONTENT_VIEW_STATIC } from 'layouts/DefaultLayout/modules/layout';
 class GoogleResultsContainer extends RoutedComponent {
   constructor(props) {
     super(props)
-    this.state = {
-      isFetching: true,
-      pageNum: 1
-    }
+    this.state = { pageNum: 1 }
 
     this.getResults = this.getResults.bind(this);
     this.getNextPage = this.getNextPage.bind(this);
@@ -70,7 +67,7 @@ class GoogleResultsContainer extends RoutedComponent {
     const payload = { pageNum, keyword_id, account_id }
     this.props.addCurrentKeyword(keyword)
     this.props.getGoogleResults(payload);
-    this.setState({ isFetching: true, pageNum: parseInt(pageNum) })
+    this.setState({ pageNum: parseInt(pageNum) })
   }
 
   componentWillReceiveProps(nextProps) {
@@ -79,12 +76,25 @@ class GoogleResultsContainer extends RoutedComponent {
   }
 
   render() {
+    const { pagination } = this.props.googleResults
+    const paginationItems = (
+      pagination &&
+        Math.ceil( pagination.total / pagination.limit )
+    )
+
+    const paginationTotal = (
+      pagination &&
+        pagination.total
+    )
+
     return (
         <GoogleResults
           results={this.props.googleResults.all}
-          pagination={this.props.googleResults.pagination}
+          paginationItems={paginationItems}
+          paginationTotal={paginationTotal}
           keywords={this.props.keywords}
-          isFetching={this.state.isFetching}
+          currentKeyword={this.props.keywords.currentKeyword}
+          isFetching={this.props.googleResults.isFetching}
           getResults={this.getResults}
           getNextPage={this.getNextPage}
           pageNum={this.state.pageNum}

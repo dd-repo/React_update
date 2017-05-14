@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import ReactDOM from 'react-dom';
 import Loading from 'react-loading';
 
@@ -18,35 +18,47 @@ import {
   Alert,
 } from 'components';
 
-let validation;
-
 class RequestedRemovals extends Component {
   constructor(props) {
     super(props)
     this.state = {}
 
     this._handleClick = this._handleClick.bind(this);
-    this.renderModal = this.renderModal.bind(this);
+    this.updateRemovalStatus = this.updateRemovalStatus.bind(this);
+    this.validateUrlInput = this.validateUrlInput.bind(this);
   }
 
   _handleClick() {
     const removed_url = ReactDOM.findDOMNode(this.input)
 
-    if(removed_url) {
-      if(removed_url.value !== '') {
-        this.props.updateRemovalStatus(this.props.removalInProcess, removed_url.value)
-        this.props.hideModal()
-      } else {
-        this.setState({validation:'Please enter the removal url'})
-      }
-    } else {
-      this.props.updateRemovalStatus(this.props.removalInProcess)
-      this.props.hideModal()
-    }
+    removed_url && this.validateUrlInput(removed_url.value)
+
+    !removed_url && this.updateRemovalStatus()
   }
 
-  renderModal() {
+  validateUrlInput(url) {
+    url !== '' ?
+      (
+       this.updateRemovalStatus(url),
+       this.setState({validation: null})
+      )
+        :
+          this.setState({validation:'Please enter the removal url'})
+  }
+
+  updateRemovalStatus(url) {
+    this.props.updateRemovalStatus(this.props.removalInProcess, url)
+    this.props.hideModal()
+  }
+
+  render() {
     const {
+      removals,
+      isFetching,
+      handleClick,
+      pageNum,
+      getNextPage,
+      paginationItems,
       showModal,
       hideModal,
       removalInProcess,
@@ -59,9 +71,10 @@ class RequestedRemovals extends Component {
       addresses,
       site,
       nextStatus,
+      status,
     } = removalInProcess
 
-    const renderTitle = removalInProcess.status === 'inprogress' ? 'Please confirm that this removal is complete' : 'Please provide the removal url'
+    const renderTitle = status === 'inprogress' ? 'Please confirm that this removal is complete' : 'Please provide the removal url'
 
     const renderInput = (
       <FormGroup>
@@ -71,7 +84,7 @@ class RequestedRemovals extends Component {
       </FormGroup>
     )
 
-    return (
+    const renderModal = (
       <Modal  show={showModal} onHide={hideModal}>
         <Modal.Header>
           <Modal.Title>{renderTitle}</Modal.Title>
@@ -127,98 +140,101 @@ class RequestedRemovals extends Component {
         </Modal.Footer>
       </Modal>
     )
-  }
 
+    const renderPagination = (
+      !isFetching &&
+        <div className='text-center'>
+          <Pagination
+            bsSize="medium"
+            items={paginationItems}
+            activePage={pageNum}
+            boundaryLinks
+            maxButtons={5}
+            prev
+            next
+            first
+            last
+            ellipsis
+            onSelect={getNextPage}
+          />
+        </div>
+    )
 
-  render() {
-    const {
-      removals,
-      isFetching,
-      handleClick,
-      pageNum,
-      getNextPage,
-      paginationItems,
-      showModal,
-      hideModal,
-      removalInProcess,
-    } = this.props
+    const renderRemovals = (
+      !isFetching && removals &&
+        <tbody>
+          {
+            removals.map(
+              removal =>
+              <RequestedRemoval
+                removal={removal}
+                key={removal.id}
+                handleClick={handleClick}
+              />
+              )}
+            </tbody>
+    )
+
+    const renderLoader = (
+      isFetching &&
+        <div className='container'>
+          <div className="spinner">
+            <div className="col-md-12">
+              <Loading type='bubbles' color='white' />
+            </div>
+          </div>
+        </div>
+    )
 
     return (
-      <div>
-        {
-          !isFetching
-            ?
-              <Row>
-                <div className='text-center'>
-                  <Pagination
-                    bsSize="medium"
-                    items={paginationItems}
-                    activePage={pageNum}
-                    boundaryLinks
-                    maxButtons={5}
-                    prev
-                    next
-                    first
-                    last
-                    ellipsis
-                    onSelect={getNextPage}
-                  />
-                </div>
-
-                <Table>
-                  <thead>
-                  <tr>
-                    <th>
-                      id
-                    </th>
-                    <th>
-                      client name
-                    </th>
-                    <th>
-                      client age
-                    </th>
-                    <th>
-                      client address
-                    </th>
-                    <th>
-                      site Link
-                    </th>
-                    <th className='text-right'>
-                      status
-                    </th>
-                    <th>
-                      action
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {
-                    removals.map(
-                      removal =>
-                      <RequestedRemoval
-                        removal={removal}
-                        key={removal.id}
-                        handleClick={handleClick}
-                      />
-                    )}
-                  </tbody>
-                </Table>
-              </Row>
-              :
-                <div className='container'>
-                  <div className="spinner">
-                    <div className="col-md-12">
-                      <Loading type='bubbles' color='white' />
-                    </div>
-                  </div>
-                </div>
-                }
-
-                { this.renderModal() }
-
-              </div>
+      <Row>
+        { renderPagination }
+        <Table>
+          <thead>
+            <tr>
+              <th>
+                id
+              </th>
+              <th>
+                client name
+              </th>
+              <th>
+                client age
+              </th>
+              <th>
+                client address
+              </th>
+              <th>
+                site Link
+              </th>
+              <th className='text-right'>
+                status
+              </th>
+              <th>
+                action
+              </th>
+            </tr>
+          </thead>
+          { renderRemovals }
+        </Table>
+        { renderLoader }
+        { renderModal }
+      </Row>
     )
   }
+}
+
+RequestedRemovals.propTypes = {
+  removals: PropTypes.array,
+  pageNum: PropTypes.number,
+  isFetching: PropTypes.bool,
+  handleClick: PropTypes.func.isRequired,
+  getNextPage: PropTypes.func.isRequired,
+  paginationItems: PropTypes.number,
+  showModal: PropTypes.bool,
+  hideModal: PropTypes.func.isRequired,
+  removalInProcess: PropTypes.object,
+  updateRemovalStatus: PropTypes.func.isRequired,
 }
 
 export default RequestedRemovals;
