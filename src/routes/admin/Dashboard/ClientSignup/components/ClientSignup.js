@@ -28,14 +28,13 @@ const Signup = ({ notification, submitForm, resetForm, isFetching }) => {
             <Panel
               className={ classes.registerPanel }
               header={(
-                <Link to='/' className={ classes.toHomeLink }>
-                  <img src={ logo } alt='Back to Home' />
+                <Link to='#' className={ classes.toHomeLink }>
+                  <h2 className={ classes.panelHeader }>
+                    Client Registration
+                  </h2>
                 </Link>
                 )}
                 >
-                  <h2 className={ classes.panelHeader }>
-                    Client Signup
-                  </h2>
 
                   <ClientSignupForm
                     submitForm={submitForm}

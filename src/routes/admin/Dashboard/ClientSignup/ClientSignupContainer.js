@@ -13,11 +13,11 @@ class ClientSignupContainer extends RoutedComponent {
     super(props)
 
     this.state = {
-      //notification:
-        //{
-          //message: 'Client was successfully created',
-          //status: 'success'
-        //}
+      notification:
+        {
+          message: 'Client was successfully created',
+          status: 'success'
+        }
     }
 
     this.submitForm = this.submitForm.bind(this);
@@ -82,17 +82,17 @@ class ClientSignupContainer extends RoutedComponent {
   }
 
   handleSuccess() {
-    this.setState({isFetching: false})
     this.setState({
-      notification:
-        {
-          message: 'Client was successfully created',
-          status: 'success'
-        }})
-        //this.resetForm();
-        setTimeout(() => {
-          this.setState({notification: null});
-        }, 5000)
+      isFetching: false,
+      notification: {
+        message: 'Client was successfully created',
+        status: 'success'
+      }
+    })
+    this.resetForm();
+    setTimeout(() => {
+      this.setState({notification: null});
+    }, 5000)
   }
 
   handleFailure(error) {
