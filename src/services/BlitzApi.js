@@ -21,8 +21,11 @@ class BlitzApi {
   }
 
   handleError = (error) => {
-    if(error.response.status === 408) {
-      this.redirectTo(document, '/login')
+    const expiredToken = error.response.status === 408
+    const unauthorized = error.response.status === 401
+    if(expiredToken || unauthorized) {
+      window.location.pathname !== '/login' &&
+        this.redirectTo(document, '/login')
     }
     return Promise.reject(error)
   }
@@ -60,4 +63,3 @@ class BlitzApi {
 }
 
 export default new BlitzApi
-
