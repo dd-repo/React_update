@@ -11,18 +11,20 @@ import {
 } from '../modules/auth';
 
 const persistDataToLocalStorage = data => {
-  const { user, account } = data
-  const { accounts, access_token, role } = user
-  const { keywords, profile } = account
-  const keywordList = {all: keywords, currentKeyword: keywords[0]}
-  user.password = 'password12'
+  const { user, auth_token, account } = data
 
-  persistData(keywordList, 'keywords')
   persistData(user, 'currentUser');
-  persistData(accounts, 'accounts');
-  persistData(profile, 'profile');
-  persistData(access_token, 'authToken');
-  persistData(role, 'userRole');
+  persistData(auth_token, 'authToken');
+  persistData(true, 'isLoggedIn')
+
+  if(user.role === 'client') {
+    const { keywords, profile } = account
+    const keywordList = {all: keywords, currentKeyword: keywords[0]}
+
+    persistData(keywordList, 'keywords')
+    persistData(account, 'accounts');
+    persistData(profile, 'profile');
+  }
 }
 
 class CreatePasswordContainer extends RoutedComponent {

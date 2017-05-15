@@ -14,7 +14,6 @@ import {
 
 const persistDataToLocalStorage = data => {
   const { user, auth_token, account } = data
-  user.password = 'password12'
 
   persistData(user, 'currentUser');
   persistData(auth_token, 'authToken');
