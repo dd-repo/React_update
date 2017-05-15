@@ -12,13 +12,7 @@ class ClientSignupContainer extends RoutedComponent {
   constructor(props) {
     super(props)
 
-    this.state = {
-      notification:
-        {
-          message: 'Client was successfully created',
-          status: 'success'
-        }
-    }
+    this.state = {}
 
     this.submitForm = this.submitForm.bind(this);
     this.resetForm = this.resetForm.bind(this);

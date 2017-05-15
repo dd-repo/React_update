@@ -52,7 +52,7 @@ export const postUserLogin = payload => {
               dispatch(receiveClientLogin(response.data))
     ).catch(
     error =>
-    dispatch(receiveUserLoginError(error))
+    dispatch(receiveUserLoginFailure(error))
     )
   }
 }
@@ -62,10 +62,10 @@ export const updateUserPassword = payload => {
     dispatch(postingUserLogin())
     return BlitzApi.patch(UPDATE_PASSWORD_REQUEST, { user: payload })
     .then(
-      response => dispatch(receiveUserLogin(response.data)))
+      response => dispatch(receiveClientLogin(response.data)))
       .catch(
         error =>
-        dispatch(receiveUserLoginError(error)))
+        dispatch(receiveUserLoginFailure(error)))
   }
 }
 
@@ -122,7 +122,7 @@ export const receiveAdminLogin = data => (
   }
 )
 
-export const receiveUserLoginError = error => (
+export const receiveUserLoginFailure = error => (
   {
     type: USER_LOGIN_FAILURE,
     error
@@ -142,7 +142,7 @@ export const receiveForgotPassword = () => (
   }
 )
 
-export const recieveForgotPasswordError = (error) => (
+export const receiveForgotPasswordFailure = (error) => (
   {
     type: FORGOT_USER_PASSWORD_FAILURE,
     error
