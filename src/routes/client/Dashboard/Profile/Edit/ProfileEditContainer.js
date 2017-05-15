@@ -98,8 +98,8 @@ class ProfileEditContainer extends RoutedComponent {
 
   buildParams(data) {
     return {
-      avatar: this.state.avatarBase64,
-      driver_license: this.state.driverLicenseBase64,
+      avatar: this.state.avatarPreviewBase64,
+      driver_license: this.state.driverLicensePreviewBase64,
       first_name: data.first_name,
       last_name: data.last_name,
       middle_name: data.middle_name,
@@ -136,27 +136,13 @@ class ProfileEditContainer extends RoutedComponent {
     }
   }
 
-  checkImgOrientation() {
-    //if(this.state.avatarPreview) {
-      //const img = document.createElement('img');
-      //img.src = this.state.avatarPreview
-      //img.onload = () => {
-        ////debugger
-        ////if(this.isPortrait(img)) {
-        ////this.setState({style: {width: 236, height: 353}})
-        ////this.setState({className: 'img-portrait'})
-      //}
-    //}
-    return this.state.avatarPreview
-  }
-
   render() {
     return (
       <ProfileEdit
         submitForm={this.submitForm}
         onImageUpload={this.onImageUpload}
         profile={this.props.profile}
-        avatarPreview={this.checkImgOrientation()}
+        avatarPreview={this.state.avatarPreview}
         driverLicensePreview={this.state.driverLicensePreview}
         currentUser={this.props.currentUser}
         isFetching={this.props.profile.isFetching}
