@@ -6,6 +6,7 @@ import { CONTENT_VIEW_STATIC } from 'layouts/DefaultLayout/modules/layout';
 import {
   PROFILE_UPDATE_SUCCESS,
   PROFILE_SUCCESS,
+  PROFILE_UPDATE_FAILURE,
   getProfile,
   postUserProfile
 } from '../modules/profile';
@@ -44,17 +45,52 @@ class ProfileEditContainer extends RoutedComponent {
     if(!image[0]) {
       return
     }
+
+    if(!image[0].type.match(/image.*/)) {
+      this.setState({imgErrorMsg: 'the file is not an image'})
+    }
+
     this.setState({[name]: image[0].preview});
     this.getBase64(image[0], name)
   }
 
   getBase64(file, name) {
+    let img = document.createElement('img')
     let reader = new FileReader();
     reader.readAsDataURL(file)
 
-    reader.onload = event => {
-      this.setState({...this.state, [`${name}Base64`]: event.target.result})
+    reader.onload = e => {
+      img.src = e.target.result
+
+      img.onload = () => {
+        const MAX_WIDTH = 256;
+        const MAX_HEIGHT = 256;
+        let w = img.width;
+        let h = img.height;
+
+        if(w > h) {
+          if(w > MAX_WIDTH) {
+            h *= MAX_WIDTH / w
+            w = MAX_WIDTH
+          }
+        } else {
+          if(h > MAX_HEIGHT) {
+            w *= MAX_HEIGHT / h
+            h = MAX_HEIGHT
+          }
+        }
+
+        let canvas = document.createElement('canvas')
+        canvas.width = w
+        canvas.height = h
+
+        let ctx = canvas.getContext('2d')
+        ctx.drawImage(img, 0, 0, w, h)
+        const base64 = canvas.toDataURL('image/png')
+        this.setState({...this.state, [`${name}Base64`]: base64, [name]: base64})
+      }
     }
+
     reader.onerror = function(event) {
       console.log(`File could not be read! code ${event.target.error}`)
     }
@@ -93,9 +129,25 @@ class ProfileEditContainer extends RoutedComponent {
       case PROFILE_SUCCESS:
         persistData(res.profile, 'profile')
         break;
+        this.context.router.push('/dashboard/user-profile')
+        break;
       default:
        return null;
     }
+  }
+
+  checkImgOrientation() {
+    //if(this.state.avatarPreview) {
+      //const img = document.createElement('img');
+      //img.src = this.state.avatarPreview
+      //img.onload = () => {
+        ////debugger
+        ////if(this.isPortrait(img)) {
+        ////this.setState({style: {width: 236, height: 353}})
+        ////this.setState({className: 'img-portrait'})
+      //}
+    //}
+    return this.state.avatarPreview
   }
 
   render() {
@@ -104,9 +156,10 @@ class ProfileEditContainer extends RoutedComponent {
         submitForm={this.submitForm}
         onImageUpload={this.onImageUpload}
         profile={this.props.profile}
-        avatarPreview={this.state.avatar}
-        driverLicensePreview={this.state.driverLicense}
+        avatarPreview={this.checkImgOrientation()}
+        driverLicensePreview={this.state.driverLicensePreview}
         currentUser={this.props.currentUser}
+        isFetching={this.props.profile.isFetching}
       />
     )
   }

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import Dropzone from 'react-dropzone';
 
 import { Panel, Image } from 'components';
@@ -6,15 +6,35 @@ import { Panel, Image } from 'components';
 import classes from './Upload.scss';
 
 
-const Upload = ({ label, height, width, shape, input, onImageUpload, image }) => {
+export default class Upload extends Component {
+  constructor(props) {
+    super(props)
+
+    this.fileToUpload = this.fileToUpload.bind(this);
+  }
+
+  fileToUpload(file) {
+   this.props.onImageUpload(file, this.props.input.name)
+  }
+
+  render() {
+    const {
+      label,
+      height,
+      width,
+      shape,
+      input,
+      onImageUpload,
+      image
+    } = this.props
+        //maxSize={2097152}
     return (
       <Dropzone className={`text-center ${classes.uploadPanel}`}
         name={input.name}
-        onDrop={(file) => onImageUpload(file, input.name)}
+        onDrop={this.fileToUpload}
         accept='image/*'
         multiple={false}
         preventDropOnDocument={true}
-        maxSize={2097152}
       >
         {({ acceptedFiles, rejectedFiles }) => {
           return (
@@ -23,13 +43,14 @@ const Upload = ({ label, height, width, shape, input, onImageUpload, image }) =>
                 rejectedFiles.length > 0 &&
                   <p
                     className='text-danger'>
-                    Oh snap! Your image is either too large or not authorized
+                    Sorry! Your upload is not authorized. It must be an image.
                   </p>
                   }
                   {
                     image ?
                       <Image
                         src={image}
+                        backgroundText=''
                         height={ height }
                         width={ width }
                         shape={ shape }
@@ -47,7 +68,7 @@ const Upload = ({ label, height, width, shape, input, onImageUpload, image }) =>
                             Drag a file here or
                             <a
                               href="javascript:;"
-                              onClick={onImageUpload}> browse </a>
+                              onClick={this.fileToUpload}> browse </a>
                             for a file to upload.
                           </p>
                           <p className='small'>
@@ -59,6 +80,5 @@ const Upload = ({ label, height, width, shape, input, onImageUpload, image }) =>
         }}
       </Dropzone>
     )
+  }
 }
-
-export default Upload;
