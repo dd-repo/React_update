@@ -41,6 +41,7 @@ const MonitoringSites = props => {
   )
 
   return (
+    <div>
       <Table>
         <thead>
           <tr>
@@ -59,8 +60,9 @@ const MonitoringSites = props => {
           </tr>
         </thead>
           { renderTable }
-          { renderLoader }
       </Table>
+      { renderLoader }
+    </div>
   )
 }
 

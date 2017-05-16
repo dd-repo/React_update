@@ -4,6 +4,11 @@ import { Row, Col, Button, Divider } from 'components'
 
 import classes from './googleResults.scss';
 
+ const REQUEST_REMOVALS = {
+   'privacy': 'Privacy Removal',
+   'removal': 'Request Removal'
+ }
+
 export default class GoogleResult extends Component {
   constructor(props) {
     super(props)
@@ -12,19 +17,23 @@ export default class GoogleResult extends Component {
   }
 
  _onClick() {
-   this.props.handleRemoval(this.props.result.id)
+   const { id, is_type } = this.props.result
+   this.props.handleRemoval(id, is_type)
  }
 
  render() {
    const { result } = this.props
+   const disable = result.status ? true : false
+   const buttonLabel = disable ? 'requested' : REQUEST_REMOVALS[result.is_type]
+
    const renderRemovalButton = (
      result.listing_site_id &&
       <Button
         bsStyle='danger'
-        disabled={false}
+        disabled={disable}
         onClick={this._onClick}
       >
-        Request Removal
+        { buttonLabel }
       </Button>
   )
 

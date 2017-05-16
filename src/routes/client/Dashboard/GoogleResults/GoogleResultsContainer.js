@@ -1,4 +1,5 @@
 import React from 'react';
+import _ from 'underscore';
 
 import Loading from 'react-loading';
 
@@ -46,11 +47,15 @@ class GoogleResultsContainer extends RoutedComponent {
     this.getResults(this.props.keywords.currentKeyword, pageNum)
   }
 
-  handleRemoval(id) {
-    const payload = { request: { search_result_id: id }}
-    this.props.requestRemoval(payload)
-    .then( (res) => this.showAlertMessage())
-    .catch( (error) => this.showAlertMessage())
+  handleRemoval(id, selector) {
+    if(selector === 'removal') {
+      const payload = { request: { search_result_id: id }}
+      this.props.requestRemoval(payload)
+      .then( (res) => this.showAlertMessage())
+      .catch( (error) => this.showAlertMessage())
+    }else{
+      this.context.router.push('/dashboard/privacy')
+    }
   }
 
   showAlertMessage() {
@@ -77,6 +82,7 @@ class GoogleResultsContainer extends RoutedComponent {
 
   render() {
     const { pagination } = this.props.googleResults
+
     const paginationItems = (
       pagination &&
         Math.ceil( pagination.total / pagination.limit )
@@ -87,9 +93,13 @@ class GoogleResultsContainer extends RoutedComponent {
         pagination.total
     )
 
+    const sortedResults = (
+      _.sortBy(this.props.googleResults.all, 'rank')
+    )
+
     return (
         <GoogleResults
-          results={this.props.googleResults.all}
+          results={sortedResults}
           paginationItems={paginationItems}
           paginationTotal={paginationTotal}
           keywords={this.props.keywords}

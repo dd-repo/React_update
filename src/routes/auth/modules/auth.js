@@ -34,7 +34,7 @@ export const postUserSignup = payload => {
     .then(
       response => dispatch(receiveUserSignup(response.data)))
       .catch(
-        error => dispatch(receiveUserSignupError(error))
+        error => dispatch(receiveUserSignupFailure(error))
       )
   }
 }
@@ -95,7 +95,7 @@ export const receiveUserSignup = data => (
   }
 );
 
-export const receiveUserSignupError = error => (
+export const receiveUserSignupFailure = error => (
   {
     type: USER_SIGNUP_FAILURE,
     error
