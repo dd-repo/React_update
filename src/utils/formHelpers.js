@@ -14,64 +14,66 @@ export const checkValidation = (values, fields) => {
   }
   if(values.password && values.password.length < 8) {
     errors.password = 'Password must be at least 8 characters'
-  } else if(values.password && !/^(?=.*\d)(?=.*[a-z]).{8,}$/.test(values.password)) {
+  }else if(values.password && !/^(?=.*\d)(?=.*[a-z]).{8,}$/.test(values.password)) {
     errors.password = 'Password should contain atleast one number'
   }
-  if (values.creditCardNumber && values.creditCardNumber.length < 16) {
+  if(values.creditCardNumber && values.creditCardNumber.length < 16) {
     errors.creditCardNumber = 'Credit card number must be 16 digits long'
   }
-  if (values.expirationDate && values.expirationDate.length < 7) {
+  if(values.expirationDate && values.expirationDate.length < 7) {
     errors.expirationDate = 'Invalid expiration date'
   }
-  if (values.cvCode && values.cvCode.length < 3) {
+  if(values.cvCode && values.cvCode.length < 3) {
     errors.cvCode = 'Invalide CVC'
   }
-  if (values.zipcode && values.zipcode.length < 5) {
+  if(values.zipcode && values.zipcode.length < 5) {
     errors.zipcode = 'Zipcode must be 6 digits'
   }
+  if(values.phone_number && values.phone_number.length < 10) {
+    errors.phone_number = 'Phone number must be 10 digits'
+  }
   return errors;
-
 }
 
 export const normalizePhone = (value, previousValue) => {
-  if (!value) {
+  if(!value) {
     return value
   }
   const phoneNumber = onlyNums(value)
-  if (!previousValue || value.length > previousValue.length) {
-    if (phoneNumber.length === 3) {
+  if(!previousValue || value.length > previousValue.length) {
+    if(phoneNumber.length === 3) {
       return phoneNumber + '-'
     }
-    if (phoneNumber.length === 6) {
+    if(phoneNumber.length === 6) {
       return phoneNumber.slice(0, 3) + '-' + phoneNumber.slice(3) + '-'
     }
   }
-  if (phoneNumber.length <= 3) {
+  if(phoneNumber.length <= 3) {
     return phoneNumber
   }
-  if (phoneNumber.length <= 6) {
+  if(phoneNumber.length <= 6) {
     return phoneNumber.slice(0, 3) + '-' + phoneNumber.slice(3)
   }
   return phoneNumber.slice(0, 3) + '-' + phoneNumber.slice(3, 6) + '-' + phoneNumber.slice(6, 10)
 }
 
 export const normalizeDate = (value, previousValue) => {
-  if (!value) {
+  if(!value) {
     return value
   }
   const date = onlyNums(value)
-  if (!previousValue || value.length > previousValue.length) {
+  if(!previousValue || value.length > previousValue.length) {
     if (date.length === 2) {
       return date + '/'
     }
-    if (date.length === 4) {
+    if(date.length === 4) {
       return date.slice(0, 2) + '/' + date.slice(2) + '/'
     }
   }
-  if (date.length <= 2) {
+  if(date.length <= 2) {
     return date
   }
-  if (date.length <= 4) {
+  if(date.length <= 4) {
     return date.slice(0, 2) + '/' + date.slice(2)
   }
   return date.slice(0, 2) + '/' + date.slice(2, 4) + '/' + date.slice(4, 8)
@@ -82,27 +84,27 @@ export const normalizeCreditCard = (value, previousValue) => {
     return value
   }
   const cc = onlyNums(value)
-  if (!previousValue || value.length > previousValue.length) {
-    if (cc.length === 4) {
+  if(!previousValue || value.length > previousValue.length) {
+    if(cc.length === 4) {
       return cc + '-'
     }
-    if (cc.length === 8) {
+    if(cc.length === 8) {
       return cc.slice(0, 4) + '-' + cc.slice(4) + '-'
     }
-    if (cc.length === 12) {
+    if(cc.length === 12) {
       return cc.slice(0, 4) + '-' + cc.slice(4, 8) + '-' + cc.slice(8) + '-'
     }
-    if (cc.length === 16) {
+    if(cc.length === 16) {
       return cc.slice(0, 4) + '-' + cc.slice(4, 8) + '-' + cc.slice(8, 12) + '-' + cc.slice(12)
     }
   }
-  if (cc.length <= 4) {
+  if(cc.length <= 4) {
     return cc
   }
-  if (cc.length <= 8) {
+  if(cc.length <= 8) {
     return cc.slice(0, 4) + '-' + cc.slice(4)
   }
-  if (cc.length <= 12) {
+  if(cc.length <= 12) {
     return cc.slice(0, 4) + '-' + cc.slice(4, 8) + '-' + cc.slice(8)
   }
   return cc.slice(0, 4) + '-' + cc.slice(4, 8) + '-' + cc.slice(8, 12) + '-' + cc.slice(12, 16)
@@ -113,18 +115,18 @@ export const normalizeExDate = (value, previousValue) => {
     return value
   }
   const exDate = onlyNums(value)
-  if (!previousValue || value.length > previousValue.length) {
-    if (exDate.length === 2) {
+  if(!previousValue || value.length > previousValue.length) {
+    if(exDate.length === 2) {
       return exDate + '/'
     }
-    if (exDate.length === 6) {
+    if(exDate.length === 6) {
       return exDate.slice(0,2) + '/' + exDate.slice(2)
     }
   }
-  if (exDate.length <= 2) {
+  if(exDate.length <= 2) {
     return exDate
   }
-  if (exDate.length <= 6) {
+  if(exDate.length <= 6) {
     return exDate.slice(0,2) + '/' + exDate.slice(2)
   }
   return exDate.slice(0,2) + '/' + exDate.slice(2,6)

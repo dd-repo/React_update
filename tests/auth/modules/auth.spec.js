@@ -16,11 +16,11 @@ import {
   postUserLogin,
   postingUserSignup,
   receiveUserSignup,
-  receiveUserSignupError,
+  receiveUserSignupFailure,
   postingUserLogin,
   receiveClientLogin,
   receiveAdminLogin,
-  receiveUserLoginError,
+  receiveUserLoginFailure,
   SIGNUP_REQUEST,
   LOGIN_REQUEST,
   default as reducer
@@ -57,14 +57,14 @@ describe('(auth module) Auth', () => {
     })
   })
 
-  describe('(Action Creator) receiveUserSignupError', () => {
+  describe('(Action Creator) receiveUserSignupFailure', () => {
     it('Should return an action with type "USER_SIGNUP_FAILURE"', () => {
-      expect(receiveUserSignupError()).to.have.property('type', USER_SIGNUP_FAILURE)
+      expect(receiveUserSignupFailure()).to.have.property('type', USER_SIGNUP_FAILURE)
     })
 
     it('Should return an action with error', () => {
       let error = {testErrorMessage: 'errorMessage'}
-      expect(receiveUserSignupError(error)).to.have.property('error', error)
+      expect(receiveUserSignupFailure(error)).to.have.property('error', error)
     })
   })
 
@@ -86,14 +86,14 @@ describe('(auth module) Auth', () => {
     })
   })
 
-  describe('(Action Creator) receiveUserLoginError', () => {
+  describe('(Action Creator) receiveUserLoginFailure', () => {
     it('Should return an action with type "USER_LOGIN_FAILURE"', () => {
-      expect(receiveUserLoginError()).to.have.property('type', USER_LOGIN_FAILURE)
+      expect(receiveUserLoginFailure()).to.have.property('type', USER_LOGIN_FAILURE)
     })
 
     it('Should return an action with error', () => {
       let error = {testErrorMessage: 'errorMessage'}
-      expect(receiveUserLoginError(error)).to.have.property('error', error)
+      expect(receiveUserLoginFailure(error)).to.have.property('error', error)
     })
   })
 
@@ -141,6 +141,7 @@ describe('(auth module) Auth', () => {
 
       const resolved = new Promise((r) => r({ data: fakeResponse }));
       signupApi.returns(resolved);
+
 
       const expectedActions = [
         { type: USER_SIGNUP_POSTING },
@@ -379,8 +380,6 @@ describe('(auth module) Auth', () => {
     })
 
     it('should handle USER_SIGNUP_SUCCESS', () => {
-      //console.log('user success', reducer({isFetching: true}, { type: USER_SIGNUP_SUCCESS, data: fakeResponse}))
-      //console.log('compared to', currentUserSuccess)
       expect(reducer({ isFetching: true }, {
         type: USER_SIGNUP_SUCCESS,
         data: fakeResponse }))

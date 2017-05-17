@@ -136,7 +136,7 @@ class SignupForm extends Component {
 
         <button
           className='btn btn-primary m-b-2 pull-right'
-          disabled={disableButton || invalid || submitting}
+          disabled={disableButton && invalid || submitting}
           action="submit"
         >
           Register
