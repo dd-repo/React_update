@@ -101,7 +101,7 @@ const fields = {
     list: states
   },
   plan: {
-    list: ['individual', 'family']
+    list: ['individual']
   }
 }
 
