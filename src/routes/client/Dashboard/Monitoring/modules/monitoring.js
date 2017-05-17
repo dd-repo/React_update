@@ -24,29 +24,31 @@ export const getMonitoring = account_id => {
   }
 }
 
-export const requestRemoval = request_id => {
+export const monitoringRequestRemoval = request_id => {
   const path = `/dashboard/api/v1/monitoring/${request_id}`
   const payload = { request_status: 'requested' }
 
   return dispatch => {
     return BlitzApi.patch(path, payload)
     .then(
-      response => dispatch(removalRequestSuccess(response.status))
+      response => dispatch(removalRequestSuccess(response.data))
     ).catch(
     error => dispatch(removalRequestFailure(error))
     )
   }
 }
 
-const removalRequestSuccess = () => (
+const removalRequestSuccess = removal => (
   {
     type: MONITORING_UPDATE_SUCCESS,
+    removal
   }
 )
 
-const removalRequestFailure = () => (
+const removalRequestFailure = error => (
   {
-    type: MONITORING_UPDATE_FAILURE
+    type: MONITORING_UPDATE_FAILURE,
+    error
   }
 )
 
@@ -56,21 +58,28 @@ const gettingMonitoring = () => (
   }
 );
 
-const monitoringSuccess = (response) => (
+const monitoringSuccess = response => (
   {
     type: MONITORING_SUCCESS,
     response
   }
 )
 
-const monitoringFailure = (error) => (
+const monitoringFailure = error => (
   {
     type: MONITORING_FAILURE,
     error
   }
 )
 
-// reducer
+// reducers
+const updateMonitoringSite = (state, removal) => {
+  return [
+    ...state.filter(monitoring => monitoring.id !== removal.id),
+      Object.assign({}, removal)
+  ]
+}
+
 const reducer = (state = {}, action) => {
   switch(action.type) {
     case MONITORING_PENDING:
@@ -79,13 +88,17 @@ const reducer = (state = {}, action) => {
       });
     case MONITORING_SUCCESS:
       return Object.assign({}, state, {
-        sites: action.response.monitoring_requests,
+        all: action.response.monitoring_requests,
         isFetching: false
       });
     case MONITORING_FAILURE:
       return Object.assign({}, state, {
         isFetching: false,
         errorMessage: action.error
+      });
+    case MONITORING_UPDATE_SUCCESS:
+      return Object.assign({}, state, {
+        all: updateMonitoringSite(state.all, action.removal)
       });
     default:
       return state
