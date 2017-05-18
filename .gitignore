@@ -2,6 +2,7 @@
 
 # dependencies
 /node_modules
+/log/capistrano.log
 !/node_modules/@owczar
 
 # testing
