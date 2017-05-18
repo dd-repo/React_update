@@ -13,7 +13,7 @@ import {
 } from 'components';
 
 import { CONTENT_VIEW_FLUID } from 'layouts/DefaultLayout/modules/layout';
-import classes from './ForgotPassword.scss';
+import classes from './forgotPassword.scss';
 import logo from 'static/logos/logo-small.png';
 
 const ForgotPassword = ({ submitForm }) => {
