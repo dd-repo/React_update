@@ -13,7 +13,7 @@ import {
     Alert
 } from 'components';
 
-import classes from './CreatePassword.scss';
+import classes from './createPassword.scss';
 import logo from 'static/logos/logo-small.png';
 
 const CreatePassword = ({ submitForm, passwordErrorMsg, errorMessage, disableButton }) => {
