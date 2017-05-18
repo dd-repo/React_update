@@ -5,22 +5,18 @@ import classNames from 'classnames';
 import { Colors } from './../../consts';
 
 import Avatar from './Avatar';
+import defaultAvatar from 'static/avatars/defaultAvatar.png';
 
 import classes from './Avatar.scss';
 
+
 class AvatarImage extends React.Component {
     static defaultProps = {
-        src: null,
-        placeholder: (<i className='fa fa-user'></i>),
-        phColor: Colors.grayLight,
-        phBackgroundColor: Colors.grayDark
+        src: defaultAvatar,
     };
 
     static propTypes = {
         src: PropTypes.string,
-        placeholder: PropTypes.node,
-        phColor: PropTypes.string,
-        phBackgroundColor: PropTypes.string
     };
 
     constructor(props, context) {
@@ -35,38 +31,17 @@ class AvatarImage extends React.Component {
     render() {
         const otherProps = _.omit(this.props, [
             'src',
-            'placeholder',
-            'phColor',
-            'phBackgroundColor'
         ]);
 
-        const phStyle = {
-            color: this.props.phColor,
-            background: this.props.phBackgroundColor
-        };
 
-        const phClass = classNames(classes.avatarPlaceholder, classes.avatarContent);
+        const avatarPath = this.props.src ? this.props.src : defaultAvatar
 
         return (
             <Avatar { ...otherProps }>
-                {
-                    !this.state.imageLoadFailed ?
-                        (<img
-                            src={ this.props.src }
-                            className={ classes.avatarContent }
-                            onLoad={ () => this.setState({ imageLoaded: true }) }
-                            onError={ () => this.setState({ imageLoadFailed: true }) }
-                        />) : null
-                }
-                {
-                    !this.state.imageLoaded ?
-                        (<div
-                            className={ phClass }
-                            style={ phStyle }
-                        >
-                            { this.props.placeholder }
-                        </div>) : null
-                }
+              <img
+                src={ avatarPath }
+                className={ classes.avatarContent }
+              />
             </Avatar>
         );
     }

@@ -15,9 +15,7 @@ import { Colors } from 'consts';
 
 
 
-const AvatarAndStats = ({ currentUser, colorSidebar, avatar }) => {
-  const { first_name, last_name } = currentUser
-  const userName = `${first_name} ${last_name}`
+const AvatarAndStats = ({ fullName, colorSidebar, avatar }) => {
   return (
     <Sidebar.AddOn>
         {/*     Default Sidebar     */}
@@ -38,7 +36,7 @@ const AvatarAndStats = ({ currentUser, colorSidebar, avatar }) => {
                             componentClass='h5'
                             className='m-y-0'
                         >
-                        {userName}
+                        {fullName}
                         </Media.Heading>
                         <small></small>
                     </div>
@@ -61,7 +59,7 @@ const AvatarAndStats = ({ currentUser, colorSidebar, avatar }) => {
                 />
             </Link>
             <p className='text-white m-y-0'>
-                { userName }
+                { fullName }
             </p>
         </Sidebar.AddOnContent>
         {/*     BigIcons Sidebar     */}
@@ -82,7 +80,8 @@ const AvatarAndStats = ({ currentUser, colorSidebar, avatar }) => {
 
 AvatarAndStats.propTypes = {
   colorSidebar: React.PropTypes.bool,
-  currentUser: React.PropTypes.object.isRequired
+  fullName: React.PropTypes.string.isRequired,
+  avatar: React.PropTypes.string.isRequired
 };
 
 export default AvatarAndStats;

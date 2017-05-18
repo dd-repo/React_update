@@ -5,6 +5,8 @@ const colors = {
     gray:                                    '#383838',
     grayLight:                               '#444444',
     grayLighter:                             '#5c5c5c',
+    lightGray:                               '#BABBBE',
+    lighterGray:                             '#E7E8E9',
 
     brandWhite:                              'white',
 

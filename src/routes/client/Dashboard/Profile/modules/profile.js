@@ -10,7 +10,7 @@ export const PROFILE_FAILURE = 'PROFILE_FAILURE';
 
 // actions
 
-export const postUserProfile = (payload, profile_id) => {
+export const updateUserProfile = (payload, profile_id) => {
   const path = `/dashboard/api/v1/profiles/${profile_id}`
   return dispatch => {
     dispatch(postingProfile())
@@ -88,7 +88,7 @@ const reducer = (state = {}, action) => {
       })
     case PROFILE_UPDATE_SUCCESS:
       return Object.assign({}, state, {
-        // add attributes
+        isFetching: false
       })
     case PROFILE_UPDATE_FAILURE:
       return Object.assign({}, state, {

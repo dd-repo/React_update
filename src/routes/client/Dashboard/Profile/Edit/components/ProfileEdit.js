@@ -35,6 +35,7 @@ const urlSectionToName = section => {
 const ProfileEdit = (props) => {
   const {
     submitForm,
+    isFetching,
     onImageUpload,
     profile,
     currentUser,
@@ -84,6 +85,7 @@ const ProfileEdit = (props) => {
             profile={profile}
             avatarPreview={avatarPreview}
             driverLicensePreview={driverLicensePreview}
+            isFetching={isFetching}
           />
         </Col>
       </Row>

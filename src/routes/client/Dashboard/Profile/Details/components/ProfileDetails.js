@@ -39,7 +39,7 @@ const ProfileDetails = ({ profile }) => {
                 </OverlayTrigger>
               </span>
               <Image
-                src={profile.drivers_license}
+                src={profile.driver_license}
                 backgroundText='Driver License'
                 height={ 140 }
               width={ 240 }
