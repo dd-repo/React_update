@@ -9,7 +9,6 @@ import Notifications from 'react-notification-system-redux';
 import treeRandomizer from 'modules/treeRandomizer';
 import getLogoBySkin from './getLogoBySkin.js';
 import assignKeys, { findActiveNodes, CONFIGS } from './../../routes/routesStructure';
-import defaultAvatar from 'static/avatars/defaultAvatar.png';
 import { removePersistedData } from 'localStorage';
 
 import { Colors } from 'consts';
@@ -144,6 +143,9 @@ class DefaultLayout extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
+      if(nextProps.profile) {
+        console.log('nextProps', nextProps.profile)
+      }
       if(nextProps.currentUser.role !== this.props.currentUser.role) {
         this.setState({ sidebarConfigs: this.setSidebarConfigs(nextProps.currentUser.role) })
       }
@@ -183,17 +185,15 @@ class DefaultLayout extends React.Component {
         if(!isLoggedIn){ return '/login' }
       }
 
-      const profileUser = {
-        name: `${this.props.currentUser.first_name} ${this.props.currentUser.last_name}`,
-        avatar: defaultAvatar
-      };
-        const staticFootNavContainer =
-            !this.props.sidebarEnabled && this.props.contentView === CONTENT_VIEW_STATIC;
+      const fullName = `${this.props.currentUser.first_name} ${this.props.currentUser.last_name}`
+
+      const staticFootNavContainer =
+        !this.props.sidebarEnabled && this.props.contentView === CONTENT_VIEW_STATIC;
 
         //const navbarLogo = getLogoBySkin.navbar(this.props.navbarSkin, this.props.skinColor),
-           const sidebarOverlayLogo = getLogoBySkin.sidebar(this.props.sidebarSkin, 'overlay', this.props.skinColor),
-              sidebarBigLogo = getLogoBySkin.sidebar(this.props.sidebarSkin, 'big', this.props.skinColor),
-              sidebarSlimLogo = getLogoBySkin.sidebar(this.props.sidebarSkin, 'slim', this.props.skinColor);
+        const sidebarOverlayLogo = getLogoBySkin.sidebar(this.props.sidebarSkin, 'overlay', this.props.skinColor),
+          sidebarBigLogo = getLogoBySkin.sidebar(this.props.sidebarSkin, 'big', this.props.skinColor),
+            sidebarSlimLogo = getLogoBySkin.sidebar(this.props.sidebarSkin, 'slim', this.props.skinColor);
 
         return (
             <Layout
@@ -319,11 +319,11 @@ class DefaultLayout extends React.Component {
                                         title={
                                           <div className={ classes.buttonUser }>
                                             <span className="m-r-1 v-a-m">
-                                              { profileUser.name }
+                                              { fullName }
                                             </span>
                                             <AvatarImage
                                               size='small'
-                                              src={ profileUser.avatar }
+                                              src={ this.props.profile.avatar }
                                               style={{
                                                 width: '19px',
                                                 height: '19px'
@@ -369,7 +369,7 @@ class DefaultLayout extends React.Component {
                                         title={
                                           <div className={ classes.buttonUser }>
                                             <span className="m-r-1 v-a-m">
-                                              { profileUser.name }
+                                              { fullName }
                                             </span>
                                           </div>
                                           }
@@ -430,8 +430,8 @@ class DefaultLayout extends React.Component {
                         >
                           { /* Renders SidebarAddOn */ }
                           <SidebarAddOns.AvatarAndStatsAddOn
-                            avatar={defaultAvatar}
-                            currentUser={this.props.currentUser}
+                            avatar={this.props.profile.avatar}
+                            fullName={fullName}
                             colorSidebar={this.props.sidebarSkin === SKIN_COLOR}
                           />
                           <div className='sidebar-default-visible text-muted small text-uppercase sidebar-section p-y-2'>
@@ -580,7 +580,8 @@ const mapStateToProps = (state) => ({
     skinColor: state.layout.skinColor,
     rawContent: state.layout.rawContent,
     notifications: state.notifications,
-    currentUser: state.currentUser
+    currentUser: state.currentUser,
+    profile: state.profile,
 });
 
 const mapActionCreators = {

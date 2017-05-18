@@ -32,14 +32,15 @@ class Profile extends Component {
 
   renderUser() {
     const { first_name, last_name } = this.props.currentUser
+    const { avatar } = this.props.profile
     return (
       <div className={ classes.userDetails }>
         <Media>
           <Media.Left align='middle'>
             <AvatarImage
+              src={ avatar }
               size='large'
               statusPlacement='bottom'
-              src={ this.props.profile.avatar }
             />
           </Media.Left>
           <Media.Body>

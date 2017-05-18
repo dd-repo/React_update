@@ -29,12 +29,18 @@ const renderInput = ({ input, type }) => {
 
 const ProfileForm = ({
   submitForm,
+  isFetching,
   handleSubmit,
   onImageUpload,
   avatarPreview,
   driverLicensePreview,
   profile
 }) => {
+
+  const renderButtonLabel = (
+    isFetching ? 'Uploading Profile' : 'Update Profile'
+  )
+
   return (
     <div>
       <Panel
@@ -51,7 +57,7 @@ const ProfileForm = ({
                 </Col>
                 <Col sm={6}>
                   <Field
-                    name='avatarPreview'
+                    name='avatar'
                     label='Avatar'
                     height={ 140 }
                     width={ 140 }
@@ -68,7 +74,7 @@ const ProfileForm = ({
                 </Col>
                 <Col sm={6}>
                   <Field
-                    name='driverLicensePreview'
+                    name='driverLicense'
                     label='Driver license'
                     height={ 140 }
                     width={ 240 }
@@ -103,7 +109,12 @@ const ProfileForm = ({
                   />
                 </Col>
               </FormGroup>
-              <button className='btn btn-primary pull-right'>Update Profile</button>
+              <button
+                className='btn btn-primary pull-right'
+                disabled={isFetching}
+              >
+                { renderButtonLabel }
+              </button>
             </Form>
           </Panel>
         </div>

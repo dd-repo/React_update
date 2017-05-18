@@ -27,7 +27,7 @@ export default class Upload extends Component {
       onImageUpload,
       image
     } = this.props
-        //maxSize={2097152}
+
     return (
       <Dropzone className={`text-center ${classes.uploadPanel}`}
         name={input.name}
