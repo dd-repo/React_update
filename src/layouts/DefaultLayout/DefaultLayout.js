@@ -431,9 +431,6 @@ class DefaultLayout extends React.Component {
                             fullName={fullName}
                             colorSidebar={this.props.sidebarSkin === SKIN_COLOR}
                           />
-                          <div className='sidebar-default-visible text-muted small text-uppercase sidebar-section p-y-2'>
-                            <strong>Navigation</strong>
-                          </div>
                           <Sidebar.Menu
                             currentUrl={ this.props.location.pathname }
                             currentUserRole={ this.props.currentUser.role }
