@@ -59,12 +59,6 @@ class PaymentComplete extends React.Component {
                          Continue
                        </Button>
                      </Panel>
-                     <p className='text-center text-gray-light'>
-                       <strong>Blitz Monitoring</strong>
-                       <span className='text-gray-light'>
-                         © 2009 - 2017. Made by <i className="fa fa-fw fa-flash text-primary"></i> Denver, US
-                       </span>
-                     </p>
                    </Col>
                  </Row>
                </Col>
