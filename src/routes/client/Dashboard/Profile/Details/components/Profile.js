@@ -21,7 +21,7 @@ import ProfileDetails from './ProfileDetails';
 
 import { Colors } from 'consts';
 
-import classes from '../../Profile.scss';
+import classes from '../../profile.scss';
 
 class Profile extends Component {
   constructor(props) {
