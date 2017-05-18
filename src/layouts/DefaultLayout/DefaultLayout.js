@@ -143,9 +143,6 @@ class DefaultLayout extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
-      if(nextProps.profile) {
-        console.log('nextProps', nextProps.profile)
-      }
       if(nextProps.currentUser.role !== this.props.currentUser.role) {
         this.setState({ sidebarConfigs: this.setSidebarConfigs(nextProps.currentUser.role) })
       }

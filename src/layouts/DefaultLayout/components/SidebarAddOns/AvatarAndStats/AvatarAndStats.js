@@ -81,7 +81,7 @@ const AvatarAndStats = ({ fullName, colorSidebar, avatar }) => {
 AvatarAndStats.propTypes = {
   colorSidebar: React.PropTypes.bool,
   fullName: React.PropTypes.string.isRequired,
-  avatar: React.PropTypes.string.isRequired
+  avatar: React.PropTypes.string
 };
 
 export default AvatarAndStats;

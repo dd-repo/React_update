@@ -12,15 +12,12 @@ import {
 } from '../modules/auth';
 
 const persistDataToLocalStorage = data => {
-  const { user, auth_token } = data
-  const { accounts } = user
-  // testing purposes
-  user.phone_number = '808-555-5555'
-  user.password = 'password12';
+  const { user, auth_token, account } = data
 
   persistData(user, 'currentUser');
-  persistData(accounts, 'accounts');
+  persistData(account, 'accounts');
   persistData(auth_token, 'authToken');
+  persistData(account.profile, 'profile');
 }
 
 class SignupContainer extends RoutedComponent {

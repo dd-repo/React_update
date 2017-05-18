@@ -1,6 +1,9 @@
 import BlitzApi from 'services/BlitzApi';
 
-import { USER_LOGIN_SUCCESS } from 'routes/auth/modules/auth';
+import {
+  USER_LOGIN_SUCCESS,
+  USER_SIGNUP_SUCCESS
+} from 'routes/auth/modules/auth';
 
 export const PROFILE_UPDATE_POSTING = 'PROFILE_UPDATE_POSTING';
 export const PROFILE_UPDATE_SUCCESS = 'PROFILE_UPDATE_SUCCESS';
@@ -80,6 +83,17 @@ const profileGetFailure = error => {
 }
 
 // reducer
+
+const addProfile = (state, profile) => {
+  return Object.assign({}, state, {
+    avatar: profile.avatar,
+    driver_license: profile.driver_license,
+    id: profile.id,
+    maiden_name: profile.maiden_name,
+    middle_name: profile.middle_name
+  })
+}
+
 const reducer = (state = {}, action) => {
   switch(action.type) {
     case PROFILE_UPDATE_POSTING:
@@ -96,21 +110,11 @@ const reducer = (state = {}, action) => {
         error: action.error
       })
     case PROFILE_SUCCESS:
-      return Object.assign({}, state, {
-        avatar: action.profile.avatar,
-        driver_license: action.profile.driver_license,
-        id: action.profile.id,
-        maiden_name: action.profile.maiden_name,
-        middle_name: action.profile.middle_name
-      })
+      return addProfile(state, action.profile)
     case USER_LOGIN_SUCCESS:
-      return Object.assign({}, state, {
-        avatar: action.data.account.profile.avatar,
-        driver_license: action.data.account.profile.driver_license,
-        id: action.data.account.profile.id,
-        maiden_name: action.data.account.profile.maiden_name,
-        middle_name: action.data.account.profile.middle_name
-      })
+      return addProfile(state, action.data.account.profile)
+    case USER_SIGNUP_SUCCESS:
+      return addProfile(state, action.data.account.profile)
     default:
       return state
   }
