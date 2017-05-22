@@ -86,8 +86,8 @@ const profileGetFailure = error => {
 
 const addProfile = (state, profile) => {
   return Object.assign({}, state, {
-    avatar: profile.avatar,
-    driver_license: profile.driver_license,
+    avatar: profile.avatar_url,
+    driver_license: profile.driver_license_url,
     id: profile.id,
     maiden_name: profile.maiden_name,
     middle_name: profile.middle_name

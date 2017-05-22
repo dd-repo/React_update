@@ -17,10 +17,11 @@ const handleRouteOnEnter = (store, nextState, replace) => {
 
 const authTransition = (store, nextState, replace) => {
   const pathname = nextState.location.pathname
-  const { currentUser } = store.getState()
+  const { currentUser, keywords } = store.getState()
 
   if(pathname.startsWith('/dashboard')) {
     validateClient(currentUser, replace)
+    validateKeywords(keywords, replace)
   }
 
   if(pathname.startsWith('/admin/dashboard')) {
@@ -43,6 +44,10 @@ const validateAdmin = (currentUser, replace) => {
 
   !auth_token && replace('/login')
   !isAdmin && replace('/login')
+}
+
+const validateKeywords = (keywords, replace) => {
+  !keywords.all.length > 0 && replace('/keywords')
 }
 
 

@@ -109,15 +109,15 @@ const dropDownSelect = ({ input }) => {
   const { name } = input
   const list = fields[[name]].list
 
-return (
-  <FormControl {...input} componentClass='select'>
-    <option value=''>Select a {name}...</option>
-    {list.map(state =>
+  return (
+    <FormControl {...input} componentClass='select'>
+      <option value=''>Select a {name}...</option>
+      {list.map(state =>
                 <option value={state} key={state}>{state}</option>
                 )
-    }
-  </FormControl>
-)
+      }
+    </FormControl>
+  )
 }
 
 const validate = values => {
@@ -346,7 +346,7 @@ ClientRegistrationForm = reduxForm({
 
 ClientRegistrationForm = connect(
   state => ({
-    initialValues: state.clientSignupForm
+    initialValues: state.clientRegistrationForm
   })
 )(ClientRegistrationForm)
 

@@ -26,8 +26,6 @@ export default class GoogleResults extends Component {
     this._onClick = this._onClick.bind(this);
   }
 
-
-
   _onClick() {
     this.props.getResults(this.props.keywords.currentKeyword)
   }

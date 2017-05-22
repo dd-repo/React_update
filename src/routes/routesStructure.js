@@ -1,43 +1,42 @@
-import React from 'react';
 import {
     Label,
     Badge
-} from 'components';
+} from 'components'
 
-import uuid from 'node-uuid';
-import _ from 'underscore';
+import uuid from 'node-uuid'
+import _ from 'underscore'
 
-//import { getMenuEntries as getSkinMenuEntries } from './Skins';
-//import { getMenuEntries as getSidebarsMenuEntries } from './Sidebars';
+// import { getMenuEntries as getSkinMenuEntries } from './Skins';
+// import { getMenuEntries as getSidebarsMenuEntries } from './Sidebars';
 
 export const CONFIGS = {
-  'signup': [
-    {
-      slug: 'Sign Up',
-      title: 'Sign Up',
-      url: '/signup',
-      children: [
-        {
-          slug: 'Payment',
-          title: 'Payment',
-          url: '/payment-info',
-          children: [
-            {
-              slug: 'Keywords',
-              title: 'Keywords',
-              url: '/keywords',
-            },
-          ]
-        },
-      ]
-    },
-  ],
+  //'signup': [
+    //{
+      //slug: 'Sign Up',
+      //title: 'Sign Up',
+      //url: '/signup',
+      //children: [
+        //{
+          //slug: 'Payment',
+          //title: 'Payment',
+          //url: '/payment-info',
+          //children: [
+            //{
+              //slug: 'Keywords',
+              //title: 'Keywords',
+              //url: '/keywords',
+            //}
+          //]
+        //}
+      //]
+    //}
+  //],
   'client': [
     {
       slug: 'Google Results',
       title: 'Google Results',
       url: '/dashboard',
-      icon: 'fa fa-google fa-lg',
+      icon: 'fa fa-google fa-lg'
     },
     {
       slug: 'Privacy',
@@ -45,19 +44,19 @@ export const CONFIGS = {
       icon: 'fa fa-shield fa-lg',
       url: '/dashboard/privacy'
     },
-    //{
-      //slug: 'Alerts',
-      //title: 'Alerts',
-      //icon: 'fa fa-fw fa-lg fa-bell',
-      //url: '/dashboard/alerts',
-      ////sidebarElement: (<Badge bsStyle='info' outline className='pull-right'>2</Badge>)
-      ////children: getSidebarsMenuEntries()
-    //},
+    // {
+      // slug: 'Alerts',
+      // title: 'Alerts',
+      // icon: 'fa fa-fw fa-lg fa-bell',
+      // url: '/dashboard/alerts',
+      // sidebarElement: (<Badge bsStyle='info' outline className='pull-right'>2</Badge>)
+      // children: getSidebarsMenuEntries()
+    // },
     {
       slug: 'profile',
       title: 'Profile',
       icon: 'fa fa-lock fa-lg',
-      url: '/dashboard/user-profile',
+      url: '/dashboard/user-profile'
       //children: [
         //{
           //title: 'Profile Details',
@@ -80,7 +79,7 @@ export const CONFIGS = {
     {
       slug: 'Removals',
       title: 'Removals',
-      url: '/admin/dashboard',
+      url: '/admin/dashboard'
       //children: [
         //{
           //title: 'In Progress',
@@ -103,11 +102,6 @@ export const CONFIGS = {
       ]
     },
     {
-      slug: 'Client Signup Form',
-      title: 'Client Registration',
-      url: '/admin/dashboard/client-registration'
-    },
-    {
       slug: 'transactions',
       title: 'Transactions',
       url: '/admin/dashboard/transactions'
@@ -117,6 +111,16 @@ export const CONFIGS = {
       title: 'Subscriptions',
       url: '/admin/dashboard/subscriptions'
     },
+    {
+      slug: 'Client Signup Form',
+      title: 'Client Registration',
+      url: '/admin/dashboard/client-registration'
+    },
+    {
+      slug: 'Create User Form',
+      title: 'Create User',
+      url: '/admin/dashboard/create-user'
+    }
   ]
 }
 

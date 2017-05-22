@@ -123,19 +123,19 @@ export default [
     //},
     {
       path: '/admin/dashboard/client-registration',
-        getComponent: (nextState, cb) => {
-            require.ensure([], require => {
-              cb(null, require('./admin/Dashboard/ClientRegistration').default);
-            }, 'admin-dashboard-client-registration');
-        }
+      getComponent: (nextState, cb) => {
+        require.ensure([], require => {
+          cb(null, require('./admin/Dashboard/ClientRegistration').default);
+        }, 'admin-dashboard-client-registration');
+      }
     },
     {
       path: '/admin/dashboard/transactions',
-        getComponent: (nextState, cb) => {
-            require.ensure([], require => {
-              cb(null, require('./admin/Dashboard/Transactions').default);
-            }, 'admin-dashboard-transactions');
-        }
+      getComponent: (nextState, cb) => {
+        require.ensure([], require => {
+          cb(null, require('./admin/Dashboard/Transactions').default);
+        }, 'admin-dashboard-transactions');
+      }
     },
     {
       path: '/admin/dashboard/users/clients',
@@ -155,14 +155,22 @@ export default [
     },
     {
       path: '/admin/dashboard/subscriptions',
-        getComponent: (nextState, cb) => {
-            require.ensure([], require => {
-              cb(null, require('./admin/Dashboard/Subscriptions').default);
-            }, 'admin-dashboard-subscriptions');
-        }
+      getComponent: (nextState, cb) => {
+        require.ensure([], require => {
+          cb(null, require('./admin/Dashboard/Subscriptions').default);
+        }, 'admin-dashboard-subscriptions');
+      }
     },
     {
-        path: '*',
-        component: require('./Pages/NotFound').default
+      path: '/admin/dashboard/create-user',
+      getComponent: (nextState, cb) => {
+        require.ensure([], require => {
+          cb(null, require('./admin/Dashboard/CreateUser').default);
+        }, 'admin-dashboard-create-user');
+      }
+    },
+    {
+      path: '*',
+      component: require('./Pages/NotFound').default
     }
 ];

@@ -45,6 +45,7 @@ export const postUserLogin = payload => {
     return BlitzApi.post(LOGIN_REQUEST, { user: payload })
     .then(
       response =>
+      //console.log('response', response.data)
       response.data.user.role === 'admin'
         ?
           dispatch(receiveAdminLogin(response.data))
