@@ -1,5 +1,5 @@
 import React from 'react';
-import ClientSignup from './components/ClientSignup';
+import ClientRegistration from './components/ClientRegistration';
 import { reset } from 'redux-form';
 
 import { RoutedComponent, connect } from 'routes/routedComponent';
@@ -100,12 +100,12 @@ class ClientSignupContainer extends RoutedComponent {
   }
 
   resetForm() {
-    this.context.store.dispatch(reset('ClientSignupForm'));
+    this.context.store.dispatch(reset('ClientRegistrationForm'));
   }
 
   render() {
     return (
-      <ClientSignup
+      <ClientRegistration
         submitForm={this.submitForm}
         resetForm={this.resetForm}
         isFetching={this.state.isFetching || false}

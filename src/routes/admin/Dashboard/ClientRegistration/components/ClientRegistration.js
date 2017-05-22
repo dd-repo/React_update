@@ -1,9 +1,9 @@
 import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
 
-import ClientSignupForm from './ClientSignupForm';
+import ClientRegistrationForm from './ClientRegistrationForm';
 import logo from 'static/logos/logo-small.png';
-import classes from './clientSignup.scss';
+import classes from './clientRegistration.scss';
 import {
     Row,
     Col,
@@ -36,7 +36,7 @@ const Signup = ({ notification, submitForm, resetForm, isFetching }) => {
                 )}
                 >
 
-                  <ClientSignupForm
+                  <ClientRegistrationForm
                     submitForm={submitForm}
                     isFetching={isFetching}
                   />

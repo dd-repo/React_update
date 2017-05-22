@@ -11,7 +11,7 @@ import profile from 'routes/client/Dashboard/Profile/modules/profile';
 import monitoring from 'routes/client/Dashboard/Monitoring/modules/monitoring';
 import layout from 'layouts/DefaultLayout/modules/layout';
 import requestedRemovals from 'routes/admin/Dashboard/Removals/modules/removalRequests';
-import clientSignupForm from 'routes/admin/Dashboard/ClientSignup/modules/clientSignup';
+import clientRegistrationForm from 'routes/admin/Dashboard/ClientRegistration/modules/clientRegistration';
 import transactions from 'routes/admin/Dashboard/Transactions/modules/transactions';
 import subscriptions from 'routes/admin/Dashboard/Subscriptions/modules/subscriptions';
 
@@ -33,7 +33,7 @@ export const makeRootReducer = (asyncReducers) => {
     requestedRemovals,
     router,
     form,
-    clientSignupForm,
+    clientRegistrationForm,
     notifications,
     transactions,
     subscriptions,

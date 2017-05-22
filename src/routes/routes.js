@@ -122,11 +122,11 @@ export default [
         //}
     //},
     {
-      path: '/admin/dashboard/client-signup',
+      path: '/admin/dashboard/client-registration',
         getComponent: (nextState, cb) => {
             require.ensure([], require => {
-              cb(null, require('./admin/Dashboard/ClientSignup').default);
-            }, 'admin-dashboard-removals-in-progress');
+              cb(null, require('./admin/Dashboard/ClientRegistration').default);
+            }, 'admin-dashboard-client-registration');
         }
     },
     {

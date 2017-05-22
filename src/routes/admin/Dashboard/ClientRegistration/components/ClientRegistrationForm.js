@@ -182,7 +182,7 @@ const renderField = (props) => {
   )
 }
 
-let ClientSignupForm = (props) => {
+let ClientRegistrationForm = (props) => {
   const {
     isFetching,
     submitForm,
@@ -334,22 +334,22 @@ let ClientSignupForm = (props) => {
   )
 }
 
-ClientSignupForm.propTypes = {
+ClientRegistrationForm.propTypes = {
   submitForm: PropTypes.func.isRequired,
   errorMessage: PropTypes.string
 }
 
-ClientSignupForm = reduxForm({
-  form: 'ClientSignupForm',  // a unique identifier for this form
+ClientRegistrationForm = reduxForm({
+  form: 'ClientRegistrationForm',  // a unique identifier for this form
   validate                // <--- validation function given to redux-form
-})(ClientSignupForm)
+})(ClientRegistrationForm)
 
-ClientSignupForm = connect(
+ClientRegistrationForm = connect(
   state => ({
     initialValues: state.clientSignupForm
   })
-)(ClientSignupForm)
+)(ClientRegistrationForm)
 
-export default ClientSignupForm
+export default ClientRegistrationForm
 
 

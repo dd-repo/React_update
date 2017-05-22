@@ -90,8 +90,8 @@ export const CONFIGS = {
     },
     {
       slug: 'Client Signup Form',
-      title: 'Client Signup',
-      url: '/admin/dashboard/client-signup'
+      title: 'Client Registration',
+      url: '/admin/dashboard/client-registration'
     },
     {
       slug: 'transactions',

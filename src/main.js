@@ -53,17 +53,17 @@ const defaultKeywords = {
   currentKeyword: {value:'joe bob'}
 }
 
-const defaultClientSignupForm = {
+const defaultClientRegistrationForm = {
   creditCardNumber: '4242424242424242'
 }
 
 const initialState = {
   currentUser: loadPersistedData('currentUser'),
-  payment: defaultClientSignupForm,
+  payment: defaultClientRegistrationForm,
   keywords: loadPersistedData('keywords'),
   accounts: loadPersistedData('accounts'),
   profile: loadPersistedData('profile'),
-  clientSignupForm: defaultClientSignupForm,
+  clientRegistrationForm: defaultClientRegistrationForm,
 }
 
 const store = createStore(initialState, browserHistory)
