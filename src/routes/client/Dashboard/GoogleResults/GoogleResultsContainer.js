@@ -27,10 +27,7 @@ class GoogleResultsContainer extends RoutedComponent {
   }
 
   componentWillMount() {
-    this.props.keywords.all ?
-      this.getResults(this.props.keywords.all[0])
-        :
-          this.context.router.goBack()
+    this.getResults(this.props.keywords.all[0])
   }
 
   getLayoutOptions() {

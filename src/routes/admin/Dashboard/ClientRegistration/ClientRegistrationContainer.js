@@ -8,7 +8,7 @@ import BlitzApi from 'services/BlitzApi';
 
 const CLIENT_SIGNUP_REQUEST = '/admin/api/signup';
 
-class ClientSignupContainer extends RoutedComponent {
+class ClientRegistrationContainer extends RoutedComponent {
   constructor(props) {
     super(props)
 
@@ -107,7 +107,6 @@ class ClientSignupContainer extends RoutedComponent {
     return (
       <ClientRegistration
         submitForm={this.submitForm}
-        resetForm={this.resetForm}
         isFetching={this.state.isFetching || false}
         notification={this.state.notification}
       />
@@ -123,5 +122,4 @@ const mapActionCreators = {
   reset
 }
 
-export default connect(mapStateToProps, mapActionCreators)(ClientSignupContainer);
-
+export default connect(mapStateToProps, mapActionCreators)(ClientRegistrationContainer);

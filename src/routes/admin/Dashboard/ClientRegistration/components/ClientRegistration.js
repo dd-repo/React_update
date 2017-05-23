@@ -12,7 +12,7 @@ import {
     Alert
 } from 'components';
 
-const Signup = ({ notification, submitForm, resetForm, isFetching }) => {
+const ClientRegistration = ({ notification, submitForm, isFetching }) => {
 
   const renderMessage = notification &&
     <Alert bsStyle={notification.status}>
@@ -49,11 +49,9 @@ const Signup = ({ notification, submitForm, resetForm, isFetching }) => {
   )
 }
 
-Signup.propTypes = {
+ClientRegistration.propTypes = {
   submitForm: PropTypes.func.isRequired,
   errorMessage: PropTypes.string
 }
 
-export default Signup;
-
-
+export default ClientRegistration;
