@@ -11,6 +11,13 @@ import {
   UPDATE_STATUS_FAILURE
 } from './modules/removalRequests'
 
+const removalStatus = {
+  'requested': 'requested',
+  'in-progress': 'inprogress',
+  'completed': 'completed',
+  'dashboard': 'requested'
+}
+
 class RequestedRemovalsContainer extends RoutedComponent {
   constructor(props) {
     super(props)
@@ -41,17 +48,28 @@ class RequestedRemovalsContainer extends RoutedComponent {
     router: React.PropTypes.object.isRequired
   }
 
-  componentWillMount() {
-    this.fetchRemovalsRequested()
+  componentWillReceiveProps(nextProps) {
+    nextProps.route.path !== this.props.route.path &&
+      this.fetchRemovalsRequested(this.state.pageNum, this.getStatus(nextProps.route.path))
   }
 
-  fetchRemovalsRequested(pageNum) {
-    this.props.getRemovalsRequested(pageNum)
+  componentWillMount() {
+    this.fetchRemovalsRequested(this.state.pageNum, this.getStatus())
+  }
+
+  getStatus(path) {
+    if(!path) { path = this.props.route.path }
+    const status = path.split('/').pop()
+    return { q: { request_status_is_type_eq: removalStatus[status] } }
+  }
+
+  fetchRemovalsRequested(pageNum, params) {
+    this.props.getRemovalsRequested(pageNum, params)
   }
 
   getNextPage(pageNum) {
     this.setState({ pageNum: parseInt(pageNum) })
-    this.fetchRemovalsRequested(pageNum)
+    this.fetchRemovalsRequested(pageNum, this.getStatus())
   }
 
   hideModal() {

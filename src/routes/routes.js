@@ -113,6 +113,30 @@ export default [
             }, 'admin-dashboard-removals-pending');
         }
     },
+    {
+      path: '/admin/dashboard/removals/requested',
+        getComponent: (nextState, cb) => {
+            require.ensure([], require => {
+              cb(null, require('./admin/Dashboard/Removals').default);
+            }, 'admin-dashboard-removals-pending');
+        }
+    },
+    {
+      path: '/admin/dashboard/removals/in-progress',
+        getComponent: (nextState, cb) => {
+            require.ensure([], require => {
+              cb(null, require('./admin/Dashboard/Removals').default);
+            }, 'admin-dashboard-removals-pending');
+        }
+    },
+    {
+      path: '/admin/dashboard/removals/completed',
+        getComponent: (nextState, cb) => {
+            require.ensure([], require => {
+              cb(null, require('./admin/Dashboard/Removals').default);
+            }, 'admin-dashboard-removals-pending');
+        }
+    },
     //{
       //path: '/admin/dashboard/removals/in-progress',
         //getComponent: (nextState, cb) => {

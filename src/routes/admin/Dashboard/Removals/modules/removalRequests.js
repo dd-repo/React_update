@@ -8,14 +8,14 @@ export const UPDATING_STATUS = 'UPDATING_STATUS';
 export const UPDATE_STATUS_SUCCESS = 'UPDATE_STATUS_SUCCESS';
 export const UPDATE_STATUS_FAILURE = 'UPDATE_STATUS_FAILURE';
 export const PAGE_NUMBER_UPDATE = 'PAGE_NUMBER_UPDATE';
-export const ADMIN_REMOVAL_REQUEST_PATH = '/admin/api/monitoring-requests';
+export const ADMIN_REMOVAL_REQUEST_PATH = '/admin/api/monitoring-requests/search';
 
 // actions
-export const getRemovalsRequested = pageNum => {
+export const getRemovalsRequested = (pageNum, params) => {
   const path = `${ADMIN_REMOVAL_REQUEST_PATH}/${pageNum}`
   return dispatch => {
     dispatch(gettingRemovalRequests())
-    return BlitzApi.get(path)
+    return BlitzApi.get(path, params)
     .then(
       response => dispatch(receivedRemovalRequests(response.data))
     ).catch(

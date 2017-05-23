@@ -10,27 +10,6 @@ import _ from 'underscore'
 // import { getMenuEntries as getSidebarsMenuEntries } from './Sidebars';
 
 export const CONFIGS = {
-  //'signup': [
-    //{
-      //slug: 'Sign Up',
-      //title: 'Sign Up',
-      //url: '/signup',
-      //children: [
-        //{
-          //slug: 'Payment',
-          //title: 'Payment',
-          //url: '/payment-info',
-          //children: [
-            //{
-              //slug: 'Keywords',
-              //title: 'Keywords',
-              //url: '/keywords',
-            //}
-          //]
-        //}
-      //]
-    //}
-  //],
   'client': [
     {
       slug: 'Google Results',
@@ -79,13 +58,20 @@ export const CONFIGS = {
     {
       slug: 'Removals',
       title: 'Removals',
-      url: '/admin/dashboard'
-      //children: [
-        //{
-          //title: 'In Progress',
-          //url: '/admin/dashboard/removals/in-progress'
-        //}
-      //]
+      children: [
+        {
+          title: 'Requested',
+          url: '/admin/dashboard/removals/requested'
+        },
+        {
+          title: 'In Progress',
+          url: '/admin/dashboard/removals/in-progress'
+        },
+        {
+          title: 'Completed',
+          url: '/admin/dashboard/removals/completed'
+        }
+      ]
     },
     {
       slug: 'Users',
