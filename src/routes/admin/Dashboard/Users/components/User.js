@@ -14,13 +14,15 @@ const User = (props) => {
     created_at
   } = props.user
 
+  const fullName = `${first_name} ${last_name}`
+
   return (
     <tr className='bg-gray-darker' key={id}>
       <td>
         { id }
       </td>
       <td>
-        { first_name }
+        { fullName }
       </td>
       <td>
         { email }
@@ -43,4 +45,3 @@ User.propTypes = {
 }
 
 export default User;
-
