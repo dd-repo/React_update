@@ -38,7 +38,7 @@ class TransactionsContainer extends RoutedComponent {
   getNextPage(pageNum) {
     console.log('pageNum', pageNum)
     this.setState({ pageNum: parseInt(pageNum) })
-    this.fetchRemovalsRequested(pageNum)
+    this.fetchTransactions(pageNum)
   }
 
   render() {
