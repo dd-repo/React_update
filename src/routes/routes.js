@@ -138,6 +138,22 @@ export default [
         }
     },
     {
+      path: '/admin/dashboard/users/clients',
+      getComponent: (nextState, cb) => {
+        require.ensure([], require => {
+          cb(null, require('./admin/Dashboard/Users').default);
+        }, 'admin-dashboard-users-clients');
+      }
+    },
+    {
+      path: '/admin/dashboard/users/admin',
+      getComponent: (nextState, cb) => {
+        require.ensure([], require => {
+          cb(null, require('./admin/Dashboard/Users').default);
+        }, 'admin-dashboard-users-admin');
+      }
+    },
+    {
       path: '/admin/dashboard/subscriptions',
         getComponent: (nextState, cb) => {
             require.ensure([], require => {

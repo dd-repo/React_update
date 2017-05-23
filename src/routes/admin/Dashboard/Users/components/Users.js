@@ -1,7 +1,7 @@
-import React, { Component, PropTypes } from 'react';
+import React, { PropTypes } from 'react';
 import Loading from 'react-loading';
 
-import Transaction from './Transaction';
+import User from './User';
 import {
   Table,
   Label,
@@ -10,9 +10,9 @@ import {
   Pagination
 } from 'components';
 
-const Transactions = (props) => {
+const Users = (props) => {
   const {
-    transactions,
+    users,
     paginationItems,
     pageNum,
     getNextPage,
@@ -49,14 +49,14 @@ const Transactions = (props) => {
       </div>
   )
 
-  const renderTransactions = (
-    !isFetching && transactions &&
+  const renderUsers = (
+    !isFetching && users &&
       <tbody>
         {
-          transactions.map(transaction => (
-            <Transaction
-              transaction={transaction}
-              key={transaction.id}
+          users.map(user => (
+            <User
+              user={user}
+              key={user.id}
             />
             ))
         }
@@ -73,44 +73,35 @@ const Transactions = (props) => {
               id
             </th>
             <th>
-              client name
+              User name
             </th>
             <th>
-              client email
+              User email
             </th>
             <th>
-              transaction id
+              Group
             </th>
             <th>
-              process date
+              Role
             </th>
             <th>
-              # of rounds
-            </th>
-            <th>
-              subscription id
-            </th>
-            <th>
-              type of deal
-            </th>
-            <th>
-              sales rep
+              Created At
             </th>
           </tr>
         </thead>
-        { renderTransactions }
+        { renderUsers }
       </Table>
       { renderLoader }
     </Row>
   )
 }
 
-Transactions.PropTypes = {
-  transactions: PropTypes.array,
+Users.propTypes = {
+  users: PropTypes.array,
   paginationItems: PropTypes.number,
   pageNum: PropTypes.number,
   isFetching: PropTypes.bool,
-  getNextPage: PropTypes.func.isRequired,
+  getNextPage: PropTypes.func.isRequired
 }
 
-export default Transactions;
+export default Users
