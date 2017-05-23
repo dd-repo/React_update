@@ -4,20 +4,19 @@ import BlitzApi from 'services/BlitzApi';
 export const TRANSACTIONS_PENDING = 'TRANSACTIONS_PENDING';
 export const TRANSACTIONS_SUCCESS = 'TRANSACTIONS_SUCCESS';
 export const TRANSACTIONS_FAILURE = 'TRANSACTIONS_FAILURE';
+
 export const TRANSACTIONS_REQUEST = '/admin/api/transactions';
 
 // actions
 export const getTransactions = pageNum => {
-  //const path = ADMIN_REMOVAL_REQUEST_PATH + `/${pageNum}`
+  const path = `${TRANSACTIONS_REQUEST}/${pageNum}`
   return dispatch => {
     dispatch(gettingTransactions())
-    return BlitzApi.get(TRANSACTIONS_REQUEST)
+    return BlitzApi.get(path)
     .then(
       response => dispatch(receiveTransactions(response.data))
-      //response => console.log('response', response)
     ).catch(
     error => dispatch(rejectTransactions(error))
-    //error => console.log('error', error)
     )
   }
 }

@@ -34,10 +34,10 @@ class BlitzApi {
     document.location = path
   }
 
-  get(path) {
+  get(path, params) {
     const authToken = getAuthToken();
     this.client.defaults.headers.common['Authorization'] = authToken
-    return this.client.get(path)
+    return this.client.get(path, { params })
   }
 
   patch(path, payload) {

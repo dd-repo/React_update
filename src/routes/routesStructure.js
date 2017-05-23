@@ -89,6 +89,20 @@ export const CONFIGS = {
       //]
     },
     {
+      slug: 'Users',
+      title: 'Users',
+      children: [
+        {
+          title: 'Clients',
+          url: '/admin/dashboard/users/clients'
+        },
+        {
+          title: 'Admin',
+          url: '/admin/dashboard/users/admin'
+        }
+      ]
+    },
+    {
       slug: 'Client Signup Form',
       title: 'Client Registration',
       url: '/admin/dashboard/client-registration'
