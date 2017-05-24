@@ -1,6 +1,6 @@
-const API_URL = {
+const BASE_URL = {
   'development': 'http://localhost:3000',
   'production' : 'https://api.blitzmonitoring.com'
 }
 
-export const BASE_URL = API_URL[process.env.NODE_ENV]
+export default BASE_URL[process.env.NODE_ENV]

@@ -14,8 +14,8 @@ export const CONFIGS = {
     {
       slug: 'Google Results',
       title: 'Google Results',
-      url: '/dashboard',
-      icon: 'fa fa-google fa-lg'
+      icon: 'fa fa-google fa-lg',
+      url: '/dashboard'
     },
     {
       slug: 'Privacy',
@@ -58,6 +58,7 @@ export const CONFIGS = {
     {
       slug: 'Removals',
       title: 'Removals',
+      icon: 'fa fa-times fa-lg',
       children: [
         {
           title: 'Requested',
@@ -76,6 +77,7 @@ export const CONFIGS = {
     {
       slug: 'Users',
       title: 'Users',
+      icon: 'fa fa-user fa-lg',
       children: [
         {
           title: 'Clients',
@@ -90,21 +92,25 @@ export const CONFIGS = {
     {
       slug: 'transactions',
       title: 'Transactions',
+      icon: 'fa fa-credit-card fa-lg',
       url: '/admin/dashboard/transactions'
     },
     {
       slug: 'subscriptions',
       title: 'Subscriptions',
+      icon: 'fa fa-newspaper-o fa-lg',
       url: '/admin/dashboard/subscriptions'
     },
     {
       slug: 'Client Signup Form',
       title: 'Client Registration',
+      icon: 'fa fa-user-plus fa-lg',
       url: '/admin/dashboard/client-registration'
     },
     {
       slug: 'Create User Form',
       title: 'Create User',
+      icon: 'fa fa-user-secret fa-lg',
       url: '/admin/dashboard/create-user'
     }
   ]

@@ -54,6 +54,15 @@ export default class RemovalRequested extends Component {
     const removalStatus = REMOVAL_STATUS[status]
     const renderStatus = status === 'protected' ? 'completed' : status
 
+    const renderButton = (
+      !isComplete &&
+        <DropdownButton onSelect={this._onSelect} title='Actions' bsStyle='danger' id='dropdown-basic-4' bsSize='lg' className='m-b-1'>
+          <MenuItem eventKey="inprogress">In Progress</MenuItem>
+          <MenuItem eventKey="completed">Complete</MenuItem>
+          <MenuItem eventKey="protected">Protected</MenuItem>
+        </DropdownButton>
+    )
+
     return (
       <tr className='bg-gray-darker' key={id}>
         <td>
@@ -84,11 +93,7 @@ export default class RemovalRequested extends Component {
           </Label>
         </td>
         <td>
-          <DropdownButton onSelect={this._onSelect} title='Actions' bsStyle='danger' id='dropdown-basic-4' bsSize='lg' className='m-b-1'>
-            <MenuItem eventKey="inprogress">In Progress</MenuItem>
-            <MenuItem eventKey="completed">Complete</MenuItem>
-            <MenuItem eventKey="protected">Protected</MenuItem>
-          </DropdownButton>
+          { renderButton }
         </td>
       </tr>
     )

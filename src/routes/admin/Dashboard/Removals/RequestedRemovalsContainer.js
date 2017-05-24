@@ -84,14 +84,16 @@ class RequestedRemovalsContainer extends RoutedComponent {
     const { id, nextStatus } = removal
     const payload = { request_id: id, status: nextStatus, removed_url }
     this.props.updateStatus(payload)
-    .then( (res) => this.fetchRemovalsRequested(this.state.pageNum))
-    .catch( error => { console.log('error in admin removals', error) })
+    //.then( (res) => this.fetchRemovalsRequested(this.state.pageNum, this.getStatus()))
+    //.catch( error => { console.log('error in admin removals', error) })
   }
 
   handleClick(removal) {
-    const { nextStatus } = removal
-    nextStatus === 'protected' && this.updateRemovalStatus(removal)
-    nextStatus !== 'protected' && this.showModal(removal)
+    removal.nextStatus === 'protected'
+      ?
+        this.updateRemovalStatus(removal)
+        :
+          this.showModal(removal)
   }
 
   render() {

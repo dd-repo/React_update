@@ -2,7 +2,7 @@ import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 
 import BlitzApi from 'services/BlitzApi';
-import { BASE_URL } from 'consts/apis';
+import BASE_URL from 'consts/baseUrl';
 import {
   GOOGLE_RESULTS_SUCCESS,
   GOOGLE_RESULTS_POSTING,

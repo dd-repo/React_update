@@ -8,11 +8,11 @@ export const UPDATING_STATUS = 'UPDATING_STATUS';
 export const UPDATE_STATUS_SUCCESS = 'UPDATE_STATUS_SUCCESS';
 export const UPDATE_STATUS_FAILURE = 'UPDATE_STATUS_FAILURE';
 export const PAGE_NUMBER_UPDATE = 'PAGE_NUMBER_UPDATE';
-export const ADMIN_REMOVAL_REQUEST_PATH = '/admin/api/monitoring-requests/search';
+export const ADMIN_REMOVAL_REQUEST_PATH = '/admin/api/monitoring-requests';
 
 // actions
 export const getRemovalsRequested = (pageNum, params) => {
-  const path = `${ADMIN_REMOVAL_REQUEST_PATH}/${pageNum}`
+  const path = `${ADMIN_REMOVAL_REQUEST_PATH}/search/${pageNum}`
   return dispatch => {
     dispatch(gettingRemovalRequests())
     return BlitzApi.get(path, params)
@@ -29,7 +29,9 @@ export const updateStatus = payload => {
     dispatch(updatingStatus())
     return BlitzApi.patch(ADMIN_REMOVAL_REQUEST_PATH, payload)
     .then(
-      response => dispatch(receivedUpdateStatus())
+      response =>
+      //console.log('response', response)
+      dispatch(receivedUpdateStatus(response.data))
     ).catch(
     error => dispatch(rejectedUpdateStatus(error))
     )
@@ -62,9 +64,10 @@ export const updatingStatus = () => (
   }
 )
 
-export const receivedUpdateStatus = () => (
+export const receivedUpdateStatus = data => (
   {
-    type: UPDATE_STATUS_SUCCESS
+    type: UPDATE_STATUS_SUCCESS,
+    data
   }
 )
 
@@ -75,34 +78,34 @@ export const rejectedUpdateStatus = error => (
   }
 )
 
-const testRemoval = {
-  id: 12,
-  created_at: "2017-05-12T12:50:03.902-07:00",
-  updated_at: "2017-05-12T15:52:40.484-07:00",
-  site: "whitepages.com",
-  status: "completed",
-  status_label: "completed",
-  client_name: "god zilla",
-  age: 17,
-  addresses: [{
-    id: 1,
-    address1: "123",
-    address2: null,
-    city: "denver",
-    state: "AL",
-    zip: "12424",
-    country: null,
-    created_at: "2017-05-12T12:49:57.110-07:00",
-    updated_at: "2017-05-12T12:49:57.110-07:00",
-    account_id: 1,
-  }],
-  is_active: false,
-}
+//const testRemoval = {
+  //id: 12,
+  //created_at: "2017-05-12T12:50:03.902-07:00",
+  //updated_at: "2017-05-12T15:52:40.484-07:00",
+  //site: "whitepages.com",
+  //status: "completed",
+  //status_label: "completed",
+  //client_name: "god zilla",
+  //age: 17,
+  //addresses: [{
+    //id: 1,
+    //address1: "123",
+    //address2: null,
+    //city: "denver",
+    //state: "AL",
+    //zip: "12424",
+    //country: null,
+    //created_at: "2017-05-12T12:49:57.110-07:00",
+    //updated_at: "2017-05-12T12:49:57.110-07:00",
+    //account_id: 1,
+  //}],
+  //is_active: false,
+//}
 // reducer
 const updateRemovals = (removals, action) => {
+  debugger
   return [
-    ...removals.filter(removal => removal.id !== testRemoval.id),
-      Object.assign({}, testRemoval)
+    ...removals.filter(removal => removal.id !== action.data.id)
   ]
 }
 
