@@ -14,6 +14,10 @@ export class RoutedComponent extends React.Component{
     componentDidMount() {
         const options = this.getLayoutOptions();
 
+        //if(localStorage.getItem('authToken')) {
+
+        //}
+
         if(this.props.setCurrentPageSettings) {
             this.props.setCurrentPageSettings(options);
         }

@@ -22,7 +22,7 @@ describe('(RequestedMovals module)', () => {
     expect(ADMIN_REQUESTED_REMOVALS_PENDING).to.equal('ADMIN_REQUESTED_REMOVALS_PENDING')
     expect(ADMIN_REQUESTED_REMOVALS_SUCCESS).to.equal('ADMIN_REQUESTED_REMOVALS_SUCCESS')
     expect(ADMIN_REQUESTED_REMOVALS_FAILURE).to.equal('ADMIN_REQUESTED_REMOVALS_FAILURE')
-    expect(ADMIN_REMOVAL_REQUEST_PATH).to.equal('/admin/api/monitoring-requests')
+    expect(ADMIN_REMOVAL_REQUEST_PATH).to.equal('/admin/api/monitoring-requests/search')
   })
 
   describe('(Action Creator) gettingRemovalRequests', () => {

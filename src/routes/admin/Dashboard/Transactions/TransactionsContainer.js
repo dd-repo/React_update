@@ -36,7 +36,6 @@ class TransactionsContainer extends RoutedComponent {
   }
 
   getNextPage(pageNum) {
-    console.log('pageNum', pageNum)
     this.setState({ pageNum: parseInt(pageNum) })
     this.fetchTransactions(pageNum)
   }

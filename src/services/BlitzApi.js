@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 import { getAuthToken } from 'localStorage';
-import { BASE_URL } from 'consts/apis';
+import BASE_URL from 'consts/baseUrl';
 
 class BlitzApi {
   constructor() {

@@ -2,7 +2,7 @@ import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 
 import BlitzApi from 'services/BlitzApi';
-import { BASE_URL } from 'consts/apis';
+import BASE_URL from 'consts/baseUrl';
 import { PAYMENT_SUCCESS } from 'routes/client/Payment/modules/payment';
 import {
   USER_SIGNUP_SUCCESS,
