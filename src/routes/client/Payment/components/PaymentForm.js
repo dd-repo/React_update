@@ -136,7 +136,7 @@ let PaymentForm = (props) => {
       <p>
         All major credit cards are accepted through a secure payment process
       </p>
-      <button className="btn btn-success pull-right"
+      <button className="full-width btn btn-success"
         disabled={invalid || submitting}
         action="submit">
           { buttonLabel }

@@ -57,7 +57,7 @@ const AddressForm = (props) => {
         {renderField(fields.zipcode)}
       </FormGroup>
       <button
-        className="btn btn-success pull-right"
+        className="full-width btn btn-success"
         disabled={invalid || submitting}
         action="submit">
         Protect Address
