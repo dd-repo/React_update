@@ -135,7 +135,7 @@ class SignupForm extends Component {
         </Checkbox>
 
         <button
-          className='btn btn-primary m-b-2 pull-right'
+          className='full-width btn btn-primary m-b-2'
           disabled={disableButton || disableButton && invalid || submitting}
           action="submit"
         >
