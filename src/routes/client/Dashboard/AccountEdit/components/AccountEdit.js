@@ -13,7 +13,8 @@ import {
   ControlLabel,
   Radio,
   Button,
-  Divider
+  Divider,
+  Modal,
 } from 'components';
 
 import { Colors } from 'consts';
@@ -25,8 +26,30 @@ const AccountEdit = (props) => {
     disableButton,
     submitForm,
     passwordErrorMsg,
-    alert
+    alert,
+    handleCancelSubscription,
+    showModal,
+    hideModal,
+    confirmCancel
   } = props
+
+  const renderModal = (
+    <Modal  show={showModal} onHide={hideModal}>
+      <Modal.Header>
+        <Modal.Title>Cancel Subscription</Modal.Title>
+      </Modal.Header>
+
+      <Modal.Body>
+        <p>Are you sure you want to cancel your subscription?</p>
+      </Modal.Body>
+        <Modal.Footer>
+          <Button onClick={hideModal}>Close</Button>
+          <Button bsStyle="danger" onClick={() => handleCancelSubscription()}>Cancel Subscription</Button>
+        </Modal.Footer>
+      </Modal>
+  )
+
+
 
   const renderMessage = (
     alert &&
@@ -39,6 +62,7 @@ const AccountEdit = (props) => {
   return (
     <div>
       {renderMessage}
+      {renderModal}
       <Panel
         className='m-b-2'
         header={
@@ -84,7 +108,11 @@ const AccountEdit = (props) => {
               <p>
                 Once you delete your account, there is no going back. Please be certain.
               </p>
-              <Button bsStyle='danger' className='btn-outline'>
+              <Button
+                bsStyle='danger'
+                className='btn-outline'
+                onClick={() => confirmCancel()}
+              >
                 Delete Your Account
               </Button>
             </Panel>
