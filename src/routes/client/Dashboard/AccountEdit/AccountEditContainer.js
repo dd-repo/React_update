@@ -1,15 +1,21 @@
 import React from 'react';
+import BlitzApi from 'services/BlitzApi';
+import { reset } from 'redux-form';
 
 import { RoutedComponent, connect } from 'routes/routedComponent';
 import { CONTENT_VIEW_STATIC } from 'layouts/DefaultLayout/modules/layout';
 import AccountEdit from './components/AccountEdit';
 
+const PASSWORD_UPDATE_REQUEST = '/dashboard/api/v1/users'
+
 class AccountEditContainer extends RoutedComponent {
   constructor(props) {
     super(props)
-    this.state = {disableButton: false}
+    this.state = {}
 
-
+    this.passwordsMatch = this.passwordsMatch.bind(this);
+    this.submitForm = this.submitForm.bind(this);
+    this.resetForm = this.resetForm.bind(this);
   }
 
   getLayoutOptions() {
@@ -22,29 +28,48 @@ class AccountEditContainer extends RoutedComponent {
     }
   }
 
-  componentWillReceiveProps(nextProps) {
-    const { UpdatePasswordForm } = nextProps.form
-    UpdatePasswordForm && UpdatePasswordForm.values &&
-      this.validatePassword(UpdatePasswordForm.values)
+  static contextTypes = {
+    store: React.PropTypes.object.isRequired
   }
 
-  validatePassword({ password, passwordConfirmation }) {
-    if(password && passwordConfirmation) {
-      password === passwordConfirmation && this.setState({disableButton: false})
+  handleSuccessfulUpdate() {
+    this.resetForm()
+    this.setState({alert: {message: 'Your password has been successfully updated!', style: 'success'}})
+  }
 
-      let letter = passwordConfirmation.charAt(passwordConfirmation.length-1)
-      let index = passwordConfirmation.indexOf(letter)
+  handleFailedUpdate() {
+    this.resetForm()
+    this.setState({alert: {message: 'OOPS!, something went wrong. Please try again', style: 'danger'}})
+  }
 
-      letter !== password.charAt(index)
-        ?
-          this.setState({passwordErrorMsg: 'Passwords do not match'})
-            :
-              this.setState({passwordErrorMsg: null})
-    }
+  resetForm() {
+    this.context.store.dispatch(reset('updatePasswordForm'));
+  }
+
+  passwordsMatch() {
+    const {
+      password,
+      passwordConfirmation
+    } = this.props.form.updatePasswordForm.values
+  return password === passwordConfirmation
+  }
+
+  updatePassword(password) {
+    BlitzApi.patch(PASSWORD_UPDATE_REQUEST, { user: { password }})
+    .then(
+      response => this.handleSuccessfulUpdate()
+    ).catch(
+    error => this.handleFailedUpdate()
+    )
   }
 
   submitForm(formData) {
-    console.log('formData', formData)
+    if(this.passwordsMatch()) {
+      this.setState({passwordErrorMsg: null})
+      this.updatePassword(formData.password)
+    }else{
+      this.setState({passwordErrorMsg: 'Passwords do not match'})
+    }
   }
 
   render() {
@@ -53,7 +78,7 @@ class AccountEditContainer extends RoutedComponent {
         disableButton={this.state.disableButton}
         submitForm={this.submitForm}
         passwordErrorMsg={this.state.passwordErrorMsg}
-        errorMessage={this.state.errorMessage}
+        alert={this.state.alert}
       />
     )
   }
@@ -62,8 +87,5 @@ class AccountEditContainer extends RoutedComponent {
 const mapStateToProps = state => ({
   form: state.form
 })
-
-const mapActionCreators = {
-}
 
 export default connect(mapStateToProps)(AccountEditContainer)

@@ -33,6 +33,7 @@ export default class Signup extends Component {
       submitForm,
       disableButton,
     } = this.props
+
     const renderErrorMessage = (
       errorMessage &&
         <Alert bsStyle='danger'>
