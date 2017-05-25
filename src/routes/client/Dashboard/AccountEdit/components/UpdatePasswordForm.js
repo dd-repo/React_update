@@ -87,6 +87,7 @@ const UpdatePasswordForm = ({
   submitForm,
   handleSubmit,
   submitting,
+  invalid,
   passwordErrorMsg,
   disableButton
 }) => {
@@ -94,14 +95,6 @@ const UpdatePasswordForm = ({
   return (
     <div>
       <Form onSubmit={handleSubmit(submitForm)} horizontal>
-        <FormGroup>
-          <Col componentClass={ControlLabel} sm={3}>
-            Old Password
-          </Col>
-          <Col sm={6}>
-            {renderField(fields.oldPassword)}
-          </Col>
-        </FormGroup>
         <FormGroup>
           <Col componentClass={ControlLabel} sm={3}>
             New Password
@@ -123,17 +116,17 @@ const UpdatePasswordForm = ({
           <Col smOffset={3} sm={6}>
             <button
               className='m-r-1'
-              disabled={disableButton || submitting}
+              disabled={invalid || submitting}
               action='submit'
             >
               Update Password
             </button>
 
-            <LinkContainer to='/forgot-password'>
+            {/* <LinkContainer to='/forgot-password'>
               <Button bsStyle='link'>
                 Forgot Password?
               </Button>
-            </LinkContainer>
+              </LinkContainer> */}
           </Col>
         </FormGroup>
       </Form>
@@ -148,6 +141,6 @@ UpdatePasswordForm.propTypes = {
 }
 
 export default reduxForm({
-  form: 'UpdatePasswordForm',
+  form: 'updatePasswordForm',
   validate
 })(UpdatePasswordForm);

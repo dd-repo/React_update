@@ -4,6 +4,7 @@ import { Link } from 'react-router';
 
 import UpdatePasswordForm from './UpdatePasswordForm'
 import {
+  Alert,
   Panel,
   Form,
   FormGroup,
@@ -24,11 +25,20 @@ const AccountEdit = (props) => {
     disableButton,
     submitForm,
     passwordErrorMsg,
-    errorMessage,
+    alert
   } = props
+
+  const renderMessage = (
+    alert &&
+      <Alert bsStyle={alert.style}>
+        <i className="fa fa-fw text-success m-r-1"></i>
+        {alert.message}
+      </Alert>
+  )
 
   return (
     <div>
+      {renderMessage}
       <Panel
         className='m-b-2'
         header={
