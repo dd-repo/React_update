@@ -30,7 +30,6 @@ export const updateStatus = payload => {
     return BlitzApi.patch(ADMIN_REMOVAL_REQUEST_PATH, payload)
     .then(
       response =>
-      //console.log('response', response)
       dispatch(receivedUpdateStatus(response.data))
     ).catch(
     error => dispatch(rejectedUpdateStatus(error))
@@ -64,10 +63,10 @@ export const updatingStatus = () => (
   }
 )
 
-export const receivedUpdateStatus = data => (
+export const receivedUpdateStatus = removal => (
   {
     type: UPDATE_STATUS_SUCCESS,
-    data
+    removal
   }
 )
 
@@ -78,34 +77,11 @@ export const rejectedUpdateStatus = error => (
   }
 )
 
-//const testRemoval = {
-  //id: 12,
-  //created_at: "2017-05-12T12:50:03.902-07:00",
-  //updated_at: "2017-05-12T15:52:40.484-07:00",
-  //site: "whitepages.com",
-  //status: "completed",
-  //status_label: "completed",
-  //client_name: "god zilla",
-  //age: 17,
-  //addresses: [{
-    //id: 1,
-    //address1: "123",
-    //address2: null,
-    //city: "denver",
-    //state: "AL",
-    //zip: "12424",
-    //country: null,
-    //created_at: "2017-05-12T12:49:57.110-07:00",
-    //updated_at: "2017-05-12T12:49:57.110-07:00",
-    //account_id: 1,
-  //}],
-  //is_active: false,
-//}
 // reducer
-const updateRemovals = (removals, action) => {
-  debugger
+
+export const updateRemovals = (removals, action) => {
   return [
-    ...removals.filter(removal => removal.id !== action.data.id)
+    ...removals.filter(removal => removal.id !== action.removal.id)
   ]
 }
 
