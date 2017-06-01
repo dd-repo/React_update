@@ -81,7 +81,6 @@ export default class RemovalRequested extends Component {
           <a href={siteURL} target='_blank'>
             { friendlyURL }
           </a>
-
         </td>
         <td className='text-right'>
           <Label
