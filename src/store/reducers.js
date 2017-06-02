@@ -15,6 +15,7 @@ import clientRegistrationForm from 'routes/admin/Dashboard/ClientRegistration/mo
 import transactions from 'routes/admin/Dashboard/Transactions/modules/transactions';
 import subscriptions from 'routes/admin/Dashboard/Subscriptions/modules/subscriptions';
 import users from 'routes/admin/Dashboard/Users/modules/users';
+import subscription from 'routes/client/Dashboard/AccountEdit/modules/subscription';
 
 // for testing purposes
 //import loggedInUser from 'modules/loggedInUser';
@@ -38,6 +39,7 @@ export const makeRootReducer = (asyncReducers) => {
     notifications,
     transactions,
     subscriptions,
+    subscription,
     users,
     ...asyncReducers
   })

@@ -13,29 +13,73 @@ export const SUBSCRIPTION_REQUEST = '/dashboard/api/v1/subscriptions';
 // Async actions
 export const getSubscription = () => {
   return dispatch => {
-    return BlitzApi.get(`${SUBSCRIPTION_REQUEST}/get`})
+    return BlitzApi.get(`${SUBSCRIPTION_REQUEST}/get`)
     .then(
       response => dispatch(subscriptionSuccess(response.data)))
       .catch(
         error => dispatch(subscriptionFailure(error)))
+  }
+}
+
+export const cancelSubscription = id => {
+  return dispatch => {
+    return BlitzApi.patch(`${SUBSCRIPTION_REQUEST}/${id}/cancel`)
+    .then(
+      response => dispatch(subscriptionCancelSuccess(response.data)))
+      .catch(
+        error => dispatch(subscriptionCancelFailure(error)))
+  }
 }
 
 export const subscriptionSuccess = subscription => (
   {
     type: SUBSCRIPTION_SUCCESS,
-    subscripiton
+    subscription
   }
 )
 
+export const subscriptionFailure = error => (
+  {
+    type: SUBSCRIPTION_FAILURE,
+    error
+  }
+)
+
+export const subscriptionCancelSuccess = subscription => (
+  {
+    type: SUBSCRIPTION_CANCEL_SUCCESS,
+    subscription
+  }
+)
+
+export const subscriptionCancelFailure = error => (
+  {
+    type: SUBSCRIPTION_CANCEL_FAILURE,
+    error
+  }
+)
 
 // reducer
+const subscription = (state, subscription) => (
+   Object.assign({}, state, {
+    id: subscription.id,
+    cancelDate: subscription.cancel_date,
+    isActive: subscription.is_active,
+    nextPayment: subscription.next_payment,
+    startDate: subscription.start_date
+   })
+)
 
 const reducer = (state = {}, action) => {
   switch(action.type) {
     case SUBSCRIPTION_SUCCESS:
+      return subscription(state, action.subscription)
+    case SUBSCRIPTION_FAILURE:
       return Object.assign({}, state, {
-        subscriptionId: action.subscription.id
+        error: action.error
       })
+    case SUBSCRIPTION_CANCEL_SUCCESS:
+      return subscription(state, action.subscription)
     default:
       return state
   }

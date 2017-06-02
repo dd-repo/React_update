@@ -17,6 +17,7 @@ import {
   Modal,
 } from 'components';
 
+import { formatDate } from 'utils/dateHelper';
 import { Colors } from 'consts';
 
 import classes from './accountEdit.scss';
@@ -30,7 +31,8 @@ const AccountEdit = (props) => {
     cancelSubscription,
     showModal,
     hideModal,
-    confirmCancel
+    confirmCancel,
+    subscription
   } = props
 
   const renderModal = (
@@ -55,6 +57,41 @@ const AccountEdit = (props) => {
         <i className="fa fa-fw text-success m-r-1"></i>
         {alert.message}
       </Alert>
+  )
+
+  const date = (
+    subscription.cancelDate &&
+      formatDate(subscription.cancelDate)
+  )
+
+  const renderSubscription = (
+    subscription.isActive ?
+          renderInactiveSubscription
+        :
+      renderActiveSubscription
+  )
+
+  const renderActiveSubscription = (
+    <div>
+      <p>
+        Once you cancel your subscription you can re-active any time
+      </p>
+      <Button
+        bsStyle='danger'
+        className='btn-outline'
+        onClick={() => confirmCancel()}
+      >
+        Cancel Subscription
+      </Button>
+    </div>
+  )
+
+  const renderInactiveSubscription = (
+    <div>
+      <p>
+        Your subscription will end on {date}. Please call us at (844) 641-7829 to re-active
+      </p>
+    </div>
   )
 
   return (
@@ -93,7 +130,7 @@ const AccountEdit = (props) => {
         <Panel
           header={
             <h4 className='panel-title'>
-              Delete Account
+              Cancel Subscription
             </h4>
             }
             footer={
@@ -103,16 +140,7 @@ const AccountEdit = (props) => {
               </div>
               }
             >
-              <p>
-                Once you delete your account, there is no going back. Please be certain.
-              </p>
-              <Button
-                bsStyle='danger'
-                className='btn-outline'
-                onClick={() => confirmCancel()}
-              >
-                Delete Your Account
-              </Button>
+              { renderInactiveSubscription }
             </Panel>
           </div>
   )

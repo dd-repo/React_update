@@ -5,6 +5,7 @@ import { reset } from 'redux-form';
 import { RoutedComponent, connect } from 'routes/routedComponent';
 import { CONTENT_VIEW_STATIC } from 'layouts/DefaultLayout/modules/layout';
 import AccountEdit from './components/AccountEdit';
+import { getSubscription, cancelSubscription } from './modules/subscription';
 
 const PASSWORD_UPDATE_REQUEST = '/dashboard/api/v1/users'
 const SUBSCRIPTION_REQUEST = '/dashboard/api/v1/subscriptions'
@@ -35,11 +36,7 @@ class AccountEditContainer extends RoutedComponent {
   }
 
   componentWillMount() {
-    BlitzApi.get(`${SUBSCRIPTION_REQUEST}/get`)
-    .then(
-      response => this.setState({subscriptionId: response.data.id}))
-      .catch(
-        error => console.log('error subscription get', error))
+    this.props.getSubscription()
   }
 
   handleSuccessfulPasswordUpdate() {
@@ -82,13 +79,8 @@ class AccountEditContainer extends RoutedComponent {
 
   cancelSubscription() {
     this.hideModal()
-    const id = this.state.subscriptionId
-    BlitzApi.patch(`${SUBSCRIPTION_REQUEST}/${id}/cancel`)
-    .then(
-      response => this.handleSubscriptionCanceled()
-    ).catch(
-    error => console.log('error', error)
-    )
+    const id = this.props.subscription.id
+    this.props.cancelSubscription(id)
   }
 
   confirmCancel() {
@@ -115,13 +107,20 @@ class AccountEditContainer extends RoutedComponent {
         hideModal={this.hideModal}
         confirmCancel={this.confirmCancel}
         cancelSubscription={this.cancelSubscription}
+        subscription={this.props.subscription}
       />
     )
   }
 }
 
 const mapStateToProps = state => ({
-  form: state.form
+  form: state.form,
+  subscription: state.subscription
 })
 
-export default connect(mapStateToProps)(AccountEditContainer)
+const mapActionCreators = {
+  getSubscription,
+  cancelSubscription
+}
+
+export default connect(mapStateToProps, mapActionCreators)(AccountEditContainer)
