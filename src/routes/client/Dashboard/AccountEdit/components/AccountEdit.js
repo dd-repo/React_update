@@ -140,7 +140,12 @@ const AccountEdit = (props) => {
               </div>
               }
             >
-              { renderInactiveSubscription }
+              {
+                subscription.isActive ?
+                  renderActiveSubscription
+                    :
+                    renderInactiveSubscription
+              }
             </Panel>
           </div>
   )
