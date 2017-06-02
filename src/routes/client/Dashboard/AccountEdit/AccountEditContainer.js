@@ -7,7 +7,7 @@ import { CONTENT_VIEW_STATIC } from 'layouts/DefaultLayout/modules/layout';
 import AccountEdit from './components/AccountEdit';
 
 const PASSWORD_UPDATE_REQUEST = '/dashboard/api/v1/users'
-const CANCEL_SUBSCRIPTION_REQUEST = '/dashboard/api/v1/'
+const SUBSCRIPTION_REQUEST = '/dashboard/api/v1/subscriptions'
 
 class AccountEditContainer extends RoutedComponent {
   constructor(props) {
@@ -15,8 +15,9 @@ class AccountEditContainer extends RoutedComponent {
     this.state = {showModal: false}
 
     this.confirmCancel = this.confirmCancel.bind(this);
+    this.cancelSubscription = this.cancelSubscription.bind(this);
     this.hideModal = this.hideModal.bind(this);
-    this.handleCancelSubscription = this.handleCancelSubscription.bind(this);
+    this.submitForm = this.submitForm.bind(this);
   }
 
   getLayoutOptions() {
@@ -31,6 +32,14 @@ class AccountEditContainer extends RoutedComponent {
 
   static contextTypes = {
     store: React.PropTypes.object.isRequired
+  }
+
+  componentWillMount() {
+    BlitzApi.get(`${SUBSCRIPTION_REQUEST}/get`)
+    .then(
+      response => this.setState({subscriptionId: response.data.id}))
+      .catch(
+        error => console.log('error subscription get', error))
   }
 
   handleSuccessfulPasswordUpdate() {
@@ -72,9 +81,11 @@ class AccountEditContainer extends RoutedComponent {
   }
 
   cancelSubscription() {
-    BlitzApi.patch(CANCEL_SUBSCRIPTION_REQUEST)
+    this.hideModal()
+    const id = this.state.subscriptionId
+    BlitzApi.patch(`${SUBSCRIPTION_REQUEST}/${id}/cancel`)
     .then(
-      response => this.handleSuccessfulSubscriptionCancel()
+      response => this.handleSubscriptionCanceled()
     ).catch(
     error => console.log('error', error)
     )
@@ -82,10 +93,6 @@ class AccountEditContainer extends RoutedComponent {
 
   confirmCancel() {
     this.setState({showModal: true})
-  }
-
-  handleCancelSubscription() {
-    this.cancelSubscription()
   }
 
   submitForm(formData) {
@@ -107,7 +114,7 @@ class AccountEditContainer extends RoutedComponent {
         showModal={this.state.showModal}
         hideModal={this.hideModal}
         confirmCancel={this.confirmCancel}
-        handleCancelSubscription={this.handleCancelSubscription}
+        cancelSubscription={this.cancelSubscription}
       />
     )
   }

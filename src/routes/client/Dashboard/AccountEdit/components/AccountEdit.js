@@ -27,7 +27,7 @@ const AccountEdit = (props) => {
     submitForm,
     passwordErrorMsg,
     alert,
-    handleCancelSubscription,
+    cancelSubscription,
     showModal,
     hideModal,
     confirmCancel
@@ -44,12 +44,10 @@ const AccountEdit = (props) => {
       </Modal.Body>
         <Modal.Footer>
           <Button onClick={hideModal}>Close</Button>
-          <Button bsStyle="danger" onClick={() => handleCancelSubscription()}>Cancel Subscription</Button>
+          <Button bsStyle="danger" onClick={() => cancelSubscription()}>Cancel Subscription</Button>
         </Modal.Footer>
       </Modal>
   )
-
-
 
   const renderMessage = (
     alert &&

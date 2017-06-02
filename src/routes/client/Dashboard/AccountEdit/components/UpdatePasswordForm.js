@@ -89,7 +89,6 @@ const UpdatePasswordForm = ({
   submitting,
   invalid,
   passwordErrorMsg,
-  disableButton
 }) => {
 
   return (
@@ -137,7 +136,6 @@ const UpdatePasswordForm = ({
 UpdatePasswordForm.propTypes = {
   submitForm: PropTypes.func.isRequired,
   passwordErrorMsg: PropTypes.string,
-  disableButton: PropTypes.bool.isRequired
 }
 
 export default reduxForm({

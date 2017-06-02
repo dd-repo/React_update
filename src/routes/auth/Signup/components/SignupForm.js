@@ -119,6 +119,7 @@ class SignupForm extends Component {
       invalid,
       submitting,
       passwordErrorMsg,
+      passwordSuccessMsg,
       disableButton,
     } = this.props
 
@@ -127,6 +128,7 @@ class SignupForm extends Component {
 
         {renderFields()}
        <span className='text-danger'>{passwordErrorMsg}</span>
+       <span className='text-success'>{passwordSuccessMsg}</span>
 
         <Checkbox required validationState='error'>
           <a className='text-danger' onClick={this._onClick}>
