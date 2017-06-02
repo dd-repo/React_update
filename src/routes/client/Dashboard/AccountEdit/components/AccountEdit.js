@@ -13,9 +13,11 @@ import {
   ControlLabel,
   Radio,
   Button,
-  Divider
+  Divider,
+  Modal,
 } from 'components';
 
+import { formatDate } from 'utils/dateHelper';
 import { Colors } from 'consts';
 
 import classes from './accountEdit.scss';
@@ -25,8 +27,29 @@ const AccountEdit = (props) => {
     disableButton,
     submitForm,
     passwordErrorMsg,
-    alert
+    alert,
+    cancelSubscription,
+    showModal,
+    hideModal,
+    confirmCancel,
+    subscription
   } = props
+
+  const renderModal = (
+    <Modal  show={showModal} onHide={hideModal}>
+      <Modal.Header>
+        <Modal.Title>Cancel Subscription</Modal.Title>
+      </Modal.Header>
+
+      <Modal.Body>
+        <p>Are you sure you want to cancel your subscription?</p>
+      </Modal.Body>
+        <Modal.Footer>
+          <Button onClick={hideModal}>Close</Button>
+          <Button bsStyle="danger" onClick={() => cancelSubscription()}>Cancel Subscription</Button>
+        </Modal.Footer>
+      </Modal>
+  )
 
   const renderMessage = (
     alert &&
@@ -36,9 +59,45 @@ const AccountEdit = (props) => {
       </Alert>
   )
 
+  const date = (
+    subscription.cancelDate &&
+      formatDate(subscription.cancelDate)
+  )
+
+  const renderSubscription = (
+    subscription.isActive ?
+          renderInactiveSubscription
+        :
+      renderActiveSubscription
+  )
+
+  const renderActiveSubscription = (
+    <div>
+      <p>
+        Once you cancel your subscription you can re-active any time
+      </p>
+      <Button
+        bsStyle='danger'
+        className='btn-outline'
+        onClick={() => confirmCancel()}
+      >
+        Cancel Subscription
+      </Button>
+    </div>
+  )
+
+  const renderInactiveSubscription = (
+    <div>
+      <p>
+        Your subscription will end on {date}. Please call us at (844) 641-7829 to re-active
+      </p>
+    </div>
+  )
+
   return (
     <div>
       {renderMessage}
+      {renderModal}
       <Panel
         className='m-b-2'
         header={
@@ -71,7 +130,7 @@ const AccountEdit = (props) => {
         <Panel
           header={
             <h4 className='panel-title'>
-              Delete Account
+              Cancel Subscription
             </h4>
             }
             footer={
@@ -81,12 +140,12 @@ const AccountEdit = (props) => {
               </div>
               }
             >
-              <p>
-                Once you delete your account, there is no going back. Please be certain.
-              </p>
-              <Button bsStyle='danger' className='btn-outline'>
-                Delete Your Account
-              </Button>
+              {
+                subscription.isActive ?
+                  renderActiveSubscription
+                    :
+                    renderInactiveSubscription
+              }
             </Panel>
           </div>
   )

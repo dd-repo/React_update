@@ -64,7 +64,7 @@ const Login = ({ errorMessage, submitForm }) => {
 
                 </Panel>
                 <p className='text-center text-gray-light'>
-                  <strong>Blitz Monitoring </strong>
+                  <strong>Clickadilly </strong>
                   <span className='text-gray-light'>
                     © 2009 - 2017. Made by <i className="fa fa-fw fa-ship text-primary"></i> Denver, CO
                   </span>

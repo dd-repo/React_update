@@ -30,6 +30,7 @@ export default class Signup extends Component {
     const {
       errorMessage,
       passwordErrorMsg,
+      passwordSuccessMsg,
       submitForm,
       disableButton,
     } = this.props
@@ -75,6 +76,7 @@ export default class Signup extends Component {
                     <SignupForm
                       submitForm={submitForm}
                       passwordErrorMsg={passwordErrorMsg}
+                      passwordSuccessMsg={passwordSuccessMsg}
                       toggleModal={this.toggleModal}
                       disableButton={disableButton}
                     />

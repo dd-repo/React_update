@@ -51,14 +51,15 @@ class SignupContainer extends RoutedComponent {
 
   validatePassword({ password, passwordConfirmation }) {
     if(password && passwordConfirmation) {
-      password === passwordConfirmation && this.setState({disableButton: false})
+      password === passwordConfirmation &&
+        this.setState({disableButton: false, passwordMatchSuccess: 'Passwords Match!'})
 
       let letter = passwordConfirmation.charAt(passwordConfirmation.length-1)
       let index = passwordConfirmation.indexOf(letter)
 
       letter !== password.charAt(index)
         ?
-          this.setState({disableButton: true, passwordErrorMsg: 'Passwords do not match'})
+          this.setState({disableButton: true, passwordErrorMsg: 'Passwords Do Not Match'})
             :
               this.setState({passwordErrorMsg: null})
     }
