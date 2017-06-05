@@ -60,7 +60,7 @@ webpackConfig.plugins = [
   new HtmlWebpackPlugin({
     template: paths.client('index.html'),
     hash: false,
-    favicon: paths.client('static/favicon.png'),
+    favicon: paths.client('static/icon-big-dark.png'),
     filename: 'index.html',
     inject: 'body',
     minify: {
