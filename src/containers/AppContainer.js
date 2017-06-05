@@ -13,7 +13,7 @@ class AppContainer extends React.Component {
   }
 
   componentWillMount() {
-    this.props.fetchUser()
+    //this.props.fetchUser()
   }
 
   render () {
