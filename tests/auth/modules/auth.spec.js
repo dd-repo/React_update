@@ -21,6 +21,7 @@ import {
   receiveClientLogin,
   receiveAdminLogin,
   receiveUserLoginFailure,
+  fetchUser,
   SIGNUP_REQUEST,
   LOGIN_REQUEST,
   default as reducer
@@ -292,6 +293,97 @@ describe('(auth module) Auth', () => {
       const store = mockStore({ currentUser: {} })
 
       return store.dispatch(postUserLogin(payload))
+      .then(() => {
+        expect(store.getActions()).to.eql(expectedActions);
+        done();
+      });
+    })
+  })
+
+  describe('(Async Action Creator), fetchUser()', () => {
+
+    let loginApi;
+
+    beforeEach(() => {
+    loginApi = sinon.stub(BlitzApi, 'get')
+    })
+
+    afterEach(() => {
+      loginApi.restore()
+    })
+
+    it('Should be exported as a function', () => {
+      expect(fetchUser).to.be.a('function')
+    })
+
+    it('Should return a function (is a thunk)', () => {
+      expect(fetchUser()).to.be.a('function')
+    })
+
+    it('creates USER_LOGIN_SUCCESS when fetching user', (done) => {
+
+      const user = {
+        user: {
+          id: 1,
+          first_name: 'Fred',
+          last_name: 'Flintstone',
+          email: 'fred@email.com',
+          role: 'client',
+          access_token: '1:aaaaaaaaaaa',
+          account_id: 1,
+          isFetching: false
+        },
+        account: {
+          id: 1,
+          is_active: true,
+          email: 'email.com',
+          first_name: 'first',
+          last_name: 'last',
+          keywords: [{id: 1, keyword: 'keyword 1'}, {id: 2, keyword: 'keyword 2'}],
+          profile: {id: 1, maiden_name: 'maiden', middle_name: 'middle', avatar: '', drivers_license: ''}
+        }
+      }
+
+      const resolved = new Promise((r) => r({ data: user }));
+      loginApi.returns(resolved);
+
+      const expectedActions = [
+        { type: USER_LOGIN_POSTING },
+        { type: USER_LOGIN_SUCCESS, data: user }
+      ]
+
+      const store = mockStore({ currentUser: {} })
+
+      return store.dispatch(fetchUser())
+      .then(() => {
+        expect(store.getActions()).to.eql(expectedActions);
+        done();
+      });
+    })
+
+   it('creates USER_LOGIN_FAILURE when fetching user', (done) => {
+
+      const errRes = {
+        status: 400,
+        response: { data: { errorMessage: 'error message' } },
+      }
+
+      const rejected = new Promise((_, r) => r(errRes));
+      loginApi.returns(rejected)
+
+      const expectedActions = [
+        { type: USER_LOGIN_POSTING },
+        { type: USER_LOGIN_FAILURE, error: {
+          status: 400,
+          response: {
+            data: { errorMessage: 'error message' }
+          }}
+        }
+      ]
+
+      const store = mockStore({ currentUser: {} })
+
+      return store.dispatch(fetchUser())
       .then(() => {
         expect(store.getActions()).to.eql(expectedActions);
         done();

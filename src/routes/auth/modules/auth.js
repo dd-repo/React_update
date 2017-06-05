@@ -22,7 +22,7 @@ const CLIENT_API = '/dashboard/api/v1/users';
 export const SIGNUP_REQUEST = `${CLIENT_API}/sign-up/create`;
 export const LOGIN_REQUEST = `${CLIENT_API}/sign-in`;
 export const UPDATE_PASSWORD_REQUEST = `${CLIENT_API}/password/update`;
-export const RESET_PASSWORD_REQUEST = `${CLIENT_API}/password/forgot`;
+export const RESET_PASSWORD_REQUEST = `${CLIENT_API}/password/forgot`
 
 
 //actions
@@ -45,7 +45,24 @@ export const postUserLogin = payload => {
     return BlitzApi.post(LOGIN_REQUEST, { user: payload })
     .then(
       response =>
-      //console.log('response', response.data)
+      response.data.user.role === 'admin'
+        ?
+          dispatch(receiveAdminLogin(response.data))
+            :
+              dispatch(receiveClientLogin(response.data))
+    ).catch(
+    error =>
+    dispatch(receiveUserLoginFailure(error))
+    )
+  }
+}
+
+export const fetchUser = () => {
+  return dispatch => {
+    dispatch(postingUserLogin())
+    return BlitzApi.get(`${CLIENT_API}/users/get`)
+    .then(
+      response =>
       response.data.user.role === 'admin'
         ?
           dispatch(receiveAdminLogin(response.data))
