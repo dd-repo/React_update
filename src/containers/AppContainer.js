@@ -1,6 +1,8 @@
-import React, { PropTypes } from 'react'
-import { Router } from 'react-router'
-import { Provider } from 'react-redux'
+import React, { PropTypes } from 'react';
+import { connect } from 'react-redux';
+import { Router } from 'react-router';
+import { Provider } from 'react-redux';
+import { fetchUser } from 'routes/auth/modules/auth';
 
 class AppContainer extends React.Component {
   static propTypes = {
@@ -8,6 +10,10 @@ class AppContainer extends React.Component {
     routes: PropTypes.object.isRequired,
     routerKey: PropTypes.number,
     store: PropTypes.object.isRequired
+  }
+
+  componentWillMount() {
+    this.props.fetchUser()
   }
 
   render () {
@@ -23,4 +29,9 @@ class AppContainer extends React.Component {
   }
 }
 
-export default AppContainer
+const mapStateToProps = () => {return {}}
+const mapActionCreators = {
+  fetchUser
+}
+
+export default connect(mapStateToProps, mapActionCreators)(AppContainer)

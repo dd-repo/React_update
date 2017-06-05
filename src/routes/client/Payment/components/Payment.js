@@ -1,7 +1,6 @@
 import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
 
-import logo from 'static/logos/logo-small.png';
 import PaymentForm from './PaymentForm';
 import classes from './payment.scss';
 //import ProgressIndicator from './ProgressIndicator';
@@ -34,11 +33,6 @@ const Payment = (props) => {
             <Col className={ classes.centerCol } md={ 4 }>
               <Panel
                 className={ classes.registerPanel }
-                header={(
-                  <Link to='/' className={ classes.toHomeLink }>
-                    <img src={ logo } alt='Back to Home' />
-                  </Link>
-                  )}
                   >
                     <h2 className={ classes.panelHeader }>
                       Payment Information

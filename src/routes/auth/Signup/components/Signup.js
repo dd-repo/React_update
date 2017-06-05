@@ -51,11 +51,6 @@ export default class Signup extends Component {
             <Col className={ classes.centerCol } md={ 4 }>
               <Panel
                 className={ classes.registerPanel }
-                header={(
-                  <Link to='/' className={ classes.toHomeLink }>
-                    <img src={ logo } alt='Back to Home' />
-                  </Link>
-                  )}
                   footer={(
                     <div>
                       <Link to='/login'>

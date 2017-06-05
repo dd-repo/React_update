@@ -12,7 +12,7 @@ import assignKeys, { findActiveNodes, CONFIGS } from './../../routes/routesStruc
 import { removePersistedData } from 'localStorage';
 
 import { Colors } from 'consts';
-import navbarLogo from 'static/logos/logo-big-navbar.png'
+import navbarLogo from 'static/logos/logo-big-dark.png'
 
 // Components
 import {
@@ -210,7 +210,7 @@ class DefaultLayout extends React.Component {
                         <Navbar.Header>
                             <Navbar.Brand>
                                 <Link to={homeLink()}>
-                                  <img src={ navbarLogo } className={ classes.navbarLogo } height={ 50 } alt="pin Dashboard" />
+                                  <img src={ navbarLogo } className={ classes.navbarLogo } height={ 40 } alt="pin Dashboard" />
                                 </Link>
                             </Navbar.Brand>
 

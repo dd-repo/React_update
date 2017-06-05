@@ -14,7 +14,7 @@ import {
 
 import { CONTENT_VIEW_FLUID } from 'layouts/DefaultLayout/modules/layout';
 import classes from './forgotPassword.scss';
-import logo from 'static/logos/logo-small.png';
+import logo from 'static/logos/logo-big-light.png';
 
 const ForgotPassword = ({ submitForm }) => {
   return (
@@ -25,7 +25,7 @@ const ForgotPassword = ({ submitForm }) => {
             <Panel
               header={(
                 <Link to='/login' className={ classes.toHomeLink }>
-                  <img src={ logo } alt='Back to Home' />
+                  <img src={ logo } height={ 50 } alt='Back to Home' />
                 </Link>
                 )}
                 footer={(

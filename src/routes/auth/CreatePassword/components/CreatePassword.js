@@ -14,7 +14,7 @@ import {
 } from 'components';
 
 import classes from './createPassword.scss';
-import logo from 'static/logos/logo-small.png';
+import logo from 'static/logos/logo-big-light.png';
 
 const CreatePassword = ({ submitForm, passwordErrorMsg, errorMessage, disableButton }) => {
 
@@ -33,7 +33,7 @@ const CreatePassword = ({ submitForm, passwordErrorMsg, errorMessage, disableBut
             <Panel
               header={(
                 <Link to='/login' className={ classes.toHomeLink }>
-                  <img src={ logo } alt='Back to Home' />
+                  <img src={ logo } height={ 50 } alt='Back to Home' />
                 </Link>
                 )}
                 footer={(
