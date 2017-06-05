@@ -35,7 +35,7 @@ const validateClient = (currentUser, replace) => {
   const isClient = currentUser.role === 'client'
   const auth_token = localStorage.getItem('authToken')
 
-  !auth_token || !isClient && replace('/login')
+  !auth_token && replace('/login')
   auth_token && isProspect && replace('/payment-info')
 }
 
