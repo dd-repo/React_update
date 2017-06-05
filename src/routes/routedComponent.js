@@ -9,34 +9,32 @@ import _ from 'underscore';
 import autocast from 'autocast';
 
 export class RoutedComponent extends React.Component{
-    getLayoutOptions() { return {} };
+  getLayoutOptions() {
+    return {}
+  };
 
-    componentDidMount() {
-        const options = this.getLayoutOptions();
+  componentDidMount() {
+    const options = this.getLayoutOptions();
 
-        //if(localStorage.getItem('authToken')) {
-
-        //}
-
-        if(this.props.setCurrentPageSettings) {
-            this.props.setCurrentPageSettings(options);
-        }
-
-        // Apply the layout settings from the ones provided in the URL
-        if(this.props.location.query) {
-            const urlSettings = _.mapObject(this.props.location.query,
-                val => autocast(val));
-            this.props.setLayoutSettingsSafe(urlSettings);
-        }
+    if(this.props.setCurrentPageSettings) {
+      this.props.setCurrentPageSettings(options);
     }
+
+    // Apply the layout settings from the ones provided in the URL
+    if(this.props.location.query) {
+      const urlSettings = _.mapObject(this.props.location.query,
+                                      val => autocast(val));
+                                      this.props.setLayoutSettingsSafe(urlSettings);
+    }
+  }
 }
 
 // Attach restoreSettings action to the Component
 export function connect(mapStateToProps = () => ({}), mapActionCreators ={}) {
-    const extendedActionCreators = Object.assign([], mapActionCreators, {
-        setCurrentPageSettings,
-        setCurrentPageSettingsLiteral,
-        setLayoutSettingsSafe
-    });
-    return redux.connect(mapStateToProps, extendedActionCreators);
+  const extendedActionCreators = Object.assign([], mapActionCreators, {
+    setCurrentPageSettings,
+    setCurrentPageSettingsLiteral,
+    setLayoutSettingsSafe,
+  });
+  return redux.connect(mapStateToProps, extendedActionCreators);
 };

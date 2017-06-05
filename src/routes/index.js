@@ -32,9 +32,10 @@ const authTransition = (store, nextState, replace) => {
 
 const validateClient = (currentUser, replace) => {
   const isProspect = currentUser.role === 'prospect'
+  const isClient = currentUser.role === 'client'
   const auth_token = localStorage.getItem('authToken')
 
-  !auth_token && replace('/login')
+  !auth_token || !isClient && replace('/login')
   auth_token && isProspect && replace('/payment-info')
 }
 
@@ -47,7 +48,7 @@ const validateAdmin = (currentUser, replace) => {
 }
 
 const validateKeywords = (keywords, replace) => {
-  !keywords.all.length > 0 && replace('/keywords')
+  !keywords && replace('/keywords')
 }
 
 
