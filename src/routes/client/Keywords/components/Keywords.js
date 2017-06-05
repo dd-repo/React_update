@@ -12,7 +12,6 @@ import { Row, Col, Panel, Button } from 'components';
 import classes from './keywords.scss';
 import AddressForm from './AddressForm';
 import DateOfBirthForm from './DateOfBirthForm';
-import logo from 'static/logos/logo-small.png';
 
 let title;
 let description;
@@ -159,11 +158,6 @@ let Keywords = (props) => {
           <Col className={ classes.centerCol } md={ 4 }>
             <Panel
               className={ classes.registerPanel }
-              header={(
-                <Link to='/' className={ classes.toHomeLink }>
-                  <img src={ logo } alt='Back to Home' />
-                </Link>
-                )}
                 >
                   <h2 className={ classes.panelHeader }>
                     { title }

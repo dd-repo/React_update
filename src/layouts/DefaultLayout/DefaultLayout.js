@@ -12,7 +12,7 @@ import assignKeys, { findActiveNodes, CONFIGS } from './../../routes/routesStruc
 import { removePersistedData } from 'localStorage';
 
 import { Colors } from 'consts';
-import navbarLogo from 'static/logos/logo-big-navbar.png'
+import navbarLogo from 'static/logos/logo-big-dark.png'
 
 // Components
 import {

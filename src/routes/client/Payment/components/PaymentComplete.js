@@ -13,8 +13,6 @@ import {
 
 import classes from './payment.scss';
 
-import logo from 'static/logos/logo-small.png';
-
 const styles = {
   link: {
     textDecoration: 'none',
@@ -43,11 +41,6 @@ class PaymentComplete extends React.Component {
                <Row>
                  <Col className={ classes.centerCol } md={ 4 }>
                    <Panel
-                     header={(
-                       <Link to='/' className={ classes.toHomeLink }>
-                         <img src={ logo } alt='Back to Home' />
-                       </Link>
-                       )}
                      >
                        <h2 className={ classes.panelHeader }>
                          Your payment has been securely processed and you're ready to start protecting your privacy online!
