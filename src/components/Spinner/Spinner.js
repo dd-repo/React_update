@@ -1,18 +1,20 @@
 import React from 'react';
+import logo from 'static/logos/logo-small-light.png'
+import classes from './Spinner.scss'
 
 const Spinner = () => {
   return (
-    <div id="initial-loader">
+    <div id={classes.loader}>
       <div>
-        <div class="initial-loader-top">
-          <img class="initial-loader-logo" src="//i.imgur.com/R9bWCHz.png" />
-          <div class="loader loader--style1">
+        <div className={classes.top}>
+          <img className={classes.logo} src={logo} />
+          <div className={classes.loader}>
             <svg
               version="1.1"
               id="loader-1"
               xmlns="http://www.w3.org/2000/svg"
-              xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-              width="30px" height="30px" viewBox="0 0 40 40" enable-background="new 0 0 40 40" space="preserve"
+              xlinkHref="http://www.w3.org/1999/xlink" x={0} y={0}
+              width={30} height={30} viewBox="0 0 40 40" enableBackground="new 0 0 40 40" spacing="preserve"
             >
               <g>
                 <path
@@ -28,8 +30,8 @@ const Spinner = () => {
             </svg>
           </div>
         </div>
-        <div class="initial-loader-bottom">
-          Loading. Please Wait. <i class="fa fa-cricle" style={{opacity: 0}}></i>
+        <div className={classes.bottom}>
+          Loading. Please Wait. <i className="fa fa-cricle" style={{opacity: 0}}></i>
         </div>
       </div>
     </div>

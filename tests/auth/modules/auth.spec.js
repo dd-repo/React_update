@@ -9,9 +9,9 @@ import {
   USER_SIGNUP_FAILURE,
   USER_SIGNUP_POSTING,
   USER_LOGIN_SUCCESS,
-  CLIENT_LOGIN_SUCCESS,
   USER_LOGIN_FAILURE,
   USER_LOGIN_POSTING,
+  USER_LOGOUT,
   postUserSignup,
   postUserLogin,
   postingUserSignup,
@@ -21,6 +21,7 @@ import {
   receiveClientLogin,
   receiveAdminLogin,
   receiveUserLoginFailure,
+  logout,
   fetchUser,
   SIGNUP_REQUEST,
   LOGIN_REQUEST,
@@ -39,6 +40,7 @@ describe('(auth module) Auth', () => {
     expect(USER_LOGIN_SUCCESS).to.equal('USER_LOGIN_SUCCESS')
     expect(USER_LOGIN_FAILURE).to.equal('USER_LOGIN_FAILURE')
     expect(USER_LOGIN_POSTING).to.equal('USER_LOGIN_POSTING')
+    expect(USER_LOGOUT).to.equal('USER_LOGOUT')
   })
 
   describe('(Action Creator) postingUserSignup', () => {
@@ -98,6 +100,12 @@ describe('(auth module) Auth', () => {
     })
   })
 
+  describe('(Action Creator) logout', () => {
+    it('Should return an action with type "USER_LOGOUT"', () => {
+      expect(logout()).to.have.property('type', USER_LOGOUT)
+    })
+  })
+
   describe('(Async Action Creator) postUserSignup', () => {
 
     let signupApi;
@@ -135,7 +143,7 @@ describe('(auth module) Auth', () => {
             last_name: 'Flintstone',
             email: 'fred@email.com',
             role: 'client',
-            access_token: '1:aaaaaaaaaaa',
+            authToken: '1:aaaaaaaaaaa',
             account_id: 1,
             isFetching: false
       }
@@ -402,7 +410,18 @@ describe('(auth module) Auth', () => {
         role: 'client',
         group: 'frontend',
         accounts: [ { id: 1 } ],
-      }
+      },
+      auth_token: 'authToken'
+    }
+
+    const fakePaymentResponse = {
+      id: 1,
+      first_name: 'Fred',
+      last_name: 'Flintstone',
+      email: 'fred@email.com',
+      role: 'client',
+      group: 'frontend',
+      accounts: [ { id: 1 } ],
     }
 
     const {
@@ -422,6 +441,19 @@ describe('(auth module) Auth', () => {
       role,
       group,
       account_id: 1,
+      isFetching: false,
+      authToken: fakeResponse.auth_token
+    }
+
+    const loggedOutUser = {
+      id: null,
+      first_name: null,
+      last_name: null,
+      email: null,
+      role: null,
+      group: null,
+      account_id: null,
+      authToken: null,
       isFetching: false
     }
 
@@ -433,7 +465,8 @@ describe('(auth module) Auth', () => {
       role: 'prospect',
       group,
       account_id: 1,
-      isFetching: false
+      isFetching: false,
+      authToken: fakeResponse.auth_token
     }
 
     const error = {
@@ -505,11 +538,22 @@ describe('(auth module) Auth', () => {
     })
 
     it('should update user role PAYMENT_SUCCESS', () => {
+      //console.log('payment success', reducer(currentUserBeforePayment, {type: PAYMENT_SUCCESS, user: fakePaymentResponse}))
+      //console.log('payment success', currentUserSuccess)
+      //console.log('payment before', currentUserBeforePayment)
+      //console.log('fake payment', fakePaymentResponse)
       expect(reducer(currentUserBeforePayment, {
         type: PAYMENT_SUCCESS,
-        user: currentUserSuccess
+        user: fakePaymentResponse
       }))
       .to.eql(currentUserSuccess)
+    })
+
+    it('should clear currentUser LOGOUT_USER', () => {
+      expect(reducer(currentUserSuccess, {
+        type: USER_LOGOUT
+      }))
+      .to.eql(loggedOutUser)
     })
   })
 })

@@ -3,8 +3,13 @@ import { connect } from 'react-redux';
 import { Router } from 'react-router';
 import { Provider } from 'react-redux';
 import { fetchUser } from 'routes/auth/modules/auth';
+import { Spinner } from 'components';
 
 class AppContainer extends React.Component {
+  constructor() {
+    super()
+    this.state = {isFetching: true}
+  }
   static propTypes = {
     history: PropTypes.object.isRequired,
     routes: PropTypes.object.isRequired,
@@ -13,23 +18,37 @@ class AppContainer extends React.Component {
   }
 
   componentWillMount() {
-    //this.props.fetchUser()
+    this.props.fetchUser()
   }
 
   render () {
-    const { history, routes, routerKey, store } = this.props
+    const { history, routes, routerKey, store, currentUser } = this.props
 
-    return (
+    const isFetching = (
+      currentUser.isFetching === true
+        ||
+          currentUser.isFetching === undefined
+    )
+
+    if(!isFetching) {
+      return (
       <Provider store={store}>
         <div style={{ height: '100%' }}>
           <Router history={history} children={routes} key={routerKey} />
         </div>
       </Provider>
     )
+    }else{
+      return <Spinner />
+    }
   }
 }
 
-const mapStateToProps = () => {return {}}
+const mapStateToProps = state => {
+  return {
+    currentUser: state.currentUser
+  }
+}
 const mapActionCreators = {
   fetchUser
 }

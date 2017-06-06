@@ -13,18 +13,18 @@ import {
 const persistDataToLocalStorage = data => {
   const { user, auth_token, account } = data
 
-  persistData(user, 'currentUser');
+  //persistData(user, 'currentUser');
   persistData(auth_token, 'authToken');
   persistData(true, 'isLoggedIn')
 
-  if(user.role === 'client') {
-    const { keywords, profile } = account
-    const keywordList = {all: keywords, currentKeyword: keywords[0]}
+  //if(user.role === 'client') {
+    //const { keywords, profile } = account
+    //const keywordList = {all: keywords, currentKeyword: keywords[0]}
 
-    persistData(keywordList, 'keywords')
-    persistData(account, 'accounts');
-    persistData(profile, 'profile');
-  }
+    //persistData(keywordList, 'keywords')
+    //persistData(account, 'accounts');
+    //persistData(profile, 'profile');
+  //}
 }
 
 class CreatePasswordContainer extends RoutedComponent {
