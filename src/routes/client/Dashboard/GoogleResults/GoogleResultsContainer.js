@@ -1,8 +1,6 @@
 import React from 'react';
 import _ from 'underscore';
 
-import Loading from 'react-loading';
-
 import { RoutedComponent, connect } from 'routes/routedComponent';
 import GoogleResults from './components/GoogleResults';
 import { getMonitoring } from '../Monitoring/modules/monitoring';

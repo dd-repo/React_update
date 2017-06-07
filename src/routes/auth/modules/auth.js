@@ -17,6 +17,7 @@ export const FORGOT_USER_PASSWORD_SUCCESS = 'FORGOT_USER_PASSWORD_SUCCESS';
 export const FORGOT_USER_PASSWORD_FAILURE = 'FORGOT_USER_PASSWORD_FAILURE';
 
 export const USER_REMOVE_ERROR_MSG = 'USER_REMOVE_ERROR_MSG';
+export const USER_LOGOUT = 'USER_LOGOUT'
 
 const CLIENT_API = '/dashboard/api/v1/users';
 export const SIGNUP_REQUEST = `${CLIENT_API}/sign-up/create`;
@@ -173,32 +174,55 @@ export const removeErrorMessage = () => (
   }
 )
 
+export const logout = () => (
+  {
+    type: USER_LOGOUT
+  }
+)
+
 // reducer
-const setClient = (state, user) => {
+const setClient = (state, data) => {
   return (
     Object.assign({}, state, {
-      id: user.id,
-      first_name: user.first_name,
-      last_name: user.last_name,
-      email: user.email,
+      id: data.user.id,
+      first_name: data.user.first_name,
+      last_name: data.user.last_name,
+      email: data.user.email,
       isFetching: false,
-      account_id: user.accounts[0].id,
-      role: user.role,
-      group: user.group,
+      account_id: data.user.accounts[0].id,
+      role: data.user.role,
+      group: data.user.group,
+      authToken: data.auth_token
     })
   )
 }
 
-const setAdmin = (state, user) => {
+const setAdmin = (state, data) => {
   return (
     Object.assign({}, state, {
-      id: user.id,
-      first_name: user.first_name,
-      last_name: user.last_name,
-      email: user.email,
+      id: data.user.id,
+      first_name: data.user.first_name,
+      last_name: data.user.last_name,
+      email: data.user.email,
       isFetching: false,
-      role: user.role,
-      group: user.group,
+      role: data.user.role,
+      group: data.user.group,
+      authToken: data.auth_token
+    })
+  )
+}
+
+const removeUser = state => {
+  return (
+    Object.assign({}, state, {
+      id: null,
+      first_name: null,
+      last_name: null,
+      email: null,
+      role: null,
+      group: null,
+      account_id: null,
+      authToken: null
     })
   )
 }
@@ -210,7 +234,7 @@ const reducer = (state = {}, action) => {
         isFetching: true
       });
     case USER_SIGNUP_SUCCESS:
-      return setClient(state, action.data.user)
+      return setClient(state, action.data)
     case USER_SIGNUP_FAILURE:
       return Object.assign({}, state, {
         isFetching: false,
@@ -221,9 +245,9 @@ const reducer = (state = {}, action) => {
         isFetching: true
       });
     case USER_LOGIN_SUCCESS:
-      return setClient(state, action.data.user)
+      return setClient(state, action.data)
     case ADMIN_LOGIN_SUCCESS:
-      return setAdmin(state, action.data.user)
+      return setAdmin(state, action.data)
     case USER_LOGIN_FAILURE:
       return Object.assign({}, state, {
         isFetching: false,
@@ -242,9 +266,12 @@ const reducer = (state = {}, action) => {
       return Object.assign({}, state, {
         errorMessage: null
       })
+    case USER_LOGOUT:
+      return removeUser(state)
     default:
       return state
   }
+  console.log('state', state)
   return state
 }
 

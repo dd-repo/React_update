@@ -13,20 +13,21 @@ import {
 } from '../modules/auth';
 
 const persistDataToLocalStorage = data => {
-  const { user, auth_token, account } = data
+  //const { user, auth_token, account } = data
+  const { auth_token } = data
 
-  persistData(user, 'currentUser');
+  //persistData(user, 'currentUser');
   persistData(auth_token, 'authToken');
   persistData(true, 'isLoggedIn')
 
-  if(user.role === 'client') {
-    const { keywords, profile } = account
-    const keywordList = {all: keywords, currentKeyword: keywords[0]}
+  //if(user.role === 'client') {
+    //const { keywords, profile } = account
+    //const keywordList = {all: keywords, currentKeyword: keywords[0]}
 
-    persistData(keywordList, 'keywords')
-    persistData(account, 'accounts');
-    persistData(profile, 'profile');
-  }
+    //persistData(keywordList, 'keywords')
+    //persistData(account, 'accounts');
+    //persistData(profile, 'profile');
+  //}
 }
 
 class LoginContainer extends RoutedComponent {
@@ -40,6 +41,10 @@ class LoginContainer extends RoutedComponent {
 
   static contextTypes = {
     router: React.PropTypes.object.isRequired
+  }
+
+  componentWillMount() {
+    this.props.removeErrorMessage()
   }
 
   getLayoutOptions() {
@@ -69,7 +74,7 @@ class LoginContainer extends RoutedComponent {
         this.context.router.push('admin/dashboard')
         break;
       case USER_LOGIN_FAILURE:
-        setTimeout(this.props.removeErrorMessage, 5000)
+        setTimeout(this.props.removeErrorMessage(), 5000)
         break;
       default:
         return null;

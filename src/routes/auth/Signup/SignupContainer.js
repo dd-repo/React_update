@@ -14,10 +14,10 @@ import {
 const persistDataToLocalStorage = data => {
   const { user, auth_token, account } = data
 
-  persistData(user, 'currentUser');
-  persistData(account, 'accounts');
+  //persistData(user, 'currentUser');
+  //persistData(account, 'accounts');
   persistData(auth_token, 'authToken');
-  persistData(account.profile, 'profile');
+  //persistData(account.profile, 'profile');
 }
 
 class SignupContainer extends RoutedComponent {
@@ -41,6 +41,10 @@ class SignupContainer extends RoutedComponent {
       footerEnabled: true,
       headerEnabled: false,
     }
+  }
+
+  componentWillMount() {
+    this.props.removeErrorMessage()
   }
 
   componentWillReceiveProps(nextProps) {

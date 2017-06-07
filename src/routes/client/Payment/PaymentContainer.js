@@ -4,12 +4,12 @@ import Payment from './components/Payment';
 import PaymentComplete from './components/PaymentComplete';
 import { RoutedComponent, connect } from 'routes/routedComponent';
 import { postPayment } from './modules/payment';
-import { persistData } from 'localStorage';
+//import { persistData } from 'localStorage';
 import { CONTENT_VIEW_STATIC } from 'layouts/DefaultLayout/modules/layout';
 
-const persistDataToLocalStorage = data => {
-  data !== undefined && persistData(data, 'currentUser')
-}
+//const persistDataToLocalStorage = data => {
+  //data !== undefined && persistData(data, 'currentUser')
+//}
 
 class PaymentContainer extends RoutedComponent {
   constructor() {
@@ -61,11 +61,11 @@ class PaymentContainer extends RoutedComponent {
   submitForm(formProps) {
     let params = this.buildParams(formProps)
 
-    persistData(formProps, 'paymentStatus');
+    //persistData(formProps, 'paymentStatus');
 
     this.props.postPayment(params)
-    .then(res => { persistDataToLocalStorage(res.user, 'currentUser') })
-    .catch(error => { console.log('error in payment submit', error) })
+    //.then(res => { persistDataToLocalStorage(res.user, 'currentUser') })
+    //.catch(error => { console.log('error in payment submit', error) })
   }
 
   handleClick() {

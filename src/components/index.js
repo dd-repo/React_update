@@ -79,6 +79,7 @@ import Sidebar from './Sidebar';
 import ProgressBar from './ProgressBar';
 import SlimProgressBar from './SlimProgressBar';
 import StarRating from './StarRating';
+import Spinner from './Spinner';
 import Table from './Table';
 import Tabs from './Tabs';
 import Thumbnail from './Thumbnail';
@@ -163,6 +164,7 @@ export {
     ProgressBar,
     SlimProgressBar,
     StarRating,
+    Spinner,
     Table,
     Tabs,
     Thumbnail,

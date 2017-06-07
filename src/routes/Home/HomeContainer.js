@@ -1,17 +1,29 @@
 import React, { Component } from 'react';
+import { RoutedComponent, connect } from 'routes/routedComponent';
+import { CONTENT_VIEW_STATIC } from 'layouts/DefaultLayout/modules/layout';
 
-class HomeContainer extends Component {
-    static contextTypes = {
-        router: React.PropTypes.object.isRequired
-    }
+class HomeContainer extends RoutedComponent {
+  static contextTypes = {
+    router: React.PropTypes.object.isRequired
+  }
 
-    componentDidMount() {
-      this.context.router.push('/login');
+  getLayoutOptions() {
+    return {
+      contentView: CONTENT_VIEW_STATIC,
+      sidebarEnabled: false,
+      navbarEnabled: false,
+      footerEnabled: false,
+      headerEnabled: false
     }
+  }
 
-    render() {
-      return (<span></span>);
-    }
+  componentWillMount() {
+    this.context.router.push('/login');
+  }
+
+  render() {
+    return <span></span>;
+  }
 }
 
-export default HomeContainer;
+export default connect()(HomeContainer);

@@ -23,9 +23,12 @@ class BlitzApi {
   handleError = (error) => {
     const expiredToken = error.response.status === 408
     const unauthorized = error.response.status === 401
-    if(expiredToken || unauthorized) {
-      window.location.pathname !== '/login' &&
-        this.redirectTo(document, '/login')
+    if(expiredToken) {
+      window.location.pathname.startsWith('/dashboard')
+        ||
+          window.location.pathname.startsWith('/admin')
+          &&
+            this.redirectTo(document, '/login')
     }
     return Promise.reject(error)
   }

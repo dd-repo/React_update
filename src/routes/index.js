@@ -9,10 +9,12 @@ import ROUTES from './routes';
 
 const handleRouteChange = (store, prevState, nextState, replace) => {
   authTransition(store, nextState, replace)
+  redirectToDashboardIfLoggedIn(store, nextState, replace)
 }
 
 const handleRouteOnEnter = (store, nextState, replace) => {
   authTransition(store, nextState, replace)
+  redirectToDashboardIfLoggedIn(store, nextState, replace)
 }
 
 const authTransition = (store, nextState, replace) => {
@@ -29,28 +31,44 @@ const authTransition = (store, nextState, replace) => {
   }
 }
 
-
 const validateClient = (currentUser, replace) => {
   const isProspect = currentUser.role === 'prospect'
   const isClient = currentUser.role === 'client'
-  const auth_token = localStorage.getItem('authToken')
+  const authToken = localStorage.getItem('authToken')
 
-  !auth_token && replace('/login')
-  auth_token && isProspect && replace('/payment-info')
+  !authToken && !isClient && replace('/login')
+  authToken && isProspect && replace('/payment-info')
 }
 
 const validateAdmin = (currentUser, replace) => {
   const isAdmin = currentUser.role === 'admin'
-  const auth_token = localStorage.getItem('authToken')
+  const authToken = localStorage.getItem('authToken')
 
-  !auth_token && replace('/login')
+  !authToken && replace('/login')
   !isAdmin && replace('/login')
 }
 
 const validateKeywords = (keywords, replace) => {
-  !keywords && replace('/keywords')
+  if(keywords.all) {
+    keywords.all.length === 0 && replace('/keywords')
+  }
+  if(!keywords.all) {
+    replace('/login')
+  }
 }
 
+const redirectToDashboardIfLoggedIn = (store, nextState, replace) => {
+  const authToken = localStorage.getItem('authToken')
+  if(authToken) {
+    const pathname = nextState.location.pathname
+    const { currentUser } = store.getState()
+
+    if(pathname === '/' || pathname === '/login') {
+      currentUser.role === 'client' && replace('/dashboard')
+      currentUser.role === 'admin' && replace('/admin/dashboard')
+    }
+  }
+}
 
 export const createRoutes = (store) => ({
     path: '/',

@@ -10,6 +10,7 @@ import treeRandomizer from 'modules/treeRandomizer';
 import getLogoBySkin from './getLogoBySkin.js';
 import assignKeys, { findActiveNodes, CONFIGS } from './../../routes/routesStructure';
 import { removePersistedData } from 'localStorage';
+import { logout } from 'routes/auth/modules/auth';
 
 import { Colors } from 'consts';
 import navbarLogo from 'static/logos/logo-big-dark.png'
@@ -164,6 +165,7 @@ class DefaultLayout extends React.Component {
 
     handleLogout() {
       removePersistedData();
+      this.props.logout();
     }
 
     openFaqTab() {
@@ -210,7 +212,7 @@ class DefaultLayout extends React.Component {
                         <Navbar.Header>
                             <Navbar.Brand>
                                 <Link to={homeLink()}>
-                                  <img src={ navbarLogo } className={ classes.navbarLogo } height={ 40 } alt="pin Dashboard" />
+                                  <img src={ navbarLogo } className={ classes.navbarLogo } height={ 40 } alt="Clickadilly Dashboard" />
                                 </Link>
                             </Navbar.Brand>
 
@@ -539,8 +541,7 @@ class DefaultLayout extends React.Component {
 
                 <Footer fluid={ !staticFootNavContainer }>
                     <p className="text-gray-dark">
-                      <strong className="m-r-1">Clickadilly</strong>
-                      <span className="text-gray-dark">© 2009 - 2017. Made by  <i className="fa fa-fw fa-ship text-primary"></i> Denver, US</span>
+                      <span className="text-gray-dark">© 2017 <strong className="m-r-1">Clickadilly.</strong>All rights reserved.</span>
                     </p>
                 </Footer>
 
@@ -585,6 +586,7 @@ const mapActionCreators = {
     toggleNavbarExpanded,
     setCurrentScreenSize,
     changeSidebarAddOn,
+    logout
 };
 
 export default connect(mapStateToProps, mapActionCreators)(DefaultLayout);
