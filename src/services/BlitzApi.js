@@ -24,7 +24,9 @@ class BlitzApi {
     const expiredToken = error.response.status === 408
     const unauthorized = error.response.status === 401
     if(expiredToken) {
-      requiresAuthorization
+      window.location.pathname.startsWith('/dashboard')
+        ||
+          window.location.pathname.startsWith('/admin')
           &&
             this.redirectTo(document, '/login')
     }
@@ -61,15 +63,6 @@ class BlitzApi {
       data: JSON.stringify(payload)
     })
   }
-
-  pageRequiresAuthorization() {
-  }
 }
-
-const requiresAuthorization = (
-  window.location.pathname.startsWith('/dashboard')
-    ||
-      window.location.pathname.startsWith('/admin')
-)
 
 export default new BlitzApi
