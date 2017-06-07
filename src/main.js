@@ -22,49 +22,8 @@ const browserHistory = useRouterHistory(createBrowserHistory)({
 // react-router-redux reducer under the routerKey "router" in src/routes/index.js,
 // so we need to provide a custom `selectLocationState` to inform
 // react-router-redux of its location.
-const defaultUserInfo = {
-  first_name: 'joe',
-  last_name: 'bob',
-  email: 'joebob@email.com',
-  phone_number: '123-123-1234',
-  password: 'password12',
-  account_id: 1,
-  role: 'signup',
-}
 
-const defaultPaymentInfo = {
-  first_name: 'joe',
-  last_name: 'bob',
-  creditCardNumber: '4242424242424242',
-  expirationDate: '02/2020',
-  cvCode: '123'
-}
-
-const defaultKeywords = {
-  all: [
-    {
-      address: 'Sesame Street',
-      city: 'New York City',
-      state: 'NY',
-      zipcode: '12345',
-      dob: '02/02/2000'
-    }
-  ],
-  currentKeyword: {value:'joe bob'}
-}
-
-const defaultClientRegistrationForm = {
-  creditCardNumber: '4242424242424242'
-}
-
-const initialState = {
-  currentUser: loadPersistedData('currentUser'),
-  payment: defaultClientRegistrationForm,
-  keywords: loadPersistedData('keywords'),
-  accounts: loadPersistedData('accounts'),
-  profile: loadPersistedData('profile'),
-  clientRegistrationForm: defaultClientRegistrationForm,
-}
+const initialState = {}
 
 const store = createStore(initialState, browserHistory)
 const history = syncHistoryWithStore(browserHistory, store, {
