@@ -49,7 +49,12 @@ const validateAdmin = (currentUser, replace) => {
 }
 
 const validateKeywords = (keywords, replace) => {
-  keywords.all.length === 0 && replace('/keywords')
+  if(keywords.all) {
+    keywords.all.length === 0 && replace('/keywords')
+  }
+  if(!keywords.all) {
+    replace('/login')
+  }
 }
 
 const redirectToDashboardIfLoggedIn = (store, nextState, replace) => {
