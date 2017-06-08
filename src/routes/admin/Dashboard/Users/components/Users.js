@@ -21,7 +21,9 @@ const Users = (props) => {
     isFetching,
     handleSearch,
     queryName,
-    results
+    results,
+    limit,
+    isFrontend
   } = props
 
   const renderLoader = (
@@ -36,7 +38,7 @@ const Users = (props) => {
   )
 
   const renderPagination = (
-    !isFetching &&
+    !isFetching && results > limit &&
       <div className="text-center">
         <Pagination
           bsSize="medium"
@@ -68,8 +70,8 @@ const Users = (props) => {
       </tbody>
   )
 
-  return (
-    <Row>
+  const renderSearch = (
+    isFrontend &&
       <Col lg={6} lgOffset={3} className='m-b-2' >
         <SearchBar
           query={queryName}
@@ -77,6 +79,11 @@ const Users = (props) => {
           handleSearch={handleSearch}
         />
       </Col>
+  )
+
+  return (
+    <Row>
+      { renderSearch }
       <Table>
         <thead>
           <tr>
@@ -113,7 +120,12 @@ Users.propTypes = {
   paginationItems: PropTypes.number,
   pageNum: PropTypes.number,
   isFetching: PropTypes.bool,
-  getNextPage: PropTypes.func.isRequired
+  getNextPage: PropTypes.func.isRequired,
+  handleSearch: PropTypes.func.isRequired,
+  queryName: PropTypes.string,
+  results: PropTypes.number,
+  limit: PropTypes.number,
+  isFrontend: PropTypes.bool
 }
 
 export default Users
