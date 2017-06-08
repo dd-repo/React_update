@@ -56,7 +56,8 @@ class UsersContainer extends RoutedComponent {
   handleSearch(e, input) {
     const params = {
       q: {
-        first_name_or_last_name_or_email_cont: input
+        first_name_or_last_name_or_email_cont: input,
+        group_eq: 'frontend'
       }}
     this.fetchUsers(params)
     this.setState({ queryName: input })
@@ -65,6 +66,7 @@ class UsersContainer extends RoutedComponent {
   render() {
     const { pagination, all } = this.props.users
     const results = pagination && pagination.total
+    const limit = pagination && pagination.limit
     const paginationItems = (
       pagination &&
         Math.ceil(pagination.total / pagination.limit)
@@ -80,6 +82,7 @@ class UsersContainer extends RoutedComponent {
         handleSearch={this.handleSearch}
         queryName={this.state.queryName}
         results={results}
+        limit={limit}
       />
     )
   }
