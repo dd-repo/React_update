@@ -86,6 +86,7 @@ import Thumbnail from './Thumbnail';
 import Timeline from './Timeline';
 import Tooltip from './Tooltip';
 import TreeNavigator from './TreeNavigator';
+import SearchBar from './SearchBar';
 
 export {
     Accordion,
@@ -170,5 +171,6 @@ export {
     Thumbnail,
     Timeline,
     Tooltip,
-    TreeNavigator
+    TreeNavigator,
+    SearchBar
 };

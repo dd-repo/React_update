@@ -13,9 +13,10 @@ const group = {
 class UsersContainer extends RoutedComponent {
   constructor(props) {
     super(props)
-    this.state = { pageNum: 1 }
+    this.state = { pageNum: 1, queryName: 'All Users' }
 
     this.getNextPage = this.getNextPage.bind(this);
+    this.handleSearch = this.handleSearch.bind(this);
   }
 
   getLayoutOptions() {
@@ -24,17 +25,17 @@ class UsersContainer extends RoutedComponent {
       sidebarEnabled: true,
       navbarEnabled: true,
       footerEnabled: true,
-      headerEnabled: false
+      headerEnabled: true
     }
   }
 
   componentWillReceiveProps(nextProps) {
     nextProps.route.path !== this.props.route.path &&
-      this.fetchUsers(this.state.pageNum, this.getRole(nextProps.route.path))
+      this.fetchUsers(this.getRole(nextProps.route.path), this.state.pageNum)
   }
 
   componentWillMount() {
-    this.fetchUsers(this.state.pageNum, this.getRole())
+    this.fetchUsers(this.getRole(), this.state.pageNum)
   }
 
   getRole(path) {
@@ -43,17 +44,27 @@ class UsersContainer extends RoutedComponent {
     return  { q: { group_eq: group[role] }}
   }
 
-  fetchUsers(pageNum, params) {
-    this.props.getAllUsers(pageNum, params)
+  fetchUsers(params, pageNum=1) {
+    this.props.getAllUsers(params, pageNum)
   }
 
   getNextPage(pageNum) {
     this.setState({ pageNum: parseInt(pageNum) })
-    this.fetchUsers(pageNum, this.getRole())
+    this.fetchUsers(this.getRole(), pageNum)
+  }
+
+  handleSearch(e, input) {
+    const params = {
+      q: {
+        first_name_or_last_name_or_email_cont: input
+      }}
+    this.fetchUsers(params)
+    this.setState({ queryName: input })
   }
 
   render() {
     const { pagination, all } = this.props.users
+    const results = pagination && pagination.total
     const paginationItems = (
       pagination &&
         Math.ceil(pagination.total / pagination.limit)
@@ -66,6 +77,9 @@ class UsersContainer extends RoutedComponent {
         pageNum={this.state.pageNum}
         isFetching={this.props.users.isFetching}
         getNextPage={this.getNextPage}
+        handleSearch={this.handleSearch}
+        queryName={this.state.queryName}
+        results={results}
       />
     )
   }

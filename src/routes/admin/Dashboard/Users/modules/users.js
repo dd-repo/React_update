@@ -8,7 +8,7 @@ export const USERS_PENDING = 'USERS_PENDING';
 export const USERS_REQUEST = '/admin/api/users_search'
 
 // action
-export const getAllUsers = (pageNum, params) => {
+export const getAllUsers = (params, pageNum) => {
   const path = `${USERS_REQUEST}/${pageNum}`
   return dispatch => {
     dispatch(gettingAllUsers())
