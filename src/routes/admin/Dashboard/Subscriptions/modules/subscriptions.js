@@ -11,10 +11,11 @@ export const SUBSCRIPTION_UPDATE_FAILURE = 'SUBSCRIPTION_UPDATE_FAILURE'
 export const SUBSCRIPTIONS_REQUEST = '/admin/api/subscriptions';
 
 // actions
-export const getSubscriptions = pageNum => {
+export const getSubscriptions = (params, pageNum) => {
+  const path = `${SUBSCRIPTIONS_REQUEST}/${pageNum}`
   return dispatch => {
     dispatch(gettingSubscriptions())
-    return BlitzApi.get(SUBSCRIPTIONS_REQUEST)
+    return BlitzApi.get(path, params)
     .then(
       response => dispatch(receiveSubscriptions(response.data)))
       .catch(

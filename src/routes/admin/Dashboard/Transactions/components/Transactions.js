@@ -5,9 +5,11 @@ import Transaction from './Transaction';
 import {
   Table,
   Label,
+  Col,
   Button,
   Row,
-  Pagination
+  Pagination,
+  SearchBar
 } from 'components';
 
 const Transactions = (props) => {
@@ -17,6 +19,10 @@ const Transactions = (props) => {
     pageNum,
     getNextPage,
     isFetching,
+    queryName,
+    handleSearch,
+    limit,
+    total
   } = props
 
   const renderLoader = (
@@ -31,7 +37,7 @@ const Transactions = (props) => {
   )
 
   const renderPagination = (
-    !isFetching &&
+    !isFetching && (total > limit) &&
       <div className="text-center">
         <Pagination
           bsSize="medium"
@@ -63,9 +69,19 @@ const Transactions = (props) => {
       </tbody>
   )
 
+  const renderSearchBar = (
+    <Col lg={6} lgOffset={3} className='m-b-2' >
+      <SearchBar
+        query={queryName}
+        resultCount={total}
+        handleSearch={handleSearch}
+      />
+    </Col>
+  )
+
   return (
     <Row>
-      { renderPagination }
+      { renderSearchBar }
       <Table>
         <thead>
           <tr>
@@ -100,6 +116,7 @@ const Transactions = (props) => {
         </thead>
         { renderTransactions }
       </Table>
+      { renderPagination }
       { renderLoader }
     </Row>
   )
@@ -111,6 +128,10 @@ Transactions.PropTypes = {
   pageNum: PropTypes.number,
   isFetching: PropTypes.bool,
   getNextPage: PropTypes.func.isRequired,
+  handleSearch: PropTypes.func.isRequired,
+  queryName: PropTypes.string,
+  limit: PropTypes.number,
+  total: PropTypes.number
 }
 
 export default Transactions;
