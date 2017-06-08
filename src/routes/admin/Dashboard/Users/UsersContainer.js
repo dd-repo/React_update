@@ -67,6 +67,7 @@ class UsersContainer extends RoutedComponent {
     const { pagination, all } = this.props.users
     const results = pagination && pagination.total
     const limit = pagination && pagination.limit
+    const isFrontend = all && all[0].group === 'frontend'
     const paginationItems = (
       pagination &&
         Math.ceil(pagination.total / pagination.limit)
@@ -83,6 +84,7 @@ class UsersContainer extends RoutedComponent {
         queryName={this.state.queryName}
         results={results}
         limit={limit}
+        isFrontend={isFrontend}
       />
     )
   }

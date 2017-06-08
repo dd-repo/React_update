@@ -22,7 +22,8 @@ const Users = (props) => {
     handleSearch,
     queryName,
     results,
-    limit
+    limit,
+    isFrontend
   } = props
 
   const renderLoader = (
@@ -70,7 +71,7 @@ const Users = (props) => {
   )
 
   const renderSearch = (
-    group === 'frontend' &&
+    isFrontend &&
       <Col lg={6} lgOffset={3} className='m-b-2' >
         <SearchBar
           query={queryName}
@@ -119,7 +120,12 @@ Users.propTypes = {
   paginationItems: PropTypes.number,
   pageNum: PropTypes.number,
   isFetching: PropTypes.bool,
-  getNextPage: PropTypes.func.isRequired
+  getNextPage: PropTypes.func.isRequired,
+  handleSearch: PropTypes.func.isRequired,
+  queryName: PropTypes.string,
+  results: PropTypes.number,
+  limit: PropTypes.number,
+  isFrontend: PropTypes.bool
 }
 
 export default Users
