@@ -188,7 +188,6 @@ class RequestedRemovals extends Component {
 
     return (
       <Row>
-        { renderPagination }
         <Table>
           <thead>
             <tr>
@@ -217,6 +216,7 @@ class RequestedRemovals extends Component {
           </thead>
           { renderRemovals }
         </Table>
+        { renderPagination }
         { renderLoader }
         { renderModal }
       </Row>

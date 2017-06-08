@@ -40,7 +40,7 @@ class RequestedRemovalsContainer extends RoutedComponent {
       sidebarEnabled: true,
       navbarEnabled: true,
       footerEnabled: true,
-      headerEnabled: false
+      headerEnabled: true
     }
   }
 
@@ -104,6 +104,7 @@ class RequestedRemovalsContainer extends RoutedComponent {
      _.sortBy(requestedRemovals.all, 'id' )
     )
 
+    const results = pagination && pagination.total
     const paginationItems = (
       pagination &&
         Math.ceil( pagination.total / pagination.limit )

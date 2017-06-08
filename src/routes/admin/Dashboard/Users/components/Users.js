@@ -7,7 +7,9 @@ import {
   Label,
   Button,
   Row,
-  Pagination
+  Pagination,
+  Col,
+  SearchBar
 } from 'components';
 
 const Users = (props) => {
@@ -17,6 +19,9 @@ const Users = (props) => {
     pageNum,
     getNextPage,
     isFetching,
+    handleSearch,
+    queryName,
+    results
   } = props
 
   const renderLoader = (
@@ -65,7 +70,13 @@ const Users = (props) => {
 
   return (
     <Row>
-      { renderPagination }
+      <Col lg={6} lgOffset={3} className='m-b-2' >
+        <SearchBar
+          query={queryName}
+          resultCount={results}
+          handleSearch={handleSearch}
+        />
+      </Col>
       <Table>
         <thead>
           <tr>
@@ -91,6 +102,7 @@ const Users = (props) => {
         </thead>
         { renderUsers }
       </Table>
+      { renderPagination }
       { renderLoader }
     </Row>
   )
