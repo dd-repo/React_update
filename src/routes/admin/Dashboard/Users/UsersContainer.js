@@ -2,7 +2,8 @@ import React from 'react';
 
 import { connect, RoutedComponent } from 'routes/routedComponent';
 import { CONTENT_VIEW_STATIC } from 'layouts/DefaultLayout/modules/layout';
-import { getAllUsers } from './modules/users';
+import { getAllUsers, becomeUser } from './modules/users';
+import { persistData } from 'localStorage';
 import Users from './components/Users';
 
 const group = {
@@ -17,6 +18,8 @@ class UsersContainer extends RoutedComponent {
 
     this.getNextPage = this.getNextPage.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
+    this.handleClick = this.handleClick.bind(this);
+    this.transitionToUser = this.transitionToUser.bind(this);
   }
 
   getLayoutOptions() {
@@ -27,6 +30,10 @@ class UsersContainer extends RoutedComponent {
       footerEnabled: true,
       headerEnabled: true
     }
+  }
+
+  static contextTypes = {
+    router: React.PropTypes.object.isRequired
   }
 
   componentWillReceiveProps(nextProps) {
@@ -64,6 +71,17 @@ class UsersContainer extends RoutedComponent {
     this.setState({ queryName: input })
   }
 
+  handleClick(id) {
+    const params = { user: { id: id } }
+    this.props.becomeUser(params)
+    .then( res => this.transitionToUser(res) )
+  }
+
+  transitionToUser(res) {
+    persistData(res.data.auth_token, 'authToken' )
+    this.context.router.push('/dashboard')
+  }
+
   render() {
     const { pagination, all } = this.props.users
     const results = pagination && pagination.total
@@ -86,6 +104,7 @@ class UsersContainer extends RoutedComponent {
         results={results}
         limit={limit}
         isFrontend={isFrontend}
+        handleClick={this.handleClick}
       />
     )
   }
@@ -98,7 +117,8 @@ const mapStateToProps = state => {
 }
 
 const mapActionCreators = {
-  getAllUsers
+  getAllUsers,
+  becomeUser
 }
 
 export default connect(mapStateToProps, mapActionCreators)(UsersContainer);

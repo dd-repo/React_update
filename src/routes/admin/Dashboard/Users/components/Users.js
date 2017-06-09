@@ -23,7 +23,8 @@ const Users = (props) => {
     queryName,
     results,
     limit,
-    isFrontend
+    isFrontend,
+    handleClick
   } = props
 
   const renderLoader = (
@@ -63,6 +64,7 @@ const Users = (props) => {
           users.map(user => (
             <User
               user={user}
+              handleClick={handleClick}
               key={user.id}
             />
             ))
@@ -104,6 +106,9 @@ const Users = (props) => {
             </th>
             <th>
               Created At
+            </th>
+            <th>
+              Action
             </th>
           </tr>
         </thead>

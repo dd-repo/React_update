@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react';
+import { Button } from 'components'
 
 import { formatDate } from 'utils/dateHelper';
 
@@ -11,10 +12,18 @@ const User = (props) => {
     group,
     role,
     accounts,
-    created_at
+    created_at,
   } = props.user
 
   const fullName = `${first_name} ${last_name}`
+  const renderButton = (
+    <Button
+      bsStyle='danger'
+      onClick={() => {props.handleClick(id)}}
+    >
+      Become User
+    </Button>
+  )
 
   return (
     <tr className='bg-gray-darker' key={id}>
@@ -35,6 +44,9 @@ const User = (props) => {
       </td>
       <td>
         { formatDate(created_at) }
+      </td>
+      <td>
+        { renderButton }
       </td>
     </tr>
   )
