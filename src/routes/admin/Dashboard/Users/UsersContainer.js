@@ -54,6 +54,7 @@ class UsersContainer extends RoutedComponent {
   }
 
   handleSearch(e, input) {
+    e.preventDefault()
     const params = {
       q: {
         first_name_or_last_name_or_email_cont: input,

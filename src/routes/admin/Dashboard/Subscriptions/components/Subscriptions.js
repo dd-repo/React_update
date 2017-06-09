@@ -5,12 +5,14 @@ import Subscription from './Subscription';
 
 import {
   Table,
+  Col,
   Label,
   Panel,
   Button,
   Row,
   Pagination,
   Modal,
+  SearchBar
 } from 'components';
 
 export default class Subscriptions extends Component {
@@ -38,6 +40,10 @@ export default class Subscriptions extends Component {
       hideModal,
       confirmCancelation,
       subscriptionInProcess,
+      handleSearch,
+      resultCount,
+      queryName,
+      limit
     } = this.props
 
     const {
@@ -50,7 +56,7 @@ export default class Subscriptions extends Component {
     } = subscriptionInProcess
 
     const renderPagination = (
-      !isFetching &&
+      !isFetching && (resultCount > limit) &&
         <div className="text-center">
           <Pagination
             bsSize="medium"
@@ -93,6 +99,16 @@ export default class Subscriptions extends Component {
             </div>
           </div>
         </div>
+    )
+
+    const renderSearchBar = (
+      <Col lg={6} lgOffset={3} className='m-b-2' >
+        <SearchBar
+          query={queryName}
+          resultCount={resultCount}
+          handleSearch={handleSearch}
+        />
+      </Col>
     )
 
     const renderModal = (
@@ -153,7 +169,7 @@ export default class Subscriptions extends Component {
 
     return (
       <Row>
-        { renderPagination }
+        { renderSearchBar }
         <Table>
           <thead>
             <tr>
@@ -188,6 +204,7 @@ export default class Subscriptions extends Component {
           </thead>
           { renderSubscriptions }
         </Table>
+        { renderPagination }
         { renderLoader }
         { renderModal }
       </Row>
@@ -202,4 +219,12 @@ Subscriptions.propTypes = {
   isFetching: PropTypes.bool,
   getNextPage: PropTypes.func.isRequired,
   handleClick: PropTypes.func.isRequired,
+  confirmCancelation: PropTypes.func.isRequired,
+  showModal: PropTypes.bool,
+  hideModal: PropTypes.func,
+  subscriptionInProcess: PropTypes.object,
+  queryName: PropTypes.string,
+  handleSearch: PropTypes.func,
+  resultCount: PropTypes.number,
+  limit: PropTypes.number
 }

@@ -15,13 +15,15 @@ class SubscriptionsContainer extends RoutedComponent {
     this.state = {
       pageNum: 1,
       showModal: false,
-      subscriptionInProcess: {}
+      subscriptionInProcess: {},
+      queryName: 'All Subscriptions'
     }
 
     this.getNextPage = this.getNextPage.bind(this);
     this.handleClick = this.handleClick.bind(this);
     this.confirmCancelation = this.confirmCancelation.bind(this);
     this.hideModal = this.hideModal.bind(this);
+    this.handleSearch = this.handleSearch.bind(this);
   }
 
   getLayoutOptions() {
@@ -30,7 +32,7 @@ class SubscriptionsContainer extends RoutedComponent {
       sidebarEnabled: true,
       navbarEnabled: true,
       footerEnabled: true,
-      headerEnabled: false
+      headerEnabled: true
     }
   }
 
@@ -42,19 +44,19 @@ class SubscriptionsContainer extends RoutedComponent {
     this.fetchSubscriptions()
   }
 
-  fetchSubscriptions() {
-    this.props.getSubscriptions(this.state.pageNum)
+  fetchSubscriptions(params={}, pageNum=1) {
+    this.props.getSubscriptions(params, pageNum)
   }
 
   handleClick(id, isActive) {
     this.props.updateSubscription(id, isActive)
-    .then( (res) => this.fetchSubscriptions())
+    .then( (res) => this.fetchSubscriptions({}, this.state.pageNum))
     .catch( (error) => console.log('error in updating subscription', error))
   }
 
   getNextPage(pageNum) {
-    console.log('pageNum', pageNum)
-    this.fetchSubscriptions(pageNum)
+    this.setState({ pageNum: pageNum })
+    this.fetchSubscriptions({}, pageNum)
   }
 
   confirmCancelation(subscription) {
@@ -63,6 +65,16 @@ class SubscriptionsContainer extends RoutedComponent {
 
   hideModal() {
     this.setState({showModal: false, subscriptionInProcess: {}})
+  }
+
+  handleSearch(e, input) {
+    e.preventDefault()
+    const params = {
+      q: {
+        first_name_or_last_name_or_id: input
+      }
+    }
+    this.fetchSubscriptions(params)
   }
 
   render() {
@@ -76,6 +88,8 @@ class SubscriptionsContainer extends RoutedComponent {
       pagination &&
          Math.ceil(pagination.total / pagination.limit)
     )
+    const resultCount = pagination && pagination.total
+    const limit = pagination && pagination.limit
 
     return (
       <Subscriptions
@@ -90,6 +104,10 @@ class SubscriptionsContainer extends RoutedComponent {
         showModal={this.state.showModal}
         hideModal={this.hideModal}
         subscriptionInProcess={this.state.subscriptionInProcess}
+        queryName={this.state.queryName}
+        handleSearch={this.handelSearch}
+        resultCount={resultCount}
+        limit={limit}
       />
     )
   }

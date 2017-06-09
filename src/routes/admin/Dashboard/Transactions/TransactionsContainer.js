@@ -8,9 +8,14 @@ import Transactions from './components/Transactions';
 class TransactionsContainer extends RoutedComponent {
   constructor(props) {
     super(props)
-    this.state = { isFetching: true, pageNum: 1 }
+    this.state = {
+      isFetching: true,
+      pageNum: 1,
+      queryName: 'All Transactions'
+    }
 
     this.getNextPage = this.getNextPage.bind(this);
+    this.handleSearch = this.handleSearch.bind(this);
   }
 
   getLayoutOptions() {
@@ -31,13 +36,23 @@ class TransactionsContainer extends RoutedComponent {
     this.fetchTransactions()
   }
 
-  fetchTransactions(pageNum=1) {
-    this.props.getTransactions(pageNum)
+  fetchTransactions(params={}, pageNum=1) {
+    this.props.getTransactions(params, pageNum)
   }
 
   getNextPage(pageNum) {
     this.setState({ pageNum: parseInt(pageNum) })
-    this.fetchTransactions(pageNum)
+    this.fetchTransactions({}, pageNum)
+  }
+
+  handleSearch(e, input) {
+    e.preventDefault()
+    const params = {
+      q: {
+        first_name_or_last_name_or_email_transaction_id_cont: input
+      }
+    }
+    this.fetchTransactions(params)
   }
 
   render() {
@@ -47,6 +62,8 @@ class TransactionsContainer extends RoutedComponent {
       pagination &&
         Math.ceil(pagination.total / pagination.limit)
     )
+    const limit = pagination && pagination.limit
+    const total = pagination && pagination.total
 
     return (
       <Transactions
@@ -55,6 +72,10 @@ class TransactionsContainer extends RoutedComponent {
         pageNum={this.state.pageNum}
         isFetching={this.props.transactions.isFetching}
         getNextPage={this.getNextPage}
+        handleSearch={this.handleSearch}
+        queryName={this.state.queryName}
+        limit={limit}
+        total={total}
       />
     )
   }

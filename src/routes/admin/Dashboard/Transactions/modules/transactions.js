@@ -8,11 +8,11 @@ export const TRANSACTIONS_FAILURE = 'TRANSACTIONS_FAILURE';
 export const TRANSACTIONS_REQUEST = '/admin/api/transactions';
 
 // actions
-export const getTransactions = pageNum => {
+export const getTransactions = (params, pageNum) => {
   const path = `${TRANSACTIONS_REQUEST}/${pageNum}`
   return dispatch => {
     dispatch(gettingTransactions())
-    return BlitzApi.get(path)
+    return BlitzApi.get(path, params)
     .then(
       response => dispatch(receiveTransactions(response.data))
     ).catch(
