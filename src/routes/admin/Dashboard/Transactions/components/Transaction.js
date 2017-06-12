@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react';
 
 import { formatDate } from 'utils/dateHelper';
+import { Button } from 'components';
 
 const Transaction = (props) => {
 
@@ -16,6 +17,15 @@ const Transaction = (props) => {
     sales_rep_name,
     client_name,
   } = props.transaction
+
+  const renderCancelTransactionButton = (
+    <Button
+      bsStyle="danger"
+      onClick={() => { props.handleCancelTransaction(id) }}
+    >
+      Cancel Transaction
+    </Button>
+  )
 
   return (
     <tr className='bg-gray-darker' key={id}>
@@ -45,6 +55,9 @@ const Transaction = (props) => {
       </td>
       <td>
         { sales_rep_name }
+      </td>
+      <td>
+        { renderCancelTransactionButton }
       </td>
     </tr>
   )
