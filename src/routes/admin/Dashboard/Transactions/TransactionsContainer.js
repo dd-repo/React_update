@@ -12,14 +12,17 @@ class TransactionsContainer extends RoutedComponent {
   constructor(props) {
     super(props)
     this.state = {
-      isFetching: true,
       pageNum: 1,
-      queryName: 'All Transactions'
+      queryName: 'All Transactions',
+      showModal: false,
+      transactionInProgress: {}
     }
 
     this.getNextPage = this.getNextPage.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
     this.handleCancelTransaction = this.handleCancelTransaction.bind(this);
+    this.confirmCancelTransaction = this.confirmCancelTransaction.bind(this);
+    this.hideModal = this.hideModal.bind(this)
   }
 
   getLayoutOptions() {
@@ -59,8 +62,17 @@ class TransactionsContainer extends RoutedComponent {
     this.fetchTransactions(params)
   }
 
-  handleCancelTransaction(id) {
-    this.props.cancelTransaction(id)
+  handleCancelTransaction() {
+    this.props.cancelTransaction(this.state.transactionInProgress.id)
+    this.hideModal()
+  }
+
+  confirmCancelTransaction(transaction) {
+    this.setState({transactionInProgress: transaction, showModal: true})
+  }
+
+  hideModal() {
+    this.setState({showModal: false})
   }
 
   render() {
@@ -77,6 +89,10 @@ class TransactionsContainer extends RoutedComponent {
       <Transactions
         transactions={this.props.transactions.all}
         handleCancelTransaction={this.handleCancelTransaction}
+        confirmCancelTransaction={this.confirmCancelTransaction}
+        showModal={this.state.showModal}
+        transactionInProgress={this.state.transactionInProgress}
+        hideModal={this.hideModal}
         paginationItems={paginationItems}
         pageNum={this.state.pageNum}
         isFetching={this.props.transactions.isFetching}
