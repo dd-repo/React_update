@@ -2,9 +2,10 @@ import _ from 'lodash';
 
 const onlyNums = value => value.replace(/[^\d]/g, '')
 
-export const checkValidation = (values, fields) => {
+export const checkValidation = (values, fields, omittedFields) => {
   const errors = {}
-  _.each(fields, (type, field) => {
+  const validationFields = omittedFields ? _.omit(fields, omittedFields) : fields
+  _.each(validationFields, (type, field) => {
     if(!values[field]) {
       errors[field] = `Please enter your ${type.label}`
     }
@@ -24,7 +25,7 @@ export const checkValidation = (values, fields) => {
     errors.expirationDate = 'Invalid expiration date'
   }
   if(values.cvCode && values.cvCode.length < 3) {
-    errors.cvCode = 'Invalide CVC'
+    errors.cvCode = 'Invalid CVC'
   }
   if(values.zipcode && values.zipcode.length < 5) {
     errors.zipcode = 'Zipcode must be 6 digits'

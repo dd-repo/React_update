@@ -137,14 +137,6 @@ export default [
             }, 'admin-dashboard-removals-pending');
         }
     },
-    //{
-      //path: '/admin/dashboard/removals/in-progress',
-        //getComponent: (nextState, cb) => {
-            //require.ensure([], require => {
-              //cb(null, require('./admin/Dashboard/Removals/RequestedRemovalsContainer').default);
-            //}, 'admin-dashboard-removals-in-progress');
-        //}
-    //},
     {
       path: '/admin/dashboard/client-registration',
       getComponent: (nextState, cb) => {
@@ -175,6 +167,14 @@ export default [
         require.ensure([], require => {
           cb(null, require('./admin/Dashboard/Users').default);
         }, 'admin-dashboard-users-admin');
+      }
+    },
+    {
+      path: '/admin/dashboard/users/user/edit/:id',
+      getComponent: (nextState, cb) => {
+        require.ensure([], require => {
+          cb(null, require('./admin/Dashboard/UserEdit').default);
+        }, 'admin-dashboard-user-edit');
       }
     },
     {

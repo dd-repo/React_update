@@ -210,7 +210,7 @@ class RequestedRemovals extends Component {
                 status
               </th>
               <th>
-                action
+                actions
               </th>
             </tr>
           </thead>

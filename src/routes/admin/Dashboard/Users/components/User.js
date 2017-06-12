@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import { Button } from 'components'
+import { Button, DropdownButton, MenuItem } from 'components'
 
 import { formatDate } from 'utils/dateHelper';
 
@@ -15,14 +15,22 @@ const User = (props) => {
     created_at,
   } = props.user
 
+  const _onSelect = (action) => {
+    props.handleClick(action, id)
+  }
+
   const fullName = `${first_name} ${last_name}`
   const renderButton = (
-    <Button
+    <DropdownButton onSelect={_onSelect}
+      title='Actions'
       bsStyle='danger'
-      onClick={() => {props.handleClick(id)}}
+      id='dropdown-basic-4'
+      bsSize='lg'
+      className='m-b-1'
     >
-      Become User
-    </Button>
+      <MenuItem eventKey="become">Become</MenuItem>
+      <MenuItem eventKey="edit">Edit</MenuItem>
+    </DropdownButton>
   )
 
   return (

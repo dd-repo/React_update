@@ -71,10 +71,17 @@ class UsersContainer extends RoutedComponent {
     this.setState({ queryName: input })
   }
 
-  handleClick(id) {
-    const params = { user: { id: id } }
-    this.props.becomeUser(params)
-    .then( res => this.transitionToUser(res) )
+  handleClick(selector, id) {
+    switch(selector) {
+      case 'become':
+        const params = { user: { id: id } }
+        this.props.becomeUser(params)
+        .then( res => this.transitionToUser(res) )
+        break
+      case 'edit':
+        this.context.router.push(`/admin/dashboard/users/user/edit/${id}`)
+        break
+    }
   }
 
   transitionToUser(res) {
