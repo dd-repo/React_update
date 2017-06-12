@@ -29,7 +29,7 @@ const errRes = {
   response: {data: {errorMessage: 'error message'}}
 }
 
-describe.only('(Tranactions module)', () => {
+describe('(Tranactions module)', () => {
 
   it('should export constants', () => {
     expect(TRANSACTIONS_PENDING).to.equal('TRANSACTIONS_PENDING')
