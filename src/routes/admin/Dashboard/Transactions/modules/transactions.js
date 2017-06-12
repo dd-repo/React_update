@@ -4,7 +4,9 @@ import BlitzApi from 'services/BlitzApi';
 export const TRANSACTIONS_PENDING = 'TRANSACTIONS_PENDING';
 export const TRANSACTIONS_SUCCESS = 'TRANSACTIONS_SUCCESS';
 export const TRANSACTIONS_FAILURE = 'TRANSACTIONS_FAILURE';
-
+export const TRANSACTIONS_CANCEL_PENDING = 'TRANSACTIONS_CANCEL_PENDING';
+export const TRANSACTIONS_CANCEL_SUCCESS = 'TRANSACTIONS_CANCEL_SUCCESS';
+export const TRANSACTIONS_CANCEL_FAILURE = 'TRANSACTIONS_CANCEL_FAILURE';
 export const TRANSACTIONS_REQUEST = '/admin/api/transactions';
 
 // actions
@@ -14,10 +16,24 @@ export const getTransactions = (params, pageNum) => {
     dispatch(gettingTransactions())
     return BlitzApi.get(path, params)
     .then(
-      response => dispatch(receiveTransactions(response.data))
-    ).catch(
-    error => dispatch(rejectTransactions(error))
-    )
+      response => dispatch(receiveTransactions(response.data)))
+      .catch(
+        error => dispatch(receiveTransactionsFailure(error))
+      )
+  }
+}
+
+export const cancelTransaction = id => {
+  const path = `${TRANSACTIONS_REQUEST}/refund`
+  const params = { transaction: { id }}
+  return dispatch => {
+    dispatch(cancelingTransaction())
+    return BlitzApi.patch(path, params)
+    .then(
+      response => dispatch(receiveCanceledTransaction(response.data)))
+      .catch(
+        error => dispatch(receiveCanceledTransactionFailure(error))
+      )
   }
 }
 
@@ -34,9 +50,29 @@ export const receiveTransactions = data => (
   }
 )
 
-export const rejectTransactions = error => (
+export const receiveTransactionsFailure = error => (
   {
     type: TRANSACTIONS_FAILURE,
+    error
+  }
+)
+
+export const cancelingTransaction = () => (
+  {
+    type: TRANSACTIONS_CANCEL_PENDING
+  }
+)
+
+export const receiveCanceledTransaction = transaction => (
+  {
+    type: TRANSACTIONS_CANCEL_SUCCESS,
+    transaction
+  }
+)
+
+export const receiveCanceledTransactionFailure = error => (
+  {
+    type: TRANSACTIONS_CANCEL_FAILURE,
     error
   }
 )

@@ -21,6 +21,7 @@ const Transactions = (props) => {
     isFetching,
     queryName,
     handleSearch,
+    handleCancelTransaction,
     limit,
     total
   } = props
@@ -62,6 +63,7 @@ const Transactions = (props) => {
           transactions.map(transaction => (
             <Transaction
               transaction={transaction}
+              handleCancelTransaction={handleCancelTransaction}
               key={transaction.id}
             />
             ))
@@ -111,6 +113,9 @@ const Transactions = (props) => {
             </th>
             <th>
               sales rep
+            </th>
+            <th>
+              Cancel Action
             </th>
           </tr>
         </thead>

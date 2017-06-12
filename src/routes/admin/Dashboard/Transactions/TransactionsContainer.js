@@ -2,7 +2,10 @@ import React from 'react';
 
 import { RoutedComponent, connect } from 'routes/routedComponent';
 import { CONTENT_VIEW_STATIC } from 'layouts/DefaultLayout/modules/layout';
-import { getTransactions } from './modules/transactions'
+import {
+  getTransactions,
+  cancelTransaction
+} from './modules/transactions'
 import Transactions from './components/Transactions';
 
 class TransactionsContainer extends RoutedComponent {
@@ -16,6 +19,7 @@ class TransactionsContainer extends RoutedComponent {
 
     this.getNextPage = this.getNextPage.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
+    this.handleCancelTransaction = this.handleCancelTransaction.bind(this);
   }
 
   getLayoutOptions() {
@@ -55,6 +59,10 @@ class TransactionsContainer extends RoutedComponent {
     this.fetchTransactions(params)
   }
 
+  handleCancelTransaction(id) {
+    this.props.cancelTransaction(id)
+  }
+
   render() {
     const { pagination } = this.props.transactions
 
@@ -68,6 +76,7 @@ class TransactionsContainer extends RoutedComponent {
     return (
       <Transactions
         transactions={this.props.transactions.all}
+        handleCancelTransaction={this.handleCancelTransaction}
         paginationItems={paginationItems}
         pageNum={this.state.pageNum}
         isFetching={this.props.transactions.isFetching}
@@ -89,6 +98,7 @@ const mapStateToProps = state => {
 
 const mapActionCreators = {
   getTransactions,
+  cancelTransaction
 }
 
 export default connect(mapStateToProps, mapActionCreators)(TransactionsContainer)
