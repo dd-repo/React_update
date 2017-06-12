@@ -21,7 +21,7 @@ const Transaction = (props) => {
   const renderCancelTransactionButton = (
     <Button
       bsStyle="danger"
-      onClick={() => { props.handleCancelTransaction(id) }}
+      onClick={() => { props.confirmCancelTransaction(props.transaction) }}
     >
       Cancel Transaction
     </Button>
@@ -64,7 +64,20 @@ const Transaction = (props) => {
 }
 
 Transaction.propTypes = {
-  transaction: PropTypes.object.isRequired
+  transaction: PropTypes.object.isRequired,
+  handleCancelTransaction: PropTypes.func,
+  confirmCancelTransaction: PropTypes.func,
+  showModal: PropTypes.bool,
+  transactionInProgress: PropTypes.object,
+  hideModal: PropTypes.func,
+  paginationItems: PropTypes.number,
+  pageNum: PropTypes.number,
+  isFetching: PropTypes.bool,
+  getNextPage: PropTypes.func,
+  handleSearch: PropTypes.func,
+  qureyName: PropTypes.string,
+  limit: PropTypes.number,
+  total: PropTypes.number
 }
 
 export default Transaction;

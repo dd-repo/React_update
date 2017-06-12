@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import Loading from 'react-loading';
+import { formatDate } from 'utils/dateHelper';
 
 import Transaction from './Transaction';
 import {
@@ -9,12 +10,14 @@ import {
   Button,
   Row,
   Pagination,
-  SearchBar
+  SearchBar,
+  Modal
 } from 'components';
 
 const Transactions = (props) => {
   const {
     transactions,
+    transactionInProgress,
     paginationItems,
     pageNum,
     getNextPage,
@@ -22,9 +25,25 @@ const Transactions = (props) => {
     queryName,
     handleSearch,
     handleCancelTransaction,
+    confirmCancelTransaction,
     limit,
-    total
+    total,
+    showModal,
+    hideModal
   } = props
+
+  const {
+    id,
+    state,
+    processed_at,
+    type_of_deal,
+    user_email,
+    third_party_id,
+    round,
+    subscription_id,
+    sales_rep_name,
+    client_name,
+  } = transactionInProgress
 
   const renderLoader = (
     isFetching &&
@@ -63,7 +82,7 @@ const Transactions = (props) => {
           transactions.map(transaction => (
             <Transaction
               transaction={transaction}
-              handleCancelTransaction={handleCancelTransaction}
+              confirmCancelTransaction={confirmCancelTransaction}
               key={transaction.id}
             />
             ))
@@ -79,6 +98,57 @@ const Transactions = (props) => {
         handleSearch={handleSearch}
       />
     </Col>
+  )
+
+  const renderModal = (
+    <Modal  show={showModal} onHide={hideModal}>
+      <Modal.Header>
+        <Modal.Title>Please confirm transaction before canceling</Modal.Title>
+      </Modal.Header>
+
+      <Modal.Body>
+        <Table>
+          <thead>
+            <tr>
+              <th>
+                id
+              </th>
+              <th>
+                client name
+              </th>
+              <th>
+                client email
+              </th>
+              <th>
+                transaction id
+              </th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr className='bg-gray-dark'>
+              <td>
+                { id }
+              </td>
+              <td>
+                { client_name }
+              </td>
+              <td>
+                { user_email }
+              </td>
+              <td>
+                { third_party_id }
+              </td>
+            </tr>
+          </tbody>
+        </Table>
+      </Modal.Body>
+
+      <Modal.Footer>
+        <Button onClick={hideModal}>Close</Button>
+        <Button bsStyle="danger" onClick={handleCancelTransaction}>Cancel Transaction</Button>
+      </Modal.Footer>
+    </Modal>
   )
 
   return (
@@ -123,6 +193,7 @@ const Transactions = (props) => {
       </Table>
       { renderPagination }
       { renderLoader }
+      { renderModal }
     </Row>
   )
 }
