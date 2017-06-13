@@ -108,7 +108,7 @@ const Users = (props) => {
               Created At
             </th>
             <th>
-              Action
+              actions
             </th>
           </tr>
         </thead>

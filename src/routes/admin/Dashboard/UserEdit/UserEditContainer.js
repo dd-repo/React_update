@@ -1,28 +1,22 @@
 import React from 'react';
-import ClientRegistration from './components/ClientRegistration';
-import { reset } from 'redux-form';
-
-import { RoutedComponent, connect } from 'routes/routedComponent';
+import _ from 'underscore';
+import { connect, RoutedComponent } from 'routes/routedComponent';
 import { CONTENT_VIEW_STATIC } from 'layouts/DefaultLayout/modules/layout';
-import BlitzApi from 'services/BlitzApi';
 
-const CLIENT_SIGNUP_REQUEST = '/admin/api/signup';
+import UserEdit from './components/UserEdit';
 
-class ClientRegistrationContainer extends RoutedComponent {
+const UPDATE_USER_REQUEST = '/admin/api/'
+
+class UserEditContainer extends RoutedComponent {
   constructor(props) {
     super(props)
-
     this.state = {isFetching: false}
 
     this.submitForm = this.submitForm.bind(this);
-    this.resetForm = this.resetForm.bind(this);
-    this.handleSuccess = this.handleSuccess.bind(this);
-    this.handleFailure = this.handleFailure.bind(this);
   }
 
   static contextTypes = {
-    router: React.PropTypes.object.isRequired,
-    store: React.PropTypes.object.isRequired
+    router: React.PropTypes.object.isRequired
   }
 
   getLayoutOptions() {
@@ -59,8 +53,6 @@ class ClientRegistrationContainer extends RoutedComponent {
         card_year: user.expirationDate.slice(3),
         card_cvc: user.cvCode,
         address: user.address,
-        kw_first_name: user.kw_first_name,
-        kw_last_name: user.kw_last_name,
         city: user.city,
         state: user.state,
         zip: user.zipcode,
@@ -71,9 +63,9 @@ class ClientRegistrationContainer extends RoutedComponent {
   }
 
   submitForm(user) {
-    const payload = this.buildParams(user)
+    const payload = this.buildParms(uer)
     this.setState({isFetching: true})
-    BlitzApi.post(CLIENT_SIGNUP_REQUEST, payload)
+    BlitzApi.patch(UPDATE_USER_REQUEST, payload)
     .then(res => { this.handleSuccess(res) })
     .catch(error => { this.handleFailure(error) })
   }
@@ -82,7 +74,7 @@ class ClientRegistrationContainer extends RoutedComponent {
     this.setState({
       isFetching: false,
       notification: {
-        message: 'Client was successfully created',
+        message: 'Client was successfully updated',
         status: 'success'
       }
     })
@@ -107,8 +99,12 @@ class ClientRegistrationContainer extends RoutedComponent {
   }
 
   render() {
+    const userId = parseInt(this.props.params.id)
+    const user = _.find(this.props.users.all, {id: userId})
+
     return (
-      <ClientRegistration
+      <UserEdit
+        user={user}
         submitForm={this.submitForm}
         isFetching={this.state.isFetching}
         notification={this.state.notification}
@@ -117,12 +113,10 @@ class ClientRegistrationContainer extends RoutedComponent {
   }
 }
 
-const mapStateToProps = state => ({
-  form: state.form
-})
-
-const mapActionCreators = {
-  reset
+const mapStateToProps = state => {
+  return {
+    users: state.users
+  }
 }
 
-export default connect(mapStateToProps, mapActionCreators)(ClientRegistrationContainer);
+export default connect(mapStateToProps)(UserEditContainer)

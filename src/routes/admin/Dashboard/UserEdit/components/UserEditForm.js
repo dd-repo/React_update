@@ -77,18 +77,22 @@ const fields = {
     name: 'cvCode',
     type: 'text',
     label: 'CVC',
-    maxLength: '4',
+    maxLength: '3',
     normalize: normalizeNums
   },
-  kw_first_name: {
-    name: 'kw_first_name',
-    type: 'text',
-    label: 'First Name'
+  {
+    kw_first_name: {
+      name: 'kw_first_name',
+      type: 'text',
+      label: 'First Name',
+    }
   },
-  kw_last_name: {
-    name: 'kw_last_name',
-    type: 'text',
-    label: 'Last Name'
+  {
+    kw_last_name: {
+      name: 'kw_last_name',
+      type: 'text',
+      label: 'Last Name',
+    }
   },
   address: {
     name: 'address',
@@ -136,14 +140,8 @@ const dropDownSelect = ({ input }) => {
   )
 }
 
-const fieldsToOmit = [
-  'kw_first_name',
-  'kw_last_name',
-  'authnet_id'
-]
-
 const validate = values => {
-  return checkValidation(values, fields, fieldsToOmit)
+  return checkValidation(values, fields)
 }
 
 const renderInput = (props) => {
@@ -160,7 +158,10 @@ const renderInput = (props) => {
     (
       error &&
         <span className='text-danger'>
-          <strong> Opps!  </strong> {error}
+          <strong>
+            Opps!
+        </strong>
+        {error}
       </span>
     )
 
@@ -202,7 +203,16 @@ const renderField = (props) => {
 }
 
 let ClientRegistrationForm = (props) => {
-
+  const FORM_TYPE = {
+    'new': {
+      buttonLabel: 'Registar Client',
+      buttonSubmitLabel: 'Registering Client...'
+    },
+    'edit': {
+      buttonLabel: 'Update User',
+      buttonSubmitLabel: 'Updating User...'
+    }
+  }
   const {
     isFetching,
     submitForm,
@@ -215,9 +225,9 @@ let ClientRegistrationForm = (props) => {
 
   const renderbuttonLabel = (
     !isFetching ?
-      'Registar Client'
+     FORM_TYPE[type].buttonLabel
         :
-          'Registering Client...'
+          FORM_TYPE[type].buttonSubmitLabel
   )
 
   return (
@@ -320,18 +330,6 @@ let ClientRegistrationForm = (props) => {
             <Col sm={12}>
               <Row>
                 <Col sm={ 6 }>
-                  {renderField(fields.kw_first_name)}
-                </Col>
-                <Col sm={ 6 }>
-                  {renderField(fields.kw_last_name)}
-                </Col>
-              </Row>
-            </Col>
-          </FormGroup>
-          <FormGroup controlId="formSizingColumn">
-            <Col sm={12}>
-              <Row>
-                <Col sm={ 6 }>
                   {renderField(fields.address)}
                 </Col>
                 <Col sm={ 6 }>
@@ -379,6 +377,8 @@ let ClientRegistrationForm = (props) => {
 
 ClientRegistrationForm.propTypes = {
   submitForm: PropTypes.func.isRequired,
+  type: PropTypes.string.isRequired,
+  user: PropTypes.object
 }
 
 ClientRegistrationForm = reduxForm({
@@ -386,6 +386,13 @@ ClientRegistrationForm = reduxForm({
   validate,           // <--- validation function given to redux-form
 })(ClientRegistrationForm)
 
+ClientRegistrationForm = connect(
+  //state => ({
+    //initialValues: state.clientRegistrationForm
+  //})
+)(ClientRegistrationForm)
+
 export default ClientRegistrationForm
+
 
 

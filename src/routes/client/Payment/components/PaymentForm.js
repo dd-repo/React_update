@@ -42,7 +42,7 @@ const fields = {
     name: 'cvCode',
     type: 'text',
     label: 'CVC',
-    maxLength: '3',
+    maxLength: '4',
     normalize: normalizeNums
   }
 }
