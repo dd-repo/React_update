@@ -30,7 +30,7 @@ const ClientRegistration = ({ notification, submitForm, isFetching }) => {
               header={(
                 <Link to='#' className={ classes.toHomeLink }>
                   <h2 className={ classes.panelHeader }>
-                    Client Registration
+                    Client Registration Form
                   </h2>
                 </Link>
                 )}

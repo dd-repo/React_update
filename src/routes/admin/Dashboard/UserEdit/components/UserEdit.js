@@ -14,6 +14,7 @@ const UserEdit = (props) => {
   const {
     notification,
     submitForm,
+    isFetching,
     user
   } = props
 
@@ -33,7 +34,7 @@ const UserEdit = (props) => {
                 header={(
                   <Link to='#' className={ classes.toHomeLink }>
                     <h2 className={ classes.panelHeader }>
-                      Client Edit
+                      Client Edit Form
                     </h2>
                   </Link>
                   )}
