@@ -29,7 +29,9 @@ const User = (props) => {
       className='m-b-1'
     >
       <MenuItem eventKey="become">Become</MenuItem>
-      <MenuItem eventKey="edit">Edit</MenuItem>
+      {/*
+          <MenuItem eventKey="edit">Edit</MenuItem>
+          */}
     </DropdownButton>
   )
 
