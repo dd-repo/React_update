@@ -8,7 +8,7 @@ import {
     Button,
     Alert
 } from 'components';
-import UserEditForm from 'routes/admin/Dashboard/ClientRegistration/components/ClientRegistrationForm';
+import UserEditForm from './UserEditForm';
 
 const UserEdit = (props) => {
   const {
@@ -40,7 +40,7 @@ const UserEdit = (props) => {
                 >
                   <UserEditForm
                     submitForm={submitForm}
-                    type='edit'
+                    isFetching={isFetching}
                     initialValues={user}
                   />
             </Panel>

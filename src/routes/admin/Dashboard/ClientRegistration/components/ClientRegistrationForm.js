@@ -137,8 +137,8 @@ const dropDownSelect = ({ input }) => {
 }
 
 const fieldsToOmit = [
-  'kw_first_name',
-  'kw_last_name',
+  //'kw_first_name',
+  //'kw_last_name',
   'authnet_id'
 ]
 

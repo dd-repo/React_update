@@ -39,7 +39,6 @@ const ClientRegistration = ({ notification, submitForm, isFetching }) => {
                   <ClientRegistrationForm
                     submitForm={submitForm}
                     isFetching={isFetching}
-                    type='new'
                   />
 
                 </Panel>

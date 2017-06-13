@@ -80,19 +80,15 @@ const fields = {
     maxLength: '3',
     normalize: normalizeNums
   },
-  {
-    kw_first_name: {
-      name: 'kw_first_name',
-      type: 'text',
-      label: 'First Name',
-    }
+  kw_first_name: {
+    name: 'kw_first_name',
+    type: 'text',
+    label: 'First Name',
   },
-  {
-    kw_last_name: {
-      name: 'kw_last_name',
-      type: 'text',
-      label: 'Last Name',
-    }
+  kw_last_name: {
+    name: 'kw_last_name',
+    type: 'text',
+    label: 'Last Name',
   },
   address: {
     name: 'address',
@@ -203,16 +199,6 @@ const renderField = (props) => {
 }
 
 let ClientRegistrationForm = (props) => {
-  const FORM_TYPE = {
-    'new': {
-      buttonLabel: 'Registar Client',
-      buttonSubmitLabel: 'Registering Client...'
-    },
-    'edit': {
-      buttonLabel: 'Update User',
-      buttonSubmitLabel: 'Updating User...'
-    }
-  }
   const {
     isFetching,
     submitForm,
@@ -225,9 +211,9 @@ let ClientRegistrationForm = (props) => {
 
   const renderbuttonLabel = (
     !isFetching ?
-     FORM_TYPE[type].buttonLabel
+      'Update User'
         :
-          FORM_TYPE[type].buttonSubmitLabel
+          'Updating User...'
   )
 
   return (
