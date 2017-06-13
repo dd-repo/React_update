@@ -11,7 +11,8 @@ import {
   Row,
   Pagination,
   SearchBar,
-  Modal
+  Modal,
+  Alert
 } from 'components';
 
 const Transactions = (props) => {
@@ -29,7 +30,8 @@ const Transactions = (props) => {
     limit,
     total,
     showModal,
-    hideModal
+    hideModal,
+    errorMessage
   } = props
 
   const {
@@ -93,6 +95,7 @@ const Transactions = (props) => {
   const renderSearchBar = (
     <Col lg={6} lgOffset={3} className='m-b-2' >
       <SearchBar
+        placeHolder='Search by id...'
         query={queryName}
         resultCount={total}
         handleSearch={handleSearch}
@@ -151,9 +154,18 @@ const Transactions = (props) => {
     </Modal>
   )
 
+    const renderErrorMessage = (
+      errorMessage &&
+        <Alert bsStyle='danger'>
+          <i className="fa fa-fw text-danger m-r-1"></i>
+          {errorMessage}
+        </Alert>
+    )
+
   return (
     <Row>
       { renderSearchBar }
+      { renderErrorMessage }
       <Table>
         <thead>
           <tr>

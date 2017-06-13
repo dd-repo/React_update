@@ -8,6 +8,9 @@ import {
 } from './modules/transactions'
 import Transactions from './components/Transactions';
 
+// these are the search params for fetching all transactions
+const defaultSearchParams = { q: { id_not_eq: 0 }}
+
 class TransactionsContainer extends RoutedComponent {
   constructor(props) {
     super(props)
@@ -40,26 +43,26 @@ class TransactionsContainer extends RoutedComponent {
   }
 
   componentWillMount() {
-    this.fetchTransactions()
+    this.fetchTransactions(defaultSearchParams)
   }
 
-  fetchTransactions(params={}, pageNum=1) {
+  fetchTransactions(params, pageNum=1) {
     this.props.getTransactions(params, pageNum)
   }
 
   getNextPage(pageNum) {
     this.setState({ pageNum: parseInt(pageNum) })
-    this.fetchTransactions({}, pageNum)
+    this.fetchTransactions(defaultSearchParams, pageNum)
   }
 
-  handleSearch(e, input) {
-    e.preventDefault()
+  handleSearch(input) {
     const params = {
       q: {
-        first_name_or_last_name_or_email_transaction_id_cont: input
+         id_eq: input
       }
     }
     this.fetchTransactions(params)
+    this.setState({ queryName: input })
   }
 
   handleCancelTransaction() {
@@ -68,7 +71,10 @@ class TransactionsContainer extends RoutedComponent {
   }
 
   confirmCancelTransaction(transaction) {
-    this.setState({transactionInProgress: transaction, showModal: true})
+    this.setState({
+      transactionInProgress: transaction,
+      showModal: true
+    })
   }
 
   hideModal() {
@@ -84,6 +90,8 @@ class TransactionsContainer extends RoutedComponent {
     )
     const limit = pagination && pagination.limit
     const total = pagination && pagination.total
+    const errorMessage = this.props.transactions.error &&
+      this.props.transactions.error.response.data.message
 
     return (
       <Transactions
@@ -101,6 +109,7 @@ class TransactionsContainer extends RoutedComponent {
         queryName={this.state.queryName}
         limit={limit}
         total={total}
+        errorMessage={errorMessage}
       />
     )
   }

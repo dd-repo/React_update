@@ -67,8 +67,7 @@ class SubscriptionsContainer extends RoutedComponent {
     this.setState({showModal: false, subscriptionInProcess: {}})
   }
 
-  handleSearch(e, input) {
-    e.preventDefault()
+  handleSearch(input) {
     const params = {
       q: {
         first_name_or_last_name_or_id: input
