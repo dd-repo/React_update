@@ -14,7 +14,10 @@ const group = {
 class UsersContainer extends RoutedComponent {
   constructor(props) {
     super(props)
-    this.state = { pageNum: 1, queryName: 'All Users' }
+    this.state = {
+      pageNum: 1,
+      queryName: 'All Users'
+    }
 
     this.getNextPage = this.getNextPage.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
@@ -60,8 +63,7 @@ class UsersContainer extends RoutedComponent {
     this.fetchUsers(this.getRole(), pageNum)
   }
 
-  handleSearch(e, input) {
-    e.preventDefault()
+  handleSearch(input) {
     const params = {
       q: {
         first_name_or_last_name_or_email_cont: input,

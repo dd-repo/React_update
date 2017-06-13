@@ -10,8 +10,21 @@ import {
 
 import classes from './searchBar.scss';
 
-let searchInput;
-const SearchBar = (props) => (
+
+const SearchBar = (props) => {
+  let searchInput;
+
+  const handleKeyPress = target => {
+    if(target.charCode === 13) {
+      props.handleSearch(searchInput.value)
+    }
+  }
+
+  const _onClick = () => {
+    props.handleSearch(searchInput.value)
+  }
+
+  return (
     <div>
         <h3 className={classes.searchHeader}>
             Search Results for <strong>"{ props.query }"</strong>
@@ -22,12 +35,13 @@ const SearchBar = (props) => (
         <InputGroup className='m-t-2'>
           <FormControl
             type='text'
-            placeholder='Search by last name or email...'
+            placeholder={props.placeHolder}
             inputRef={(input) => {searchInput = input}}
+            onKeyPress={handleKeyPress}
           />
             <InputGroup.Button>
               <Button
-                onClick={(e) => {props.handleSearch(e, searchInput.value)}}
+                onClick={_onClick}
                 bsStyle='primary'
               >
                 <i className='fa fa-fw fa-search'></i>
@@ -35,17 +49,20 @@ const SearchBar = (props) => (
             </InputGroup.Button>
           </InputGroup>
         </div>
-);
+  )
+}
 
 SearchBar.propTypes = {
   query: PropTypes.string,
   resultCount: PropTypes.number,
-  handleSearch: PropTypes.func
+  handleSearch: PropTypes.func,
+  placeHolder: PropTypes.string
 };
 
 SearchBar.defaultProps = {
     query: '',
-    resultCount: null
+    resultCount: null,
+    placeHolder: 'Enter your search request...'
 }
 
 export default SearchBar;

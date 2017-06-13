@@ -4,10 +4,11 @@ import BlitzApi from 'services/BlitzApi';
 export const TRANSACTIONS_PENDING = 'TRANSACTIONS_PENDING';
 export const TRANSACTIONS_SUCCESS = 'TRANSACTIONS_SUCCESS';
 export const TRANSACTIONS_FAILURE = 'TRANSACTIONS_FAILURE';
-export const TRANSACTIONS_CANCEL_PENDING = 'TRANSACTIONS_CANCEL_PENDING';
-export const TRANSACTIONS_CANCEL_SUCCESS = 'TRANSACTIONS_CANCEL_SUCCESS';
-export const TRANSACTIONS_CANCEL_FAILURE = 'TRANSACTIONS_CANCEL_FAILURE';
-export const TRANSACTIONS_REQUEST = '/admin/api/transactions';
+export const TRANSACTION_CANCEL_PENDING = 'TRANSACTION_CANCEL_PENDING';
+export const TRANSACTION_CANCEL_SUCCESS = 'TRANSACTION_CANCEL_SUCCESS';
+export const TRANSACTION_CANCEL_FAILURE = 'TRANSACTION_CANCEL_FAILURE';
+export const TRANSACTIONS_REQUEST = '/admin/api/transactions/search';
+export const TRANSACTION_REFUND_REQUEST = '/admin/api/transactions/refund';
 
 // actions
 export const getTransactions = (params, pageNum) => {
@@ -24,11 +25,10 @@ export const getTransactions = (params, pageNum) => {
 }
 
 export const cancelTransaction = id => {
-  const path = `${TRANSACTIONS_REQUEST}/refund`
   const params = { transaction: { id }}
   return dispatch => {
     dispatch(cancelingTransaction())
-    return BlitzApi.patch(path, params)
+    return BlitzApi.patch(TRANSACTION_REFUND_REQUEST, params)
     .then(
       response => dispatch(receiveCanceledTransaction(response.data)))
       .catch(
@@ -59,20 +59,20 @@ export const receiveTransactionsFailure = error => (
 
 export const cancelingTransaction = () => (
   {
-    type: TRANSACTIONS_CANCEL_PENDING
+    type: TRANSACTION_CANCEL_PENDING
   }
 )
 
 export const receiveCanceledTransaction = transaction => (
   {
-    type: TRANSACTIONS_CANCEL_SUCCESS,
+    type: TRANSACTION_CANCEL_SUCCESS,
     transaction
   }
 )
 
 export const receiveCanceledTransactionFailure = error => (
   {
-    type: TRANSACTIONS_CANCEL_FAILURE,
+    type: TRANSACTION_CANCEL_FAILURE,
     error
   }
 )
@@ -93,6 +93,10 @@ const reducer = (state={}, action) => {
     case TRANSACTIONS_FAILURE:
       return Object.assign({}, state, {
         isFetching: false,
+        error: action.error
+      });
+    case TRANSACTION_CANCEL_FAILURE:
+      return Object.assign({}, state, {
         error: action.error
       });
     default:
