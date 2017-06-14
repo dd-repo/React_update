@@ -1,7 +1,9 @@
 import axios from 'axios';
 import moxios from 'moxios';
+import httpAdapter from 'axios/lib/adapters/http'
 
 import BlitzApi from 'services/BlitzApi';
+import BASE_URL from 'consts/baseUrl';
 import {
   SIGNUP_REQUEST,
   LOGIN_REQUEST
@@ -29,15 +31,15 @@ describe('BlitzApi', () => {
     expect(BlitzApi.handleError).to.be.a('function')
   })
 
-  describe('POST user signup', () => {
+  //describe('POST user signup', () => {
 
-    beforeEach(() => {
-      moxios.install()
-    })
+    //beforeEach(() => {
+      //moxios.install()
+    //})
 
-    afterEach(() => {
-      moxios.uninstall()
-    })
+    //afterEach(() => {
+      //moxios.uninstall()
+    //})
 
     //it('Should return successful response', (done) => {
 
@@ -52,7 +54,7 @@ describe('BlitzApi', () => {
       //}
       //moxios.withMock(() => {
         //let onFulfilled = sinon.spy()
-        //BlitzApi.post(SIGNUP_REQUEST, payload) .then(onFulfilled)
+        //BlitzApi.post(SIGNUP_REQUEST, payload).then(onFulfilled).catch(error => console.log('errror', error))
 
         //moxios.wait(() => {
           //let request = moxios.requests.mostRecent();
@@ -66,5 +68,5 @@ describe('BlitzApi', () => {
         //});
       //})
     //})
-  })
+  //})
 })

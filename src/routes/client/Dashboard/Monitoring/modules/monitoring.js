@@ -7,7 +7,6 @@ export const MONITORING_FAILURE = 'MONITORING_FAILURE';
 export const MONITORING_UPDATE_SUCCESS = 'MONITORING_UPDATE_SUCCESS';
 export const MONITORING_UPDATE_FAILURE = 'MONITORING_UPDATE_FAILURE';
 
-
 //actions
 export const getMonitoring = account_id => {
 
@@ -38,34 +37,34 @@ export const monitoringRequestRemoval = request_id => {
   }
 }
 
-const removalRequestSuccess = removal => (
+export const removalRequestSuccess = removal => (
   {
     type: MONITORING_UPDATE_SUCCESS,
     removal
   }
 )
 
-const removalRequestFailure = error => (
+export const removalRequestFailure = error => (
   {
     type: MONITORING_UPDATE_FAILURE,
     error
   }
 )
 
-const gettingMonitoring = () => (
+export const gettingMonitoring = () => (
   {
     type: MONITORING_PENDING
   }
 );
 
-const monitoringSuccess = response => (
+export const monitoringSuccess = response => (
   {
     type: MONITORING_SUCCESS,
     response
   }
 )
 
-const monitoringFailure = error => (
+export const monitoringFailure = error => (
   {
     type: MONITORING_FAILURE,
     error
@@ -73,7 +72,7 @@ const monitoringFailure = error => (
 )
 
 // reducers
-const updateMonitoringSite = (state, removal) => {
+export const updateMonitoringSite = (state, removal) => {
   return [
     ...state.filter(monitoring => monitoring.id !== removal.id),
       Object.assign({}, removal)
