@@ -19,22 +19,20 @@ export const postPayment = payload => {
   }
 }
 
-
-const postingPayment = paymentInfo => (
+export const postingPayment = o => (
   {
     type: PAYMENT_POSTING,
-    paymentInfo
   }
 );
 
-const paymentSuccess = user => (
+export const paymentSuccess = user => (
   {
     type: PAYMENT_SUCCESS,
     user
   }
 )
 
-const paymentFailure = error => (
+export const paymentFailure = error => (
   {
     type: PAYMENT_FAILURE,
     error
@@ -47,11 +45,6 @@ const reducer = (state={}, action) => {
     case PAYMENT_POSTING:
       return Object.assign({}, state, {
         isFetching: true,
-        //first_name: 'joe',
-        //last_name: 'bob',
-        //creditCardNumber: '4242424242424242',
-        //expirationDate: '02/2020',
-        //cvCode: '123'
       })
     case PAYMENT_SUCCESS:
       return Object.assign({}, state, {
