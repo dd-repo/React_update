@@ -4,20 +4,20 @@ import thunk from 'redux-thunk';
 import BlitzApi from 'services/BlitzApi';
 
 import {
-MONITORING_PENDING,
-MONITORING_SUCCESS,
-MONITORING_FAILURE,
-MONITORING_UPDATE_SUCCESS,
-MONITORING_UPDATE_FAILURE,
-getMonitoring,
-monitoringRequestRemoval,
-removalRequestSuccess,
-removalRequestFailure,
-gettingMonitoring,
-monitoringSuccess,
-monitoringFailure,
-updateMonitoringSite,
-default as reducer
+  MONITORING_PENDING,
+  MONITORING_SUCCESS,
+  MONITORING_FAILURE,
+  MONITORING_UPDATE_SUCCESS,
+  MONITORING_UPDATE_FAILURE,
+  getMonitoring,
+  monitoringRequestRemoval,
+  removalRequestSuccess,
+  removalRequestFailure,
+  gettingMonitoring,
+  monitoringSuccess,
+  monitoringFailure,
+  updateMonitoringSite,
+  default as reducer
 } from 'routes/client/Dashboard/Monitoring/modules/monitoring.js';
 
 const middlewares = [ thunk ]

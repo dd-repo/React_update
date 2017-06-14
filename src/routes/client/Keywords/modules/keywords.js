@@ -9,7 +9,7 @@ export const KEYWORD_SUCCESS = 'KEYWORD_SUCCESS';
 export const KEYWORD_FAILURE = 'KEYWORD_FAILURE';
 export const CURRENT_KEYWORD_ADD = 'CURRENT_KEYWORD_ADD';
 
-export const KEYWORD_REQUEST = `/dashboard/api/v1/users/sign-up/keyword`;
+export const KEYWORD_REQUEST = '/dashboard/api/v1/users/sign-up/keyword';
 
 
 // actions
@@ -27,26 +27,25 @@ export const postKeywords = payload => {
     .then(
       response => dispatch(keywordSuccess(response.data))
     ).catch(
-    error => dispatch(keywordFailure(error.response.data.errorMessage))
+    error => dispatch(keywordFailure(error))
     )
   }
 }
 
-const postingKeywords = keywords => (
+export const postingKeywords = () => (
   {
-    type: KEYWORD_POSTING,
-    keywords
+    type: KEYWORD_POSTING
   }
 );
 
-const keywordSuccess = keywords => (
+export const keywordSuccess = keywords => (
   {
     type: KEYWORD_SUCCESS,
     keywords
   }
 );
 
-const keywordFailure = error => (
+export const keywordFailure = error => (
   {
     type: KEYWORD_FAILURE,
     error
@@ -69,6 +68,7 @@ const reducer = (state = {}, action) => {
     case KEYWORD_FAILURE:
       return Object.assign({}, state, {
         isFetching: false,
+        error: action.error
       });
     case CURRENT_KEYWORD_ADD:
       return Object.assign({}, state, {

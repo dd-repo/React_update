@@ -2,6 +2,7 @@ import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 
 import BlitzApi from 'services/BlitzApi';
+
 import {
   SUBSCRIPTION_PENDING,
   SUBSCRIPTION_SUCCESS,
