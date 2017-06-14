@@ -25,13 +25,32 @@ const mockStore = configureMockStore(middlewares)
 
 const successfulResponse = {
   monitoring_requests: [
-    {id: 1},
-    {id: 2},
-    {id: 3}
+    {
+      id: 1,
+      site: "radius.com",
+      status: "pending",
+      status_label: "Pending",
+    },
+    {
+      id: 2,
+      site: "peoplefinder.com",
+      status: "pending",
+      status_label: "Pending",
+    },
+    {
+      id: 3,
+      site: "instantcheckmate.com",
+      status: "pending",
+      status_label: "Pending",
+    },
   ]
 }
 const removal = { id: 1 }
-const errorMessage = { error: 'error message' }
+
+const errRes = {
+  status: 400,
+  response: { data: { errorMessage: 'error message' } },
+}
 
 describe('(monitoring module) monitoring requests', () => {
 
@@ -65,7 +84,7 @@ describe('(monitoring module) monitoring requests', () => {
     })
 
     it('Should return an action with monitoring object', () => {
-      expect(monitoringFailure(errorMessage)).to.have.property('error', errorMessage)
+      expect(monitoringFailure(errRes)).to.have.property('error', errRes)
     })
   })
 
@@ -85,7 +104,7 @@ describe('(monitoring module) monitoring requests', () => {
     })
 
     it('Should return an action with monitoring object', () => {
-      expect(removalRequestFailure(errorMessage)).to.have.property('error', errorMessage)
+      expect(removalRequestFailure(errRes)).to.have.property('error', errRes)
     })
   })
 
@@ -108,7 +127,7 @@ describe('(monitoring module) monitoring requests', () => {
       expect(getMonitoring()).to.be.a('function')
     })
 
-    it('creates MONITORING_SUCCESS when fetching monitoring sites', () => {
+    it('creates MONITORING_SUCCESS when fetching monitoring sites', (done) => {
       const resolved = new Promise((r) => r({ data: successfulResponse }))
       monitoringApi.returns(resolved)
 
@@ -117,7 +136,170 @@ describe('(monitoring module) monitoring requests', () => {
         { type: MONITORING_SUCCESS, response: successfulResponse }
       ]
 
-      const store = mockStore({ monitoringSites: {} })
+      const store = mockStore({ monitoring: {} })
+
+      return store.dispatch(getMonitoring())
+      .then(() => {
+        expect(store.getActions()).to.eql(expectedActions);
+        done();
+      })
+    })
+
+    it('creates MONITORING_FAILURE when fetching monitoring sites', (done) => {
+      const rejected = new Promise((_, r) => r(errRes))
+      monitoringApi.returns(rejected)
+
+      const expectedActions = [
+        { type: MONITORING_PENDING },
+        { type: MONITORING_FAILURE, error: errRes}
+      ]
+
+      const store = mockStore({ monitoring: {} })
+
+      return store.dispatch(getMonitoring())
+      .then(() => {
+        expect(store.getActions()).to.eql(expectedActions);
+        done();
+      })
+    })
+  })
+
+  describe('(Async Action Creator) "monitoringRequestRemoval"', () => {
+    let monitoringApi;
+
+    beforeEach(() => {
+      monitoringApi = sinon.stub(BlitzApi, 'patch')
+    })
+
+    afterEach(() => {
+      monitoringApi.restore()
+    })
+
+    it('Should be exported as a function', () => {
+      expect(monitoringRequestRemoval).to.be.a('function')
+    })
+
+    it('Should return a function (is a thunk)', () => {
+      expect(monitoringRequestRemoval()).to.be.a('function')
+    })
+
+    it('creates MONITORING_UPDATE_SUCCESS when fetching monitoring sites', (done) => {
+      const resolved = new Promise((r) => r({ data: removal }))
+      monitoringApi.returns(resolved)
+
+      const expectedActions = [
+        { type: MONITORING_UPDATE_SUCCESS, removal }
+      ]
+
+      const store = mockStore({ monitoring: {} })
+
+      return store.dispatch(monitoringRequestRemoval())
+      .then(() => {
+        expect(store.getActions()).to.eql(expectedActions);
+        done();
+      })
+    })
+
+    it('creates MONITORING_UPDATE_FAILURE when fetching monitoring sites', (done) => {
+      const rejected = new Promise((_, r) => r(errRes))
+      monitoringApi.returns(rejected)
+
+      const expectedActions = [
+        { type: MONITORING_UPDATE_FAILURE, error: errRes }
+      ]
+
+      const store = mockStore({ monitoring: {} })
+
+      return store.dispatch(monitoringRequestRemoval())
+      .then(() => {
+        expect(store.getActions()).to.eql(expectedActions);
+        done();
+      })
+    })
+  })
+  describe('(Reducer)', () => {
+    const monitoringState = {
+      all: successfulResponse.monitoring_requests,
+      isFetching: false
+    }
+
+    const monitoringFailureState = {
+      isFetching: false,
+      errorMessage: errRes
+    }
+
+    const removalUpdated = {
+      id: 1,
+      site: "radius.com",
+      status: "inprogress",
+      status_label: "Pending",
+    }
+
+    const updatedState = {
+      all: [
+        {
+          id: 2,
+          site: "peoplefinder.com",
+          status: "pending",
+          status_label: "Pending",
+        },
+        {
+          id: 3,
+          site: "instantcheckmate.com",
+          status: "pending",
+          status_label: "Pending",
+        },
+        {
+          id: 1,
+          site: "radius.com",
+          status: "inprogress",
+          status_label: "Pending",
+        }
+      ],
+      isFetching: false
+    }
+
+    it('Should be a function.', () => {
+      expect(reducer).to.be.a('function')
+    })
+
+    it('Should initilaize with an object.', () => {
+      expect(reducer(undefined, {})).to.be.an('object')
+    })
+
+    it('Should return the previous state if an action was not matched.', () => {
+      let state = reducer({}, { type: MONITORING_PENDING})
+      expect(state).to.be.an('object')
+      expect(state).to.have.property('isFetching', true)
+      state = reducer(state, { type: 'NOT_ACTION' })
+      expect(state).to.have.property('isFetching', true)
+    })
+
+    it('should handle MONITORING_PENDING', () => {
+      expect(reducer({}, {
+        type: MONITORING_PENDING }))
+        .to.eql( { isFetching: true })
+    })
+
+    it('should handle MONITORING_SUCCESS', () => {
+      expect(reducer({ isFetching: true }, {
+        type: MONITORING_SUCCESS,
+        response: successfulResponse
+      })).to.eql(monitoringState)
+    })
+
+    it('should handle MONITORING_FAILURE', () => {
+      expect(reducer({ isFetching: true }, {
+        type: MONITORING_FAILURE,
+        error: errRes
+      })).to.eql(monitoringFailureState)
+    });
+
+    it('should handle MONITORING_UPDATE_SUCCESS', () => {
+      expect(reducer(monitoringState, {
+        type: MONITORING_UPDATE_SUCCESS,
+        removal: removalUpdated
+      })).to.eql(updatedState)
     })
   })
 })
