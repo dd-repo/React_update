@@ -21,7 +21,7 @@ export const updateUserProfile = (payload, profile_id) => {
     .then(
       response => dispatch(profileUpdateSuccess(response.data))
     ).catch(
-    error => dispatch(profileUpdateFailure(error.response.data.errorMessage))
+    error => dispatch(profileUpdateFailure(error))
     )
   }
 }
@@ -31,60 +31,48 @@ export const getProfile = (profile_id) => {
   return dispatch => {
     return BlitzApi.get(path)
     .then(
-      response => dispatch(profileGetSuccess(response.data))
+      response => dispatch(profileSuccess(response.data))
     ).catch(
-    error => dispatch(profileGetFailure(error.response))
+    error => dispatch(profileFailure(error))
     )
   }
 }
 
-const postingProfile = () => {
-return (
+export const postingProfile = () => (
   {
     type: PROFILE_UPDATE_POSTING
   }
 )
-}
 
-const profileUpdateSuccess = response => {
-  return (
+export const profileUpdateSuccess = () => (
   {
     type: PROFILE_UPDATE_SUCCESS,
-    response
   }
 )
-}
 
-const profileUpdateFailure = error => {
-  return (
+export const profileUpdateFailure = error => (
   {
     type: PROFILE_UPDATE_FAILURE,
     error
   }
 )
-}
 
-const profileGetSuccess = profile => {
-  return (
+export const profileSuccess = profile => (
     {
       type: PROFILE_SUCCESS,
       profile
     }
-  )
-}
+)
 
-const profileGetFailure = error => {
-  return (
+export const profileFailure = error => (
     {
       type: PROFILE_FAILURE,
       error
     }
-  )
-}
+)
 
 // reducer
-
-const addProfile = (state, profile) => {
+export const addProfile = (state, profile) => {
   return Object.assign({}, state, {
     avatar: profile.avatar_url,
     driver_license: profile.driver_license_url,
@@ -111,6 +99,10 @@ const reducer = (state = {}, action) => {
       })
     case PROFILE_SUCCESS:
       return addProfile(state, action.profile)
+    case PROFILE_FAILURE:
+      return Object.assign({}, state, {
+        error: action.error
+      })
     case USER_LOGIN_SUCCESS:
       return addProfile(state, action.data.account.profile)
     case USER_SIGNUP_SUCCESS:

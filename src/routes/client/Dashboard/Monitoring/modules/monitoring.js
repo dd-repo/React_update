@@ -73,8 +73,6 @@ export const monitoringFailure = error => (
 
 // reducers
 export const updateMonitoringSite = (state, removal) => {
-  console.log('state', state)
-  console.log('removal', removal)
   return [
     ...state.filter(monitoring => monitoring.id !== removal.id),
       Object.assign({}, removal)
