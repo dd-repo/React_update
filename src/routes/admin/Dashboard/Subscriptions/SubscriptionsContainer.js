@@ -49,7 +49,8 @@ class SubscriptionsContainer extends RoutedComponent {
   }
 
   handleClick(id, isActive) {
-    this.props.updateSubscription(id, isActive)
+    const params = { subscription: { is_active: isActive }}
+    this.props.updateSubscription(id, params)
     .then( (res) => this.fetchSubscriptions({}, this.state.pageNum))
     .catch( (error) => console.log('error in updating subscription', error))
   }
