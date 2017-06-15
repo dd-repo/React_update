@@ -25,12 +25,19 @@ import {
 const middlewares = [ thunk ]
 const mockStore = configureMockStore(middlewares)
 
-const subscriptions = [
-  { id: 1 },
-  { id: 2 },
-  { id: 3 }
-
-]
+const subscriptions = {
+  subscriptions: [
+    { id: 1 },
+    { id: 2 },
+    { id: 3 }
+  ],
+  meta: {
+    pagination: {
+      total: 10,
+      limit: 20
+    }
+  }
+}
 const errorRes = {
   response: {
     data: {
@@ -228,6 +235,61 @@ describe('(Subscription module)', () => {
       expect(state).to.have.property('isFetching', true)
       state = reducer(state, { type: 'NOT_ACTION' })
       expect(state).to.have.property('isFetching', true)
+    })
+
+    it('should handle SUBSCRIPTIONS_PENDING', () => {
+      expect(reducer({}, {
+        type: SUBSCRIPTIONS_PENDING
+      })).to.eql({
+        isFetching: true
+      })
+    })
+
+    it('should handle SUBSCRIPTIONS_SUCCESS', () => {
+      expect(reducer({}, {
+        type: SUBSCRIPTIONS_SUCCESS,
+        data: subscriptions
+      })).to.eql({
+        all: subscriptions.subscriptions,
+        pagination: subscriptions.meta.pagination,
+        isFetching: false
+      })
+    })
+
+    it('should handle SUBSCRIPTIONS_FAILURE', () => {
+      expect(reducer({}, {
+        type: SUBSCRIPTIONS_FAILURE,
+        error: errorRes
+      })).to.eql({
+        error: errorRes,
+        isFetching: false
+      })
+    })
+
+    it('should handle SUBSCRIPTION_UPDATE_PENDING', () => {
+      expect(reducer({}, {
+        type: SUBSCRIPTION_UPDATE_PENDING
+      })).to.eql({
+        isFetching: true
+      })
+    })
+
+    it('should handle SUBSCRIPTION_UPDATE_SUCCESS', () => {
+      expect(reducer({}, {
+        type: SUBSCRIPTION_UPDATE_SUCCESS
+      })).to.eql({
+        isFetching: false
+      })
+    })
+
+    it('should handle SUBSCRIPTION_UPDATE_FAILURE', () => {
+      expect(reducer({}, {
+        type: SUBSCRIPTION_UPDATE_FAILURE,
+        error: errorRes
+      })).to.eql({
+        isFetching: false,
+        error: errorRes
+      })
     })
   })
 })

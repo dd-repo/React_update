@@ -104,7 +104,7 @@ const reducer = (state={}, action) => {
       });
     case SUBSCRIPTION_UPDATE_FAILURE:
       return Object.assign({}, state, {
-        errorMessage: error.response.data.errorMessage,
+        error: action.error,
         isFetching: false
       });
     default:
