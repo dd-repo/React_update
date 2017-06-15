@@ -2,14 +2,7 @@ import React, { PropTypes } from 'react';
 import { Field, reduxForm } from 'redux-form';
 
 import { connect } from 'routes/routedComponent';
-import {
-  checkValidation,
-  normalizePhone,
-  normalizeExDate,
-  normalizeCreditCard,
-  normalizeDate,
-  normalizeNums
-} from 'utils/formHelpers';
+import { checkValidation } from 'utils/formHelpers';
 import {
     FormGroup,
     FormControl,
@@ -17,124 +10,9 @@ import {
     Row,
     ControlLabel
 } from 'components';
-import states from 'utils/states';
 
-const fields = {
-  first_name: {
-    name: 'first_name',
-    type: 'text',
-    label: 'First name',
-    placeHolder: 'Enter your first name...',
-  },
-  last_name: {
-    name: 'last_name',
-    type: 'text',
-    label: 'Last name',
-    placeHolder: 'Enter your last name',
-  },
-  email: {
-    name: 'email',
-    type: 'email',
-    label: 'Email',
-    placeHolder: 'Enter your email...',
-  },
-  phone_number: {
-    name: 'phone_number',
-    type: 'tel',
-    label: 'Phone number',
-    placeHolder: 'Enter your phone number...',
-    normalize: normalizePhone
-  },
-  authnet_id: {
-    name: 'authnet_id',
-    type: 'text',
-    label: 'authnet id',
-    placeHolder: 'Enter clients authroize.net id...'
-  },
-  cc_first_name: {
-    name: 'cc_first_name',
-    type: 'text',
-    label: 'First name',
-  },
-  cc_last_name: {
-    name: 'cc_last_name',
-    type: 'text',
-    label: 'Last name',
-  },
-  creditCardNumber: {
-    name: 'creditCardNumber',
-    type: 'text',
-    label: 'Valid card number',
-    normalize: normalizeCreditCard
-  },
-  expirationDate: {
-    name: 'expirationDate',
-    type: 'text',
-    label: 'MM/YYY',
-    normalize: normalizeExDate
-  },
-  cvCode: {
-    name: 'cvCode',
-    type: 'text',
-    label: 'CVC',
-    maxLength: '4',
-    normalize: normalizeNums
-  },
-  kw_first_name: {
-    name: 'kw_first_name',
-    type: 'text',
-    label: 'First Name'
-  },
-  kw_last_name: {
-    name: 'kw_last_name',
-    type: 'text',
-    label: 'Last Name'
-  },
-  address: {
-    name: 'address',
-    type: 'text',
-    label: 'Street Address',
-  },
-  city: {
-    name: 'city',
-    type: 'text',
-    label: 'City / Town',
-  },
-  zipcode: {
-    name: 'zipcode',
-    type: 'text',
-    label: 'Zipcode',
-    normalize: normalizeNums,
-    maxLength: 5
-  },
-  dob: {
-    name: 'dob',
-    type: 'text',
-    label: 'MM / DD / YYYY',
-    normalize: normalizeDate
-  },
-  state: {
-    list: states
-  },
-  plan: {
-    list: ['individual']
-  }
-}
+import formFields from 'consts/data/formFields';
 
-const dropDownSelect = ({ input }) => {
-  const { name } = input
-  const list = fields[[name]].list
-
-  return (
-    <FormControl {...input} componentClass='select'>
-      <option value=''>Select a {name}...</option>
-      {list.map(state =>
-                <option value={state} key={state}>{state}</option>
-                )
-      }
-    </FormControl>
-  )
-}
 
 const fieldsToOmit = [
   //'kw_first_name',
@@ -143,7 +21,7 @@ const fieldsToOmit = [
 ]
 
 const validate = values => {
-  return checkValidation(values, fields, fieldsToOmit)
+  return checkValidation(values, formFields, fieldsToOmit)
 }
 
 const renderInput = (props) => {
@@ -201,6 +79,21 @@ const renderField = (props) => {
   )
 }
 
+const dropDownSelect = ({ input }) => {
+  const { name } = input
+  const list = formFields[[name]].list
+
+  return (
+    <FormControl {...input} componentClass='select'>
+      <option value=''>Select a {name}...</option>
+      {list.map(state =>
+                <option value={state} key={state}>{state}</option>
+                )
+      }
+    </FormControl>
+  )
+}
+
 let ClientRegistrationForm = (props) => {
 
   const {
@@ -232,10 +125,10 @@ let ClientRegistrationForm = (props) => {
             <Col lg={12}>
               <Row>
                 <Col sm={ 6 }>
-                  {renderField(fields.first_name)}
+                  {renderField(formFields.first_name)}
                 </Col>
                 <Col sm={ 6 }>
-                  {renderField(fields.last_name)}
+                  {renderField(formFields.last_name)}
                 </Col>
               </Row>
             </Col>
@@ -244,10 +137,10 @@ let ClientRegistrationForm = (props) => {
             <Col sm={12}>
               <Row>
                 <Col sm={ 6 }>
-                  {renderField(fields.email)}
+                  {renderField(formFields.email)}
                 </Col>
                 <Col sm={ 6 }>
-                  {renderField(fields.phone_number)}
+                  {renderField(formFields.phone_number)}
                 </Col>
               </Row>
             </Col>
@@ -256,7 +149,7 @@ let ClientRegistrationForm = (props) => {
             <Col sm={12}>
               <Row>
                 <Col sm={6}>
-                  {renderField(fields.authnet_id)}
+                  {renderField(formFields.authnet_id)}
                 </Col>
               </Row>
             </Col>
@@ -287,10 +180,10 @@ let ClientRegistrationForm = (props) => {
             <Col sm={12}>
               <Row>
                 <Col sm={ 6 }>
-                  {renderField(fields.cc_first_name)}
+                  {renderField(formFields.cc_first_name)}
                 </Col>
                 <Col sm={ 6 }>
-                  {renderField(fields.cc_last_name)}
+                  {renderField(formFields.cc_last_name)}
                 </Col>
               </Row>
             </Col>
@@ -299,13 +192,13 @@ let ClientRegistrationForm = (props) => {
             <Col sm={12}>
               <Row>
                 <Col sm={ 4 }>
-                  {renderField(fields.creditCardNumber)}
+                  {renderField(formFields.creditCardNumber)}
                 </Col>
                 <Col sm={ 4 }>
-                  {renderField(fields.expirationDate)}
+                  {renderField(formFields.expirationDate)}
                 </Col>
                 <Col sm={ 4 }>
-                  {renderField(fields.cvCode)}
+                  {renderField(formFields.cvCode)}
                 </Col>
               </Row>
             </Col>
@@ -320,10 +213,10 @@ let ClientRegistrationForm = (props) => {
             <Col sm={12}>
               <Row>
                 <Col sm={ 6 }>
-                  {renderField(fields.kw_first_name)}
+                  {renderField(formFields.kw_first_name)}
                 </Col>
                 <Col sm={ 6 }>
-                  {renderField(fields.kw_last_name)}
+                  {renderField(formFields.kw_last_name)}
                 </Col>
               </Row>
             </Col>
@@ -332,10 +225,10 @@ let ClientRegistrationForm = (props) => {
             <Col sm={12}>
               <Row>
                 <Col sm={ 6 }>
-                  {renderField(fields.address)}
+                  {renderField(formFields.address)}
                 </Col>
                 <Col sm={ 6 }>
-                  {renderField(fields.city)}
+                  {renderField(formFields.city)}
                 </Col>
               </Row>
             </Col>
@@ -349,15 +242,14 @@ let ClientRegistrationForm = (props) => {
                   </label>
                   <Field
                     name='state'
-                    list={states}
                     component={dropDownSelect}
                   />
                 </Col>
                 <Col sm={ 4 }>
-                  {renderField(fields.zipcode)}
+                  {renderField(formFields.zipcode)}
                 </Col>
                 <Col sm={ 4 }>
-                  {renderField(fields.dob)}
+                  {renderField(formFields.dob)}
                 </Col>
               </Row>
             </Col>

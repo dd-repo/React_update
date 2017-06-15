@@ -92,7 +92,7 @@ import {
     RightSidebarTabs
 } from './components';
 
-import rightSidebarDataRaw from 'consts/data/right-sidebar.json';
+//import rightSidebarDataRaw from 'consts/data/right-sidebar.json';
 
 const titleBase = 'Blitz Monitoring ';
 
@@ -105,7 +105,7 @@ const sidebarAddOns = {
     [SIDEBAR_ADDON_AVATAR_AND_STATS]: (props) => ( <SidebarAddOns.AvatarAndStatsAddOn { ...props } /> )
 }
 
-const rightSidebarData = treeRandomizer(rightSidebarDataRaw);
+//const rightSidebarData = treeRandomizer(rightSidebarDataRaw);
 
 let rightSidebarTriggerRef,
     sidebarTriggerRef,

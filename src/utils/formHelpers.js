@@ -1,10 +1,11 @@
 import _ from 'lodash';
 
-const onlyNums = value => value.replace(/[^\d]/g, '')
+export const onlyNums = value => ( value.replace(/[^\d]/g, '') )
 
 export const checkValidation = (values, fields, omittedFields) => {
   const errors = {}
   const validationFields = omittedFields ? _.omit(fields, omittedFields) : fields
+
   _.each(validationFields, (type, field) => {
     if(!values[field]) {
       errors[field] = `Please enter your ${type.label}`
