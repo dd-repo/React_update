@@ -95,8 +95,18 @@ const reducer = (state={}, action) => {
         isFetching: false,
         error: action.error
       });
+    case TRANSACTION_CANCEL_PENDING:
+      return Object.assign({}, state, {
+        isFetching: true
+      })
+    case TRANSACTION_CANCEL_SUCCESS:
+      return Object.assign({}, state, {
+        isFetching: false,
+        error: null
+      })
     case TRANSACTION_CANCEL_FAILURE:
       return Object.assign({}, state, {
+        isFetching: false,
         error: action.error
       });
     default:

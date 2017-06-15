@@ -74,7 +74,7 @@ class ClientRegistrationContainer extends RoutedComponent {
     const payload = this.buildParams(user)
     this.setState({isFetching: true})
     BlitzApi.post(CLIENT_SIGNUP_REQUEST, payload)
-    .then(res => { this.handleSuccess(res) })
+    .then(res => { this.handleSuccess() })
     .catch(error => { this.handleFailure(error) })
   }
 
