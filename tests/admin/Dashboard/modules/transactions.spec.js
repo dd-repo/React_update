@@ -19,7 +19,7 @@ import {
   cancelingTransaction,
   receiveCanceledTransaction,
   receiveCanceledTransactionFailure,
-  default as rducer
+  default as reducer
 } from 'routes/admin/Dashboard/Transactions/modules/transactions';
 
 const middlewares = [ thunk ]
@@ -28,6 +28,24 @@ const mockStore = configureMockStore(middlewares)
 const errRes = {
   status: 400,
   response: {data: {errorMessage: 'error message'}}
+}
+
+const transactions = {
+  transactions: [
+    {id: 1},
+    {id: 2},
+    {id: 3}
+  ],
+  meta: {
+    pagination: {
+      total: 10,
+      limit: 20
+    }
+  }
+}
+
+const transaction = {
+  id: 1
 }
 
 describe('(Tranactions module)', () => {
@@ -119,14 +137,13 @@ describe('(Tranactions module)', () => {
     })
 
     it('creates TRANSACTIONS_SUCCESS', (done) => {
-      const fakeResponse = [{id: 1}, {id: 2}]
 
-      const resolved = new Promise((r) => r({data: fakeResponse}));
+      const resolved = new Promise((r) => r({data: transactions}));
       transactionsRequestApi.returns(resolved)
 
       const expectedActions = [
         { type: TRANSACTIONS_PENDING },
-        { type: TRANSACTIONS_SUCCESS, data: fakeResponse }
+        { type: TRANSACTIONS_SUCCESS, data: transactions }
       ]
 
       const store = mockStore({ transactions: {} })
@@ -178,19 +195,17 @@ describe('(Tranactions module)', () => {
     })
 
     it('creates a TRANSACTION_CANCEL_SUCCESS', (done) => {
-      const fakeResponse = {id: 1}
-
-      const resolved = new Promise((r) => r({data: fakeResponse}));
+      const resolved = new Promise((r) => r({data: transaction}));
       transactionsRequestApi.returns(resolved);
 
       const expectedActions = [
         { type: TRANSACTION_CANCEL_PENDING },
-        { type: TRANSACTION_CANCEL_SUCCESS, transaction: fakeResponse }
+        { type: TRANSACTION_CANCEL_SUCCESS, transaction }
       ]
 
       const store = mockStore({ transactions: {} })
 
-      return store.dispatch(cancelTransaction(fakeResponse.id))
+      return store.dispatch(cancelTransaction())
       .then(() => {
         expect(store.getActions()).to.eql(expectedActions)
         done();
@@ -217,6 +232,74 @@ describe('(Tranactions module)', () => {
   })
 
   describe('(Reducer)', () => {
+    it('Should be a function.', () => {
+      expect(reducer).to.be.a('function')
+    })
 
+    it('Should initilaize with an object.', () => {
+      expect(reducer(undefined, {})).to.be.an('object')
+    })
+
+    it('Should return the previous state if an action was not matched.', () => {
+      let state = reducer({isFetching: false}, { type: TRANSACTIONS_PENDING })
+      expect(state).to.be.an('object')
+      expect(state).to.have.property('isFetching', true)
+      state = reducer({isFetching: true}, { type: 'NOT_ACTION' })
+      expect(state).to.have.property('isFetching', true)
+    })
+
+    it('should handle TRANSACTIONS_PENDING', () => {
+      expect(reducer({}, {
+        type: TRANSACTIONS_PENDING
+      })).to.eql({
+        isFetching: true
+      })
+    })
+
+    it('should handle TRANSACTIONS_SUCCESS', () => {
+      expect(reducer({}, {
+        type: TRANSACTIONS_SUCCESS,
+        data: transactions
+      })).to.eql({
+        all: transactions.transactions,
+        pagination: transactions.meta.pagination,
+        isFetching: false
+      })
+    })
+
+    it('should handle TRANSACTIONS_FAILURE', () => {
+      expect(reducer({}, {
+        type: TRANSACTIONS_FAILURE,
+        error: errRes
+      })).to.eql({
+        isFetching: false,
+        error: errRes
+      })
+    })
+
+    it('shoulde handle TRANSACTION_CANCEL_SUCCESS', () => {
+      //const transactionsState = {
+        //all: transacatiions.transactions,
+        //pagination: transactions.meta.pagination,
+        //isFetching: true
+      //}
+      expect(reducer({}, {
+        type: TRANSACTION_CANCEL_SUCCESS,
+        transaction
+      })).to.eql({
+        isFetching: false,
+        error: null
+      })
+    })
+
+    it('shoulde handle TRANSACTION_CANCEL_FAILURE', () => {
+      expect(reducer({}, {
+        type: TRANSACTION_CANCEL_FAILURE,
+        error: errRes
+      })).to.eql({
+        error: errRes,
+        isFetching: false
+      })
+    })
   })
 })

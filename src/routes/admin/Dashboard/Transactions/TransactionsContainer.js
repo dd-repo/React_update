@@ -3,9 +3,12 @@ import React from 'react';
 import { RoutedComponent, connect } from 'routes/routedComponent';
 import { CONTENT_VIEW_STATIC } from 'layouts/DefaultLayout/modules/layout';
 import {
+  TRANSACTION_CANCEL_SUCCESS,
+  TRANSACTION_CANCEL_FAILURE,
   getTransactions,
   cancelTransaction
 } from './modules/transactions'
+
 import Transactions from './components/Transactions';
 
 // these are the search params for fetching all transactions
@@ -18,7 +21,7 @@ class TransactionsContainer extends RoutedComponent {
       pageNum: 1,
       queryName: 'All Transactions',
       showModal: false,
-      transactionInProgress: {}
+      transactionInProgress: {},
     }
 
     this.getNextPage = this.getNextPage.bind(this);
@@ -26,6 +29,7 @@ class TransactionsContainer extends RoutedComponent {
     this.handleCancelTransaction = this.handleCancelTransaction.bind(this);
     this.confirmCancelTransaction = this.confirmCancelTransaction.bind(this);
     this.hideModal = this.hideModal.bind(this)
+    this.handleSuccess = this.handleSuccess.bind(this);
   }
 
   getLayoutOptions() {
@@ -67,7 +71,31 @@ class TransactionsContainer extends RoutedComponent {
 
   handleCancelTransaction() {
     this.props.cancelTransaction(this.state.transactionInProgress.id)
+    .then(res => this.handleCancelTransactionResponse(res))
+    .catch(
+      error => this.handleFailure(error)
+      //error => console.log('error', error)
+    )
     this.hideModal()
+  }
+
+  handleCancelTransactionResponse(res) {
+    switch(res.type) {
+      case TRANSACTION_CANCEL_SUCCESS:
+        this.handleSuccess()
+    }
+  }
+
+  handleSuccess() {
+    this.setState({
+      isFetching: false,
+      notification: {
+        message: 'Transaction was successfully canceled'
+      }
+    })
+    setTimeout(() => {
+      this.setState({notification: null});
+    }, 5000)
   }
 
   confirmCancelTransaction(transaction) {
@@ -110,6 +138,7 @@ class TransactionsContainer extends RoutedComponent {
         limit={limit}
         total={total}
         errorMessage={errorMessage}
+        notification={this.state.notification}
       />
     )
   }

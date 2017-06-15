@@ -31,7 +31,8 @@ const Transactions = (props) => {
     total,
     showModal,
     hideModal,
-    errorMessage
+    errorMessage,
+    notification
   } = props
 
   const {
@@ -154,18 +155,24 @@ const Transactions = (props) => {
     </Modal>
   )
 
-    const renderErrorMessage = (
-      errorMessage &&
-        <Alert bsStyle='danger'>
-          <i className="fa fa-fw text-danger m-r-1"></i>
-          {errorMessage}
-        </Alert>
-    )
+  const renderMessage = () => {
+    if(errorMessage || notification) {
+      let status;
+      let message;
+      errorMessage && (status = 'danger', message = errorMessage)
+      notification && (status = 'success', message = notification.message)
+
+      return  <Alert bsStyle={status}>
+        <i className="fa fa-fw text-danger m-r-1"></i>
+        {message}
+      </Alert>
+    }
+  }
 
   return (
     <Row>
+      { renderMessage() }
       { renderSearchBar }
-      { renderErrorMessage }
       <Table>
         <thead>
           <tr>
