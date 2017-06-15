@@ -43,10 +43,10 @@ export const gettingRemovalRequests = () => (
   }
 )
 
-export const receivedRemovalRequests = removals => (
+export const receivedRemovalRequests = requestedRemovals => (
   {
     type: ADMIN_REQUESTED_REMOVALS_SUCCESS,
-    removals
+    requestedRemovals
   }
 )
 
@@ -63,10 +63,10 @@ export const updatingStatus = () => (
   }
 )
 
-export const receivedUpdateStatus = removal => (
+export const receivedUpdateStatus = requestedRemoval => (
   {
     type: UPDATE_STATUS_SUCCESS,
-    removal
+    requestedRemoval
   }
 )
 
@@ -79,9 +79,9 @@ export const rejectedUpdateStatus = error => (
 
 // reducer
 
-export const updateRemovals = (removals, action) => {
+export const updateRemovals = (requestedRemovals, action) => {
   return [
-    ...removals.filter(removal => removal.id !== action.removal.id)
+    ...requestedRemovals.filter(removal => removal.id !== action.requestedRemoval.id)
   ]
 }
 
@@ -94,8 +94,8 @@ const reducer = (state = {}, action) => {
     case ADMIN_REQUESTED_REMOVALS_SUCCESS:
       return Object.assign({}, state, {
         isFetching: false,
-        all: action.removals.monitoring_requests,
-        pagination: action.removals.meta.pagination
+        all: action.requestedRemovals.monitoring_requests,
+        pagination: action.requestedRemovals.meta.pagination
       });
     case ADMIN_REQUESTED_REMOVALS_FAILURE:
       return Object.assign({}, state, {

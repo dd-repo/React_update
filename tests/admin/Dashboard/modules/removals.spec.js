@@ -27,11 +27,9 @@ const mockStore = configureMockStore(middlewares)
 
 const requestedRemovals = {
   isFetching: false,
-  all: [
+  monitoring_requests: [
     {
       id: 154,
-      created_at: "2017-05-23T20:48:26.197-07:00",
-      updated_at: "2017-05-23T20:48:27.552-07:00",
       site: "radaris.com",
       status: "requested",
       status_label: "Pending",
@@ -41,11 +39,24 @@ const requestedRemovals = {
       is_active: false
     }
   ],
-  pagination: {
-    page: 1,
-    limit: 20,
-    total: 10
+  meta: {
+    pagination: {
+      page: 1,
+      limit: 20,
+      total: 10
+    }
   }
+}
+
+const requestedRemoval = {
+  id: 154,
+  site: "radaris.com",
+  status: "inprogress",
+  status_label: "Pending",
+  client_name: "test name",
+  age: 17,
+  addresses: ['123'],
+  is_active: false
 }
 
 const errRes = {
@@ -76,9 +87,8 @@ describe('(RequestedMovals module)', () => {
       expect(receivedRemovalRequests()).to.have.property('type', ADMIN_REQUESTED_REMOVALS_SUCCESS)
     })
 
-    it('Should return an action with removals',  () => {
-      let removals = {test: [{id: 1}]}
-      expect(receivedRemovalRequests(removals)).to.have.property('removals', removals)
+    it('Should return an action with requestedRemovals',  () => {
+      expect(receivedRemovalRequests(requestedRemovals)).to.have.property('requestedRemovals', requestedRemovals)
     })
   })
 
@@ -105,8 +115,7 @@ describe('(RequestedMovals module)', () => {
     })
 
     it('Should return an action with data', () => {
-      let removal =  {id: 1}
-      expect(receivedUpdateStatus(removal)).to.have.property('removal', removal)
+      expect(receivedUpdateStatus(requestedRemoval)).to.have.property('requestedRemoval', requestedRemoval)
     })
   })
 
@@ -122,26 +131,25 @@ describe('(RequestedMovals module)', () => {
   })
 
   describe('(Splitting reducers) updateRemovals', () => {
-    it('Should remove updated removal', () => {
-      let removals = [{id: 1}, {id: 2}, {id: 3}]
-      let action = {removal: {id: 1}}
-      let result = updateRemovals(removals, action)
+    it('Should remove updated requestedRemoval', () => {
+      let action = {requestedRemoval}
+      let result = updateRemovals(requestedRemovals.monitoring_requests, action)
 
       expect(result).to.be.an('array')
-      expect(result).to.not.include({id: 1})
+      expect(result.length).to.eql(0)
     })
   })
 
   describe('(Async Action Creator) getRemovalsRequested', () => {
 
-    let removalsRequestedApi;
+    let requestedRemovalsApi;
 
     beforeEach(() => {
-      removalsRequestedApi = sinon.stub(BlitzApi, 'get')
+      requestedRemovalsApi = sinon.stub(BlitzApi, 'get')
     })
 
     afterEach(() => {
-      removalsRequestedApi.restore()
+      requestedRemovalsApi.restore()
     })
 
     it('Should be exported as a function', () => {
@@ -157,11 +165,11 @@ describe('(RequestedMovals module)', () => {
 
 
       const resolved = new Promise((r) => r({ data: fakeResponse }));
-      removalsRequestedApi.returns(resolved);
+      requestedRemovalsApi.returns(resolved);
 
       const expectedActions = [
         { type: ADMIN_REQUESTED_REMOVALS_PENDING},
-        { type: ADMIN_REQUESTED_REMOVALS_SUCCESS, removals: fakeResponse}
+        { type: ADMIN_REQUESTED_REMOVALS_SUCCESS, requestedRemovals: fakeResponse}
       ]
 
       const store = mockStore({ requestedRemovals: {} })
@@ -175,7 +183,7 @@ describe('(RequestedMovals module)', () => {
 
     it('creates ADMIN_REQUESTED_REMOVALS_FAILURE', (done) => {
       const rejected = new Promise((_, r) => r(errRes));
-      removalsRequestedApi.returns(rejected);
+      requestedRemovalsApi.returns(rejected);
 
       const expectedActions = [
         { type: ADMIN_REQUESTED_REMOVALS_PENDING},
@@ -193,14 +201,14 @@ describe('(RequestedMovals module)', () => {
   })
 
   describe('(Async Action Creator) updateStatus', () => {
-    let removalsUpdatedApi;
+    let requestedRemovalsApi;
 
     beforeEach(() => {
-      removalsUpdatedApi = sinon.stub(BlitzApi, 'patch')
+      requestedRemovalsApi = sinon.stub(BlitzApi, 'patch')
     })
 
     afterEach(() => {
-      removalsUpdatedApi.restore()
+      requestedRemovalsApi.restore()
     })
 
     it('Should be exported as a function', () => {
@@ -212,20 +220,18 @@ describe('(RequestedMovals module)', () => {
     })
 
     it('creates UPDATE_STATUS_SUCCESS', (done) => {
-      const payload = {id: 1, requested: 'inprogress'}
-      const  fakeResponse =  {id: 1}
 
-      const resolved = new Promise((r) => r({ data: fakeResponse }));
-      removalsUpdatedApi.returns(resolved);
+      const resolved = new Promise((r) => r({ data: requestedRemoval }));
+      requestedRemovalsApi.returns(resolved);
 
       const expectedActions = [
         { type: UPDATING_STATUS},
-        { type: UPDATE_STATUS_SUCCESS, removal: fakeResponse}
+        { type: UPDATE_STATUS_SUCCESS, requestedRemoval}
       ]
 
       const store = mockStore({ requestedRemovals: {} })
 
-      return store.dispatch(updateStatus(payload))
+      return store.dispatch(updateStatus())
       .then(() => {
         expect(store.getActions()).to.eql(expectedActions)
         done();
@@ -234,7 +240,7 @@ describe('(RequestedMovals module)', () => {
 
     it('creates UPDATE_STATUS_FAILURE', (done) => {
       const rejected = new Promise((_, r) => r(errRes));
-      removalsUpdatedApi.returns(rejected);
+      requestedRemovalsApi.returns(rejected);
 
       const expectedActions = [
         { type: UPDATING_STATUS},
@@ -257,5 +263,67 @@ describe('(RequestedMovals module)', () => {
       expect(reducer).to.be.a('function')
     })
 
+    it('Should initilaize with an object.', () => {
+      expect(reducer(undefined, {})).to.be.an('object')
+    })
+
+    it('Should return the previous state if an action was not matched.', () => {
+      let state = reducer({isFetching: false}, { type: ADMIN_REQUESTED_REMOVALS_PENDING })
+      expect(state).to.be.an('object')
+      expect(state).to.have.property('isFetching', true)
+      state = reducer(state, { type: 'NOT_ACTION' })
+      expect(state).to.have.property('isFetching', true)
+    })
+
+    it('should handle ADMIN_REQUESTED_REMOVALS_PENDING', () => {
+      expect(reducer({}, {
+        type: ADMIN_REQUESTED_REMOVALS_PENDING }))
+        .to.eql( { isFetching: true })
+    })
+
+    it('should handle ADMIN_REQUESTED_REMOVALS_SUCCESS', () => {
+      expect(reducer({}, {
+        type: ADMIN_REQUESTED_REMOVALS_SUCCESS,
+        requestedRemovals
+      }))
+      .to.eql({
+        isFetching: false,
+        all: requestedRemovals.monitoring_requests,
+        pagination: requestedRemovals.meta.pagination
+      })
+    })
+
+    it('shoulde handle ADMIN_REQUESTED_REMOVALS_FAILURE', () => {
+      expect(reducer({}, {
+        type: ADMIN_REQUESTED_REMOVALS_FAILURE,
+        error: errRes
+      }))
+      .to.eql({
+        isFetching: false,
+        error: errRes
+      })
+    })
+
+    it('should handle UPDATE_STATUS_SUCCESS', () => {
+      const requestedRemovalsState = {
+        isFetching: false,
+        all: [],
+        pagination: {
+          page: 1,
+          limit: 20,
+          total: 10
+        }
+      }
+
+      expect(reducer(requestedRemovalsState, {
+        type: UPDATE_STATUS_SUCCESS,
+        requestedRemoval
+      }))
+      .to.eql({
+        isFetching: false,
+        all: [],
+        pagination: requestedRemovals.meta.pagination
+      })
+    })
   })
 })
