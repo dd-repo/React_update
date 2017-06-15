@@ -5,7 +5,6 @@ import { receiveClientLogin } from 'routes/auth/modules/auth';
 export const USERS_SUCCESS = 'USERS_SUCCESS';
 export const USERS_FAILURE = 'USERS_FAILURE';
 export const USERS_PENDING = 'USERS_PENDING';
-export const BECOME_USER_PENDING = 'BECOME_USER_PENDING'
 
 export const USERS_REQUEST = '/admin/api/users_search'
 export const BECOME_USER_REQUEST = '/admin/api/users/become'
@@ -19,29 +18,22 @@ export const getAllUsers = (params, pageNum) => {
     .then(
       response => dispatch(receiveAllUsers(response.data))
     ).catch(
-    error => dispatch(rejectAllUsers(error))
+    error => dispatch(receiveAllUsersFailure(error))
     )
   }
 }
 
 export const becomeUser = params => {
   return dispatch => {
-    dispatch(gettingUser())
     return BlitzApi.patch(BECOME_USER_REQUEST, params)
     .then(
       response => dispatch(receiveClientLogin(response.data))
     ).catch(
     //error => dispatch()
-    error => console.log('error', error)
+    error => console.log('error', error.response)
     )
   }
 }
-
-export const gettingUser = () => (
-  {
-    type: BECOME_USER_PENDING
-  }
-)
 
 export const gettingAllUsers = () => (
   {
@@ -56,7 +48,7 @@ export const receiveAllUsers = data => (
   }
 )
 
-export const rejectAllUsers = error => (
+export const receiveAllUsersFailure = error => (
   {
     type: USERS_FAILURE,
     error

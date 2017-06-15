@@ -19,25 +19,20 @@ export const getSubscriptions = (params, pageNum) => {
     .then(
       response => dispatch(receiveSubscriptions(response.data)))
       .catch(
-        error => dispatch(rejectSubscriptions(error)))
+        error => dispatch(receiveSubscriptionsFailure(error)))
   }
 }
 
-export const updateSubscription = (id, is_active) => {
+export const updateSubscription = (id, params) => {
   return dispatch => {
     dispatch(updatingSubscription())
-    return BlitzApi.patch(
-      `${SUBSCRIPTIONS_REQUEST}/${id}`,
-      {
-        subscription:
-          {
-            is_active: is_active
-          }
-      })
+    return BlitzApi.patch(`${SUBSCRIPTIONS_REQUEST}/${id}`, params)
     .then(
       response => dispatch(receiveSubscriptionUpdate(response.data)))
+      //response => console.log('response', response))
       .catch(
-        error => dispatch(rejectSubscriptionUpdate(error)))
+        error => dispatch(receiveSubscriptionUpdateFailure(error)))
+        //error => console.log('error', error))
   }
 }
 
@@ -54,7 +49,7 @@ export const receiveSubscriptionUpdate = data => (
   }
 )
 
-export const rejectSubscriptionUpdate = error => (
+export const receiveSubscriptionUpdateFailure = error => (
   {
     type: SUBSCRIPTION_UPDATE_FAILURE,
     error
@@ -74,7 +69,7 @@ export const receiveSubscriptions = data => (
   }
 )
 
-export const rejectSubscriptions = error => (
+export const receiveSubscriptionsFailure = error => (
   {
     type: SUBSCRIPTIONS_FAILURE,
     error
@@ -106,6 +101,11 @@ const reducer = (state={}, action) => {
     case SUBSCRIPTION_UPDATE_SUCCESS:
       return Object.assign({}, state, {
         isFetching: false,
+      });
+    case SUBSCRIPTION_UPDATE_FAILURE:
+      return Object.assign({}, state, {
+        errorMessage: error.response.data.errorMessage,
+        isFetching: false
       });
     default:
       return state

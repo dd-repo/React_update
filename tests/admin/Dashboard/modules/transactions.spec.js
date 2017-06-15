@@ -215,4 +215,8 @@ describe('(Tranactions module)', () => {
       })
     })
   })
+
+  describe('(Reducer)', () => {
+
+  })
 })
