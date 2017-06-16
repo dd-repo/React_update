@@ -207,5 +207,158 @@ describe('formHelper', () => {
         expect(errors.phoneNumber).to.eql(undefined)
       })
     })
+
+    it('omit validation if omittedFields array', () => {
+      const omittedFields = ['firstName', 'lastName', 'phoneNumber']
+      const first = ''
+      const last = ''
+      const phoneNumber = ''
+      const errors = checkValidation(first, fields, omittedFields)
+      expect(errors.firstName).to.eql(undefined)
+      expect(errors.lastName).to.eql(undefined)
+      expect(errors.phoneNumber).to.eql(undefined)
+    })
+  })
+
+  describe('normalizePhone', () => {
+    it('should return a number', () => {
+      const value = '1'
+      const previousValue = ''
+      const result = normalizePhone(value, previousValue)
+      expect(result).to.eql('1')
+    })
+
+    it('should return empty string if not a number', () => {
+      const value = 'a'
+      const previousValue = ''
+      const result = normalizePhone(value, previousValue)
+      expect(result).to.eql('')
+    })
+
+    it('should return a dash after 3 digits when typing', () => {
+      const value = '123'
+      const previousValue = ''
+      const result = normalizePhone(value, previousValue)
+      expect(result).to.eql('123-')
+    })
+
+    it('should return 2 dash after 6 digits when typing', () => {
+      const value = '123-456'
+      const previousValue = '123-45'
+      const result = normalizePhone(value, previousValue)
+      expect(result).to.eql('123-456-')
+    })
+
+    it('should not return a dash when backspacing', () => {
+      const value = '123'
+      const previousValue = '123-4'
+      const result = normalizePhone(value, previousValue)
+      expect(result).to.eql('123')
+    })
+
+    it('should not return 2 dash when backspacing', () => {
+      const value = '123-456'
+      const previousValue = '123-456-7'
+      const result = normalizePhone(value, previousValue)
+      expect(result).to.eql('123-456')
+    })
+  })
+
+  describe('normalizeDate', () => {
+    it('should return only numbers', () => {
+      const value = '1abc'
+      const previousValue = '12'
+      const result = normalizeDate(value, previousValue)
+      expect(result).to.eql('1')
+    })
+
+    it('should return 2 numbers with 1 forward slash', () => {
+      const value = '12'
+      const previousValue = '1'
+      const result = normalizeDate(value, previousValue)
+      expect(result).to.eql('12/')
+    })
+
+    it('should return 4 numbers with 2 forward slash', () => {
+      const value = '1201'
+      const previousValue = '120'
+      const result = normalizeDate(value, previousValue)
+      expect(result).to.eql('12/01/')
+    })
+
+    it('should return 8 digits', () => {
+      const value = '12/01/2000000000'
+      const previousValue = '12/01/2000'
+      const result = normalizeDate(value, previousValue)
+      expect(result).to.eql('12/01/2000')
+    })
+  })
+
+  describe('normalizeCreditCard', () => {
+    it('should return only numbers', () => {
+      const value = '123abc'
+      const previousValue = '12'
+      const result = normalizeCreditCard(value, previousValue)
+      expect(result).to.eql('123')
+    })
+
+    it('should return 4 digits with hyphen', () => {
+      const value = '4242'
+      const previousValue = '424'
+      const result = normalizeCreditCard(value, previousValue)
+      expect(result).to.eql('4242-')
+    })
+
+    it('should return hyphen after 8 digits', () => {
+      const value = '4242-4242'
+      const previousValue = '4242-424'
+      const result = normalizeCreditCard(value, previousValue)
+      expect(result).to.eql('4242-4242-')
+    })
+
+    it('should return hyphen after 12 digits', () => {
+      const value = '4242-4242-4242'
+      const previousValue = '4242-4242-424'
+      const result = normalizeCreditCard(value, previousValue)
+      expect(result).to.eql('4242-4242-4242-')
+    })
+
+    it('should only return 16 digits', () => {
+      const value = '4242-4242-4242-42424242'
+      const previousValue = '4242-4242-4242-4242'
+      const result = normalizeCreditCard(value, previousValue)
+      expect(result).to.eql('4242-4242-4242-4242')
+    })
+  })
+
+  describe('normalizeExDate', () => {
+    it('should return only numbers', () => {
+      const value = '1abcdg'
+      const previousValue = '1'
+      const result = normalizeExDate(value, previousValue)
+      expect(result).to.eql('1')
+    })
+
+    it('should return forward slash after 2 numbers', () => {
+      const value = '12'
+      const previousValue = '1'
+      const result = normalizeExDate(value, previousValue)
+      expect(result).to.eql('12/')
+    })
+
+    it('should return only 6 digits', () => {
+      const value = '12/2000000000'
+      const previousValue = '12/2000'
+      const result = normalizeExDate(value, previousValue)
+      expect(result).to.eql('12/2000')
+    })
+  })
+
+  describe('normalizeNums', () => {
+    it('should return only numbers', () => {
+      const value = '123abc#@%$'
+      const result = normalizeNums(value)
+      expect(result).to.eql('123')
+    })
   })
 })
