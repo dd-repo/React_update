@@ -2,7 +2,7 @@ import React from 'react';
 
 import { FormGroup, FormControl } from 'components';
 import classes from './keywords.scss';
-import states from 'utils/states';
+import states from 'consts/data/states';
 
 const dropDownSelect = ({ input, meta: { touched, error}, children }) => (
   <FormControl {...input} componentClass='select'>
