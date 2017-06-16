@@ -8,11 +8,13 @@ export const checkValidation = (values, fields, omittedFields) => {
 
   _.each(validationFields, (type, field) => {
     if(!values[field]) {
-      errors[field] = `Please enter your ${type.label}`
+      errors[field] = type.errorMessage
     }
   })
-  if(!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
-    errors.email = 'Invalid email address'
+  if(values.email) {
+    if(!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
+      errors.email = 'Invalid email address'
+    }
   }
   if(values.password && values.password.length < 8) {
     errors.password = 'Password must be at least 8 characters'
@@ -29,10 +31,10 @@ export const checkValidation = (values, fields, omittedFields) => {
     errors.cvCode = 'Invalid CVC'
   }
   if(values.zipcode && values.zipcode.length < 5) {
-    errors.zipcode = 'Zipcode must be 6 digits'
+    errors.zipcode = 'Zipcode must be 5 digits'
   }
-  if(values.phone_number && values.phone_number.length < 10) {
-    errors.phone_number = 'Phone number must be 10 digits'
+  if(values.phoneNumber && values.phoneNumber.length < 10) {
+    errors.phoneNumber = 'Phone Number must be 10 digits'
   }
   return errors;
 }

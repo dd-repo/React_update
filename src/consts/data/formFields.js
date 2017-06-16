@@ -10,97 +10,127 @@ import {
 } from 'utils/formHelpers';
 
 const fields = {
-  first_name: {
-    name: 'first_name',
+  firstName: {
+    name: 'firstName',
     type: 'text',
     label: 'First Name',
+    errorMessage: 'Please enter your First Name',
     placeHolder: 'Enter your first name...',
   },
-  last_name: {
-    name: 'last_name',
+  lastName: {
+    name: 'lastName',
     type: 'text',
     label: 'Last Name',
+    errorMessage: 'Please enter your Last Name',
     placeHolder: 'Enter your last name',
   },
   email: {
     name: 'email',
     type: 'email',
     label: 'Email',
+    errorMessage: 'Please enter your Email Address',
     placeHolder: 'Enter your email...',
   },
-  phone_number: {
-    name: 'phone_number',
+  password: {
+    name: 'password',
+    type: 'password',
+    label: 'Password',
+    errorMessage: 'Please enter a Password',
+    placeHolder: 'Enter a password...',
+    maxLength: '25',
+  },
+  passwordConfirmation: {
+    name: 'passwordConfirmation',
+    type: 'password',
+    label: 'Password Confirmation',
+    errorMessage: 'Please confirm your Password',
+    placeHolder: 'Re-enter password...',
+  },
+  phoneNumber: {
+    name: 'phoneNumber',
     type: 'tel',
     label: 'Phone Number',
+    errorMessage: 'Please enter your Phone Number',
     placeHolder: 'Enter your phone number...',
     normalize: normalizePhone
   },
-  authnet_id: {
-    name: 'authnet_id',
+  authnetId: {
+    name: 'authnetId',
     type: 'text',
     label: 'Authnet Id',
     placeHolder: 'Enter clients authroize.net id...'
   },
-  cc_first_name: {
-    name: 'cc_first_name',
+  ccFirstName: {
+    name: 'ccFirstName',
     type: 'text',
+    errorMessage: 'Please enter a First Name',
     label: 'First Name',
   },
-  cc_last_name: {
-    name: 'cc_last_name',
+  ccLastName: {
+    name: 'ccLastName',
     type: 'text',
     label: 'Last Name',
+    errorMessage: 'Please enter a Last Name',
   },
   creditCardNumber: {
     name: 'creditCardNumber',
     type: 'text',
-    label: 'Valid Card Number',
+    label: 'Credit Card Number',
+    errorMessage: 'Please enter your Credit Card Number',
     normalize: normalizeCreditCard
   },
   expirationDate: {
     name: 'expirationDate',
     type: 'text',
-    label: 'MM/YYY',
+    label: 'Expiration',
+    errorMessage: 'Please enter your Credit Card Expiration Date',
     normalize: normalizeExDate
   },
   cvCode: {
     name: 'cvCode',
     type: 'text',
     label: 'CVC',
+    errorMessage: 'Please enter your Credit Card CVC Number',
     maxLength: '4',
     normalize: normalizeNums
   },
-  kw_first_name: {
-    name: 'kw_first_name',
+  kwFirstName: {
+    name: 'kwFirstName',
     type: 'text',
-    label: 'First Name'
+    label: 'First Name',
+    errorMessage: 'Please enter a First Name'
   },
-  kw_last_name: {
-    name: 'kw_last_name',
+  kwLastName: {
+    name: 'kwLastName',
     type: 'text',
-    label: 'Last Name'
+    label: 'Last Name',
+    errorMessage: 'Please enter a Last Name'
   },
   address: {
     name: 'address',
     type: 'text',
     label: 'Street Address',
+    errorMessage: 'Please enter a Street Address'
   },
   city: {
     name: 'city',
     type: 'text',
     label: 'City / Town',
+    errorMessage: 'Please enter a City or Town'
   },
   zipcode: {
     name: 'zipcode',
     type: 'text',
     label: 'Zipcode',
     normalize: normalizeNums,
+    errorMessage: 'Please enter a Zipcode',
     maxLength: 5
   },
   dob: {
     name: 'dob',
     type: 'text',
     label: 'MM / DD / YYYY',
+    errorMessage: 'Please enter a Date of Birth',
     normalize: normalizeDate
   },
   state: {
