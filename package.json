@@ -1,7 +1,7 @@
 {
-  "name": "spin-react",
+  "name": "clickadilly",
   "version": "1.0.0",
-  "description": "SPIN Dashboard rewritten using React",
+  "description": "Clickadilly Dashboard",
   "main": "index.js",
   "engines": {
     "node": ">=4.2.0",
