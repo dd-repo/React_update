@@ -15,9 +15,9 @@ import formFields from 'consts/data/formFields';
 
 
 const fieldsToOmit = [
-  //'kw_first_name',
-  //'kw_last_name',
-  'authnet_id'
+  //'kwFirstName',
+  //'kwLastName',
+  'authnetId'
 ]
 
 const validate = values => {
@@ -125,10 +125,10 @@ let ClientRegistrationForm = (props) => {
             <Col lg={12}>
               <Row>
                 <Col sm={ 6 }>
-                  {renderField(formFields.first_name)}
+                  {renderField(formFields.firstName)}
                 </Col>
                 <Col sm={ 6 }>
-                  {renderField(formFields.last_name)}
+                  {renderField(formFields.lastName)}
                 </Col>
               </Row>
             </Col>
@@ -140,7 +140,7 @@ let ClientRegistrationForm = (props) => {
                   {renderField(formFields.email)}
                 </Col>
                 <Col sm={ 6 }>
-                  {renderField(formFields.phone_number)}
+                  {renderField(formFields.phoneNumber)}
                 </Col>
               </Row>
             </Col>
@@ -149,7 +149,7 @@ let ClientRegistrationForm = (props) => {
             <Col sm={12}>
               <Row>
                 <Col sm={6}>
-                  {renderField(formFields.authnet_id)}
+                  {renderField(formFields.authnetId)}
                 </Col>
               </Row>
             </Col>
@@ -180,10 +180,10 @@ let ClientRegistrationForm = (props) => {
             <Col sm={12}>
               <Row>
                 <Col sm={ 6 }>
-                  {renderField(formFields.cc_first_name)}
+                  {renderField(formFields.ccFirstName)}
                 </Col>
                 <Col sm={ 6 }>
-                  {renderField(formFields.cc_last_name)}
+                  {renderField(formFields.ccLastName)}
                 </Col>
               </Row>
             </Col>
@@ -213,10 +213,10 @@ let ClientRegistrationForm = (props) => {
             <Col sm={12}>
               <Row>
                 <Col sm={ 6 }>
-                  {renderField(formFields.kw_first_name)}
+                  {renderField(formFields.kwFirstName)}
                 </Col>
                 <Col sm={ 6 }>
-                  {renderField(formFields.kw_last_name)}
+                  {renderField(formFields.kwLastName)}
                 </Col>
               </Row>
             </Col>
