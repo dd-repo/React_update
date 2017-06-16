@@ -4,20 +4,12 @@ import { Field, reduxForm } from 'redux-form';
 
 import { connect } from 'routes/routedComponent';
 import { checkValidation } from 'utils/formHelpers';
+import fields from 'consts/data/formFields';
 import {
     Form,
     FormGroup,
+    FormControl
 } from 'components';
-
-const fields = {
-  email: {
-    name: 'email',
-    type: 'email',
-    label: 'Email',
-    placeHolder: 'Enter your email...',
-    klass: 'form-control'
-  }
-}
 
 const validate = values => {
   return checkValidation(values, fields)
@@ -25,7 +17,7 @@ const validate = values => {
 
 const renderInput = ({ input, placeHolder, type, maxLength, field, meta: { touched, error, warning } }) => (
   <div>
-    <input {...input}
+    <FormControl {...input}
       className={field}
       placeholder={placeHolder}
       maxLength={maxLength}
@@ -40,26 +32,30 @@ const renderInput = ({ input, placeHolder, type, maxLength, field, meta: { touch
   </div>
 )
 
-const renderField = ({ klass, name, type, placeHolder, label, maxLength, normalize }) => (
-    <Field
-      field={klass}
-      name={name}
-      type={type}
-      component={renderInput}
-      placeHolder={placeHolder}
-      label={label}
-      normalize={normalize}
-    />
-)
+const ForgotPasswordForm = (props) => {
+  const {
+    submitForm,
+    handleSubmit,
+    invalid,
+    submitting
+  } = props
 
-const ForgotPasswordForm = ({ submitForm, handleSubmit, invalid, submitting }) => {
+  const email = fields.email
+
   return (
     <form onSubmit={handleSubmit(submitForm)}>
       <FormGroup>
         <label>
          Email
         </label>
-        {renderField(fields.email)}
+        <Field
+          name={email.name}
+          type={email.type}
+          component={renderInput}
+          placeHolder={email.placeHolder}
+          label={email.label}
+          normalize={email.normalize}
+        />
       </FormGroup>
       <button
         className='full-width btn btn-primary m-b-2'
@@ -77,6 +73,6 @@ ForgotPasswordForm.propTypes = {
 }
 
 export default reduxForm({
-  form: 'signupForm',  // a unique identifier for this form
+  form: 'forgotPasswordForm',  // a unique identifier for this form
   validate                // <--- validation function given to redux-form
 })(ForgotPasswordForm)

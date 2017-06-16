@@ -31,7 +31,7 @@ export const RESET_PASSWORD_REQUEST = `${CLIENT_API}/password/forgot`
 export const postUserSignup = payload => {
   return dispatch => {
     dispatch(postingUserSignup())
-    return BlitzApi.post(SIGNUP_REQUEST, { user: payload })
+    return BlitzApi.post(SIGNUP_REQUEST, payload)
     .then(
       response => dispatch(receiveUserSignup(response.data)))
       .catch(

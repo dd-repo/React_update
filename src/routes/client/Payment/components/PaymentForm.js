@@ -2,50 +2,47 @@ import React, { PropTypes } from 'react';
 import { Field, reduxForm } from 'redux-form';
 import Loading from 'react-loading';
 
-import { connect } from 'routes/routedComponent';
-import {
-  checkValidation,
-  normalizeCreditCard,
-  normalizeExDate,
-  normalizeNums
-} from 'utils/formHelpers.js';
+import fields from 'consts/data/formFields';
+import { checkValidation } from 'utils/formHelpers';
 import {
   FormGroup,
   FormControl
 } from 'components';
 import classes from './payment.scss';
 
-const fields = {
-  first_name: {
-    name: 'first_name',
-    type: 'text',
-    label: 'First name',
-  },
-  last_name: {
-    name: 'last_name',
-    type: 'text',
-    label: 'Last name',
-  },
-  creditCardNumber: {
-    name: 'creditCardNumber',
-    type: 'text',
-    label: 'Valid card number',
-    normalize: normalizeCreditCard
-  },
-  expirationDate: {
-    name: 'expirationDate',
-    type: 'text',
-    label: 'Expiration date',
-    normalize: normalizeExDate
-  },
-  cvCode: {
-    name: 'cvCode',
-    type: 'text',
-    label: 'CVC',
-    maxLength: '4',
-    normalize: normalizeNums
-  }
-}
+const formFields = [ 'ccFirstName', 'ccLastName', 'creditCardNumber', 'expirationDate', 'cvCode' ]
+const paymentFormFields = _.pick(fields, formFields)
+//const fields = {
+  //first_name: {
+    //name: 'first_name',
+    //type: 'text',
+    //label: 'First name',
+  //},
+  //last_name: {
+    //name: 'last_name',
+    //type: 'text',
+    //label: 'Last name',
+  //},
+  //creditCardNumber: {
+    //name: 'creditCardNumber',
+    //type: 'text',
+    //label: 'Valid card number',
+    //normalize: normalizeCreditCard
+  //},
+  //expirationDate: {
+    //name: 'expirationDate',
+    //type: 'text',
+    //label: 'Expiration date',
+    //normalize: normalizeExDate
+  //},
+  //cvCode: {
+    //name: 'cvCode',
+    //type: 'text',
+    //label: 'CVC',
+    //maxLength: '4',
+    //normalize: normalizeNums
+  //}
+//}
 
 const validate = values => {
   return checkValidation(values, fields)
@@ -87,7 +84,7 @@ const renderInput = (props) => {
 
 
 const renderField = () => {
-  const fieldKeys = Object.keys(fields)
+  const fieldKeys = Object.keys(paymentFormFields)
   return fieldKeys.map(function(key, i) {
     const { name, type, placeHolder, label, maxLength, normalize } = fields[key]
     return (
@@ -153,11 +150,5 @@ PaymentForm = reduxForm({
   form: 'payment',  // a unique identifier for this form
   validate                // <--- validation function given to redux-form
 })(PaymentForm);
-
-PaymentForm = connect(
-  state => ({
-    initialValues: state.payment
-  })
-)(PaymentForm);
 
 export default PaymentForm;

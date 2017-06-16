@@ -3,6 +3,7 @@ import { Field, reduxForm } from 'redux-form';
 
 import { connect } from 'routes/routedComponent';
 import { checkValidation } from 'utils/formHelpers';
+import formFields from 'consts/data/formFields';
 import {
     FormGroup,
     FormControl,
@@ -10,9 +11,6 @@ import {
     Row,
     ControlLabel
 } from 'components';
-
-import formFields from 'consts/data/formFields';
-
 
 const fieldsToOmit = [
   //'kwFirstName',

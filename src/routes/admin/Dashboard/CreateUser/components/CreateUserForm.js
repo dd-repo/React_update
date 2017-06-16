@@ -1,12 +1,8 @@
 import React, { PropTypes } from 'react';
 import { Field, reduxForm } from 'redux-form';
 
-import { connect } from 'routes/routedComponent';
-import {
-  checkValidation,
-  normalizePhone,
-} from 'utils/formHelpers';
-
+import { checkValidation } from 'utils/formHelpers';
+import fields from 'consts/data/formFields';
 import {
     FormGroup,
     FormControl,
@@ -15,32 +11,7 @@ import {
     ControlLabel
 } from 'components';
 
-const fields = {
-  first_name: {
-    name: 'first_name',
-    type: 'text',
-    label: 'First name',
-    placeHolder: 'Enter your first name...',
-  },
-  last_name: {
-    name: 'last_name',
-    type: 'text',
-    label: 'Last name',
-    placeHolder: 'Enter your last name',
-  },
-  email: {
-    name: 'email',
-    type: 'email',
-    label: 'Email',
-    placeHolder: 'Enter your email...',
-  },
-  phone_number: {
-    name: 'phone_number',
-    type: 'tel',
-    label: 'Phone number',
-    placeHolder: 'Enter your phone number...',
-    normalize: normalizePhone
-  },
+const DROPDOWN_MENU = {
   group: {
     list: ['frontend', 'backend'],
     label: 'Group'
@@ -60,7 +31,7 @@ const dropDownSelect = ({ input }) => {
   const {
     list,
     label
-  } = fields[[name]]
+  } = DROPDOWN_MENU[[name]]
 
 
   return (
@@ -88,10 +59,7 @@ const renderInput = (props) => {
     (
       error &&
         <span className='text-danger'>
-          <strong>
-            Opps!
-          </strong>
-          {error}
+          <strong>Opps!</strong> {error}
         </span>
     )
 
@@ -156,10 +124,10 @@ let CreateUserForm = (props) => {
               <Col lg={12}>
                 <Row>
                   <Col sm={ 6 }>
-                    {renderField(fields.first_name)}
+                    {renderField(fields.firstName)}
                   </Col>
                   <Col sm={ 6 }>
-                    {renderField(fields.last_name)}
+                    {renderField(fields.lastName)}
                   </Col>
                 </Row>
               </Col>
@@ -171,7 +139,7 @@ let CreateUserForm = (props) => {
                     {renderField(fields.email)}
                   </Col>
                   <Col sm={ 6 }>
-                    {renderField(fields.phone_number)}
+                    {renderField(fields.phoneNumber)}
                   </Col>
                 </Row>
               </Col>
@@ -223,11 +191,5 @@ CreateUserForm = reduxForm({
   form: 'createUserForm',
   validate
 })(CreateUserForm)
-
-CreateUserForm = connect(
-  state => ({
-    initialValues: state.createUserForm
-  })
-)(CreateUserForm)
 
 export default CreateUserForm;

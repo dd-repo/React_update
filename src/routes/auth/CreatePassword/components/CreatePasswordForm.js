@@ -1,30 +1,13 @@
 import React, { PropTypes } from 'react'
 import { Field, reduxForm } from 'redux-form';
-import { actions } from 'redux';
-console.log('actions', actions)
 
-import { connect } from 'routes/routedComponent';
 import { checkValidation } from 'utils/formHelpers';
+import fields from 'consts/data/formFields';
 import {
     Form,
     FormGroup,
+    FormControl
 } from 'components';
-
-const fields = {
-  password: {
-    name: 'password',
-    type: 'password',
-    label: 'password',
-    maxLength: '25',
-    klass: 'form-control'
-  },
-  passwordConfirmation: {
-    name: 'passwordConfirmation',
-    type: 'password',
-    label: 'Password Confirmation',
-    klass: 'form-control',
-  }
-}
 
 const validate = values => {
   return checkValidation(values, fields)
@@ -45,7 +28,7 @@ const renderInput = (props) => {
 
   return (
     <div>
-      <input {...input}
+      <FormControl {...input}
         className={field}
         placeholder={placeHolder}
         maxLength={maxLength}
@@ -61,9 +44,8 @@ const renderInput = (props) => {
   )
 }
 
-const renderField = ({ klass, name, type, placeHolder, label, maxLength, normalize }) => (
+const renderField = ({ name, type, placeHolder, label, maxLength, normalize }) => (
     <Field
-      field={klass}
       name={name}
       type={type}
       component={renderInput}
