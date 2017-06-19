@@ -84,10 +84,4 @@ LoginForm = reduxForm({
   validate                // <--- validation function given to redux-form
 })(LoginForm)
 
-LoginForm = connect(
-  state => ({
-    initialValues: state.loggedInUser
-  })
-)(LoginForm)
-
 export default LoginForm;
