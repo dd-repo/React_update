@@ -2,11 +2,10 @@ import React, { PropTypes } from 'react';
 import { Field, reduxForm } from 'redux-form';
 import _ from 'lodash';
 
-import { connect } from 'routes/routedComponent';
 import fields from 'consts/data/formFields';
 import {
-    FormGroup,
-    FormControl
+  FormGroup,
+  FormControl
 } from 'components';
 
 const formFields = [ 'email', 'password' ]
@@ -63,7 +62,9 @@ let LoginForm = ({ submitForm, handleSubmit }) => {
 
   return (
     <form onSubmit={handleSubmit(submitForm)}>
-      {renderFields()}
+
+      { renderFields() }
+
       <button
         className='full-width btn btn-primary m-b-2'
         action="submit"
