@@ -36,16 +36,6 @@ export const CONFIGS = {
       title: 'Profile',
       icon: 'fa fa-lock fa-lg',
       url: '/dashboard/user-profile'
-      //children: [
-        //{
-          //title: 'Profile Details',
-          //url: '/dashboard/user-profile',
-        //},
-        //{
-          //title: 'Profile Edit',
-          //url: '/dashboard/user-profile/edit',
-        //}
-      //]
     },
     {
       slug: 'Account',

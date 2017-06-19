@@ -1,13 +1,13 @@
-# Blitz Monitoring - React+Redux
+# clickadilly - React+Redux
 
 ## Installation
 1. Make sure you have NodeJS >= 6.0.0 installed on your machine.
-2. Clone this repository to local directory - `git clone git@github.com:marca-development/blitz-monitoring-frontend.git`
+2. Clone this repository to local directory - `git clone git@github.com:marca-development/clickadilly-frontend.git`
 3. Run `npm install` to install nescessary NPM dependecies
 
 ## Usage
 * `npm start` - start development mode with Hot Reloading enabled
-* `npm run deploy:prod` - compile source to the `dist` directory
+* `npm run run:dev` - run test suite
 
 ### Non-modular SCSS
 Attach SCSS files which shouldn't be modularized by Webpack (plugin style overrides for example) to `/styles/core.scss`.
@@ -25,7 +25,7 @@ Attach SCSS files which shouldn't be modularized by Webpack (plugin style overri
 * [Moment ^2.13.0](http://momentjs.com/) - Used for time modification and parsing
 * [Numeral ^1.5.3](http://numeraljs.com/) - Provides formatting for number types
 * [PerfectScrollbar ^0.6.13](https://github.com/noraesae/perfect-scrollbar) - Wrapped in a component, which adds styled scrollbars when nescessary
-* [Pace 1.0.2](http://github.hubspot.com/pace/docs/welcome/) - Page loading indicator used mainly when a Webpack Code Split needs to be loaded 
+* [Pace 1.0.2](http://github.hubspot.com/pace/docs/welcome/) - Page loading indicator used mainly when a Webpack Code Split needs to be loaded
 * [TinyColor ^1.4.1](https://github.com/bgrins/TinyColor) - Fast color mixing library used in some components
 * [Underscore ^1.8.3](http://underscorejs.org/) - Flexible functional data manegement library
 
@@ -36,4 +36,4 @@ Attach SCSS files which shouldn't be modularized by Webpack (plugin style overri
 * [Babel ^6.3.19](https://babeljs.io/) - Provides support for ES2015+ and JSX
 
 ### Demo
-* [Blitz-monitoring](https://blitz-monitoring.herokuapp.com)
+* [clickadilly](https://app.clickadilly.com)
