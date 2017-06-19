@@ -2,27 +2,15 @@ import React, { PropTypes } from 'react';
 import { Field, reduxForm } from 'redux-form';
 import _ from 'lodash';
 
-import { connect } from 'routes/routedComponent';
+import fields from 'consts/data/formFields';
 import {
-    FormGroup,
-    FormControl
+  FormGroup,
+  FormControl
 } from 'components';
 
-const fields = {
-  email: {
-    name: 'email',
-    type: 'email',
-    label: 'Email',
-    placeHolder: 'Enter your email...',
-  },
-  password: {
-    name: 'password',
-    type: 'password',
-    label: 'Password',
-    placeHolder: 'Enter your password...',
-    maxLength: '25',
-  }
-}
+const formFields = [ 'email', 'password' ]
+const loginFormFields = _.pick(fields, formFields)
+
 const validate = values => {
   const errors = {}
   _.each(fields, (type, field) => {
@@ -53,7 +41,7 @@ const renderInput = ({ label, input, placeHolder, type, maxLength, meta: { touch
 }
 
 const renderFields = () => {
-  const fieldKeys = Object.keys(fields)
+  const fieldKeys = Object.keys(loginFormFields)
   return fieldKeys.map(function(key, i) {
     const { name, type, placeHolder, label, maxLength, normalize } = fields[key]
     return (
@@ -74,7 +62,9 @@ let LoginForm = ({ submitForm, handleSubmit }) => {
 
   return (
     <form onSubmit={handleSubmit(submitForm)}>
-      {renderFields()}
+
+      { renderFields() }
+
       <button
         className='full-width btn btn-primary m-b-2'
         action="submit"
@@ -94,11 +84,5 @@ LoginForm = reduxForm({
   form: 'loginForm',  // a unique identifier for this form
   validate                // <--- validation function given to redux-form
 })(LoginForm)
-
-LoginForm = connect(
-  state => ({
-    initialValues: state.loggedInUser
-  })
-)(LoginForm)
 
 export default LoginForm;

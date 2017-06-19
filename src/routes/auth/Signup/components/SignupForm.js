@@ -1,8 +1,9 @@
 import React, { Component, PropTypes } from 'react';
 import { Field, reduxForm } from 'redux-form';
+import _ from 'lodash';
 
-import { connect } from 'routes/routedComponent';
-import { checkValidation, normalizePhone } from 'utils/formHelpers';
+import { checkValidation } from 'utils/formHelpers';
+import fields from 'consts/data/formFields';
 import {
     FormGroup,
     FormControl,
@@ -10,46 +11,17 @@ import {
     Button
 } from 'components';
 
-const fields = {
-  first_name: {
-    name: 'first_name',
-    type: 'text',
-    label: 'First name',
-    placeHolder: 'Enter your first name...',
-  },
-  last_name: {
-    name: 'last_name',
-    type: 'text',
-    label: 'Last name',
-    placeHolder: 'Enter your last name',
-  },
-  email: {
-    name: 'email',
-    type: 'email',
-    label: 'Email',
-    placeHolder: 'Enter your email...',
-  },
-  phone_number: {
-    name: 'phone_number',
-    type: 'tel',
-    label: 'Phone number',
-    placeHolder: 'Enter your phone number...',
-    normalize: normalizePhone
-  },
-  password: {
-    name: 'password',
-    type: 'password',
-    label: 'Password',
-    placeHolder: 'Enter a password...',
-    maxLength: '25',
-  },
-  passwordConfirmation: {
-    name: 'passwordConfirmation',
-    type: 'password',
-    label: 'Password Confirmation',
-    placeHolder: 'Re-enter password...',
-  },
-}
+const formFields = [
+  'firstName',
+  'lastName',
+  'email',
+  'phoneNumber',
+  'password',
+  'passwordConfirmation'
+]
+
+const signupFormFields = _.pick(fields, formFields)
+
 const validate = values => {
   return checkValidation(values, fields)
 }
@@ -81,7 +53,7 @@ const renderInput = (props) => {
 }
 
 const renderFields = () => {
-  const fieldKeys = Object.keys(fields)
+  const fieldKeys = Object.keys(signupFormFields)
   return fieldKeys.map(function(key, i) {
     const { name, type, placeHolder, label, maxLength, normalize, value } = fields[key]
     return (
@@ -156,11 +128,5 @@ SignupForm = reduxForm({
   form: 'signupForm',  // a unique identifier for this form
   validate                // <--- validation function given to redux-form
 })(SignupForm)
-
-SignupForm = connect(
-  state => ({
-    initialValues: state.currentUser
-  })
-)(SignupForm)
 
 export default SignupForm;

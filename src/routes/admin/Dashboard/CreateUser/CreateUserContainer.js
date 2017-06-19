@@ -58,7 +58,6 @@ class CreateUserContainer extends RoutedComponent {
 
   handleFailure(error) {
     this.setState({isFetching: false})
-    debugger
     this.setState({
       notification:
         {
@@ -78,10 +77,10 @@ class CreateUserContainer extends RoutedComponent {
   buildParams(user) {
     return {
       user: {
-        first_name: user.first_name,
-        last_name: user.last_name,
+        first_name: user.firstName,
+        last_name: user.lastName,
         email: user.email,
-        phone_number: user.phone_number,
+        phone_number: user.phoneNumber,
         phone_type: 'mobile',
         group: user.group,
         role: user.role,

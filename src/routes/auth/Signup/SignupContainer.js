@@ -12,12 +12,9 @@ import {
 } from '../modules/auth';
 
 const persistDataToLocalStorage = data => {
-  const { user, auth_token, account } = data
+  const { auth_token } = data
 
-  //persistData(user, 'currentUser');
-  //persistData(account, 'accounts');
   persistData(auth_token, 'authToken');
-  //persistData(account.profile, 'profile');
 }
 
 class SignupContainer extends RoutedComponent {
@@ -69,9 +66,23 @@ class SignupContainer extends RoutedComponent {
     }
   }
 
+  buildParams(user) {
+    return {
+      user: {
+        first_name: user.firstName,
+        last_name: user.lastName,
+        email: user.email,
+        phone_number: user.phoneNumber,
+        password: user.password,
+        phone_type: 'mobile',
+        plan: 'individual',
+      }
+    }
+  }
+
   submitForm(user) {
-    user.phone_type = "mobile"
-    this.props.postUserSignup(user)
+    const payload = this.buildParams(user)
+    this.props.postUserSignup(payload)
     .then(res => { this.doNext(res) })
     .catch(error => { console.log('error user signup', error) })
   }
