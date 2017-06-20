@@ -60,17 +60,11 @@ const fields = {
     label: 'Authnet Id',
     placeHolder: 'Enter clients authroize.net id...'
   },
-  ccFirstName: {
-    name: 'ccFirstName',
+  fullName: {
+    name: 'fullName',
     type: 'text',
-    errorMessage: 'Please enter a First Name',
-    label: 'First Name',
-  },
-  ccLastName: {
-    name: 'ccLastName',
-    type: 'text',
-    label: 'Last Name',
-    errorMessage: 'Please enter a Last Name',
+    errorMessage: 'Please enter the full name...',
+    label: 'Credit Card First and Last Name',
   },
   creditCardNumber: {
     name: 'creditCardNumber',
@@ -94,23 +88,14 @@ const fields = {
     maxLength: '4',
     normalize: normalizeNums
   },
-  kwFirstName: {
-    name: 'kwFirstName',
-    type: 'text',
-    label: 'First Name',
-    errorMessage: 'Please enter a First Name'
-  },
-  kwLastName: {
-    name: 'kwLastName',
-    type: 'text',
-    label: 'Last Name',
-    errorMessage: 'Please enter a Last Name'
-  },
   address: {
     name: 'address',
     type: 'text',
     label: 'Street Address',
     errorMessage: 'Please enter a Street Address'
+  },
+  state: {
+    list: states
   },
   city: {
     name: 'city',
@@ -126,6 +111,38 @@ const fields = {
     errorMessage: 'Please enter a Zipcode',
     maxLength: 5
   },
+  kwFirstName: {
+    name: 'kwFirstName',
+    type: 'text',
+    label: 'First Name',
+    errorMessage: 'Please enter a First Name'
+  },
+  kwLastName: {
+    name: 'kwLastName',
+    type: 'text',
+    label: 'Last Name',
+    errorMessage: 'Please enter a Last Name'
+  },
+  kwAddress: {
+    name: 'kwAddress',
+    type: 'text',
+    label: 'Street Address',
+    errorMessage: 'Please enter a Street Address'
+  },
+  kwCity: {
+    name: 'kwCity',
+    type: 'text',
+    label: 'City / Town',
+    errorMessage: 'Please enter a City or Town'
+  },
+  kwZipcode: {
+    name: 'kwZipcode',
+    type: 'text',
+    label: 'Zipcode',
+    normalize: normalizeNums,
+    errorMessage: 'Please enter a Zipcode',
+    maxLength: 5
+  },
   dob: {
     name: 'dob',
     type: 'text',
@@ -133,7 +150,7 @@ const fields = {
     errorMessage: 'Please enter a Date of Birth',
     normalize: normalizeDate
   },
-  state: {
+  kwState: {
     list: states
   },
   plan: {

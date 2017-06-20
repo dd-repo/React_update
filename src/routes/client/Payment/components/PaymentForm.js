@@ -6,43 +6,12 @@ import fields from 'consts/data/formFields';
 import { checkValidation } from 'utils/formHelpers';
 import {
   FormGroup,
-  FormControl
+  FormControl,
+  Col,
+  Row,
+  Divider
 } from 'components';
 import classes from './payment.scss';
-
-const formFields = [ 'ccFirstName', 'ccLastName', 'creditCardNumber', 'expirationDate', 'cvCode' ]
-const paymentFormFields = _.pick(fields, formFields)
-//const fields = {
-  //first_name: {
-    //name: 'first_name',
-    //type: 'text',
-    //label: 'First name',
-  //},
-  //last_name: {
-    //name: 'last_name',
-    //type: 'text',
-    //label: 'Last name',
-  //},
-  //creditCardNumber: {
-    //name: 'creditCardNumber',
-    //type: 'text',
-    //label: 'Valid card number',
-    //normalize: normalizeCreditCard
-  //},
-  //expirationDate: {
-    //name: 'expirationDate',
-    //type: 'text',
-    //label: 'Expiration date',
-    //normalize: normalizeExDate
-  //},
-  //cvCode: {
-    //name: 'cvCode',
-    //type: 'text',
-    //label: 'CVC',
-    //maxLength: '4',
-    //normalize: normalizeNums
-  //}
-//}
 
 const validate = values => {
   return checkValidation(values, fields)
@@ -60,10 +29,7 @@ const renderInput = (props) => {
   let message = touched &&
     (
       error && <span className='text-danger'>
-        <strong>
-          Opps!
-        </strong>
-      {error}
+        <strong>Opps!</strong> {error}
     </span>
     )
   let validationState = touched && ( error && 'error') || null
@@ -83,22 +49,18 @@ const renderInput = (props) => {
 }
 
 
-const renderField = () => {
-  const fieldKeys = Object.keys(paymentFormFields)
-  return fieldKeys.map(function(key, i) {
-    const { name, type, placeHolder, label, maxLength, normalize } = fields[key]
-    return (
-      <Field
-        key={i}
-        name={name}
-        type={type}
-        maxLength={maxLength}
-        component={renderInput}
-        label={label}
-        normalize={normalize}
-      />
-    )
-  })
+const renderField = (props) => {
+  const { name, type, placeHolder, label, maxLength, normalize } = props
+  return (
+    <Field
+      name={name}
+      type={type}
+      maxLength={maxLength}
+      component={renderInput}
+      label={label}
+      normalize={normalize}
+    />
+  )
 }
 
 
@@ -107,6 +69,21 @@ const renderErrorMessage = (error) => (
     {error}
   </p>
 )
+
+const dropDownSelect = ({ input }) => {
+  const { name } = input
+  const list = fields[[name]].list
+
+  return (
+    <FormControl {...input} componentClass='select'>
+      <option value=''>Select a {name}...</option>
+      {list.map(state =>
+                <option value={state} key={state}>{state}</option>
+                )
+      }
+    </FormControl>
+  )
+}
 
 let PaymentForm = (props) => {
   const {
@@ -129,7 +106,74 @@ let PaymentForm = (props) => {
 
  return(
     <form onSubmit={handleSubmit(submitForm)}>
-      {renderField()}
+      <Row>
+      <Divider>
+        <h4 className='m-l-2'>
+          Credit Card
+        </h4>
+      </Divider>
+        <FormGroup controlId='formSizingColumn'>
+          <Col lg={12}>
+            <Row>
+              <Col sm={6}>
+                {renderField(fields.fullName)}
+              </Col>
+              <Col sm={6}>
+                {renderField(fields.creditCardNumber)}
+              </Col>
+            </Row>
+          </Col>
+        </FormGroup>
+        <FormGroup controlId='formSizingColumn'>
+          <Col lg={12}>
+            <Row>
+              <Col sm={6}>
+                {renderField(fields.expirationDate)}
+              </Col>
+              <Col sm={6}>
+                {renderField(fields.cvCode)}
+              </Col>
+            </Row>
+          </Col>
+        </FormGroup>
+      </Row>
+      <Row>
+      <Divider>
+        <h4 className='m-l-2'>
+          Billing Address
+        </h4>
+      </Divider>
+        <FormGroup controlId='formSizingColumn'>
+          <Col lg={12}>
+            <Row>
+              <Col sm={8}>
+                {renderField(fields.address)}
+              </Col>
+              <Col sm={4}>
+                {renderField(fields.city)}
+              </Col>
+            </Row>
+          </Col>
+        </FormGroup>
+        <FormGroup controlId='formSizingColumn'>
+          <Col lg={12}>
+            <Row>
+              <Col sm={6}>
+                {renderField(fields.zipcode)}
+              </Col>
+                <Col sm={6}>
+                  <label>
+                    State
+                  </label>
+                  <Field
+                    name='state'
+                    component={dropDownSelect}
+                  />
+                </Col>
+            </Row>
+          </Col>
+        </FormGroup>
+      </Row>
       <p>
         All major credit cards are accepted through a secure payment process
       </p>

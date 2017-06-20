@@ -9,7 +9,8 @@ import {
     FormControl,
     Col,
     Row,
-    ControlLabel
+    ControlLabel,
+    Divider
 } from 'components';
 
 const fieldsToOmit = [
@@ -116,47 +117,51 @@ let ClientRegistrationForm = (props) => {
       <Col lg={ 12 }>
         <form onSubmit={handleSubmit(submitForm)}>
           <Row>
+            <Divider>
             <h4 className="m-l-2">
               Client Info
-            </h4>
-          <FormGroup controlId="formSizingColumn">
-            <Col lg={12}>
-              <Row>
-                <Col sm={ 6 }>
-                  {renderField(formFields.firstName)}
-                </Col>
-                <Col sm={ 6 }>
-                  {renderField(formFields.lastName)}
-                </Col>
-              </Row>
-            </Col>
-          </FormGroup>
-          <FormGroup controlId="formSizingColumn">
-            <Col sm={12}>
-              <Row>
-                <Col sm={ 6 }>
-                  {renderField(formFields.email)}
-                </Col>
-                <Col sm={ 6 }>
-                  {renderField(formFields.phoneNumber)}
-                </Col>
-              </Row>
-            </Col>
-          </FormGroup>
-          <FormGroup controlId="formSizingColumn">
-            <Col sm={12}>
-              <Row>
-                <Col sm={6}>
-                  {renderField(formFields.authnetId)}
-                </Col>
-              </Row>
-            </Col>
-          </FormGroup>
-        </Row>
-        <Row>
-          <h4 className="m-l-2">
-            Plan
           </h4>
+        </Divider>
+            <FormGroup controlId="formSizingColumn">
+              <Col lg={12}>
+                <Row>
+                  <Col sm={ 6 }>
+                    {renderField(formFields.firstName)}
+                  </Col>
+                  <Col sm={ 6 }>
+                    {renderField(formFields.lastName)}
+                  </Col>
+                </Row>
+              </Col>
+            </FormGroup>
+            <FormGroup controlId="formSizingColumn">
+              <Col sm={12}>
+                <Row>
+                  <Col sm={ 6 }>
+                    {renderField(formFields.email)}
+                  </Col>
+                  <Col sm={ 6 }>
+                    {renderField(formFields.phoneNumber)}
+                  </Col>
+                </Row>
+              </Col>
+            </FormGroup>
+            <FormGroup controlId="formSizingColumn">
+              <Col sm={12}>
+                <Row>
+                  <Col sm={6}>
+                    {renderField(formFields.authnetId)}
+                  </Col>
+                </Row>
+              </Col>
+            </FormGroup>
+          </Row>
+        <Row>
+          <Divider>
+            <h4 className="m-l-2">
+              Plan
+            </h4>
+          </Divider>
           <FormGroup controlId="formSizingColumn">
             <Col sm={12}>
               <Row>
@@ -171,17 +176,18 @@ let ClientRegistrationForm = (props) => {
           </FormGroup>
         </Row>
         <Row>
+          <Divider>
             <h4 className="m-l-2">
-              Payment Info
+              Credit Card
             </h4>
+          </Divider>
           <FormGroup controlId="formSizingColumn">
             <Col sm={12}>
               <Row>
                 <Col sm={ 6 }>
-                  {renderField(formFields.ccFirstName)}
+                  {renderField(formFields.fullName)}
                 </Col>
                 <Col sm={ 6 }>
-                  {renderField(formFields.ccLastName)}
                 </Col>
               </Row>
             </Col>
@@ -202,11 +208,56 @@ let ClientRegistrationForm = (props) => {
             </Col>
           </FormGroup>
         </Row>
-
         <Row>
-          <h4 className="m-l-2">
-            Keywords
-          </h4>
+          <Divider>
+            <h4 className="m-l-2">
+              Billing Address
+            </h4>
+          </Divider>
+          <FormGroup controlId='formSizingColumn'>
+            <Col lg={12}>
+              <Row>
+                <Col sm={12}>
+                  {renderField(formFields.address)}
+                </Col>
+              </Row>
+            </Col>
+          </FormGroup>
+          <FormGroup controlId='formSizingColumn'>
+            <Col lg={12}>
+              <Row>
+                <Col sm={6}>
+                  {renderField(formFields.city)}
+                </Col>
+                <Col sm={6}>
+                  {renderField(formFields.zipcode)}
+                </Col>
+              </Row>
+            </Col>
+          </FormGroup>
+          <FormGroup controlId='formSizingColumn'>
+            <Col className='p-b-3' lg={12}>
+              <Row>
+                <Col sm={6}></Col>
+                <Col sm={6}>
+                  <label>
+                    State
+                  </label>
+                  <Field
+                    name='state'
+                    component={dropDownSelect}
+                  />
+                </Col>
+              </Row>
+            </Col>
+          </FormGroup>
+        </Row>
+        <Row>
+          <Divider>
+            <h4 className="m-l-2">
+              Keywords
+            </h4>
+          </Divider>
           <FormGroup controlId="formSizingColumn">
             <Col sm={12}>
               <Row>
@@ -223,10 +274,10 @@ let ClientRegistrationForm = (props) => {
             <Col sm={12}>
               <Row>
                 <Col sm={ 6 }>
-                  {renderField(formFields.address)}
+                  {renderField(formFields.kwAddress)}
                 </Col>
                 <Col sm={ 6 }>
-                  {renderField(formFields.city)}
+                  {renderField(formFields.kwCity)}
                 </Col>
               </Row>
             </Col>
@@ -239,12 +290,12 @@ let ClientRegistrationForm = (props) => {
                     State
                   </label>
                   <Field
-                    name='state'
+                    name='kwState'
                     component={dropDownSelect}
                   />
                 </Col>
                 <Col sm={ 4 }>
-                  {renderField(formFields.zipcode)}
+                  {renderField(formFields.kwZipcode)}
                 </Col>
                 <Col sm={ 4 }>
                   {renderField(formFields.dob)}
@@ -253,7 +304,6 @@ let ClientRegistrationForm = (props) => {
             </Col>
           </FormGroup>
         </Row>
-
           <button
             className='btn btn-primary btn-lg pull-right m-b-2'
             disabled={invalid || submitting}

@@ -34,10 +34,6 @@ class PaymentContainer extends RoutedComponent {
     return value.replace(/[^\d]/gi, '')
   }
 
-  fullName(first, last) {
-    return `${first} ${last}`
-  }
-
   toLowerCase(name) {
     return name.toLowerCase()
   }
@@ -45,12 +41,16 @@ class PaymentContainer extends RoutedComponent {
   buildParams(values) {
     return {
       user: this.props.currentUser.id,
-      card_holder_name: this.fullName(values.firstName, values.lastName),
+      card_holder_name: values.fullName,
       card_number: this.sanitizeNums(values.creditCardNumber),
       card_month: values.expirationDate.slice(0,2),
       card_year: values.expirationDate.slice(3),
       card_cvc: values.cvCode,
-      plan: 'individual',
+      address: values.address,
+      city: values.city,
+      state: values.state,
+      zip: values.zipcode,
+      plan: 'individual'
     }
   }
 
