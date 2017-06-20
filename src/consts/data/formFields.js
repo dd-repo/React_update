@@ -64,7 +64,7 @@ const fields = {
     name: 'fullName',
     type: 'text',
     errorMessage: 'Please enter the full name...',
-    label: 'Full Name as it appears on your card',
+    label: 'Credit Card First and Last Name',
   },
   creditCardNumber: {
     name: 'creditCardNumber',
