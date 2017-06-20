@@ -3,7 +3,6 @@ import { Link } from 'react-router';
 
 import PaymentForm from './PaymentForm';
 import classes from './payment.scss';
-//import ProgressIndicator from './ProgressIndicator';
 
 import {
     Row,
@@ -30,7 +29,7 @@ const Payment = (props) => {
         <Col lg={ 12 }>
             {renderErrorMessage}
           <Row>
-            <Col className={ classes.centerCol } md={ 4 }>
+            <Col className={ classes.centerCol } md={ 6 }>
               <Panel
                 className={ classes.registerPanel }
                   >
