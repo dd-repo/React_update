@@ -11,9 +11,6 @@ import {
 
 import Transactions from './components/Transactions';
 
-// these are the search params for fetching all transactions
-const defaultSearchParams = { q: { id_not_eq: 0 }}
-
 class TransactionsContainer extends RoutedComponent {
   constructor(props) {
     super(props)
@@ -47,10 +44,10 @@ class TransactionsContainer extends RoutedComponent {
   }
 
   componentWillMount() {
-    this.fetchTransactions(defaultSearchParams)
+    this.fetchTransactions()
   }
 
-  fetchTransactions(params, pageNum=1) {
+  fetchTransactions(params={}, pageNum=1) {
     this.props.getTransactions(params, pageNum)
   }
 
@@ -60,13 +57,14 @@ class TransactionsContainer extends RoutedComponent {
   }
 
   handleSearch(input) {
+    const queryName = input !== '' ? input : 'All Transactions'
     const params = {
       q: {
          id_eq: input
       }
     }
     this.fetchTransactions(params)
-    this.setState({ queryName: input })
+    this.setState({ queryName })
   }
 
   handleCancelTransaction() {
@@ -74,7 +72,6 @@ class TransactionsContainer extends RoutedComponent {
     .then(res => this.handleCancelTransactionResponse(res))
     .catch(
       error => this.handleFailure(error)
-      //error => console.log('error', error)
     )
     this.hideModal()
   }

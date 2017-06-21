@@ -56,7 +56,7 @@ describe('(Subscription module)', () => {
     expect(SUBSCRIPTION_UPDATE_PENDING).to.equal('SUBSCRIPTION_UPDATE_PENDING')
     expect(SUBSCRIPTION_UPDATE_SUCCESS).to.equal('SUBSCRIPTION_UPDATE_SUCCESS')
     expect(SUBSCRIPTION_UPDATE_FAILURE).to.equal('SUBSCRIPTION_UPDATE_FAILURE')
-    expect(SUBSCRIPTIONS_REQUEST).to.equal('/admin/api/subscriptions')
+    expect(SUBSCRIPTIONS_REQUEST).to.equal('/admin/api/subscriptions/search')
   })
 
   describe('(Action Creator) gettingSubscriptions', () => {

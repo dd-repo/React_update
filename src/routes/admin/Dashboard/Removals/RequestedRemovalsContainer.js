@@ -94,16 +94,17 @@ class RequestedRemovalsContainer extends RoutedComponent {
   }
 
   handleSearch(input) {
-    this.setState({queryName: input})
+    const queryName = input !== '' ? input : this.getStatus()
     const status = this.getStatus()
     const params = {
       q: {
-        id_eq: parseInt(input),
+        id_eq: input,
         request_status_is_type_eq: status
       }
     }
 
     this.fetchRemovalsRequested(this.state.pageNum, params)
+    this.setState({queryName})
   }
 
   handleClick(removal) {

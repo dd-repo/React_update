@@ -222,6 +222,9 @@ class RequestedRemovals extends Component {
               <th>
                 site Link
               </th>
+              <th>
+                created at
+              </th>
               <th className='text-right'>
                 status
               </th>

@@ -9,6 +9,8 @@ import {
 } from './modules/subscriptions'
 import Subscriptions from './components/Subscriptions';
 
+const defaultSearchParams = { q: {}}
+
 class SubscriptionsContainer extends RoutedComponent {
   constructor(props) {
     super(props)
@@ -69,12 +71,14 @@ class SubscriptionsContainer extends RoutedComponent {
   }
 
   handleSearch(input) {
+    const queryName = input !== '' ? input : 'All Subscriptions'
     const params = {
       q: {
-        first_name_or_last_name_or_id: input
+        user_first_name_or_user_last_name_or_id_eq: input
       }
     }
     this.fetchSubscriptions(params)
+    this.setState({ queryName })
   }
 
   render() {
@@ -105,7 +109,7 @@ class SubscriptionsContainer extends RoutedComponent {
         hideModal={this.hideModal}
         subscriptionInProcess={this.state.subscriptionInProcess}
         queryName={this.state.queryName}
-        handleSearch={this.handelSearch}
+        handleSearch={this.handleSearch}
         resultCount={resultCount}
         limit={limit}
       />
