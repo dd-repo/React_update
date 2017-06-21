@@ -80,8 +80,8 @@ class UsersContainer extends RoutedComponent {
         this.props.becomeUser(params)
         .then( res => this.transitionToUser(res) )
         break
-      case 'edit':
-        this.context.router.push(`/admin/dashboard/users/user/edit/${id}`)
+      case 'user':
+        this.context.router.push(`/admin/dashboard/users/user/${id}`)
         break
     }
   }

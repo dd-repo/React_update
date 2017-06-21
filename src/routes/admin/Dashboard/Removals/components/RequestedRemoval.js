@@ -20,6 +20,14 @@ const REMOVAL_STATUS = {
   'protected': {
     style:'success',
     buttonLabel: 'Complete'
+  },
+  'pending': {
+    style: 'warning',
+    buttonLabel: 'Pending'
+  },
+  'queued': {
+    style: 'warning',
+    buttonLabel: 'Pending'
   }
 }
 

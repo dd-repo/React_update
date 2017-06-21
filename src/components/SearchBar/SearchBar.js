@@ -24,12 +24,16 @@ const SearchBar = (props) => {
     props.handleSearch(searchInput.value)
   }
 
+  const results = (
+    props.resultCount > 1 ? 'Results' : 'Result'
+  )
+
   return (
     <div>
         <h3 className={classes.searchHeader}>
             Search Results for <strong>"{ props.query }"</strong>
             <small className='m-l-1'>
-              found { !!props.resultCount ? numeral(props.resultCount).format('0,0') : '' } Results
+              found { !!props.resultCount ? numeral(props.resultCount).format('0,0') : '' } { results }
             </small>
         </h3>
         <InputGroup className='m-t-2'>
