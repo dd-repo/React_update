@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import { formatDate } from 'utils/dateHelper';
 
 import { DropdownButton, MenuItem, Button, Label } from 'components';
 
@@ -51,6 +52,7 @@ export default class RemovalRequested extends Component {
       status_label,
       client_name,
       age,
+      updated_at,
       addresses,
       is_active,
     } = this.props.removal
@@ -89,6 +91,9 @@ export default class RemovalRequested extends Component {
           <a href={siteURL} target='_blank'>
             { friendlyURL }
           </a>
+        </td>
+        <td>
+          { formatDate(updated_at) }
         </td>
         <td className='text-right'>
           <Label

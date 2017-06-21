@@ -64,13 +64,14 @@ class UsersContainer extends RoutedComponent {
   }
 
   handleSearch(input) {
+    const queryName = input !== '' ? input : 'All Users'
     const params = {
       q: {
         first_name_or_last_name_or_email_cont: input,
         group_eq: 'frontend'
       }}
     this.fetchUsers(params)
-    this.setState({ queryName: input })
+    this.setState({ queryName })
   }
 
   handleClick(selector, id) {
@@ -81,7 +82,7 @@ class UsersContainer extends RoutedComponent {
         .then( res => this.transitionToUser(res) )
         break
       case 'user':
-        this.context.router.push(`/admin/dashboard/users/user/${id}`)
+        this.context.router.push(`/admin/dashboard/users/client/${id}`)
         break
     }
   }

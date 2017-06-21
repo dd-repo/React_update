@@ -12,7 +12,7 @@ export const SUBSCRIPTIONS_REQUEST = '/admin/api/subscriptions';
 
 // actions
 export const getSubscriptions = (params, pageNum) => {
-  const path = `${SUBSCRIPTIONS_REQUEST}/${pageNum}`
+  const path = `${SUBSCRIPTIONS_REQUEST}/search/${pageNum}`
   return dispatch => {
     dispatch(gettingSubscriptions())
     return BlitzApi.get(path, params)

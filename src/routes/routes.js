@@ -170,7 +170,7 @@ export default [
       }
     },
     {
-      path: '/admin/dashboard/users/user/:id',
+      path: '/admin/dashboard/users/client/:id',
       getComponent: (nextState, cb) => {
         require.ensure([], require => {
           cb(null, require('./admin/Dashboard/User').default);
