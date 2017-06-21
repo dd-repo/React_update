@@ -27,6 +27,10 @@ const Transaction = (props) => {
     </Button>
   )
 
+  const salesRep = (
+    sales_rep_name !== " " ? sales_rep_name : 'Web'
+  )
+
   return (
     <tr className='bg-gray-darker' key={id}>
       <td>
@@ -54,7 +58,7 @@ const Transaction = (props) => {
         { type_of_deal }
       </td>
       <td>
-        { sales_rep_name }
+        { salesRep }
       </td>
       <td>
         { renderCancelTransactionButton }

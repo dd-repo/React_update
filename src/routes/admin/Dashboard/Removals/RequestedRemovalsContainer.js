@@ -24,7 +24,8 @@ class RequestedRemovalsContainer extends RoutedComponent {
     this.state = {
       showModal: false,
       removalInProcess: {},
-      pageNum: 1
+      pageNum: 1,
+      queryName: this.getStatus()
     }
 
     this.handleClick = this.handleClick.bind(this);
@@ -32,6 +33,7 @@ class RequestedRemovalsContainer extends RoutedComponent {
     this.updateRemovalStatus = this.updateRemovalStatus.bind(this);
     this.hideModal = this.hideModal.bind(this)
     this.showModal = this.showModal.bind(this)
+    this.handleSearch = this.handleSearch.bind(this);
   }
 
   getLayoutOptions() {
@@ -48,28 +50,33 @@ class RequestedRemovalsContainer extends RoutedComponent {
     router: React.PropTypes.object.isRequired
   }
 
+  componentWillMount() {
+    this.fetchRemovalsRequested(this.state.pageNum, this.getStatusParams())
+  }
+
   componentWillReceiveProps(nextProps) {
     nextProps.route.path !== this.props.route.path &&
-      this.fetchRemovalsRequested(this.state.pageNum, this.getStatus(nextProps.route.path))
-  }
-
-  componentWillMount() {
-    this.fetchRemovalsRequested(this.state.pageNum, this.getStatus())
-  }
-
-  getStatus(path) {
-    if(!path) { path = this.props.route.path }
-    const status = path.split('/').pop()
-    return { q: { request_status_is_type_eq: removalStatus[status] } }
+      this.fetchRemovalsRequested(this.state.pageNum, this.getStatusParams(nextProps.route.path))
+      this.setState({queryName: this.getStatus(nextProps.route.path)})
   }
 
   fetchRemovalsRequested(pageNum, params) {
     this.props.getRemovalsRequested(pageNum, params)
   }
 
+  getStatusParams(path = this.props.route.path) {
+    const status = this.getStatus(path)
+    return { q: { request_status_is_type_eq: status} }
+  }
+
+  getStatus(path = this.props.route.path) {
+    const status = path.split('/').pop()
+    return removalStatus[status]
+  }
+
   getNextPage(pageNum) {
     this.setState({ pageNum: parseInt(pageNum) })
-    this.fetchRemovalsRequested(pageNum, this.getStatus())
+    this.fetchRemovalsRequested(pageNum, this.getStatusParams())
   }
 
   hideModal() {
@@ -84,8 +91,19 @@ class RequestedRemovalsContainer extends RoutedComponent {
     const { id, nextStatus } = removal
     const payload = { request_id: id, status: nextStatus, removed_url }
     this.props.updateStatus(payload)
-    //.then( (res) => this.fetchRemovalsRequested(this.state.pageNum, this.getStatus()))
-    //.catch( error => { console.log('error in admin removals', error) })
+  }
+
+  handleSearch(input) {
+    this.setState({queryName: input})
+    const status = this.getStatus()
+    const params = {
+      q: {
+        id_eq: parseInt(input),
+        request_status_is_type_eq: status
+      }
+    }
+
+    this.fetchRemovalsRequested(this.state.pageNum, params)
   }
 
   handleClick(removal) {
@@ -122,16 +140,17 @@ class RequestedRemovalsContainer extends RoutedComponent {
         hideModal={this.hideModal}
         removalInProcess={this.state.removalInProcess}
         updateRemovalStatus={this.updateRemovalStatus}
+        handleSearch={this.handleSearch}
+        queryName={this.state.queryName}
+        results={results}
       />
     )
   }
 }
 
-const mapStateToProps = state => {
-  return {
-    requestedRemovals: state.requestedRemovals
-  }
-}
+const mapStateToProps = state => ({
+  requestedRemovals: state.requestedRemovals
+})
 
 const mapActionCreators = {
   getRemovalsRequested,

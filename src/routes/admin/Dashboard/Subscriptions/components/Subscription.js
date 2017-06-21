@@ -42,6 +42,10 @@ export default class Subscription extends Component {
              formatDate(cancel_date)
     )
 
+    const salesRep = (
+      sales_rep_name !== " " ? sales_rep_name : 'Web'
+    )
+
     return (
       <tr className='bg-gray-dark' key={id}>
         <td>
@@ -66,7 +70,7 @@ export default class Subscription extends Component {
           { plan_description }
         </td>
         <td>
-          { sales_rep_name }
+          { salesRep }
         </td>
         <td>
           { isActive }

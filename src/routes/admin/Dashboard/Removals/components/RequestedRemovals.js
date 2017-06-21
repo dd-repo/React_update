@@ -16,6 +16,7 @@ import {
   Col,
   ControlLabel,
   Alert,
+  SearchBar
 } from 'components';
 
 class RequestedRemovals extends Component {
@@ -62,6 +63,9 @@ class RequestedRemovals extends Component {
       showModal,
       hideModal,
       removalInProcess,
+      results,
+      handleSearch,
+      queryName
     } = this.props
 
     const {
@@ -76,10 +80,11 @@ class RequestedRemovals extends Component {
 
     const renderTitle = status === 'inprogress' ? 'Please confirm that this removal is complete' : 'Please provide the removal url'
 
+
     const renderInput = (
       <FormGroup>
           Removal URL
-          <FormControl ref={(input) => this.input = input} type="text" placeholder='http://blitzmonitoring.com/'/>
+          <FormControl ref={(input) => this.input = input} type="text" placeholder='http://clickadilly.com/'/>
           <span className='text-danger'>{this.state.validation}</span>
       </FormGroup>
     )
@@ -175,6 +180,16 @@ class RequestedRemovals extends Component {
             </tbody>
     )
 
+    const renderSearchBar = (
+      <Col lg={6} lgOffset={3} className='m-b-2' >
+        <SearchBar
+          query={queryName}
+          resultCount={results}
+          handleSearch={handleSearch}
+        />
+      </Col>
+    )
+
     const renderLoader = (
       isFetching &&
         <div className='container'>
@@ -188,6 +203,7 @@ class RequestedRemovals extends Component {
 
     return (
       <Row>
+        { renderSearchBar }
         <Table>
           <thead>
             <tr>
@@ -235,6 +251,7 @@ RequestedRemovals.propTypes = {
   hideModal: PropTypes.func.isRequired,
   removalInProcess: PropTypes.object,
   updateRemovalStatus: PropTypes.func.isRequired,
+  queryName: PropTypes.string
 }
 
 export default RequestedRemovals;

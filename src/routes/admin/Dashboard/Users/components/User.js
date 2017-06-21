@@ -38,10 +38,12 @@ const User = (props) => {
   return (
     <tr className='bg-gray-darker' key={id}>
       <td>
-        { id }
+          { id }
       </td>
       <td>
+        <a href='javascript:void(0)' onClick={() => {_onSelect('user')}}>
         { fullName }
+        </a>
       </td>
       <td>
         { email }
