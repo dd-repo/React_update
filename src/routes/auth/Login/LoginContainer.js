@@ -32,10 +32,6 @@ class LoginContainer extends RoutedComponent {
     router: React.PropTypes.object.isRequired
   }
 
-  componentWillMount() {
-    this.props.removeErrorMessage()
-  }
-
   getLayoutOptions() {
     return {
       contentView: CONTENT_VIEW_STATIC,
@@ -61,9 +57,6 @@ class LoginContainer extends RoutedComponent {
       case ADMIN_LOGIN_SUCCESS:
         persistDataToLocalStorage(res.data)
         this.context.router.push('admin/dashboard')
-        break;
-      case USER_LOGIN_FAILURE:
-        setTimeout(this.props.removeErrorMessage(), 5000)
         break;
       default:
         return null;

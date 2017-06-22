@@ -40,10 +40,6 @@ class SignupContainer extends RoutedComponent {
     }
   }
 
-  componentWillMount() {
-    this.props.removeErrorMessage()
-  }
-
   componentWillReceiveProps(nextProps) {
     const { signupForm } = nextProps.form
     signupForm && signupForm.values &&
@@ -92,9 +88,6 @@ class SignupContainer extends RoutedComponent {
       case USER_SIGNUP_SUCCESS:
         persistDataToLocalStorage(res.data)
         this.context.router.push('/payment-info');
-        break;
-      case USER_SIGNUP_FAILURE:
-        setTimeout(this.props.removeErrorMessage, 5000)
         break;
       default:
         return null;
