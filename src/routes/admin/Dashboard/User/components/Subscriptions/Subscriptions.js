@@ -2,10 +2,11 @@ import React from 'react';
 
 import {
   Panel,
-  Table
+  Table,
+  Label
 } from 'components';
 import { formatDate } from 'utils/dateHelper';
-import classes from './user.scss';
+import classes from '../user.scss';
 
 const Subscriptions = ({isFetching, user}) => (
   !isFetching &&
@@ -74,7 +75,12 @@ const renderSubscription = subscription => (
         { salesRep(subscription.salesRep) }
       </td>
       <td>
-        { isActive(subscription.is_active) }
+        <Label
+          outline
+          className='text-uppercase'
+          bsStyle={subscription.is_active ? 'primary' : 'danger'}>
+          { isActive(subscription.is_active) }
+        </Label>
       </td>
     </tr>
   </tbody>

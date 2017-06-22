@@ -1,11 +1,12 @@
 import React from 'react';
 import {
   Panel,
-  Table
+  Table,
+  Label
 } from 'components';
 
 import { formatDate } from 'utils/dateHelper';
-import classes from './user.scss';
+import classes from '../user.scss';
 
 const Transactions = ({isFetching, user}) => (
   !isFetching &&
@@ -39,6 +40,9 @@ const Transactions = ({isFetching, user}) => (
               </th>
               <th>
                 sales rep
+              </th>
+              <th>
+                Status
               </th>
             </tr>
           </thead>
@@ -77,9 +81,22 @@ const renderTransaction = transaction => (
       <td>
         { salesRep(transaction.sales_rep) }
       </td>
+      <td>
+        <Label
+          outline
+          className='text-uppercase'
+          bsStyle={STYLE[transaction.status]}>
+          { transaction.status }
+        </Label>
+      </td>
     </tr>
   </tbody>
 )
 
+const STYLE = {
+  'completed': 'success',
+  'refunded':  'warning',
+  'declined':  'danger'
+}
 export default Transactions;
 

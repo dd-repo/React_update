@@ -7,7 +7,7 @@ import {
   Button
 } from 'components';
 
-import classes from './user.scss';
+import classes from '../user.scss';
 import { formatDate } from 'utils/dateHelper';
 
 const UserDetails = ({isFetching, user}) => (
@@ -15,13 +15,13 @@ const UserDetails = ({isFetching, user}) => (
     <Panel
       header={
         <h4 className='panel-title'>
-          User Details
+          Subscriber Details
         </h4>
         }
         footer={
           <div className='text-right'>
             <Button bsStyle='primary'>
-              <i className="fa fa-pencil"></i> Edit User
+              <i className="fa fa-pencil"></i> Edit Subscriber
             </Button>
           </div>
           }
