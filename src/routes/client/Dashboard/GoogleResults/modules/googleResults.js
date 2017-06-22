@@ -1,5 +1,9 @@
 import BlitzApi from 'services/BlitzApi';
 
+import {
+  USER_LOGOUT
+} from 'routes/auth/modules/auth';
+
 // action types
 export const GOOGLE_RESULTS_SUCCESS = 'GOOGLE_RESULTS_SUCCESS';
 export const GOOGLE_RESULTS_POSTING = 'GOOGLE_RESULTS_POSTING';
@@ -102,6 +106,10 @@ const reducer = (state = {}, action) => {
     case UPDATE_GOOGLE_RESULT_FAILURE:
       return Object.assign({}, state, {
         errorMessage: action.error.response.data.errorMessage
+      })
+    case USER_LOGOUT:
+      return Object.assign({}, state, {
+        all: []
       })
     default:
       return state

@@ -1,6 +1,10 @@
 import BlitzApi from 'services/BlitzApi';
 
 // action types
+import {
+  USER_LOGOUT
+} from 'routes/auth/modules/auth';
+
 export const SUBSCRIPTION_PENDING = 'SUBSCRIPTION_PENDING';
 export const SUBSCRIPTION_SUCCESS = 'SUBSCRIPTION_SUCCESS';
 export const SUBSCRIPTION_FAILURE = 'SUBSCRIPTION_FAILURE';
@@ -80,6 +84,14 @@ const reducer = (state = {}, action) => {
       })
     case SUBSCRIPTION_CANCEL_SUCCESS:
       return subscription(state, action.subscription)
+    case USER_LOGOUT:
+      return Object.assign({}, state, {
+        id: null,
+        cancelDate: null,
+        isActive: null,
+        nextPayment: null,
+        startDate: null
+      })
     default:
       return state
   }

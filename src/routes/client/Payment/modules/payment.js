@@ -1,5 +1,9 @@
 import BlitzApi from 'services/BlitzApi';
 
+import {
+  USER_LOGOUT
+} from 'routes/auth/modules/auth';
+
 export const PAYMENT_POSTING = 'PAYMENT_POSTING';
 export const PAYMENT_SUCCESS = 'PAYMENT_SUCCESS';
 export const PAYMENT_FAILURE = 'PAYMENT_FAILURE';
@@ -56,6 +60,12 @@ const reducer = (state={}, action) => {
         isFetching: false,
         errorMessage: action.error.response.data.errorMessage,
         success: false
+      })
+    case USER_LOGOUT:
+      return Object.assign({}, state, {
+        isFetching: null,
+        errorMessage: null,
+        success: null
       })
     default:
       return state
