@@ -52,6 +52,7 @@ class LoginContainer extends RoutedComponent {
     switch(res.type) {
       case USER_LOGIN_SUCCESS:
         persistDataToLocalStorage(res.data)
+        this.props.removeErrorMessage();
         this.context.router.push('/dashboard')
         break;
       case ADMIN_LOGIN_SUCCESS:
