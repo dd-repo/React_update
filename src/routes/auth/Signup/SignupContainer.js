@@ -30,6 +30,10 @@ class SignupContainer extends RoutedComponent {
     router: React.PropTypes.object.isRequired
   }
 
+  componentWillMount() {
+    console.log('will Mounting')
+  }
+
   getLayoutOptions() {
     return {
       contentView: CONTENT_VIEW_STATIC,
@@ -38,10 +42,6 @@ class SignupContainer extends RoutedComponent {
       footerEnabled: true,
       headerEnabled: false,
     }
-  }
-
-  componentWillMount() {
-    this.props.removeErrorMessage()
   }
 
   componentWillReceiveProps(nextProps) {
@@ -91,10 +91,8 @@ class SignupContainer extends RoutedComponent {
     switch(res.type) {
       case USER_SIGNUP_SUCCESS:
         persistDataToLocalStorage(res.data)
+        this.props.removeErrorMessage()
         this.context.router.push('/payment-info');
-        break;
-      case USER_SIGNUP_FAILURE:
-        setTimeout(this.props.removeErrorMessage, 5000)
         break;
       default:
         return null;

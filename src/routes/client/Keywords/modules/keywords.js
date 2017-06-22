@@ -1,6 +1,7 @@
 import BlitzApi from 'services/BlitzApi';
 import {
   USER_LOGIN_SUCCESS,
+  USER_LOGOUT,
 } from 'routes/auth/modules/auth';
 
 // action types
@@ -80,6 +81,12 @@ const reducer = (state = {}, action) => {
         currentKeyword: action.data.account.keywords[0],
         isFetching: false,
       });
+    case USER_LOGOUT:
+      return Object.assign({}, state, {
+        all: null,
+        currentKeyword: null,
+        isFetching: null
+      })
     default:
       return state
   }

@@ -18,19 +18,22 @@ class AppContainer extends React.Component {
   }
 
   componentWillMount() {
-    this.props.fetchUser()
+    const authToken = localStorage.getItem('authToken')
+    authToken !== null ?
+      this.props.fetchUser()
+        :
+          this.setState({isFetching: false})
+  }
+
+  componentWillReceiveProps(nextProps) {
+    nextProps.currentUser.isFetching === false &&
+      this.setState({isFetching: nextProps.currentUser.isFetching})
   }
 
   render () {
     const { history, routes, routerKey, store, currentUser } = this.props
 
-    const isFetching = (
-      currentUser.isFetching === true
-        ||
-          currentUser.isFetching === undefined
-    )
-
-    if(!isFetching) {
+    if(!this.state.isFetching) {
       return (
       <Provider store={store}>
         <div style={{ height: '100%' }}>

@@ -2,7 +2,8 @@ import BlitzApi from 'services/BlitzApi';
 
 import {
   USER_LOGIN_SUCCESS,
-  USER_SIGNUP_SUCCESS
+  USER_SIGNUP_SUCCESS,
+  USER_LOGOUT,
 } from 'routes/auth/modules/auth';
 
 export const PROFILE_UPDATE_POSTING = 'PROFILE_UPDATE_POSTING';
@@ -107,6 +108,14 @@ const reducer = (state = {}, action) => {
       return addProfile(state, action.data.account.profile)
     case USER_SIGNUP_SUCCESS:
       return addProfile(state, action.data.account.profile)
+    case USER_LOGOUT:
+      return Object.assign({}, state, {
+        avatar: null,
+        driver_license: null,
+        id: null,
+        maiden_name: null,
+        middle_name: null
+      })
     default:
       return state
   }

@@ -34,8 +34,10 @@ export const postUserSignup = payload => {
     return BlitzApi.post(SIGNUP_REQUEST, payload)
     .then(
       response => dispatch(receiveUserSignup(response.data)))
+      //response => console.log('success', response.data))
       .catch(
         error => dispatch(receiveUserSignupFailure(error))
+        //error => console.log('error', error.response)
       )
   }
 }
@@ -192,7 +194,8 @@ const setClient = (state, data) => {
       account_id: data.user.accounts[0].id,
       role: data.user.role,
       group: data.user.group,
-      authToken: data.auth_token
+      authToken: data.auth_token,
+      errorMessage: null
     })
   )
 }
@@ -207,7 +210,8 @@ const setAdmin = (state, data) => {
       isFetching: false,
       role: data.user.role,
       group: data.user.group,
-      authToken: data.auth_token
+      authToken: data.auth_token,
+      errorMessage: null
     })
   )
 }
@@ -222,7 +226,8 @@ const removeUser = state => {
       role: null,
       group: null,
       account_id: null,
-      authToken: null
+      authToken: null,
+      errorMessage: null
     })
   )
 }
