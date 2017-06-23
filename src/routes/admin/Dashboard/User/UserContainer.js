@@ -5,8 +5,10 @@ import BlitzApi from 'services/BlitzApi';
 import { RoutedComponent, connect } from 'routes/routedComponent';
 import { CONTENT_VIEW_FLUID } from 'layouts/DefaultLayout/modules/layout';
 import User from './components/User';
+//import EditUserModal from './components/EditUserModal';
 
 const GET_USER_REQUEST = '/admin/api/user'
+const GET_USER_ACCOUNT_REQUEST = '/admin/api/account'
 
 class UserContainer extends RoutedComponent {
   constructor(props) {
@@ -14,10 +16,12 @@ class UserContainer extends RoutedComponent {
     this.state = {
       isFetching: true,
       user: {},
-      account: {}
+      account: {},
+      showEditUserModal: false
     }
 
     this.handleAccountSelect = this.handleAccountSelect.bind(this);
+    this.fetchUser = this.fetchUser.bind(this);
   }
 
   static contextTypes = {
@@ -35,19 +39,46 @@ class UserContainer extends RoutedComponent {
   }
 
   componentWillMount() {
-    BlitzApi.get(GET_USER_REQUEST, this.props.params)
+    this.fetchUser(GET_USER_REQUEST, this.props.params)
+  }
+
+  componentWillUpdate(nextProps, nextState) {
+    if(nextState.user !== this.state.user) {
+      const id =  nextState.user.accounts[0].id
+      this.fetchAccount(GET_USER_ACCOUNT_REQUEST, {id})
+    }
+  }
+
+  fetchUser(path, params) {
+    BlitzApi.get(path, params)
+    .then( res => this.setState({
+      user: res.data,
+      account: {}
+    }))
+    .catch( error => console.log('error', error))
+  }
+
+  fetchAccount(path, params) {
+    BlitzApi.get(path, params)
     .then( res => this.setState({
       isFetching: false,
-      user: res.data,
-      account: res.data.accounts[0]
+      account: res.data
     }))
     .catch( error => console.log('error', error))
   }
 
   handleAccountSelect(id) {
-    const account = _.findWhere(this.state.user.accounts, { id })
-    const testAccount = { id: 2, first_name: 'mike', last_name: 'D', email: 'miked@email.com', created_at: "2017-05-17T13:16:17.329-07:00" }
-    this.setState({account: testAccount})
+    this.fetchAccount(GET_USER_ACCOUNT_REQUEST, {id})
+  }
+
+  handleEdit() {
+  }
+
+
+  hideModal(modalName) {
+    this.setState({
+      [`show${modalName}`]: false
+    });
   }
 
   render() {

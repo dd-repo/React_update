@@ -222,8 +222,8 @@ Transactions.PropTypes = {
   paginationItems: PropTypes.number,
   pageNum: PropTypes.number,
   isFetching: PropTypes.bool,
-  getNextPage: PropTypes.func.isRequired,
-  handleSearch: PropTypes.func.isRequired,
+  getNextPage: PropTypes.func,
+  handleSearch: PropTypes.func,
   queryName: PropTypes.string,
   limit: PropTypes.number,
   total: PropTypes.number

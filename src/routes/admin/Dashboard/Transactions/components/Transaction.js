@@ -4,7 +4,6 @@ import { formatDate } from 'utils/dateHelper';
 import { Button } from 'components';
 
 const Transaction = (props) => {
-
   const {
     id,
     state,
