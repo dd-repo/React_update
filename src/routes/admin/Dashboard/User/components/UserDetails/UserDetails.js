@@ -10,7 +10,7 @@ import {
 import classes from '../user.scss';
 import { formatDate } from 'utils/dateHelper';
 
-const UserDetails = ({isFetching, user}) => (
+const UserDetails = ({isFetching, user, toggleModal}) => (
   !isFetching &&
     <Panel
       header={
@@ -20,7 +20,10 @@ const UserDetails = ({isFetching, user}) => (
         }
         footer={
           <div className='text-right'>
-            <Button bsStyle='primary'>
+            <Button
+              onClick={() => { toggleModal('user', true, user)}}
+              bsStyle='primary'
+            >
               <i className="fa fa-pencil"></i> Edit Subscriber
             </Button>
           </div>
@@ -58,6 +61,18 @@ const UserDetails = ({isFetching, user}) => (
               <div className={ classes.detailsValue }>
                 { user.email }
               </div>
+            </ListGroupItem>
+            <ListGroupItem className='flex-space-between'>
+              <h5 className={ classes.detailsKey }>
+                Password
+              </h5>
+              <Button
+                onClick={() => { handlePasswordReset() }}
+                bsSize='small'
+                bsStyle='link'
+              >
+                 Reset Password
+              </Button>
             </ListGroupItem>
             <ListGroupItem className='flex-space-between'>
               <h5 className={ classes.detailsKey }>
