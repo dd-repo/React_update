@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import Loading from 'react-loading';
 import { Link } from 'react-router';
 
@@ -10,12 +10,10 @@ import Subscriptions from './Subscriptions/Subscriptions';
 
 import { Row, Col } from 'components';
 
-const User = (props) => {
-
-const { user, accounts, transactions, subscriptions, isFetching, account } = props
+const User = props => {
 
   const renderLoader = (
-    isFetching &&
+    props.isFetching &&
       <div className='container'>
         <div className="spinner">
           <div className="col-md-12">
@@ -34,7 +32,7 @@ const { user, accounts, transactions, subscriptions, isFetching, account } = pro
         </Link>
         <span className='text-muted m-x-1'>/</span>
         <span className='text-uppercase'>
-          {user.first_name} {user.last_name}
+          {props.user.first_name} {props.user.last_name}
         </span>
       </h2>
     </div>
@@ -68,6 +66,25 @@ const { user, accounts, transactions, subscriptions, isFetching, account } = pro
       { renderLoader }
     </div>
   )
+}
+
+UserDetails.defaultProps = {
+  user: {},
+  account: {},
+  accounts: [],
+  transactions: [],
+  subscriptions: []
+}
+
+User.propTypes = {
+  user: PropTypes.object,
+  account: PropTypes.object,
+  accounts: PropTypes.array,
+  transactions: PropTypes.array,
+  subscriptions: PropTypes.array,
+  isFetching: PropTypes.bool,
+  toggelModal: PropTypes.func,
+  handlePasswordReset: PropTypes.func
 }
 
 export default User;
