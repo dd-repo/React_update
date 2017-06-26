@@ -13,8 +13,7 @@ import {
   ProfileEditModal
 } from './components/EditModals';
 
-const GET_USER_REQUEST = '/admin/api/user'
-const GET_USER_ACCOUNT_REQUEST = '/admin/api/accounts'
+const base_url = '/admin/api'
 
 class UserContainer extends RoutedComponent {
   constructor(props) {
@@ -52,28 +51,41 @@ class UserContainer extends RoutedComponent {
   }
 
   componentWillMount() {
-    const id = this.props.params.id
-    this.fetchUser(GET_USER_REQUEST, this.props.params)
+    this.fetchUser(this.props.params)
   }
 
   componentWillUpdate(nextProps, nextState) {
     if(nextState.user !== this.state.user) {
-      const id =  nextState.user.accounts[0].id
+      const id =  nextState.accounts[0].id
       this.fetchAccount(id)
     }
   }
 
-  fetchUser(path, params) {
-    BlitzApi.get(path, params)
+  fetchUser(params) {
+    BlitzApi.get(`${base_url}/user`, params)
     .then( res => this.setState({
-      user: res.data,
+      user: this.setUser(res.data),
+      transactions: res.data.transactions,
+      subscriptions: res.data.subscriptions,
+      accounts: res.data.accounts,
       account: {}
     }))
     .catch( error => console.log('error', error))
   }
 
+  setUser(user) {
+    return {
+      id: user.id,
+      first_name: user.first_name,
+      last_name: user.last_name,
+      email: user.email,
+      created_at: user.created_at,
+      authNet_id: user.authnet_id
+    }
+  }
+
   fetchAccount(id) {
-    BlitzApi.get(`${GET_USER_ACCOUNT_REQUEST}/${id}`)
+    BlitzApi.get(`${base_url}/accounts/${id}`)
     .then( res => this.setState({
       isFetching: false,
       account: res.data
@@ -81,8 +93,13 @@ class UserContainer extends RoutedComponent {
     .catch( error => console.log('error', error))
   }
 
-  submitForm(data) {
-    console.log('data', data)
+  submitForm(data, selector) {
+    this.toggleModal(selector, false)
+    const payload = { [selector] : data }
+    BlitzApi.patch(`${base_url}/${selector}s/${data.id}`, payload)
+    .then( res => this.setState({
+      [selector]: res.data
+    }))
   }
 
   toggleModal(modalName, visible, value={}) {
@@ -97,8 +114,8 @@ class UserContainer extends RoutedComponent {
   }
 
   getAccountValues() {
-      const { first_name, last_name, email, id } = this.state.account
-      return {first_name, last_name, email, id }
+    const { first_name, last_name, email, id } = this.state.account
+    return {first_name, last_name, email, id }
   }
 
   render() {
@@ -106,6 +123,9 @@ class UserContainer extends RoutedComponent {
       <div>
         <User
           user={this.state.user}
+          accounts={this.state.accounts}
+          transactions={this.state.transactions}
+          subscriptions={this.state.subscriptions}
           isFetching={this.state.isFetching}
           account={this.state.account}
           fetchAccount={this.fetchAccount}

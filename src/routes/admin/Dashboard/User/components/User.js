@@ -12,7 +12,7 @@ import { Row, Col } from 'components';
 
 const User = (props) => {
 
-const { user, isFetching, account } = props
+const { user, accounts, transactions, subscriptions, isFetching, account } = props
 
   const renderLoader = (
     isFetching &&
