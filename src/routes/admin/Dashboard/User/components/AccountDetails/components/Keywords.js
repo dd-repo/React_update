@@ -4,11 +4,12 @@ import {
   ListGroup,
   ListGroupItem,
   Label,
+  Button
 } from 'components'
 
 import classes from '../../user.scss';
 
-const Keywords = ({keywords}) => (
+const Keywords = ({keywords, handleEdit}) => (
   <ListGroup className={ classes.taskDetails }>
     {
       keywords.map((keyword, i) => (
@@ -19,6 +20,13 @@ const Keywords = ({keywords}) => (
           <div className={ classes.detailsValue }>
             { keyword.value }
           </div>
+          <Button
+            onClick={() => { handleEdit(keyword) }}
+            bsSize='small'
+            bsStyle='link'
+          >
+            <i className="fa fa-pencil"></i> Edit
+          </Button>
         </ListGroupItem>
         ))
     }

@@ -4,12 +4,13 @@ import {
   ListGroup,
   ListGroupItem,
   Label,
+  Button
 } from 'components'
 
 import classes from '../../user.scss';
 import { normalizePhone } from 'utils/formHelpers';
 
-const Phones = ({phones}) => (
+const Phones = ({phones, handleEdit}) => (
   <ListGroup className={ classes.taskDetails }>
     {
       phones.map((phone, i) => (
@@ -20,6 +21,13 @@ const Phones = ({phones}) => (
           <div className={ classes.detailsValue }>
             { normalizePhone(phone.phone_number) }
           </div>
+          <Button
+            onClick={() => { handleEdit(phone) }}
+            bsSize='small'
+            bsStyle='link'
+          >
+            <i className="fa fa-pencil"></i> Edit
+          </Button>
         </ListGroupItem>
         ))
     }

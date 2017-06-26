@@ -3,7 +3,7 @@ import Loading from 'react-loading';
 import { Link } from 'react-router';
 
 import classes from './user.scss';
-import AccountDetails from './AccountDetails';
+import AccountDetails from './AccountDetails/AccountDetails';
 import UserDetails from './UserDetails/UserDetails';
 import Transactions from './Transactions/Transactions';
 import Subscriptions from './Subscriptions/Subscriptions';
