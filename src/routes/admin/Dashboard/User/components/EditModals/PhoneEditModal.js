@@ -21,16 +21,21 @@ const renderInput = ({ input, type }) => {
 }
 
 const PhoneEditModal = props => {
+
+  const _onSubmit = (data) => {
+    props.submitForm(data, 'phone')
+  }
+
   return (
     props.initialValues ?
-      <Modal show={ props.show } onHide={() => { props.toggleModal('phones', false) }}>
+      <Modal show={ props.show } onHide={() => { props.toggleModal('phone', false) }}>
         <Modal.Header closeButton>
           <Modal.Title>
             { 'Edit Phones ' }
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <Form onSubmit={props.handleSubmit(props.submitForm)} horizontal>
+          <Form onSubmit={props.handleSubmit(_onSubmit)} horizontal>
             <FormGroup>
               <Col componentClass={ControlLabel} sm={3}>
                 Phone
@@ -44,7 +49,7 @@ const PhoneEditModal = props => {
               </Col>
             </FormGroup>
             <Modal.Footer>
-              <Button onClick={() => { props.toggleModal('phones', false) } }>Close</Button>
+              <Button onClick={() => { props.toggleModal('phone', false) } }>Close</Button>
               <Button bsStyle='primary' type='submit'>Save</Button>
             </Modal.Footer>
           </Form>

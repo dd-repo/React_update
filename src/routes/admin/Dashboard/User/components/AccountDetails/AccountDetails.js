@@ -35,7 +35,15 @@ class AccountDetails extends React.Component {
   }
 
   _handleEditButton(value = this.getValue()) {
-    this.props.toggleModal(this.state.tabKey.toLowerCase(), true, value)
+    this.props.toggleModal(this.formatSelector(this.state.tabKey), true, value)
+  }
+
+  formatSelector(selector) {
+    if(selector === 'Addresses') {
+      return 'address'
+    } else {
+      return selector.replace(/s$/, '').toLowerCase()
+    }
   }
 
   getValue() {
@@ -118,24 +126,24 @@ class AccountDetails extends React.Component {
                       </Tab.Pane>
                       <Tab.Pane eventKey='keywords'>
                         <Keywords
-                          keywords={account.keywords}
+                          keywords={account.keywords || []}
                           handleEdit={this._handleEditButton}
                         />
                       </Tab.Pane>
                       <Tab.Pane eventKey='addresses'>
                         <Addresses
-                          addresses={account.addresses}
+                          addresses={account.addresses || []}
                           handleEdit={this._handleEditButton}
                         />
                       </Tab.Pane>
                       <Tab.Pane eventKey='phones'>
                         <Phones
-                          phones={account.phones}
+                          phones={account.phones || []}
                           handleEdit={this._handleEditButton}
                         />
                       </Tab.Pane>
                       <Tab.Pane eventKey='profile'>
-                        <Profile profile={account.profile} />
+                        <Profile profile={account.profile || {}} />
                       </Tab.Pane>
                     </Tab.Content>
                   </div>

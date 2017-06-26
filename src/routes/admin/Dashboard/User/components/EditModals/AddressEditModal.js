@@ -22,16 +22,21 @@ const renderInput = ({ input, type }) => {
 }
 
 const AddressEditModal = props => {
+
+  const _onSubmit = (data) => {
+    props.submitForm(data, 'address')
+  }
+
   return (
     props.initialValues ?
-      <Modal show={ props.show } onHide={() => { props.toggleModal('addresses', false) }}>
+      <Modal show={ props.show } onHide={() => { props.toggleModal('address', false) }}>
         <Modal.Header closeButton>
           <Modal.Title>
             { 'Edit Address' }
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <Form onSubmit={props.handleSubmit(props.submitForm)} horizontal>
+          <Form onSubmit={props.handleSubmit(_onSubmit)} horizontal>
             <FormGroup>
               <Col componentClass={ControlLabel} sm={3}>
                 Street
@@ -81,7 +86,7 @@ const AddressEditModal = props => {
               </Col>
             </FormGroup>
           <Modal.Footer>
-            <Button onClick={() => { props.toggleModal('addresses', false) } }>Close</Button>
+            <Button onClick={() => { props.toggleModal('address', false) } }>Close</Button>
             <Button bsStyle='primary' type='submit'>Save</Button>
           </Modal.Footer>
         </Form>

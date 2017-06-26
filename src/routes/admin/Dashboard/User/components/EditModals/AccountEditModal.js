@@ -21,6 +21,11 @@ const renderInput = ({ input, type }) => {
 }
 
 const AccountEditModal = props => {
+
+  const _onSubmit = (data) => {
+    props.submitForm(data, 'account')
+  }
+
   return (
     props.initialValues ?
       <Modal show={ props.show } onHide={() => { props.toggleModal('account', false) }}>
@@ -30,7 +35,7 @@ const AccountEditModal = props => {
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <Form onSubmit={props.handleSubmit(props.submitForm)} horizontal>
+          <Form onSubmit={props.handleSubmit(_onSubmit)} horizontal>
             <FormGroup>
               <Col componentClass={ControlLabel} sm={3}>
                 First Name

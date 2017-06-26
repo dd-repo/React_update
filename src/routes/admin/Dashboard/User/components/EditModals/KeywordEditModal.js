@@ -21,16 +21,21 @@ const renderInput = ({ input, type }) => {
 }
 
 const KeywordEditModal = props => {
+
+  const _onSubmit = (data) => {
+    props.submitForm(data, 'keyword')
+  }
+
   return (
     props.initialValues ?
-      <Modal show={ props.show } onHide={() => { props.toggleModal('keywords', false) }}>
+      <Modal show={ props.show } onHide={() => { props.toggleModal('keyword', false) }}>
         <Modal.Header closeButton>
           <Modal.Title>
             { 'Edit Keyword ' }
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <Form onSubmit={props.handleSubmit(props.submitForm)} horizontal>
+          <Form onSubmit={props.handleSubmit(_onSubmit)} horizontal>
             <FormGroup>
               <Col componentClass={ControlLabel} sm={3}>
                 Keyword
@@ -44,7 +49,7 @@ const KeywordEditModal = props => {
               </Col>
             </FormGroup>
             <Modal.Footer>
-              <Button onClick={() => { props.toggleModal('keywords', false) } }>Close</Button>
+              <Button onClick={() => { props.toggleModal('keyword', false) } }>Close</Button>
               <Button bsStyle='primary' type='submit'>Save</Button>
             </Modal.Footer>
           </Form>
