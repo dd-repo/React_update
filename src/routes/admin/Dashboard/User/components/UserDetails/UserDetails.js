@@ -10,7 +10,7 @@ import {
 import classes from '../user.scss';
 import { formatDate } from 'utils/dateHelper';
 
-const UserDetails = ({isFetching, user, toggleModal}) => (
+const UserDetails = ({isFetching, user, accounts, toggleModal}) => (
   !isFetching &&
     <Panel
       header={
@@ -86,7 +86,7 @@ const UserDetails = ({isFetching, user, toggleModal}) => (
                 Number of Accounts
               </h5>
               <div className={ classes.detailsValue }>
-                { user.accounts.length }
+                { accounts.length }
               </div>
             </ListGroupItem>
             <ListGroupItem className='flex-space-between'>

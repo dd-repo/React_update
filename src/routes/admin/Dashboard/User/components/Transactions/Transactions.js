@@ -8,7 +8,7 @@ import {
 import { formatDate } from 'utils/dateHelper';
 import classes from '../user.scss';
 
-const Transactions = ({isFetching, user}) => (
+const Transactions = ({isFetching, transactions}) => (
   !isFetching &&
     <Panel
       header={
@@ -47,7 +47,7 @@ const Transactions = ({isFetching, user}) => (
             </tr>
           </thead>
           {
-            user.transactions.map(transaction => {
+            transactions.map(transaction => {
               return renderTransaction(transaction)
             })
           }

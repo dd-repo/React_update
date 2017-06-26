@@ -49,7 +49,7 @@ class AccountDetails extends React.Component {
 
   render() {
 
-    const {isFetching, user, account, fetchAccount } = this.props
+    const {isFetching, user, accounts, account, fetchAccount } = this.props
     const { tabKey } = this.state
 
     return (
@@ -75,7 +75,7 @@ class AccountDetails extends React.Component {
                     id='dropdown-accounts-select'
                   >
                     {
-                      user.accounts.map(account => (
+                      accounts.map(account => (
                         <MenuItem eventKey={account.id} key={account.id}>
                           { `${account.first_name} ${account.last_name}` }
                         </MenuItem>

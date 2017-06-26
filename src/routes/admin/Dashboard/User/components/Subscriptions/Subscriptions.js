@@ -8,7 +8,7 @@ import {
 import { formatDate } from 'utils/dateHelper';
 import classes from '../user.scss';
 
-const Subscriptions = ({isFetching, user}) => (
+const Subscriptions = ({isFetching, subscriptions}) => (
   !isFetching &&
     <Panel
       header={
@@ -44,7 +44,7 @@ const Subscriptions = ({isFetching, user}) => (
             </tr>
           </thead>
           {
-            user.subscriptions.map(subscription => {
+            subscriptions.map(subscription => {
               return renderSubscription(subscription)
             })
           }

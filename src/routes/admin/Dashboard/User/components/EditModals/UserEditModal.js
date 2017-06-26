@@ -21,7 +21,12 @@ const renderInput = ({ input, type }) => {
   )
 }
 
+
 const EditUserModal = props => {
+
+  const _onSubmit = (data) => {
+    props.submitForm(data, 'user')
+  }
 
   return (
     !props.isFetching &&
@@ -32,7 +37,7 @@ const EditUserModal = props => {
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <Form onSubmit={props.handleSubmit(props.submitForm)} horizontal>
+          <Form onSubmit={props.handleSubmit(_onSubmit)} horizontal>
             <FormGroup>
               <Col componentClass={ControlLabel} sm={3}>
                 First Name
@@ -102,6 +107,7 @@ EditUserModal.defaultProps = {
 
 const reduxUserEdit = reduxForm({
   form: 'userEdit',
+  enableReinitialize: true
 })(EditUserModal)
 
 export default reduxUserEdit;
