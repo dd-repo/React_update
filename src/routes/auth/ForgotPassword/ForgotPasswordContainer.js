@@ -33,6 +33,7 @@ class ForgotPasswordContainer extends RoutedComponent {
     .catch( (error) => console.log('error in forgot password', error))
   }
 
+
   render() {
     if(!this.state.emailSent) {
     return (

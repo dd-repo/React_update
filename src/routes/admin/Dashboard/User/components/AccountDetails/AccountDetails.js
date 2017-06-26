@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 
 import {
   Panel,
@@ -57,7 +57,7 @@ class AccountDetails extends React.Component {
 
   render() {
 
-    const {isFetching, user, accounts, account, fetchAccount } = this.props
+    const {isFetching, accounts, account, fetchAccount } = this.props
     const { tabKey } = this.state
 
     return (
@@ -151,6 +151,13 @@ class AccountDetails extends React.Component {
               </Panel>
     );
   }
+}
+
+AccountDetails.propTypes = {
+  account: PropTypes.object,
+  accounts: PropTypes.array,
+  fetchAccount: PropTypes.func,
+  toggleModal: PropTypes.func
 }
 
 export default AccountDetails;

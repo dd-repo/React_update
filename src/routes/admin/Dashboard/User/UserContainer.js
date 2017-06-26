@@ -3,6 +3,7 @@ import React from 'react';
 import BlitzApi from 'services/BlitzApi';
 import { RoutedComponent, connect } from 'routes/routedComponent';
 import { CONTENT_VIEW_FLUID } from 'layouts/DefaultLayout/modules/layout';
+import { resetUserPassword } from 'routes/auth/modules/auth';
 import User from './components/User';
 import {
   UserEditModal,
@@ -34,6 +35,7 @@ class UserContainer extends RoutedComponent {
     this.fetchAccount = this.fetchAccount.bind(this);
     this.toggleModal = this.toggleModal.bind(this);
     this.submitForm = this.submitForm.bind(this);
+    this.handlePasswordReset = this.handlePasswordReset.bind(this);
   }
 
   static contextTypes = {
@@ -111,6 +113,11 @@ class UserContainer extends RoutedComponent {
     });
   }
 
+  handlePasswordReset() {
+    const payload = { email: this.state.user.email }
+    this.props.resetUserPassword(payload)
+  }
+
   getUserValues() {
     const { first_name, last_name, email, id } = this.state.user
     return {first_name, last_name, email, id }
@@ -133,6 +140,7 @@ class UserContainer extends RoutedComponent {
           isFetching={this.state.isFetching}
           fetchAccount={this.fetchAccount}
           toggleModal={this.toggleModal}
+          handlePasswordReset={this.handlePasswordReset}
         />
         <UserEditModal
           initialValues={this.getUserValues()}
@@ -181,9 +189,9 @@ class UserContainer extends RoutedComponent {
   }
 }
 
-const mapStateToProps = state => ({
-  users: state.users,
-  form: state.form
-})
+const mapStateToProps = state => ({})
 
-export default connect(mapStateToProps)(UserContainer);
+const mapActionCreators = {
+  resetUserPassword
+}
+export default connect(mapStateToProps, mapActionCreators)(UserContainer);

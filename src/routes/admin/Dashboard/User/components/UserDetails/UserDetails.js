@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 
 import {
   Panel,
@@ -10,8 +10,10 @@ import {
 import classes from '../user.scss';
 import { formatDate } from 'utils/dateHelper';
 
-const UserDetails = ({isFetching, user, accounts, toggleModal}) => (
-  !isFetching &&
+const UserDetails = props => {
+  const { accounts , user } = props
+
+  return !props.isFetching &&
     <Panel
       header={
         <h4 className='panel-title'>
@@ -21,7 +23,7 @@ const UserDetails = ({isFetching, user, accounts, toggleModal}) => (
         footer={
           <div className='text-right'>
             <Button
-              onClick={() => { toggleModal('user', true, user)}}
+              onClick={() => { props.toggleModal('user', true, user)}}
               bsStyle='primary'
             >
               <i className="fa fa-pencil"></i> Edit Subscriber
@@ -67,11 +69,10 @@ const UserDetails = ({isFetching, user, accounts, toggleModal}) => (
                 Password
               </h5>
               <Button
-                onClick={() => { handlePasswordReset() }}
-                bsSize='small'
+                onClick={() => { props.handlePasswordReset() }}
                 bsStyle='link'
               >
-                 Reset Password
+                <icon className='fa fa-share'></icon> Send Password Reset
               </Button>
             </ListGroupItem>
             <ListGroupItem className='flex-space-between'>
@@ -99,6 +100,13 @@ const UserDetails = ({isFetching, user, accounts, toggleModal}) => (
             </ListGroupItem>
           </ListGroup>
         </Panel>
-);
+}
+
+UserDetails.propsTypes = {
+  user: PropTypes.object,
+  accounts: PropTypes.array,
+  handlePasswordReset: PropTypes.func,
+  toggleModal: PropTypes.func
+}
 
 export default UserDetails;
