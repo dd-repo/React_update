@@ -24,9 +24,9 @@ class UserContainer extends RoutedComponent {
       account: {},
       userEditModal: { visible: false },
       accountEditModal: { visible: false },
-      keywordsEditModal: { visible: false },
-      addressesEditModal: { visible: false },
-      phonesEditModal: { visible: false },
+      keywordEditModal: { visible: false },
+      addressEditModal: { visible: false },
+      phoneEditModal: { visible: false },
       profileEditModal: { visible: false }
     }
 
@@ -51,18 +51,18 @@ class UserContainer extends RoutedComponent {
   }
 
   componentWillMount() {
-    this.fetchUser(this.props.params)
+    this.fetchUser()
   }
 
   componentWillUpdate(nextProps, nextState) {
     if(nextState.user !== this.state.user) {
-      const id =  nextState.accounts[0].id
+      const id = this.state.currentAccountId ? this.state.currentAccountId : nextState.accounts[0].id
       this.fetchAccount(id)
     }
   }
 
-  fetchUser(params) {
-    BlitzApi.get(`${base_url}/user`, params)
+  fetchUser() {
+    BlitzApi.get(`${base_url}/user`, this.props.params)
     .then( res => this.setState({
       user: this.setUser(res.data),
       transactions: res.data.transactions,
@@ -88,18 +88,21 @@ class UserContainer extends RoutedComponent {
     BlitzApi.get(`${base_url}/accounts/${id}`)
     .then( res => this.setState({
       isFetching: false,
-      account: res.data
+      account: res.data,
+      currentAccountId: res.data.id
     }))
     .catch( error => console.log('error', error))
   }
 
   submitForm(data, selector) {
-    this.toggleModal(selector, false)
     const payload = { [selector] : data }
-    BlitzApi.patch(`${base_url}/${selector}s/${data.id}`, payload)
-    .then( res => this.setState({
-      [selector]: res.data
-    }))
+    const resource = selector !== 'address' ? `${selector}s` : `${selector}es`
+
+    BlitzApi.patch(`${base_url}/${resource}/${data.id}`, payload)
+    .then( res =>
+          this.fetchUser(),
+          this.toggleModal(selector, false)
+         )
   }
 
   toggleModal(modalName, visible, value={}) {
@@ -124,10 +127,10 @@ class UserContainer extends RoutedComponent {
         <User
           user={this.state.user}
           accounts={this.state.accounts}
+          account={this.state.account}
           transactions={this.state.transactions}
           subscriptions={this.state.subscriptions}
           isFetching={this.state.isFetching}
-          account={this.state.account}
           fetchAccount={this.fetchAccount}
           toggleModal={this.toggleModal}
         />
@@ -146,22 +149,22 @@ class UserContainer extends RoutedComponent {
           isFetching={this.state.isFetching}
         />
         <AddressEditModal
-          initialValues={this.state.addressesEditModal.value}
-          show={this.state.addressesEditModal.visible}
+          initialValues={this.state.addressEditModal.value}
+          show={this.state.addressEditModal.visible}
           submitForm={this.submitForm}
           toggleModal={this.toggleModal}
           isFetching={this.state.isFetching}
         />
         <KeywordEditModal
-          initialValues={this.state.keywordsEditModal.value}
-          show={this.state.keywordsEditModal.visible}
+          initialValues={this.state.keywordEditModal.value}
+          show={this.state.keywordEditModal.visible}
           submitForm={this.submitForm}
           toggleModal={this.toggleModal}
           isFetching={this.state.isFetching}
         />
         <PhoneEditModal
-          initialValues={this.state.phonesEditModal.value}
-          show={this.state.phonesEditModal.visible}
+          initialValues={this.state.phoneEditModal.value}
+          show={this.state.phoneEditModal.visible}
           submitForm={this.submitForm}
           toggleModal={this.toggleModal}
           isFetching={this.state.isFetching}
