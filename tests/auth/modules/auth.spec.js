@@ -442,7 +442,8 @@ describe('(auth module) Auth', () => {
       group,
       account_id: 1,
       isFetching: false,
-      authToken: fakeResponse.auth_token
+      authToken: fakeResponse.auth_token,
+      errorMessage: null
     }
 
     const loggedOutUser = {
@@ -454,7 +455,8 @@ describe('(auth module) Auth', () => {
       group: null,
       account_id: null,
       authToken: null,
-      isFetching: false
+      isFetching: false,
+      errorMessage: null
     }
 
     const currentUserBeforePayment = {
@@ -466,7 +468,8 @@ describe('(auth module) Auth', () => {
       group,
       account_id: 1,
       isFetching: false,
-      authToken: fakeResponse.auth_token
+      authToken: fakeResponse.auth_token,
+      errorMessage: null
     }
 
     const error = {
@@ -538,10 +541,6 @@ describe('(auth module) Auth', () => {
     })
 
     it('should update user role PAYMENT_SUCCESS', () => {
-      //console.log('payment success', reducer(currentUserBeforePayment, {type: PAYMENT_SUCCESS, user: fakePaymentResponse}))
-      //console.log('payment success', currentUserSuccess)
-      //console.log('payment before', currentUserBeforePayment)
-      //console.log('fake payment', fakePaymentResponse)
       expect(reducer(currentUserBeforePayment, {
         type: PAYMENT_SUCCESS,
         user: fakePaymentResponse
