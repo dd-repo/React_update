@@ -21,7 +21,6 @@ const renderInput = ({ input, type }) => {
   )
 }
 
-
 const EditUserModal = props => {
 
   const _onSubmit = (data) => {
