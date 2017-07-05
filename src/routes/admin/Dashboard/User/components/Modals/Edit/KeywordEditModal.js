@@ -20,71 +20,58 @@ const renderInput = ({ input, type }) => {
   )
 }
 
-const ProfileEditModal = props => {
+const KeywordEditModal = props => {
 
   const _onSubmit = (data) => {
-    props.submitForm(data, 'profile')
+    props.submitForm(data, 'keyword', 'patch')
   }
 
   return (
     props.initialValues ?
-      <Modal show={ props.show } onHide={() => { props.toggleModal('profile', false) }}>
+      <Modal show={ props.show } onHide={() => { props.toggleModal('keywordEditModal', false) }}>
         <Modal.Header closeButton>
           <Modal.Title>
-            { 'Edit Profile ' }
+            { 'Edit Keyword ' }
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form onSubmit={props.handleSubmit(_onSubmit)} horizontal>
             <FormGroup>
               <Col componentClass={ControlLabel} sm={3}>
-                Middle Name
+                Keyword
               </Col>
               <Col sm={9}>
                 <Field
-                  name='middle_name'
-                  type='text'
-                  component={renderInput}
-                />
-              </Col>
-            </FormGroup>
-            <FormGroup>
-              <Col componentClass={ControlLabel} sm={3}>
-                Madien Name
-              </Col>
-              <Col sm={9}>
-                <Field
-                  name='maiden_name'
+                  name='value'
                   type='text'
                   component={renderInput}
                 />
               </Col>
             </FormGroup>
             <Modal.Footer>
-              <Button onClick={() => { props.toggleModal('profile', false) } }>Close</Button>
+              <Button onClick={() => { props.toggleModal('keywordEditModal', false) } }>Close</Button>
               <Button bsStyle='primary' type='submit'>Save</Button>
             </Modal.Footer>
           </Form>
         </Modal.Body>
       </Modal>
-      :
-        <div></div>
-);
+        :
+          <div></div>
+  );
 }
 
-ProfileEditModal.propTypes = {
+KeywordEditModal.propTypes = {
     visible: PropTypes.bool,
     onClose: PropTypes.func
 };
 
-ProfileEditModal.defaultProps = {
+KeywordEditModal.defaultProps = {
     onClose: () => { }
 };
 
 const reduxUserEdit = reduxForm({
-  form: 'profileEdit',
+  form: 'keywordEdit',
   enableReinitialize: true
-})(ProfileEditModal)
+})(KeywordEditModal)
 
 export default reduxUserEdit;
-

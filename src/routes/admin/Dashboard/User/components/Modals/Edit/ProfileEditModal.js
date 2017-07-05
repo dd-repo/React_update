@@ -1,7 +1,6 @@
 import React, { PropTypes } from 'react';
 import { reduxForm, Field } from 'redux-form';
 
-
 import {
     Col,
     Modal,
@@ -21,29 +20,29 @@ const renderInput = ({ input, type }) => {
   )
 }
 
-const EditUserModal = props => {
+const ProfileEditModal = props => {
 
   const _onSubmit = (data) => {
-    props.submitForm(data, 'user')
+    props.submitForm(data, 'profile', 'patch')
   }
 
   return (
-    !props.isFetching &&
-      <Modal show={ props.show } onHide={() => { props.toggleModal('user', false) }}>
+    props.initialValues ?
+      <Modal show={ props.show } onHide={() => { props.toggleModal('profileEditModal', false) }}>
         <Modal.Header closeButton>
           <Modal.Title>
-            { 'Edit Subscriber ' }
+            { 'Edit Profile ' }
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form onSubmit={props.handleSubmit(_onSubmit)} horizontal>
             <FormGroup>
               <Col componentClass={ControlLabel} sm={3}>
-                First Name
+                Middle Name
               </Col>
               <Col sm={9}>
                 <Field
-                  name='first_name'
+                  name='middle_name'
                   type='text'
                   component={renderInput}
                 />
@@ -51,62 +50,41 @@ const EditUserModal = props => {
             </FormGroup>
             <FormGroup>
               <Col componentClass={ControlLabel} sm={3}>
-                Last Name
+                Madien Name
               </Col>
               <Col sm={9}>
                 <Field
-                  name='last_name'
-                  type='text'
-                  component={renderInput}
-                />
-              </Col>
-            </FormGroup>
-            <FormGroup>
-              <Col componentClass={ControlLabel} sm={3}>
-                Email
-              </Col>
-              <Col sm={9}>
-                <Field
-                  name='email'
-                  type='text'
-                  component={renderInput}
-                />
-              </Col>
-            </FormGroup>
-            <FormGroup>
-              <Col componentClass={ControlLabel} sm={3}>
-                Password
-              </Col>
-              <Col sm={9}>
-                <Field
-                  name='password'
+                  name='maiden_name'
                   type='text'
                   component={renderInput}
                 />
               </Col>
             </FormGroup>
             <Modal.Footer>
-              <Button onClick={() => { props.toggleModal('user', false) } }>Close</Button>
+              <Button onClick={() => { props.toggleModal('profileEditModal', false) } }>Close</Button>
               <Button bsStyle='primary' type='submit'>Save</Button>
             </Modal.Footer>
           </Form>
         </Modal.Body>
       </Modal>
+      :
+        <div></div>
 );
 }
 
-EditUserModal.propTypes = {
+ProfileEditModal.propTypes = {
     visible: PropTypes.bool,
     onClose: PropTypes.func
 };
 
-EditUserModal.defaultProps = {
+ProfileEditModal.defaultProps = {
     onClose: () => { }
 };
 
 const reduxUserEdit = reduxForm({
-  form: 'userEdit',
+  form: 'profileEdit',
   enableReinitialize: true
-})(EditUserModal)
+})(ProfileEditModal)
 
 export default reduxUserEdit;
+

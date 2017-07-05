@@ -6,12 +6,13 @@ import {
   Label,
   Panel,
   Divider,
-  Button
+  Button,
+  CollapsablePanel
 } from 'components'
 
 import classes from '../../user.scss';
 
-const Addresses = ({addresses, handleEdit}) => (
+const Addresses = ({addresses, handleClick}) => (
   <div>
     {
       addresses.map((address, i) => (
@@ -37,43 +38,43 @@ const Addresses = ({addresses, handleEdit}) => (
                   </div>
                 </ListGroupItem>
                 }
-            <ListGroupItem className='flex-space-between'>
-              <h5 className={ classes.detailsKey }>
-                City
-              </h5>
-              <div className={ classes.detailsValue }>
-                { address.city }
-              </div>
-            </ListGroupItem>
-            <ListGroupItem className='flex-space-between'>
-              <h5 className={ classes.detailsKey }>
-                State
-              </h5>
-              <div className={ classes.detailsValue }>
-                { address.state }
-              </div>
-            </ListGroupItem>
-            <ListGroupItem className='flex-space-between'>
-              <h5 className={ classes.detailsKey }>
-                Zip
-              </h5>
-              <div className={ classes.detailsValue }>
-                { address.zip }
-              </div>
-            </ListGroupItem>
-            <ListGroupItem>
-              <Button
-                className='pull-right'
-                onClick={() => { handleEdit(address) }}
-                bsSize='small'
-                bsStyle='link'
-              >
-                <i className="fa fa-pencil"></i> Edit
-              </Button>
-          </ListGroupItem>
-        </ListGroup>
-      </div>
-        ))
+                <ListGroupItem className='flex-space-between'>
+                  <h5 className={ classes.detailsKey }>
+                    City
+                  </h5>
+                  <div className={ classes.detailsValue }>
+                    { address.city }
+                  </div>
+                </ListGroupItem>
+                <ListGroupItem className='flex-space-between'>
+                  <h5 className={ classes.detailsKey }>
+                    State
+                  </h5>
+                  <div className={ classes.detailsValue }>
+                    { address.state }
+                  </div>
+                </ListGroupItem>
+                <ListGroupItem className='flex-space-between'>
+                  <h5 className={ classes.detailsKey }>
+                    Zip
+                  </h5>
+                  <div className={ classes.detailsValue }>
+                    { address.zip }
+                  </div>
+                </ListGroupItem>
+                <ListGroupItem>
+                  <Button
+                    className='pull-right'
+                    onClick={() => { handleClick(address, 'edit') }}
+                    bsSize='small'
+                    bsStyle='link'
+                  >
+                    <i className="fa fa-pencil"></i> Edit
+                  </Button>
+                </ListGroupItem>
+              </ListGroup>
+            </div>
+            ))
     }
   </div>
 )

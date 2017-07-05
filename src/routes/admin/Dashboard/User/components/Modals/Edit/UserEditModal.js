@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react';
 import { reduxForm, Field } from 'redux-form';
 
+
 import {
     Col,
     Modal,
@@ -20,18 +21,18 @@ const renderInput = ({ input, type }) => {
   )
 }
 
-const AccountEditModal = props => {
+const EditUserModal = props => {
 
   const _onSubmit = (data) => {
-    props.submitForm(data, 'account')
+    props.submitForm(data, 'user', 'patch')
   }
 
   return (
-    props.initialValues ?
-      <Modal show={ props.show } onHide={() => { props.toggleModal('account', false) }}>
+    !props.isFetching &&
+      <Modal show={ props.show } onHide={() => { props.toggleModal('userEditModal', false) }}>
         <Modal.Header closeButton>
           <Modal.Title>
-            { 'Edit Account ' }
+            { 'Edit Subscriber ' }
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
@@ -72,30 +73,40 @@ const AccountEditModal = props => {
                 />
               </Col>
             </FormGroup>
+            <FormGroup>
+              <Col componentClass={ControlLabel} sm={3}>
+                Password
+              </Col>
+              <Col sm={9}>
+                <Field
+                  name='password'
+                  type='text'
+                  component={renderInput}
+                />
+              </Col>
+            </FormGroup>
             <Modal.Footer>
-              <Button onClick={() => { props.toggleModal('account', false) } }>Close</Button>
+              <Button onClick={() => { props.toggleModal('userEditModal', false) } }>Close</Button>
               <Button bsStyle='primary' type='submit'>Save</Button>
             </Modal.Footer>
           </Form>
         </Modal.Body>
       </Modal>
-      :
-        <div></div>
 );
 }
 
-AccountEditModal.propTypes = {
+EditUserModal.propTypes = {
     visible: PropTypes.bool,
     onClose: PropTypes.func
 };
 
-AccountEditModal.defaultProps = {
+EditUserModal.defaultProps = {
     onClose: () => { }
 };
 
 const reduxUserEdit = reduxForm({
-  form: 'accountEdit',
+  form: 'userEdit',
   enableReinitialize: true
-})(AccountEditModal)
+})(EditUserModal)
 
 export default reduxUserEdit;

@@ -23,7 +23,7 @@ const UserDetails = props => {
         footer={
           <div className='text-right'>
             <Button
-              onClick={() => { props.toggleModal('user', true, user)}}
+              onClick={() => { props.toggleModal('userEditModal', true, user)}}
               bsStyle='primary'
             >
               <i className="fa fa-pencil"></i> Edit Subscriber

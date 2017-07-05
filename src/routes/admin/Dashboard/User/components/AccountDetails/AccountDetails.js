@@ -27,22 +27,28 @@ class AccountDetails extends React.Component {
     this.state = {tabKey: 'Account'}
 
     this._onClick = this._onClick.bind(this);
-    this._handleEditButton = this._handleEditButton.bind(this);
+    this._handleClick = this._handleClick.bind(this);
   }
 
   _onClick(e) {
     this.setState({tabKey: e.target.innerText})
   }
 
-  _handleEditButton(value = this.getValue()) {
-    this.props.toggleModal(this.formatSelector(this.state.tabKey), true, value)
+  _handleClick(value = {}, type) {
+    this.props.toggleModal(this.getModalName(this.state.tabKey, type), true, value)
   }
 
-  formatSelector(selector) {
-    if(selector === 'Addresses') {
-      return 'address'
-    } else {
-      return selector.replace(/s$/, '').toLowerCase()
+  getModalName(selector, type) {
+    if(type === 'edit') {
+      if(selector === 'Addresses') {
+        return 'addressEditModal'
+      } else {
+        const formattedSelector = selector.replace(/s$/, '').toLowerCase()
+        return `${formattedSelector}EditModal`
+      }
+    }else{
+      const formattedSelector = selector.replace(/s$/, '')
+      return `new${formattedSelector}Modal`
     }
   }
 
@@ -63,6 +69,7 @@ class AccountDetails extends React.Component {
     return (
       !isFetching &&
         <Panel
+          maxHeight={312}
           header={
             <h4 className='panel-title'>
               Account Details
@@ -71,6 +78,7 @@ class AccountDetails extends React.Component {
             footer={
               <div>
                 <DropdownButton
+                  dropup
                   bsStyle='primary'
                   onSelect={(id) => fetchAccount(id)}
                   title={
@@ -93,7 +101,7 @@ class AccountDetails extends React.Component {
                   {
                     (tabKey === 'Account' || tabKey === 'Profile') &&
                       <span className='pull-right'>
-                        <Button onClick={() => {this._handleEditButton()}} bsStyle='primary'>
+                        <Button onClick={() => {this._handleClick(this.getValue(), 'edit')}} bsStyle='primary'>
                           <i className="fa fa-pencil"></i> Edit {this.state.tabKey}
                         </Button>
                       </span>
@@ -127,19 +135,19 @@ class AccountDetails extends React.Component {
                       <Tab.Pane eventKey='keywords'>
                         <Keywords
                           keywords={account.keywords || []}
-                          handleEdit={this._handleEditButton}
+                          handleClick={this._handleClick}
                         />
                       </Tab.Pane>
                       <Tab.Pane eventKey='addresses'>
                         <Addresses
                           addresses={account.addresses || []}
-                          handleEdit={this._handleEditButton}
+                          handleClick={this._handleClick}
                         />
                       </Tab.Pane>
                       <Tab.Pane eventKey='phones'>
                         <Phones
                           phones={account.phones || []}
-                          handleEdit={this._handleEditButton}
+                          handleClick={this._handleClick}
                         />
                       </Tab.Pane>
                       <Tab.Pane eventKey='profile'>
