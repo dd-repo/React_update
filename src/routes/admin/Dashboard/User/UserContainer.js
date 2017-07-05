@@ -12,7 +12,8 @@ import {
   EditKeywordModal,
   EditPhoneModal,
   EditProfileModal,
-  NewKeywordModal
+  NewKeywordModal,
+  NewCardModal
 } from './components/Modals';
 import capitalize from 'utils/capitalize';
 import { normalizePhone } from 'utils/formHelpers';
@@ -32,20 +33,19 @@ class UserContainer extends RoutedComponent {
       addressEditModal: { visible: false },
       phoneEditModal: { visible: false },
       profileEditModal: { visible: false },
-      newKeywordModal: { visible: false }
+      newKeywordModal: { visible: false },
+      newCardModal: { visible: false }
     }
 
     this.fetchUser = this.fetchUser.bind(this);
     this.fetchAccount = this.fetchAccount.bind(this);
+    this.fetchCards = this.fetchCards.bind(this);
     this.toggleModal = this.toggleModal.bind(this);
     this.submitForm = this.submitForm.bind(this);
     this.submitUpdate = this.submitUpdate.bind(this);
     this.submitNew = this.submitNew.bind(this);
     this.handlePasswordReset = this.handlePasswordReset.bind(this);
-  }
-
-  static contextTypes = {
-    router: React.PropTypes.object.isRequired
+    this.clearErrorMessage = this.clearErrorMessage.bind(this);
   }
 
   getLayoutOptions() {
@@ -64,8 +64,10 @@ class UserContainer extends RoutedComponent {
 
   componentWillUpdate(nextProps, nextState) {
     if(nextState.user !== this.state.user) {
-      const id = this.state.currentAccountId ? this.state.currentAccountId : nextState.accounts[0].id
-      this.fetchAccount(id)
+      const userId = nextState.user.id
+      const accountId = this.state.currentAccountId ? this.state.currentAccountId : nextState.accounts[0].id
+      this.fetchCards(userId)
+      this.fetchAccount(accountId)
     }
   }
 
@@ -78,7 +80,25 @@ class UserContainer extends RoutedComponent {
       accounts: res.data.accounts,
       account: {}
     }))
-    .catch( error => console.log('error', error))
+    .catch( error => console.log('fetching user', error))
+  }
+
+  fetchAccount(id) {
+    BlitzApi.get(`${base_url}/accounts/${id}`)
+    .then( res => this.setState({
+      isFetching: false,
+      account: res.data,
+      currentAccountId: res.data.id
+    }))
+    .catch( error => console.log('fetching account', error))
+  }
+
+  fetchCards(id) {
+    const params = { q: { user_id_eq: id }}
+
+    BlitzApi.get(`${base_url}/cards/search`, params)
+    .then( res => this.setState({ cards: res.data.cards }))
+    .catch( error => console.log('fetching cards', error.data))
   }
 
   setUser(user) {
@@ -92,42 +112,61 @@ class UserContainer extends RoutedComponent {
     }
   }
 
-  fetchAccount(id) {
-    BlitzApi.get(`${base_url}/accounts/${id}`)
-    .then( res => this.setState({
-      isFetching: false,
-      account: res.data,
-      currentAccountId: res.data.id
-    }))
-    .catch( error => console.log('error', error))
-  }
-
   submitForm(data, selector, verb) {
     const resource = selector !== 'address' ? `${selector}s` : `${selector}es`
+
     verb === 'patch' ?
-      this.submitUpdate(resource, data, selector)
+      this.submitUpdate(data, resource, selector)
            :
-             this.submitNew(resource, data, selector)
+             this.submitNew(data, resource, selector)
 
   }
 
-  submitUpdate(resource, data, selector) {
+  submitUpdate(data, resource, selector) {
     const payload = { [selector] : data }
+
     BlitzApi.patch(`${base_url}/${resource}/${data.id}`, payload)
-    .then( res =>
+    .then(
+          res =>
           this.fetchUser(),
           this.toggleModal(`${selector}EditModal`, false)
          )
+         .catch( error => this.setState({errorMessage: error.response.data.errorMessage}),
+                console.log('submitUpdate error', error.response.data.errorMessage))
   }
 
-  submitNew(resource, data, selector) {
-    data['account_id'] = this.state.account.id
-    const payload = { [selector]: data }
+  sanitizeNums(value) {
+    return value.replace(/[^\d]/gi, '')
+  }
+
+  buildParams(data) {
+    return {
+      user_id: this.state.user.id,
+      card_holder_name: data.fullName,
+      card_number: this.sanitizeNums(data.creditCardNumber),
+      card_month: data.expirationDate.slice(0,2),
+      card_year: data.expirationDate.slice(3),
+      card_cvc: data.cvCode,
+      address: data.address,
+      city: data.city,
+      state: data.state,
+      zip: data.zipcode,
+    }
+  }
+
+  submitNew(data, resource, selector) {
+    let payload;
+    if(selector === 'card') {
+      payload = this.buildParams(data)
+    } else {
+      payload = data['account_id'] = this.state.account.id
+    }
     BlitzApi.post(`${base_url}/${resource}`, payload)
     .then( res =>
           this.fetchUser(),
           this.toggleModal(`new${capitalize(selector)}Modal`, false)
          )
+         .catch( error => this.setState({errorMessage: error.response.data.errorMessage}))
   }
 
   toggleModal(selector, visible, value={}) {
@@ -151,6 +190,10 @@ class UserContainer extends RoutedComponent {
     return {first_name, last_name, email, id }
   }
 
+  clearErrorMessage() {
+    this.setState({errorMessage: null})
+  }
+
   render() {
     const formatPhone = value => {
       if(value) {
@@ -166,10 +209,13 @@ class UserContainer extends RoutedComponent {
           account={this.state.account}
           transactions={this.state.transactions}
           subscriptions={this.state.subscriptions}
+          cards={this.state.cards}
           isFetching={this.state.isFetching}
           fetchAccount={this.fetchAccount}
           toggleModal={this.toggleModal}
           handlePasswordReset={this.handlePasswordReset}
+          errorMessage={this.state.errorMessage}
+          clearErrorMessage={this.clearErrorMessage}
         />
         <EditUserModal
           initialValues={this.getUserValues()}
@@ -215,6 +261,11 @@ class UserContainer extends RoutedComponent {
         />
         <NewKeywordModal
           show={this.state.newKeywordModal.visible}
+          toggleModal={this.toggleModal}
+          submitForm={this.submitForm}
+        />
+        <NewCardModal
+          show={this.state.newCardModal.visible}
           toggleModal={this.toggleModal}
           submitForm={this.submitForm}
         />

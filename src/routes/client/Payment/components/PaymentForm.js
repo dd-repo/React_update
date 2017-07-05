@@ -97,11 +97,11 @@ let PaymentForm = (props) => {
     isFetching
   } = props
 
-  const buttonLabel = (
+  const renderButtonLabel = (
     isFetching ?
       "Submitting Subscription..."
         :
-          "Start Subscription"
+          props.buttonLabel
   )
 
  return(
@@ -180,7 +180,7 @@ let PaymentForm = (props) => {
       <button className="full-width btn btn-success"
         disabled={invalid || submitting}
         action="submit">
-          { buttonLabel }
+          { renderButtonLabel }
       </button>
     </form>
   )
@@ -188,6 +188,10 @@ let PaymentForm = (props) => {
 
 PaymentForm.propTypes = {
   submitForm: PropTypes.func.isRequired,
+}
+
+PaymentForm.defaultProps = {
+  buttonLabel: 'Start Subscription',
 }
 
 PaymentForm = reduxForm({
