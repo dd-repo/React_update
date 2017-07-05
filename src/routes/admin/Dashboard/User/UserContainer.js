@@ -6,13 +6,16 @@ import { CONTENT_VIEW_FLUID } from 'layouts/DefaultLayout/modules/layout';
 import { resetUserPassword } from 'routes/auth/modules/auth';
 import User from './components/User';
 import {
-  UserEditModal,
-  AccountEditModal,
-  AddressEditModal,
-  KeywordEditModal,
-  PhoneEditModal,
-  ProfileEditModal
-} from './components/EditModals';
+  EditUserModal,
+  EditAccountModal,
+  EditAddressModal,
+  EditKeywordModal,
+  EditPhoneModal,
+  EditProfileModal,
+  NewKeywordModal
+} from './components/Modals';
+import capitalize from 'utils/capitalize';
+import { normalizePhone } from 'utils/formHelpers';
 
 const base_url = '/admin/api'
 
@@ -28,13 +31,16 @@ class UserContainer extends RoutedComponent {
       keywordEditModal: { visible: false },
       addressEditModal: { visible: false },
       phoneEditModal: { visible: false },
-      profileEditModal: { visible: false }
+      profileEditModal: { visible: false },
+      newKeywordModal: { visible: false }
     }
 
     this.fetchUser = this.fetchUser.bind(this);
     this.fetchAccount = this.fetchAccount.bind(this);
     this.toggleModal = this.toggleModal.bind(this);
     this.submitForm = this.submitForm.bind(this);
+    this.submitUpdate = this.submitUpdate.bind(this);
+    this.submitNew = this.submitNew.bind(this);
     this.handlePasswordReset = this.handlePasswordReset.bind(this);
   }
 
@@ -96,20 +102,37 @@ class UserContainer extends RoutedComponent {
     .catch( error => console.log('error', error))
   }
 
-  submitForm(data, selector) {
-    const payload = { [selector] : data }
+  submitForm(data, selector, verb) {
     const resource = selector !== 'address' ? `${selector}s` : `${selector}es`
+    verb === 'patch' ?
+      this.submitUpdate(resource, data, selector)
+           :
+             this.submitNew(resource, data, selector)
 
+  }
+
+  submitUpdate(resource, data, selector) {
+    const payload = { [selector] : data }
     BlitzApi.patch(`${base_url}/${resource}/${data.id}`, payload)
     .then( res =>
           this.fetchUser(),
-          this.toggleModal(selector, false)
+          this.toggleModal(`${selector}EditModal`, false)
          )
   }
 
-  toggleModal(modalName, visible, value={}) {
+  submitNew(resource, data, selector) {
+    data['account_id'] = this.state.account.id
+    const payload = { [selector]: data }
+    BlitzApi.post(`${base_url}/${resource}`, payload)
+    .then( res =>
+          this.fetchUser(),
+          this.toggleModal(`new${capitalize(selector)}Modal`, false)
+         )
+  }
+
+  toggleModal(selector, visible, value={}) {
     this.setState({
-      [`${modalName}EditModal`]: { visible, value }
+      [selector]: { visible, value }
     });
   }
 
@@ -129,6 +152,12 @@ class UserContainer extends RoutedComponent {
   }
 
   render() {
+    const formatPhone = value => {
+      if(value) {
+        value.phone_number = normalizePhone(value.phone_number)
+      }
+      return value
+    }
     return (
       <div>
         <User
@@ -142,47 +171,52 @@ class UserContainer extends RoutedComponent {
           toggleModal={this.toggleModal}
           handlePasswordReset={this.handlePasswordReset}
         />
-        <UserEditModal
+        <EditUserModal
           initialValues={this.getUserValues()}
           show={this.state.userEditModal.visible}
           submitForm={this.submitForm}
           toggleModal={this.toggleModal}
           isFetching={this.state.isFetching}
         />
-        <AccountEditModal
+        <EditAccountModal
           initialValues={this.getAccountValues()}
           show={this.state.accountEditModal.visible}
           submitForm={this.submitForm}
           toggleModal={this.toggleModal}
           isFetching={this.state.isFetching}
         />
-        <AddressEditModal
+        <EditAddressModal
           initialValues={this.state.addressEditModal.value}
           show={this.state.addressEditModal.visible}
           submitForm={this.submitForm}
           toggleModal={this.toggleModal}
           isFetching={this.state.isFetching}
         />
-        <KeywordEditModal
+        <EditKeywordModal
           initialValues={this.state.keywordEditModal.value}
           show={this.state.keywordEditModal.visible}
           submitForm={this.submitForm}
           toggleModal={this.toggleModal}
           isFetching={this.state.isFetching}
         />
-        <PhoneEditModal
-          initialValues={this.state.phoneEditModal.value}
+        <EditPhoneModal
+          initialValues={formatPhone(this.state.phoneEditModal.value)}
           show={this.state.phoneEditModal.visible}
           submitForm={this.submitForm}
           toggleModal={this.toggleModal}
           isFetching={this.state.isFetching}
         />
-        <ProfileEditModal
+        <EditProfileModal
           initialValues={this.state.profileEditModal.value}
           show={this.state.profileEditModal.visible}
           submitForm={this.submitForm}
           toggleModal={this.toggleModal}
           isFetching={this.state.isFetching}
+        />
+        <NewKeywordModal
+          show={this.state.newKeywordModal.visible}
+          toggleModal={this.toggleModal}
+          submitForm={this.submitForm}
         />
     </div>
     )

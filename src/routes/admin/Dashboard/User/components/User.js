@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react';
 import Loading from 'react-loading';
 import { Link } from 'react-router';
+import capitalize from 'utils/capitalize';
 
 import classes from './user.scss';
 import AccountDetails from './AccountDetails/AccountDetails';
@@ -11,7 +12,6 @@ import Subscriptions from './Subscriptions/Subscriptions';
 import { Row, Col } from 'components';
 
 const User = props => {
-
   const renderLoader = (
     props.isFetching &&
       <div className='container'>
@@ -24,15 +24,15 @@ const User = props => {
   )
 
   const renderHeader = () => (
-    !isFetching &&
+    !props.isFetching &&
     <div className={ `${classes.taskHeader} flex-space-between` }>
       <h2 className='m-y-0 f-w-300'>
         <Link to='/admin/dashboard/users/clients'>
           Clients
         </Link>
         <span className='text-muted m-x-1'>/</span>
-        <span className='text-uppercase'>
-          {props.user.first_name} {props.user.last_name}
+        <span>
+          {capitalize(props.user.first_name)} {capitalize(props.user.last_name)}
         </span>
       </h2>
     </div>
@@ -42,7 +42,7 @@ const User = props => {
     <div className={classes.mainWrap}>
       <Row>
         <Col lg={ 6 }>
-          { renderHeader }
+          { renderHeader() }
         </Col>
       </Row>
       <Row className='m-t-3'>

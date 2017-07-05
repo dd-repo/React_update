@@ -20,58 +20,82 @@ const renderInput = ({ input, type }) => {
   )
 }
 
-const KeywordEditModal = props => {
+const AccountEditModal = props => {
 
   const _onSubmit = (data) => {
-    props.submitForm(data, 'keyword')
+    props.submitForm(data, 'account', 'patch')
   }
 
   return (
     props.initialValues ?
-      <Modal show={ props.show } onHide={() => { props.toggleModal('keyword', false) }}>
+      <Modal show={ props.show } onHide={() => { props.toggleModal('accountEditModal', false) }}>
         <Modal.Header closeButton>
           <Modal.Title>
-            { 'Edit Keyword ' }
+            { 'Edit Account ' }
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form onSubmit={props.handleSubmit(_onSubmit)} horizontal>
             <FormGroup>
               <Col componentClass={ControlLabel} sm={3}>
-                Keyword
+                First Name
               </Col>
               <Col sm={9}>
                 <Field
-                  name='value'
+                  name='first_name'
+                  type='text'
+                  component={renderInput}
+                />
+              </Col>
+            </FormGroup>
+            <FormGroup>
+              <Col componentClass={ControlLabel} sm={3}>
+                Last Name
+              </Col>
+              <Col sm={9}>
+                <Field
+                  name='last_name'
+                  type='text'
+                  component={renderInput}
+                />
+              </Col>
+            </FormGroup>
+            <FormGroup>
+              <Col componentClass={ControlLabel} sm={3}>
+                Email
+              </Col>
+              <Col sm={9}>
+                <Field
+                  name='email'
                   type='text'
                   component={renderInput}
                 />
               </Col>
             </FormGroup>
             <Modal.Footer>
-              <Button onClick={() => { props.toggleModal('keyword', false) } }>Close</Button>
+              <Button onClick={() => { props.toggleModal('accountEditModal', false) } }>Close</Button>
               <Button bsStyle='primary' type='submit'>Save</Button>
             </Modal.Footer>
           </Form>
         </Modal.Body>
       </Modal>
-        :
-          <div></div>
-  );
+      :
+        <div></div>
+);
 }
 
-KeywordEditModal.propTypes = {
+AccountEditModal.propTypes = {
     visible: PropTypes.bool,
     onClose: PropTypes.func
 };
 
-KeywordEditModal.defaultProps = {
+AccountEditModal.defaultProps = {
     onClose: () => { }
 };
 
 const reduxUserEdit = reduxForm({
-  form: 'keywordEdit',
+  form: 'accountEdit',
   enableReinitialize: true
-})(KeywordEditModal)
+})(AccountEditModal)
 
 export default reduxUserEdit;

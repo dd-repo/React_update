@@ -14,8 +14,6 @@ import {
 } from 'components';
 
 const fieldsToOmit = [
-  //'kwFirstName',
-  //'kwLastName',
   'authnetId'
 ]
 

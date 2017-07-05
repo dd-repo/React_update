@@ -20,59 +20,55 @@ const renderInput = ({ input, type }) => {
   )
 }
 
-const PhoneEditModal = props => {
+const NewKeywordModal = props => {
 
   const _onSubmit = (data) => {
-    props.submitForm(data, 'phone')
+    props.submitForm(data, 'keyword', 'post')
   }
 
   return (
-    props.initialValues ?
-      <Modal show={ props.show } onHide={() => { props.toggleModal('phone', false) }}>
+      <Modal show={ props.show } onHide={() => { props.toggleModal('newKeywordModal', false) }}>
         <Modal.Header closeButton>
           <Modal.Title>
-            { 'Edit Phones ' }
+            { 'Edit Keyword ' }
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form onSubmit={props.handleSubmit(_onSubmit)} horizontal>
             <FormGroup>
               <Col componentClass={ControlLabel} sm={3}>
-                Phone
+                Keyword
               </Col>
               <Col sm={9}>
                 <Field
-                  name='phone_number'
+                  name='value'
                   type='text'
                   component={renderInput}
                 />
               </Col>
             </FormGroup>
             <Modal.Footer>
-              <Button onClick={() => { props.toggleModal('phone', false) } }>Close</Button>
+              <Button onClick={() => { props.toggleModal('newKeywordModal', false) } }>Close</Button>
               <Button bsStyle='primary' type='submit'>Save</Button>
             </Modal.Footer>
           </Form>
         </Modal.Body>
       </Modal>
-        :
-          <div></div>
   );
 }
 
-PhoneEditModal.propTypes = {
+NewKeywordModal.propTypes = {
     visible: PropTypes.bool,
     onClose: PropTypes.func
 };
 
-PhoneEditModal.defaultProps = {
+NewKeywordModal.defaultProps = {
     onClose: () => { }
 };
 
-const reduxPhoneEdit = reduxForm({
-  form: 'phoneEdit',
-  enableReinitialize: true
-})(PhoneEditModal)
+const reduxUserEdit = reduxForm({
+  form: 'keywordNew'
+})(NewKeywordModal)
 
-export default reduxPhoneEdit;
+export default reduxUserEdit;
 
