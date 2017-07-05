@@ -98,14 +98,27 @@ class AccountDetails extends React.Component {
                         ))
                     }
                   </DropdownButton>
+                      <span className='pull-right'>
                   {
                     (tabKey === 'Account' || tabKey === 'Profile') &&
-                      <span className='pull-right'>
-                        <Button onClick={() => {this._handleClick(this.getValue(), 'edit')}} bsStyle='primary'>
+                      <Button
+                        onClick={() => {this._handleClick(this.getValue(), 'edit')}}
+                        bsStyle='primary'>
                           <i className="fa fa-pencil"></i> Edit {this.state.tabKey}
                         </Button>
-                      </span>
                       }
+
+                      {
+                        (tabKey === 'Keywords') &&
+                          <Button
+                            onClick={() => {this._handleClick({}, 'new') }}
+                            bsStyle='success'
+                          >
+                            Add Keyword <i className='fa fa-plus fa-lg'></i>
+                          </Button>
+
+                      }
+                      </span>
                 </div>
                 }
               >

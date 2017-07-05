@@ -32,14 +32,6 @@ const Keywords = ({keywords, handleClick}) => (
           ))
       }
     </ListGroup>
-    <Button
-      onClick={() => { handleClick({}, 'new') }}
-      className='pull-right'
-      bsSize='small'
-      bsStyle='success'
-    >
-      Add Keyword <i className='fa fa-plus fa-lg'></i>
-    </Button>
   </div>
 )
 
