@@ -75,6 +75,18 @@ const EditUserModal = props => {
             </FormGroup>
             <FormGroup>
               <Col componentClass={ControlLabel} sm={3}>
+                AuthNet Id
+              </Col>
+              <Col sm={9}>
+                <Field
+                  name='authnet_id'
+                  type='text'
+                  component={renderInput}
+                />
+              </Col>
+            </FormGroup>
+            <FormGroup>
+              <Col componentClass={ControlLabel} sm={3}>
                 Password
               </Col>
               <Col sm={9}>
