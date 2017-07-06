@@ -108,7 +108,7 @@ class UserContainer extends RoutedComponent {
       last_name: user.last_name,
       email: user.email,
       created_at: user.created_at,
-      authNet_id: user.authnet_id
+      authnet_id: user.authnet_id
     }
   }
 
@@ -131,8 +131,7 @@ class UserContainer extends RoutedComponent {
           this.fetchUser(),
           this.toggleModal(`${selector}EditModal`, false)
          )
-         .catch( error => this.setState({errorMessage: error.response.data.errorMessage}),
-                console.log('submitUpdate error', error.response.data.errorMessage))
+         .catch( error => this.setState({errorMessage: error.response.data.errorMessage}))
   }
 
   sanitizeNums(value) {
@@ -181,8 +180,8 @@ class UserContainer extends RoutedComponent {
   }
 
   getUserValues() {
-    const { first_name, last_name, email, id } = this.state.user
-    return {first_name, last_name, email, id }
+    const { first_name, last_name, email, id, authnet_id } = this.state.user
+    return {first_name, last_name, email, id, authnet_id }
   }
 
   getAccountValues() {

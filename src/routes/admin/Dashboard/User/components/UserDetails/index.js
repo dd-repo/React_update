@@ -80,6 +80,7 @@ const UserDetails = props => {
                 AuthNet Id
               </h5>
               <div className={ classes.detailsValue }>
+                { user.authnet_id }
               </div>
             </ListGroupItem>
             <ListGroupItem className='flex-space-between'>
