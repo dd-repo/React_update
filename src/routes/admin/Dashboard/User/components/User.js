@@ -5,11 +5,12 @@ import capitalize from 'utils/capitalize';
 
 import classes from './user.scss';
 import AccountDetails from './AccountDetails/AccountDetails';
-import UserDetails from './UserDetails/UserDetails';
+import UserDetails from './UserDetails';
 import Transactions from './Transactions/Transactions';
 import Subscriptions from './Subscriptions/Subscriptions';
+import Cards from './Cards';
 
-import { Row, Col } from 'components';
+import { Row, Col, Alert, Button } from 'components';
 
 const User = props => {
   const renderLoader = (
@@ -38,8 +39,22 @@ const User = props => {
     </div>
   );
 
+  const renderErrorMessage = (
+    props.errorMessage &&
+      <Alert bsStyle='danger'>
+         <Button
+           bsStyle='link'
+           onClick={() => {props.clearErrorMessage()}}
+         >
+           <i className="fa fa-times-circle fa-lg text-danger pull-right"></i>
+         </Button>
+         {props.errorMessage}
+      </Alert>
+  )
+
   return (
     <div className={classes.mainWrap}>
+      {renderErrorMessage}
       <Row>
         <Col lg={ 6 }>
           { renderHeader() }
@@ -51,6 +66,11 @@ const User = props => {
         </Col>
         <Col lg={6}>
           <AccountDetails {...props} />
+        </Col>
+      </Row>
+      <Row>
+        <Col lg={12}>
+          <Cards {...props} />
         </Col>
       </Row>
       <Row>

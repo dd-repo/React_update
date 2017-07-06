@@ -30,7 +30,7 @@ const NewKeywordModal = props => {
       <Modal show={ props.show } onHide={() => { props.toggleModal('newKeywordModal', false) }}>
         <Modal.Header closeButton>
           <Modal.Title>
-            { 'Edit Keyword ' }
+            { 'Add Keyword ' }
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
@@ -71,4 +71,3 @@ const reduxUserEdit = reduxForm({
 })(NewKeywordModal)
 
 export default reduxUserEdit;
-
