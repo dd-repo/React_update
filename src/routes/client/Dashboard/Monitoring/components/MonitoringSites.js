@@ -1,12 +1,12 @@
 import React from 'react';
 import _ from 'underscore';
-import Loading from 'react-loading';
 
 import MonitoringSite from './MonitoringSite';
 import {
   Table,
   Label,
-  Button
+  Button,
+  Loader
 } from 'components';
 
 const MonitoringSites = props => {
@@ -31,13 +31,7 @@ const MonitoringSites = props => {
 
   const renderLoader = (
     isFetching &&
-      <div className='container'>
-        <div className="spinner">
-          <div className="col-md-12">
-            <Loading type='bubbles' color='white' />
-          </div>
-        </div>
-      </div>
+      <Loader />
   )
 
   return (

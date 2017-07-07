@@ -1,0 +1,15 @@
+.spinner {
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-wrap:wrap;
+  /*width:100%;*/
+  background: transparent;
+  position:fixed;
+  z-index:10000;
+  top:0;
+  left:50%;
+  bottom:0;
+  right:0;
+  transition:opacity .2s ease-out
+}

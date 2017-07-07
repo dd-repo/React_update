@@ -12,7 +12,8 @@ import {
   Row,
   Pagination,
   Modal,
-  SearchBar
+  SearchBar,
+  Loader
 } from 'components';
 
 export default class Subscriptions extends Component {
@@ -92,13 +93,7 @@ export default class Subscriptions extends Component {
 
     const renderLoader = (
       isFetching &&
-        <div className='container'>
-          <div className="spinner">
-            <div className="col-md-12">
-              <Loading type='bubbles' color='white' />
-            </div>
-          </div>
-        </div>
+        <Loader />
     )
 
     const renderSearchBar = (

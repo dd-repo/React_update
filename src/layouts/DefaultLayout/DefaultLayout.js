@@ -34,7 +34,8 @@ import {
     Tab,
     Header,
     Footer,
-    Button
+    Button,
+    Media
 } from 'components';
 
 import classes from './DefaultLayout.scss';
@@ -89,6 +90,7 @@ import {
     SearchBoxMobile,
     MessagesDropdown,
     NotificationsDropdown,
+    ContactDropdown,
     RightSidebarTabs
 } from './components';
 
@@ -306,10 +308,18 @@ class DefaultLayout extends React.Component {
                                 </Nav>
 
                                 { /* ============= Right Nav ============== */ }
-                                <Navbar.Text className='visible-xs text-uppercase m-y-0'>
-                                  Your Profile
-                                </Navbar.Text>
                                 <Nav pullRight>
+                                  <Navbar.Text>
+                                    <i className="fa fa-phone m-r-1" aria-hidden="true"></i>
+                                    <span className='m-r-1'>
+                                      (844) 641-7829
+                                    </span>
+                                    <i className="fa fa-envelope m-r-1" aria-hidden="true"></i>
+                                    <span className='m-r-3'>
+                                      help@clickadilly.com
+                                    </span>
+                                  </Navbar.Text>
+                                  <ContactDropdown />
                                   { /* <NotificationsDropdown /> */ }
                                   { /*  <MessagesDropdown /> */ }
                                   {
@@ -540,10 +550,21 @@ class DefaultLayout extends React.Component {
                 { /* right sidebar <LayoutOptions /> */ }
 
                 <Footer fluid={ !staticFootNavContainer }>
+                    <p className="text-gray-dark pull-right">
+                      <span className="text-gray-dark p-r-1"><strong className="m-r-1">Need Help?</strong></span>
+                      <i className="fa fa-phone m-r-1" aria-hidden="true"></i>
+                      <span className='m-r-1'>
+                        (844) 641-7829
+                      </span>
+                      <i className="fa fa-envelope m-r-1" aria-hidden="true"></i>
+                      <span className='m-r-3'>
+                        help@clickadilly.com
+                      </span>
+                    </p>
                     <p className="text-gray-dark">
                       <span className="text-gray-dark">© 2017 <strong className="m-r-1">Clickadilly.</strong>All rights reserved.</span>
                     </p>
-                </Footer>
+                  </Footer>
 
                 <Notifications
                     notifications={ this.props.notifications }

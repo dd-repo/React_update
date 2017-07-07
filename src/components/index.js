@@ -67,6 +67,7 @@ import Header from './Header';
 import Image from './Image';
 import Label from './Label';
 import Layout from './Layout';
+import Loader from './Loader';
 import Media from './Media';
 import Modal from './Modal';
 import Navbar from './Navbar';
@@ -112,6 +113,7 @@ export {
     Jumbotron,
     ListGroup,
     ListGroupItem,
+    Loader,
     MenuItem,
     Nav,
     NavDropdown,

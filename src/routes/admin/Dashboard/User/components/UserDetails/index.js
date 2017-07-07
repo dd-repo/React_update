@@ -69,6 +69,7 @@ const UserDetails = props => {
                 Password
               </h5>
               <Button
+                className='userDetailEditButton'
                 onClick={() => { props.handlePasswordReset() }}
                 bsStyle='link'
               >
