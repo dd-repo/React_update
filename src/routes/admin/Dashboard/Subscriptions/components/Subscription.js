@@ -1,52 +1,42 @@
 import React, { Component, PropTypes } from 'react';
-import { Button } from 'components';
+import { Button, Label } from 'components';
 
 import { formatDate } from 'utils/dateHelper';
 
-export default class Subscription extends Component {
-  constructor(props) {
-    super(props)
-    this._onClick = this._onClick.bind(this)
-  }
+const Subscription = props => {
 
-  _onClick() {
-    this.props.confirmCancelation(this.props.subscription)
-    //this.props.handleClick(this.props.subscription.id, !this.props.subscription.is_active)
-  }
+  const {
+    client_name,
+    user_id,
+    id,
+    start_date,
+    end_date,
+    cancel_date,
+    is_active,
+    plan_id,
+    plan_description,
+    card_id,
+    sales_rep_name,
+  } = props.subscription
 
-  render() {
-    const {
-      client_name,
-      user_id,
-      id,
-      start_date,
-      end_date,
-      cancel_date,
-      is_active,
-      plan_id,
-      plan_description,
-      sales_rep_name,
-    } = this.props.subscription
+  const isActive = is_active ? 'Active' : 'Canceled'
 
-    const isActive = is_active ? 'Active' : 'Canceled'
+  const renderButton = (
+      <Button
+        bsSize={props.button.size}
+        bsStyle={props.button.style}
+        onClick={() => {props._onClick(props.subscription)}}
+      >
+        { props.button.label }
+      </Button>
+  )
 
-    const renderButton = (
-      is_active ?
-          <Button
-            bsStyle='danger'
-            onClick={this._onClick}
-          >
-            Cancel Subscription
-          </Button>
-            :
-             formatDate(cancel_date)
-    )
+  const salesRep = (
+    sales_rep_name !== " " ? sales_rep_name : 'Web'
+  )
 
-    const salesRep = (
-      sales_rep_name !== " " ? sales_rep_name : 'Web'
-    )
-
-    return (
+  return (
+    <tbody key={id}>
       <tr className='bg-gray-dark' key={id}>
         <td>
           { id }
@@ -73,18 +63,28 @@ export default class Subscription extends Component {
           { salesRep }
         </td>
         <td>
-          { isActive }
+          { card_id }
+        </td>
+        <td>
+          <Label
+            outline
+            className='text-uppercase'
+            bsStyle={is_active ? 'success' : 'danger'}>
+            { isActive }
+          </Label>
         </td>
         <td>
           { renderButton }
         </td>
       </tr>
-    )
-  }
+    </tbody>
+  )
 }
 
 Subscription.propTypes = {
   subscription: PropTypes.object,
-  handleClick: PropTypes.func.isRequired,
-  confirmCancelation: PropTypes.func.isRequired,
+  _onClick: PropTypes.func.isRequired,
+  button: PropTypes.object
 }
+
+export default Subscription

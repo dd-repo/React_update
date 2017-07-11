@@ -5,6 +5,7 @@ import { RoutedComponent, connect } from 'routes/routedComponent';
 import { CONTENT_VIEW_FLUID } from 'layouts/DefaultLayout/modules/layout';
 import { resetUserPassword } from 'routes/auth/modules/auth';
 import getFullName from 'utils/fullName';
+import { formatDate } from 'utils/dateHelper';
 
 import User from './components/User';
 import {
@@ -14,11 +15,14 @@ import {
   EditKeywordModal,
   EditPhoneModal,
   EditProfileModal,
+  EditSubscriptionModal,
   NewKeywordModal,
   NewCardModal
-} from './components/Modals';
+} from 'components/Modals';
+
 import capitalize from 'utils/capitalize';
 import { normalizePhone } from 'utils/formHelpers';
+import { CARDS_REQUEST } from 'consts/apis';
 
 const base_url = '/admin/api'
 
@@ -36,7 +40,8 @@ class UserContainer extends RoutedComponent {
       phoneEditModal: { visible: false },
       profileEditModal: { visible: false },
       newKeywordModal: { visible: false },
-      newCardModal: { visible: false }
+      newCardModal: { visible: false },
+      subscriptionEditModal: { visible: false }
     }
 
     this.fetchUser = this.fetchUser.bind(this);
@@ -71,6 +76,9 @@ class UserContainer extends RoutedComponent {
       this.fetchCards(userId)
       this.fetchAccount(accountId)
     }
+    if(nextState.errorMessage !== this.state.errorMessage) {
+      window.scrollTo(0,0)
+    }
   }
 
   fetchUser() {
@@ -99,7 +107,7 @@ class UserContainer extends RoutedComponent {
   fetchCards(id) {
     const params = { q: { user_id_eq: id }}
 
-    BlitzApi.get(`${base_url}/cards/search`, params)
+    BlitzApi.get(CARDS_REQUEST, params)
     .then( res => this.setState({ cards: res.data.cards }))
     .catch( error => console.log('fetching cards', error.data))
   }
@@ -111,7 +119,7 @@ class UserContainer extends RoutedComponent {
       last_name: user.last_name,
       fullName: getFullName(user),
       email: user.email,
-      created_at: user.created_at,
+      created_at: formatDate(user.created_at),
       authnet_id: user.authnet_id
     }
   }
@@ -218,8 +226,8 @@ class UserContainer extends RoutedComponent {
           fetchAccount={this.fetchAccount}
           toggleModal={this.toggleModal}
           handlePasswordReset={this.handlePasswordReset}
-          errorMessage={this.state.errorMessage}
           clearErrorMessage={this.clearErrorMessage}
+          errorMessage={this.state.errorMessage}
         />
         <EditUserModal
           initialValues={this.getUserValues()}
@@ -272,6 +280,14 @@ class UserContainer extends RoutedComponent {
           show={this.state.newCardModal.visible}
           toggleModal={this.toggleModal}
           submitForm={this.submitForm}
+        />
+        <EditSubscriptionModal
+          show={this.state.subscriptionEditModal.visible}
+          initialValues={this.state.subscriptionEditModal.value}
+          cards={this.state.cards}
+          submitForm={this.submitForm}
+          toggleModal={this.toggleModal}
+          isFetching={this.state.isFetching}
         />
     </div>
     )

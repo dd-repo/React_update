@@ -319,7 +319,7 @@ class DefaultLayout extends React.Component {
                                       help@clickadilly.com
                                     </span>
                                   </Navbar.Text>
-                                  <ContactDropdown />
+                                  { /* <ContactDropdown /> */ }
                                   { /* <NotificationsDropdown /> */ }
                                   { /*  <MessagesDropdown /> */ }
                                   {

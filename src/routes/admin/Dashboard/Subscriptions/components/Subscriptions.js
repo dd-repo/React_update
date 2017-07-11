@@ -16,17 +16,28 @@ import {
   Loader
 } from 'components';
 
+import { EditSubscriptionModal, CancelSubscriptionModal } from 'components/Modals'
+
+const button = {
+  label: <i className="fa fa-pencil"> Edit</i>,
+  style: 'link'
+}
+
 export default class Subscriptions extends Component {
   constructor(props) {
     super(props)
 
-    this._handleClick = this._handleClick.bind(this)
+    this._handleClick = this._handleClick.bind(this);
+    this._onClick = this._onClick.bind(this);
   }
 
-  _handleClick() {
-    const { id, is_active } = this.props.subscriptionInProcess
-    this.props.handleClick(id, !is_active)
+  _handleClick(data) {
+    this.props.handleClick(data)
     this.props.hideModal()
+  }
+
+  _onClick(subscription) {
+    this.props.editSubscription(subscription)
   }
 
   render() {
@@ -39,22 +50,14 @@ export default class Subscriptions extends Component {
       handleClick,
       showModal,
       hideModal,
-      confirmCancelation,
-      subscriptionInProcess,
+      editSubscription,
+      subscriptionToEdit,
       handleSearch,
       resultCount,
       queryName,
-      limit
+      limit,
+      cards
     } = this.props
-
-    const {
-      id,
-      client_name,
-      user_id,
-      start_date,
-      plan_id,
-      plan_description
-    } = subscriptionInProcess
 
     const renderPagination = (
       !isFetching && (resultCount > limit) &&
@@ -77,24 +80,18 @@ export default class Subscriptions extends Component {
 
     const renderSubscriptions = (
       !isFetching && subscriptions &&
-        <tbody>
-          {
-            subscriptions.map(
-              subscription =>
-              <Subscription
-                subscription={subscription}
-                key={subscription.id}
-                handleClick={handleClick}
-                confirmCancelation={confirmCancelation}
-              />
-              )}
-            </tbody>
+        subscriptions.map(
+          subscription =>
+          <Subscription
+            subscription={subscription}
+            key={subscription.id}
+            button={button}
+            _onClick={this._onClick}
+          />
+        )
     )
 
-    const renderLoader = (
-      isFetching &&
-        <Loader />
-    )
+    const renderLoader = isFetching && <Loader />
 
     const renderSearchBar = (
       <Col lg={6} lgOffset={3} className='m-b-2' >
@@ -104,62 +101,6 @@ export default class Subscriptions extends Component {
           handleSearch={handleSearch}
         />
       </Col>
-    )
-
-    const renderModal = (
-      <Modal  show={showModal} onHide={hideModal}>
-        <Modal.Header>
-          <Modal.Title>Please Confirm</Modal.Title>
-        </Modal.Header>
-
-        <Modal.Body>
-          <Table>
-            <thead>
-              <tr>
-                <th>
-                  subscription id
-                </th>
-                <th>
-                  client name
-                </th>
-                <th>
-                  user id
-                </th>
-                <th>
-                  plan id
-                </th>
-                <th>
-                  plan description
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr className='bg-gray-dark'>
-                <td>
-                  { id }
-                </td>
-                <td>
-                  { client_name }
-                </td>
-                <td>
-                  { user_id }
-                </td>
-                <td>
-                  { plan_id }
-                </td>
-                <td>
-                  { plan_description }
-                </td>
-              </tr>
-            </tbody>
-          </Table>
-        </Modal.Body>
-
-        <Modal.Footer>
-          <Button onClick={hideModal}>Close</Button>
-          <Button bsStyle="danger" onClick={this._handleClick}>Cancel Subscription</Button>
-        </Modal.Footer>
-      </Modal>
     )
 
     return (
@@ -193,7 +134,12 @@ export default class Subscriptions extends Component {
                 sales rep
               </th>
               <th>
+                Card id
+              </th>
+              <th>
                 account status
+              </th>
+              <th>
               </th>
             </tr>
           </thead>
@@ -201,7 +147,15 @@ export default class Subscriptions extends Component {
         </Table>
         { renderPagination }
         { renderLoader }
-        { renderModal }
+
+        <EditSubscriptionModal
+          show={showModal}
+          initialValues={subscriptionToEdit}
+          cards={cards}
+          submitForm={this._handleClick}
+          toggleModal={hideModal}
+          isFetching={isFetching}
+        />
       </Row>
     )
   }
@@ -214,10 +168,10 @@ Subscriptions.propTypes = {
   isFetching: PropTypes.bool,
   getNextPage: PropTypes.func.isRequired,
   handleClick: PropTypes.func.isRequired,
-  confirmCancelation: PropTypes.func.isRequired,
+  editSubscription: PropTypes.func.isRequired,
   showModal: PropTypes.bool,
   hideModal: PropTypes.func,
-  subscriptionInProcess: PropTypes.object,
+  subscriptionToEdit: PropTypes.object,
   queryName: PropTypes.string,
   handleSearch: PropTypes.func,
   resultCount: PropTypes.number,

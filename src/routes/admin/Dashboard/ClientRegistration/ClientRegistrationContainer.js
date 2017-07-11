@@ -35,42 +35,9 @@ class ClientRegistrationContainer extends RoutedComponent {
     }
   }
 
-  sanitizeNums(value) {
-    return value.replace(/[^\d]/gi, '')
-  }
-
-  fullName(first, last) {
-    return `${first} ${last}`
-  }
-
-  buildParams(user) {
-    return {
-      signup: {
-        first_name: user.firstName,
-        last_name: user.lastName,
-        email: user.email,
-        phone_number: user.phoneNumber,
-        phone_type: 'home',
-        authnet_id: user.authnetId,
-        plan: user.plan.toLowerCase(),
-        card_holder_name: user.fullName,
-        card_number: this.sanitizeNums(user.creditCardNumber),
-        card_month: user.expirationDate.slice(0,2),
-        card_year: user.expirationDate.slice(3),
-        card_cvc: user.cvCode,
-        address: user.address,
-        city: user.city,
-        state: user.state,
-        zip: user.zipcode,
-        kw_first_name: user.kwFirstName,
-        kw_last_name: user.kwLastName,
-        kw_address: user.kwAddress,
-        kw_city: user.kwCity,
-        kw_state: user.kwState,
-        kw_zip: user.kwZipcode,
-        kw_country: 'US',
-        dob: user.dob
-      }
+  componentWillUpdate(nextProps, nextState) {
+    if(nextState.notification !== this.state.notification) {
+      window.scrollTo(0,0)
     }
   }
 
@@ -108,6 +75,45 @@ class ClientRegistrationContainer extends RoutedComponent {
 
   resetForm() {
     this.context.store.dispatch(reset('ClientRegistrationForm'));
+  }
+
+  sanitizeNums(value) {
+    return value.replace(/[^\d]/gi, '')
+  }
+
+  fullName(first, last) {
+    return `${first} ${last}`
+  }
+
+  buildParams(user) {
+    return {
+      signup: {
+        first_name: user.firstName,
+        last_name: user.lastName,
+        email: user.email,
+        phone_number: user.phoneNumber,
+        phone_type: 'home',
+        authnet_id: user.authnetId,
+        plan: user.plan.toLowerCase(),
+        card_holder_name: user.fullName,
+        card_number: this.sanitizeNums(user.creditCardNumber),
+        card_month: user.expirationDate.slice(0,2),
+        card_year: user.expirationDate.slice(3),
+        card_cvc: user.cvCode,
+        address: user.address,
+        city: user.city,
+        state: user.state,
+        zip: user.zipcode,
+        kw_first_name: user.kwFirstName,
+        kw_last_name: user.kwLastName,
+        kw_address: user.kwAddress,
+        kw_city: user.kwCity,
+        kw_state: user.kwState,
+        kw_zip: user.kwZipcode,
+        kw_country: 'US',
+        dob: user.dob
+      }
+    }
   }
 
   render() {
