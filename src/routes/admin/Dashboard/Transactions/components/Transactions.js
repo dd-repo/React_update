@@ -12,7 +12,8 @@ import {
   Pagination,
   SearchBar,
   Modal,
-  Alert
+  Alert,
+  Loader
 } from 'components';
 
 const Transactions = (props) => {
@@ -50,13 +51,7 @@ const Transactions = (props) => {
 
   const renderLoader = (
     isFetching &&
-      <div className='container'>
-        <div className="spinner">
-          <div className="col-md-12">
-            <Loading type='bubbles' color='white' />
-          </div>
-        </div>
-      </div>
+      <Loader />
   )
 
   const renderPagination = (

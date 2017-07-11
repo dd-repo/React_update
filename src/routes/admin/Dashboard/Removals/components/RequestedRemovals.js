@@ -1,6 +1,5 @@
 import React, { Component, PropTypes } from 'react';
 import ReactDOM from 'react-dom';
-import Loading from 'react-loading';
 
 import RequestedRemoval from './RequestedRemoval';
 
@@ -16,7 +15,8 @@ import {
   Col,
   ControlLabel,
   Alert,
-  SearchBar
+  SearchBar,
+  Loader
 } from 'components';
 
 class RequestedRemovals extends Component {
@@ -192,13 +192,7 @@ class RequestedRemovals extends Component {
 
     const renderLoader = (
       isFetching &&
-        <div className='container'>
-          <div className="spinner">
-            <div className="col-md-12">
-              <Loading type='bubbles' color='white' />
-            </div>
-          </div>
-        </div>
+        <Loader />
     )
 
     return (

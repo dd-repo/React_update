@@ -4,6 +4,8 @@ import BlitzApi from 'services/BlitzApi';
 import { RoutedComponent, connect } from 'routes/routedComponent';
 import { CONTENT_VIEW_FLUID } from 'layouts/DefaultLayout/modules/layout';
 import { resetUserPassword } from 'routes/auth/modules/auth';
+import getFullName from 'utils/fullName';
+
 import User from './components/User';
 import {
   EditUserModal,
@@ -73,14 +75,15 @@ class UserContainer extends RoutedComponent {
 
   fetchUser() {
     BlitzApi.get(`${base_url}/user`, this.props.params)
-    .then( res => this.setState({
-      user: this.setUser(res.data),
-      transactions: res.data.transactions,
-      subscriptions: res.data.subscriptions,
-      accounts: res.data.accounts,
-      account: {}
-    }))
-    .catch( error => console.log('fetching user', error))
+    .then( res =>
+          this.setState({
+            user: this.setUser(res.data),
+            transactions: res.data.transactions,
+            subscriptions: res.data.subscriptions,
+            accounts: res.data.accounts,
+            account: {}
+          }))
+          .catch( error => console.log('fetching user', error))
   }
 
   fetchAccount(id) {
@@ -106,6 +109,7 @@ class UserContainer extends RoutedComponent {
       id: user.id,
       first_name: user.first_name,
       last_name: user.last_name,
+      fullName: getFullName(user),
       email: user.email,
       created_at: user.created_at,
       authnet_id: user.authnet_id
@@ -194,6 +198,7 @@ class UserContainer extends RoutedComponent {
   }
 
   render() {
+
     const formatPhone = value => {
       if(value) {
         value.phone_number = normalizePhone(value.phone_number)

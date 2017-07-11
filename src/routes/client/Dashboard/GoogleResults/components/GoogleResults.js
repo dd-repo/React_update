@@ -1,7 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import Loading from 'react-loading';
 import { Link } from 'react-router';
-//import uid from 'node-uuid';
 
 import {
   Alert,
@@ -12,6 +10,7 @@ import {
   Pagination,
   Divider,
   Modal,
+  Loader
 } from 'components';
 
 import SearchKeywords from './SearchKeywords';
@@ -61,14 +60,7 @@ export default class GoogleResults extends Component {
 
       const renderSpinner = (
         isFetching &&
-          <div className='container'>
-            <div className="spinner">
-              <div className="col-md-12 pricing-left">
-                <p>Retrieving your google results for <strong>{currentKeyword.value}</strong></p>
-                <Loading type='bubbles' color='white' />
-              </div>
-            </div>
-          </div>
+          <Loader />
       )
 
       const renderPagination = (
