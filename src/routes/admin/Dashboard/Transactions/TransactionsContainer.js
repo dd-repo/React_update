@@ -53,7 +53,7 @@ class TransactionsContainer extends RoutedComponent {
 
   getNextPage(pageNum) {
     this.setState({ pageNum: parseInt(pageNum) })
-    this.fetchTransactions(defaultSearchParams, pageNum)
+    this.fetchTransactions({}, pageNum)
   }
 
   handleSearch(input) {
