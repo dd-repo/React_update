@@ -8,7 +8,8 @@ import Users from './components/Users';
 
 const group = {
   'clients': 'frontend',
-  'admin': 'backend'
+  'admin': 'backend',
+  'dashboard': 'frontend'
 }
 
 class UsersContainer extends RoutedComponent {

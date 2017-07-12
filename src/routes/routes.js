@@ -109,7 +109,7 @@ export default [
       path: '/admin/dashboard',
         getComponent: (nextState, cb) => {
             require.ensure([], require => {
-              cb(null, require('./admin/Dashboard/Removals').default);
+              cb(null, require('./admin/Dashboard/Users').default);
             }, 'admin-dashboard-removals-pending');
         }
     },
