@@ -11,8 +11,6 @@ import {
 import Subscriptions from './components/Subscriptions';
 import { CARDS_REQUEST } from 'consts/apis';
 
-const defaultSearchParams = { q: {}}
-
 class SubscriptionsContainer extends RoutedComponent {
   constructor(props) {
     super(props)
