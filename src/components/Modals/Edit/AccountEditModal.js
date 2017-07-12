@@ -79,18 +79,18 @@ const AccountEditModal = props => {
           </Form>
         </Modal.Body>
       </Modal>
-      :
-        <div></div>
-);
+        :
+          <div></div>
+  );
 }
 
 AccountEditModal.propTypes = {
-    visible: PropTypes.bool,
-    onClose: PropTypes.func
+  visible: PropTypes.bool,
+  onClose: PropTypes.func
 };
 
 AccountEditModal.defaultProps = {
-    onClose: () => { }
+  onClose: () => { }
 };
 
 const reduxUserEdit = reduxForm({

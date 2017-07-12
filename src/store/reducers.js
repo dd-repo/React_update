@@ -16,9 +16,6 @@ import subscriptions from 'routes/admin/Dashboard/Subscriptions/modules/subscrip
 import users from 'routes/admin/Dashboard/Users/modules/users';
 import subscription from 'routes/client/Dashboard/AccountEdit/modules/subscription';
 
-// for testing purposes
-//import loggedInUser from 'modules/loggedInUser';
-
 export const makeRootReducer = (asyncReducers) => {
   return combineReducers({
     // Add sync reducers here
@@ -26,7 +23,6 @@ export const makeRootReducer = (asyncReducers) => {
     currentUser,
     googleResults,
     keywords,
-    //loggedInUser,
     layout,
     monitoring,
     payment,

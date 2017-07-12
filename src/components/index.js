@@ -88,6 +88,7 @@ import Timeline from './Timeline';
 import Tooltip from './Tooltip';
 import TreeNavigator from './TreeNavigator';
 import SearchBar from './SearchBar';
+import Modals from './Modals';
 
 export {
     Accordion,
@@ -157,6 +158,7 @@ export {
     Layout,
     Media,
     Modal,
+    Modals,
     Navbar,
     OutsideClick,
     Panel,

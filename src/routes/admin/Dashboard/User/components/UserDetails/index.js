@@ -8,7 +8,6 @@ import {
 } from 'components';
 
 import classes from '../user.scss';
-import { formatDate } from 'utils/dateHelper';
 
 const UserDetails = props => {
   const { accounts , user } = props
@@ -97,7 +96,7 @@ const UserDetails = props => {
                 Date Assigned
               </h5>
               <div className={ classes.detailsValue }>
-                {formatDate(user.created_at)}
+                {user.created_at}
               </div>
             </ListGroupItem>
           </ListGroup>

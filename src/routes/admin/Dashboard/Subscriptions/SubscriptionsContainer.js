@@ -1,5 +1,6 @@
 import React from 'react';
 import _ from 'underscore';
+import BlitzApi from 'services/BlitzApi';
 
 import { RoutedComponent, connect } from 'routes/routedComponent';
 import { CONTENT_VIEW_STATIC } from 'layouts/DefaultLayout/modules/layout';
@@ -8,6 +9,7 @@ import {
   updateSubscription
 } from './modules/subscriptions'
 import Subscriptions from './components/Subscriptions';
+import { CARDS_REQUEST } from 'consts/apis';
 
 const defaultSearchParams = { q: {}}
 
@@ -17,13 +19,13 @@ class SubscriptionsContainer extends RoutedComponent {
     this.state = {
       pageNum: 1,
       showModal: false,
-      subscriptionInProcess: {},
+      subscriptionToEdit: {},
       queryName: 'All Subscriptions'
     }
 
     this.getNextPage = this.getNextPage.bind(this);
     this.handleClick = this.handleClick.bind(this);
-    this.confirmCancelation = this.confirmCancelation.bind(this);
+    this.editSubscription = this.editSubscription.bind(this);
     this.hideModal = this.hideModal.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
   }
@@ -46,15 +48,29 @@ class SubscriptionsContainer extends RoutedComponent {
     this.fetchSubscriptions()
   }
 
+  componentWillUpdate(nextProps, nextState) {
+    if(nextState.subscriptionToEdit !== this.state.subscriptionToEdit) {
+      this.fetchCards(nextState.subscriptionToEdit.user_id)
+    }
+  }
+
   fetchSubscriptions(params={}, pageNum=1) {
     this.props.getSubscriptions(params, pageNum)
   }
 
-  handleClick(id, isActive) {
-    const params = { subscription: { is_active: isActive }}
-    this.props.updateSubscription(id, params)
+  fetchCards(id) {
+    const params = { q: { user_id_eq: id }}
+
+    BlitzApi.get(CARDS_REQUEST, params)
+    .then( res => this.setState({ cards: res.data.cards }))
+    .catch( error => console.log('fetching cards', error.data))
+  }
+
+  handleClick(data) {
+    const params = { subscription: data }
+    this.props.updateSubscription(data.id, params)
     .then( (res) => this.fetchSubscriptions({}, this.state.pageNum))
-    .catch( (error) => console.log('error in updating subscription', error))
+    .catch( (error) => console.log('error in updating subscription', error.response.data.errorMessage))
   }
 
   getNextPage(pageNum) {
@@ -62,12 +78,12 @@ class SubscriptionsContainer extends RoutedComponent {
     this.fetchSubscriptions({}, pageNum)
   }
 
-  confirmCancelation(subscription) {
-    this.setState({showModal: true, subscriptionInProcess: subscription})
+  editSubscription(subscription) {
+    this.setState({showModal: true, subscriptionToEdit: subscription})
   }
 
   hideModal() {
-    this.setState({showModal: false, subscriptionInProcess: {}})
+    this.setState({showModal: false})
   }
 
   handleSearch(input) {
@@ -104,14 +120,15 @@ class SubscriptionsContainer extends RoutedComponent {
         isFetching={this.props.subscriptions.isFetching}
         getNextPage={this.getNextPage}
         handleClick={this.handleClick}
-        confirmCancelation={this.confirmCancelation}
+        editSubscription={this.editSubscription}
         showModal={this.state.showModal}
         hideModal={this.hideModal}
-        subscriptionInProcess={this.state.subscriptionInProcess}
+        subscriptionToEdit={this.state.subscriptionToEdit}
         queryName={this.state.queryName}
         handleSearch={this.handleSearch}
         resultCount={resultCount}
         limit={limit}
+        cards={this.state.cards || []}
       />
     )
   }
