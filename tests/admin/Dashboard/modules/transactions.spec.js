@@ -32,9 +32,9 @@ const errRes = {
 
 const transactions = {
   transactions: [
-    {id: 1},
-    {id: 2},
-    {id: 3}
+    {id: 1, status: 'completed'},
+    {id: 2, status: 'completed'},
+    {id: 3, status: 'completed'}
   ],
   meta: {
     pagination: {
@@ -45,7 +45,8 @@ const transactions = {
 }
 
 const transaction = {
-  id: 1
+  id: 1,
+  status: 'refunded'
 }
 
 describe('(Tranactions module)', () => {
@@ -278,16 +279,23 @@ describe('(Tranactions module)', () => {
     })
 
     it('shoulde handle TRANSACTION_CANCEL_SUCCESS', () => {
-      //const transactionsState = {
-        //all: transacatiions.transactions,
-        //pagination: transactions.meta.pagination,
-        //isFetching: true
-      //}
-      expect(reducer({}, {
+      const state = {
+        all: transactions.transactions,
+        pagination: transactions.meta.pagination,
+      }
+
+      const updatedTransactions = [
+          {id: 1, status: 'refunded'},
+          {id: 2, status: 'completed'},
+          {id: 3, status: 'completed'}
+        ]
+
+      expect(reducer(state, {
         type: TRANSACTION_CANCEL_SUCCESS,
         transaction
       })).to.eql({
-        isFetching: false,
+        all: updatedTransactions,
+        pagination: transactions.meta.pagination,
         error: null
       })
     })

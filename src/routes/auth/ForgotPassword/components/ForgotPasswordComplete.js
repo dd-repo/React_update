@@ -39,6 +39,13 @@ const ForgotPasswordComplete = ({ userEmail }) => {
                   <img src={ logo } height={ 50 } alt='Back to Home' />
                 </Link>
                 )}
+                footer={(
+                  <div>
+                    <Link to='/login'>
+                      Login
+                    </Link>
+                  </div>
+                  )}
                 >
                   <h2 className={ classes.panelHeader }>
                   </h2>

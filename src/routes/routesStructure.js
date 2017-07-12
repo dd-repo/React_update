@@ -46,6 +46,21 @@ export const CONFIGS = {
   ],
   'admin': [
     {
+      slug: 'Users',
+      title: 'Users',
+      icon: 'fa fa-user fa-lg',
+      children: [
+        {
+          title: 'Clients',
+          url: '/admin/dashboard/users/clients'
+        },
+        {
+          title: 'Admin',
+          url: '/admin/dashboard/users/admin'
+        }
+      ]
+    },
+    {
       slug: 'Removals',
       title: 'Removals',
       icon: 'fa fa-times fa-lg',
@@ -61,21 +76,6 @@ export const CONFIGS = {
         {
           title: 'Completed',
           url: '/admin/dashboard/removals/completed'
-        }
-      ]
-    },
-    {
-      slug: 'Users',
-      title: 'Users',
-      icon: 'fa fa-user fa-lg',
-      children: [
-        {
-          title: 'Clients',
-          url: '/admin/dashboard/users/clients'
-        },
-        {
-          title: 'Admin',
-          url: '/admin/dashboard/users/admin'
         }
       ]
     },
