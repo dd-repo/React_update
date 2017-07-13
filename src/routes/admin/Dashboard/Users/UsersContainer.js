@@ -82,9 +82,8 @@ class UsersContainer extends RoutedComponent {
         this.props.becomeUser(params)
         .then( res => this.transitionToUser(res) )
         break
-      case 'user':
-        this.context.router.push(`/admin/dashboard/users/client/${id}`)
-        break
+      default:
+        this.fetchUsers(this.getRole())
     }
   }
 

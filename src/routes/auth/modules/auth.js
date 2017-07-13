@@ -254,9 +254,11 @@ const reducer = (state = {}, action) => {
     case ADMIN_LOGIN_SUCCESS:
       return setAdmin(state, action.data)
     case USER_LOGIN_FAILURE:
+      const error = action.error.response.data.errorMessage
+      const errorMessage = error === 'expired' ? undefined : error
       return Object.assign({}, state, {
         isFetching: false,
-        errorMessage: action.error.response.data.errorMessage
+        errorMessage
       });
     case FORGOT_USER_PASSWORD_POSTING:
       return Object.assign({}, state, {
@@ -276,7 +278,6 @@ const reducer = (state = {}, action) => {
     default:
       return state
   }
-  console.log('state', state)
   return state
 }
 

@@ -50,7 +50,7 @@ const Transaction = (props) => {
         { id }
       </td>
       <td>
-        { client_name }
+          { client_name }
       </td>
       <td>
         { user_email }

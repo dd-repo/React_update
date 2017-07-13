@@ -1,5 +1,8 @@
 import React, { PropTypes } from 'react';
+import { Link } from 'react-router';
+
 import { Button, DropdownButton, MenuItem } from 'components'
+import getFullName from 'utils/fullName';
 
 import { formatDate } from 'utils/dateHelper';
 
@@ -19,7 +22,8 @@ const User = (props) => {
     props.handleClick(action, id)
   }
 
-  const fullName = `${first_name} ${last_name}`
+  const fullName = getFullName(props.user)
+
   const renderButton = (
     <DropdownButton onSelect={_onSelect}
       title='Actions'
@@ -35,15 +39,23 @@ const User = (props) => {
     </DropdownButton>
   )
 
+  const renderClientLink = (
+    role !== 'admin' ?
+        <Link to={`/admin/dashboard/users/client/${id}`}>
+          { fullName }
+        </Link>
+          :
+            fullName
+
+  )
+
   return (
     <tr className='bg-gray-darker' key={id}>
       <td>
           { id }
       </td>
       <td>
-        <a href='javascript:void(0)' onClick={() => {_onSelect('user')}}>
-        { fullName }
-        </a>
+        { renderClientLink }
       </td>
       <td>
         { email }

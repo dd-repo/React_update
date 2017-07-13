@@ -30,10 +30,6 @@ class SignupContainer extends RoutedComponent {
     router: React.PropTypes.object.isRequired
   }
 
-  componentWillMount() {
-    console.log('will Mounting')
-  }
-
   getLayoutOptions() {
     return {
       contentView: CONTENT_VIEW_STATIC,

@@ -114,6 +114,7 @@ class TransactionsContainer extends RoutedComponent {
     )
     const limit = pagination && pagination.limit
     const total = pagination && pagination.total
+
     const errorMessage = this.props.transactions.error &&
       this.props.transactions.error.response.data.message
 
