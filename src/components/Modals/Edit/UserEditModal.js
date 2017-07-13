@@ -12,6 +12,17 @@ import {
     Button
 } from 'components';
 
+const STATUS = [
+  {
+    status: 'Active',
+    is_active: true
+  },
+  {
+    status: 'Inactive',
+    is_active: false
+  }
+]
+
 const renderInput = ({ input, type }) => {
   return (
     <FormControl
@@ -21,11 +32,18 @@ const renderInput = ({ input, type }) => {
   )
 }
 
+const dropDownSelect = ({ input, title, children }) => (
+  <FormControl {...input} componentClass='select'>
+    { children }
+  </FormControl>
+)
+
 const EditUserModal = props => {
 
   const _onSubmit = (data) => {
     props.submitForm(data, 'user', 'patch')
   }
+
 
   return (
     !props.isFetching &&
@@ -37,6 +55,23 @@ const EditUserModal = props => {
         </Modal.Header>
         <Modal.Body>
           <Form onSubmit={props.handleSubmit(_onSubmit)} horizontal>
+            <FormGroup>
+              <Col componentClass={ControlLabel} sm={3}>
+                Status
+              </Col>
+              <Col sm={9}>
+                <Field
+                  name='is_active'
+                  component={dropDownSelect}
+                >
+                {
+                  STATUS.map((item, i) => (
+                    <option value={item.is_active} key={i}>{item.status}</option>
+                    ))
+                }
+              </Field>
+              </Col>
+            </FormGroup>
             <FormGroup>
               <Col componentClass={ControlLabel} sm={3}>
                 First Name

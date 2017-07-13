@@ -124,7 +124,8 @@ class UserContainer extends RoutedComponent {
       fullName: getFullName(user),
       email: user.email,
       created_at: formatDate(user.created_at),
-      authnet_id: user.authnet_id
+      authnet_id: user.authnet_id,
+      is_active: user.is_active
     }
   }
 
@@ -243,13 +244,9 @@ class UserContainer extends RoutedComponent {
     this.setSuccessMessage('Email Sent')
   }
 
-  clearErrorMessage() {
-    this.setState({errorMessage: null})
-  }
-
   getUserValues() {
-    const { first_name, last_name, email, id, authnet_id } = this.state.user
-    return {first_name, last_name, email, id, authnet_id }
+    const { first_name, last_name, email, id, authnet_id, is_active } = this.state.user
+    return {first_name, last_name, email, id, authnet_id, is_active }
   }
 
   getAccountValues() {
@@ -284,7 +281,6 @@ class UserContainer extends RoutedComponent {
           toggleModal={this.toggleModal}
           handlePasswordReset={this.handlePasswordReset}
           clearMessage={this.clearMessage}
-          errorMessage={this.state.errorMessage}
           notification={this.state.notification}
           confirmTransaction={this.confirmTransaction}
         />
