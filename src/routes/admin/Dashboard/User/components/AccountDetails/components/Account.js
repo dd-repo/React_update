@@ -50,7 +50,7 @@ const Account = ({account}) => (
         <Label
           outline
           className='text-uppercase'
-          bsStyle={account.is_active ? 'primary' : 'danger'}>
+          bsStyle={account.is_active ? 'success' : 'danger'}>
           { account.is_active ? 'Active' : 'Inactive' }
         </Label>
       </div>

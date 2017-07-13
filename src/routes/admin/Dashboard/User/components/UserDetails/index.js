@@ -4,6 +4,7 @@ import {
   Panel,
   ListGroup,
   ListGroupItem,
+  Label,
   Button
 } from 'components';
 
@@ -41,18 +42,23 @@ const UserDetails = props => {
             </ListGroupItem>
             <ListGroupItem className='flex-space-between'>
               <h5 className={ classes.detailsKey }>
-                First Name
+                Status
               </h5>
               <div className={ classes.detailsValue }>
-                { user.first_name }
+                <Label
+                  outline
+                  className='text-uppercase'
+                  bsStyle={user.is_active ? 'success' : 'danger'}>
+                  {user.is_active ? 'Active' : 'Inactive'}
+                </Label>
               </div>
             </ListGroupItem>
             <ListGroupItem className='flex-space-between'>
               <h5 className={ classes.detailsKey }>
-                Last Name
+                Full Name
               </h5>
               <div className={ classes.detailsValue }>
-                { user.last_name }
+                { user.first_name } { user.last_name }
               </div>
             </ListGroupItem>
             <ListGroupItem className='flex-space-between'>
