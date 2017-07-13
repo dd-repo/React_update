@@ -98,10 +98,6 @@ class SubscriptionsContainer extends RoutedComponent {
   render() {
     const { pagination } = this.props.subscriptions
 
-    const sortedSubscriptions = (
-      _.sortBy(this.props.subscriptions.all, 'id')
-    )
-
     const paginationItems = (
       pagination &&
          Math.ceil(pagination.total / pagination.limit)
@@ -111,7 +107,7 @@ class SubscriptionsContainer extends RoutedComponent {
 
     return (
       <Subscriptions
-        subscriptions={sortedSubscriptions}
+        subscriptions={this.props.subscriptions.all || []}
         pagination={this.props.subscriptions.pagination}
         paginationItems={paginationItems}
         pageNum={this.state.pageNum}
