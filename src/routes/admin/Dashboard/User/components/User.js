@@ -32,23 +32,23 @@ const User = props => {
     </div>
   );
 
-  const renderErrorMessage = (
-    props.errorMessage &&
-      <Alert bsStyle='danger'>
+  const renderAlertMessage = (
+    props.notification.message &&
+      <Alert bsStyle={props.notification.status}>
          <Button
            bsStyle='link'
-           onClick={() => {props.clearErrorMessage()}}
+           onClick={() => {props.clearMessage()}}
          >
-           <i className="fa fa-times-circle fa-lg text-danger pull-right"></i>
+           <i className={`fa fa-times-circle fa-lg text-${props.notification.status} pull-right`}></i>
          </Button>
-         {props.errorMessage}
+         {props.notification.message}
       </Alert>
   )
 
   const renderUserDetails = (
     !props.isFetching &&
       <div>
-        {renderErrorMessage}
+        {renderAlertMessage}
         <Row>
           <Col lg={ 6 }>
             { renderHeader() }
