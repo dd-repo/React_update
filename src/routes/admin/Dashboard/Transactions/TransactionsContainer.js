@@ -23,8 +23,8 @@ class TransactionsContainer extends RoutedComponent {
 
     this.getNextPage = this.getNextPage.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
-    this.handleCancelTransaction = this.handleCancelTransaction.bind(this);
-    this.confirmCancelTransaction = this.confirmCancelTransaction.bind(this);
+    this.updateTransaction = this.updateTransaction.bind(this);
+    this.confirmTransaction = this.confirmTransaction.bind(this);
     this.hideModal = this.hideModal.bind(this)
     this.handleSuccess = this.handleSuccess.bind(this);
   }
@@ -67,16 +67,16 @@ class TransactionsContainer extends RoutedComponent {
     this.setState({ queryName })
   }
 
-  handleCancelTransaction() {
+  updateTransaction() {
     this.props.cancelTransaction(this.state.transactionInProgress.id)
-    .then(res => this.handleCancelTransactionResponse(res))
+    .then(res => this.updateTransactionResponse(res))
     .catch(
       error => this.handleFailure(error)
     )
     this.hideModal()
   }
 
-  handleCancelTransactionResponse(res) {
+  updateTransactionResponse(res) {
     switch(res.type) {
       case TRANSACTION_CANCEL_SUCCESS:
         this.handleSuccess()
@@ -85,7 +85,6 @@ class TransactionsContainer extends RoutedComponent {
 
   handleSuccess() {
     this.setState({
-      isFetching: false,
       notification: {
         message: 'Transaction was successfully canceled'
       }
@@ -95,7 +94,7 @@ class TransactionsContainer extends RoutedComponent {
     }, 5000)
   }
 
-  confirmCancelTransaction(transaction) {
+  confirmTransaction(transaction) {
     this.setState({
       transactionInProgress: transaction,
       showModal: true
@@ -121,8 +120,8 @@ class TransactionsContainer extends RoutedComponent {
     return (
       <Transactions
         transactions={this.props.transactions.all}
-        handleCancelTransaction={this.handleCancelTransaction}
-        confirmCancelTransaction={this.confirmCancelTransaction}
+        updateTransaction={this.updateTransaction}
+        confirmTransaction={this.confirmTransaction}
         showModal={this.state.showModal}
         transactionInProgress={this.state.transactionInProgress}
         hideModal={this.hideModal}

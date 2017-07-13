@@ -1,7 +1,18 @@
 import React, { PropTypes } from 'react';
 
 import { formatDate } from 'utils/dateHelper';
-import { Button } from 'components';
+import { Button, Label } from 'components';
+
+const STYLE = {
+  'completed': 'success',
+  'refunded':  'warning',
+  'declined':  'danger'
+}
+
+const BUTTON_LABEL = {
+  'completed': 'Refund',
+  'declined':  'Charge'
+}
 
 const Transaction = (props) => {
   const {
@@ -15,15 +26,17 @@ const Transaction = (props) => {
     subscription_id,
     sales_rep_name,
     client_name,
+    status
   } = props.transaction
 
-  const renderCancelTransactionButton = (
-    <Button
-      bsStyle="danger"
-      onClick={() => { props.confirmCancelTransaction(props.transaction) }}
-    >
-      Cancel Transaction
-    </Button>
+  const renderButton = (
+    status !== 'refunded' &&
+      <Button
+        bsStyle="danger"
+        onClick={() => { props.confirmTransaction(props.transaction) }}
+      >
+        { BUTTON_LABEL[status] }
+      </Button>
   )
 
   const salesRep = (
@@ -31,7 +44,8 @@ const Transaction = (props) => {
   )
 
   return (
-    <tr className='bg-gray-darker' key={id}>
+  <tbody key={id}>
+    <tr className='bg-gray-darker'>
       <td>
         { id }
       </td>
@@ -60,9 +74,18 @@ const Transaction = (props) => {
         { salesRep }
       </td>
       <td>
-        { renderCancelTransactionButton }
+        <Label
+          outline
+          className='text-uppercase'
+          bsStyle={STYLE[status]}>
+        { status }
+        </Label>
+      </td>
+      <td>
+        { renderButton }
       </td>
     </tr>
+  </tbody>
   )
 }
 

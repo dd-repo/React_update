@@ -3,6 +3,7 @@ import Loading from 'react-loading';
 import { formatDate } from 'utils/dateHelper';
 
 import Transaction from './Transaction';
+import { EditTransactionModal } from 'components/Modals';
 import {
   Table,
   Label,
@@ -21,13 +22,13 @@ const Transactions = (props) => {
     transactions,
     transactionInProgress,
     paginationItems,
+    updateTransaction,
     pageNum,
     getNextPage,
     isFetching,
     queryName,
     handleSearch,
-    handleCancelTransaction,
-    confirmCancelTransaction,
+    confirmTransaction,
     limit,
     total,
     showModal,
@@ -35,19 +36,6 @@ const Transactions = (props) => {
     errorMessage,
     notification
   } = props
-
-  const {
-    id,
-    state,
-    processed_at,
-    type_of_deal,
-    user_email,
-    third_party_id,
-    round,
-    subscription_id,
-    sales_rep_name,
-    client_name,
-  } = transactionInProgress
 
   const renderLoader = (
     isFetching &&
@@ -75,17 +63,13 @@ const Transactions = (props) => {
 
   const renderTransactions = (
     !isFetching && transactions &&
-      <tbody>
-        {
-          transactions.map(transaction => (
-            <Transaction
-              transaction={transaction}
-              confirmCancelTransaction={confirmCancelTransaction}
-              key={transaction.id}
-            />
-            ))
-        }
-      </tbody>
+        transactions.map(transaction => (
+          <Transaction
+            transaction={transaction}
+            confirmTransaction={confirmTransaction}
+            key={transaction.id}
+          />
+        ))
   )
 
   const renderSearchBar = (
@@ -99,56 +83,6 @@ const Transactions = (props) => {
     </Col>
   )
 
-  const renderModal = (
-    <Modal  show={showModal} onHide={hideModal}>
-      <Modal.Header>
-        <Modal.Title>Please confirm transaction before canceling</Modal.Title>
-      </Modal.Header>
-
-      <Modal.Body>
-        <Table>
-          <thead>
-            <tr>
-              <th>
-                id
-              </th>
-              <th>
-                client name
-              </th>
-              <th>
-                client email
-              </th>
-              <th>
-                transaction id
-              </th>
-            </tr>
-          </thead>
-
-          <tbody>
-            <tr className='bg-gray-dark'>
-              <td>
-                { id }
-              </td>
-              <td>
-                { client_name }
-              </td>
-              <td>
-                { user_email }
-              </td>
-              <td>
-                { third_party_id }
-              </td>
-            </tr>
-          </tbody>
-        </Table>
-      </Modal.Body>
-
-      <Modal.Footer>
-        <Button onClick={hideModal}>Close</Button>
-        <Button bsStyle="danger" onClick={handleCancelTransaction}>Cancel Transaction</Button>
-      </Modal.Footer>
-    </Modal>
-  )
 
   const renderMessage = () => {
     if(errorMessage || notification) {
@@ -198,6 +132,9 @@ const Transactions = (props) => {
             <th>
               sales rep
             </th>
+              <th>
+                Status
+              </th>
             <th>
               Cancel Action
             </th>
@@ -205,9 +142,16 @@ const Transactions = (props) => {
         </thead>
         { renderTransactions }
       </Table>
+
+      <EditTransactionModal
+        transaction={transactionInProgress}
+        show={showModal}
+        toggleModal={hideModal}
+        handleClick={updateTransaction}
+      />
+
       { renderPagination }
       { renderLoader }
-      { renderModal }
     </Row>
   )
 }
@@ -217,6 +161,8 @@ Transactions.PropTypes = {
   paginationItems: PropTypes.number,
   pageNum: PropTypes.number,
   isFetching: PropTypes.bool,
+  updateTransaction: PropTypes.func,
+  confirmTransaction: PropTypes.func,
   getNextPage: PropTypes.func,
   handleSearch: PropTypes.func,
   queryName: PropTypes.string,

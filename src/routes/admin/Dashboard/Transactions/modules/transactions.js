@@ -78,6 +78,14 @@ export const receiveCanceledTransactionFailure = error => (
 )
 
 // reducer
+const updateTransaction = (state, transaction) => {
+  const index = state.findIndex(t => t.id === transaction.id)
+   return [
+     ...state.slice(1, index),
+     transaction,
+     ...state.slice(index + 1)
+   ]
+}
 const reducer = (state={}, action) => {
   switch(action.type) {
     case TRANSACTIONS_PENDING:
@@ -97,11 +105,10 @@ const reducer = (state={}, action) => {
       });
     case TRANSACTION_CANCEL_PENDING:
       return Object.assign({}, state, {
-        isFetching: true
       })
     case TRANSACTION_CANCEL_SUCCESS:
       return Object.assign({}, state, {
-        isFetching: false,
+        all: updateTransaction(state.all, action.transaction),
         error: null
       })
     case TRANSACTION_CANCEL_FAILURE:
