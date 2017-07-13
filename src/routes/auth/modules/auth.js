@@ -19,11 +19,11 @@ export const FORGOT_USER_PASSWORD_FAILURE = 'FORGOT_USER_PASSWORD_FAILURE';
 export const USER_REMOVE_ERROR_MSG = 'USER_REMOVE_ERROR_MSG';
 export const USER_LOGOUT = 'USER_LOGOUT'
 
+const CLIENT_API = '/dashboard/api/v1/users';
 export const SIGNUP_REQUEST = `${CLIENT_API}/sign-up/create`;
 export const LOGIN_REQUEST = `${CLIENT_API}/sign-in`;
 export const UPDATE_PASSWORD_REQUEST = `${CLIENT_API}/password/update`;
 export const RESET_PASSWORD_REQUEST = `${CLIENT_API}/password/forgot`
-const CLIENT_API = '/dashboard/api/v1/users';
 
 
 //actions
