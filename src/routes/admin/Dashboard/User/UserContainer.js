@@ -33,6 +33,7 @@ class UserContainer extends RoutedComponent {
       isFetching: true,
       user: {},
       account: {},
+      notification: {},
       userEditModal: { visible: false },
       accountEditModal: { visible: false },
       keywordEditModal: { visible: false },
@@ -52,7 +53,7 @@ class UserContainer extends RoutedComponent {
     this.submitUpdate = this.submitUpdate.bind(this);
     this.submitNew = this.submitNew.bind(this);
     this.handlePasswordReset = this.handlePasswordReset.bind(this);
-    this.clearErrorMessage = this.clearErrorMessage.bind(this);
+    this.clearMessage = this.clearMessage.bind(this);
   }
 
   getLayoutOptions() {
@@ -76,8 +77,8 @@ class UserContainer extends RoutedComponent {
       this.fetchCards(userId)
       this.fetchAccount(accountId)
     }
-    if(nextState.errorMessage !== this.state.errorMessage) {
-      window.scrollTo(0,0)
+    if(nextState.notification !== this.state.notification) {
+      setTimeout(() => window.scrollTo(0,0), 500)
     }
   }
 
@@ -141,9 +142,10 @@ class UserContainer extends RoutedComponent {
     .then(
           res =>
           this.fetchUser(),
-          this.toggleModal(`${selector}EditModal`, false)
+          this.toggleModal(`${selector}EditModal`, false),
+          this.setSuccessMessage('Successfully Updated')
          )
-         .catch( error => this.setState({errorMessage: error.response.data.errorMessage}))
+         .catch( error => this.setErrorMessage(error))
   }
 
   sanitizeNums(value) {
@@ -167,17 +169,22 @@ class UserContainer extends RoutedComponent {
 
   submitNew(data, resource, selector) {
     let payload;
+    const capitalized = capitalize(selector)
     if(selector === 'card') {
       payload = this.buildParams(data)
     } else {
-      payload = data['account_id'] = this.state.account.id
+      payload = Object.assign({}, data, {
+        'account_id': this.state.account.id
+      })
     }
+    debugger
     BlitzApi.post(`${base_url}/${resource}`, payload)
     .then( res =>
           this.fetchUser(),
-          this.toggleModal(`new${capitalize(selector)}Modal`, false)
+          this.toggleModal(`new${capitalized}Modal`, false),
+          this.setSuccessMessage(`${capitalized} Successfully Created`)
          )
-         .catch( error => this.setState({errorMessage: error.response.data.errorMessage}))
+         .catch( error => this.setErrorMessage(error))
   }
 
   toggleModal(selector, visible, value={}) {
@@ -186,9 +193,18 @@ class UserContainer extends RoutedComponent {
     });
   }
 
+  setErrorMessage(error) {
+    this.setState({notification: { message: error.response.data.errorMessage, status: 'danger'}})
+  }
+
+  setSuccessMessage(message) {
+    this.setState({notification: { message, status: 'success'}})
+  }
+
   handlePasswordReset() {
     const payload = { email: this.state.user.email }
     this.props.resetUserPassword(payload)
+    this.setSuccessMessage('Email Sent')
   }
 
   getUserValues() {
@@ -201,8 +217,8 @@ class UserContainer extends RoutedComponent {
     return {first_name, last_name, email, id }
   }
 
-  clearErrorMessage() {
-    this.setState({errorMessage: null})
+  clearMessage() {
+    this.setState({notification: {}})
   }
 
   render() {
@@ -226,8 +242,9 @@ class UserContainer extends RoutedComponent {
           fetchAccount={this.fetchAccount}
           toggleModal={this.toggleModal}
           handlePasswordReset={this.handlePasswordReset}
-          clearErrorMessage={this.clearErrorMessage}
+          clearMessage={this.clearMessage}
           errorMessage={this.state.errorMessage}
+          notification={this.state.notification}
         />
         <EditUserModal
           initialValues={this.getUserValues()}
