@@ -15,6 +15,7 @@ import transactions from 'routes/admin/Dashboard/Transactions/modules/transactio
 import subscriptions from 'routes/admin/Dashboard/Subscriptions/modules/subscriptions';
 import users from 'routes/admin/Dashboard/Users/modules/users';
 import subscription from 'routes/client/Dashboard/AccountEdit/modules/subscription';
+import user from 'routes/admin/Dashboard/User/modules/user';
 
 export const makeRootReducer = (asyncReducers) => {
   return combineReducers({
@@ -35,6 +36,7 @@ export const makeRootReducer = (asyncReducers) => {
     subscriptions,
     subscription,
     users,
+    user,
     ...asyncReducers
   })
 }

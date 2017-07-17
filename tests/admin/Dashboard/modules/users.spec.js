@@ -66,7 +66,7 @@ const errorRes = {
   response: {data: {errorMessage: 'error message'}}
 }
 
-describe('(Tranactions module)', () => {
+describe('(Users module)', () => {
 
   it('should export constants', () => {
     expect(USERS_SUCCESS).to.equal('USERS_SUCCESS')

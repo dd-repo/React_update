@@ -58,7 +58,7 @@ const reducer = (state={}, action) => {
     case PAYMENT_FAILURE:
       return Object.assign({}, state, {
         isFetching: false,
-        errorMessage: action.error.response.data.errorMessage,
+        errorMessage: action.error.response.data.message,
         success: false
       })
     case USER_LOGOUT:

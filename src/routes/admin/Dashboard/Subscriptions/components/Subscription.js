@@ -1,4 +1,6 @@
 import React, { Component, PropTypes } from 'react';
+import { Link } from 'react-router';
+
 import { Button, Label } from 'components';
 
 import { formatDate } from 'utils/dateHelper';
@@ -42,7 +44,9 @@ const Subscription = props => {
           { id }
         </td>
         <td>
-          { client_name }
+          <Link to={`/admin/dashboard/users/client/${user_id}`}>
+            { client_name }
+          </Link>
         </td>
         <td>
           { user_id }
