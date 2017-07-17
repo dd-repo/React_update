@@ -76,13 +76,13 @@ const renderField = (props) => {
   )
 }
 
-const dropDownSelect = ({ input }) => {
-  const { name } = input
+const dropDownSelect = ({ input, title }) => {
+  const { name, value } = input
   const list = formFields[[name]].list
 
   return (
     <FormControl {...input} componentClass='select'>
-      <option value=''>Select a {name}...</option>
+      <option value=''>Select a {title}...</option>
       {list.map(state =>
                 <option value={state} key={state}>{state}</option>
                 )
@@ -144,15 +144,6 @@ let ClientRegistrationForm = (props) => {
                 </Row>
               </Col>
             </FormGroup>
-            <FormGroup controlId="formSizingColumn">
-              <Col sm={12}>
-                <Row>
-                  <Col sm={6}>
-                    {renderField(formFields.authnetId)}
-                  </Col>
-                </Row>
-              </Col>
-            </FormGroup>
           </Row>
         <Row>
           <Divider>
@@ -166,6 +157,7 @@ let ClientRegistrationForm = (props) => {
                 <Col sm={ 4 }>
                   <Field
                     name='plan'
+                    title='plan'
                     component={dropDownSelect}
                   />
                 </Col>
@@ -186,6 +178,7 @@ let ClientRegistrationForm = (props) => {
                   {renderField(formFields.fullName)}
                 </Col>
                 <Col sm={ 6 }>
+                  {renderField(formFields.creditCardNumber)}
                 </Col>
               </Row>
             </Col>
@@ -193,13 +186,10 @@ let ClientRegistrationForm = (props) => {
           <FormGroup controlId="formSizingColumn">
             <Col sm={12}>
               <Row>
-                <Col sm={ 4 }>
-                  {renderField(formFields.creditCardNumber)}
-                </Col>
-                <Col sm={ 4 }>
+                <Col sm={ 6 }>
                   {renderField(formFields.expirationDate)}
                 </Col>
-                <Col sm={ 4 }>
+                <Col sm={ 6 }>
                   {renderField(formFields.cvCode)}
                 </Col>
               </Row>
@@ -227,24 +217,24 @@ let ClientRegistrationForm = (props) => {
                 <Col sm={6}>
                   {renderField(formFields.city)}
                 </Col>
-                <Col sm={6}>
+                <Col sm={3}>
                   {renderField(formFields.zipcode)}
                 </Col>
-              </Row>
-            </Col>
-          </FormGroup>
-          <FormGroup controlId='formSizingColumn'>
-            <Col className='p-b-3' lg={12}>
-              <Row>
-                <Col sm={6}></Col>
-                <Col sm={6}>
-                  <label>
-                    State
-                  </label>
-                  <Field
-                    name='state'
-                    component={dropDownSelect}
-                  />
+                <Col sm={3}>
+                  <FormGroup controlId='formSizingColumn'>
+                    <Col className='p-b-3' lg={12}>
+                      <Row>
+                        <label>
+                          State
+                        </label>
+                        <Field
+                          name='state'
+                          title='state'
+                          component={dropDownSelect}
+                        />
+                      </Row>
+                    </Col>
+                  </FormGroup>
                 </Col>
               </Row>
             </Col>
@@ -289,6 +279,7 @@ let ClientRegistrationForm = (props) => {
                   </label>
                   <Field
                     name='kwState'
+                    title='state'
                     component={dropDownSelect}
                   />
                 </Col>

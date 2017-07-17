@@ -1,16 +1,25 @@
 import React, { PropTypes } from 'react';
+import { connect } from 'react-redux';
+
 import {
   Table,
   Button,
   Modal
 } from 'components'
 
-const CancelTransaction = props => {
-  const { transaction, show, toggleModal, handleClick } = props
+import { updateTransaction } from 'routes/admin/Dashboard/User/modules/transactions';
+
+const TransactionUpdateModal = ({ initialValues: transaction, hideModal, dispatch }) => {
+
   const buttonLabel = transaction.status === 'completed' ? 'Refund' : 'Charge'
 
+  const handleTransactionUpdate = () => {
+    hideModal()
+    dispatch(updateTransaction(transaction))
+  }
+
   return (
-    <Modal  show={show} onHide={() => { toggleModal('transactionEditModal', false) }}>
+    <Modal  show={true} onHide={hideModal}>
       <Modal.Header>
         <Modal.Title>Please confirm transaction before taking action</Modal.Title>
       </Modal.Header>
@@ -60,11 +69,11 @@ const CancelTransaction = props => {
       </Modal.Body>
 
       <Modal.Footer>
-        <Button onClick={() => { toggleModal('transactionEditModal', false)}}>Close</Button>
-        <Button bsStyle="danger" onClick={() => { handleClick(transaction) }}>{buttonLabel}</Button>
+        <Button onClick={hideModal}>Close</Button>
+        <Button bsStyle="danger" onClick={handleTransactionUpdate}>{buttonLabel}</Button>
       </Modal.Footer>
     </Modal>
   )
 }
 
-export default CancelTransaction;
+export default connect()(TransactionUpdateModal);

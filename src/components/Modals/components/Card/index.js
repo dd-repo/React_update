@@ -1,7 +1,10 @@
 import React, { PropTypes } from 'react';
+import { connect } from 'react-redux';
 import { reduxForm, Field } from 'redux-form';
+import { buildCreditCardParams } from 'utils/paramsHelper';
 
 import PaymentForm from 'routes/client/Payment/components/PaymentForm';
+import { addCard } from 'routes/admin/Dashboard/User/modules/cards';
 import {
     Col,
     Modal,
@@ -21,14 +24,15 @@ const renderInput = ({ input, type }) => {
   )
 }
 
-const NewCardModal = props => {
+const CardModal = props => {
 
   const _onSubmit = (data) => {
-    props.submitForm(data, 'card', 'post')
+    props.hideModal()
+    props.dispatch(addCard(buildCreditCardParams(data), props.userId))
   }
 
   return (
-      <Modal show={ props.show } onHide={() => { props.toggleModal('newCardModal', false) }}>
+      <Modal show={true} onHide={props.hideModal}>
         <Modal.Header closeButton>
           <Modal.Title>
             { 'Add Card ' }
@@ -44,18 +48,10 @@ const NewCardModal = props => {
   );
 }
 
-NewCardModal.propTypes = {
-    visible: PropTypes.bool,
-    onClose: PropTypes.func
-};
+const mapStateToProps = state => ({
+  userId: state.user.details.id
+})
 
-NewCardModal.defaultProps = {
-    onClose: () => { }
-};
-
-//const form = reduxForm({
-  //form: 'keywordNew'
-//})(NewCardModal)
-
-export default NewCardModal;
-
+export default connect(
+  mapStateToProps
+)(CardModal);

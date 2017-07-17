@@ -9,7 +9,7 @@ import {
 
 import classes from '../../user.scss';
 
-const Keywords = ({keywords, handleClick}) => (
+const Keywords = ({keywords, showModal}) => (
   <div>
     <ListGroup className={ classes.taskDetails }>
       {
@@ -22,7 +22,7 @@ const Keywords = ({keywords, handleClick}) => (
               { keyword.value }
             </div>
             <Button
-              onClick={() => { handleClick(keyword, 'edit') }}
+              onClick={() => { showModal('KEYWORD', keyword) }}
               bsSize='small'
               bsStyle='link'
             >

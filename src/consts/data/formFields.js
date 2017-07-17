@@ -146,7 +146,7 @@ const fields = {
   dob: {
     name: 'dob',
     type: 'text',
-    label: 'MM / DD / YYYY',
+    label: 'Date of Birth',
     errorMessage: 'Please enter a Date of Birth',
     normalize: normalizeDate
   },

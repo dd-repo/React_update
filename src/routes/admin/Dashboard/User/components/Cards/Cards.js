@@ -9,8 +9,13 @@ import {
 import { formatDate } from 'utils/dateHelper';
 import classes from '../user.scss';
 
-const Cards = ({ cards, toggleModal }) => (
-  cards ?
+const Cards = ({ user: { cards }, showModal }) => {
+
+  const _onClick = () => {
+    showModal('CARD')
+  }
+
+  return (
     <Panel
       header={
         <span>
@@ -20,14 +25,14 @@ const Cards = ({ cards, toggleModal }) => (
         </span>
         }
       >
-          <Button
-            onClick={() => { toggleModal('newCardModal', true) }}
-            className='pull-right'
-            bsSize='small'
-            bsStyle='success'
-          >
-            Add Card <i className='fa fa-plus'></i>
-          </Button>
+        <Button
+          onClick={_onClick}
+          className='pull-right'
+          bsSize='small'
+          bsStyle='success'
+        >
+          Add Card <i className='fa fa-plus'></i>
+        </Button>
         <Table>
           <thead>
             <tr>
@@ -64,9 +69,8 @@ const Cards = ({ cards, toggleModal }) => (
           }
         </Table>
       </Panel>
-        :
-          <div></div>
-)
+  )
+}
 
 
 const renderCards = card => (

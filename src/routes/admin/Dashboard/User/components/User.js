@@ -6,13 +6,15 @@ import capitalize from 'utils/capitalize';
 import classes from './user.scss';
 import AccountDetails from './AccountDetails/AccountDetails';
 import UserDetails from './UserDetails';
-import Transactions from './Transactions/Transactions';
+import Transactions from './Transactions';
 import Subscriptions from './Subscriptions/Subscriptions';
 import Cards from './Cards';
+import { RootModal } from 'components/Modals';
 
 import { Row, Col, Alert, Button, Loader } from 'components';
 
 const User = props => {
+
   const renderLoader = (
     props.isFetching &&
     <Loader />
@@ -26,7 +28,7 @@ const User = props => {
         </Link>
         <span className='text-muted m-x-1'>/</span>
         <span>
-          {capitalize(props.user.fullName)}
+          {capitalize(props.user.details.fullName)}
         </span>
       </h2>
     </div>
@@ -37,7 +39,7 @@ const User = props => {
       <Alert bsStyle={props.notification.status}>
          <Button
            bsStyle='link'
-           onClick={() => {props.clearMessage()}}
+           onClick={props.clearMessage}
          >
            <i className={`fa fa-times-circle fa-lg text-${props.notification.status} pull-right`}></i>
          </Button>
@@ -84,25 +86,15 @@ const User = props => {
       <div className={classes.mainWrap}>
         { renderUserDetails }
         { renderLoader }
+        <RootModal
+          hideModal={props.hideModal}
+        />
       </div>
   )
 }
 
-UserDetails.defaultProps = {
-  user: {},
-  account: {},
-  accounts: [],
-  transactions: [],
-  subscriptions: []
-}
-
 User.propTypes = {
   user: PropTypes.object,
-  account: PropTypes.object,
-  accounts: PropTypes.array,
-  transactions: PropTypes.array,
-  subscriptions: PropTypes.array,
-  isFetching: PropTypes.bool,
   toggelModal: PropTypes.func,
   handlePasswordReset: PropTypes.func
 }

@@ -1,6 +1,8 @@
 import React, { PropTypes } from 'react';
+import { connect } from 'react-redux';
 import { reduxForm, Field } from 'redux-form';
 
+import { submitKeyword } from 'routes/admin/Dashboard/User/modules/keywords';
 import {
     Col,
     Modal,
@@ -20,17 +22,18 @@ const renderInput = ({ input, type }) => {
   )
 }
 
-const NewKeywordModal = props => {
+const KeywordFormModal = props => {
 
   const _onSubmit = (data) => {
-    props.submitForm(data, 'keyword', 'post')
+    props.hideModal()
+    props.dispatch(submitKeyword(data, props.accountId))
   }
 
   return (
-      <Modal show={ props.show } onHide={() => { props.toggleModal('newKeywordModal', false) }}>
+      <Modal show={ true } onHide={props.hideModal}>
         <Modal.Header closeButton>
           <Modal.Title>
-            { 'Add Keyword ' }
+            { 'Edit Keyword ' }
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
@@ -48,7 +51,7 @@ const NewKeywordModal = props => {
               </Col>
             </FormGroup>
             <Modal.Footer>
-              <Button onClick={() => { props.toggleModal('newKeywordModal', false) } }>Close</Button>
+              <Button onClick={props.hideModal}>Close</Button>
               <Button bsStyle='primary' type='submit'>Save</Button>
             </Modal.Footer>
           </Form>
@@ -57,17 +60,15 @@ const NewKeywordModal = props => {
   );
 }
 
-NewKeywordModal.propTypes = {
-    visible: PropTypes.bool,
-    onClose: PropTypes.func
-};
-
-NewKeywordModal.defaultProps = {
-    onClose: () => { }
-};
-
 const reduxUserEdit = reduxForm({
-  form: 'keywordNew'
-})(NewKeywordModal)
+  form: 'keywordEdit',
+  enableReinitialize: true
+})(KeywordFormModal)
 
-export default reduxUserEdit;
+const mapStateToProps = state => ({
+  accountId: state.user.account.id
+})
+
+export default connect(
+  mapStateToProps
+)(reduxUserEdit);

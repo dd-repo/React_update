@@ -1,5 +1,8 @@
 import React, { PropTypes } from 'react';
+import { connect } from 'react-redux';
 import { reduxForm, Field } from 'redux-form';
+import { updateAddress } from 'routes/admin/Dashboard/User/modules/addresses';
+import states from 'consts/data/states';
 
 import {
     Col,
@@ -8,7 +11,8 @@ import {
     FormGroup,
     FormControl,
     ControlLabel,
-    Button
+    Button,
+    Divider
 } from 'components';
 
 const renderInput = ({ input, type }) => {
@@ -20,29 +24,35 @@ const renderInput = ({ input, type }) => {
   )
 }
 
-const AccountEditModal = props => {
+const dropDownSelect = ({ input, children }) => (
+  <FormControl {...input} componentClass='select'>
+    { children }
+  </FormControl>
+)
+
+const UpdateAddressModal = props => {
 
   const _onSubmit = (data) => {
-    props.submitForm(data, 'account', 'patch')
+    props.hideModal()
+    props.dispatch(updateAddress(data))
   }
 
   return (
-    props.initialValues ?
-      <Modal show={ props.show } onHide={() => { props.toggleModal('accountEditModal', false) }}>
+      <Modal show={ true } onHide={props.hideModal}>
         <Modal.Header closeButton>
           <Modal.Title>
-            { 'Edit Account ' }
+            { 'Edit Address' }
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form onSubmit={props.handleSubmit(_onSubmit)} horizontal>
             <FormGroup>
               <Col componentClass={ControlLabel} sm={3}>
-                First Name
+                Street
               </Col>
               <Col sm={9}>
                 <Field
-                  name='first_name'
+                  name='address1'
                   type='text'
                   component={renderInput}
                 />
@@ -50,11 +60,11 @@ const AccountEditModal = props => {
             </FormGroup>
             <FormGroup>
               <Col componentClass={ControlLabel} sm={3}>
-                Last Name
+                City
               </Col>
               <Col sm={9}>
                 <Field
-                  name='last_name'
+                  name='city'
                   type='text'
                   component={renderInput}
                 />
@@ -62,40 +72,46 @@ const AccountEditModal = props => {
             </FormGroup>
             <FormGroup>
               <Col componentClass={ControlLabel} sm={3}>
-                Email
+                State
               </Col>
               <Col sm={9}>
                 <Field
-                  name='email'
+                  name='state'
+                  component={dropDownSelect}
+                >
+                  {
+                    states.map((state, i) => (
+                      <option value={state} key={i}>{state}</option>
+                      ))
+                  }
+                </Field>
+              </Col>
+            </FormGroup>
+            <FormGroup>
+              <Col componentClass={ControlLabel} sm={3}>
+                Zip
+              </Col>
+              <Col sm={9}>
+                <Field
+                  name='zip'
                   type='text'
                   component={renderInput}
                 />
               </Col>
             </FormGroup>
-            <Modal.Footer>
-              <Button onClick={() => { props.toggleModal('accountEditModal', false) } }>Close</Button>
-              <Button bsStyle='primary' type='submit'>Save</Button>
-            </Modal.Footer>
-          </Form>
-        </Modal.Body>
-      </Modal>
-        :
-          <div></div>
+          <Modal.Footer>
+            <Button onClick={props.hideModal}>Close</Button>
+            <Button bsStyle='primary' type='submit'>Save</Button>
+          </Modal.Footer>
+        </Form>
+      </Modal.Body>
+    </Modal>
   );
 }
 
-AccountEditModal.propTypes = {
-  visible: PropTypes.bool,
-  onClose: PropTypes.func
-};
-
-AccountEditModal.defaultProps = {
-  onClose: () => { }
-};
-
 const reduxUserEdit = reduxForm({
-  form: 'accountEdit',
+  form: 'addressesEdit',
   enableReinitialize: true
-})(AccountEditModal)
+})(UpdateAddressModal)
 
-export default reduxUserEdit;
+export default connect()(reduxUserEdit);

@@ -10,7 +10,7 @@ import {
 import classes from '../../user.scss';
 import { normalizePhone } from 'utils/formHelpers';
 
-const Phones = ({phones, handleClick}) => (
+const Phones = ({phones, showModal}) => (
   <ListGroup className={ classes.taskDetails }>
     {
       phones.map((phone, i) => (
@@ -22,7 +22,7 @@ const Phones = ({phones, handleClick}) => (
             { normalizePhone(phone.phone_number) }
           </div>
           <Button
-            onClick={() => { handleClick(phone, 'edit') }}
+            onClick={() => { showModal('PHONE', phone) }}
             bsSize='small'
             bsStyle='link'
           >
