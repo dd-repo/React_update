@@ -85,7 +85,6 @@ export default class RemovalRequested extends Component {
           { age }
         </td>
         <td>
-          { address }
         </td>
         <td className='text-white'>
           <a href={siteURL} target='_blank'>
