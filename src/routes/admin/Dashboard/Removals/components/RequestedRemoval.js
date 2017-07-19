@@ -59,7 +59,7 @@ export default class RemovalRequested extends Component {
 
     const siteURL = `http://www.${site}`
     const friendlyURL = `www.${site}`
-    const address = addresses[0].address1
+    const address = addresses[0] ? addresses[0].address1 : ''
     const isComplete = status === 'completed'
     const removalStatus = REMOVAL_STATUS[status]
     const renderStatus = status === 'protected' ? 'completed' : status
