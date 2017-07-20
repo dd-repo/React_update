@@ -6,15 +6,8 @@ import {
   SUBSCRIPTIONS_PENDING,
   SUBSCRIPTIONS_SUCCESS,
   SUBSCRIPTIONS_FAILURE,
-  SUBSCRIPTION_UPDATE_PENDING,
-  SUBSCRIPTION_UPDATE_SUCCESS,
-  SUBSCRIPTION_UPDATE_FAILURE,
   SUBSCRIPTIONS_REQUEST,
   getSubscriptions,
-  updateSubscription,
-  updatingSubscription,
-  receiveSubscriptionUpdate,
-  receiveSubscriptionUpdateFailure,
   receiveSubscriptionsFailure,
   gettingSubscriptions,
   receiveSubscriptions,
@@ -53,9 +46,6 @@ describe('(Subscription module)', () => {
     expect(SUBSCRIPTIONS_PENDING).to.equal('SUBSCRIPTIONS_PENDING')
     expect(SUBSCRIPTIONS_SUCCESS).to.equal('SUBSCRIPTIONS_SUCCESS')
     expect(SUBSCRIPTIONS_FAILURE).to.equal('SUBSCRIPTIONS_FAILURE')
-    expect(SUBSCRIPTION_UPDATE_PENDING).to.equal('SUBSCRIPTION_UPDATE_PENDING')
-    expect(SUBSCRIPTION_UPDATE_SUCCESS).to.equal('SUBSCRIPTION_UPDATE_SUCCESS')
-    expect(SUBSCRIPTION_UPDATE_FAILURE).to.equal('SUBSCRIPTION_UPDATE_FAILURE')
     expect(SUBSCRIPTIONS_REQUEST).to.equal('/admin/api/subscriptions')
   })
 
@@ -82,28 +72,6 @@ describe('(Subscription module)', () => {
 
     it('Should return a type with data', () => {
       expect(receiveSubscriptionsFailure(errorRes)).to.have.property('error', errorRes)
-    })
-  })
-
-  describe('(Action Creator) updatingSubscription', () => {
-    it('Should return a type with "SUBSCRIPTION_UPDATE_PENDING"', () => {
-      expect(updatingSubscription()).to.have.property('type', SUBSCRIPTION_UPDATE_PENDING)
-    })
-  })
-
-  describe('(Action Creator) receiveSubscriptionUpdate', () => {
-    it('Should return a type with "SUBSCRIPTION_UPDATE_SUCCESS"', () => {
-      expect(receiveSubscriptionUpdate()).to.have.property('type', SUBSCRIPTION_UPDATE_SUCCESS)
-    })
-  })
-
-  describe('(Action Creator) receiveSubscriptionUpdateFailure', () => {
-    it('Should return a type with "SUBSCRIPTION_UPDATE_FAILURE"', () => {
-      expect(receiveSubscriptionUpdateFailure()).to.have.property('type', SUBSCRIPTION_UPDATE_FAILURE)
-    })
-
-    it('Should return a type with error', () => {
-      expect(receiveSubscriptionUpdateFailure(errorRes)).to.have.property('error', errorRes)
     })
   })
 
@@ -163,62 +131,6 @@ describe('(Subscription module)', () => {
     })
   })
 
-  describe('(Async Action Creator) "updateSubscription"', () => {
-    let subscriptionApi;
-
-    beforeEach(() => {
-     subscriptionApi = sinon.stub(BlitzApi, 'patch')
-    })
-
-    afterEach(() => {
-      subscriptionApi.restore()
-    })
-
-    it('Should be exported as a function', () => {
-      expect(updateSubscription).to.be.a('function')
-    })
-
-    it('should return a function (is a thunk)', () => {
-      expect(updateSubscription()).to.be.a('function')
-    })
-
-    it('creates SUBSCRIPTION_UPDATE_SUCCESS', (done) => {
-      const resolved = new Promise((r) => r({data: ""}));
-      subscriptionApi.returns(resolved)
-
-      const expectedActions = [
-        { type: SUBSCRIPTION_UPDATE_PENDING },
-        { type: SUBSCRIPTION_UPDATE_SUCCESS, data: "" }
-      ]
-
-      const store = mockStore({ subscriptions: {} })
-
-      return store.dispatch(updateSubscription())
-      .then(() => {
-        expect(store.getActions()).to.eql(expectedActions)
-        done();
-      })
-    })
-
-    it('creates SUBSCRIPTIONS_FAILURE', (done) => {
-      const rejected = new Promise((_, r) => r(errorRes));
-      subscriptionApi.returns(rejected)
-
-      const expectedActions = [
-        { type: SUBSCRIPTION_UPDATE_PENDING },
-        { type: SUBSCRIPTION_UPDATE_FAILURE, error: errorRes }
-      ]
-
-      const store = mockStore({ subscriptions: {} })
-
-      return store.dispatch(updateSubscription())
-      .then(() => {
-        expect(store.getActions()).to.eql(expectedActions)
-        done();
-      })
-    })
-  })
-
   describe('(Reducer)', () => {
 
     it('Should be a function.', () => {
@@ -263,32 +175,6 @@ describe('(Subscription module)', () => {
       })).to.eql({
         error: errorRes,
         isFetching: false
-      })
-    })
-
-    it('should handle SUBSCRIPTION_UPDATE_PENDING', () => {
-      expect(reducer({}, {
-        type: SUBSCRIPTION_UPDATE_PENDING
-      })).to.eql({
-        isFetching: true
-      })
-    })
-
-    it('should handle SUBSCRIPTION_UPDATE_SUCCESS', () => {
-      expect(reducer({}, {
-        type: SUBSCRIPTION_UPDATE_SUCCESS
-      })).to.eql({
-        isFetching: false
-      })
-    })
-
-    it('should handle SUBSCRIPTION_UPDATE_FAILURE', () => {
-      expect(reducer({}, {
-        type: SUBSCRIPTION_UPDATE_FAILURE,
-        error: errorRes
-      })).to.eql({
-        isFetching: false,
-        error: errorRes
       })
     })
   })
