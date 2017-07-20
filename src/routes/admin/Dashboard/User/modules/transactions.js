@@ -8,7 +8,7 @@ export const UPDATE_TRANSACTION_REQUEST = '/admin/api/transactions';
 export const updateTransaction = transaction => {
   const action = transaction.status === 'completed' ? 'refund' : 'update-charge'
   const path = `${UPDATE_TRANSACTION_REQUEST}/${action}`
-  const payload = { transaction }
+  const payload = { id: transaction.id }
 
   return dispatch => {
     return BlitzApi.patch(path, payload)
@@ -31,13 +31,16 @@ export const updateTransactionFailure = error => (
   }
 )
 
-const insertTransaction = (state, transaction) => {
+export const insertTransaction = (state=[], transaction) => {
   const index = state.findIndex(t => t.id === transaction.id)
-  return [
-    ...state.slice(0, index),
-    transaction,
-    ...state.slice(index + 1)
-  ]
+  if(index !== -1) {
+    return [
+      ...state.slice(0, index),
+      transaction,
+      ...state.slice(index + 1)
+    ]
+  }
+  return state
 }
 
 const reducer = (state=[], action) => {

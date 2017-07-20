@@ -90,7 +90,7 @@ const User = props => {
           <Col lg={12}>
             <Transactions
               transactions={props.user.transactions}
-              showMdoal={props.showModal}
+              showModal={props.showModal}
             />
           </Col>
         </Row>

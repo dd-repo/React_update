@@ -2,7 +2,8 @@ import BlitzApi from 'services/BlitzApi';
 
 import {
   UPDATE_TRANSACTION_SUCCESS,
-  UPDATE_TRANSACTION_FAILURE
+  UPDATE_TRANSACTION_FAILURE,
+  insertTransaction
 } from 'routes/admin/Dashboard/User/modules/transactions';
 
 // action types
@@ -74,7 +75,7 @@ const reducer = (state={}, action) => {
       });
     case UPDATE_TRANSACTION_SUCCESS:
       return Object.assign({}, state, {
-        all: updateTransaction(state.all, action.data),
+        all: insertTransaction(state.all, action.data),
       })
     case UPDATE_TRANSACTION_FAILURE:
       return Object.assign({}, state, {

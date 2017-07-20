@@ -10,10 +10,6 @@ import classes from '../user.scss';
 const Transactions = (props) => {
  const { transactions, showModal} = props
 
-  const confirmTransaction = transaction => {
-    showModal('TRANSACTION', transaction)
-  }
-
   return (
     <Panel
       header={
@@ -64,7 +60,7 @@ const Transactions = (props) => {
             transactions.map(transaction => {
               return <Transaction
                 transaction={transaction}
-                confirmTransaction={confirmTransaction}
+                showModal={showModal}
                 key={transaction.id}
               />
               })

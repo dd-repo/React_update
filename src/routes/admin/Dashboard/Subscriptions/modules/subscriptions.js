@@ -10,7 +10,6 @@ import {
 export const SUBSCRIPTIONS_PENDING = 'SUBSCRIPTIONS_PENDING';
 export const SUBSCRIPTIONS_SUCCESS = 'SUBSCRIPTIONS_SUCCESS';
 export const SUBSCRIPTIONS_FAILURE = 'SUBSCRIPTIONS_FAILURE';
-
 export const SUBSCRIPTIONS_REQUEST = '/admin/api/subscriptions';
 
 // actions

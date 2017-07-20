@@ -67,7 +67,7 @@ const initialValues = {
 }
 
 const setErrorMessage = (state, error) => {
-  console.log('error', error)
+  console.log('error message', error)
   return  Object.assign({}, state, {
     message: error.response.data.errorMessage,
     status: 'danger'
