@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { hideModal } from 'modules/modal';
-import UserModal from './components/UpdateUser';
+import UserModal from './components/User';
 import AccountModal from './components/UpdateAccount';
 import TransactionModal from './components/UpdateTransaction';
 import KeywordModal from './components/UpdateKeyword';

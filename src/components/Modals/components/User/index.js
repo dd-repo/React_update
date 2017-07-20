@@ -138,3 +138,4 @@ const reduxUserEdit = reduxForm({
 })(UpdateUser)
 
 export default connect()(reduxUserEdit);
+
