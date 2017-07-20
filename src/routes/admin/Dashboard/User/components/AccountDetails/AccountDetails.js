@@ -21,6 +21,14 @@ import Profile from './components/Profile';
 import { formatDate } from 'utils/dateHelper';
 import classes from '../user.scss';
 
+const MODAL_TYPE = {
+  'Account': 'ACCOUNT',
+  'Addresses': 'ADDRESS',
+  'Keywords': 'KEYWORD',
+  'Phones': 'PHONE',
+  'Profile': 'PROFILE'
+}
+
 class AccountDetails extends React.Component {
   constructor(props) {
     super(props)
@@ -35,39 +43,38 @@ class AccountDetails extends React.Component {
   }
 
   _handleClick(value = {}, type) {
-    this.props.toggleModal(this.getModalName(this.state.tabKey, type), true, value)
-  }
-
-  getModalName(selector, type) {
-    if(type === 'edit') {
-      if(selector === 'Addresses') {
-        return 'addressEditModal'
-      } else {
-        const formattedSelector = selector.replace(/s$/, '').toLowerCase()
-        return `${formattedSelector}EditModal`
-      }
-    }else{
-      const formattedSelector = selector.replace(/s$/, '')
-      return `new${formattedSelector}Modal`
+    if(type = 'edit') {
+      this.props.showModal(MODAL_TYPE[this.state.tabKey], value)
+    }
+    if(type = 'new') {
+      this.props.showModal(MODAL_TYPE[this.state.tabKey])
     }
   }
 
   getValue() {
     if(this.state.tabKey == 'Account') {
-      return this.props.account
+      return this.props.user.account
     }
     if(this.state.tabKey === 'Profile') {
-      return this.props.account.profile
+      return this.props.user.profile
     }
   }
 
   render() {
 
-    const {isFetching, accounts, account, fetchAccount } = this.props
+    const {
+      user: {
+        accounts,
+        account,
+        keywords,
+        addresses,
+        profile,
+        phones
+      }, fetchAccount } = this.props
+
     const { tabKey } = this.state
 
     return (
-      !isFetching &&
         <Panel
           maxHeight={312}
           header={
@@ -102,7 +109,7 @@ class AccountDetails extends React.Component {
                   {
                     (tabKey === 'Account' || tabKey === 'Profile') &&
                       <Button
-                        onClick={() => {this._handleClick(this.getValue(), 'edit')}}
+                        onClick={() => {this.props.showModal(MODAL_TYPE[this.state.tabKey], this.getValue())}}
                         bsStyle='primary'>
                           <i className="fa fa-pencil"></i> Edit {this.state.tabKey}
                         </Button>
@@ -111,70 +118,71 @@ class AccountDetails extends React.Component {
                       {
                         (tabKey === 'Keywords') &&
                           <Button
-                            onClick={() => {this._handleClick({}, 'new') }}
+                            onClick={() => {this.props.showModal(MODAL_TYPE[this.state.tabKey]) }}
                             bsStyle='success'
                           >
                             Add Keyword <i className='fa fa-plus fa-lg'></i>
                           </Button>
 
+                          }
+                        </span>
+                      </div>
                       }
-                      </span>
-                </div>
-                }
-              >
-                <Tab.Container id="profile-tabs" defaultActiveKey="overview">
-                  <div>
-                    <Nav onClick={this._onClick} bsStyle='tabs'>
-                      <NavItem eventKey='overview'>
-                        Account
-                      </NavItem>
-                      <NavItem eventKey='keywords'>
-                        Keywords
-                      </NavItem>
-                      <NavItem eventKey='addresses'>
-                        Addresses
-                      </NavItem>
-                      <NavItem eventKey='phones'>
-                        Phones
-                      </NavItem>
-                      <NavItem eventKey='profile'>
-                        Profile
-                      </NavItem>
-                    </Nav>
-                    <Tab.Content animation>
-                      <Tab.Pane eventKey='overview'>
-                        <Account account={account} />
-                      </Tab.Pane>
-                      <Tab.Pane eventKey='keywords'>
-                        <Keywords
-                          keywords={account.keywords || []}
-                          handleClick={this._handleClick}
-                        />
-                      </Tab.Pane>
-                      <Tab.Pane eventKey='addresses'>
-                        <Addresses
-                          addresses={account.addresses || []}
-                          handleClick={this._handleClick}
-                        />
-                      </Tab.Pane>
-                      <Tab.Pane eventKey='phones'>
-                        <Phones
-                          phones={account.phones || []}
-                          handleClick={this._handleClick}
-                        />
-                      </Tab.Pane>
-                      <Tab.Pane eventKey='profile'>
-                        <Profile profile={account.profile || {}} />
-                      </Tab.Pane>
-                    </Tab.Content>
-                  </div>
-                </Tab.Container>
-              </Panel>
+                    >
+                      <Tab.Container id="profile-tabs" defaultActiveKey="overview">
+                        <div>
+                          <Nav onClick={this._onClick} bsStyle='tabs'>
+                            <NavItem eventKey='overview'>
+                              Account
+                            </NavItem>
+                            <NavItem eventKey='keywords'>
+                              Keywords
+                            </NavItem>
+                            <NavItem eventKey='addresses'>
+                              Addresses
+                            </NavItem>
+                            <NavItem eventKey='phones'>
+                              Phones
+                            </NavItem>
+                            <NavItem eventKey='profile'>
+                              Profile
+                            </NavItem>
+                          </Nav>
+                          <Tab.Content animation>
+                            <Tab.Pane eventKey='overview'>
+                              <Account account={account} />
+                            </Tab.Pane>
+                            <Tab.Pane eventKey='keywords'>
+                              <Keywords
+                                keywords={keywords}
+                                showModal={this.props.showModal}
+                              />
+                            </Tab.Pane>
+                            <Tab.Pane eventKey='addresses'>
+                              <Addresses
+                                addresses={addresses}
+                                showModal={this.props.showModal}
+                              />
+                            </Tab.Pane>
+                            <Tab.Pane eventKey='phones'>
+                              <Phones
+                                phones={phones}
+                                showModal={this.props.showModal}
+                              />
+                            </Tab.Pane>
+                            <Tab.Pane eventKey='profile'>
+                              <Profile profile={profile} />
+                            </Tab.Pane>
+                          </Tab.Content>
+                        </div>
+                      </Tab.Container>
+                    </Panel>
     );
   }
 }
 
 AccountDetails.propTypes = {
+  user: PropTypes.object,
   account: PropTypes.object,
   accounts: PropTypes.array,
   fetchAccount: PropTypes.func,

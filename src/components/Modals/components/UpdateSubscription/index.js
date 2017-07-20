@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react';
+import { connect } from 'react-redux';
 import { reduxForm, Field } from 'redux-form';
 
 import {
@@ -10,17 +11,18 @@ import {
     ControlLabel,
     Button
 } from 'components';
-
+import { updateSubscription } from 'routes/admin/Dashboard/User/modules/subscriptions';
 import SubscriptionForm from 'components/Forms/Subscription';
 
 const SubscriptionEditModal = props => {
 
   const _onSubmit = data => {
-    props.submitForm(data, 'subscription', 'patch')
+    props.hideModal()
+    props.dispatch(updateSubscription(data))
   }
 
   return (
-    <Modal show={ props.show } onHide={() => { props.toggleModal('subscriptionEditModal', false) }}>
+    <Modal show={true} onHide={props.hideModal}>
       <Modal.Header closeButton>
         <Modal.Title>
           { 'Edit Subscription' }
@@ -37,14 +39,9 @@ const SubscriptionEditModal = props => {
     </Modal>
   );
 }
-
-SubscriptionEditModal.propTypes = {
-    visible: PropTypes.bool,
-    onClose: PropTypes.func
-};
-
-SubscriptionEditModal.defaultProps = {
-    onClose: () => { }
-};
-
-export default SubscriptionEditModal;
+const mapStateToProps = state => ({
+   cards: state.user.cards
+})
+export default connect(
+  mapStateToProps
+)(SubscriptionEditModal);

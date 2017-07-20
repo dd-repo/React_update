@@ -11,7 +11,7 @@ import {
 import classes from '../user.scss';
 
 const UserDetails = props => {
-  const { accounts , user } = props
+  const { accounts , details: user } = props.user
 
   return !props.isFetching &&
     <Panel
@@ -23,7 +23,7 @@ const UserDetails = props => {
         footer={
           <div className='text-right'>
             <Button
-              onClick={() => { props.toggleModal('userEditModal', true, user)}}
+              onClick={() => { props.showModal('USER', user)}}
               bsStyle='primary'
             >
               <i className="fa fa-pencil"></i> Edit Subscriber
@@ -58,7 +58,7 @@ const UserDetails = props => {
                 Full Name
               </h5>
               <div className={ classes.detailsValue }>
-                { user.first_name } { user.last_name }
+                { user.fullName }
               </div>
             </ListGroupItem>
             <ListGroupItem className='flex-space-between'>
@@ -83,14 +83,6 @@ const UserDetails = props => {
             </ListGroupItem>
             <ListGroupItem className='flex-space-between'>
               <h5 className={ classes.detailsKey }>
-                AuthNet Id
-              </h5>
-              <div className={ classes.detailsValue }>
-                { user.authnet_id }
-              </div>
-            </ListGroupItem>
-            <ListGroupItem className='flex-space-between'>
-              <h5 className={ classes.detailsKey }>
                 Number of Accounts
               </h5>
               <div className={ classes.detailsValue }>
@@ -112,6 +104,7 @@ const UserDetails = props => {
 UserDetails.propsTypes = {
   user: PropTypes.object,
   accounts: PropTypes.array,
+  showModal: PropTypes.func,
   handlePasswordReset: PropTypes.func,
   toggleModal: PropTypes.func
 }

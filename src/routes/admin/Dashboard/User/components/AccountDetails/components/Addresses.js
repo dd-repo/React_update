@@ -12,7 +12,7 @@ import {
 
 import classes from '../../user.scss';
 
-const Addresses = ({addresses, handleClick}) => (
+const Addresses = ({addresses, showModal}) => (
   <div>
     {
       addresses.map((address, i) => (
@@ -65,7 +65,7 @@ const Addresses = ({addresses, handleClick}) => (
                 <ListGroupItem>
                   <Button
                     className='pull-right'
-                    onClick={() => { handleClick(address, 'edit') }}
+                    onClick={() => { showModal('ADDRESS', address) }}
                     bsSize='small'
                     bsStyle='link'
                   >

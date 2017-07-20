@@ -165,44 +165,44 @@ const cards = [
   }
 ]
 
-describe('<UserContainer/>', () => {
-  const initialState = {}
-  const mockStore = configureMockStore()
-  let store, container, Api
-  const resolvedUser = new Promise((r) => r({ data: response}));
+//describe('<UserContainer/>', () => {
+  //const initialState = {}
+  //const mockStore = configureMockStore()
+  //let store, container, Api
+  //const resolvedUser = new Promise((r) => r({ data: response}));
 
-  beforeEach(() => {
-    Api = sinon.stub(BlitzApi, 'get')
-    Api.returns(resolvedUser)
-    store = mockStore(initialState)
-    container = mount(
-      <Provider store={store}>
-        <UserContainer location={{}}/>
-      </Provider>
-        )
-  })
+  //beforeEach(() => {
+    //Api = sinon.stub(BlitzApi, 'get')
+    //Api.returns(resolvedUser)
+    //store = mockStore(initialState)
+    //container = mount(
+      //<Provider store={store}>
+        //<UserContainer location={{}}/>
+      //</Provider>
+        //)
+  //})
 
-  afterEach(() => {
-    Api.restore()
-  })
+  //afterEach(() => {
+    //Api.restore()
+  //})
 
-  it('renders <Loader/> by default', () => {
-    const userDetails = container.find('UserDetails')
-    const loader = container.find('Loader')
+  //it('renders <Loader/> by default', () => {
+    //const userDetails = container.find('UserDetails')
+    //const loader = container.find('Loader')
 
-    expect(container.length).to.eq(1)
-    expect(loader.length).to.eq(1)
-    expect(userDetails.length).to.eq(0)
-    //console.log('user', container.find('User').node.props)
-  })
+    //expect(container.length).to.eq(1)
+    //expect(loader.length).to.eq(1)
+    //expect(userDetails.length).to.eq(0)
+    ////console.log('user', container.find('User').node.props)
+  //})
 
-  it('renders the <UserDetails /> when loaded', () => {
-    const loader = container.find('Loader')
-    const userDetails = container.find('UserDetails')
+  //it('renders the <UserDetails /> when loaded', () => {
+    //const loader = container.find('Loader')
+    //const userDetails = container.find('UserDetails')
 
-    //console.log('container', container)
+    ////console.log('container', container)
 
-    expect(loader.length).to.eq(1)
-    expect(userDetails.length).to.eq(0)
-  })
-})
+    //expect(loader.length).to.eq(1)
+    //expect(userDetails.length).to.eq(0)
+  //})
+//})

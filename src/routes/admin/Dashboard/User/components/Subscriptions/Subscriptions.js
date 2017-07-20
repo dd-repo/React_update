@@ -15,14 +15,13 @@ const button = {
   style: 'link'
 }
 
-const Subscriptions = ({isFetching, subscriptions, toggleModal}) => {
+const Subscriptions = ({isFetching, user: { subscriptions }, showModal}) => {
 
   const _onClick = subscription => {
-   toggleModal('subscriptionEditModal', true, subscription)
+   showModal("SUBSCRIPTION", subscription)
   }
 
   return (
-    !isFetching &&
       <Panel
         header={
           <h4 className='panel-title'>
