@@ -140,9 +140,7 @@ const Transactions = (props) => {
         { renderTransactions }
       </Table>
 
-      <RootModal
-        hideModal={hideModal}
-      />
+      <RootModal />
 
       { renderPagination }
       { renderLoader }
@@ -155,8 +153,6 @@ Transactions.PropTypes = {
   paginationItems: PropTypes.number,
   pageNum: PropTypes.number,
   isFetching: PropTypes.bool,
-  updateTransaction: PropTypes.func,
-  confirmTransaction: PropTypes.func,
   getNextPage: PropTypes.func,
   handleSearch: PropTypes.func,
   queryName: PropTypes.string,

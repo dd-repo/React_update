@@ -53,24 +53,23 @@ class AccountDetails extends React.Component {
 
   getValue() {
     if(this.state.tabKey == 'Account') {
-      return this.props.user.account
+      return this.props.account
     }
     if(this.state.tabKey === 'Profile') {
-      return this.props.user.profile
+      return this.props.profile
     }
   }
 
   render() {
-
     const {
-      user: {
         accounts,
         account,
         keywords,
         addresses,
         profile,
-        phones
-      }, fetchAccount } = this.props
+        phones,
+        fetchAccount
+    } = this.props
 
     const { tabKey } = this.state
 

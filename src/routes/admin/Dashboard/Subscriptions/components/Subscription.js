@@ -2,7 +2,6 @@ import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
 
 import { Button, Label } from 'components';
-
 import { formatDate } from 'utils/dateHelper';
 
 const Subscription = props => {
@@ -23,11 +22,15 @@ const Subscription = props => {
 
   const isActive = is_active ? 'Active' : 'Canceled'
 
+  const _onClick = () => {
+    props.handleClick(props.subscription)
+  }
+
   const renderButton = (
       <Button
         bsSize={props.button.size}
         bsStyle={props.button.style}
-        onClick={() => {props._onClick(props.subscription)}}
+        onClick={_onClick}
       >
         { props.button.label }
       </Button>
@@ -87,7 +90,7 @@ const Subscription = props => {
 
 Subscription.propTypes = {
   subscription: PropTypes.object,
-  _onClick: PropTypes.func.isRequired,
+  handleClick: PropTypes.func.isRequired,
   button: PropTypes.object
 }
 

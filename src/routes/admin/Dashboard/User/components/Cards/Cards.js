@@ -9,7 +9,7 @@ import {
 import { formatDate } from 'utils/dateHelper';
 import classes from '../user.scss';
 
-const Cards = ({ user: { cards }, showModal }) => {
+const Cards = ({ cards, showModal }) => {
 
   const _onClick = () => {
     showModal('CARD')

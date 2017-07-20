@@ -31,13 +31,16 @@ export const updateSubscriptionFailure = error => (
   }
 )
 
-const insertSubscription = (state, subscription) => {
+export const insertSubscription = (state=[], subscription) => {
   const index = state.findIndex(s => s.id === subscription.id)
-  return [
-    ...state.slice(0, index),
-    subscription,
-    ...state.slice(index + 1)
-  ]
+  if(index !== -1) {
+    return [
+      ...state.slice(0, index),
+      subscription,
+      ...state.slice(index + 1)
+    ]
+  }
+  return state
 }
 const reducer = (state=[], action) => {
   switch(action.type) {

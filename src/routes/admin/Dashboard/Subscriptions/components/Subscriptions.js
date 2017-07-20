@@ -1,8 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 import Loading from 'react-loading';
 
+import RootModal from 'components/Modals';
 import Subscription from './Subscription';
-
 import {
   Table,
   Col,
@@ -26,18 +26,6 @@ const button = {
 export default class Subscriptions extends Component {
   constructor(props) {
     super(props)
-
-    this._handleClick = this._handleClick.bind(this);
-    this._onClick = this._onClick.bind(this);
-  }
-
-  _handleClick(data) {
-    this.props.handleClick(data)
-    this.props.hideModal()
-  }
-
-  _onClick(subscription) {
-    this.props.editSubscription(subscription)
   }
 
   render() {
@@ -48,15 +36,10 @@ export default class Subscriptions extends Component {
       getNextPage,
       isFetching,
       handleClick,
-      showModal,
-      hideModal,
-      editSubscription,
-      subscriptionToEdit,
       handleSearch,
       resultCount,
       queryName,
-      limit,
-      cards
+      limit
     } = this.props
 
     const renderPagination = (
@@ -85,8 +68,8 @@ export default class Subscriptions extends Component {
           <Subscription
             subscription={subscription}
             key={subscription.id}
+            handleClick={handleClick}
             button={button}
-            _onClick={this._onClick}
           />
         )
     )
@@ -148,14 +131,8 @@ export default class Subscriptions extends Component {
         { renderPagination }
         { renderLoader }
 
-        <EditSubscriptionModal
-          show={showModal}
-          initialValues={subscriptionToEdit}
-          cards={cards}
-          submitForm={this._handleClick}
-          toggleModal={hideModal}
-          isFetching={isFetching}
-        />
+        <RootModal />
+
       </Row>
     )
   }
@@ -168,10 +145,6 @@ Subscriptions.propTypes = {
   isFetching: PropTypes.bool,
   getNextPage: PropTypes.func.isRequired,
   handleClick: PropTypes.func.isRequired,
-  editSubscription: PropTypes.func.isRequired,
-  showModal: PropTypes.bool,
-  hideModal: PropTypes.func,
-  subscriptionToEdit: PropTypes.object,
   queryName: PropTypes.string,
   handleSearch: PropTypes.func,
   resultCount: PropTypes.number,

@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { hideModal } from 'modules/modal';
 import UserModal from './components/UpdateUser';
 import AccountModal from './components/UpdateAccount';
 import TransactionModal from './components/UpdateTransaction';
@@ -22,13 +23,17 @@ const MODAL_COMPONENTS = {
   'CARD':         CardModal
 }
 
-const ModalRoot = ({ modalType, modalProps, hideModal }) => {
+const ModalRoot = ({ modalType, modalProps, dispatch }) => {
   if(!modalType) {
     return <span />
   }
 
+  const _hideModal = () => {
+    dispatch(hideModal())
+  }
+
   const SpecificModal = MODAL_COMPONENTS[modalType]
-  return <SpecificModal initialValues={modalProps} hideModal={hideModal} />
+  return <SpecificModal initialValues={modalProps} hideModal={_hideModal} />
 }
 
 export default connect(

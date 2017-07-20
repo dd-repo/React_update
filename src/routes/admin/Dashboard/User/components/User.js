@@ -58,25 +58,48 @@ const User = props => {
         </Row>
         <Row className='m-t-3'>
           <Col lg={ 6 }>
-            <UserDetails {...props} />
+            <UserDetails
+              user={props.user.details}
+              accounts={props.user.accounts}
+              showModal={props.showModal}
+              handlePasswordReset={props.handlePasswordReset}
+            />
           </Col>
           <Col lg={6}>
-            <AccountDetails {...props} />
+            <AccountDetails
+              accounts={props.user.accounts}
+              account={props.user.account}
+              keywords={props.user.keywords}
+              addresses={props.user.addresses}
+              profile={props.user.profile}
+              phones={props.user.phones}
+              showModal={props.showModal}
+              fetchAccount={props.fetchAccount}
+            />
           </Col>
         </Row>
         <Row>
           <Col lg={12}>
-            <Cards {...props} />
+            <Cards
+              cards={props.user.cards}
+              showModal={props.showModal}
+            />
           </Col>
         </Row>
         <Row>
           <Col lg={12}>
-            <Transactions {...props} />
+            <Transactions
+              transactions={props.user.transactions}
+              showMdoal={props.showModal}
+            />
           </Col>
         </Row>
         <Row>
           <Col lg={12}>
-            <Subscriptions {...props} />
+            <Subscriptions
+              subscriptions={props.user.subscriptions}
+              showModal={props.showModal}
+            />
           </Col>
         </Row>
       </div>
@@ -86,16 +109,13 @@ const User = props => {
       <div className={classes.mainWrap}>
         { renderUserDetails }
         { renderLoader }
-        <RootModal
-          hideModal={props.hideModal}
-        />
+        <RootModal />
       </div>
   )
 }
 
 User.propTypes = {
   user: PropTypes.object,
-  toggelModal: PropTypes.func,
   handlePasswordReset: PropTypes.func
 }
 

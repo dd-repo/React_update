@@ -11,9 +11,8 @@ import {
 import classes from '../user.scss';
 
 const UserDetails = props => {
-  const { accounts , details: user } = props.user
-
-  return !props.isFetching &&
+  const { accounts , user, showModal, handlePasswordReset } = props
+  return (
     <Panel
       header={
         <h4 className='panel-title'>
@@ -23,7 +22,7 @@ const UserDetails = props => {
         footer={
           <div className='text-right'>
             <Button
-              onClick={() => { props.showModal('USER', user)}}
+              onClick={() => { showModal('USER', user)}}
               bsStyle='primary'
             >
               <i className="fa fa-pencil"></i> Edit Subscriber
@@ -75,7 +74,7 @@ const UserDetails = props => {
               </h5>
               <Button
                 className='userDetailEditButton'
-                onClick={() => { props.handlePasswordReset() }}
+                onClick={handlePasswordReset}
                 bsStyle='link'
               >
                 <icon className='fa fa-share'></icon> Send Password Reset
@@ -99,6 +98,7 @@ const UserDetails = props => {
             </ListGroupItem>
           </ListGroup>
         </Panel>
+  )
 }
 
 UserDetails.propsTypes = {

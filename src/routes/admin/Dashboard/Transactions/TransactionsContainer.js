@@ -2,12 +2,7 @@ import React from 'react';
 
 import { RoutedComponent, connect } from 'routes/routedComponent';
 import { CONTENT_VIEW_STATIC } from 'layouts/DefaultLayout/modules/layout';
-import {
-  TRANSACTION_CANCEL_SUCCESS,
-  TRANSACTION_CANCEL_FAILURE,
-  getTransactions,
-  cancelTransaction
-} from './modules/transactions'
+import { getTransactions } from './modules/transactions'
 import { showModal, hideModal } from 'modules/modal';
 import Transactions from './components/Transactions';
 
@@ -98,7 +93,6 @@ const mapStateToProps = state => {
 
 const mapActionCreators = {
   getTransactions,
-  cancelTransaction,
   showModal,
   hideModal
 }

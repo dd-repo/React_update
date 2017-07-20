@@ -15,9 +15,9 @@ const button = {
   style: 'link'
 }
 
-const Subscriptions = ({isFetching, user: { subscriptions }, showModal}) => {
+const Subscriptions = ({subscriptions, showModal}) => {
 
-  const _onClick = subscription => {
+  const handleClick = subscription => {
    showModal("SUBSCRIPTION", subscription)
   }
 
@@ -72,7 +72,7 @@ const Subscriptions = ({isFetching, user: { subscriptions }, showModal}) => {
                   subscription={subscription}
                   key={subscription.id}
                   button={button}
-                  _onClick={_onClick}
+                  handleClick={handleClick}
                 />
               })
             }

@@ -39,6 +39,7 @@ const SubscriptionEditModal = props => {
     </Modal>
   );
 }
+
 const mapStateToProps = state => ({
    cards: state.user.cards
 })

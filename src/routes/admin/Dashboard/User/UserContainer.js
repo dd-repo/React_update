@@ -2,10 +2,7 @@ import React from 'react';
 
 import { RoutedComponent, connect } from 'routes/routedComponent';
 import { CONTENT_VIEW_FLUID } from 'layouts/DefaultLayout/modules/layout';
-import {
-  showModal,
-  hideModal
-} from 'modules/modal';
+import { showModal } from 'modules/modal';
 import User from './components/User';
 import { fetchUser } from './modules/user';
 import { fetchAccount } from './modules/account';
@@ -22,7 +19,6 @@ class UserContainer extends RoutedComponent {
 
     this.fetchAccount = this.fetchAccount.bind(this);
     this.handlePasswordReset = this.handlePasswordReset.bind(this);
-    this.handleHideModal = this.handleHideModal.bind(this);
   }
 
   getLayoutOptions() {
@@ -55,14 +51,9 @@ class UserContainer extends RoutedComponent {
     this.props.fetchAccount(id)
   }
 
-  handleHideModal() {
-    this.props.hideModal()
-  }
-
   handlePasswordReset() {
-    const payload = { email: this.state.user.email }
+    const payload = { email: this.props.user.details.email }
     this.props.resetUserPassword(payload)
-    this.setSuccessMessage('Email Sent')
   }
 
   render() {
@@ -83,7 +74,6 @@ class UserContainer extends RoutedComponent {
           handlePasswordReset={this.handlePasswordReset}
           clearMessage={this.props.clearNotification}
           notification={this.props.user.notifications}
-          hideModal={this.handleHideModal}
         />
     )
   }
@@ -100,7 +90,6 @@ const mapActionCreators = {
   fetchAccount,
   fetchCards,
   showModal,
-  hideModal,
   clearNotification
 }
 export default connect(mapStateToProps, mapActionCreators)(UserContainer);

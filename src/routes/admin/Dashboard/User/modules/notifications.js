@@ -48,6 +48,11 @@ import {
   UPDATE_TRANSACTION_FAILURE
 } from './transactions';
 
+import {
+  FORGOT_USER_PASSWORD_SUCCESS,
+  FORGOT_USER_PASSWORD_FAILURE
+} from 'routes/auth/modules/auth'
+
 export const CLEAR_NOTIFICATION = 'CLEAR_NOTIFICATION'
 
 export const clearNotification = () => (
@@ -61,12 +66,13 @@ const initialValues = {
   status: null
 }
 
-const setErrorMessage = (state, error) => (
-  Object.assign({}, state, {
+const setErrorMessage = (state, error) => {
+  console.log('error', error)
+  return  Object.assign({}, state, {
     message: error.response.data.errorMessage,
     status: 'danger'
   })
-)
+}
 
 const setSuccessMessage = (state, item, verb) => (
   Object.assign({}, state, {
@@ -77,6 +83,8 @@ const setSuccessMessage = (state, item, verb) => (
 
 const reducer = (state=initialValues, action) => {
   switch(action.type) {
+    case FORGOT_USER_PASSWORD_SUCCESS:
+      return setSuccessMessage(state, 'Email', 'Sent')
     case UPDATE_TRANSACTION_SUCCESS:
       return setSuccessMessage(state, 'Transaction', 'Updated')
 
@@ -112,6 +120,9 @@ const reducer = (state=initialValues, action) => {
         message: action.error.response.data.message,
         status: 'danger'
       })
+
+     case FORGOT_USER_PASSWORD_FAILURE:
+      return setErrorMessage(state, action.error)
 
     case UPDATE_TRANSACTION_FAILURE:
       return setErrorMessage(state, action.error)
