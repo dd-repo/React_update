@@ -3,7 +3,7 @@ import Loading from 'react-loading';
 import { formatDate } from 'utils/dateHelper';
 
 import Transaction from './Transaction';
-import { EditTransactionModal } from 'components/Modals';
+import RootModal from 'components/Modals';
 import {
   Table,
   Label,
@@ -20,15 +20,12 @@ import {
 const Transactions = (props) => {
   const {
     transactions,
-    transactionInProgress,
     paginationItems,
-    updateTransaction,
     pageNum,
     getNextPage,
     isFetching,
     queryName,
     handleSearch,
-    confirmTransaction,
     limit,
     total,
     showModal,
@@ -66,7 +63,7 @@ const Transactions = (props) => {
         transactions.map(transaction => (
           <Transaction
             transaction={transaction}
-            confirmTransaction={confirmTransaction}
+            showModal={showModal}
             key={transaction.id}
           />
         ))
@@ -143,11 +140,8 @@ const Transactions = (props) => {
         { renderTransactions }
       </Table>
 
-      <EditTransactionModal
-        transaction={transactionInProgress}
-        show={showModal}
-        toggleModal={hideModal}
-        handleClick={updateTransaction}
+      <RootModal
+        hideModal={hideModal}
       />
 
       { renderPagination }

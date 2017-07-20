@@ -75,7 +75,7 @@ const cardError = {
   }
 }
 
-describe.only('(Notification module)', () => {
+describe('(Notification module)', () => {
   it('should export constants', () => {
     expect(CLEAR_NOTIFICATION).to.equal('CLEAR_NOTIFICATION')
   })

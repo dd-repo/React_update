@@ -9,7 +9,11 @@ import {
 
 import { updateTransaction } from 'routes/admin/Dashboard/User/modules/transactions';
 
-const TransactionUpdateModal = ({ initialValues: transaction, hideModal, dispatch }) => {
+const TransactionUpdateModal = ({
+  initialValues: transaction,
+  hideModal,
+  dispatch
+}) => {
 
   const buttonLabel = transaction.status === 'completed' ? 'Refund' : 'Charge'
 

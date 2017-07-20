@@ -40,7 +40,7 @@ const errorRes = {
   response: {data: {errorMessage: 'error message'}}
 }
 
-describe.only('(Cards module)', () => {
+describe('(Cards module)', () => {
 
   it('should export constants', () => {
     expect(CARDS_SUCCESS).to.equal('CARDS_SUCCESS')
@@ -219,7 +219,7 @@ describe.only('(Cards module)', () => {
 
     it('should handle ADD_CARD_SUCCESS', () => {
       const newCard = {
-        id: 10,
+        id: 11,
         last_4: "4444",
         card_month: "10",
         card_year: "2020",
@@ -238,30 +238,25 @@ describe.only('(Cards module)', () => {
 
       const expectedNewState = [
         {
+          id: 11,
+          last_4: "4444",
+          card_month: "10",
+          card_year: "2020",
+          card_holder_name: "card name new",
+        },
+        {
           id: 10,
           last_4: "5555",
           card_month: "12",
           card_year: "2020",
           card_holder_name: "first last",
         },
-        {
-          id: 10,
-          last_4: "4444",
-          card_month: "10",
-          card_year: "2020",
-          card_holder_name: "card name new",
-        }
       ]
 
       const userState = reducer(cardsState, { type: ADD_CARD_SUCCESS, data: newCard})
 
       expect(userState).to.eql(expectedNewState)
     })
-
-    //it('should handle CARDS_FAILURE', () => {
-      //const userState = reducer({}, { type: CARDS_FAILURE, error: errorRes})
-      //expect(userState).to.eql({errorMessage: errorRes.response.data.errorMessage})
-    //})
   })
 })
 

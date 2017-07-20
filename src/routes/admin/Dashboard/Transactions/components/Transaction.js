@@ -33,7 +33,7 @@ const Transaction = (props) => {
     status !== 'refunded' &&
       <Button
         bsStyle="danger"
-        onClick={() => { props.confirmTransaction(props.transaction) }}
+        onClick={() => { props.showModal('TRANSACTION', props.transaction) }}
       >
         { BUTTON_LABEL[status] }
       </Button>
@@ -93,7 +93,7 @@ Transaction.propTypes = {
   transaction: PropTypes.object.isRequired,
   handleCancelTransaction: PropTypes.func,
   confirmCancelTransaction: PropTypes.func,
-  showModal: PropTypes.bool,
+  showModal: PropTypes.func,
   transactionInProgress: PropTypes.object,
   hideModal: PropTypes.func,
   paginationItems: PropTypes.number,
