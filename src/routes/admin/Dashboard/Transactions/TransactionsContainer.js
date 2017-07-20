@@ -8,7 +8,7 @@ import {
   getTransactions,
   cancelTransaction
 } from './modules/transactions'
-
+import { showModal, hideModal } from 'modules/modal';
 import Transactions from './components/Transactions';
 
 class TransactionsContainer extends RoutedComponent {
@@ -17,16 +17,10 @@ class TransactionsContainer extends RoutedComponent {
     this.state = {
       pageNum: 1,
       queryName: 'All Transactions',
-      showModal: false,
-      transactionInProgress: {},
     }
 
     this.getNextPage = this.getNextPage.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
-    this.updateTransaction = this.updateTransaction.bind(this);
-    this.confirmTransaction = this.confirmTransaction.bind(this);
-    this.hideModal = this.hideModal.bind(this)
-    this.handleSuccess = this.handleSuccess.bind(this);
   }
 
   getLayoutOptions() {
@@ -67,44 +61,6 @@ class TransactionsContainer extends RoutedComponent {
     this.setState({ queryName })
   }
 
-  updateTransaction() {
-    this.props.cancelTransaction(this.state.transactionInProgress.id)
-    .then(res => this.updateTransactionResponse(res))
-    .catch(
-      error => this.handleFailure(error)
-    )
-    this.hideModal()
-  }
-
-  updateTransactionResponse(res) {
-    switch(res.type) {
-      case TRANSACTION_CANCEL_SUCCESS:
-        this.handleSuccess()
-    }
-  }
-
-  handleSuccess() {
-    this.setState({
-      notification: {
-        message: 'Transaction was successfully canceled'
-      }
-    })
-    setTimeout(() => {
-      this.setState({notification: null});
-    }, 5000)
-  }
-
-  confirmTransaction(transaction) {
-    this.setState({
-      transactionInProgress: transaction,
-      showModal: true
-    })
-  }
-
-  hideModal() {
-    this.setState({showModal: false})
-  }
-
   render() {
     const { pagination } = this.props.transactions
 
@@ -115,17 +71,11 @@ class TransactionsContainer extends RoutedComponent {
     const limit = pagination && pagination.limit
     const total = pagination && pagination.total
 
-    const errorMessage = this.props.transactions.error &&
-      this.props.transactions.error.response.data.message
-
     return (
       <Transactions
         transactions={this.props.transactions.all}
-        updateTransaction={this.updateTransaction}
-        confirmTransaction={this.confirmTransaction}
-        showModal={this.state.showModal}
-        transactionInProgress={this.state.transactionInProgress}
-        hideModal={this.hideModal}
+        showModal={this.props.showModal}
+        hideModal={this.props.hideModal}
         paginationItems={paginationItems}
         pageNum={this.state.pageNum}
         isFetching={this.props.transactions.isFetching}
@@ -134,7 +84,6 @@ class TransactionsContainer extends RoutedComponent {
         queryName={this.state.queryName}
         limit={limit}
         total={total}
-        errorMessage={errorMessage}
         notification={this.state.notification}
       />
     )
@@ -149,7 +98,9 @@ const mapStateToProps = state => {
 
 const mapActionCreators = {
   getTransactions,
-  cancelTransaction
+  cancelTransaction,
+  showModal,
+  hideModal
 }
 
 export default connect(mapStateToProps, mapActionCreators)(TransactionsContainer)

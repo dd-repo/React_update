@@ -149,13 +149,12 @@ describe('(profile module) "profile"', () => {
     })
 
     it('should handle PAYMENT_FAILURE', () => {
-      expect(reducer({}, {
-        type: PAYMENT_FAILURE,
-        error: errorRes
-      })).to.eql({
+      const paymentState = reducer({}, { type: PAYMENT_FAILURE, error: errorRes})
+
+      expect(paymentState).to.eql({
         isFetching: false,
-        success: false,
-        errorMessage: errorRes.response.data.errorMessage
+        errorMessage: errorRes.response.data.message,
+        success: false
       })
     })
   })

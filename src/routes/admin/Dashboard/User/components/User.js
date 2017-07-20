@@ -9,7 +9,7 @@ import UserDetails from './UserDetails';
 import Transactions from './Transactions';
 import Subscriptions from './Subscriptions/Subscriptions';
 import Cards from './Cards';
-import { RootModal } from 'components/Modals';
+import RootModal from 'components/Modals';
 
 import { Row, Col, Alert, Button, Loader } from 'components';
 
