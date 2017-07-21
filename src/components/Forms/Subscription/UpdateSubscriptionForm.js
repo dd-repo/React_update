@@ -22,10 +22,10 @@ const STATUS = [
   }
 ]
 
-const SubscriptionForm = props => {
+const UpdateSubscriptionForm = props => {
 
   const dropDownSelect = ({ input, title, children }) => (
-    <FormControl {...input} componentClass='select'>
+    <FormControl className='m-b-1' {...input} componentClass='select'>
       { children }
     </FormControl>
   )
@@ -49,12 +49,6 @@ const SubscriptionForm = props => {
             }
           </Field>
         </Col>
-        <div>' '</div>
-        <Col sm={3}>
-        </Col>
-        <Col sm={9}>
-          <p>Last 4  and   Date Entered</p>
-        </Col>
         <Col className='m-t-1' componentClass={ControlLabel} sm={3}>
           Cards
         </Col>
@@ -66,7 +60,7 @@ const SubscriptionForm = props => {
           >
             {
               props.cards.map((card, i) => (
-                <option value={card.id} key={i}>{card.last_4}  |  {formatDate(card.created_at)}</option>
+                <option value={card.id} key={i}>Last 4 - {card.last_4}  Date add - {formatDate(card.created_at)}</option>
                 ))
             }
           </Field>
@@ -84,6 +78,6 @@ const SubscriptionForm = props => {
 const reduxSubscriptionEdit = reduxForm({
   form: 'subscriptionEdit',
   enableReinitialize: true
-})(SubscriptionForm)
+})(UpdateSubscriptionForm)
 
 export default reduxSubscriptionEdit;

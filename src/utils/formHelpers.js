@@ -2,7 +2,7 @@ import _ from 'lodash';
 
 export const onlyNums = value => ( value.replace(/[^\d]/g, '') )
 
-export const checkValidation = (values, fields, omittedFields) => {
+export const checkValidation = (values, fields={}, omittedFields) => {
   const errors = {}
   const validationFields = omittedFields ? _.omit(fields, omittedFields) : fields
 
@@ -11,6 +11,18 @@ export const checkValidation = (values, fields, omittedFields) => {
       errors[field] = type.errorMessage
     }
   })
+  if(!values.sales_rep_id) {
+    errors.sales_rep_id = 'Required'
+  }
+  if(!values.plan_id) {
+    errors.plan_id = 'Required'
+  }
+  if(!values.next_payment) {
+    errors.next_payment = 'Required'
+  }
+  if(!values.card_id) {
+    errors.card_id = 'Required'
+  }
   if(values.email) {
     if(!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
       errors.email = 'Invalid email address'

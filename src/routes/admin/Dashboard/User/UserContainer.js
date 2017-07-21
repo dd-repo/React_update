@@ -1,4 +1,5 @@
 import React from 'react';
+import BlitzApi from 'services/BlitzApi';
 
 import { RoutedComponent, connect } from 'routes/routedComponent';
 import { CONTENT_VIEW_FLUID } from 'layouts/DefaultLayout/modules/layout';
@@ -11,7 +12,7 @@ import { resetUserPassword } from 'routes/auth/modules/auth';
 import { formatDate } from 'utils/dateHelper';
 import { normalizePhone } from 'utils/formHelpers';
 import { clearNotification } from './modules/notifications';
-
+import { USERS_REQUEST } from 'routes/admin/Dashboard/Users/modules/users';
 
 class UserContainer extends RoutedComponent {
   constructor(props) {
@@ -19,6 +20,7 @@ class UserContainer extends RoutedComponent {
 
     this.fetchAccount = this.fetchAccount.bind(this);
     this.handlePasswordReset = this.handlePasswordReset.bind(this);
+    this.handleNewSubscription = this.handleNewSubscription.bind(this);
   }
 
   getLayoutOptions() {
@@ -56,6 +58,24 @@ class UserContainer extends RoutedComponent {
     this.props.resetUserPassword(payload)
   }
 
+  handleNewSubscription() {
+    this.fetchAdmin()
+    .then(
+          res => {
+            this.props.showModal(
+              'CREATE_SUBSCRIPTION',
+              res.data
+            )}
+    )
+  }
+
+  fetchAdmin() {
+    const params = {
+      q: { group_eq: 'backend' }
+    }
+    return BlitzApi.get(USERS_REQUEST, params)
+  }
+
   render() {
 
     const formatPhone = value => {
@@ -74,6 +94,7 @@ class UserContainer extends RoutedComponent {
           handlePasswordReset={this.handlePasswordReset}
           clearMessage={this.props.clearNotification}
           notification={this.props.user.notifications}
+          handleNewSubscription={this.handleNewSubscription}
         />
     )
   }

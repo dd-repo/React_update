@@ -46,7 +46,9 @@ import {
 
 import {
   UPDATE_SUBSCRIPTION_SUCCESS,
-  UPDATE_SUBSCRIPTION_FAILURE
+  UPDATE_SUBSCRIPTION_FAILURE,
+  CREATE_SUBSCRIPTION_SUCCESS,
+  CREATE_SUBSCRIPTION_FAILURE
 } from 'routes/admin/Dashboard/User/modules/subscriptions';
 
 import {
@@ -104,6 +106,12 @@ describe('(Notification module)', () => {
     it('should handle UPDATE_SUBSCRIPTION_SUCCESS', () => {
       const notificationState = reducer(initialValue, { type: UPDATE_SUBSCRIPTION_SUCCESS })
       const expected = { message: 'Subscription Successfully Updated', status: 'success' }
+      expect(notificationState).to.eql(expected)
+    })
+
+    it('should handle CREATE_SUBSCRIPTION_SUCCESS', () => {
+      const notificationState = reducer(initialValue, { type: CREATE_SUBSCRIPTION_SUCCESS })
+      const expected = { message: 'Subscription Successfully Added', status: 'success' }
       expect(notificationState).to.eql(expected)
     })
 
@@ -168,6 +176,12 @@ describe('(Notification module)', () => {
     })
 
     it('should handle UPDATE_SUBSCRIPTION_FAILURE', () => {
+      const notificationState = reducer(initialValue, { type: UPDATE_SUBSCRIPTION_FAILURE, error })
+      const expected = { message: error.response.data.errorMessage, status: 'danger' }
+      expect(notificationState).to.eql(expected)
+    })
+
+    it('should handle CREATE_SUBSCRIPTION_FAILURE', () => {
       const notificationState = reducer(initialValue, { type: UPDATE_SUBSCRIPTION_FAILURE, error })
       const expected = { message: error.response.data.errorMessage, status: 'danger' }
       expect(notificationState).to.eql(expected)

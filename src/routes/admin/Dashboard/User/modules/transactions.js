@@ -1,6 +1,10 @@
 import BlitzApi from 'services/BlitzApi';
+import _ from 'underscore';
 import { USER_SUCCESS } from './user';
-
+import {
+  CREATE_SUBSCRIPTION_SUCCESS,
+  CREATE_SUBSCRIPTION_FAILURE
+} from './subscriptions';
 export const UPDATE_TRANSACTION_SUCCESS = 'UPDATE_TRANSACTION_SUCCESS';
 export const UPDATE_TRANSACTION_FAILURE = 'UPDATE_TRANSACTION_FAILURE';
 export const UPDATE_TRANSACTION_REQUEST = '/admin/api/transactions';
@@ -43,12 +47,27 @@ export const insertTransaction = (state=[], transaction) => {
   return state
 }
 
+export const addTransaction = (state, transaction) => {
+  if (transaction) {
+    return [ transaction, ...state ]
+  }
+  return state
+}
+
+export const sortTransactionById = transactions => (
+  _.sortBy(transactions, t => { return t.id }).reverse()
+)
+
 const reducer = (state=[], action) => {
   switch(action.type) {
     case USER_SUCCESS:
-       return action.data.transactions
+      return sortTransactionById(action.data.transactions)
     case UPDATE_TRANSACTION_SUCCESS:
        return insertTransaction(state, action.data)
+     case CREATE_SUBSCRIPTION_SUCCESS:
+       return addTransaction(state, action.data.transaction)
+     case CREATE_SUBSCRIPTION_FAILURE:
+       return addTransaction(state, action.error.response.data.transaction)
     default:
       return state
   }
