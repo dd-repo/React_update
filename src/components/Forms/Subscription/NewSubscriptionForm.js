@@ -102,7 +102,7 @@ const NewSubscriptionForm = props => {
           </Field>
         </Col>
         <Col componentClass={ControlLabel} sm={3}>
-          Start Date
+          Payment Date
         </Col>
         <Col sm={9}>
           <Field

@@ -76,12 +76,13 @@ const setErrorMessage = (state, error) => {
   })
 }
 
-const setSuccessMessage = (state, item, verb) => (
-  Object.assign({}, state, {
+const setSuccessMessage = (state, item, verb) => {
+  console.log(`${item} Successfully ${verb}`)
+return  Object.assign({}, state, {
     message: `${item} Successfully ${verb}`,
     status: 'success'
   })
-)
+}
 
 const reducer = (state=initialValues, action) => {
   switch(action.type) {
