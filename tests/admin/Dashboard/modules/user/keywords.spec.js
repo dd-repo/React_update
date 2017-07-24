@@ -9,7 +9,7 @@ import {
 import {
   UPDATE_KEYWORD_SUCCESS,
   UPDATE_KEYWORD_FAILURE,
-  UPDATE_KEYWORD_REQUEST,
+  KEYWORD_REQUEST,
   ADD_KEYWORD_SUCCESS,
   ADD_KEYWORD_FAILURE,
   updateKeywordSuccess,
@@ -43,7 +43,7 @@ describe('(Keyword module)', () => {
   it('should export constants', () => {
     expect(UPDATE_KEYWORD_SUCCESS).to.equal('UPDATE_KEYWORD_SUCCESS')
     expect(UPDATE_KEYWORD_FAILURE).to.equal('UPDATE_KEYWORD_FAILURE')
-    expect(UPDATE_KEYWORD_REQUEST).to.equal('/admin/api/keywords')
+    expect(KEYWORD_REQUEST).to.equal('/admin/api/keywords')
     expect(ADD_KEYWORD_SUCCESS).to.equal('ADD_KEYWORD_SUCCESS')
     expect(ADD_KEYWORD_FAILURE).to.equal('ADD_KEYWORD_FAILURE')
   })

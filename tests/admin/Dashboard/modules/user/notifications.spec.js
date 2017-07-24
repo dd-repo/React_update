@@ -18,7 +18,9 @@ import {
 
 import {
   UPDATE_ADDRESS_SUCCESS,
-  UPDATE_ADDRESS_FAILURE
+  UPDATE_ADDRESS_FAILURE,
+  CREATE_ADDRESS_SUCCESS,
+  CREATE_ADDRESS_FAILURE
 } from 'routes/admin/Dashboard/User/modules/addresses';
 
 import {
@@ -145,7 +147,13 @@ describe('(Notification module)', () => {
       expect(notificationState).to.eql(expected)
     })
 
-    it('should handle UPDATE_USER_SUCCESS', () => {
+    it('should handle UPDATE_ADDRESS_SUCCESS', () => {
+      const notificationState = reducer(initialValue, { type: CREATE_ADDRESS_SUCCESS })
+      const expected = { message: 'Address Successfully Added', status: 'success' }
+      expect(notificationState).to.eql(expected)
+    })
+
+    it('should handle CREATE_USER_SUCCESS', () => {
       const notificationState = reducer(initialValue, { type: UPDATE_USER_SUCCESS })
       const expected = { message: 'Subscriber Successfully Updated', status: 'success' }
       expect(notificationState).to.eql(expected)
@@ -207,6 +215,12 @@ describe('(Notification module)', () => {
 
     it('should handle UPDATE_ADDRESS_FAILURE', () => {
       const notificationState = reducer(initialValue, { type: UPDATE_ADDRESS_FAILURE, error })
+      const expected = { message: error.response.data.errorMessage, status: 'danger' }
+      expect(notificationState).to.eql(expected)
+    })
+
+    it('should handle CREATE_ADDRESS_FAILURE', () => {
+      const notificationState = reducer(initialValue, { type: CREATE_ADDRESS_FAILURE, error })
       const expected = { message: error.response.data.errorMessage, status: 'danger' }
       expect(notificationState).to.eql(expected)
     })

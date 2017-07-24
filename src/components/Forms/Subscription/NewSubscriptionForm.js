@@ -24,6 +24,10 @@ const plan = [
   {
     type: 'individual',
     id: 2
+  },
+  {
+    type: 'testing',
+    id:3
   }
 ]
 

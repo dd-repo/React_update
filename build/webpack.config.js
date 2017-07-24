@@ -69,6 +69,17 @@ webpackConfig.plugins = [
   })
 ]
 
+if (!global.Intl) {
+  webpackConfig.plugins.push(require.ensure([
+    'intl',
+    'intl/local-data/jsonp/en.js'
+
+  ], function (require) {
+    require('intl');
+    require('intl/locale-data/jsonp/en.js');
+  }))
+}
+
 if (__DEV__) {
   debug('Enable plugins for live development (HMR, NoErrors).')
   webpackConfig.plugins.push(

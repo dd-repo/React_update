@@ -29,6 +29,11 @@ const MODAL_TYPE = {
   'Profile': 'PROFILE'
 }
 
+const SINGULAR_RESOURCE = {
+  'Keywords': 'Keyword',
+  'Addresses': 'Address'
+}
+
 class AccountDetails extends React.Component {
   constructor(props) {
     super(props)
@@ -115,12 +120,12 @@ class AccountDetails extends React.Component {
                       }
 
                       {
-                        (tabKey === 'Keywords') &&
+                        (tabKey === 'Keywords' || tabKey === 'Addresses') &&
                           <Button
                             onClick={() => {this.props.showModal(MODAL_TYPE[this.state.tabKey]) }}
                             bsStyle='success'
                           >
-                            Add Keyword <i className='fa fa-plus fa-lg'></i>
+                            Add {SINGULAR_RESOURCE[this.state.tabKey]} <i className='fa fa-plus fa-lg'></i>
                           </Button>
 
                           }

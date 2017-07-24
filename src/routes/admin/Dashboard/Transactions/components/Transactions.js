@@ -112,7 +112,7 @@ const Transactions = (props) => {
               client email
             </th>
             <th>
-              transaction id
+              third party id
             </th>
             <th>
               process date
@@ -129,11 +129,14 @@ const Transactions = (props) => {
             <th>
               sales rep
             </th>
-              <th>
-                Status
-              </th>
             <th>
-              Cancel Action
+              Status
+            </th>
+            <th>
+              amount
+            </th>
+            <th>
+              Action
             </th>
           </tr>
         </thead>
