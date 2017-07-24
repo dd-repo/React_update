@@ -3,12 +3,12 @@ import Loading from 'react-loading';
 import { Link } from 'react-router';
 import capitalize from 'utils/capitalize';
 
-import classes from './user.scss';
-import AccountDetails from './AccountDetails/AccountDetails';
-import UserDetails from './UserDetails';
-import Transactions from './Transactions';
-import Subscriptions from './Subscriptions/Subscriptions';
-import Cards from './Cards';
+import classes from '../user.scss';
+import AccountDetails from '../AccountDetails';
+import UserDetails from '../UserDetails';
+import Transactions from '../Transactions';
+import Subscriptions from '../Subscriptions';
+import Cards from '../Cards';
 import RootModal from 'components/Modals';
 
 import { Row, Col, Alert, Button, Loader } from 'components';
@@ -99,6 +99,7 @@ const User = props => {
             <Subscriptions
               subscriptions={props.user.subscriptions}
               showModal={props.showModal}
+              handleNewSubscription={props.handleNewSubscription}
             />
           </Col>
         </Row>
@@ -109,7 +110,11 @@ const User = props => {
       <div className={classes.mainWrap}>
         { renderUserDetails }
         { renderLoader }
-        <RootModal />
+        <RootModal
+          user={props.user.details}
+          account={props.user.account}
+          cards={props.user.cards}
+        />
       </div>
   )
 }
@@ -120,3 +125,4 @@ User.propTypes = {
 }
 
 export default User;
+

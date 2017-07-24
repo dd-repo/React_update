@@ -18,6 +18,11 @@ import {
   default as reducer
 } from 'routes/admin/Dashboard/User/modules/transactions';
 
+import {
+  CREATE_SUBSCRIPTION_SUCCESS,
+  CREATE_SUBSCRIPTION_FAILURE
+} from 'routes/admin/Dashboard/User/modules/subscriptions';
+
 const middlewares = [ thunk ]
 const mockStore = configureMockStore(middlewares)
 
@@ -140,6 +145,14 @@ describe('(Transaction module)', () => {
         {
           id: 1,
           status: "completed"
+        },
+        {
+          id: 2,
+          status: 'completed'
+        },
+        {
+          id: 3,
+          status: 'declined'
         }
       ]
     }
@@ -147,6 +160,35 @@ describe('(Transaction module)', () => {
     const updatedTransaction = {
       id: 1,
       status: 'refunded'
+    }
+
+    const newTransaction = {
+      id: 1,
+      state: "declined",
+      round: 1,
+      subscription_id: 1,
+      sales_rep_name: " ",
+      client_name: "first last",
+      third_party_id: "60025467327",
+      user_email: "test@email.com",
+      sales_rep_email: null,
+      card_card_month: "2",
+      card_card_year: "2020",
+      card_card_holder_name: "first last",
+      card_last_4: "4242",
+      user_first_name: "first",
+      user_last_name: "last",
+      amount: 39,
+      status: "declined"
+    }
+
+    const errorResWithTransaction = {
+      status: 422,
+      response: {
+        data: {
+        errorMessage: 'card was declined',
+        transaction: newTransaction
+      }}
     }
 
     it('Should be a function', () => {
@@ -159,14 +201,31 @@ describe('(Transaction module)', () => {
 
     it('should handle USER_SUCCESS', () => {
       const transactionState = reducer([], { type: USER_SUCCESS, data: userResponse})
-
-      expect(transactionState).to.eql(userResponse.transactions)
+      const expectedState = userResponse.transactions.reverse()
+      expect(transactionState).to.eql(expectedState)
     })
 
     it('should handle UPDATE_TRANSACTION_SUCCESS', () => {
       const transactionState = reducer(userResponse.transactions, { type: UPDATE_TRANSACTION_SUCCESS, data: updatedTransaction})
+      const expectedState = [...userResponse.transactions.slice(0,2), updatedTransaction]
+      expect(transactionState).to.eql(expectedState)
+    })
 
-      expect(transactionState).to.eql([updatedTransaction])
+    it('should handle CREATE_SUBSCRIPTION_SUCCESS', () => {
+      const newSubscriptionResponse = {
+        subscription: {id: 1},
+        transaction
+      }
+      const transactionState = reducer(userResponse.transactions, { type: CREATE_SUBSCRIPTION_SUCCESS, data: newSubscriptionResponse})
+      const expected = [transaction, ...userResponse.transactions]
+
+      expect(transactionState).to.eql(expected)
+    })
+
+    it('should handle CREATE_SUBSCRIPTION_FAILURE', () => {
+      const transactionState = reducer(userResponse.transactions, { type: CREATE_SUBSCRIPTION_FAILURE, error: errorResWithTransaction })
+      const expectedState = [newTransaction, ...userResponse.transactions]
+      expect(transactionState).to.eql(expectedState)
     })
   })
 })

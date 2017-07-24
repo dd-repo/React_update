@@ -11,38 +11,38 @@ import {
     ControlLabel,
     Button
 } from 'components';
-import { updateSubscription } from 'routes/admin/Dashboard/User/modules/subscriptions';
-import SubscriptionForm from 'components/Forms/Subscription';
+import { createSubscription } from 'routes/admin/Dashboard/User/modules/subscriptions';
+import { NewSubscriptionForm } from 'components/Forms/Subscription';
 
-const SubscriptionEditModal = props => {
+const CreateSubscriptionModal = props => {
 
   const _onSubmit = data => {
     props.hideModal()
-    props.dispatch(updateSubscription(data))
+    props.dispatch(createSubscription(data, props.user.id))
   }
 
   return (
     <Modal show={true} onHide={props.hideModal}>
       <Modal.Header closeButton>
         <Modal.Title>
-          { 'Edit Subscription' }
+          { 'Create Subscription' }
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <SubscriptionForm
-          initialValues={props.initialValues}
+        <NewSubscriptionForm
           cards={props.cards}
           _onSubmit={_onSubmit}
-
+          salesRep={props.initialValues.users}
         />
       </Modal.Body>
     </Modal>
   );
 }
 
-const mapStateToProps = state => ({
-   cards: state.user.cards
-})
-export default connect(
-  mapStateToProps
-)(SubscriptionEditModal);
+const mapActionCreators = {
+  createSubscription
+}
+
+export default connect()(CreateSubscriptionModal);
+
+

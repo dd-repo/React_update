@@ -40,7 +40,9 @@ import {
 
 import {
   UPDATE_SUBSCRIPTION_SUCCESS,
-  UPDATE_SUBSCRIPTION_FAILURE
+  UPDATE_SUBSCRIPTION_FAILURE,
+  CREATE_SUBSCRIPTION_SUCCESS,
+  CREATE_SUBSCRIPTION_FAILURE
 } from './subscriptions';
 
 import {
@@ -91,6 +93,9 @@ const reducer = (state=initialValues, action) => {
     case UPDATE_SUBSCRIPTION_SUCCESS:
       return setSuccessMessage(state, 'Subscription', 'Updated')
 
+    case CREATE_SUBSCRIPTION_SUCCESS:
+      return setSuccessMessage(state, 'Subscription', 'Added')
+
     case UPDATE_PROFILE_SUCCESS:
       return setSuccessMessage(state, 'Profile', 'Updated')
 
@@ -128,6 +133,9 @@ const reducer = (state=initialValues, action) => {
       return setErrorMessage(state, action.error)
 
     case UPDATE_SUBSCRIPTION_FAILURE:
+      return setErrorMessage(state, action.error)
+
+    case CREATE_SUBSCRIPTION_FAILURE:
       return setErrorMessage(state, action.error)
 
     case UPDATE_PROFILE_FAILURE:
