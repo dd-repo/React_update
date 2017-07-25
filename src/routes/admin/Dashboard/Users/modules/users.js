@@ -30,7 +30,7 @@ export const becomeUser = params => {
       response => dispatch(receiveClientLogin(response.data))
     ).catch(
     //error => dispatch()
-    error => console.log('error', error.response)
+    error => console.log('become user error', error)
     )
   }
 }
