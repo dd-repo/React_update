@@ -105,7 +105,7 @@ const reducer = (state = {}, action) => {
         error: action.error
       })
     case USER_LOGIN_SUCCESS:
-      console.log('action', action.data.account)
+      console.log('action', action.data)
       return addProfile(state, action.data.account.profile)
     case USER_SIGNUP_SUCCESS:
       return addProfile(state, action.data.account.profile)
