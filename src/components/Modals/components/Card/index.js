@@ -4,7 +4,7 @@ import { reduxForm, Field } from 'redux-form';
 import { buildCreditCardParams } from 'utils/paramsHelper';
 
 import PaymentForm from 'routes/client/Payment/components/PaymentForm';
-import { addCard } from 'routes/admin/Dashboard/User/modules/cards';
+import { addCard, ADD_CARD_SUCCESS } from 'routes/admin/Dashboard/User/modules/cards';
 import {
     Col,
     Modal,
@@ -12,7 +12,8 @@ import {
     FormGroup,
     FormControl,
     ControlLabel,
-    Button
+    Button,
+    Alert
 } from 'components';
 
 const renderInput = ({ input, type }) => {
@@ -27,9 +28,23 @@ const renderInput = ({ input, type }) => {
 const CardModal = props => {
 
   const _onSubmit = (data) => {
-    props.hideModal()
-    props.dispatch(addCard(buildCreditCardParams(data), props.userId))
+    props.dispatch(addCard(buildCreditCardParams(data), props.user.id))
+    .then( res => handleResponse(res))
   }
+
+  const handleResponse = res => {
+    switch(res.type) {
+     case ADD_CARD_SUCCESS:
+       props.hideModal()
+    }
+  }
+
+  const renderAlertMessage = (
+    props.notification.message &&
+      <Alert bsStyle={props.notification.status}>
+        {props.notification.message}
+      </Alert>
+  )
 
   return (
       <Modal show={true} onHide={props.hideModal}>
@@ -37,6 +52,7 @@ const CardModal = props => {
           <Modal.Title>
             { 'Add Card ' }
           </Modal.Title>
+          { renderAlertMessage }
         </Modal.Header>
         <Modal.Body>
           <PaymentForm
@@ -48,10 +64,4 @@ const CardModal = props => {
   );
 }
 
-const mapStateToProps = state => ({
-  userId: state.user.details.id
-})
-
-export default connect(
-  mapStateToProps
-)(CardModal);
+export default connect()(CardModal);

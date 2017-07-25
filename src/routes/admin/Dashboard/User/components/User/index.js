@@ -114,6 +114,7 @@ const User = props => {
           user={props.user.details}
           account={props.user.account}
           cards={props.user.cards}
+          notification={props.notification}
         />
       </div>
   )
