@@ -105,17 +105,12 @@ const reducer = (state = {}, action) => {
         error: action.error
       })
     case USER_LOGIN_SUCCESS:
+      console.log('action', action.data.account)
       return addProfile(state, action.data.account.profile)
     case USER_SIGNUP_SUCCESS:
       return addProfile(state, action.data.account.profile)
     case USER_LOGOUT:
-      return Object.assign({}, state, {
-        avatar: null,
-        driver_license: null,
-        id: null,
-        maiden_name: null,
-        middle_name: null
-      })
+      return {}
     default:
       return state
   }
