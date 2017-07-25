@@ -32,7 +32,8 @@ const AccountEdit = (props) => {
     showModal,
     hideModal,
     confirmCancel,
-    subscription
+    subscription,
+    Loader
   } = props
 
   const renderModal = (
@@ -128,27 +129,27 @@ const AccountEdit = (props) => {
 
       </Panel>
 
-        <Panel
-          header={
-            <h4 className='panel-title'>
-              Cancel Subscription
-            </h4>
+      <Panel
+        header={
+          <h4 className='panel-title'>
+            Cancel Subscription
+          </h4>
+          }
+          footer={
+            <div>
+              <i className="fa fa-fw fa-exclamation-circle m-r-1"></i>
+              <span></span>
+            </div>
             }
-            footer={
-              <div>
-                <i className="fa fa-fw fa-exclamation-circle m-r-1"></i>
-                <span></span>
-              </div>
-              }
-            >
-              {
-                subscription.isActive ?
-                  renderActiveSubscription
-                    :
+          >
+            {
+              !subscription.isFetching && subscription.isActive ?
+                renderActiveSubscription
+                  :
                     renderInactiveSubscription
-              }
-            </Panel>
-          </div>
+            }
+          </Panel>
+        </div>
   )
 }
 

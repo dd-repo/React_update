@@ -70,12 +70,17 @@ const subscription = (state, subscription) => (
     cancelDate: subscription.cancel_date,
     isActive: subscription.is_active,
     nextPayment: subscription.next_payment,
-    startDate: subscription.start_date
+    startDate: subscription.start_date,
+    isFetching: false
    })
 )
 
 const reducer = (state = {}, action) => {
   switch(action.type) {
+    case SUBSCRIPTION_PENDING:
+      return Object.assign({}, state, {
+        isFetching: true
+      })
     case SUBSCRIPTION_SUCCESS:
       return subscription(state, action.subscription)
     case SUBSCRIPTION_FAILURE:
