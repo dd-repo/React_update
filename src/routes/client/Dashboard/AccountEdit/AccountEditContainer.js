@@ -49,9 +49,6 @@ class AccountEditContainer extends RoutedComponent {
     this.setState({alert: {message: 'OOPS!, something went wrong. Please try again', style: 'danger'}})
   }
 
-  handleSuccessfulSubscriptionCancel() {
-  }
-
   resetForm() {
     this.context.store.dispatch(reset('updatePasswordForm'));
   }

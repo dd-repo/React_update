@@ -85,13 +85,7 @@ const reducer = (state = {}, action) => {
     case SUBSCRIPTION_CANCEL_SUCCESS:
       return subscription(state, action.subscription)
     case USER_LOGOUT:
-      return Object.assign({}, state, {
-        id: null,
-        cancelDate: null,
-        isActive: null,
-        nextPayment: null,
-        startDate: null
-      })
+      return {}
     default:
       return state
   }

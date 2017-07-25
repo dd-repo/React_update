@@ -43,6 +43,9 @@ const AccountEdit = (props) => {
 
       <Modal.Body>
         <p>Are you sure you want to cancel your subscription?</p>
+      <p>
+        Once you cancel your subscription you can re-active any time
+      </p>
       </Modal.Body>
         <Modal.Footer>
           <Button onClick={hideModal}>Close</Button>
@@ -64,18 +67,9 @@ const AccountEdit = (props) => {
       formatDate(subscription.cancelDate)
   )
 
-  const renderSubscription = (
-    subscription.isActive ?
-          renderInactiveSubscription
-        :
-      renderActiveSubscription
-  )
-
   const renderActiveSubscription = (
     <div>
-      <p>
-        Once you cancel your subscription you can re-active any time
-      </p>
+      <p>Your next recurring payment will be on {formatDate(subscription.nextPayment)}</p>
       <Button
         bsStyle='danger'
         className='btn-outline'
@@ -87,11 +81,18 @@ const AccountEdit = (props) => {
   )
 
   const renderInactiveSubscription = (
-    <div>
-      <p>
-        Your subscription will end on {date}. Please call us at (844) 641-7829 to re-active
-      </p>
-    </div>
+    !subscription.isActive ?
+      <div>
+        <p>
+          Your subscription will end on {date}. Please call us at (844) 641-7829 to re-activate
+        </p>
+      </div>
+        :
+          <div>
+            <p>
+              Please call us at (844) 641-7829 to cancel your subscription
+            </p>
+          </div>
   )
 
   return (
