@@ -170,7 +170,6 @@ describe( '(subscription module) subscriptions', () => {
 
     const errorRes = {errorMessage: 'error'}
     const subscriptionRes = { id: 1, cancel_date: 'now', is_active: true, next_payment: 'tomorrow', start_date: 'yesterday' }
-    const subscriptionState = {id: 1, cancelDate: 'now', isActive: true, nextPayment: 'tomorrow', startDate: 'yesterday'}
 
     it('Should be a function.', () => {
       expect(reducer).to.be.a('function')
@@ -205,10 +204,9 @@ describe( '(subscription module) subscriptions', () => {
     });
 
     it('should handle SUBSCRIPTION_CANCEL_SUCCESS', () => {
-      expect(reducer({}, {
-        type: SUBSCRIPTION_CANCEL_SUCCESS,
-        subscription: subscriptionRes
-      })).to.eql(subscriptionState)
+      const state = reducer({}, { type: SUBSCRIPTION_CANCEL_SUCCESS, subscription: subscriptionRes})
+      const expectedState = {id: 1, cancelDate: 'now', isActive: true, nextPayment: 'tomorrow', startDate: 'yesterday', isFetching: false}
+      expect(state).to.eql(expectedState)
     })
   })
 })
