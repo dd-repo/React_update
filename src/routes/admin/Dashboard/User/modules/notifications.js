@@ -12,7 +12,9 @@ import {
 
 import {
   UPDATE_ADDRESS_SUCCESS,
-  UPDATE_ADDRESS_FAILURE
+  UPDATE_ADDRESS_FAILURE,
+  CREATE_ADDRESS_SUCCESS,
+  CREATE_ADDRESS_FAILURE
 } from './addresses';
 
 import {
@@ -78,7 +80,7 @@ const setErrorMessage = (state, error) => {
 
 const setSuccessMessage = (state, item, verb) => {
   console.log(`${item} Successfully ${verb}`)
-return  Object.assign({}, state, {
+  return Object.assign({}, state, {
     message: `${item} Successfully ${verb}`,
     status: 'success'
   })
@@ -111,6 +113,9 @@ const reducer = (state=initialValues, action) => {
 
     case UPDATE_ADDRESS_SUCCESS:
       return setSuccessMessage(state, 'Address', 'Updated')
+
+    case CREATE_ADDRESS_SUCCESS:
+      return setSuccessMessage(state, 'Address', 'Added')
 
     case UPDATE_USER_SUCCESS:
       return setSuccessMessage(state, 'Subscriber', 'Updated')
@@ -152,6 +157,9 @@ const reducer = (state=initialValues, action) => {
       return setErrorMessage(state, action.error)
 
     case UPDATE_ADDRESS_FAILURE:
+      return setErrorMessage(state, action.error)
+
+    case CREATE_ADDRESS_FAILURE:
       return setErrorMessage(state, action.error)
 
     case UPDATE_ACCOUNT_FAILURE:

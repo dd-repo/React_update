@@ -52,7 +52,10 @@ const Transactions = (props) => {
                 Status
               </th>
               <th>
-                Cancel Action
+                Amount
+              </th>
+              <th>
+                Action
               </th>
             </tr>
           </thead>

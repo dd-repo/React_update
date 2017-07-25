@@ -15,6 +15,7 @@ const User = (props) => {
     group,
     role,
     accounts,
+    active_until,
     created_at,
   } = props.user
 
@@ -68,6 +69,9 @@ const User = (props) => {
       </td>
       <td>
         { formatDate(created_at) }
+      </td>
+      <td>
+        { active_until }
       </td>
       <td>
         { renderButton }

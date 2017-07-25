@@ -20,7 +20,7 @@ const User = props => {
     <Loader />
   )
 
-  const renderHeader = () => (
+  const renderHeader = (
     <div className={ `${classes.taskHeader} flex-space-between` }>
       <h2 className='m-y-0 f-w-300'>
         <Link to='/admin/dashboard/users/clients'>
@@ -32,7 +32,7 @@ const User = props => {
         </span>
       </h2>
     </div>
-  );
+  )
 
   const renderAlertMessage = (
     props.notification.message &&
@@ -50,10 +50,10 @@ const User = props => {
   const renderUserDetails = (
     !props.isFetching &&
       <div>
-        {renderAlertMessage}
+        { renderAlertMessage }
         <Row>
           <Col lg={ 6 }>
-            { renderHeader() }
+            { renderHeader }
           </Col>
         </Row>
         <Row className='m-t-3'>

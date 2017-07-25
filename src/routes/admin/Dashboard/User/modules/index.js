@@ -10,6 +10,7 @@ import profile from './profile';
 import keywords from './keywords';
 import phones from './phones';
 import addresses from './addresses';
+import clientMerchantProfiles from './clientMerchantProfiles';
 
 export default combineReducers({
   details,
@@ -22,5 +23,6 @@ export default combineReducers({
   profile,
   keywords,
   phones,
-  addresses
+  addresses,
+  clientMerchantProfiles
 })

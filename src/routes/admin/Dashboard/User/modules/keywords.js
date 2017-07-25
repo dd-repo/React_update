@@ -5,7 +5,7 @@ export const UPDATE_KEYWORD_SUCCESS = 'UPDATE_KEYWORD_SUCCESS';
 export const UPDATE_KEYWORD_FAILURE = 'UPDATE_KEYWORD_FAILURE';
 export const ADD_KEYWORD_SUCCESS = 'ADD_KEYWORD_SUCCESS';
 export const ADD_KEYWORD_FAILURE = 'ADD_KEYWORD_FAILURE';
-export const UPDATE_KEYWORD_REQUEST = '/admin/api/keywords';
+export const KEYWORD_REQUEST = '/admin/api/keywords';
 
 export const submitKeyword = (keyword, accountId) => {
   return dispatch => {
@@ -20,19 +20,17 @@ export const submitKeyword = (keyword, accountId) => {
 export const updateKeyword = keyword => {
   const payload = { keyword }
   return dispatch => {
-    return BlitzApi.patch(`${UPDATE_KEYWORD_REQUEST}/${keyword.id}`, payload)
+    return BlitzApi.patch(`${KEYWORD_REQUEST}/${keyword.id}`, payload)
     .then( response => dispatch(updateKeywordSuccess(response.data)))
     .catch( error => dispatch(updateKeywordFailure(error)))
   }
 }
 
 export const addKeyword = (keyword, account_id) => {
-  const payload = Object.assign({}, keyword, {
-    account_id
-  })
+  const payload = Object.assign({}, keyword, { account_id })
 
   return dispatch => {
-    return BlitzApi.post(UPDATE_KEYWORD_REQUEST, payload)
+    return BlitzApi.post(KEYWORD_REQUEST, payload)
     .then( response => dispatch(addKeywordSuccess(response.data)))
     .catch( error => dispatch(addKeywordFailure(error)))
   }

@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { reduxForm, Field } from 'redux-form';
-import { updateAddress } from 'routes/admin/Dashboard/User/modules/addresses';
+import { submitAddress } from 'routes/admin/Dashboard/User/modules/addresses';
 import states from 'consts/data/states';
 
 import {
@@ -34,7 +34,7 @@ const UpdateAddressModal = props => {
 
   const _onSubmit = (data) => {
     props.hideModal()
-    props.dispatch(updateAddress(data))
+    props.dispatch(submitAddress(data, props.account.id))
   }
 
   return (
@@ -79,6 +79,7 @@ const UpdateAddressModal = props => {
                   name='state'
                   component={dropDownSelect}
                 >
+                  <option value="">Select a State...</option>
                   {
                     states.map((state, i) => (
                       <option value={state} key={i}>{state}</option>

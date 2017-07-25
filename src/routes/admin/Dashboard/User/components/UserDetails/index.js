@@ -96,6 +96,14 @@ const UserDetails = props => {
                 {user.created_at}
               </div>
             </ListGroupItem>
+            <ListGroupItem className='flex-space-between'>
+              <h5 className={ classes.detailsKey }>
+                Active until
+              </h5>
+              <div className={ classes.detailsValue }>
+                {user.active_until}
+              </div>
+            </ListGroupItem>
           </ListGroup>
         </Panel>
   )

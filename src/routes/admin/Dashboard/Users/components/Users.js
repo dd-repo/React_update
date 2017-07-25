@@ -109,6 +109,9 @@ const Users = (props) => {
               Created At
             </th>
             <th>
+              Active until
+            </th>
+            <th>
               actions
             </th>
           </tr>
