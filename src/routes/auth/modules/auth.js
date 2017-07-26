@@ -1,4 +1,4 @@
-import BlitzApi from 'services/BlitzApi';
+import clickadillyApi from 'services/clickadillyApi';
 import { PAYMENT_SUCCESS } from 'routes/client/Payment/modules/payment';
 import { KEYWORD_SUCCESS } from 'routes/client/Keywords/modules/keywords';
 
@@ -31,7 +31,7 @@ export const RESET_PASSWORD_REQUEST = `${CLIENT_API}/password/forgot`
 export const postUserSignup = payload => {
   return dispatch => {
     dispatch(postingUserSignup())
-    return BlitzApi.post(SIGNUP_REQUEST, payload)
+    return clickadillyApi.post(SIGNUP_REQUEST, payload)
     .then(
       response => dispatch(receiveUserSignup(response.data)))
       //response => console.log('success', response.data))
@@ -45,7 +45,7 @@ export const postUserSignup = payload => {
 export const postUserLogin = payload => {
   return dispatch => {
     dispatch(postingUserLogin())
-    return BlitzApi.post(LOGIN_REQUEST, { user: payload })
+    return clickadillyApi.post(LOGIN_REQUEST, { user: payload })
     .then(
       response =>
       response.data.user.role === 'admin'
@@ -63,7 +63,7 @@ export const postUserLogin = payload => {
 export const fetchUser = () => {
   return dispatch => {
     dispatch(postingUserLogin())
-    return BlitzApi.get(`${CLIENT_API}/users/get`)
+    return clickadillyApi.get(`${CLIENT_API}/users/get`)
     .then(
       response =>
       response.data.user.role === 'admin'
@@ -81,7 +81,7 @@ export const fetchUser = () => {
 export const updateUserPassword = payload => {
   return dispatch => {
     dispatch(postingUserLogin())
-    return BlitzApi.patch(UPDATE_PASSWORD_REQUEST, { user: payload })
+    return clickadillyApi.patch(UPDATE_PASSWORD_REQUEST, { user: payload })
     .then(
       response => dispatch(receiveClientLogin(response.data)))
       .catch(
@@ -93,7 +93,7 @@ export const updateUserPassword = payload => {
 export const resetUserPassword = payload => {
   return dispatch => {
     dispatch(postingForgotPassword(payload.email))
-    return BlitzApi.patch(RESET_PASSWORD_REQUEST, { user: payload })
+    return clickadillyApi.patch(RESET_PASSWORD_REQUEST, { user: payload })
     .then(
       response =>
       dispatch(receiveForgotPassword()))

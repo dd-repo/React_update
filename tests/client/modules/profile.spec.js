@@ -1,7 +1,7 @@
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 
-import BlitzApi from 'services/BlitzApi';
+import clickadillyApi from 'services/clickadillyApi';
 
 import {
   PROFILE_UPDATE_POSTING,
@@ -89,7 +89,7 @@ describe('(profile module) "profile"', () => {
     let profileApi;
 
     beforeEach(() => {
-      profileApi = sinon.stub(BlitzApi, 'get')
+      profileApi = sinon.stub(clickadillyApi, 'get')
     })
 
     afterEach(() => {
@@ -143,7 +143,7 @@ describe('(profile module) "profile"', () => {
     let profileApi;
 
     beforeEach(() => {
-      profileApi = sinon.stub(BlitzApi, 'patch')
+      profileApi = sinon.stub(clickadillyApi, 'patch')
     })
 
     afterEach(() => {

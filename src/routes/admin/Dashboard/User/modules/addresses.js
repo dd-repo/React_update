@@ -1,4 +1,4 @@
-import BlitzApi from 'services/BlitzApi';
+import clickadillyApi from 'services/clickadillyApi';
 import { ACCOUNT_SUCCESS } from './account';
 
 export const UPDATE_ADDRESS_SUCCESS = 'UPDATE_ADDRESS_SUCCESS';
@@ -21,7 +21,7 @@ export const submitAddress = (address, accountId) => {
 export const updateAddress = address => {
   const payload = { address }
   return dispatch => {
-    return BlitzApi.patch(`${ADDRESS_REQUEST}/${address.id}`, payload)
+    return clickadillyApi.patch(`${ADDRESS_REQUEST}/${address.id}`, payload)
     .then( response => dispatch(updateAddressSuccess(response.data)))
     .catch( error => dispatch(updateAddressFailure(error)))
   }
@@ -30,7 +30,7 @@ export const updateAddress = address => {
 export const createAddress = (address, account_id) => {
   const payload = Object.assign({}, address, { account_id })
   return dispatch => {
-    return BlitzApi.post(ADDRESS_REQUEST, payload)
+    return clickadillyApi.post(ADDRESS_REQUEST, payload)
     .then( response => dispatch(createAddressSuccess(response.data)))
     .catch( error => dispatch(createAddressFailure(error)))
   }

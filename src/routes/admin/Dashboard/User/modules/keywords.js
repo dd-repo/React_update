@@ -1,4 +1,4 @@
-import BlitzApi from 'services/BlitzApi';
+import clickadillyApi from 'services/clickadillyApi';
 import { ACCOUNT_SUCCESS } from './account';
 
 export const UPDATE_KEYWORD_SUCCESS = 'UPDATE_KEYWORD_SUCCESS';
@@ -20,7 +20,7 @@ export const submitKeyword = (keyword, accountId) => {
 export const updateKeyword = keyword => {
   const payload = { keyword }
   return dispatch => {
-    return BlitzApi.patch(`${KEYWORD_REQUEST}/${keyword.id}`, payload)
+    return clickadillyApi.patch(`${KEYWORD_REQUEST}/${keyword.id}`, payload)
     .then( response => dispatch(updateKeywordSuccess(response.data)))
     .catch( error => dispatch(updateKeywordFailure(error)))
   }
@@ -30,7 +30,7 @@ export const addKeyword = (keyword, account_id) => {
   const payload = Object.assign({}, keyword, { account_id })
 
   return dispatch => {
-    return BlitzApi.post(KEYWORD_REQUEST, payload)
+    return clickadillyApi.post(KEYWORD_REQUEST, payload)
     .then( response => dispatch(addKeywordSuccess(response.data)))
     .catch( error => dispatch(addKeywordFailure(error)))
   }

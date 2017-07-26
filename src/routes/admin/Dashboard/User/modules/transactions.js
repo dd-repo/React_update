@@ -1,4 +1,4 @@
-import BlitzApi from 'services/BlitzApi';
+import clickadillyApi from 'services/clickadillyApi';
 import _ from 'underscore';
 import { USER_SUCCESS } from './user';
 import {
@@ -15,7 +15,7 @@ export const updateTransaction = transaction => {
   const payload = { id: transaction.id }
 
   return dispatch => {
-    return BlitzApi.patch(path, payload)
+    return clickadillyApi.patch(path, payload)
     .then( response => dispatch(updateTransactionSuccess(response.data)))
     .catch( error => dispatch(updateTransactionFailure(error)))
   }

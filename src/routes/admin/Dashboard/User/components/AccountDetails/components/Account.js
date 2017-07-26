@@ -42,19 +42,6 @@ const Account = ({account}) => (
         { account.email }
       </div>
     </ListGroupItem>
-    <ListGroupItem className='flex-space-between'>
-      <h5 className={ classes.detailsKey }>
-        Status
-      </h5>
-      <div className={ classes.detailsValue }>
-        <Label
-          outline
-          className='text-uppercase'
-          bsStyle={account.is_active ? 'success' : 'danger'}>
-          { account.is_active ? 'Active' : 'Inactive' }
-        </Label>
-      </div>
-    </ListGroupItem>
   </ListGroup>
 )
 

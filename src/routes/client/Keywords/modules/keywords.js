@@ -1,4 +1,4 @@
-import BlitzApi from 'services/BlitzApi';
+import clickadillyApi from 'services/clickadillyApi';
 import {
   USER_LOGIN_SUCCESS,
   USER_LOGOUT,
@@ -24,7 +24,7 @@ export const addCurrentKeyword = keyword => (
 export const postKeywords = payload => {
   return dispatch => {
     dispatch(postingKeywords())
-    return BlitzApi.post(KEYWORD_REQUEST, { signup_keyword: payload })
+    return clickadillyApi.post(KEYWORD_REQUEST, { signup_keyword: payload })
     .then(
       response => dispatch(keywordSuccess(response.data))
     ).catch(

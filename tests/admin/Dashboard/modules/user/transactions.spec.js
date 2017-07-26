@@ -1,6 +1,6 @@
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
-import BlitzApi from 'services/BlitzApi';
+import clickadillyApi from 'services/clickadillyApi';
 
 import { formatDate } from 'utils/dateHelper';
 
@@ -89,7 +89,7 @@ describe('(Transaction module)', () => {
     let transactionApi;
 
     beforeEach(() => {
-      transactionApi = sinon.stub(BlitzApi, 'patch')
+      transactionApi = sinon.stub(clickadillyApi, 'patch')
     })
 
     afterEach(() => {

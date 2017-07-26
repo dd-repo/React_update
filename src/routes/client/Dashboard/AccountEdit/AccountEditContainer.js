@@ -1,5 +1,5 @@
 import React from 'react';
-import BlitzApi from 'services/BlitzApi';
+import clickadillyApi from 'services/clickadillyApi';
 import { reset } from 'redux-form';
 
 import { RoutedComponent, connect } from 'routes/routedComponent';
@@ -66,7 +66,7 @@ class AccountEditContainer extends RoutedComponent {
   }
 
   updatePassword(password) {
-    BlitzApi.patch(PASSWORD_UPDATE_REQUEST, { user: { password }})
+    clickadillyApi.patch(PASSWORD_UPDATE_REQUEST, { user: { password }})
     .then(
       response => this.handleSuccessfulPasswordUpdate()
     ).catch(

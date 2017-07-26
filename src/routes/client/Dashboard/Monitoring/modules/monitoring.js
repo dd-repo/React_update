@@ -1,4 +1,4 @@
-import BlitzApi from 'services/BlitzApi';
+import clickadillyApi from 'services/clickadillyApi';
 
 //action types
 export const MONITORING_PENDING = 'MONITORING_PENDING';
@@ -14,7 +14,7 @@ export const getMonitoring = account_id => {
 
   return dispatch => {
     dispatch(gettingMonitoring())
-    return BlitzApi.get(path)
+    return clickadillyApi.get(path)
     .then(
       response => dispatch(monitoringSuccess(response.data))
     ).catch(
@@ -28,7 +28,7 @@ export const monitoringRequestRemoval = request_id => {
   const payload = { request_status: 'requested' }
 
   return dispatch => {
-    return BlitzApi.patch(path, payload)
+    return clickadillyApi.patch(path, payload)
     .then(
       response => dispatch(removalRequestSuccess(response.data))
     ).catch(

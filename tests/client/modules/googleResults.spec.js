@@ -1,7 +1,7 @@
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 
-import BlitzApi from 'services/BlitzApi';
+import clickadillyApi from 'services/clickadillyApi';
 import BASE_URL from 'consts/baseUrl';
 import {
   GOOGLE_RESULTS_SUCCESS,
@@ -137,7 +137,7 @@ describe( '(googleResults module) googleResults', () => {
     const payload = {pageNum: 1, keyword_id: 1, account_id: 1}
 
     beforeEach(() => {
-      googleResultApi = sinon.stub(BlitzApi, 'get')
+      googleResultApi = sinon.stub(clickadillyApi, 'get')
     })
 
     afterEach(() => {
@@ -213,7 +213,7 @@ describe( '(googleResults module) googleResults', () => {
     }
 
     beforeEach(() => {
-      updateGoogleResultApi = sinon.stub(BlitzApi, 'post')
+      updateGoogleResultApi = sinon.stub(clickadillyApi, 'post')
     })
 
     afterEach(() => {

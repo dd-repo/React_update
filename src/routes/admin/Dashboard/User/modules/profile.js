@@ -1,4 +1,4 @@
-import BlitzApi from 'services/BlitzApi';
+import clickadillyApi from 'services/clickadillyApi';
 import { ACCOUNT_SUCCESS } from './account';
 
 export const UPDATE_PROFILE_SUCCESS = 'UPDATE_PROFILE_SUCCESS';
@@ -8,7 +8,7 @@ export const UPDATE_PROFILE_REQUEST = '/admin/api/profiles';
 export const updateProfile = profile => {
   const payload = { profile }
   return dispatch => {
-    return BlitzApi.patch(`${UPDATE_PROFILE_REQUEST}/${profile.id}`, payload)
+    return clickadillyApi.patch(`${UPDATE_PROFILE_REQUEST}/${profile.id}`, payload)
     .then( response => dispatch(updateProfileSuccess(response.data)))
     .catch( error => dispatch(updateProfileFailure(error)))
   }

@@ -1,4 +1,4 @@
-import BlitzApi from 'services/BlitzApi';
+import clickadillyApi from 'services/clickadillyApi';
 
 import {
   UPDATE_TRANSACTION_SUCCESS,
@@ -18,7 +18,7 @@ export const getTransactions = (params, pageNum) => {
   const path = `${TRANSACTIONS_REQUEST}/${pageNum}`
   return dispatch => {
     dispatch(gettingTransactions())
-    return BlitzApi.get(path, params)
+    return clickadillyApi.get(path, params)
     .then(
       response => dispatch(receiveTransactions(response.data)))
       .catch(

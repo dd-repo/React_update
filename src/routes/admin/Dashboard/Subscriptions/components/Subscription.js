@@ -18,6 +18,7 @@ const Subscription = props => {
     plan_description,
     card_id,
     sales_rep_name,
+    next_payment
   } = props.subscription
 
   const isActive = is_active ? 'Active' : 'Canceled'
@@ -79,6 +80,9 @@ const Subscription = props => {
             bsStyle={is_active ? 'success' : 'danger'}>
             { isActive }
           </Label>
+        </td>
+        <td>
+          { formatDate(next_payment) }
         </td>
         <td>
           { renderButton }

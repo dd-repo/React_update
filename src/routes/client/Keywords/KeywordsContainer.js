@@ -21,7 +21,7 @@ class KeywordContainer extends RoutedComponent {
 
     this.submitForm = this.submitForm.bind(this);
     this.buildParams = this.buildParams.bind(this);
-    this.doNext = this.doNext.bind(this);
+    this.onNext = this.onNext.bind(this);
     this.renderNextForm = this.renderNextForm.bind(this);
   }
 
@@ -54,11 +54,11 @@ class KeywordContainer extends RoutedComponent {
   submitForm(formProps) {
     let params = this.buildParams(formProps)
     this.props.postKeywords(params)
-    .then(res => { this.doNext(res) })
+    .then(res => { this.onNext(res) })
     .catch(error => { console.log('error in keywords', error) });
   }
 
-  doNext(res) {
+  onNext(res) {
     switch(res.type) {
       case KEYWORD_SUCCESS:
         persistDataToLocalStorage(res.keywords)
@@ -82,8 +82,6 @@ class KeywordContainer extends RoutedComponent {
         submitForm={this.submitForm}
         renderNextForm={this.renderNextForm}
         currentForm={this.state.currentForm}
-        doNext={this.doNext}
-        history={this.props.history}
         />
     )
   }

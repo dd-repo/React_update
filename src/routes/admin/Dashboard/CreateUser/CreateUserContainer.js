@@ -4,7 +4,7 @@ import { reset } from 'redux-form';
 
 import { RoutedComponent, connect } from 'routes/routedComponent';
 import { CONTENT_VIEW_STATIC } from 'layouts/DefaultLayout/modules/layout';
-import BlitzApi from 'services/BlitzApi';
+import clickadillyApi from 'services/clickadillyApi';
 
 const CREATE_USER_REQUEST = '/admin/api/create_user';
 
@@ -33,7 +33,7 @@ class CreateUserContainer extends RoutedComponent {
   submitForm(user) {
     const payload = this.buildParams(user)
     this.setState({isFetching: true})
-    BlitzApi.post(CREATE_USER_REQUEST, payload)
+    clickadillyApi.post(CREATE_USER_REQUEST, payload)
     .then(res => { this.handleSuccess(res) })
     .catch(error => { this.handleFailure(error) })
   }

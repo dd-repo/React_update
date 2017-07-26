@@ -1,4 +1,4 @@
-import BlitzApi from 'services/BlitzApi';
+import clickadillyApi from 'services/clickadillyApi';
 import { receiveClientLogin } from 'routes/auth/modules/auth';
 
 // action types
@@ -14,7 +14,7 @@ export const getAllUsers = (params, pageNum) => {
   const path = `${USERS_REQUEST}/${pageNum}`
   return dispatch => {
     dispatch(gettingAllUsers())
-    return BlitzApi.get(path, params)
+    return clickadillyApi.get(path, params)
     .then(
       response => dispatch(receiveAllUsers(response.data))
     ).catch(
@@ -25,7 +25,7 @@ export const getAllUsers = (params, pageNum) => {
 
 export const becomeUser = params => {
   return dispatch => {
-    return BlitzApi.patch(BECOME_USER_REQUEST, params)
+    return clickadillyApi.patch(BECOME_USER_REQUEST, params)
     .then(
       response => dispatch(receiveClientLogin(response.data))
     ).catch(

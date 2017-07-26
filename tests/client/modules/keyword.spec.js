@@ -1,7 +1,7 @@
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 
-import BlitzApi from 'services/BlitzApi';
+import clickadillyApi from 'services/clickadillyApi';
 import {
   USER_LOGIN_SUCCESS
 } from 'routes/auth/modules/auth';
@@ -102,7 +102,7 @@ describe('(profile module) "profile"', () => {
     let keywordApi;
 
     beforeEach(() => {
-      keywordApi = sinon.stub(BlitzApi, 'post')
+      keywordApi = sinon.stub(clickadillyApi, 'post')
     })
 
     afterEach(() => {

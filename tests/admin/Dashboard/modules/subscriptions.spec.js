@@ -1,6 +1,6 @@
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
-import BlitzApi from 'services/BlitzApi';
+import clickadillyApi from 'services/clickadillyApi';
 
 import {
   SUBSCRIPTIONS_PENDING,
@@ -79,7 +79,7 @@ describe('(Subscription module)', () => {
     let subscriptionApi;
 
     beforeEach(() => {
-     subscriptionApi = sinon.stub(BlitzApi, 'get')
+     subscriptionApi = sinon.stub(clickadillyApi, 'get')
     })
 
     afterEach(() => {

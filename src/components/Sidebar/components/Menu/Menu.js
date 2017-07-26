@@ -167,7 +167,7 @@ class Menu extends React.Component {
                     className={ classes.containerLink }
                 >
                     { nodeDef.icon ? <i className={ nodeDef.icon }></i> : null }
-                    <span className="nav-label">{ nodeDef.title }</span>
+                    <span className="nav-label text-white">{ nodeDef.title }</span>
                     {
                         nodeDef.sidebarElement ? (
                             nodeDef.sidebarElement
@@ -182,7 +182,7 @@ class Menu extends React.Component {
                 <a href={ nodeDef.url } className={ classes.sidebarLink } target={ nodeDef.newTab ? '_blank' : '_self' }>
                     { nodeDef.icon ? <i className={ nodeDef.icon }></i> : null }
                     <div className={ classes.sidebarLinkText }>
-                        <span className="nav-label">{ nodeDef.title }</span>
+                        <span className="nav-label text-white">{ nodeDef.title }</span>
                         { nodeDef.sidebarElement }
                     </div>
                 </a>
@@ -190,7 +190,7 @@ class Menu extends React.Component {
                 <Link to={ nodeDef.url } className={ classes.sidebarLink }>
                     { nodeDef.icon ? <i className={ nodeDef.icon }></i> : null }
                     <div className={ classes.sidebarLinkText }>
-                        <span className="nav-label">{ nodeDef.title }</span>
+                        <span className="nav-label text-white">{ nodeDef.title }</span>
                         { nodeDef.sidebarElement }
                     </div>
                 </Link>
