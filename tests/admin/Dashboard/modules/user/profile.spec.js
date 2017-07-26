@@ -1,6 +1,6 @@
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
-import BlitzApi from 'services/BlitzApi';
+import clickadillyApi from 'services/clickadillyApi';
 
 import { ACCOUNT_SUCCESS } from 'routes/admin/Dashboard/User/modules/account';
 
@@ -61,11 +61,10 @@ describe('(Profile module)', () => {
     let profileApi;
 
     beforeEach(() => {
-      profileApi = sinon.stub(BlitzApi, 'patch')
+      profileApi = sinon.stub(clickadillyApi, 'patch')
     })
 
-    afterEach(() => {
-      profileApi.restore()
+    afterEach(() => { profileApi.restore()
     })
 
     it('should be exported as a function', () => {

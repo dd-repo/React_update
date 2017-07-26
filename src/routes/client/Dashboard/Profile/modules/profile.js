@@ -1,4 +1,4 @@
-import BlitzApi from 'services/BlitzApi';
+import clickadillyApi from 'services/clickadillyApi';
 
 import {
   USER_LOGIN_SUCCESS,
@@ -18,7 +18,7 @@ export const updateUserProfile = (payload, profile_id) => {
   const path = `/dashboard/api/v1/profiles/${profile_id}`
   return dispatch => {
     dispatch(postingProfile())
-    return BlitzApi.patch(path, payload)
+    return clickadillyApi.patch(path, payload)
     .then(
       response => dispatch(profileUpdateSuccess(response.data))
     ).catch(
@@ -30,7 +30,7 @@ export const updateUserProfile = (payload, profile_id) => {
 export const getProfile = (profile_id) => {
   const path = `/dashboard/api/v1/profiles/${profile_id}`
   return dispatch => {
-    return BlitzApi.get(path)
+    return clickadillyApi.get(path)
     .then(
       response => dispatch(profileSuccess(response.data))
     ).catch(
@@ -105,7 +105,6 @@ const reducer = (state = {}, action) => {
         error: action.error
       })
     case USER_LOGIN_SUCCESS:
-      console.log('action', action.data)
       return addProfile(state, action.data.account.profile)
     case USER_SIGNUP_SUCCESS:
       return addProfile(state, action.data.account.profile)

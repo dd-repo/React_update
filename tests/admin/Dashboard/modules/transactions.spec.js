@@ -1,6 +1,6 @@
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
-import BlitzApi from 'services/BlitzApi';
+import clickadillyApi from 'services/clickadillyApi';
 
 import {
   TRANSACTIONS_PENDING,
@@ -83,7 +83,7 @@ describe('(Tranactions module)', () => {
     let transactionsRequestApi;
 
     beforeEach(() => {
-     transactionsRequestApi = sinon.stub(BlitzApi, 'get')
+     transactionsRequestApi = sinon.stub(clickadillyApi, 'get')
     })
 
     afterEach(() => {

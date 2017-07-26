@@ -1,6 +1,6 @@
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
-import BlitzApi from 'services/BlitzApi';
+import clickadillyApi from 'services/clickadillyApi';
 
 import { formatDate } from 'utils/dateHelper';
 
@@ -32,6 +32,7 @@ const userResponse = {
   email: 'fred@email.com',
   is_active: true,
   created_at: "2017-07-17T08:47:42.858-07:00",
+  active_until: "2017-07-17T08:47:42.858-07:00",
   accounts: [
     {
       id: 1,
@@ -145,7 +146,7 @@ describe('(User module)', () => {
     let userApi;
 
     beforeEach(() => {
-      userApi = sinon.stub(BlitzApi, 'get')
+      userApi = sinon.stub(clickadillyApi, 'get')
     })
 
     afterEach(() => {
@@ -201,7 +202,7 @@ describe('(User module)', () => {
     let updateUserApi;
 
     beforeEach(() => {
-      updateUserApi = sinon.stub(BlitzApi, 'patch')
+      updateUserApi = sinon.stub(clickadillyApi, 'patch')
     })
 
     afterEach(() => {
@@ -277,16 +278,10 @@ describe('(User module)', () => {
         email: 'fred@email.com',
         is_active: true,
         created_at: formatDate("2017-07-17T08:47:42.858-07:00"),
+        active_until: formatDate("2017-07-17T08:47:42.858-07:00")
       }
       expect(userState).to.eql(userDetails)
     })
-
-    //it('should handle USER_FAILURE', () => {
-      //const userState = reducer({}, { type: USER_FAILURE, error: errorRes})
-      //expect(userState).to.eql({
-        //errorMessage: errorRes.response.data.errorMessage
-      //})
-    //})
 
     it('should handle UPDATE_USER_SUCCESS', () => {
       const newDetails = {
@@ -297,6 +292,7 @@ describe('(User module)', () => {
         email: 'fred@email.com',
         is_active: false,
         created_at: formatDate("2017-07-17T08:47:42.858-07:00"),
+        active_until: formatDate("2017-07-17T08:47:42.858-07:00")
       }
       const oldDetails = {
         id: 1,
@@ -306,6 +302,7 @@ describe('(User module)', () => {
         email: 'fred@email.com',
         is_active: true,
         created_at: "2017-07-17T08:47:42.858-07:00",
+        active_until: "2017-07-17T08:47:42.858-07:00",
       }
       const userState = reducer(oldDetails, { type: UPDATE_USER_SUCCESS, data: newDetails })
       expect(userState).to.eql(newDetails)

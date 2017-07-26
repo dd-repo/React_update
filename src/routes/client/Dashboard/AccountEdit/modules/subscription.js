@@ -1,4 +1,4 @@
-import BlitzApi from 'services/BlitzApi';
+import clickadillyApi from 'services/clickadillyApi';
 
 // action types
 import {
@@ -17,7 +17,7 @@ export const SUBSCRIPTION_REQUEST = '/dashboard/api/v1/subscriptions';
 // Async actions
 export const getSubscription = () => {
   return dispatch => {
-    return BlitzApi.get(`${SUBSCRIPTION_REQUEST}/get`)
+    return clickadillyApi.get(`${SUBSCRIPTION_REQUEST}/get`)
     .then(
       response => dispatch(subscriptionSuccess(response.data)))
       .catch(
@@ -27,7 +27,7 @@ export const getSubscription = () => {
 
 export const cancelSubscription = id => {
   return dispatch => {
-    return BlitzApi.patch(`${SUBSCRIPTION_REQUEST}/${id}/cancel`)
+    return clickadillyApi.patch(`${SUBSCRIPTION_REQUEST}/${id}/cancel`)
     .then(
       response => dispatch(subscriptionCancelSuccess(response.data)))
       .catch(

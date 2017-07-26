@@ -1,6 +1,6 @@
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
-import BlitzApi from 'services/BlitzApi';
+import clickadillyApi from 'services/clickadillyApi';
 
 import {
   USER_SUCCESS,
@@ -99,7 +99,7 @@ describe('(Subscripiton module)', () => {
     let subscriptionApi;
 
     beforeEach(() => {
-      subscriptionApi = sinon.stub(BlitzApi, 'patch')
+      subscriptionApi = sinon.stub(clickadillyApi, 'patch')
     })
 
     afterEach(() => {
@@ -153,7 +153,7 @@ describe('(Subscripiton module)', () => {
     let subscriptionApi;
 
     beforeEach(() => {
-      subscriptionApi = sinon.stub(BlitzApi, 'post')
+      subscriptionApi = sinon.stub(clickadillyApi, 'post')
     })
 
     afterEach(() => {

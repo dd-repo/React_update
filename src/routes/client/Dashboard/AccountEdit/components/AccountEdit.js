@@ -113,10 +113,6 @@ const AccountEdit = (props) => {
               <span>
                 If you have trouble with changing your password, you can contact us at (844) 641-7829.
               </span>
-              { ' ' }
-              <Link to='/apps/faq'>
-                We can help.
-              </Link>
             </div>
             }
           >

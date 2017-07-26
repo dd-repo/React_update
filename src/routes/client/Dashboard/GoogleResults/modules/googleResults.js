@@ -1,4 +1,4 @@
-import BlitzApi from 'services/BlitzApi';
+import clickadillyApi from 'services/clickadillyApi';
 
 import {
   USER_LOGOUT
@@ -20,7 +20,7 @@ export const getGoogleResults = params => {
 
   return dispatch => {
     dispatch(gettingGoogleResults())
-    return BlitzApi.get(path)
+    return clickadillyApi.get(path)
     .then(
       response => dispatch(googleResultSuccess(response.data))
     ).catch(
@@ -31,7 +31,7 @@ export const getGoogleResults = params => {
 
 export const requestRemoval = payload => {
   return dispatch => {
-    return(BlitzApi.post(REMOVAL_REQUEST, payload))
+    return(clickadillyApi.post(REMOVAL_REQUEST, payload))
     .then(
       response => dispatch(updateGoogleResultSuccess(response.data)))
       .catch(

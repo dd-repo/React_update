@@ -1,4 +1,4 @@
-import BlitzApi from 'services/BlitzApi';
+import clickadillyApi from 'services/clickadillyApi';
 import _ from 'underscore';
 import { USER_SUCCESS } from './user';
 
@@ -12,7 +12,7 @@ export const updateSubscription = subscription => {
   const path = `${SUBSCRIPTION_REQUEST}/${subscription.id}`
   const payload = { subscription }
   return dispatch => {
-    return BlitzApi.patch(path, payload)
+    return clickadillyApi.patch(path, payload)
     .then( response => dispatch(updateSubscriptionSuccess(response.data)))
     .catch( error => dispatch(updateSubscriptionFailure(error)))
   }
@@ -21,7 +21,7 @@ export const updateSubscription = subscription => {
 export const createSubscription = (data, user_id) => {
   const payload = Object.assign({}, data, { user_id })
   return dispatch => {
-    return BlitzApi.post(SUBSCRIPTION_REQUEST, payload)
+    return clickadillyApi.post(SUBSCRIPTION_REQUEST, payload)
     .then( response => dispatch(createSubscriptionSuccess(response.data)))
     .catch( error => dispatch(createSubscriptionFailure(error)))
   }

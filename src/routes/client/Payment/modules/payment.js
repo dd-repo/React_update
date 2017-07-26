@@ -1,4 +1,4 @@
-import BlitzApi from 'services/BlitzApi';
+import clickadillyApi from 'services/clickadillyApi';
 
 import {
   USER_LOGOUT
@@ -14,7 +14,7 @@ export const PAYMENT_REQUEST = `/dashboard/api/v1/users/sign-up/payment`;
 export const postPayment = payload => {
   return dispatch => {
     dispatch(postingPayment(payload))
-    return BlitzApi.post(PAYMENT_REQUEST, { signup: payload })
+    return clickadillyApi.post(PAYMENT_REQUEST, { signup: payload })
     .then(
       response => dispatch(paymentSuccess(response.data))
     ).catch(

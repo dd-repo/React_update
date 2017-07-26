@@ -53,7 +53,6 @@ const renderDatePicker = ({input, placeHolder, meta: {touched, error} }) => (
 
 const NewSubscriptionForm = props => {
 
-
   return (
     <Form onSubmit={props.handleSubmit(props._onSubmit)} horizontal>
       <FormGroup>
@@ -100,13 +99,13 @@ const NewSubscriptionForm = props => {
           >
             {
               props.cards.map((card, i) => (
-                <option value={card.id} key={i}>Last 4 - {card.last_4}  Date added - {formatDate(card.created_at)}</option>
+                <option value={card.id} key={i}>Last 4 ({card.last_4}) / Date added ({formatDate(card.created_at)})</option>
                 ))
             }
           </Field>
         </Col>
         <Col componentClass={ControlLabel} sm={3}>
-          Payment Date
+          Payment Start Date
         </Col>
         <Col sm={9}>
           <Field

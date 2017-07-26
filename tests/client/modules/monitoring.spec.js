@@ -1,7 +1,7 @@
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 
-import BlitzApi from 'services/BlitzApi';
+import clickadillyApi from 'services/clickadillyApi';
 
 import {
   MONITORING_PENDING,
@@ -112,7 +112,7 @@ describe('(monitoring module) monitoring requests', () => {
     let monitoringApi;
 
     beforeEach(() => {
-      monitoringApi = sinon.stub(BlitzApi, 'get')
+      monitoringApi = sinon.stub(clickadillyApi, 'get')
     })
 
     afterEach(() => {
@@ -168,7 +168,7 @@ describe('(monitoring module) monitoring requests', () => {
     let monitoringApi;
 
     beforeEach(() => {
-      monitoringApi = sinon.stub(BlitzApi, 'patch')
+      monitoringApi = sinon.stub(clickadillyApi, 'patch')
     })
 
     afterEach(() => {

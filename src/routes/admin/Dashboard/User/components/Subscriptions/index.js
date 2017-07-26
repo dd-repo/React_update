@@ -40,7 +40,7 @@ const Subscriptions = ({subscriptions, showModal, handleNewSubscription}) => {
             <thead>
               <tr>
                 <th>
-                  subscription id
+                  id
                 </th>
                 <th>
                   client name
@@ -68,6 +68,9 @@ const Subscriptions = ({subscriptions, showModal, handleNewSubscription}) => {
                 </th>
                 <th>
                   account status
+                </th>
+                <th>
+                  next payment
                 </th>
                 <th>
                 </th>

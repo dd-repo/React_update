@@ -1,4 +1,4 @@
-import BlitzApi from 'services/BlitzApi';
+import clickadillyApi from 'services/clickadillyApi';
 
 // action types
 export const ADMIN_REQUESTED_REMOVALS_PENDING = 'ADMIN_REQUESTED_REMOVALS_PENDING';
@@ -15,7 +15,7 @@ export const getRemovalsRequested = (pageNum, params) => {
   const path = `${ADMIN_REMOVAL_REQUEST_PATH}/search/${pageNum}`
   return dispatch => {
     dispatch(gettingRemovalRequests())
-    return BlitzApi.get(path, params)
+    return clickadillyApi.get(path, params)
     .then(
       response => dispatch(receivedRemovalRequests(response.data))
     ).catch(
@@ -27,7 +27,7 @@ export const getRemovalsRequested = (pageNum, params) => {
 export const updateStatus = payload => {
   return dispatch => {
     dispatch(updatingStatus())
-    return BlitzApi.patch(ADMIN_REMOVAL_REQUEST_PATH, payload)
+    return clickadillyApi.patch(ADMIN_REMOVAL_REQUEST_PATH, payload)
     .then(
       response =>
       dispatch(receivedUpdateStatus(response.data))

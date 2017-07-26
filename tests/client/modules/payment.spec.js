@@ -1,7 +1,7 @@
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 
-import BlitzApi from 'services/BlitzApi';
+import clickadillyApi from 'services/clickadillyApi';
 
 import {
   PAYMENT_POSTING,
@@ -66,7 +66,7 @@ describe('(profile module) "profile"', () => {
     let paymentApi;
 
     beforeEach(() => {
-      paymentApi = sinon.stub(BlitzApi, 'post')
+      paymentApi = sinon.stub(clickadillyApi, 'post')
     })
 
     afterEach(() => {

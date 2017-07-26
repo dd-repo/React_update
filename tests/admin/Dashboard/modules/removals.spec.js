@@ -1,7 +1,7 @@
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 
-import BlitzApi from 'services/BlitzApi';
+import clickadillyApi from 'services/clickadillyApi';
 import {
   ADMIN_REQUESTED_REMOVALS_PENDING,
   ADMIN_REQUESTED_REMOVALS_SUCCESS,
@@ -145,7 +145,7 @@ describe('(RequestedMovals module)', () => {
     let requestedRemovalsApi;
 
     beforeEach(() => {
-      requestedRemovalsApi = sinon.stub(BlitzApi, 'get')
+      requestedRemovalsApi = sinon.stub(clickadillyApi, 'get')
     })
 
     afterEach(() => {
@@ -204,7 +204,7 @@ describe('(RequestedMovals module)', () => {
     let requestedRemovalsApi;
 
     beforeEach(() => {
-      requestedRemovalsApi = sinon.stub(BlitzApi, 'patch')
+      requestedRemovalsApi = sinon.stub(clickadillyApi, 'patch')
     })
 
     afterEach(() => {

@@ -123,6 +123,9 @@ export default class Subscriptions extends Component {
                 account status
               </th>
               <th>
+                next payment
+              </th>
+              <th>
               </th>
             </tr>
           </thead>
