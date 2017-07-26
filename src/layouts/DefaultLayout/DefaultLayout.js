@@ -309,16 +309,19 @@ class DefaultLayout extends React.Component {
 
                                 { /* ============= Right Nav ============== */ }
                                 <Nav pullRight>
-                                  <Navbar.Text>
-                                    <i className="fa fa-phone m-r-1" aria-hidden="true"></i>
-                                    <span className='m-r-1'>
-                                      (844) 641-7829
-                                    </span>
-                                    <i className="fa fa-envelope m-r-1" aria-hidden="true"></i>
-                                    <span className='m-r-3'>
-                                      help@clickadilly.com
-                                    </span>
-                                  </Navbar.Text>
+                                  { isClient && (
+                                    <NavItem>
+                                      <i className="fa fa-phone m-r-1" aria-hidden="true"></i>
+                                      <span className='m-r-1'>
+                                        (844) 641-7829
+                                      </span>
+                                      <i className="fa fa-envelope m-r-1" aria-hidden="true"></i>
+                                      <span className='m-r-3'>
+                                        help@clickadilly.com
+                                      </span>
+                                    </NavItem>
+                                    )
+                                  }
                                   { /* <ContactDropdown /> */ }
                                   { /* <NotificationsDropdown /> */ }
                                   { /*  <MessagesDropdown /> */ }
