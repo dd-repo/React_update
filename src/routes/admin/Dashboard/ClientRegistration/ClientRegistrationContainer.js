@@ -93,7 +93,6 @@ class ClientRegistrationContainer extends RoutedComponent {
         email: user.email,
         phone_number: user.phoneNumber,
         phone_type: 'home',
-        authnet_id: user.authnetId,
         plan: user.plan.toLowerCase(),
         card_holder_name: user.fullName,
         card_number: this.sanitizeNums(user.creditCardNumber),

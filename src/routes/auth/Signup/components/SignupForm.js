@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { Field, reduxForm } from 'redux-form';
-import _ from 'lodash';
+import _ from 'underscore';
 
 import { checkValidation } from 'utils/formHelpers';
 import fields from 'consts/data/formFields';

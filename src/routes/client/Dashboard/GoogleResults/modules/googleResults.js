@@ -21,11 +21,8 @@ export const getGoogleResults = params => {
   return dispatch => {
     dispatch(gettingGoogleResults())
     return clickadillyApi.get(path)
-    .then(
-      response => dispatch(googleResultSuccess(response.data))
-    ).catch(
-    error => dispatch(googleResultFailure(error))
-    )
+    .then( response => dispatch(googleResultSuccess(response.data)))
+    .catch( error => dispatch(googleResultFailure(error)))
   }
 }
 

@@ -1,7 +1,13 @@
 import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
 
-import { Button, DropdownButton, MenuItem } from 'components'
+import {
+  Button,
+  DropdownButton,
+  MenuItem,
+  Label
+} from 'components'
+
 import getFullName from 'utils/fullName';
 
 import { formatDate } from 'utils/dateHelper';
@@ -15,6 +21,7 @@ const User = (props) => {
     group,
     role,
     accounts,
+    is_active,
     active_until,
     created_at,
   } = props.user
@@ -71,7 +78,15 @@ const User = (props) => {
         { formatDate(created_at) }
       </td>
       <td>
-        { active_until }
+        { formatDate(active_until) }
+      </td>
+      <td>
+        <Label
+          outline
+          className='text-uppercase'
+          bsStyle={is_active ? 'success' : 'danger'}>
+          {is_active ? 'Active' : 'Inactive'}
+        </Label>
       </td>
       <td>
         { renderButton }

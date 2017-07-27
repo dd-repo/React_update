@@ -1,0 +1,61 @@
+@import '~@owczar/spin-template/src/scss/bootstrap/variables';
+@import '~bootstrap-sass/assets/stylesheets/bootstrap/_variables.scss';
+
+.panelHeader {
+    text-align: center;
+    margin-bottom: 0;
+    font-weight: 300;
+}
+
+.centerCol {
+    margin: 0 auto;
+    float: none;
+}
+
+.toHomeLink {
+    display: block;
+    min-height: 80px;
+    position: relative;
+
+    > img {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+}
+
+.panelWhite {
+    background-color: $brand-white;
+}
+
+.invoiceTable {
+    th {
+        font-size: 10px;
+        text-transform: uppercase;
+        color: $text-muted;
+    }
+
+    border-bottom: 1px solid $gray-dark;
+}
+
+.iconsContainer {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 3rem;
+}
+
+.iconElement {
+    width: 50px;
+    height: 50px;
+    flex-shrink: 0;
+
+    margin: auto;
+    background-color: transparent;
+    border: 1px solid #212121;
+    font-size: 11px;
+
+    .icon {
+        font-size: 34px;
+    }
+}

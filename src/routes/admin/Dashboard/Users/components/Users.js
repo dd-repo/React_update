@@ -112,6 +112,9 @@ const Users = (props) => {
               Active until
             </th>
             <th>
+              Status
+            </th>
+            <th>
               actions
             </th>
           </tr>

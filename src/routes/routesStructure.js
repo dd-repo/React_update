@@ -42,6 +42,12 @@ export const CONFIGS = {
       title: 'Account',
       icon: 'fa fa-cog fa-lg',
       url: '/dashboard/account-settings'
+    },
+    {
+      slug: 'Feedback',
+      title: 'Feedback',
+      icon: 'fa fa-comment',
+      url: '/dashboard/feedback'
     }
   ],
   'admin': [
