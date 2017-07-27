@@ -154,7 +154,7 @@ const fields = {
     list: states
   },
   plan: {
-    list: ['individual']
+    list: ['individual', 'testing']
   }
 }
 
