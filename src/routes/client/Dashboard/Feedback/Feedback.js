@@ -48,7 +48,7 @@ export class Feedback extends RoutedComponent {
           success: true
         })
         break;
-      case FEEDBACK_FAILUER:
+      case FEEDBACK_FAILURE:
         this.setState({
           isFetching: false,
           success: false,
