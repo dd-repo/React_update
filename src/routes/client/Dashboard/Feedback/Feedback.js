@@ -12,9 +12,10 @@ import {
 import {
   Row,
   Col,
+  Alert
 } from 'components';
 
-class Feedback extends RoutedComponent {
+export class Feedback extends RoutedComponent {
   constructor(props) {
     super(props)
     this.state = {}

@@ -19,7 +19,7 @@ const validate = values => {
   return errors
 }
 
-const FeedbackForm = props => {
+export const FeedbackForm = props => {
 
   return (
     <Col className={ classes.centerCol } md={ 6 }>
