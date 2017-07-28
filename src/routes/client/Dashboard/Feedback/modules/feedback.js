@@ -1,4 +1,4 @@
-import clickadillyApi from 'services/clickadillyAPi';
+import clickadillyApi from 'services/clickadillyApi';
 
 export const FEEDBACK_POSTING = 'FEEDBACK_POSTING';
 export const FEEDBACK_SUCCESS = 'FEEDBACK_SUCCESS';
