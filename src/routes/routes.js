@@ -103,6 +103,14 @@ export default [
         }, 'dashboard-account-settings');
       }
     },
+    {
+      path: '/dashboard/feedback',
+      getComponent: (nextState, cb) => {
+        require.ensure([], require => {
+              cb(null, require('./client/Dashboard/Feedback').default);
+        }, 'dashboard-feedback');
+      }
+    },
 
      //admin dashboard
     {
