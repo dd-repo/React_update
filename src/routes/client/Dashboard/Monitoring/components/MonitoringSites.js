@@ -3,6 +3,7 @@ import _ from 'underscore';
 
 import MonitoringSite from './MonitoringSite';
 import {
+  Panel,
   Table,
   Label,
   Button,
@@ -10,19 +11,102 @@ import {
 } from 'components';
 
 const MonitoringSites = props => {
-  const { monitoringSites, handleClick, siteIds, isFetching } = props
+  const { inProgress, inQueue, potentialRisks, handleClick, isFetching } = props
 
-  const renderTable = (
-    !isFetching && monitoringSites &&
+  const renderPotentialRisksTable = (
+    !isFetching &&
+      <Panel
+        header={
+          <h4 className='panel-title'>
+            Potential Risks
+          </h4>
+          }
+        >
+          <Table>
+            <thead>
+              <tr>
+                <th>
+                  name of site
+                </th>
+                <th>
+                  url
+                </th>
+                <th>
+                  records removed
+                </th>
+                <th>
+                  action
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {
+                potentialRisks.map(
+                  site =>
+                  <MonitoringSite
+                    monitoringSite={site}
+                    key={site.id}
+                    handleClick={handleClick}
+                  />
+                  )
+              }
+            </tbody>
+          </Table>
+        </Panel>
+  )
+
+  const renderRequestedTable = (list, selector) => (
+    !isFetching &&
+      <Panel
+        header={
+          <h4 className='panel-title'>
+            {selector}
+          </h4>
+          }
+        >
+          <Table>
+            <thead>
+              <tr>
+                <th>
+                  Date requested
+                </th>
+                <th>
+                  name of site
+                </th>
+                <th>
+                  url
+                </th>
+                <th>
+                  records removed
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {
+                list.map(
+                  site =>
+                  <MonitoringSite
+                    monitoringSite={site}
+                    key={site.id}
+                    handleClick={handleClick}
+                  />
+                  )
+              }
+            </tbody>
+          </Table>
+        </Panel>
+  )
+
+  const renderTableBody = list => (
+    !isFetching &&
       <tbody>
         {
-          monitoringSites.map(
-            monitoringSite =>
+          list.map(
+            site =>
             <MonitoringSite
-              monitoringSite={monitoringSite}
-              key={monitoringSite.id}
+              monitoringSite={site}
+              key={site.id}
               handleClick={handleClick}
-              status={status}
             />
             )
         }
@@ -36,25 +120,12 @@ const MonitoringSites = props => {
 
   return (
     <div>
-      <Table>
-        <thead>
-          <tr>
-            <th>
-              Title
-            </th>
-            <th>
-              Site Link
-            </th>
-            <th className='text-right'>
-              Status
-            </th>
-            <th>
-              Action
-            </th>
-          </tr>
-        </thead>
-          { renderTable }
-      </Table>
+      { renderRequestedTable(inProgress, 'In Progress') }
+
+      { renderRequestedTable(inQueue, 'In Queue') }
+
+      { renderPotentialRisksTable }
+
       { renderLoader }
     </div>
   )

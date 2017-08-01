@@ -26,7 +26,7 @@ export default class MonitoringSite extends Component {
   }
 
   render() {
-      const { id, site, status } = this.props.monitoringSite
+      const { date_requested, id, site, status } = this.props.monitoringSite
       const siteURL = `http://www.${site}`
       const friendlyURL = `www.${site}`
       const title = site.slice(0, -4)
@@ -35,35 +35,47 @@ export default class MonitoringSite extends Component {
       const renderButtonLabel = clicked ? 'Requested' : 'Request Removal'
       const buttonStyle = clicked ? 'success' : 'danger'
 
-    return (
-        <tr className='bg-gray-darker' key={id}>
-          <td>
+      if(status === 'pending') {
+        return (
+          <tr className='bg-gray-darker' key={id}>
+            <td className='text-white'>
               { title }
-          </td>
-          <td className='text-white'>
-            <a href={siteURL} target='_blank'>
-              { friendlyURL }
-            </a>
-
-          </td>
-          <td className='text-right'>
-            <Label
-              outline
-              className='text-uppercase'
-              bsStyle={style}>
-              { label }
-            </Label>
-          </td>
-          <td>
-            <Button
-              bsStyle={buttonStyle}
-              disabled={clicked}
-              onClick={this._onClick}
-            >
-              { renderButtonLabel }
-            </Button>
-          </td>
-        </tr>
-    )
+            </td>
+            <td className='text-white'>
+              <a href={siteURL} target='_blank'>
+                { friendlyURL }
+              </a>
+            </td>
+            <td>
+            </td>
+            <td>
+              <Button
+                bsStyle={buttonStyle}
+                disabled={clicked}
+                onClick={this._onClick}
+              >
+                { renderButtonLabel }
+              </Button>
+            </td>
+          </tr>
+        )
+      } else {
+        return (
+          <tr className='bg-gray-darker' key={id}>
+            <td>
+            </td>
+            <td className='text-white'>
+              { title }
+            </td>
+            <td className='text-white'>
+              <a href={siteURL} target='_blank'>
+                { friendlyURL }
+              </a>
+            </td>
+            <td>
+            </td>
+          </tr>
+        )
+      }
   }
 }

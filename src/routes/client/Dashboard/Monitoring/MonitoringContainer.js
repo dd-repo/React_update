@@ -11,6 +11,11 @@ import {
   monitoringRequestRemoval
 } from './modules/monitoring';
 
+const getStatusBySelector = (state, selector) => {
+    return _.where(state, {status: selector})
+  }
+
+
 class MonitoringContainer extends RoutedComponent {
   constructor(props) {
     super(props)
@@ -40,21 +45,17 @@ class MonitoringContainer extends RoutedComponent {
 
   handleClick(request_id) {
     this.props.monitoringRequestRemoval(request_id)
-    //.then( res => { this.fetchMonitoringRequests() })
-    //.catch( error => { console.log('error in monitoring removal', error) })
   }
 
   render() {
-    const sortedMonitoringSites = (
-     _.sortBy( this.props.monitoring.all, 'id' )
-    )
 
     return (
       <MonitoringSites
-        monitoringSites={sortedMonitoringSites}
-        siteIds={this.state.siteIds}
         handleClick={this.handleClick}
-        isFetching={this.props.monitoring.isFetching}
+        isFetching={this.props.isFetching}
+        inProgress={this.props.inProgress}
+        inQueue={this.props.inQueue}
+        potentialRisks={this.props.potentialRisks}
       />
     )
   }
@@ -63,7 +64,10 @@ class MonitoringContainer extends RoutedComponent {
 const mapStateToProps = state => {
   return {
     currentUser: state.currentUser,
-    monitoring: state.monitoring
+    isFetching: state.monitoring.isFetching,
+    inProgress: state.monitoring.inProgress,
+    inQueue: state.monitoring.inQueue,
+    potentialRisks: state.monitoring.potentialRisks
   }
 }
 
