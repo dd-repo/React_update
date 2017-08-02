@@ -1,22 +1,16 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import { formatDate } from 'utils/dateHelper';
 import capitalize from 'utils/capitalize';
 
 import {
   Label,
-  Button
+  Button,
+  Overlay,
+  Popover
 } from 'components';
 
-const REMOVAL_STATUS = {
-  'requested': { style: 'danger', label: 'requested' },
-  'queued': { style: 'warning', label: 'in queue' },
-  'inprogress': { style: 'info', label: 'in progress' },
-  'pending': { style: null, label: 'pending' },
-  'completed': { style: 'success', label: 'protected' },
-  'protected': { style: 'success', label: 'protected' },
-};
 
-export default class MonitoringSite extends Component {
+class MonitoringSite extends Component {
   constructor(props) {
     super(props)
 
@@ -33,34 +27,49 @@ export default class MonitoringSite extends Component {
   }
 
   render() {
-      const { date_requested, updated_at, id, site, status } = this.props.monitoringSite
+      const { current_requested_at, updated_at, id, site, status, total_count } = this.props.monitoringSite
       const siteURL = `http://www.${site}`
-      const friendlyURL = `${site}`
       const title = capitalize(site.slice(0, -4))
-      const clicked =  status !== 'pending'
-      const { style, label } = REMOVAL_STATUS[status]
-      const renderButtonLabel = clicked ? 'Requested' : 'Request Removal'
-      const buttonStyle = clicked ? 'success' : 'danger'
+
+      const overlay = (
+        <Overlay
+          show={true}
+          placement='left'
+          container={this}
+          target={() => ReactDOM.findDOMNode(this.refs.target)}
+          overlay={(
+            <Popover
+              id='popover-removal-request'
+            >
+              Click here to request your first removal
+            </Popover>
+            )}
+          >
+          </Overlay>
+      )
 
       if(status === 'pending') {
         return (
           <tr className='bg-gray-darker' key={id}>
             <td className='text-white'>
               <a href={siteURL} target='_blank'>
-              { title }
+                { title }
               </a>
             </td>
             <td>
+              <h4 className="m-t-0 f-w-300 m-b-0">
+                { total_count }
+              </h4>
             </td>
             <td>
             </td>
             <td>
               <Button
-                bsStyle={buttonStyle}
-                disabled={clicked}
+                ref='target'
+                bsStyle='danger'
                 onClick={this._onClick}
               >
-                { renderButtonLabel }
+                Request Removal
               </Button>
             </td>
           </tr>
@@ -70,22 +79,16 @@ export default class MonitoringSite extends Component {
           <tr className='bg-gray-darker' key={id}>
             <td className='text-white'>
               <a href={siteURL} target='_blank'>
-              { title }
+                { title }
               </a>
             </td>
             <td>
-              { formatDate(updated_at) }
+              { formatDate(current_requested_at) || formatDate(updated_at) }
             </td>
             <td>
               <span className=''>
                 <h4 className="m-t-0 f-w-300 m-b-0">
-                  1
-                  <Button
-                    bsStyle='link'
-                    onClick={this._handleExpand}
-                  >
-                  <i className="fa fa-caret-down"></i>
-                </Button>
+                  { total_count }
                 </h4>
               </span>
             </td>
@@ -94,3 +97,8 @@ export default class MonitoringSite extends Component {
       }
   }
 }
+MonitoringSite.propTypes = {
+  showPopover: PropTypes.bool,
+  handleClick: PropTypes.func
+}
+export default MonitoringSite;

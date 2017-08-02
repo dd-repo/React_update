@@ -21,11 +21,11 @@ const MonitoringSites = props => {
     inQueue,
     potentialRisks,
     handleClick,
-    handleExpand,
+    totalCount,
     isFetching
   } = props
 
-  const renderPotentialRisksTable = (
+  const renderPotentialRisksPanel = (
     !isFetching &&
       <Panel
         type='color-title-border'
@@ -44,9 +44,6 @@ const MonitoringSites = props => {
                   name of site
                 </th>
                 <th>
-                  Description
-                </th>
-                <th>
                   records removed
                 </th>
                 <th>
@@ -62,6 +59,7 @@ const MonitoringSites = props => {
                     monitoringSite={site}
                     key={site.id}
                     handleClick={handleClick}
+                    showPopover={totalCount < 1 && inProgress < 1}
                   />
                   )
               }
@@ -92,8 +90,6 @@ const MonitoringSites = props => {
             <MonitoringSite
               monitoringSite={site}
               key={site.id}
-              handleClick={handleClick}
-              handleExpand={handleExpand}
             />
             )
         }
@@ -139,36 +135,62 @@ const MonitoringSites = props => {
             <div></div>
   )
 
+  const renderCompletedRemovalsPanel = (
+    !isFetching &&
+      <Panel
+        type='color-title-border'
+        bsStyle='success'
+        background='default'
+        header={
+          <h4 className='panel-title'>
+            Completed
+          </h4>
+          }
+        >
+          { renderTable(inProgress) }
+        </Panel>
+  )
+
   const renderSummary = (
     !isFetching &&
       <Row className={ classes.summary }>
-        <Col md={ 3 } sm={ 4 } xs={ 5 }>
+        <Col md={ 3 } sm={ 3 } xs={ 5 }>
           <Divider>
-            In Progress
+              In Progress
           </Divider>
           <p className={classes.summaryLargeValue}>
-            {inProgress.length}
-            <small> Requests</small>
+              {inProgress.length}
+            <small> Sites</small>
           </p>
         </Col>
 
-        <Col md={ 3 } sm={ 4 } xs={ 5 }>
+        <Col md={ 3 } sm={ 3 } xs={ 5 }>
           <Divider>
-            In Queue
+              In Queue
           </Divider>
           <p className={classes.summaryLargeValue}>
-            {inQueue.length}
-            <small> Requests </small>
+              {inQueue.length}
+            <small> Sites </small>
           </p>
         </Col>
 
-        <Col md={ 3 } sm={ 4 } xs={ 5 }>
+        <Col md={ 3 } sm={ 3 } xs={ 5 }>
           <Divider>
-            Potential Risks
+              Potential Risks
           </Divider>
           <p className={classes.summaryLargeValue}>
-            {potentialRisks.length}
-            <small> Requests</small>
+              {potentialRisks.length}
+            <small> Sites</small>
+          </p>
+        </Col>
+
+        <Col md={ 3 } sm={ 3 } xs={ 5 }>
+          <Divider>
+              Total Removals
+          </Divider>
+          <p className={classes.summaryLargeValue}>
+              {totalCount}
+            <small> Records</small>
           </p>
         </Col>
       </Row>
@@ -183,8 +205,6 @@ const MonitoringSites = props => {
     <div>
       <Row>
         <Col lg={12}>
-          <Col lg={2}>
-          </Col>
           <div className={`${classes.mainWrap} 'm-b-3'`}>
             { renderSummary }
           </div>
@@ -197,7 +217,7 @@ const MonitoringSites = props => {
               { renderInQueuePanel }
             </Col>
           </Row>
-              { renderPotentialRisksTable }
+              { renderPotentialRisksPanel }
 
             { renderLoader }
         </Col>

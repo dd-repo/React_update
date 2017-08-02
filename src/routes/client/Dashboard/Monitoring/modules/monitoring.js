@@ -111,6 +111,7 @@ const reducer = (state = {isFetching: true}, action) => {
         inProgress: filterByStatus(action.response.monitoring_requests, ['requested','inprogress']),
         inQueue: filterByStatus(action.response.monitoring_requests, 'queued'),
         potentialRisks: filterByStatus(action.response.monitoring_requests, 'pending'),
+        totalCount: action.response.meta.total_count,
         isFetching: false
       });
     case MONITORING_FAILURE:

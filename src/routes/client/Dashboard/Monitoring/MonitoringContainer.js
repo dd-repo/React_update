@@ -62,20 +62,15 @@ class MonitoringContainer extends RoutedComponent {
 
   createNotification() {
     return Notification.info({
-      title: 'Requested Removals',
+      title: 'Privacy',
       message: 'We notice that you do not have any requested removals in progress',
-      position: 'tc',
-      autoDismiss: 10,
+      position: 'tr',
+      autoDismiss: 0,
       action: {
         label: 'Click here to get started',
         callback: () => this.props.showModal('REMOVAL_INSTRUCTIONS')
       }
     })
-  }
-
-  handleExpand(id) {
-    console.log(id)
-
   }
 
   render() {
@@ -86,7 +81,7 @@ class MonitoringContainer extends RoutedComponent {
         inProgress={this.props.inProgress}
         inQueue={this.props.inQueue}
         potentialRisks={this.props.potentialRisks}
-        handleExpand={this.handleExpand}
+        totalCount={this.props.totalCount}
       />
     )
   }
@@ -98,7 +93,8 @@ const mapStateToProps = state => {
     isFetching: state.monitoring.isFetching,
     inProgress: state.monitoring.inProgress,
     inQueue: state.monitoring.inQueue,
-    potentialRisks: state.monitoring.potentialRisks
+    potentialRisks: state.monitoring.potentialRisks,
+    totalCount: state.monitoring.totalCount
   }
 }
 

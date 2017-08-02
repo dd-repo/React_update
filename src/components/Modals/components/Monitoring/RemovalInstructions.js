@@ -20,7 +20,7 @@ const RemovalInstructions = ({ hideModal }) => (
     </Modal.Body>
 
     <Modal.Footer>
-      <Button onClick={hideModal}>Get Started!</Button>
+      <Button bsStyle='primary' onClick={hideModal}>Get Started!</Button>
     </Modal.Footer>
   </Modal>
 )
