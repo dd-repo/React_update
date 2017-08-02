@@ -21,11 +21,7 @@ const MonitoringSites = props => {
     inQueue,
     potentialRisks,
     handleClick,
-<<<<<<< HEAD
     totalCount,
-=======
-    handleExpand,
->>>>>>> 6008d2e8e9cdc12280a1b97c8a7ab29e96adde4b
     isFetching
   } = props
 
@@ -48,12 +44,6 @@ const MonitoringSites = props => {
                   name of site
                 </th>
                 <th>
-<<<<<<< HEAD
-=======
-                  Description
-                </th>
-                <th>
->>>>>>> 6008d2e8e9cdc12280a1b97c8a7ab29e96adde4b
                   records removed
                 </th>
                 <th>
@@ -100,11 +90,8 @@ const MonitoringSites = props => {
             <MonitoringSite
               monitoringSite={site}
               key={site.id}
-<<<<<<< HEAD
-=======
               handleClick={handleClick}
               handleExpand={handleExpand}
->>>>>>> 6008d2e8e9cdc12280a1b97c8a7ab29e96adde4b
             />
             )
         }
@@ -150,7 +137,6 @@ const MonitoringSites = props => {
             <div></div>
   )
 
-<<<<<<< HEAD
   const renderCompletedRemovalsPanel = (
     !isFetching &&
       <Panel
@@ -207,38 +193,6 @@ const MonitoringSites = props => {
           <p className={classes.summaryLargeValue}>
               {totalCount}
             <small> Records</small>
-=======
-  const renderSummary = (
-    !isFetching &&
-      <Row className={ classes.summary }>
-        <Col md={ 3 } sm={ 4 } xs={ 5 }>
-          <Divider>
-            In Progress
-          </Divider>
-          <p className={classes.summaryLargeValue}>
-            {inProgress.length}
-            <small> Requests</small>
-          </p>
-        </Col>
-
-        <Col md={ 3 } sm={ 4 } xs={ 5 }>
-          <Divider>
-            In Queue
-          </Divider>
-          <p className={classes.summaryLargeValue}>
-            {inQueue.length}
-            <small> Requests </small>
-          </p>
-        </Col>
-
-        <Col md={ 3 } sm={ 4 } xs={ 5 }>
-          <Divider>
-            Potential Risks
-          </Divider>
-          <p className={classes.summaryLargeValue}>
-            {potentialRisks.length}
-            <small> Requests</small>
->>>>>>> 6008d2e8e9cdc12280a1b97c8a7ab29e96adde4b
           </p>
         </Col>
       </Row>
@@ -253,11 +207,6 @@ const MonitoringSites = props => {
     <div>
       <Row>
         <Col lg={12}>
-<<<<<<< HEAD
-=======
-          <Col lg={2}>
-          </Col>
->>>>>>> 6008d2e8e9cdc12280a1b97c8a7ab29e96adde4b
           <div className={`${classes.mainWrap} 'm-b-3'`}>
             { renderSummary }
           </div>
@@ -270,11 +219,7 @@ const MonitoringSites = props => {
               { renderInQueuePanel }
             </Col>
           </Row>
-<<<<<<< HEAD
               { renderPotentialRisksPanel }
-=======
-              { renderPotentialRisksTable }
->>>>>>> 6008d2e8e9cdc12280a1b97c8a7ab29e96adde4b
 
             { renderLoader }
         </Col>
