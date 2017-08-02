@@ -1,4 +1,5 @@
 import clickadillyApi from 'services/clickadillyApi';
+import _ from 'underscore';
 
 const PREVIOUS_STATUS = {
   'inProgress': 'inQueue',
@@ -93,6 +94,13 @@ export const addToStatusList = (state, removal) => {
 }
 
 export const filterByStatus = (sites, selector) => {
+  if(Array.isArray(selector)) {
+    let filtered = []
+    for(let i=0; i<selector.length; i++) {
+      filtered.push(sites.filter(site => site.status === selector[i]))
+    }
+    return _.flatten(filtered)
+  }
   return sites.filter(site => site.status === selector)
 }
 
@@ -100,7 +108,7 @@ const reducer = (state = {isFetching: true}, action) => {
   switch(action.type) {
     case MONITORING_SUCCESS:
       return Object.assign({}, state, {
-        inProgress: filterByStatus(action.response.monitoring_requests, 'requested'),
+        inProgress: filterByStatus(action.response.monitoring_requests, ['requested','inprogress']),
         inQueue: filterByStatus(action.response.monitoring_requests, 'queued'),
         potentialRisks: filterByStatus(action.response.monitoring_requests, 'pending'),
         isFetching: false

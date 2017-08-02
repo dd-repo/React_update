@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import _ from 'underscore';
+import Notification from 'react-notification-system-redux';
 
 import MonitoringSites from './components/MonitoringSites';
 import { CONTENT_VIEW_STATIC } from 'layouts/DefaultLayout/modules/layout';
@@ -10,6 +11,7 @@ import {
   getMonitoring,
   monitoringRequestRemoval
 } from './modules/monitoring';
+import { showModal } from 'modules/modal';
 
 const getStatusBySelector = (state, selector) => {
     return _.where(state, {status: selector})
@@ -17,6 +19,10 @@ const getStatusBySelector = (state, selector) => {
 
 
 class MonitoringContainer extends RoutedComponent {
+  static contextTypes = {
+    store: PropTypes.object
+  }
+
   constructor(props) {
     super(props)
     this.state = {}
@@ -36,7 +42,14 @@ class MonitoringContainer extends RoutedComponent {
 
   componentWillMount() {
     this.fetchMonitoringRequests()
-}
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if(nextProps.inProgress) {
+      nextProps.inProgress.length === 0 &&
+        this.context.store.dispatch(this.createNotification())
+    }
+  }
 
   fetchMonitoringRequests() {
     const { account_id } = this.props.currentUser
@@ -47,8 +60,25 @@ class MonitoringContainer extends RoutedComponent {
     this.props.monitoringRequestRemoval(request_id)
   }
 
-  render() {
+  createNotification() {
+    return Notification.info({
+      title: 'Requested Removals',
+      message: 'We notice that you do not have any requested removals in progress',
+      position: 'tc',
+      autoDismiss: 10,
+      action: {
+        label: 'Click here to get started',
+        callback: () => this.props.showModal('REMOVAL_INSTRUCTIONS')
+      }
+    })
+  }
 
+  handleExpand(id) {
+    console.log(id)
+
+  }
+
+  render() {
     return (
       <MonitoringSites
         handleClick={this.handleClick}
@@ -56,6 +86,7 @@ class MonitoringContainer extends RoutedComponent {
         inProgress={this.props.inProgress}
         inQueue={this.props.inQueue}
         potentialRisks={this.props.potentialRisks}
+        handleExpand={this.handleExpand}
       />
     )
   }
@@ -73,7 +104,8 @@ const mapStateToProps = state => {
 
 const mapActionCreators = {
   getMonitoring,
-  monitoringRequestRemoval
+  monitoringRequestRemoval,
+  showModal
 }
 
 export default connect(mapStateToProps, mapActionCreators)(MonitoringContainer);

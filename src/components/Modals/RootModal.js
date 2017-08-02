@@ -10,6 +10,7 @@ import PhoneModal from './components/Phone';
 import ProfileModal from './components/Profile';
 import { UpdateSubscriptionModal, CreateSubscriptionModal } from './components/Subscription';
 import CardModal from './components/Card';
+import RemovalInstructionsModal from './components/Monitoring/RemovalInstructions';
 
 const MODAL_COMPONENTS = {
   'USER':                UserModal,
@@ -21,7 +22,8 @@ const MODAL_COMPONENTS = {
   'PROFILE':             ProfileModal,
   'UPDATE_SUBSCRIPTION': UpdateSubscriptionModal,
   'CREATE_SUBSCRIPTION': CreateSubscriptionModal,
-  'CARD':                CardModal
+  'CARD':                CardModal,
+  'REMOVAL_INSTRUCTIONS': RemovalInstructionsModal
 }
 
 const ModalRoot = ({...otherProps, modalType, modalProps, dispatch }) => {
