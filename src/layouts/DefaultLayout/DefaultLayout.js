@@ -227,21 +227,21 @@ class DefaultLayout extends React.Component {
                                             onClick={ () => this.props.toggleRightSidebar(!this.props.rightSidebarEnabled) }
                                             ref={ ref => { rightSidebarTriggerRef = ref } }
                                         >
-                                            <i className='fa fa-fw fa-align-right text-white'></i>
+                                            <i className='fa fa-fw fa-align-right text-black'></i>
                                         </button>
                                         <button
                                             className='btn btn-outline navbar-toggle'
                                             onClick={ () => this.props.toggleNavbarExpanded(!this.props.navbarExpanded) }
                                             ref={ ref => { navbarTriggerRef = ref } }
                                         >
-                                            <i className='fa fa-fw fa-user text-white'></i>
+                                            <i className='fa fa-fw fa-user text-black'></i>
                                         </button>
                                         <button
                                             className='btn btn-outline navbar-toggle'
                                             onClick={ () => this.props.toggleOverlaySidebarOpen(!this.props.overlaySidebarOpen) }
                                             ref={ ref => { sidebarTriggerRef = ref } }
                                         >
-                                            <i className='fa fa-fw fa-bars text-white'></i>
+                                            <i className='fa fa-fw fa-bars text-black'></i>
                                         </button>
                                     </div>
                                 )

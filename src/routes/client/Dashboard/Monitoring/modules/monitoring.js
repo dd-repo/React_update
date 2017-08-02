@@ -1,4 +1,17 @@
 import clickadillyApi from 'services/clickadillyApi';
+import _ from 'underscore';
+
+const PREVIOUS_STATUS = {
+  'inProgress': 'inQueue',
+  'inQueue': 'potentialRisks',
+  'potentialRisks': 'inProgress'
+}
+
+const CURRENT_STATUS = {
+  'requested': 'inProgress',
+  'queued': 'inQueue',
+  'pending': 'potentialRisks'
+}
 
 //action types
 export const MONITORING_PENDING = 'MONITORING_PENDING';
@@ -72,22 +85,33 @@ export const monitoringFailure = error => (
 )
 
 // reducers
-export const updateMonitoringSite = (state, removal) => {
-  return [
-    ...state.filter(monitoring => monitoring.id !== removal.id),
-      Object.assign({}, removal)
-  ]
+export const removeFromStatusList = (state, monitoringSite) => {
+  return state.filter(site => site.id !== monitoringSite.id)
 }
 
-const reducer = (state = {}, action) => {
+export const addToStatusList = (state, removal) => {
+  return [ removal, ...state ]
+}
+
+export const filterByStatus = (sites, selector) => {
+  if(Array.isArray(selector)) {
+    let filtered = []
+    for(let i=0; i<selector.length; i++) {
+      filtered.push(sites.filter(site => site.status === selector[i]))
+    }
+    return _.flatten(filtered)
+  }
+  return sites.filter(site => site.status === selector)
+}
+
+const reducer = (state = {isFetching: true}, action) => {
   switch(action.type) {
-    case MONITORING_PENDING:
-      return Object.assign({}, state, {
-        isFetching: true
-      });
     case MONITORING_SUCCESS:
       return Object.assign({}, state, {
-        all: action.response.monitoring_requests,
+        inProgress: filterByStatus(action.response.monitoring_requests, ['requested','inprogress']),
+        inQueue: filterByStatus(action.response.monitoring_requests, 'queued'),
+        potentialRisks: filterByStatus(action.response.monitoring_requests, 'pending'),
+        totalCount: action.response.meta.total_count,
         isFetching: false
       });
     case MONITORING_FAILURE:
@@ -96,8 +120,12 @@ const reducer = (state = {}, action) => {
         errorMessage: action.error
       });
     case MONITORING_UPDATE_SUCCESS:
+      const currentStatus = CURRENT_STATUS[action.removal.status]
+      const previousStatus = state.inProgress.length === 3 ? PREVIOUS_STATUS[currentStatus] : 'potentialRisks'
+
       return Object.assign({}, state, {
-        all: updateMonitoringSite(state.all, action.removal)
+        [currentStatus]: addToStatusList(state[currentStatus], action.removal),
+        [previousStatus]: removeFromStatusList(state[previousStatus], action.removal)
       });
     default:
       return state

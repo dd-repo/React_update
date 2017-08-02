@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import _ from 'underscore';
+import Notification from 'react-notification-system-redux';
 
 import MonitoringSites from './components/MonitoringSites';
 import { CONTENT_VIEW_STATIC } from 'layouts/DefaultLayout/modules/layout';
@@ -10,8 +11,18 @@ import {
   getMonitoring,
   monitoringRequestRemoval
 } from './modules/monitoring';
+import { showModal } from 'modules/modal';
+
+const getStatusBySelector = (state, selector) => {
+    return _.where(state, {status: selector})
+  }
+
 
 class MonitoringContainer extends RoutedComponent {
+  static contextTypes = {
+    store: PropTypes.object
+  }
+
   constructor(props) {
     super(props)
     this.state = {}
@@ -31,7 +42,14 @@ class MonitoringContainer extends RoutedComponent {
 
   componentWillMount() {
     this.fetchMonitoringRequests()
-}
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if(nextProps.inProgress) {
+      nextProps.inProgress.length === 0 &&
+        this.context.store.dispatch(this.createNotification())
+    }
+  }
 
   fetchMonitoringRequests() {
     const { account_id } = this.props.currentUser
@@ -40,21 +58,30 @@ class MonitoringContainer extends RoutedComponent {
 
   handleClick(request_id) {
     this.props.monitoringRequestRemoval(request_id)
-    //.then( res => { this.fetchMonitoringRequests() })
-    //.catch( error => { console.log('error in monitoring removal', error) })
+  }
+
+  createNotification() {
+    return Notification.info({
+      title: 'Privacy',
+      message: 'We notice that you do not have any requested removals in progress',
+      position: 'tr',
+      autoDismiss: 0,
+      action: {
+        label: 'Click here to get started',
+        callback: () => this.props.showModal('REMOVAL_INSTRUCTIONS')
+      }
+    })
   }
 
   render() {
-    const sortedMonitoringSites = (
-     _.sortBy( this.props.monitoring.all, 'id' )
-    )
-
     return (
       <MonitoringSites
-        monitoringSites={sortedMonitoringSites}
-        siteIds={this.state.siteIds}
         handleClick={this.handleClick}
-        isFetching={this.props.monitoring.isFetching}
+        isFetching={this.props.isFetching}
+        inProgress={this.props.inProgress}
+        inQueue={this.props.inQueue}
+        potentialRisks={this.props.potentialRisks}
+        totalCount={this.props.totalCount}
       />
     )
   }
@@ -63,13 +90,18 @@ class MonitoringContainer extends RoutedComponent {
 const mapStateToProps = state => {
   return {
     currentUser: state.currentUser,
-    monitoring: state.monitoring
+    isFetching: state.monitoring.isFetching,
+    inProgress: state.monitoring.inProgress,
+    inQueue: state.monitoring.inQueue,
+    potentialRisks: state.monitoring.potentialRisks,
+    totalCount: state.monitoring.totalCount
   }
 }
 
 const mapActionCreators = {
   getMonitoring,
-  monitoringRequestRemoval
+  monitoringRequestRemoval,
+  showModal
 }
 
 export default connect(mapStateToProps, mapActionCreators)(MonitoringContainer);
