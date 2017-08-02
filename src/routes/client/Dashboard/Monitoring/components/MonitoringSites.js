@@ -91,7 +91,6 @@ const MonitoringSites = props => {
               monitoringSite={site}
               key={site.id}
               handleClick={handleClick}
-              handleExpand={handleExpand}
             />
             )
         }
