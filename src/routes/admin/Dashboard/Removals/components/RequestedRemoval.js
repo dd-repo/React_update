@@ -69,7 +69,7 @@ export default class RemovalRequested extends Component {
         <DropdownButton onSelect={this._onSelect} title='Actions' bsStyle='danger' id='dropdown-basic-4' bsSize='lg' className='m-b-1'>
           <MenuItem eventKey="inprogress">In Progress</MenuItem>
           <MenuItem eventKey="completed">Complete</MenuItem>
-          <MenuItem eventKey="protected">Protected</MenuItem>
+          <MenuItem eventKey="protected">Record not found</MenuItem>
         </DropdownButton>
     )
 

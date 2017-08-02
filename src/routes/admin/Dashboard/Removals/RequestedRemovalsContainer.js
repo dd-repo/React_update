@@ -118,11 +118,6 @@ class RequestedRemovalsContainer extends RoutedComponent {
   render() {
     const { requestedRemovals } = this.props
     const { pagination } = requestedRemovals
-
-    const sortedRemovals = (
-     _.sortBy(requestedRemovals.all, 'id' )
-    )
-
     const results = pagination && pagination.total
     const paginationItems = (
       pagination &&
@@ -131,7 +126,7 @@ class RequestedRemovalsContainer extends RoutedComponent {
 
     return (
       <RequestedRemovals
-        removals={sortedRemovals}
+        removals={requestedRemovals.all}
         pageNum={this.state.pageNum}
         isFetching={this.props.requestedRemovals.isFetching}
         handleClick={this.handleClick}
