@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import ReactDOM from 'react-dom';
 import { formatDate } from 'utils/dateHelper';
 import capitalize from 'utils/capitalize';
 
@@ -50,29 +51,27 @@ class MonitoringSite extends Component {
 
       if(status === 'pending') {
         return (
-          <tr className='bg-gray-darker' key={id}>
-            <td className='text-white'>
-              <a href={siteURL} target='_blank'>
-                { title }
-              </a>
-            </td>
-            <td>
-              <h4 className="m-t-0 f-w-300 m-b-0">
-                { total_count }
-              </h4>
-            </td>
-            <td>
-            </td>
-            <td>
-              <Button
-                ref='target'
-                bsStyle='danger'
-                onClick={this._onClick}
-              >
-                Request Removal
-              </Button>
-            </td>
-          </tr>
+            <tr className='bg-gray-darker' key={id}>
+              <td className='text-white'>
+                <a href={siteURL} target='_blank'>
+                  { title }
+                </a>
+              </td>
+              <td>
+                <h4 className="m-t-0 f-w-300 m-b-0">
+                  { total_count }
+                </h4>
+              </td>
+              <td>
+                <Button
+                  ref='target'
+                  bsStyle='danger'
+                  onClick={this._onClick}
+                >
+                  Request Removal
+                </Button>
+              </td>
+            </tr>
         )
       } else {
         return (
