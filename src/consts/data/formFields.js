@@ -154,7 +154,7 @@ const fields = {
     list: states
   },
   plan: {
-    list: ['individual', 'testing']
+    list: ['individual', '6-months', '1-year', 'testing']
   }
 }
 
