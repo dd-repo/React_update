@@ -12,10 +12,16 @@ import _ from 'underscore'
 export const CONFIGS = {
   'client': [
     {
+      slug: 'Dashboard',
+      title: 'Dashboard',
+      icon: 'fa fa-tachometer fa-lg',
+      url: '/dashboard'
+    },
+    {
       slug: 'Google Results',
       title: 'Google Results',
       icon: 'fa fa-google fa-lg',
-      url: '/dashboard'
+      url: '/dashboard/google-results'
     },
     {
       slug: 'Privacy',

@@ -21,7 +21,7 @@ import {
   monitoringFailure,
   updateMonitoringSite,
   default as reducer
-} from 'routes/client/Dashboard/Monitoring/modules/monitoring.js';
+} from 'routes/client/Monitoring/modules/monitoring.js';
 
 const middlewares = [ thunk ]
 const mockStore = configureMockStore(middlewares)

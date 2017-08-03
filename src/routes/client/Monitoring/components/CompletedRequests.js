@@ -1,45 +1,46 @@
-import React from 'react'
+import React, { PropTypes } from 'react'
 
 import CompletedRequest from './CompletedRequest';
+import classes from './Monitoring.scss';
 import {
   Panel,
-  Table,
-  Row,
-  Col,
-  Label,
-  Button,
-  Divider,
-  Loader
+  Table
 } from 'components';
 
-const CompletedRequests = ({ isFetching, completed }) => (
+const CompletedRequests = ({
+  isFetching,
+  completed,
+  maxHeight,
+  title,
+  type,
+  bsStyle
+}) => (
 
-  !isFetching && completed.length ?
+  completed.length ?
     <Panel
-      type='color-border-full'
-      bsStyle='success'
-      background='default'
-      maxHeight={300}
+      type={type}
+      bsStyle={bsStyle}
+      maxHeight={maxHeight}
       header={
         <h4 className='panel-title'>
-          Completed Requests
+          {title}
         </h4>
         }
       >
-        <Table>
+        <Table className={ classes.mostViewedItemsTable }>
           <thead>
             <tr>
               <th>
-                name of site
+                <strong>Site Name</strong>
               </th>
               <th>
-                Removed URl
+                <strong>Removed URL</strong>
               </th>
               <th>
-                Requested at
+                <strong>Requested</strong>
               </th>
               <th>
-                Completed at
+                <strong>Completed</strong>
               </th>
             </tr>
           </thead>
@@ -59,5 +60,14 @@ const CompletedRequests = ({ isFetching, completed }) => (
         :
           <div></div>
 )
+
+CompletedRequests.propsTypes = {
+  isFetching: PropTypes.bool,
+  completed: PropTypes.array.isRequired,
+  maxHeight: PropTypes.number,
+  title: PropTypes.string,
+  bsStyle: PropTypes.string,
+  type: PropTypes.string
+}
 
 export default CompletedRequests;

@@ -90,7 +90,7 @@ const errRes = {
   response: { data: { errorMessage: 'error message' } },
 }
 
-describe.only('(RequestedMovals module)', () => {
+describe('(RequestedMovals module)', () => {
 
   it('should export constants', () => {
     expect(ADMIN_REQUESTED_REMOVALS_PENDING).to.equal('ADMIN_REQUESTED_REMOVALS_PENDING')

@@ -1,6 +1,5 @@
 import React, { PropTypes } from 'react';
 import _ from 'underscore';
-//import Notification from 'react-notification-system-redux';
 import { info, removeAll } from 'react-notification-system-redux';
 
 import Privacy from './components/Privacy';

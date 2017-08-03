@@ -49,7 +49,7 @@ export default [
       path: '/payment-info',
         getComponent: (nextState, cb) => {
             require.ensure([], require => {
-              cb(null, require('./client/Payment').default);
+              cb(null, require('./signup/Payment').default);
             }, 'payment-info');
         }
     },
@@ -57,7 +57,7 @@ export default [
       path: '/keywords',
       getComponent: (nextState, cb) => {
         require.ensure([], require => {
-          cb(null, require('./client/Keywords').default);
+          cb(null, require('./signup/Keywords').default);
         }, 'keywords');
       }
     },
@@ -67,7 +67,15 @@ export default [
       path: '/dashboard',
       getComponent: (nextState, cb) => {
         require.ensure([], require => {
-          cb(null, require('./client/Dashboard/GoogleResults').default);
+          cb(null, require('./client/Dashboard').default);
+        }, 'client-dashboard');
+      }
+    },
+    {
+      path: '/dashboard/google-results',
+      getComponent: (nextState, cb) => {
+        require.ensure([], require => {
+          cb(null, require('./client/GoogleResults').default);
         }, 'dashboard-googleResults');
       }
     },
@@ -75,7 +83,7 @@ export default [
       path: '/dashboard/user-profile',
       getComponent: (nextState, cb) => {
         require.ensure([], require => {
-          cb(null, require('./client/Dashboard/Profile/Details').default);
+          cb(null, require('./client/Profile/Details').default);
         }, 'dashboard-profile-details');
       }
     },
@@ -83,7 +91,7 @@ export default [
       path: '/dashboard/user-profile/edit',
       getComponent: (nextState, cb) => {
         require.ensure([], require => {
-          cb(null, require('./client/Dashboard/Profile/Edit').default);
+          cb(null, require('./client/Profile/Edit').default);
         }, 'dashboard-profile-edit');
       }
     },
@@ -91,7 +99,7 @@ export default [
         path: '/dashboard/privacy',
         getComponent: (nextState, cb) => {
             require.ensure([], require => {
-              cb(null, require('./client/Dashboard/Monitoring').default);
+              cb(null, require('./client/Monitoring').default);
             }, 'dashboard-monitoring');
         }
     },
@@ -99,7 +107,7 @@ export default [
       path: '/dashboard/account-settings',
       getComponent: (nextState, cb) => {
         require.ensure([], require => {
-              cb(null, require('./client/Dashboard/AccountEdit').default);
+              cb(null, require('./client/AccountEdit').default);
         }, 'dashboard-account-settings');
       }
     },
@@ -107,7 +115,7 @@ export default [
       path: '/dashboard/feedback',
       getComponent: (nextState, cb) => {
         require.ensure([], require => {
-              cb(null, require('./client/Dashboard/Feedback').default);
+              cb(null, require('./client/Feedback').default);
         }, 'dashboard-feedback');
       }
     },

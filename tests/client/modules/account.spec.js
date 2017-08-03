@@ -19,7 +19,7 @@ import {
   subscriptionCancelSuccess,
   subscriptionCancelFailure,
   default as reducer,
-} from 'routes/client/Dashboard/AccountEdit/modules/subscription';
+} from 'routes/client/AccountEdit/modules/subscription';
 
 const middlewares = [ thunk ]
 const mockStore = configureMockStore(middlewares)

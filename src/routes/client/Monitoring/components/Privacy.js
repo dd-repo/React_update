@@ -55,14 +55,14 @@ const Privacy = props => {
                 <Col lg={inQueue && inQueue.length ? 6 : 12}>
                   <MonitoringRequests
                     requests={inProgress}
-                    style='info'
+                    style='primary'
                     header='In Progress'
                   />
                 </Col>
                 <Col lg={6}>
                   <MonitoringRequests
                     requests={inQueue}
-                    style='primary'
+                    style='info'
                     header='In Queue'
                   />
                 </Col>
@@ -76,7 +76,10 @@ const Privacy = props => {
 
             <CompletedRequests
               completed={completed}
-              isFetching={isFetching}
+              maxHeight={304}
+              type='color-border-full'
+              bsStyle='success'
+              title='Completed Removals'
             />
 
         </Col>

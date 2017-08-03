@@ -6,7 +6,7 @@ import clickadillyApi from 'services/clickadillyApi';
 
 import UserContainer from 'routes/admin/Dashboard/User/UserContainer'
 import User from 'routes/admin/Dashboard/User/components/User';
-import Payment from 'routes/client/Payment';
+import Payment from 'routes/signup/Payment';
 import UserDetails from 'routes/admin/Dashboard/User/components/UserDetails';
 
 const response = {

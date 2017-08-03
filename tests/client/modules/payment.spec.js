@@ -13,7 +13,7 @@ import {
   paymentSuccess,
   paymentFailure,
   default as reducer
-} from 'routes/client/Payment/modules/payment';
+} from 'routes/signup/Payment/modules/payment';
 
 const middlewares = [ thunk ]
 const mockStore = configureMockStore(middlewares)

@@ -4,8 +4,8 @@ import _ from 'underscore';
 import { RoutedComponent, connect } from 'routes/routedComponent';
 import GoogleResults from './components/GoogleResults';
 import { getMonitoring } from '../Monitoring/modules/monitoring';
-import { getGoogleResults, requestRemoval } from './modules/googleResults';
-import { addCurrentKeyword } from 'routes/client/Keywords/modules/keywords';
+import { fetchGoogleResults, requestRemoval } from './modules/googleResults';
+import { updateCurrentKeyword } from 'routes/signup/Keywords/modules/keywords';
 import { CONTENT_VIEW_STATIC } from 'layouts/DefaultLayout/modules/layout';
 
 class GoogleResultsContainer extends RoutedComponent {
@@ -25,7 +25,8 @@ class GoogleResultsContainer extends RoutedComponent {
   }
 
   componentWillMount() {
-    this.getResults(this.props.keywords.all[0])
+    const searchTerm = this.props.keywords.currentKeyword || this.props.keywords.all[0]
+    this.getResults(searchTerm)
   }
 
   getLayoutOptions() {
@@ -65,8 +66,8 @@ class GoogleResultsContainer extends RoutedComponent {
     const { account_id } = this.props.currentUser
     const keyword_id = keyword.id
     const payload = { pageNum, keyword_id, account_id }
-    this.props.addCurrentKeyword(keyword)
-    this.props.getGoogleResults(payload);
+    this.props.updateCurrentKeyword(keyword)
+    this.props.fetchGoogleResults(payload);
     this.setState({ pageNum: parseInt(pageNum) })
   }
 
@@ -120,8 +121,8 @@ const mapStateToProps = state => {
 }
 
 const mapActionCreators = {
-  getGoogleResults,
-  addCurrentKeyword,
+  fetchGoogleResults,
+  updateCurrentKeyword,
   requestRemoval
 }
 

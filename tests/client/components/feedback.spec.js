@@ -2,8 +2,8 @@ import React from 'react';
 import { shallow, mount, render } from 'enzyme';
 import { Provider } from 'react-redux';
 import configureMockStore from 'redux-mock-store';
-import ConnectFeedback from 'routes/client/Dashboard/Feedback';
-import { Feedback } from 'routes/client/Dashboard/Feedback/Feedback';
+import ConnectFeedback from 'routes/client/Feedback';
+import { Feedback } from 'routes/client/Feedback/Feedback';
 
 const setUp = () => {
   const mockStore = configureMockStore()

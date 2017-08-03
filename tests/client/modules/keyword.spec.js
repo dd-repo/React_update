@@ -9,15 +9,15 @@ import {
   KEYWORD_POSTING,
   KEYWORD_SUCCESS,
   KEYWORD_FAILURE,
-  CURRENT_KEYWORD_ADD,
+  CURRENT_KEYWORD_UPDATE,
   KEYWORD_REQUEST,
-  addCurrentKeyword,
+  updateCurrentKeyword,
   postKeywords,
   postingKeywords,
   keywordSuccess,
   keywordFailure,
   default as reducer
-} from 'routes/client/Keywords/modules/keywords';
+} from 'routes/signup/Keywords/modules/keywords';
 
 const middlewares = [ thunk ]
 const mockStore = configureMockStore(middlewares)
@@ -58,7 +58,7 @@ describe('(profile module) "profile"', () => {
     expect(KEYWORD_POSTING).to.equal('KEYWORD_POSTING')
     expect(KEYWORD_SUCCESS).to.equal('KEYWORD_SUCCESS')
     expect(KEYWORD_FAILURE).to.equal('KEYWORD_FAILURE')
-    expect(CURRENT_KEYWORD_ADD).to.equal('CURRENT_KEYWORD_ADD')
+    expect(CURRENT_KEYWORD_UPDATE).to.equal('CURRENT_KEYWORD_UPDATE')
     expect(KEYWORD_REQUEST).to.equal('/dashboard/api/v1/users/sign-up/keyword')
   })
 
@@ -88,13 +88,13 @@ describe('(profile module) "profile"', () => {
     })
   })
 
-  describe('(Action Creator) "addCurrentKeyword"', () => {
-    it('Should return a action with type CURRENT_KEYWORD_ADD', () => {
-      expect(addCurrentKeyword()).to.have.property('type', CURRENT_KEYWORD_ADD)
+  describe('(Action Creator) "updateCurrentKeyword"', () => {
+    it('Should return a action with type CURRENT_KEYWORD_UPDATE', () => {
+      expect(updateCurrentKeyword()).to.have.property('type', CURRENT_KEYWORD_UPDATE)
     })
 
-    it('Should return a action with type CURRENT_KEYWORD_ADD', () => {
-      expect(addCurrentKeyword(keyword)).to.have.property('keyword', keyword)
+    it('Should return a action with type CURRENT_KEYWORD_UPDATE', () => {
+      expect(updateCurrentKeyword(keyword)).to.have.property('keyword', keyword)
     })
   })
 
@@ -156,6 +156,28 @@ describe('(profile module) "profile"', () => {
 
   describe('(Reducer)', () => {
 
+    const expected = {
+      all: [
+        {
+          id: 1,
+          value: 1,
+          label: "keyword 1",
+        },
+        {
+          id: 2,
+          value: 2,
+          label: "keyword 2",
+        },
+        {
+          id: 3,
+          value: 3,
+          label: "keyword 3",
+        }
+      ],
+      currentKeyword: { id: 1, value: 1, label: 'keyword 1' },
+      isFetching: false
+    }
+
     it('Should be a function.', () => {
       expect(reducer).to.be.a('function')
     })
@@ -173,14 +195,9 @@ describe('(profile module) "profile"', () => {
     })
 
     it('should handle KEYWORD_SUCCESS', () => {
-      expect(reducer({}, {
-        type: KEYWORD_SUCCESS,
-        keywords
-      })).to.eql({
-        all: keywords,
-        currentKeyword: keyword,
-        isFetching: false
-      })
+      const state = reducer({}, { type: KEYWORD_SUCCESS, keywords })
+
+      expect(state).to.eql(expected)
     })
 
     it('should handle KEYWORD_FAILURE', () => {
@@ -193,24 +210,15 @@ describe('(profile module) "profile"', () => {
       })
     })
 
-    it('should handle CURRENT_KEYWORD_ADD', () => {
-      expect(reducer({}, {
-        type: CURRENT_KEYWORD_ADD,
-        keyword: keyword
-      })).to.eql({
-        currentKeyword: keyword,
-      })
+    it('should handle CURRENT_KEYWORD_UPDATE', () => {
+      const expected = { id: 1, , value: 1, label: "keyword 1"}
+      const state = reducer({}, { type: CURRENT_KEYWORD_UPDATE, keyword: keyword })
+      expect(state).to.eql(expected)
     })
 
     it('should handle USER_LOGIN_SUCCESS', () => {
-      expect(reducer({}, {
-        type: USER_LOGIN_SUCCESS,
-        data: userLoginInfo
-      })).to.eql({
-        all: userLoginInfo.account.keywords,
-        currentKeyword: userLoginInfo.account.keywords[0],
-        isFetching: false
-      })
+      const state = reducer({}, { type: USER_LOGIN_SUCCESS, data: userLoginInfo })
+      expect(state).to.eql(expected)
     })
   })
 })

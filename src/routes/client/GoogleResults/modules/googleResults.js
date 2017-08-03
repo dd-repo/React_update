@@ -14,8 +14,8 @@ export const UPDATE_GOOGLE_RESULT_FAILURE = 'UPDATE_GOOGLE_RESULT_FAILURE'
 export const REMOVAL_REQUEST = '/dashboard/api/v1/removal_requests';
 
 // actions
-export const getGoogleResults = params => {
-  const {pageNum, keyword_id, account_id} = params
+export const fetchGoogleResults = params => {
+  const {pageNum=1, keyword_id, account_id} = params
   const path = `/dashboard/api/v1/accounts/${account_id}/keywords/${keyword_id}/search_results/${pageNum}`
 
   return dispatch => {
