@@ -6,14 +6,19 @@ import {
   ADMIN_REQUESTED_REMOVALS_PENDING,
   ADMIN_REQUESTED_REMOVALS_SUCCESS,
   ADMIN_REQUESTED_REMOVALS_FAILURE,
+  ADMIN_COMPLETED_REMOVALS_SUCCESS,
+  ADMIN_REMOVAL_COMPLETED_REQUEST,
   UPDATING_STATUS,
   UPDATE_STATUS_SUCCESS,
   UPDATE_STATUS_FAILURE,
   ADMIN_REMOVAL_REQUEST_PATH,
+  getRemovals,
   getRemovalsRequested,
+  getRemovalsCompleted,
   updateStatus,
   gettingRemovalRequests,
   receivedRemovalRequests,
+  receivedRemovalsCompleted,
   rejectedRemovalRequests,
   updatingStatus,
   receivedUpdateStatus,
@@ -48,6 +53,27 @@ const requestedRemovals = {
   }
 }
 
+const completedRemovals = {
+  isFetching: false,
+  monitoring_request_receipts: [
+    {
+      id: 154,
+      site: "radaris.com",
+      status: "completed",
+      client_name: "test name",
+      age: 17,
+      addresses: ['123'],
+    }
+  ],
+  meta: {
+    pagination: {
+      page: 1,
+      limit: 20,
+      total: 10
+    }
+  }
+}
+
 const requestedRemoval = {
   id: 154,
   site: "radaris.com",
@@ -64,16 +90,18 @@ const errRes = {
   response: { data: { errorMessage: 'error message' } },
 }
 
-describe('(RequestedMovals module)', () => {
+describe.only('(RequestedMovals module)', () => {
 
   it('should export constants', () => {
     expect(ADMIN_REQUESTED_REMOVALS_PENDING).to.equal('ADMIN_REQUESTED_REMOVALS_PENDING')
     expect(ADMIN_REQUESTED_REMOVALS_SUCCESS).to.equal('ADMIN_REQUESTED_REMOVALS_SUCCESS')
     expect(ADMIN_REQUESTED_REMOVALS_FAILURE).to.equal('ADMIN_REQUESTED_REMOVALS_FAILURE')
+    expect(ADMIN_COMPLETED_REMOVALS_SUCCESS).to.equal('ADMIN_COMPLETED_REMOVALS_SUCCESS')
     expect(UPDATING_STATUS).to.equal('UPDATING_STATUS')
     expect(UPDATE_STATUS_SUCCESS).to.equal('UPDATE_STATUS_SUCCESS')
     expect(UPDATE_STATUS_FAILURE).to.equal('UPDATE_STATUS_FAILURE')
     expect(ADMIN_REMOVAL_REQUEST_PATH).to.equal('/admin/api/monitoring-requests')
+    expect(ADMIN_REMOVAL_COMPLETED_REQUEST).to.equal('/admin/api/monitoring-request-receipts/search')
   })
 
   describe('(Action Creator) gettingRemovalRequests', () => {
@@ -100,6 +128,12 @@ describe('(RequestedMovals module)', () => {
     it('Should return an action with error', () => {
       let error = {testErrorMessage: 'errorMessage'}
       expect(rejectedRemovalRequests(error)).to.have.property('error', error)
+    })
+  })
+
+  describe('(Action Creator) receivedRemovalsCompleted', () => {
+    it('Should return a type with "ADMIN_COMPLETED_REMOVALS_SUCCESS"', () => {
+      expect(receivedRemovalsCompleted()).to.have.property('type', ADMIN_COMPLETED_REMOVALS_SUCCESS)
     })
   })
 
@@ -200,6 +234,48 @@ describe('(RequestedMovals module)', () => {
     })
   })
 
+  describe('(Async Action Creator) getRemovalsRequested', () => {
+
+    let requestedRemovalsApi;
+
+    beforeEach(() => {
+      requestedRemovalsApi = sinon.stub(clickadillyApi, 'get')
+    })
+
+    afterEach(() => {
+      requestedRemovalsApi.restore()
+    })
+
+    it('Should be exported as a function', () => {
+      expect(getRemovalsCompleted).to.be.a('function')
+    })
+
+    it('Should return a function (is a thunk)', () => {
+      expect(getRemovalsCompleted()).to.be.a('function')
+    })
+
+    it('creates ADMIN_COMPLETED_REMOVALS_SUCCESS', done => {
+      const  fakeResponse =  [{id: 1}, {id: 2}]
+
+
+      const resolved = new Promise((r) => r({ data: fakeResponse }));
+      requestedRemovalsApi.returns(resolved);
+
+      const expectedActions = [
+        { type: ADMIN_REQUESTED_REMOVALS_PENDING},
+        { type: ADMIN_COMPLETED_REMOVALS_SUCCESS, data: fakeResponse }
+      ]
+
+      const store = mockStore({ requestedRemovals: {} })
+
+      return store.dispatch(getRemovalsCompleted())
+      .then(() => {
+        expect(store.getActions()).to.eql(expectedActions)
+        done();
+      })
+    })
+  })
+
   describe('(Async Action Creator) updateStatus', () => {
     let requestedRemovalsApi;
 
@@ -291,6 +367,13 @@ describe('(RequestedMovals module)', () => {
         all: requestedRemovals.monitoring_requests,
         pagination: requestedRemovals.meta.pagination
       })
+    })
+
+    it('should handle ADMIN_COMPLETED_REMOVALS_SUCCESS', () => {
+      const state = reducer({}, { type: ADMIN_COMPLETED_REMOVALS_SUCCESS, data: completedRemovals })
+      const expected = { isFetching: false, completed: completedRemovals.monitoring_request_receipts, pagination: completedRemovals.meta.pagination }
+
+      expect(state).to.eql(expected)
     })
 
     it('shoulde handle ADMIN_REQUESTED_REMOVALS_FAILURE', () => {

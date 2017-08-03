@@ -2,10 +2,11 @@ import React from 'react';
 import _ from 'underscore';
 
 import RequestedRemovals from './components/RequestedRemovals';
+import CompletedRemovals from './components/CompletedRemovals';
 import { RoutedComponent, connect } from 'routes/routedComponent';
 import { CONTENT_VIEW_STATIC } from 'layouts/DefaultLayout/modules/layout';
 import {
-  getRemovalsRequested,
+  getRemovals,
   updateStatus,
   UPDATE_STATUS_SUCCESS,
   UPDATE_STATUS_FAILURE
@@ -51,22 +52,26 @@ class RequestedRemovalsContainer extends RoutedComponent {
   }
 
   componentWillMount() {
-    this.fetchRemovalsRequested(this.state.pageNum, this.getStatusParams())
+    this.fetchRemovals(this.state.pageNum, this.getParams())
   }
 
   componentWillReceiveProps(nextProps) {
     nextProps.route.path !== this.props.route.path &&
-      this.fetchRemovalsRequested(this.state.pageNum, this.getStatusParams(nextProps.route.path))
+      this.fetchRemovals(this.state.pageNum, this.getParams(nextProps.route.path))
       this.setState({queryName: this.getStatus(nextProps.route.path)})
   }
 
-  fetchRemovalsRequested(pageNum, params) {
-    this.props.getRemovalsRequested(pageNum, params)
+  fetchRemovals(pageNum, params) {
+    this.props.getRemovals(pageNum, params)
   }
 
-  getStatusParams(path = this.props.route.path) {
+  getParams(path = this.props.route.path) {
     const status = this.getStatus(path)
-    return { q: { request_status_is_type_eq: status} }
+    return status !== 'completed' ?
+      { q: { request_status_is_type_eq: status} }
+        :
+          { q: { completed_at_not_null: '1', s: 'completed_at desc' } }
+
   }
 
   getStatus(path = this.props.route.path) {
@@ -76,7 +81,7 @@ class RequestedRemovalsContainer extends RoutedComponent {
 
   getNextPage(pageNum) {
     this.setState({ pageNum: parseInt(pageNum) })
-    this.fetchRemovalsRequested(pageNum, this.getStatusParams())
+    this.fetchRemovals(pageNum, this.getParams())
   }
 
   hideModal() {
@@ -103,7 +108,7 @@ class RequestedRemovalsContainer extends RoutedComponent {
       }
     }
 
-    this.fetchRemovalsRequested(this.state.pageNum, params)
+    this.fetchRemovals(this.state.pageNum, params)
     this.setState({queryName})
   }
 
@@ -118,14 +123,26 @@ class RequestedRemovalsContainer extends RoutedComponent {
   render() {
     const { requestedRemovals } = this.props
     const { pagination } = requestedRemovals
-    const results = pagination && pagination.total
+    const resultCount = pagination && pagination.total
     const paginationItems = (
       pagination &&
         Math.ceil( pagination.total / pagination.limit )
     )
+    const isCompleted = this.state.queryName === 'completed'
 
-    return (
-      <RequestedRemovals
+    if(isCompleted) {
+      return <CompletedRemovals
+        removals={requestedRemovals.completed}
+        pageNum={this.state.pageNum}
+        isFetching={this.props.requestedRemovals.isFetching}
+        getNextPage={this.getNextPage}
+        paginationItems={paginationItems}
+        handleSearch={this.handleSearch}
+        queryName={this.state.queryName}
+        resultCount={resultCount}
+      />
+    }else{
+      return <RequestedRemovals
         removals={requestedRemovals.all}
         pageNum={this.state.pageNum}
         isFetching={this.props.requestedRemovals.isFetching}
@@ -138,9 +155,9 @@ class RequestedRemovalsContainer extends RoutedComponent {
         updateRemovalStatus={this.updateRemovalStatus}
         handleSearch={this.handleSearch}
         queryName={this.state.queryName}
-        results={results}
+        resultCount={resultCount}
       />
-    )
+    }
   }
 }
 
@@ -149,7 +166,7 @@ const mapStateToProps = state => ({
 })
 
 const mapActionCreators = {
-  getRemovalsRequested,
+  getRemovals,
   updateStatus,
 }
 

@@ -26,24 +26,24 @@ const mockStore = configureMockStore(middlewares)
 const successfulResponse = {
   monitoring_requests: [
     {
-      id: 1,
-      site: "radius.com",
-      status: "pending",
-      status_label: "Pending",
+      id: 3,
+      site: "instantcheckmate.com",
+      status: "requested",
     },
     {
       id: 2,
       site: "peoplefinder.com",
-      status: "pending",
-      status_label: "Pending",
+      status: "queued",
     },
     {
-      id: 3,
-      site: "instantcheckmate.com",
+      id: 1,
+      site: "radius.com",
       status: "pending",
-      status_label: "Pending",
-    },
-  ]
+    }
+  ],
+  meta: {
+    total_count: 100
+  }
 }
 const removal = { id: 1 }
 
@@ -219,8 +219,11 @@ describe('(monitoring module) monitoring requests', () => {
   })
   describe('(Reducer)', () => {
     const monitoringState = {
-      all: successfulResponse.monitoring_requests,
-      isFetching: false
+      isFetching: false,
+      inProgress: [successfulResponse.monitoring_requests[0]],
+      inQueue: [successfulResponse.monitoring_requests[1]],
+      potentialRisks: [successfulResponse.monitoring_requests[2]],
+      totalCount: successfulResponse.meta.total_count,
     }
 
     const monitoringFailureState = {
@@ -231,32 +234,29 @@ describe('(monitoring module) monitoring requests', () => {
     const removalUpdated = {
       id: 1,
       site: "radius.com",
-      status: "inprogress",
-      status_label: "Pending",
+      status: "requested",
     }
 
     const updatedState = {
-      all: [
-        {
-          id: 2,
-          site: "peoplefinder.com",
-          status: "pending",
-          status_label: "Pending",
-        },
-        {
-          id: 3,
-          site: "instantcheckmate.com",
-          status: "pending",
-          status_label: "Pending",
-        },
-        {
-          id: 1,
-          site: "radius.com",
-          status: "inprogress",
-          status_label: "Pending",
-        }
+      isFetching: false,
+      inProgress: [{
+        id: 1,
+        site: "radius.com",
+        status: "requested",
+      },
+      {
+        id: 3,
+        site: "instantcheckmate.com",
+        status: "requested",
+      }
       ],
-      isFetching: false
+      inQueue: [{
+        id: 2,
+        site: "peoplefinder.com",
+        status: "queued",
+      }],
+      potentialRisks: [],
+      totalCount: 100
     }
 
     it('Should be a function.', () => {
@@ -268,38 +268,31 @@ describe('(monitoring module) monitoring requests', () => {
     })
 
     it('Should return the previous state if an action was not matched.', () => {
-      let state = reducer({}, { type: MONITORING_PENDING})
+      let state = reducer({isFetching: true}, { type: MONITORING_PENDING})
       expect(state).to.be.an('object')
       expect(state).to.have.property('isFetching', true)
       state = reducer(state, { type: 'NOT_ACTION' })
       expect(state).to.have.property('isFetching', true)
     })
 
-    it('should handle MONITORING_PENDING', () => {
-      expect(reducer({}, {
-        type: MONITORING_PENDING }))
-        .to.eql( { isFetching: true })
-    })
-
     it('should handle MONITORING_SUCCESS', () => {
-      expect(reducer({ isFetching: true }, {
-        type: MONITORING_SUCCESS,
-        response: successfulResponse
-      })).to.eql(monitoringState)
+      const state = reducer({ isFetching: true }, { type: MONITORING_SUCCESS, response: successfulResponse })
+      const expected = monitoringState
+
+      expect(state).to.eql(monitoringState)
     })
 
     it('should handle MONITORING_FAILURE', () => {
-      expect(reducer({ isFetching: true }, {
-        type: MONITORING_FAILURE,
-        error: errRes
-      })).to.eql(monitoringFailureState)
+      const state = reducer({ isFetching: true }, { type: MONITORING_FAILURE, error: errRes })
+      const expected = monitoringFailureState
+
+      expect(state).to.eql(expected)
     });
 
     it('should handle MONITORING_UPDATE_SUCCESS', () => {
-      expect(reducer(monitoringState, {
-        type: MONITORING_UPDATE_SUCCESS,
-        removal: removalUpdated
-      })).to.eql(updatedState)
+      const state = reducer(monitoringState, { type: MONITORING_UPDATE_SUCCESS, removal: removalUpdated })
+      const expected = updatedState
+      expect(state).to.eql(expected)
     })
   })
 })
