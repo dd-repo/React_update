@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react';
 import { reduxForm, Field } from 'redux-form';
 import DatePicker from 'react-bootstrap-date-picker';
+//import moment from 'moment';
 
 import { checkValidation } from 'utils/formHelpers';
 import formFields from 'consts/data/formFields';
@@ -19,7 +20,7 @@ const validate = values => {
   return checkValidation(values)
 }
 
-const startDate = new Date().toISOString();
+//const startDate = moment().toDate().toString()
 
 const dropDownSelect = ({ input, title, children, meta: {touched, error} }) => (
   <FormControl className='m-b-1' {...input} componentClass='select'>
@@ -33,7 +34,6 @@ const renderDatePicker = ({input, placeHolder, meta: {touched, error} }) => (
   <div>
     <DatePicker
       {...input}
-      minDate={startDate}
       dateFormat='MM/DD/YYYY'
       placeHolder='Select a start date'
     />
