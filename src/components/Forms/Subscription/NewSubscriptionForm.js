@@ -3,6 +3,7 @@ import { reduxForm, Field } from 'redux-form';
 import DatePicker from 'react-bootstrap-date-picker';
 
 import { checkValidation } from 'utils/formHelpers';
+import formFields from 'consts/data/formFields';
 import { formatDate } from 'utils/dateHelper';
 
 import {
@@ -19,17 +20,6 @@ const validate = values => {
 }
 
 const startDate = new Date().toISOString();
-
-const plan = [
-  {
-    type: 'individual',
-    id: 2
-  },
-  {
-    type: 'testing',
-    id:3
-  }
-]
 
 const dropDownSelect = ({ input, title, children, meta: {touched, error} }) => (
   <FormControl className='m-b-1' {...input} componentClass='select'>
@@ -61,13 +51,13 @@ const NewSubscriptionForm = props => {
         </Col>
         <Col sm={9}>
           <Field
-            name='plan_id'
+            name='plan'
             component={dropDownSelect}
             title='plan'
           >
             {
-              plan.map((plan, i) => (
-                <option value={plan.id} key={i}>{plan.type}</option>
+              formFields.plan.list.map((plan, i) => (
+                <option value={plan.type} key={i}>{plan.type}</option>
                 ))
             }
           </Field>

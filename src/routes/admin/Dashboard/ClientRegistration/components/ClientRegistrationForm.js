@@ -76,20 +76,13 @@ const renderField = (props) => {
   )
 }
 
-const dropDownSelect = ({ input, title }) => {
-  const { name, value } = input
-  const list = formFields[[name]].list
-
-  return (
-    <FormControl {...input} componentClass='select'>
-      <option value=''>Select a {title}...</option>
-      {list.map(state =>
-                <option value={state} key={state}>{state}</option>
-                )
-      }
-    </FormControl>
-  )
-}
+const dropDownSelect = ({ input, title, children, meta: {touched, error} }) => (
+  <FormControl className='m-b-1' {...input} componentClass='select'>
+    <option value=''>Select a {title}...</option>
+    { children }
+    {touched && error && <span>{error}</span>}
+  </FormControl>
+)
 
 let ClientRegistrationForm = (props) => {
 
@@ -159,7 +152,13 @@ let ClientRegistrationForm = (props) => {
                     name='plan'
                     title='plan'
                     component={dropDownSelect}
-                  />
+                  >
+                    {
+                      formFields.plan.list.map((plan, i) => (
+                        <option value={plan.type} key={i}>{plan.type}</option>
+                      ))
+                    }
+                  </Field>
                 </Col>
               </Row>
             </Col>
@@ -231,7 +230,13 @@ let ClientRegistrationForm = (props) => {
                           name='state'
                           title='state'
                           component={dropDownSelect}
-                        />
+                        >
+                          {
+                            formFields.state.list.map((state, i) => (
+                              <option value={state} key={i}>{state}</option>
+                            ))
+                          }
+                        </Field>
                       </Row>
                     </Col>
                   </FormGroup>
@@ -281,7 +286,13 @@ let ClientRegistrationForm = (props) => {
                     name='kwState'
                     title='state'
                     component={dropDownSelect}
-                  />
+                  >
+                    {
+                      formFields.kwState.list.map((state, i) => (
+                        <option value={state} key={i}>{state}</option>
+                        ))
+                    }
+                  </Field>
                 </Col>
                 <Col sm={ 4 }>
                   {renderField(formFields.kwZipcode)}
@@ -316,5 +327,3 @@ ClientRegistrationForm = reduxForm({
 })(ClientRegistrationForm)
 
 export default ClientRegistrationForm
-
-
