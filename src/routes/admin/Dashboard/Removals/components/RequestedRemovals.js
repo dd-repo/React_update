@@ -63,7 +63,7 @@ class RequestedRemovals extends Component {
       showModal,
       hideModal,
       removalInProcess,
-      results,
+      resultCount,
       handleSearch,
       queryName
     } = this.props
@@ -180,11 +180,46 @@ class RequestedRemovals extends Component {
             </tbody>
     )
 
+    const renderRequestedTable = (
+      <Table>
+        <thead>
+          <tr>
+            <th>
+              id
+            </th>
+            <th>
+              client name
+            </th>
+            <th>
+              client age
+            </th>
+            <th>
+              client address
+            </th>
+            <th>
+              site Link
+            </th>
+            <th>
+              created at
+            </th>
+            <th className='text-right'>
+              status
+            </th>
+            <th>
+              actions
+            </th>
+          </tr>
+        </thead>
+        { renderRemovals }
+      </Table>
+    )
+
     const renderSearchBar = (
       <Col lg={6} lgOffset={3} className='m-b-2' >
         <SearchBar
+          placeHolder='Enter removal id...'
           query={queryName}
-          resultCount={results}
+          resultCount={resultCount}
           handleSearch={handleSearch}
         />
       </Col>
@@ -198,37 +233,7 @@ class RequestedRemovals extends Component {
     return (
       <Row>
         { renderSearchBar }
-        <Table>
-          <thead>
-            <tr>
-              <th>
-                id
-              </th>
-              <th>
-                client name
-              </th>
-              <th>
-                client age
-              </th>
-              <th>
-                client address
-              </th>
-              <th>
-                site Link
-              </th>
-              <th>
-                created at
-              </th>
-              <th className='text-right'>
-                status
-              </th>
-              <th>
-                actions
-              </th>
-            </tr>
-          </thead>
-          { renderRemovals }
-        </Table>
+        { renderRequestedTable }
         { renderPagination }
         { renderLoader }
         { renderModal }
