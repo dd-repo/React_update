@@ -14,21 +14,9 @@ const REMOVAL_STATUS = {
     buttonLabel: 'Mark as complete',
     nextStatus: 'completed'
   },
-  'completed': {
-    style:'success',
-    buttonLabel: 'Complete'
-  },
   'protected': {
     style:'success',
     buttonLabel: 'Complete'
-  },
-  'pending': {
-    style: 'warning',
-    buttonLabel: 'Pending'
-  },
-  'queued': {
-    style: 'warning',
-    buttonLabel: 'Pending'
   }
 }
 
@@ -60,16 +48,16 @@ export default class RemovalRequested extends Component {
     const siteURL = `http://www.${site}`
     const friendlyURL = `www.${site}`
     const address = addresses[0] ? addresses[0].address1 : ''
-    const isComplete = status === 'completed'
     const removalStatus = REMOVAL_STATUS[status]
     const renderStatus = status === 'protected' ? 'completed' : status
+    const isRequested = status === 'requested'
+    const isInProgress = status === 'inprogress'
 
     const renderButton = (
-      !isComplete &&
         <DropdownButton onSelect={this._onSelect} title='Actions' bsStyle='danger' id='dropdown-basic-4' bsSize='lg' className='m-b-1'>
-          <MenuItem eventKey="inprogress">In Progress</MenuItem>
-          <MenuItem eventKey="completed">Complete</MenuItem>
-          <MenuItem eventKey="protected">Record not found</MenuItem>
+          { isRequested && <MenuItem eventKey="inprogress">In Progress</MenuItem> }
+          { isInProgress && <MenuItem eventKey="completed">Complete</MenuItem> }
+          { isRequested && <MenuItem eventKey="protected">Record not found</MenuItem> }
         </DropdownButton>
     )
 
