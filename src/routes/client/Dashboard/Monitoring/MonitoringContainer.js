@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react';
 import _ from 'underscore';
-import Notification from 'react-notification-system-redux';
+//import Notification from 'react-notification-system-redux';
+import { info, removeAll } from 'react-notification-system-redux';
 
 import Privacy from './components/Privacy';
 import { CONTENT_VIEW_STATIC } from 'layouts/DefaultLayout/modules/layout';
@@ -15,8 +16,19 @@ import {
 import { showModal } from 'modules/modal';
 
 const getStatusBySelector = (state, selector) => {
-    return _.where(state, {status: selector})
+  return _.where(state, {status: selector})
+}
+
+const notificationOpt = {
+  title: 'Privacy',
+  message: 'We notice that you do not have any requested removals in progress',
+  position: 'tr',
+  autoDismiss: 0,
+  action: {
+    label: 'Click here to get started',
+    callback: () => this.props.showModal('REMOVAL_INSTRUCTIONS')
   }
+}
 
 
 class MonitoringContainer extends RoutedComponent {
@@ -48,9 +60,14 @@ class MonitoringContainer extends RoutedComponent {
 
   componentWillReceiveProps(nextProps) {
     if(nextProps.inProgress) {
-      nextProps.inProgress.length === 0 &&
-        this.context.store.dispatch(this.createNotification())
+      nextProps.inProgress.length === 0 && !this.state.notified &&
+        this.context.store.dispatch(info(notificationOpt))
+        this.setState({notified: true})
     }
+  }
+
+  componentWillUnmount() {
+    this.context.store.dispatch(removeAll())
   }
 
   fetchMonitoringRequests() {
@@ -76,7 +93,7 @@ class MonitoringContainer extends RoutedComponent {
   }
 
   createNotification() {
-    return Notification.info({
+    return info({
       title: 'Privacy',
       message: 'We notice that you do not have any requested removals in progress',
       position: 'tr',
