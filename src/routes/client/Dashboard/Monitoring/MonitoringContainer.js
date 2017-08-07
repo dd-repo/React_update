@@ -48,8 +48,8 @@ class MonitoringContainer extends RoutedComponent {
 
   componentWillReceiveProps(nextProps) {
     if(nextProps.inProgress) {
-      //nextProps.inProgress.length === 0 &&
-        //this.context.store.dispatch(this.createNotification())
+      nextProps.inProgress.length === 0 &&
+        this.context.store.dispatch(this.createNotification())
     }
   }
 
