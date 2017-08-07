@@ -17,11 +17,12 @@ const CURRENT_STATUS = {
 export const MONITORING_PENDING = 'MONITORING_PENDING';
 export const MONITORING_SUCCESS = 'MONITORING_SUCCESS';
 export const MONITORING_FAILURE = 'MONITORING_FAILURE';
+export const MONITORING_COMPLETED_SUCCESS = 'MONITORING_COMPLETED_SUCCESS';
 export const MONITORING_UPDATE_SUCCESS = 'MONITORING_UPDATE_SUCCESS';
 export const MONITORING_UPDATE_FAILURE = 'MONITORING_UPDATE_FAILURE';
 
 //actions
-export const getMonitoring = account_id => {
+export const fetchMonitoringRequests = account_id => {
 
   const path = `dashboard/api/v1/accounts/${account_id}/monitoring`
 
@@ -33,6 +34,16 @@ export const getMonitoring = account_id => {
     ).catch(
     error => dispatch(monitoringFailure(error))
     )
+  }
+}
+
+export const fetchMonitoringRequestsCompleted = params => {
+  const path = '/dashboard/api/v1/monitoring-request-receipts/search'
+
+  return dispatch => {
+    return clickadillyApi.get(path, params)
+    .then( response => dispatch(receiveMonitoringCompleted(response.data)))
+    .catch( error => dispatch(monitoringFailure(error)))
   }
 }
 
@@ -70,10 +81,17 @@ export const gettingMonitoring = () => (
   }
 );
 
-export const monitoringSuccess = response => (
+export const monitoringSuccess = data => (
   {
     type: MONITORING_SUCCESS,
-    response
+    data
+  }
+)
+
+export const receiveMonitoringCompleted = data => (
+  {
+    type: MONITORING_COMPLETED_SUCCESS,
+    data
   }
 )
 
@@ -108,12 +126,16 @@ const reducer = (state = {isFetching: true}, action) => {
   switch(action.type) {
     case MONITORING_SUCCESS:
       return Object.assign({}, state, {
-        inProgress: filterByStatus(action.response.monitoring_requests, ['requested','inprogress']),
-        inQueue: filterByStatus(action.response.monitoring_requests, 'queued'),
-        potentialRisks: filterByStatus(action.response.monitoring_requests, 'pending'),
-        totalCount: action.response.meta.total_count,
+        inProgress: filterByStatus(action.data.monitoring_requests, ['requested','inprogress']),
+        inQueue: filterByStatus(action.data.monitoring_requests, 'queued'),
+        potentialRisks: filterByStatus(action.data.monitoring_requests, 'pending'),
+        totalCount: action.data.meta.total_count,
         isFetching: false
       });
+    case MONITORING_COMPLETED_SUCCESS:
+      return Object.assign({}, state, {
+        completed: action.data.monitoring_request_receipts
+      })
     case MONITORING_FAILURE:
       return Object.assign({}, state, {
         isFetching: false,

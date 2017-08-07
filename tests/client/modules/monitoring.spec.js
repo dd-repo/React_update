@@ -9,9 +9,12 @@ import {
   MONITORING_FAILURE,
   MONITORING_UPDATE_SUCCESS,
   MONITORING_UPDATE_FAILURE,
-  getMonitoring,
+  MONITORING_COMPLETED_SUCCESS,
+  fetchMonitoringRequests,
+  fetchMonitoringRequestsCompleted,
   monitoringRequestRemoval,
   removalRequestSuccess,
+  receiveMonitoringCompleted,
   removalRequestFailure,
   gettingMonitoring,
   monitoringSuccess,
@@ -45,6 +48,26 @@ const successfulResponse = {
     total_count: 100
   }
 }
+
+const completedRequestResponse = {
+  monitoring_request_receipts: [
+    {
+      id: 3,
+      site: "instantcheckmate.com",
+      status: "completed",
+    },
+    {
+      id: 2,
+      site: "peoplefinder.com",
+      status: "completed",
+    },
+    {
+      id: 1,
+      site: "radius.com",
+      status: "completed",
+    }
+  ]
+}
 const removal = { id: 1 }
 
 const errRes = {
@@ -60,6 +83,7 @@ describe('(monitoring module) monitoring requests', () => {
     expect(MONITORING_FAILURE).to.equal('MONITORING_FAILURE')
     expect(MONITORING_UPDATE_SUCCESS).to.equal('MONITORING_UPDATE_SUCCESS')
     expect(MONITORING_UPDATE_FAILURE).to.equal('MONITORING_UPDATE_FAILURE')
+    expect(MONITORING_COMPLETED_SUCCESS).to.equal('MONITORING_COMPLETED_SUCCESS')
   })
 
   describe('(Action Creator) "gettingMonitoring"', () => {
@@ -74,7 +98,7 @@ describe('(monitoring module) monitoring requests', () => {
     })
 
     it('Should return an action with monitoring object', () => {
-      expect(monitoringSuccess(successfulResponse)).to.have.property('response', successfulResponse)
+      expect(monitoringSuccess(successfulResponse)).to.have.property('data', successfulResponse)
     })
   })
 
@@ -108,7 +132,18 @@ describe('(monitoring module) monitoring requests', () => {
     })
   })
 
-  describe('(Async Action Creator) "getMonitoring"', () => {
+  describe('(Action Creator) "receiveMonitoringCompleted"', () => {
+    it('Should return an action with type MONITORING_COMPLETED_SUCCESS', () => {
+      expect(receiveMonitoringCompleted()).to.have.property('type', MONITORING_COMPLETED_SUCCESS )
+    })
+
+    it('Should return an action with monitoring object', () => {
+      const data = [{id: 1}]
+      expect(receiveMonitoringCompleted(data)).to.have.property('data', data)
+    })
+  })
+
+  describe('(Async Action Creator) "fetchMonitoringRequests"', () => {
     let monitoringApi;
 
     beforeEach(() => {
@@ -120,11 +155,11 @@ describe('(monitoring module) monitoring requests', () => {
     })
 
     it('Should be exported as a function', () => {
-      expect(getMonitoring).to.be.a('function')
+      expect(fetchMonitoringRequests).to.be.a('function')
     })
 
     it('Should return a function (is a thunk)', () => {
-      expect(getMonitoring()).to.be.a('function')
+      expect(fetchMonitoringRequests()).to.be.a('function')
     })
 
     it('creates MONITORING_SUCCESS when fetching monitoring sites', (done) => {
@@ -133,12 +168,12 @@ describe('(monitoring module) monitoring requests', () => {
 
       const expectedActions = [
         { type: MONITORING_PENDING },
-        { type: MONITORING_SUCCESS, response: successfulResponse }
+        { type: MONITORING_SUCCESS, data: successfulResponse }
       ]
 
       const store = mockStore({ monitoring: {} })
 
-      return store.dispatch(getMonitoring())
+      return store.dispatch(fetchMonitoringRequests())
       .then(() => {
         expect(store.getActions()).to.eql(expectedActions);
         done();
@@ -156,7 +191,44 @@ describe('(monitoring module) monitoring requests', () => {
 
       const store = mockStore({ monitoring: {} })
 
-      return store.dispatch(getMonitoring())
+      return store.dispatch(fetchMonitoringRequests())
+      .then(() => {
+        expect(store.getActions()).to.eql(expectedActions);
+        done();
+      })
+    })
+  })
+
+  describe('(Async Action Creator) "fetchMonitoringRequestsCompleted"', () => {
+    let monitoringApi;
+
+    beforeEach(() => {
+      monitoringApi = sinon.stub(clickadillyApi, 'get')
+    })
+
+    afterEach(() => {
+      monitoringApi.restore()
+    })
+
+    it('Should be exported as a function', () => {
+      expect(fetchMonitoringRequestsCompleted).to.be.a('function')
+    })
+
+    it('Should return a function (is a thunk)', () => {
+      expect(fetchMonitoringRequestsCompleted()).to.be.a('function')
+    })
+
+    it('creates MONITORING_SUCCESS when fetching monitoring sites', (done) => {
+      const resolved = new Promise((r) => r({ data: successfulResponse }))
+      monitoringApi.returns(resolved)
+
+      const expectedActions = [
+        { type: MONITORING_COMPLETED_SUCCESS, data: successfulResponse }
+      ]
+
+      const store = mockStore({ monitoring: {} })
+
+      return store.dispatch(fetchMonitoringRequestsCompleted())
       .then(() => {
         expect(store.getActions()).to.eql(expectedActions);
         done();
@@ -259,6 +331,11 @@ describe('(monitoring module) monitoring requests', () => {
       totalCount: 100
     }
 
+    const requestsCompleteState = {
+      completed: completedRequestResponse.monitoring_request_receipts,
+      isFetching: true
+    }
+
     it('Should be a function.', () => {
       expect(reducer).to.be.a('function')
     })
@@ -276,7 +353,7 @@ describe('(monitoring module) monitoring requests', () => {
     })
 
     it('should handle MONITORING_SUCCESS', () => {
-      const state = reducer({ isFetching: true }, { type: MONITORING_SUCCESS, response: successfulResponse })
+      const state = reducer({ isFetching: true }, { type: MONITORING_SUCCESS, data: successfulResponse })
       const expected = monitoringState
 
       expect(state).to.eql(monitoringState)
@@ -292,6 +369,12 @@ describe('(monitoring module) monitoring requests', () => {
     it('should handle MONITORING_UPDATE_SUCCESS', () => {
       const state = reducer(monitoringState, { type: MONITORING_UPDATE_SUCCESS, removal: removalUpdated })
       const expected = updatedState
+      expect(state).to.eql(expected)
+    })
+
+    it('should handle MONITORING_COMPLETED_SUCCESS', () => {
+      const state = reducer({isFetching: true}, { type: MONITORING_COMPLETED_SUCCESS, data: completedRequestResponse })
+      const expected = requestsCompleteState
       expect(state).to.eql(expected)
     })
   })
