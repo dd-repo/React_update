@@ -14,7 +14,7 @@ import {
 
 const CompletedRequests = ({ isFetching, completed }) => (
 
-  !isFetching &&
+  !isFetching && completed.length ?
     <Panel
       type='color-border-full'
       bsStyle='success'
@@ -56,6 +56,8 @@ const CompletedRequests = ({ isFetching, completed }) => (
           </tbody>
         </Table>
       </Panel>
+        :
+          <div></div>
 )
 
 export default CompletedRequests;
