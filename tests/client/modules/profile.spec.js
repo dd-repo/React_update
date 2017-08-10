@@ -17,7 +17,7 @@ import {
   profileSuccess,
   profileFailure,
   default as reducer
-} from 'routes/client/Dashboard/Profile/modules/profile';
+} from 'routes/client/Profile/modules/profile';
 
 const middlewares = [ thunk ]
 const mockStore = configureMockStore(middlewares)

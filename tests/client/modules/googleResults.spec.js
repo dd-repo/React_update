@@ -14,10 +14,10 @@ import {
   googleResultFailure,
   updateGoogleResultSuccess,
   updateGoogleResultFailure,
-  getGoogleResults,
+  fetchGoogleResults,
   requestRemoval,
   default as reducer,
-} from 'routes/client/Dashboard/GoogleResults/modules/googleResults';
+} from 'routes/client/GoogleResults/modules/googleResults';
 
 const middlewares = [ thunk ]
 const mockStore = configureMockStore(middlewares)
@@ -131,7 +131,7 @@ describe( '(googleResults module) googleResults', () => {
     })
   })
 
-  describe('(Async Action Creator) getGoogleResults', () => {
+  describe('(Async Action Creator) fetchGoogleResults', () => {
 
     let googleResultApi;
     const payload = {pageNum: 1, keyword_id: 1, account_id: 1}
@@ -145,11 +145,11 @@ describe( '(googleResults module) googleResults', () => {
     })
 
     it('Should be exported as a function', () => {
-      expect(getGoogleResults).to.be.a('function')
+      expect(fetchGoogleResults).to.be.a('function')
     })
 
     it('Should return a function (is a thunk)', () => {
-      expect(getGoogleResults(payload)).to.be.a('function')
+      expect(fetchGoogleResults(payload)).to.be.a('function')
     })
 
     it('creates GOOGLE_RESULTS_SUCCESS when fetching google results', (done) => {
@@ -164,7 +164,7 @@ describe( '(googleResults module) googleResults', () => {
 
       const store = mockStore({ googleResults: {} })
 
-      return store.dispatch(getGoogleResults(payload))
+      return store.dispatch(fetchGoogleResults(payload))
       .then(() => {
         expect(store.getActions()).to.eql(expectedActions);
         done();
@@ -176,11 +176,6 @@ describe( '(googleResults module) googleResults', () => {
 
       const rejected = new Promise((_, r) => r(errRes));
       googleResultApi.returns(rejected)
-
-      //moxios.wait(() => {
-      //const request = moxios.requests.mostRecent();
-      //request.reject(errRes);
-      //});
 
       const expectedActions = [
         { type: GOOGLE_RESULTS_POSTING},
@@ -194,7 +189,7 @@ describe( '(googleResults module) googleResults', () => {
 
       const store = mockStore({ googleResults: {} })
 
-      return store.dispatch(getGoogleResults(payload))
+      return store.dispatch(fetchGoogleResults(payload))
       .then(() => {
         expect(store.getActions()).to.eql(expectedActions);
         done();

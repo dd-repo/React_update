@@ -3,7 +3,7 @@ import thunk from 'redux-thunk';
 
 import clickadillyApi from 'services/clickadillyApi';
 import BASE_URL from 'consts/baseUrl';
-import { PAYMENT_SUCCESS } from 'routes/client/Payment/modules/payment';
+import { PAYMENT_SUCCESS } from 'routes/signup/Payment/modules/payment';
 import {
   USER_SIGNUP_SUCCESS,
   USER_SIGNUP_FAILURE,

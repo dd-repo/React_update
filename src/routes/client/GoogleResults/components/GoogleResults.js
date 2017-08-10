@@ -116,7 +116,7 @@ export default class GoogleResults extends Component {
               paginationTotal={paginationTotal}
             />
           </Col>
-          <Col lg={ 10 }>
+          <Col lg={ 12 }>
             {' '}
             <Divider className='m-t-3 m-b-2'>
               All Results

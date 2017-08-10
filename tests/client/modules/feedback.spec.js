@@ -12,7 +12,7 @@ import {
   sentFeedbackFailure,
   sendFeedback,
   default as reducer
-} from 'routes/client/Dashboard/Feedback/modules/feedback';
+} from 'routes/client/Feedback/modules/feedback';
 
 const middlewares = [ thunk ]
 const mockStore = configureMockStore(middlewares)

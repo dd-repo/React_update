@@ -8,15 +8,15 @@ import {
 export const KEYWORD_POSTING = 'KEYWORD_POSTING';
 export const KEYWORD_SUCCESS = 'KEYWORD_SUCCESS';
 export const KEYWORD_FAILURE = 'KEYWORD_FAILURE';
-export const CURRENT_KEYWORD_ADD = 'CURRENT_KEYWORD_ADD';
+export const CURRENT_KEYWORD_UPDATE = 'CURRENT_KEYWORD_UPDATE';
 
 export const KEYWORD_REQUEST = '/dashboard/api/v1/users/sign-up/keyword';
 
 
 // actions
-export const addCurrentKeyword = keyword => (
+export const updateCurrentKeyword = keyword => (
   {
-    type: CURRENT_KEYWORD_ADD,
+    type: CURRENT_KEYWORD_UPDATE,
     keyword
   }
 );
@@ -54,6 +54,20 @@ export const keywordFailure = error => (
 );
 
 // reducer
+const configKeywords = keywords => (
+  keywords.map(keyword => ({
+    id: keyword.id,
+    value: keyword.id,
+    label: keyword.value
+    }))
+)
+
+const configKeyword = keyword => ({
+  id: keyword.id,
+  value: keyword.id,
+  label: keyword.label || keyword.value
+})
+
 const reducer = (state = {}, action) => {
   switch(action.type) {
     case KEYWORD_POSTING:
@@ -62,8 +76,8 @@ const reducer = (state = {}, action) => {
       });
     case KEYWORD_SUCCESS:
       return Object.assign({}, state, {
-        all: action.keywords,
-        currentKeyword: action.keywords[0],
+        all: configKeywords(action.keywords),
+        currentKeyword: configKeyword(action.keywords[0]),
         isFetching: false,
       });
     case KEYWORD_FAILURE:
@@ -71,22 +85,18 @@ const reducer = (state = {}, action) => {
         isFetching: false,
         error: action.error
       });
-    case CURRENT_KEYWORD_ADD:
+    case CURRENT_KEYWORD_UPDATE:
       return Object.assign({}, state, {
-        currentKeyword: action.keyword
+        currentKeyword: configKeyword(action.keyword)
       });
     case USER_LOGIN_SUCCESS:
       return Object.assign({}, state, {
-        all: action.data.account.keywords,
-        currentKeyword: action.data.account.keywords[0],
+        all: configKeywords(action.data.account.keywords),
+        currentKeyword: configKeyword(action.data.account.keywords[0]),
         isFetching: false,
       });
     case USER_LOGOUT:
-      return Object.assign({}, state, {
-        all: null,
-        currentKeyword: null,
-        isFetching: null
-      })
+      return {}
     default:
       return state
   }

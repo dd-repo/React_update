@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { reduxForm, Field } from 'redux-form';
 import { buildCreditCardParams } from 'utils/paramsHelper';
 
-import PaymentForm from 'routes/client/Payment/components/PaymentForm';
+import PaymentForm from 'routes/signup/Payment/components/PaymentForm';
 import { addCard, ADD_CARD_SUCCESS } from 'routes/admin/Dashboard/User/modules/cards';
 import {
     Col,
