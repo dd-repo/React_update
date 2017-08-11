@@ -71,6 +71,7 @@ class DashboardContainer extends RoutedComponent {
 
   constructor(props) {
     super(props)
+    this.state = {isFetching: true}
 
     this.fetchDashboardData = this.fetchDashboardData.bind(this);
     this.fetchLastFiveCompletedRemovals = this.fetchLastFiveCompletedRemovals.bind(this);
@@ -93,6 +94,8 @@ class DashboardContainer extends RoutedComponent {
     const accountId = this.props.user.account_id
     const keyword_id = this.props.keywords.currentKeyword.id
     this.fetchDashboardData(accountId, keyword_id)
+    .then( res => this.hasData())
+    .catch( error => console.log('dashboard error', error.response))
   }
 
   componentWillReceiveProps(nextProps) {
@@ -101,6 +104,10 @@ class DashboardContainer extends RoutedComponent {
         this.fetchFirstPageGoogleResults(this.props.user.account_id, nextProps.keywords.currentKeyword.id)
       }
     }
+  }
+
+  hasData() {
+    this.setState({ isFetching: false })
   }
 
   fetchDashboardData(account_id, keyword_id) {
@@ -158,6 +165,7 @@ class DashboardContainer extends RoutedComponent {
         keywords={this.props.keywords}
         handleSearch={this.handleSearch}
         handlePrivacyRemovalButtonClick={this.handlePrivacyRemovalButtonClick}
+        isFetching={this.state.isFetching}
       />
     )
   }
