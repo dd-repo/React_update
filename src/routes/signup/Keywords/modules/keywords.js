@@ -9,8 +9,11 @@ export const KEYWORD_POSTING = 'KEYWORD_POSTING';
 export const KEYWORD_SUCCESS = 'KEYWORD_SUCCESS';
 export const KEYWORD_FAILURE = 'KEYWORD_FAILURE';
 export const CURRENT_KEYWORD_UPDATE = 'CURRENT_KEYWORD_UPDATE';
+export const RECEIVE_KEYWORDS_SUCCESS = 'RECEIVE_KEYWORDS_SUCCESS'
+export const RECEIVE_KEYWORDS_FAILURE = 'RECEIVE_KEYWORDS_FAILURE'
 
 export const KEYWORD_REQUEST = '/dashboard/api/v1/users/sign-up/keyword';
+export const KEYWORDS_REQUEST = '/dashboard/api/v1/accounts'
 
 
 // actions
@@ -33,6 +36,15 @@ export const postKeywords = payload => {
   }
 }
 
+export const fetchKeywords = (account_id, params) => {
+  const path = `${KEYWORDS_REQUEST}/${account_id}/keywords/search`
+  return dispatch => {
+    return clickadillyApi.get(path, params)
+    .then( response => dispatch(receiveKeywords(response.data)))
+    .catch( error => dispatch(rejectKeywords(error)))
+  }
+}
+
 export const postingKeywords = () => (
   {
     type: KEYWORD_POSTING
@@ -52,6 +64,20 @@ export const keywordFailure = error => (
     error
   }
 );
+
+export const receiveKeywords = data => (
+  {
+    type: RECEIVE_KEYWORDS_SUCCESS,
+    data
+  }
+)
+
+export const rejectKeywords = error => (
+  {
+    type: RECEIVE_KEYWORDS_FAILURE,
+    error
+  }
+)
 
 // reducer
 const configKeywords = keywords => (
@@ -94,6 +120,11 @@ const reducer = (state = {}, action) => {
         all: configKeywords(action.data.account.keywords),
         currentKeyword: configKeyword(action.data.account.keywords[0]),
         isFetching: false,
+      });
+    case RECEIVE_KEYWORDS_SUCCESS:
+      return Object.assign({}, state, {
+        all: configKeywords(action.data.keywords),
+        currentKeyword: configKeyword(action.data.keywords[0]),
       });
     case USER_LOGOUT:
       return {}

@@ -1,5 +1,6 @@
 import React from 'react';
 
+import SpinnerWhileLoading from 'HOC/SpinnerWhileLoading';
 import KeywordSummary from './KeywordSummary';
 import PrivacyRemovalBarChart from './BarChart';
 import PrivacyRemovalPieChart from './PieChart';
@@ -11,7 +12,11 @@ import getFullName from 'utils/fullName';
 import capitalize from 'utils/capitalize';
 import { Row, Col, Panel, PageHeader } from 'components';
 
-const Dashboard = props => {
+const enhance = SpinnerWhileLoading(
+  props => props.isFetching
+)
+
+const Dashboard = enhance((props) => {
   const {
     user,
     chartData,
@@ -64,6 +69,6 @@ const Dashboard = props => {
       </Row>
     </div>
   )
-}
+})
 
 export default Dashboard;

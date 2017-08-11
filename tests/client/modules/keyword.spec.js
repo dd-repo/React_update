@@ -11,6 +11,12 @@ import {
   KEYWORD_FAILURE,
   CURRENT_KEYWORD_UPDATE,
   KEYWORD_REQUEST,
+  RECEIVE_KEYWORDS_SUCCESS,
+  RECEIVE_KEYWORDS_FAILURE,
+  KEYWORDS_REQUEST,
+  fetchKeywords,
+  receiveKeywords,
+  rejectKeywords,
   updateCurrentKeyword,
   postKeywords,
   postingKeywords,
@@ -52,13 +58,16 @@ const userLoginInfo = {
   account: { keywords }
 }
 
-describe('(profile module) "profile"', () => {
+describe('(Keyword module) "keyword"', () => {
 
   it('Should export a constant.', () => {
     expect(KEYWORD_POSTING).to.equal('KEYWORD_POSTING')
     expect(KEYWORD_SUCCESS).to.equal('KEYWORD_SUCCESS')
     expect(KEYWORD_FAILURE).to.equal('KEYWORD_FAILURE')
     expect(CURRENT_KEYWORD_UPDATE).to.equal('CURRENT_KEYWORD_UPDATE')
+    expect(RECEIVE_KEYWORDS_SUCCESS).to.equal('RECEIVE_KEYWORDS_SUCCESS')
+    expect(RECEIVE_KEYWORDS_FAILURE).to.equal('RECEIVE_KEYWORDS_FAILURE')
+    expect(KEYWORDS_REQUEST).to.equal('/dashboard/api/v1/accounts')
     expect(KEYWORD_REQUEST).to.equal('/dashboard/api/v1/users/sign-up/keyword')
   })
 
@@ -95,6 +104,26 @@ describe('(profile module) "profile"', () => {
 
     it('Should return a action with type CURRENT_KEYWORD_UPDATE', () => {
       expect(updateCurrentKeyword(keyword)).to.have.property('keyword', keyword)
+    })
+  })
+
+  describe('(Action Creator) receiveKeywords', () => {
+    it('should return an action with type "RECEIVE_KEYWORDS_SUCCESS"', () => {
+      expect(receiveKeywords()).to.have.property('type', RECEIVE_KEYWORDS_SUCCESS)
+    })
+
+    it('should return an action with data', () => {
+      expect(receiveKeywords(keywords)).to.have.property('data', keywords)
+    })
+  })
+
+  describe('(Action Creator) rejectKeywords', () => {
+    it('should return an action with type "RECEIVE_KEYWORDS_FAILURE"', () => {
+      expect(rejectKeywords()).to.have.property('type', RECEIVE_KEYWORDS_FAILURE)
+    })
+
+    it('should return an action with data', () => {
+      expect(rejectKeywords(errorRes)).to.have.property('error', errorRes)
     })
   })
 
@@ -149,6 +178,60 @@ describe('(profile module) "profile"', () => {
       return store.dispatch(postKeywords())
       .then(() => {
         expect(store.getActions()).to.eql(expectedActions);
+        done();
+      })
+    })
+  })
+
+  describe('(Async Action Creator) fetchKeywords', () => {
+    let keywordsApi;
+
+    beforeEach(() => {
+      keywordsApi = sinon.stub(clickadillyApi, 'get')
+    })
+
+    afterEach(() => {
+      keywordsApi.restore()
+    })
+
+    it('should be exported as a function', () => {
+      expect(fetchKeywords).to.be.a('function')
+    })
+
+    it('should return a function (is a thunk)', () => {
+      expect(fetchKeywords()).to.be.a('function')
+    })
+
+    it('returns RECEIVE_KEYWORDS_SUCCESS when fetching keywords', (done) => {
+      const resolved = new Promise((r) => r({ data: keywords }))
+      keywordsApi.returns(resolved)
+
+      const expectedActions = [
+        { type: RECEIVE_KEYWORDS_SUCCESS, data: keywords }
+      ]
+
+      const store = mockStore({ dashboard: {} })
+
+      return store.dispatch(fetchKeywords())
+      .then(() => {
+        expect(store.getActions()).to.eql(expectedActions)
+        done();
+      })
+    })
+
+    it('returns RECEIVE_KEYWORDS_FAILURE when fetching keywords', (done) => {
+      const rejected = new Promise((_, r) => r(errorRes))
+      keywordsApi.returns(rejected)
+
+      const expectedActions = [
+        { type: RECEIVE_KEYWORDS_FAILURE, error: errorRes }
+      ]
+
+      const store = mockStore({ dashboard: {} })
+
+      return store.dispatch(fetchKeywords())
+      .then(() => {
+        expect(store.getActions()).to.eql(expectedActions)
         done();
       })
     })
@@ -211,7 +294,7 @@ describe('(profile module) "profile"', () => {
     })
 
     it('should handle CURRENT_KEYWORD_UPDATE', () => {
-      const expected = { id: 1, , value: 1, label: "keyword 1"}
+      const expected = { currentKeyword: { id: 1, value: 1, label: "keyword 1"} }
       const state = reducer({}, { type: CURRENT_KEYWORD_UPDATE, keyword: keyword })
       expect(state).to.eql(expected)
     })
@@ -219,6 +302,31 @@ describe('(profile module) "profile"', () => {
     it('should handle USER_LOGIN_SUCCESS', () => {
       const state = reducer({}, { type: USER_LOGIN_SUCCESS, data: userLoginInfo })
       expect(state).to.eql(expected)
+    })
+
+    it('should handle RECEIVE_KEYWORDS_SUCCESS', () => {
+      const currentKeyword = { id: 1, value: 1, label: "keyword 1"}
+      const expectedKeywords = [
+        {
+          id: 1,
+          value: 1,
+          label: "keyword 1",
+        },
+        {
+          id: 2,
+          value: 2,
+          label: "keyword 2",
+        },
+        {
+          id: 3,
+          value: 3,
+          label: "keyword 3",
+        }
+      ]
+      let state = reducer({}, { type: RECEIVE_KEYWORDS_SUCCESS, data: { keywords } })
+      const expectedState = { all: expectedKeywords, currentKeyword }
+
+      expect(state).to.eql(expectedState)
     })
   })
 })
