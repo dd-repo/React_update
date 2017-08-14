@@ -60,7 +60,7 @@ class MonitoringContainer extends RoutedComponent {
   componentWillReceiveProps(nextProps) {
     if(nextProps.inProgress) {
       nextProps.inProgress.length === 0 && !this.state.notified &&
-        this.context.store.dispatch(info(notificationOpt))
+        this.context.store.dispatch(this.createNotification())
         this.setState({notified: true})
     }
   }
