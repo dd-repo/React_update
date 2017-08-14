@@ -7,6 +7,7 @@ import { fetchMonitoringRequestsCompleted } from 'routes/client/Monitoring/modul
 import { fetchGoogleResults } from 'routes/client/GoogleResults/modules/googleResults';
 import { updateCurrentKeyword } from 'routes/signup/Keywords/modules/keywords';
 import Dashboard from './components/Dashboard';
+import GettingStarted from './components/GettingStarted';
 
 const getChartData = (data, name) => {
   return {
@@ -63,6 +64,7 @@ const getPieChartConfig = (data) => (
   }
 );
 
+
 class DashboardContainer extends RoutedComponent {
 
   static contextTypes = {
@@ -71,7 +73,10 @@ class DashboardContainer extends RoutedComponent {
 
   constructor(props) {
     super(props)
-    this.state = {isFetching: true}
+    this.state = {
+      isFetching: true,
+      hasData: false
+    }
 
     this.fetchDashboardData = this.fetchDashboardData.bind(this);
     this.fetchLastFiveCompletedRemovals = this.fetchLastFiveCompletedRemovals.bind(this);
@@ -95,7 +100,7 @@ class DashboardContainer extends RoutedComponent {
     const keyword_id = this.props.keywords.currentKeyword.id
     this.fetchDashboardData(accountId, keyword_id)
     .then( res => this.hasData())
-    .catch( error => console.log('dashboard error', error.response))
+    .catch( error => console.log('dashboard error', error))
   }
 
   componentWillReceiveProps(nextProps) {
@@ -107,7 +112,7 @@ class DashboardContainer extends RoutedComponent {
   }
 
   hasData() {
-    this.setState({ isFetching: false })
+    this.setState({ isFetching: false, hasData: this.props.hasData })
   }
 
   fetchDashboardData(account_id, keyword_id) {
@@ -156,17 +161,25 @@ class DashboardContainer extends RoutedComponent {
     const pieData = getPieData(this.props.privacyRemovalStatus)
 
     return (
-      <Dashboard
-        user={this.props.user}
-        chartData={chartData}
-        pieData={pieData}
-        completedRequests={this.props.completedRemovals || []}
-        googleResults={this.props.googleResults || []}
-        keywords={this.props.keywords}
-        handleSearch={this.handleSearch}
-        handlePrivacyRemovalButtonClick={this.handlePrivacyRemovalButtonClick}
-        isFetching={this.state.isFetching}
-      />
+      <div>
+        <Dashboard
+          user={this.props.user}
+          chartData={chartData}
+          pieData={pieData}
+          completedRequests={this.props.completedRemovals || []}
+          googleResults={this.props.googleResults || []}
+          keywords={this.props.keywords}
+          handleSearch={this.handleSearch}
+          handlePrivacyRemovalButtonClick={this.handlePrivacyRemovalButtonClick}
+          isFetching={this.state.isFetching}
+          hasData={this.props.hasData}
+        />
+        <GettingStarted
+          user={this.props.user}
+          isFetching={this.state.isFetching}
+          hasData={this.props.hasData}
+        />
+      </div>
     )
   }
 }
@@ -177,6 +190,7 @@ const mapStateToProps = state => ({
   privacyRemovalStatus: state.dashboard.privacyRemovalStatus,
   completedRemovals: state.monitoring.completed,
   googleResults: state.googleResults.all,
+  hasData: state.dashboard.hasData,
   keywords: state.keywords
 })
 
