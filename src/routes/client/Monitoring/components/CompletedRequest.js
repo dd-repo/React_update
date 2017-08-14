@@ -6,8 +6,13 @@ import { Media } from 'components';
 
 const CompletedRequest = ({ record }) => {
   const { id, created_at, completed_at, requested_at, removed_url, site } = record
-  const truncatedUrl = removed_url ? removed_url.substring(0, 100) : ''
   const siteName = capitalize(site.slice(0, -4))
+  const renderUrl = () => {
+    if(!removed_url) { return '' }
+    if(removed_url.length < 27) { return removed_url }
+    const truncated = removed_url.substring(0, 27)
+    return `${truncated}...`
+  }
 
   return (
     <tr key={id}>
@@ -32,7 +37,7 @@ const CompletedRequest = ({ record }) => {
       </td>
       <td>
         <a href={removed_url} target='_blank'>
-          { truncatedUrl }
+          { renderUrl() }
         </a>
       </td>
       <td>
