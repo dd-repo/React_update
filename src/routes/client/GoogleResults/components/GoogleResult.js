@@ -40,10 +40,10 @@ export default class GoogleResult extends Component {
 
   return (
     <Row className={ classes.searchResultDefault }>
-        <Col xs={ 2 } sm={ 2 } md={ 2 }>
+        <Col xs={ 2 } sm={ 1 } md={ 1 }>
           <h3 className='rankingPosition m-r-2 pull-left'>{result.rank}</h3>
         </Col>
-        <Col xs={ 8 } sm={ 8 } md={ 8 }>
+        <Col xs={ 9 } sm={ 9 } md={ 9 }>
         <Row>
           <h4 className='m-b-0'>
             <a href={result.url} target='_blank'>
