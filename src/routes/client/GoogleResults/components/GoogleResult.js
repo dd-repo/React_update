@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
+import React, { PropTypes, Component } from 'react';
 
-import { Row, Col, Button, Divider, Media } from 'components'
+import { Row, Col, Button } from 'components'
 
 import classes from './googleResults.scss';
 
@@ -39,31 +39,36 @@ export default class GoogleResult extends Component {
   )
 
   return (
-    <Row>
-      <div className={ classes.searchResultDefault }>
-        <Media>
-          <Media.Left>
-            <h3 className='rankingPosition m-r-2 pull-left'>{result.rank}</h3>
-          </Media.Left>
-          <Media.Body>
+    <Row className={ classes.searchResultDefault }>
+        <Col xs={ 2 } sm={ 2 } md={ 2 }>
+          <h3 className='rankingPosition m-r-2 pull-left'>{result.rank}</h3>
+        </Col>
+        <Col xs={ 8 } sm={ 8 } md={ 8 }>
+        <Row>
           <h4 className='m-b-0'>
             <a href={result.url} target='_blank'>
               { result.title }
             </a>
           </h4>
-        <a href={result.url} target='_blank' className='text-success m-r-2'>
-          { result.url }
-        </a>
-        <p className='m-y-1'>
-          { result.description }
-        </p>
-      </Media.Body>
-          <Media.Right>
-          { renderRemovalButton }
-          </Media.Right>
-      </Media>
-      </div>
+        </Row>
+        <Row>
+          <a href={result.url} target='_blank' className='text-success m-r-2'>
+            { result.url }
+          </a>
+          <p className='m-y-1'>
+            { result.description }
+          </p>
+        </Row>
+      </Col>
+      <Col sm={ 2 } md={ 2 }>
+        { renderRemovalButton }
+      </Col>
     </Row>
   )
  }
+}
+
+GoogleResult.propsTypes = {
+  result: PropTypes.object.isRequired,
+  handleRemoval: PropTypes.func
 }

@@ -1,50 +1,48 @@
-import React, { Component, PropTypes } from 'react';
-import _ from 'underscore';
+import React, { PropTypes } from 'react';
+import Select from 'react-select';
 
-import { FormControl } from 'components';
+import { Row } from 'components';
 import classes from './googleResults.scss'
 
-export default class SearchKeywords extends Component {
-  constructor(props) {
-    super(props)
+const SearchKeywords = props => {
+  const {
+    keywords,
+    paginationTotal,
+    getResults
+  } = props
 
-    this.renderDropDownMenu = this.renderDropDownMenu.bind(this);
-    this._onChange = this._onChange.bind(this);
-}
+  const keywordValue = props => (
+    <div className='Select-value'>
+      <span className="Select-value-label">
+        <i className="fa fa-search fa-lg m-r-2"></i>
+        { props.children }
+      </span>
+    </div>
+  )
 
-  _onChange(e) {
-    const id = parseInt(e.target.value)
-    const keyword = _.findWhere(this.props.keywords.all, {id: id})
-    this.props.getResults(keyword)
-  }
-
-  renderDropDownMenu() {
-    const { currentKeyword, all } = this.props.keywords
-    return (
-      <FormControl onChange={this._onChange} componentClass='select'>
-        { all.map( (keyword, key) => (
-          <option  value={keyword.id} key={key}>{keyword.value}</option>
-          ))
-        }
-      </FormControl>
-    )
-  }
-
-  render() {
-    const { keywords, paginationTotal } = this.props
-
-    return (
-      <div>
-        <h3 className={classes.searchHeader}>
-          Google Results for <strong>"{ keywords.currentKeyword.value }"</strong>
-          <small className='m-l-1'>
-            { paginationTotal } Results
-          </small>
-        </h3>
-        { this.renderDropDownMenu() }
-      </div>
-    )
-  }
+  return (
+    <div className={classes.mainWrapper}>
+      <h3 className={classes.searchHeader}>
+        Google Results for <strong>"{ keywords.currentKeyword.label }"</strong>
+        {
+          paginationTotal &&
+            <small className='m-l-1'>
+              { paginationTotal } Results
+            </small>
+            }
+          </h3>
+          <Select
+            options={keywords.all}
+            value={keywords.currentKeyword}
+            name='form-keywords'
+            autosize={true}
+            searchable={false}
+            clearable={false}
+            valueComponent={keywordValue}
+            onChange={getResults}
+          />
+        </div>
+  )
 }
 
 SearchKeywords.propTypes = {
@@ -52,3 +50,5 @@ SearchKeywords.propTypes = {
   getResults: PropTypes.func.isRequired,
   paginationTotal: PropTypes.number
 }
+
+export default SearchKeywords;

@@ -63,13 +63,13 @@ const Dashboard = enhance((props) => {
           </Col>
         </Row>
         <Row className={ classes.sectionRow }>
-          <Col md={ 6 }>
+          <Col md={ 12 }>
             <CompletedRequests
               completed={completedRequests}
               title='Most Recent Removals'
             />
           </Col>
-          <Col md={ 6 }>
+          <Col md={ 12 }>
             <GoogleResults
               results={googleResults}
               keywords={keywords}

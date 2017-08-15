@@ -1,6 +1,7 @@
 import React from 'react';
 import Select from 'react-select';
 import GoogleResult from 'routes/client/GoogleResults/components/GoogleResult';
+import SearchKeywords from 'routes/client/GoogleResults/components/SearchKeywords';
 
 import {
   Panel,
@@ -20,22 +21,10 @@ const GoogleResults = props => {
     <Panel
       maxHeight={326}
       header={(
-        <Row className='flex-space-between'>
-          <Col xs={ 6 }>
-            <span>First Page of Google for keyword </span>
-          </Col>
-          <Col xs={ 6 }>
-            <Select
-              options={keywords.all}
-              value={keywords.currentKeyword}
-              name='form-keywords'
-              autosize={true}
-              searchable={false}
-              clearable={false}
-              onChange={ val => handleSearch({ value: val }) }
-            />
-          </Col>
-        </Row>
+        <SearchKeywords
+          keywords={keywords}
+          getResults={handleSearch}
+        />
       )}
     >
       <div className='p-l-1'>

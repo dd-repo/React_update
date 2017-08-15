@@ -5,12 +5,13 @@ import classes from './Monitoring.scss';
 import { Media } from 'components';
 
 const CompletedRequest = ({ record }) => {
+  const num = 27
   const { id, created_at, completed_at, requested_at, removed_url, site } = record
   const siteName = capitalize(site.slice(0, -4))
   const renderUrl = () => {
     if(!removed_url) { return '' }
-    if(removed_url.length < 27) { return removed_url }
-    const truncated = removed_url.substring(0, 27)
+    if(removed_url.length < num) { return removed_url }
+    const truncated = removed_url.substring(0, num)
     return `${truncated}...`
   }
 
