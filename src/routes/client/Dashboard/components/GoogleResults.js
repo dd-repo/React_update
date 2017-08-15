@@ -20,20 +20,20 @@ const GoogleResults = props => {
     <Panel
       maxHeight={326}
       header={(
-        <Row className='flex-space-between'>
-          <Col xs={ 6 }>
-            <span>First Page of Google for keyword </span>
+        <Row>
+          <Col xs={ 3 }>
+              <h4>First Page of Google for keyword </h4>
           </Col>
-          <Col xs={ 6 }>
-            <Select
-              options={keywords.all}
-              value={keywords.currentKeyword}
-              name='form-keywords'
-              autosize={true}
-              searchable={false}
-              clearable={false}
-              onChange={ val => handleSearch({ value: val }) }
-            />
+          <Col xs={ 3 }>
+              <Select
+                options={keywords.all}
+                value={keywords.currentKeyword}
+                name='form-keywords'
+                autosize={true}
+                searchable={false}
+                clearable={false}
+                onChange={ val => handleSearch({ value: val }) }
+              />
           </Col>
         </Row>
       )}
