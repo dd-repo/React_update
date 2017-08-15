@@ -142,7 +142,7 @@ class DashboardContainer extends RoutedComponent {
   }
 
   handleSearch(keyword) {
-    this.props.updateCurrentKeyword(keyword.value)
+    this.props.updateCurrentKeyword(keyword)
   }
 
   handlePrivacyRemovalButtonClick(id, selector) {

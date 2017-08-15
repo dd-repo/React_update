@@ -27,7 +27,7 @@ const CompletedRequests = ({
         </h4>
         }
       >
-        <Table className={ classes.mostViewedItemsTable }>
+        <Table className={ classes.mostViewedItemsTable } responsive>
           <thead>
             <tr>
               <th>
