@@ -1,6 +1,6 @@
 const BASE_URL = {
   'development': 'http://localhost:3000',
-  'production' : 'https://api.blitzmonitoring.com',
+  'production' : 'http://staging-app.clickadilly.com:3000',
   'test'       : 'http://localhost:3000'
 }
 
