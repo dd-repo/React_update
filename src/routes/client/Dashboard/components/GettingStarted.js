@@ -138,7 +138,7 @@ const GettingStarted = enhance((props) => {
   return (
     <div className={classes.mainWrap}>
       <Row className={`${classes.welcomeHeader} ${classes.sectionRow}`}>
-        <div className={`${classes.box} container text-center`}>
+        <div className={`${classes.box} text-center`}>
           <PageHeader className="m-t-0 text-center">
             <span className='text-gray-lighter'>Welcome to</span>
             <img src={ logo } height={ 40 } alt="Clickadilly Dashboard" />
