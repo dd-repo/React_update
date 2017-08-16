@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import { compose } from 'recompose';
 
 import SpinnerWhileLoading from 'HOC/SpinnerWhileLoading';
@@ -23,9 +23,7 @@ const enhancer2 = hideIfNoData(
   props => !props.hasData
 )
 
-const enhance = compose(enhancer1, enhancer2)
-
-const Dashboard = enhance((props) => {
+export const Dashboard = (props) => {
   const {
     user,
     chartData,
@@ -34,9 +32,7 @@ const Dashboard = enhance((props) => {
     googleResults,
     keywords,
     handleSearch,
-    handlePrivacyRemovalButtonClick,
-    clientDetails,
-    hasData
+    handlePrivacyRemovalButtonClick
   } = props
 
   const fullName = capitalize(getFullName(user))
@@ -81,6 +77,19 @@ const Dashboard = enhance((props) => {
       </div>
     </div>
   )
-})
+}
 
-export default Dashboard;
+Dashboard.propTypes = {
+  user: PropTypes.object.isRequired,
+  chartData: PropTypes.object,
+  pieData: PropTypes.object,
+  completedRequests: PropTypes.array,
+  googleResults: PropTypes.array,
+  keywords: PropTypes.array.isRequired,
+  handleSearch: PropTypes.func,
+  handlePrivacyRemovalButtonClick: PropTypes.func,
+  isFetching: PropTypes.bool.isRequired,
+  hasData: PropTypes.bool.isRequired
+}
+
+export default compose(enhancer1, enhancer2)(Dashboard);
