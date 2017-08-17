@@ -8,41 +8,48 @@ import ROUTES from './routes';
     PlainRoute objects to build route definitions.   */
 
 const handleRouteChange = (store, prevState, nextState, replace) => {
-  authTransition(store, nextState, replace)
-  redirectToDashboardIfLoggedIn(store, nextState, replace)
+  const authToken = localStorage.getItem('authToken')
+  const args = {store, nextState, replace, authToken}
+
+  authTransition(args)
 }
 
 const handleRouteOnEnter = (store, nextState, replace) => {
-  authTransition(store, nextState, replace)
-  redirectToDashboardIfLoggedIn(store, nextState, replace)
+  const authToken = localStorage.getItem('authToken')
+  const args = {store, nextState, replace, authToken}
+
+  authTransition(args)
 }
 
-const authTransition = (store, nextState, replace) => {
+const authTransition = ({store, nextState, replace, authToken}) => {
   const pathname = nextState.location.pathname
   const { currentUser, keywords } = store.getState()
 
   if(pathname.startsWith('/dashboard')) {
-    validateClient(currentUser, replace)
-    validateKeywords(keywords, replace)
+    isValidClient(currentUser, replace, authToken) &&
+      validateKeywords(keywords, replace)
   }
 
   if(pathname.startsWith('/admin/dashboard')) {
-    validateAdmin(currentUser, replace)
+    validateAdmin(currentUser, replace, authToken)
+  }
+
+  if(pathname.startsWith('/login')) {
+    redirectToDashboardIfLoggedIn(store, nextState, replace, authToken)
   }
 }
 
-const validateClient = (currentUser, replace) => {
+const isValidClient = (currentUser, replace, authToken) => {
   const isProspect = currentUser.role === 'prospect'
   const isClient = currentUser.role === 'client'
-  const authToken = localStorage.getItem('authToken')
 
   !authToken && !isClient && replace('/login')
   authToken && isProspect && replace('/payment-info')
+  authToken && isClient && true
 }
 
-const validateAdmin = (currentUser, replace) => {
+const validateAdmin = (currentUser, replace, authToken) => {
   const isAdmin = currentUser.role === 'admin'
-  const authToken = localStorage.getItem('authToken')
 
   !authToken && replace('/login')
   !isAdmin && replace('/login')
@@ -57,8 +64,7 @@ const validateKeywords = (keywords, replace) => {
   }
 }
 
-const redirectToDashboardIfLoggedIn = (store, nextState, replace) => {
-  const authToken = localStorage.getItem('authToken')
+const redirectToDashboardIfLoggedIn = (store, nextState, replace, authToken) => {
   if(authToken) {
     const pathname = nextState.location.pathname
     const { currentUser } = store.getState()

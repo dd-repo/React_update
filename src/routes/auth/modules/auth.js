@@ -234,12 +234,12 @@ const removeUser = state => {
 
 const handleError = error => {
   const errorMessage = (
-    action.error.response ?
-      action.error.response.data.errorMessage
+    error.response ?
+      error.response.data.errorMessage
         :
           undefined
   )
-  return errorMessage === 'expired' ? undefined : error
+  return errorMessage === 'expired' ? undefined : errorMessage
 }
 
 const reducer = (state = {}, action) => {
