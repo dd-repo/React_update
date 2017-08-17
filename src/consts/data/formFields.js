@@ -48,7 +48,7 @@ const fields = {
   },
   phoneNumber: {
     name: 'phoneNumber',
-    type: 'tel',
+    type: 'text',
     label: 'Phone Number',
     errorMessage: 'Please enter your Phone Number',
     placeHolder: 'Enter your phone number...',

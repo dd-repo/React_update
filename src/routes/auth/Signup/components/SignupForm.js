@@ -99,6 +99,7 @@ class SignupForm extends Component {
       <form onSubmit={handleSubmit(submitForm)}>
 
         {renderFields()}
+
        <span className='text-danger'>{passwordErrorMsg}</span>
        <span className='text-success'>{passwordSuccessMsg}</span>
 
