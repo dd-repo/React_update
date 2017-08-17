@@ -61,7 +61,10 @@ const GettingStarted = enhance((props) => {
               eventKey={2}
             >
               <p>
-                Some of the sites that share your personal information require that we have an ID on file for you. This is to make sure that it's really you who's requesting the removals. You can easily upload your ID through the portal, and you can black out much of the information on it. We need to be able to see your name, date of birth, address, and photo, but anything else can be covered over. Check out this video for an example of what the ID should look like, and for upload instructions:
+                Some of the sites that share your personal information require that we have an ID on file for you. This is to make sure that it's really you who's requesting the removals. You can easily upload your ID through the portal.
+              </p>
+              <p>
+                We need to be able to see your name, date of birth, address, and photo, but anything else can be covered over. Check out this video for an example of what the ID should look like, and for upload instructions:
               </p>
               <a href='https://youtu.be/TR8lGbeMULw' target='_blank'>
                 <Button bsStyle='danger'>View Video</Button>
@@ -76,7 +79,7 @@ const GettingStarted = enhance((props) => {
           <span>
             <h5 className={ classes.steps }>Step</h5>
             <AvatarText
-              backgroundColor={ Colors.brandPrimary }
+              backgroundColor={ Colors.brandInfo }
             >
               2
             </AvatarText>
@@ -107,7 +110,7 @@ const GettingStarted = enhance((props) => {
           <span>
             <h5 className={ classes.steps }>Step</h5>
             <AvatarText
-              backgroundColor={ Colors.brandDanger }
+              backgroundColor={ Colors.brandPrimary }
             >
               3
             </AvatarText>
@@ -214,8 +217,8 @@ const GettingStarted = enhance((props) => {
                 </Col>
                 <Col md={ 6 }>
                   <Panel
-                    className={`${classes.summaryPanel} gettingStartedPanel m-t-3`}
-                    header='Getting Started With Clickadilly'
+                    className={`${classes.summaryPanel} text-center m-t-3`}
+                    header='Get Started Now'
                   >
                     { renderInstructions }
                   </Panel>
