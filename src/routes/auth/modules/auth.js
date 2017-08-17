@@ -232,6 +232,16 @@ const removeUser = state => {
   )
 }
 
+const handleError = error => {
+  const errorMessage = (
+    action.error.response ?
+      action.error.response.data.errorMessage
+        :
+          undefined
+  )
+  return errorMessage === 'expired' ? undefined : error
+}
+
 const reducer = (state = {}, action) => {
   switch(action.type) {
     case USER_SIGNUP_POSTING:
@@ -254,11 +264,9 @@ const reducer = (state = {}, action) => {
     case ADMIN_LOGIN_SUCCESS:
       return setAdmin(state, action.data)
     case USER_LOGIN_FAILURE:
-      const error = action.error.response.data.errorMessage
-      const errorMessage = error === 'expired' ? undefined : error
       return Object.assign({}, state, {
         isFetching: false,
-        errorMessage
+        errorMessage: handleError(action.error)
       });
     case FORGOT_USER_PASSWORD_POSTING:
       return Object.assign({}, state, {
