@@ -8,41 +8,49 @@ import ROUTES from './routes';
     PlainRoute objects to build route definitions.   */
 
 const handleRouteChange = (store, prevState, nextState, replace) => {
-  authTransition(store, nextState, replace)
-  redirectToDashboardIfLoggedIn(store, nextState, replace)
+  const authToken = localStorage.getItem('authToken')
+  const args = {store, nextState, replace, authToken}
+
+  authTransition(args)
 }
 
 const handleRouteOnEnter = (store, nextState, replace) => {
-  authTransition(store, nextState, replace)
-  redirectToDashboardIfLoggedIn(store, nextState, replace)
+  const authToken = localStorage.getItem('authToken')
+  const args = {store, nextState, replace, authToken}
+
+  authTransition(args)
 }
 
-const authTransition = (store, nextState, replace) => {
+const authTransition = ({store, nextState, replace, authToken}) => {
   const pathname = nextState.location.pathname
   const { currentUser, keywords } = store.getState()
 
   if(pathname.startsWith('/dashboard')) {
-    validateClient(currentUser, replace)
-    validateKeywords(keywords, replace)
+    isValidClient(currentUser, replace, authToken) &&
+      validateKeywords(keywords, replace)
   }
 
   if(pathname.startsWith('/admin/dashboard')) {
-    validateAdmin(currentUser, replace)
+    validateAdmin(currentUser, replace, authToken)
+  }
+
+  if(pathname.startsWith('/login')) {
+    redirectToDashboardIfLoggedIn(store, nextState, replace, authToken)
   }
 }
 
-const validateClient = (currentUser, replace) => {
+const isValidClient = (currentUser, replace, authToken) => {
   const isProspect = currentUser.role === 'prospect'
   const isClient = currentUser.role === 'client'
-  const authToken = localStorage.getItem('authToken')
 
-  !authToken && !isClient && replace('/login')
+  //!authToken && !isClient && replace('/login')
+  !authToken && replace('/login')
   authToken && isProspect && replace('/payment-info')
+  return isClient
 }
 
-const validateAdmin = (currentUser, replace) => {
+const validateAdmin = (currentUser, replace, authToken) => {
   const isAdmin = currentUser.role === 'admin'
-  const authToken = localStorage.getItem('authToken')
 
   !authToken && replace('/login')
   !isAdmin && replace('/login')
@@ -57,8 +65,7 @@ const validateKeywords = (keywords, replace) => {
   }
 }
 
-const redirectToDashboardIfLoggedIn = (store, nextState, replace) => {
-  const authToken = localStorage.getItem('authToken')
+const redirectToDashboardIfLoggedIn = (store, nextState, replace, authToken) => {
   if(authToken) {
     const pathname = nextState.location.pathname
     const { currentUser } = store.getState()
@@ -71,34 +78,34 @@ const redirectToDashboardIfLoggedIn = (store, nextState, replace) => {
 }
 
 export const createRoutes = (store) => ({
-    path: '/',
-    component: DefaultLayout,
-    indexRoute: Home,
-    childRoutes: ROUTES,
-    onEnter: (nextState, replace) => {
-      handleRouteOnEnter(store, nextState, replace)
-    },
-    onChange: (prevState, nextState, replace) => {
-      handleRouteChange(store, prevState, nextState, replace)
-    }
+  path: '/',
+  component: DefaultLayout,
+  indexRoute: Home,
+  childRoutes: ROUTES,
+  onEnter: (nextState, replace) => {
+    handleRouteOnEnter(store, nextState, replace)
+  },
+  onChange: (prevState, nextState, replace) => {
+    handleRouteChange(store, prevState, nextState, replace)
+  }
 })
 
 /*  Note: childRoutes can be chunked or otherwise loaded programmatically
     using getChildRoutes with the following signature:
 
     getChildRoutes (location, cb) {
-      require.ensure([], (require) => {
-        cb(null, [
-          // Remove imports!
-          require('./Counter').default(store)
-        ])
-      })
-    }
+    require.ensure([], (require) => {
+    cb(null, [
+// Remove imports!
+require('./Counter').default(store)
+])
+})
+}
 
-    However, this is not necessary for code-splitting! It simply provides
-    an API for async route definitions. Your code splitting should occur
-    inside the route `getComponent` function, since it is only invoked
-    when the route exists and matches.
+However, this is not necessary for code-splitting! It simply provides
+an API for async route definitions. Your code splitting should occur
+inside the route `getComponent` function, since it is only invoked
+when the route exists and matches.
 */
 
 export default createRoutes

@@ -88,11 +88,16 @@ const configKeywords = keywords => (
     }))
 )
 
-const configKeyword = keyword => ({
-  id: keyword.id,
-  value: keyword.id,
-  label: keyword.label || keyword.value
-})
+const configKeyword = keyword => {
+  if(keyword) {
+    return ({
+      id: keyword.id,
+      value: keyword.id,
+      label: keyword.label || keyword.value
+    })
+  }
+  return {}
+}
 
 const reducer = (state = {}, action) => {
   switch(action.type) {
