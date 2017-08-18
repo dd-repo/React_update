@@ -4,10 +4,9 @@
 set :application, "blitz-frontend"
 set :repo_url, "https://4e4238c3605170b4d8ed7b4205c698b085019401@github.com/marca-development/blitz-monitoring-frontend.git"
 
-set :branch, 'staging'
+set :branch, 'development'
 
-set :deploy_to, '/home/deploy'
-set :tmp_dir, "/home/deploy/tmp"
+set :deploy_to, '/home/ubuntu'
 
 
 set :keep_releases, 5
