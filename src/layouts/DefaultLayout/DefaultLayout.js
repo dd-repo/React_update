@@ -309,7 +309,7 @@ class DefaultLayout extends React.Component {
 
                                 { /* ============= Right Nav ============== */ }
                                 <Nav pullRight>
-                                  { isClient && (
+                                  { /* isClient && (
                                     <NavItem>
                                       <i className="fa fa-phone m-r-1" aria-hidden="true"></i>
                                       <span className='m-r-1'>
@@ -321,7 +321,7 @@ class DefaultLayout extends React.Component {
                                       </span>
                                     </NavItem>
                                     )
-                                  }
+                                    */ }
                                   { /* <ContactDropdown /> */ }
                                   { /* <NotificationsDropdown /> */ }
                                   { /*  <MessagesDropdown /> */ }
