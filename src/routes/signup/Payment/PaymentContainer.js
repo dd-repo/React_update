@@ -14,6 +14,7 @@ class PaymentContainer extends RoutedComponent {
     this.submitForm = this.submitForm.bind(this);
     this.buildParams = this.buildParams.bind(this);
     this.handleClick = this.handleClick.bind(this);
+    this.hasKeywords = this.hasKeywords.bind(this);
   }
 
   static contextTypes = {
@@ -60,7 +61,17 @@ class PaymentContainer extends RoutedComponent {
   }
 
   handleClick() {
+    if(this.hasKeywords()) {
+      this.context.router.push('/dashboard')
+    }
     this.context.router.push('/keywords')
+  }
+
+  hasKeywords() {
+    if(this.props.keywords.all) {
+      return this.props.keywords.all > 0
+    }
+    return false
   }
 
   render() {
@@ -82,6 +93,7 @@ const mapStateToProps = state => ({
     currentUser: state.currentUser,
     errorMessage: state.errorMessage,
     planSelection: state.planSelection,
+    keywords: state.keywords,
     payment: state.payment
 })
 
