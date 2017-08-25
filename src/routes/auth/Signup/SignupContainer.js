@@ -156,6 +156,7 @@ class SignupContainer extends RoutedComponent {
           errorMessage={this.props.currentUser.errorMessage}
           passwordErrorMsg={this.state.passwordErrorMsg}
           disableButton={this.state.disableButton}
+          showModal={this.props.showModal}
         />
         <RootModal
           enforceFocus={true}

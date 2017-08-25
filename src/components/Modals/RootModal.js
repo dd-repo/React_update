@@ -28,7 +28,7 @@ const MODAL_COMPONENTS = {
   'CREATE_SUBSCRIPTION': CreateSubscriptionModal,
   'CARD':                CardModal,
   'REMOVAL_INSTRUCTIONS': RemovalInstructionsModal,
-  'PAYMENT':              PaymentModal
+  'PAYMENT':              PaymentModal,
   'TOS':                 TermsOfServiceModal,
   'PRIVACY_POLICY':      PrivacyPolicyModal,
   'REMOVAL_INSTRUCTIONS': RemovalInstructionsModal

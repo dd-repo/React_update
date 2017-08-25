@@ -8,7 +8,6 @@ import {
     Panel,
     Button
 } from 'components';
-import classes from './privacyPolicy.scss';
 
 class PrivacyPolicyContainer extends RoutedComponent {
 

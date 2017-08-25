@@ -164,11 +164,12 @@ let PaymentForm = (props) => {
 }
 
 PaymentForm.propTypes = {
-  submitForm: PropTypes.func.isRequired,
+  submitForm: PropTypes.func
 }
 
 PaymentForm.defaultProps = {
   buttonLabel: 'Start Subscription',
+  submitForm: () => {}
 }
 
 PaymentForm = reduxForm({
