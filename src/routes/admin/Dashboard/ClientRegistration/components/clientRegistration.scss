@@ -38,3 +38,10 @@
     border-bottom: 1px solid $gray-dark;
 }
 
+.inlineInputs {
+    display: flex;
+
+    > *:not(:last-child) {
+        margin-right: 5px;
+    }
+}

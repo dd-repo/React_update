@@ -65,7 +65,7 @@ const Addresses = ({addresses, showModal}) => (
                 <ListGroupItem>
                   <Button
                     className='pull-right'
-                    onClick={() => { showModal('ADDRESS', address) }}
+                    onClick={() => { showModal('UPDATE_ADDRESS', address) }}
                     bsSize='small'
                     bsStyle='link'
                   >

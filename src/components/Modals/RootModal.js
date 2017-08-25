@@ -5,25 +5,28 @@ import UserModal from './components/User';
 import AccountModal from './components/Account';
 import TransactionModal from './components/Transaction';
 import KeywordModal from './components/Keyword';
-import AddressModal from './components/Address';
+import { CreateAddressModal, UpdateAddressModal } from './components/Address';
 import PhoneModal from './components/Phone';
 import ProfileModal from './components/Profile';
 import { UpdateSubscriptionModal, CreateSubscriptionModal } from './components/Subscription';
 import CardModal from './components/Card';
 import RemovalInstructionsModal from './components/Monitoring/RemovalInstructions';
+import PaymentModal from './components/Payment';
 
 const MODAL_COMPONENTS = {
   'USER':                UserModal,
   'ACCOUNT':             AccountModal,
   'TRANSACTION':         TransactionModal,
   'KEYWORD':             KeywordModal,
-  'ADDRESS':             AddressModal,
+  'UPDATE_ADDRESS':      UpdateAddressModal,
+  'CREATE_ADDRESS':      CreateAddressModal,
   'PHONE':               PhoneModal,
   'PROFILE':             ProfileModal,
   'UPDATE_SUBSCRIPTION': UpdateSubscriptionModal,
   'CREATE_SUBSCRIPTION': CreateSubscriptionModal,
   'CARD':                CardModal,
-  'REMOVAL_INSTRUCTIONS': RemovalInstructionsModal
+  'REMOVAL_INSTRUCTIONS': RemovalInstructionsModal,
+  'PAYMENT':              PaymentModal
 }
 
 const ModalRoot = ({...otherProps, modalType, modalProps, dispatch }) => {

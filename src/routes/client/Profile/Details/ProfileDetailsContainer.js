@@ -7,7 +7,6 @@ import {
   PROFILE_SUCCESS,
   getProfile
 } from '../modules/profile';
-import { persistData } from 'localStorage';
 
 class ProfileContainer extends RoutedComponent {
   constructor(props) {
@@ -37,8 +36,6 @@ class ProfileContainer extends RoutedComponent {
 
   fetchProfile() {
     this.props.getProfile(this.props.profile.id)
-    .then( res => { persistData(res.profile) })
-    .catch( error => { console.log('error profile fetch', error) })
   }
 
   render() {

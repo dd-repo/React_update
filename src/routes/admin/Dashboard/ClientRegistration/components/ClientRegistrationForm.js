@@ -4,6 +4,8 @@ import { Field, reduxForm } from 'redux-form';
 import { connect } from 'routes/routedComponent';
 import { checkValidation } from 'utils/formHelpers';
 import formFields from 'consts/data/formFields';
+import { ReduxFormSelect, ReduxFormInput } from 'components/Forms/components';
+import classes from './clientRegistration.scss';
 import {
     FormGroup,
     FormControl,
@@ -20,69 +22,6 @@ const fieldsToOmit = [
 const validate = values => {
   return checkValidation(values, formFields, fieldsToOmit)
 }
-
-const renderInput = (props) => {
-  const {
-    label,
-    input,
-    placeHolder,
-    type,
-    maxLength,
-    meta: { touched, error, warning }
-  } = props
-
-  let message = touched &&
-    (
-      error &&
-        <span className='text-danger'>
-          <strong> Opps!  </strong> {error}
-      </span>
-    )
-
-    let validationState = touched && ( error && 'error') || null
-
-    return (
-      <FormGroup validationState={validationState}>
-        <label>
-          {label}
-        </label>
-        <FormControl {...input}
-          placeholder={placeHolder}
-          maxLength={maxLength}
-          type={type} />
-        {message}
-      </FormGroup>
-    )
-}
-
-const renderField = (props) => {
-  const {
-    name,
-    type,
-    label,
-    maxLength,
-    normalize
-  } = props
-
-  return (
-    <Field
-      name={name}
-      type={type}
-      label={label}
-      component={renderInput}
-      normalize={normalize}
-      maxLength={maxLength}
-    />
-  )
-}
-
-const dropDownSelect = ({ input, title, children, meta: {touched, error} }) => (
-  <FormControl className='m-b-1' {...input} componentClass='select'>
-    <option value=''>Select a {title}...</option>
-    { children }
-    {touched && error && <span>{error}</span>}
-  </FormControl>
-)
 
 let ClientRegistrationForm = (props) => {
 
@@ -117,10 +56,10 @@ let ClientRegistrationForm = (props) => {
               <Col lg={12}>
                 <Row>
                   <Col sm={ 6 }>
-                    {renderField(formFields.firstName)}
+                    <ReduxFormInput field={formFields.firstName} />
                   </Col>
                   <Col sm={ 6 }>
-                    {renderField(formFields.lastName)}
+                    <ReduxFormInput field={formFields.lastName} />
                   </Col>
                 </Row>
               </Col>
@@ -129,10 +68,10 @@ let ClientRegistrationForm = (props) => {
               <Col sm={12}>
                 <Row>
                   <Col sm={ 6 }>
-                    {renderField(formFields.email)}
+                    <ReduxFormInput field={formFields.email} />
                   </Col>
                   <Col sm={ 6 }>
-                    {renderField(formFields.phoneNumber)}
+                    <ReduxFormInput field={formFields.phoneNumber} />
                   </Col>
                 </Row>
               </Col>
@@ -148,17 +87,7 @@ let ClientRegistrationForm = (props) => {
             <Col sm={12}>
               <Row>
                 <Col sm={ 4 }>
-                  <Field
-                    name='plan'
-                    title='plan'
-                    component={dropDownSelect}
-                  >
-                    {
-                      formFields.plan.list.map((plan, i) => (
-                        <option value={plan.type} key={i}>{plan.type}</option>
-                      ))
-                    }
-                  </Field>
+                  <ReduxFormSelect field={formFields.plan} />
                 </Col>
               </Row>
             </Col>
@@ -174,10 +103,10 @@ let ClientRegistrationForm = (props) => {
             <Col sm={12}>
               <Row>
                 <Col sm={ 6 }>
-                  {renderField(formFields.fullName)}
+                    <ReduxFormInput field={formFields.fullName} />
                 </Col>
                 <Col sm={ 6 }>
-                  {renderField(formFields.creditCardNumber)}
+                    <ReduxFormInput field={formFields.creditCardNumber} />
                 </Col>
               </Row>
             </Col>
@@ -186,10 +115,16 @@ let ClientRegistrationForm = (props) => {
             <Col sm={12}>
               <Row>
                 <Col sm={ 6 }>
-                  {renderField(formFields.expirationDate)}
+                  <label>
+                    Expiration
+                  </label>
+                  <div className={ classes.inlineInputs }>
+                    <ReduxFormSelect field={formFields.expirationMonth} />
+                    <ReduxFormSelect field={formFields.expirationYear} />
+                  </div>
                 </Col>
                 <Col sm={ 6 }>
-                  {renderField(formFields.cvCode)}
+                  <ReduxFormInput field={formFields.cvCode} />
                 </Col>
               </Row>
             </Col>
@@ -205,7 +140,7 @@ let ClientRegistrationForm = (props) => {
             <Col lg={12}>
               <Row>
                 <Col sm={12}>
-                  {renderField(formFields.address)}
+                  <ReduxFormInput field={formFields.address} />
                 </Col>
               </Row>
             </Col>
@@ -214,10 +149,10 @@ let ClientRegistrationForm = (props) => {
             <Col lg={12}>
               <Row>
                 <Col sm={6}>
-                  {renderField(formFields.city)}
+                    <ReduxFormInput field={formFields.city} />
                 </Col>
                 <Col sm={3}>
-                  {renderField(formFields.zipcode)}
+                    <ReduxFormInput field={formFields.zipcode} />
                 </Col>
                 <Col sm={3}>
                   <FormGroup controlId='formSizingColumn'>
@@ -226,17 +161,7 @@ let ClientRegistrationForm = (props) => {
                         <label>
                           State
                         </label>
-                        <Field
-                          name='state'
-                          title='state'
-                          component={dropDownSelect}
-                        >
-                          {
-                            formFields.state.list.map((state, i) => (
-                              <option value={state} key={i}>{state}</option>
-                            ))
-                          }
-                        </Field>
+                        <ReduxFormSelect field={formFields.state} />
                       </Row>
                     </Col>
                   </FormGroup>
@@ -255,10 +180,10 @@ let ClientRegistrationForm = (props) => {
             <Col sm={12}>
               <Row>
                 <Col sm={ 6 }>
-                  {renderField(formFields.kwFirstName)}
+                    <ReduxFormInput field={formFields.kwFirstName} />
                 </Col>
                 <Col sm={ 6 }>
-                  {renderField(formFields.kwLastName)}
+                  <ReduxFormInput field={formFields.kwLastName} />
                 </Col>
               </Row>
             </Col>
@@ -267,10 +192,10 @@ let ClientRegistrationForm = (props) => {
             <Col sm={12}>
               <Row>
                 <Col sm={ 6 }>
-                  {renderField(formFields.kwAddress)}
+                  <ReduxFormInput field={formFields.kwAddress} />
                 </Col>
                 <Col sm={ 6 }>
-                  {renderField(formFields.kwCity)}
+                  <ReduxFormInput field={formFields.kwCity} />
                 </Col>
               </Row>
             </Col>
@@ -282,23 +207,13 @@ let ClientRegistrationForm = (props) => {
                   <label>
                     State
                   </label>
-                  <Field
-                    name='kwState'
-                    title='state'
-                    component={dropDownSelect}
-                  >
-                    {
-                      formFields.kwState.list.map((state, i) => (
-                        <option value={state} key={i}>{state}</option>
-                        ))
-                    }
-                  </Field>
+                  <ReduxFormSelect field={formFields.kwState} />
                 </Col>
                 <Col sm={ 4 }>
-                  {renderField(formFields.kwZipcode)}
+                  <ReduxFormInput field={formFields.kwZipcode} />
                 </Col>
                 <Col sm={ 4 }>
-                  {renderField(formFields.dob)}
+                  <ReduxFormInput field={formFields.dob} />
                 </Col>
               </Row>
             </Col>

@@ -10,7 +10,6 @@ import {
   getProfile,
   updateUserProfile
 } from '../modules/profile';
-import { persistData } from 'localStorage';
 import getImageDataUrl from 'utils/imageHelper';
 
 

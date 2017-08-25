@@ -44,7 +44,7 @@ class KeywordContainer extends RoutedComponent {
       address: values.address,
       zip: values.zipcode,
       city: values.city,
-      state: values.state,
+      state: values.state.value,
       country: 'US',
       dob: values.dob,
       account: this.props.currentUser.account_id

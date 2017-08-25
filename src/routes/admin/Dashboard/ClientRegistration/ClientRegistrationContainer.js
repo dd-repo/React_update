@@ -43,6 +43,7 @@ class ClientRegistrationContainer extends RoutedComponent {
 
   submitForm(user) {
     const payload = this.buildParams(user)
+    debugger
     this.setState({isFetching: true})
     clickadillyApi.post(CLIENT_SIGNUP_REQUEST, payload)
     .then(res => { this.handleSuccess() })
@@ -93,21 +94,21 @@ class ClientRegistrationContainer extends RoutedComponent {
         email: user.email,
         phone_number: user.phoneNumber,
         phone_type: 'home',
-        plan: user.plan.toLowerCase(),
+        plan: user.plan.value.toLowerCase(),
         card_holder_name: user.fullName,
         card_number: this.sanitizeNums(user.creditCardNumber),
-        card_month: user.expirationDate.slice(0,2),
-        card_year: user.expirationDate.slice(3),
+        card_month: user.expirationMonth.value,
+        card_year: user.expirationYear.value,
         card_cvc: user.cvCode,
         address: user.address,
         city: user.city,
-        state: user.state,
+        state: user.state.value,
         zip: user.zipcode,
         kw_first_name: user.kwFirstName,
         kw_last_name: user.kwLastName,
         kw_address: user.kwAddress,
         kw_city: user.kwCity,
-        kw_state: user.kwState,
+        kw_state: user.kwState.value,
         kw_zip: user.kwZipcode,
         kw_country: 'US',
         dob: user.dob

@@ -8,16 +8,6 @@ export const CREATE_ADDRESS_FAILURE = 'CREATE_ADDRESS_FAILURE';
 
 export const ADDRESS_REQUEST = '/admin/api/addresses';
 
-export const submitAddress = (address, accountId) => {
-  return dispatch => {
-    if(address.id) {
-      return dispatch(updateAddress(address))
-    }else{
-      return dispatch(createAddress(address, accountId))
-    }
-  }
-}
-
 export const updateAddress = address => {
   const payload = { address }
   return dispatch => {
@@ -27,8 +17,8 @@ export const updateAddress = address => {
   }
 }
 
-export const createAddress = (address, account_id) => {
-  const payload = Object.assign({}, address, { account_id })
+export const createAddress = address => {
+  const payload = { address }
   return dispatch => {
     return clickadillyApi.post(ADDRESS_REQUEST, payload)
     .then( response => dispatch(createAddressSuccess(response.data)))

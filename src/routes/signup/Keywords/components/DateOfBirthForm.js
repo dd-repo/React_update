@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { FormGroup } from 'components';
+import { ReduxFormInput } from 'components/Forms/components';
 import classes from './keywords.scss';
 
 const DateOfBirthForm = (props) => {
@@ -16,10 +17,7 @@ const DateOfBirthForm = (props) => {
   return (
     <form onSubmit={handleSubmit(submitForm)}>
       <FormGroup>
-        <label>
-          Date of Birth
-        </label>
-        {renderField(fields.dob)}
+        <ReduxFormInput field={fields.dob} />
       </FormGroup>
       <button
         className="full-width btn btn-success"

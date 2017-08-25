@@ -75,7 +75,7 @@
     "type": "git",
     "url": "git+https://github.com/0wczar/spin-react"
   },
-  "author": "Webkom.co",
+  "author": "Marca Global LLC",
   "license": "MIT",
   "dependencies": {
     "@owczar/spin-template": "^1.4.8",

@@ -23,7 +23,7 @@ import classes from '../user.scss';
 
 const MODAL_TYPE = {
   'Account': 'ACCOUNT',
-  'Addresses': 'ADDRESS',
+  'Addresses': 'CREATE_ADDRESS',
   'Keywords': 'KEYWORD',
   'Phones': 'PHONE',
   'Profile': 'PROFILE'

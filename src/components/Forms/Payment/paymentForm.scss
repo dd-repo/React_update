@@ -1,0 +1,28 @@
+@import '~bootstrap-sass/assets/stylesheets/bootstrap/_variables.scss';
+@import '~@owczar/spin-template/src/scss/bootstrap/variables';
+
+.inlineInputs {
+    display: flex;
+
+    > *:not(:last-child) {
+        margin-right: 5px;
+    }
+}
+
+.paymentOtherLabel {
+  color: $text-muted;
+  font-weight: bold;
+  margin: 0 0 5px 0;
+}
+
+.paymentSubmitting {
+  background: transparent;
+}
+
+.price {
+  font-size: 3.5rem;
+  font-weight: 300;
+  margin-bottom: 0;
+  margin-top: 1rem;
+  color: white;
+}

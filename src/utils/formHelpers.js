@@ -23,6 +23,15 @@ export const checkValidation = (values, fields={}, omittedFields) => {
   if(!values.card_id) {
     errors.card_id = 'Required'
   }
+  if(!values.state) {
+    errors.state = 'Required'
+  }
+  if(!values.expirationMonth) {
+    errors.expirationMonth = 'Required'
+  }
+  if(!values.expirationYear) {
+    errors.expirationYear = 'Required'
+  }
   if(values.email) {
     if(!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
       errors.email = 'Invalid email address'
@@ -35,9 +44,6 @@ export const checkValidation = (values, fields={}, omittedFields) => {
   }
   if(values.creditCardNumber && values.creditCardNumber.length < 16) {
     errors.creditCardNumber = 'Credit card number must be 16 digits long'
-  }
-  if(values.expirationDate && values.expirationDate.length < 7) {
-    errors.expirationDate = 'Invalid expiration date'
   }
   if(values.cvCode && values.cvCode.length < 3) {
     errors.cvCode = 'Invalid CVC'

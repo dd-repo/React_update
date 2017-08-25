@@ -7,6 +7,7 @@ import {
 export const PAYMENT_POSTING = 'PAYMENT_POSTING';
 export const PAYMENT_SUCCESS = 'PAYMENT_SUCCESS';
 export const PAYMENT_FAILURE = 'PAYMENT_FAILURE';
+export const PAYMENT_ERROR_DELETE = 'PAYMENT_ERROR_DELETE';
 
 export const PAYMENT_REQUEST = `/dashboard/api/v1/users/sign-up/payment`;
 
@@ -43,6 +44,12 @@ export const paymentFailure = error => (
   }
 );
 
+export const deletePaymentErrorMessage = () => (
+  {
+    type: PAYMENT_ERROR_DELETE
+  }
+)
+
 // reducers
 const reducer = (state={}, action) => {
   switch(action.type) {
@@ -61,12 +68,12 @@ const reducer = (state={}, action) => {
         errorMessage: action.error.response.data.message,
         success: false
       })
-    case USER_LOGOUT:
+    case PAYMENT_ERROR_DELETE:
       return Object.assign({}, state, {
-        isFetching: null,
-        errorMessage: null,
-        success: null
+        errorMessage: null
       })
+    case USER_LOGOUT:
+      return {}
     default:
       return state
   }

@@ -1,8 +1,9 @@
 import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
 
-import PaymentForm from './PaymentForm';
+//import PaymentForm from './PaymentForm';
 import classes from './payment.scss';
+import { PaymentForm } from 'components/Forms';
 
 import {
     Row,

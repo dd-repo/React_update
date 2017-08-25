@@ -1,0 +1,19 @@
+.spinner {
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-wrap:wrap;
+  background: transparent;
+  position:fixed;
+  z-index:10000;
+  top:0;
+  left:42%;
+  bottom:0;
+  right:0;
+  transition:opacity .2s ease-out
+}
+
+.successMessage{
+  font-size:20px;
+  color: white;
+}

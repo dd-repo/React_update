@@ -11,7 +11,6 @@ import {
   Row,
   Divider
 } from 'components';
-import classes from './payment.scss';
 
 const validate = values => {
   return checkValidation(values, fields)

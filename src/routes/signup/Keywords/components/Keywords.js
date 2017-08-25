@@ -9,43 +9,14 @@ import {
 } from 'utils/formHelpers.js';
 
 import { Row, Col, Panel, Button } from 'components';
+import { ReduxFormInput } from 'components/Forms/components';
 import classes from './keywords.scss';
 import AddressForm from './AddressForm';
 import DateOfBirthForm from './DateOfBirthForm';
+import fields from 'consts/data/formFields';
 
 let title;
 let description;
-
-const fields = {
-  address: {
-    name: 'address',
-    type: 'text',
-    label: 'Street Address',
-  },
-  city: {
-    name: 'city',
-    type: 'text',
-    label: 'City / Town',
-  },
-  state: {
-    name: 'state',
-    type: 'text',
-    label: 'CO'
-  },
-  zipcode: {
-    name: 'zipcode',
-    type: 'text',
-    label: 'Zipcode',
-    normalize: normalizeNums,
-    maxLength: 5
-  },
-  dob: {
-    name: 'dob',
-    type: 'text',
-    label: 'MM / DD / YYYY',
-    normalize: normalizeDate
-  }
-}
 
 const validate = values => {
   return checkValidation(values, fields)
@@ -87,6 +58,7 @@ const renderField = (props) => {
   const {
     name,
     type,
+    placeHolder,
     label,
     maxLength,
     normalize
@@ -97,7 +69,8 @@ const renderField = (props) => {
       name={name}
       type={type}
       label={label}
-      component={renderInput}
+      placeholder={placeHolder}
+      component={ReduxFormInput}
       normalize={normalize}
       maxLength={maxLength}
     />
@@ -137,7 +110,6 @@ let Keywords = (props) => {
           invalid={invalid}
           submitting={submitting}
           renderField={renderField}
-          fields={fields}
           Field={Field}
           inputErrorMsg={inputErrorMsg}
         />
