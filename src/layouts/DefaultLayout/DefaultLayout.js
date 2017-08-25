@@ -170,6 +170,7 @@ class DefaultLayout extends React.Component {
       this.props.logout();
     }
 
+
     openFaqTab() {
       window.open('http://blitzmonitoring.com/faq', '_blank')
     }
@@ -304,7 +305,7 @@ class DefaultLayout extends React.Component {
                                             </NavItem>
                                         )
                                     }
-                                    <SearchBoxMobile />
+                                    { /*  <SearchBoxMobile /> */ }
                                 </Nav>
 
                                 { /* ============= Right Nav ============== */ }
@@ -367,7 +368,13 @@ class DefaultLayout extends React.Component {
                                           <LinkContainer to='/dashboard/privacy'>
                                             <MenuItem eventKey={3.4}>Privacy</MenuItem>
                                           </LinkContainer>
-                                          <MenuItem onClick={this.openFaqTab} eventKey={3.5}>FAQ</MenuItem>
+                                          <LinkContainer to='/terms-of-service'>
+                                          <MenuItem eventKey={3.5}>Terms Of Service</MenuItem>
+                                        </LinkContainer>
+                                        <LinkContainer to='/privacy-policy'>
+                                          <MenuItem eventKey={3.6}>Privacy Policy</MenuItem>
+                                        </LinkContainer>
+                                          <MenuItem onClick={this.openFaqTab} eventKey={3.7}>FAQ</MenuItem>
                                           <MenuItem divider />
                                           <LinkContainer to='/login'>
                                             <MenuItem onClick={this.handleLogout} eventKey={3.6}>Sign Out</MenuItem>
@@ -564,8 +571,11 @@ class DefaultLayout extends React.Component {
                         help@clickadilly.com
                       </span>
                     </p>
+                    <p className='text-center'>
+                    </p>
                     <p className="text-gray-dark">
-                      <span className="text-gray-dark">© 2017 <strong className="m-r-1">Clickadilly.</strong>All rights reserved.</span>
+                      © 2017 <strong>Clickadilly </strong>
+                      <span className={classes.footerAddress}>Denver, CO 80206, USA. All rights reserved.</span>
                     </p>
                   </Footer>
 

@@ -209,6 +209,24 @@ export default [
         }, 'admin-dashboard-create-user');
       }
     },
+
+    // public
+    {
+      path: '/terms-of-service',
+      getComponent: (nextState, cb) => {
+        require.ensure([], require => {
+          cb(null, require('./Pages/TermsOfService').default);
+        }, 'terms-of-service');
+      }
+    },
+    {
+      path: '/privacy-policy',
+      getComponent: (nextState, cb) => {
+        require.ensure([], require => {
+          cb(null, require('./Pages/PrivacyPolicy').default);
+        }, 'privacy-policy');
+      }
+    },
     {
       path: '*',
       component: require('./Pages/NotFound').default

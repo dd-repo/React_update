@@ -2,15 +2,7 @@ import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { reduxForm, Field } from 'redux-form';
 
-import {
-    Col,
-    Modal,
-    Form,
-    FormGroup,
-    FormControl,
-    ControlLabel,
-    Button
-} from 'components';
+import { Modal } from 'components';
 import { createSubscription } from 'routes/admin/Dashboard/User/modules/subscriptions';
 import { NewSubscriptionForm } from 'components/Forms/Subscription';
 

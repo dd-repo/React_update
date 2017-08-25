@@ -7,7 +7,6 @@ import fields from 'consts/data/formFields';
 import {
     FormGroup,
     FormControl,
-    Checkbox,
     Button
 } from 'components';
 
@@ -71,54 +70,48 @@ const renderFields = () => {
   })
 }
 
-class SignupForm extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {showModal: false}
+let SignupForm = props => {
 
-    this._onClick = this._onClick.bind(this)
+  const {
+    price,
+    submitForm,
+    handleSubmit,
+    invalid,
+    submitting,
+    passwordErrorMsg,
+    passwordSuccessMsg,
+    disableButton,
+    showModal
+  } = props
+
+  const _onClick = e => {
+    showModal(e.target.name)
   }
 
-  _onClick() {
-    this.props.toggleModal()
-  }
+  return (
+    <form onSubmit={handleSubmit(submitForm)}>
 
-  render() {
-    const {
-      price,
-      submitForm,
-      handleSubmit,
-      invalid,
-      submitting,
-      passwordErrorMsg,
-      passwordSuccessMsg,
-      disableButton,
-    } = this.props
+      {renderFields()}
 
-    return (
-      <form onSubmit={handleSubmit(submitForm)}>
+      <span className='text-danger'>{passwordErrorMsg}</span>
+      <span className='text-success'>{passwordSuccessMsg}</span>
+       <p>
+         By clicking Register, you agree to
+         our <a name='TOS' onClick={_onClick}> Terms </a>
+         and that you have read
+         our <a name='PRIVACY_POLICY' onClick={_onClick}> Privacy Policy</a>,
+         including our Cookie Use.
+      </p>
 
-        {renderFields()}
-
-       <span className='text-danger'>{passwordErrorMsg}</span>
-       <span className='text-success'>{passwordSuccessMsg}</span>
-
-        <Checkbox required validationState='error'>
-          <a className='text-danger' onClick={this._onClick}>
-            Accept Terms & Privacy Policy
-          </a>
-        </Checkbox>
-
-        <button
-          className='full-width btn btn-primary m-b-2'
-          disabled={disableButton || disableButton && invalid || submitting}
-          action="submit"
-        >
-          Register
-        </button>
-      </form>
-    )
-  }
+      <button
+        className='full-width btn btn-primary m-b-2'
+        disabled={disableButton || disableButton && invalid || submitting}
+        action="submit"
+      >
+        Register
+      </button>
+    </form>
+  )
 }
 
 SignupForm.propTypes = {

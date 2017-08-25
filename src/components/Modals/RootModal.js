@@ -12,6 +12,8 @@ import { UpdateSubscriptionModal, CreateSubscriptionModal } from './components/S
 import CardModal from './components/Card';
 import RemovalInstructionsModal from './components/Monitoring/RemovalInstructions';
 import PaymentModal from './components/Payment';
+import TermsOfServiceModal from './components/TOS';
+import PrivacyPolicyModal from './components/PrivacyPolicy';
 
 const MODAL_COMPONENTS = {
   'USER':                UserModal,
@@ -27,6 +29,9 @@ const MODAL_COMPONENTS = {
   'CARD':                CardModal,
   'REMOVAL_INSTRUCTIONS': RemovalInstructionsModal,
   'PAYMENT':              PaymentModal
+  'TOS':                 TermsOfServiceModal,
+  'PRIVACY_POLICY':      PrivacyPolicyModal,
+  'REMOVAL_INSTRUCTIONS': RemovalInstructionsModal
 }
 
 const ModalRoot = ({...otherProps, modalType, modalProps, dispatch }) => {

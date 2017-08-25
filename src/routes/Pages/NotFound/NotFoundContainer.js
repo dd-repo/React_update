@@ -23,6 +23,11 @@ const HOME_LINK = {
 }
 
 class NotFoundContainer extends RoutedComponent {
+
+  static contextTypes = {
+    router: React.PropTypes.object.isRequired
+  }
+
     getLayoutOptions() {
         return {
             contentView: CONTENT_VIEW_FLUID,
@@ -39,7 +44,7 @@ class NotFoundContainer extends RoutedComponent {
         return (
             <Row>
                 <Col lg={ 12 }>
-                    <Button className='m-t-2 m-b-1' onClick={ () => this.props.history.goBack() }>
+                    <Button className='m-t-2 m-b-1' onClick={ () => this.context.router.goBack() }>
                         <i className='fa fa-angle-left m-r-1'></i>
                         Back
                     </Button>

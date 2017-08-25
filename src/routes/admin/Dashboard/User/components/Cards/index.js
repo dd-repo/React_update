@@ -110,6 +110,3 @@ const STYLE = {
   'declined':  'danger'
 }
 export default Cards;
-
-
-
