@@ -52,7 +52,7 @@ class SignupContainer extends RoutedComponent {
       this.validatePassword(signupForm.values)
     }
     if(nextProps.currentUser.role === 'prospect') {
-      this.showPaymentModal()
+      this.showPaymentModal('PAYMENT_FORM')
     }
   }
 
@@ -76,8 +76,8 @@ class SignupContainer extends RoutedComponent {
     }
   }
 
-  showPaymentModal() {
-    this.props.showModal('PAYMENT')
+  showPaymentModal(modal) {
+    this.props.showModal(modal)
   }
 
   buildParams(user) {
@@ -131,6 +131,8 @@ class SignupContainer extends RoutedComponent {
     this.props.deletePaymentErrorMessage()
     let params = this.buildPaymentParams(formProps)
     this.props.postPayment(params)
+    .then(res => { this.doNext(res) })
+    .catch(error => { console.log('error payment', error) })
   }
 
   handleClick() {
@@ -143,6 +145,9 @@ class SignupContainer extends RoutedComponent {
         persistDataToLocalStorage(res.data)
         this.props.removeErrorMessage()
         break;
+      case PAYMENT_SUCCESS:
+        this.props.hideModal()
+        this.props.showModal('PAYMENT_SUCCESS')
       default:
         return null;
     }

@@ -11,7 +11,7 @@ import ProfileModal from './components/Profile';
 import { UpdateSubscriptionModal, CreateSubscriptionModal } from './components/Subscription';
 import CardModal from './components/Card';
 import RemovalInstructionsModal from './components/Monitoring/RemovalInstructions';
-import PaymentModal from './components/Payment';
+import { PaymentFormModal, PaymentSuccessModal } from './components/Payment';
 import TermsOfServiceModal from './components/TOS';
 import PrivacyPolicyModal from './components/PrivacyPolicy';
 
@@ -28,7 +28,8 @@ const MODAL_COMPONENTS = {
   'CREATE_SUBSCRIPTION': CreateSubscriptionModal,
   'CARD':                CardModal,
   'REMOVAL_INSTRUCTIONS': RemovalInstructionsModal,
-  'PAYMENT':              PaymentModal,
+  'PAYMENT_FORM':        PaymentFormModal,
+  'PAYMENT_SUCCESS':     PaymentSuccessModal,
   'TOS':                 TermsOfServiceModal,
   'PRIVACY_POLICY':      PrivacyPolicyModal,
   'REMOVAL_INSTRUCTIONS': RemovalInstructionsModal

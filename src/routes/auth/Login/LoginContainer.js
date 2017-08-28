@@ -37,7 +37,7 @@ class LoginContainer extends RoutedComponent {
       contentView: CONTENT_VIEW_STATIC,
       sidebarEnabled: false,
       navbarEnabled: false,
-      footerEnabled: false,
+      footerEnabled: true,
       headerEnabled: false
     }
   }
