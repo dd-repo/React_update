@@ -29,14 +29,16 @@ const Profile = ({profile}) => (
         Driver License
       </h5>
       <div className={ classes.detailsValue }>
-        <Image
-          src={profile.driverLicense}
-          backgroundText='Driver License'
-          height={ 140 }
-          width={ 240 }
-          shape='rounded'
-          className='m-r-1'
-        />
+        <a href={profile.driverLicense} download>
+          <Image
+            src={profile.driverLicense}
+            backgroundText='Driver License'
+            height={ 140 }
+            width={ 240 }
+            shape='rounded'
+            className='m-r-1'
+          />
+        </a>
       </div>
     </ListGroupItem>
     <ListGroupItem className='flex-space-between'>
