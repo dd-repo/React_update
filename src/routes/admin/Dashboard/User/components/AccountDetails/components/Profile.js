@@ -18,7 +18,7 @@ const Profile = ({profile}) => (
       </h5>
       <div className={ classes.detailsValue }>
         <AvatarImage
-          src={ profile.avatar_url }
+          src={ profile.avatar }
           size='large'
           statusPlacement='bottom'
         />
@@ -30,7 +30,7 @@ const Profile = ({profile}) => (
       </h5>
       <div className={ classes.detailsValue }>
         <Image
-          src={profile.driver_license_url}
+          src={profile.driverLicense}
           backgroundText='Driver License'
           height={ 140 }
           width={ 240 }
@@ -44,7 +44,7 @@ const Profile = ({profile}) => (
         Maiden Name
       </h5>
       <div className={ classes.detailsValue }>
-        { profile.maiden_name }
+        { profile.maidenName }
       </div>
     </ListGroupItem>
     <ListGroupItem className='flex-space-between'>
@@ -52,7 +52,7 @@ const Profile = ({profile}) => (
         Middle Name
       </h5>
       <div className={ classes.detailsValue }>
-        { profile.middle_name }
+        { profile.middleName }
       </div>
     </ListGroupItem>
   </ListGroup>
