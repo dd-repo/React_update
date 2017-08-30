@@ -29,11 +29,11 @@ export const updateProfileFailure = error => (
 )
 const setProfile = (state, profile) => (
   Object.assign({}, state, {
-    avatar_url: profile.avatar_url,
-    driver_license: profile.driver_license,
+    avatar: profile.avatar_url,
+    driverLicense: profile.driver_license_url,
     id: profile.id,
-    maiden_name: profile.maiden_name,
-    middle_name: profile.middle_name
+    maidenName: profile.maiden_name,
+    middleName: profile.middle_name
   })
 )
 
