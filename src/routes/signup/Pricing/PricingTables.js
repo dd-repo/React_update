@@ -102,7 +102,7 @@ const PricingTableClean = props => (
         </Table>
         {
             (props.active ? (
-                <Button onClick={props.handleClick.bind(null, props.type, props.price) } bsStyle='primary'>
+                <Button  bsStyle='primary'>
                     <i className='fa fa-check m-r-1'></i>
                     Signup
                 </Button>
@@ -167,16 +167,6 @@ const PricingTable = props => (
     </Panel>
 );
 
-PricingTable.propTypes = PricingTableClean.propTypes = {
-    description: PropTypes.string.isRequired,
-    price: PropTypes.number.isRequired,
-    type: PropTypes.string.isRequired,
-    bsStyle: PropTypes.string.isRequired,
-    capabilities: PropTypes.array.isRequired,
-    active: PropTypes.bool,
-    handleClick: PropTypes.func.isRequired
-};
-
 const PricingTables = props => {
   return (
     <Row>
@@ -198,5 +188,16 @@ const PricingTables = props => {
     </Row>
   );
 }
+
+PricingTable.propTypes = PricingTableClean.propTypes = {
+    description: PropTypes.string.isRequired,
+    price: PropTypes.number.isRequired,
+    type: PropTypes.string.isRequired,
+    bsStyle: PropTypes.string.isRequired,
+    capabilities: PropTypes.array.isRequired,
+    active: PropTypes.bool,
+    handleClick: PropTypes.func.isRequired
+};
+
 
 export default PricingTables

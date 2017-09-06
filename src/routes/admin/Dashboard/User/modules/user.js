@@ -1,6 +1,6 @@
 import clickadillyApi from 'services/clickadillyApi';
 import getFullName from 'utils/fullName';
-import { formatDate } from 'utils/dateHelper';
+import { formatDate } from 'utils';
 import { CARDS_SUCCESS } from './cards';
 
 // action types

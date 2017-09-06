@@ -1,5 +1,6 @@
 import PaymentForm from './Payment';
 import AddressForm from './Address';
+import KeywordForm from './Keywords';
 import {
   NewSubscriptionForm,
   UpdateSubscriptionForm
@@ -9,5 +10,6 @@ export {
   PaymentForm,
   AddressForm,
   NewSubscriptionForm,
+  KeywordForm,
   UpdateSubscriptionForm
 }

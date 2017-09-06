@@ -10,7 +10,7 @@ import {
 
 import getFullName from 'utils/fullName';
 
-import { formatDate } from 'utils/dateHelper';
+import { formatDate } from 'utils';
 
 const User = (props) => {
   const {

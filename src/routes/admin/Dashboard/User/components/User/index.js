@@ -1,8 +1,9 @@
 import React, { PropTypes } from 'react';
-import Loading from 'react-loading';
+import { compose } from 'recompose';
 import { Link } from 'react-router';
 import capitalize from 'utils/capitalize';
 
+import SpinnerWhileLoading from 'HOC/SpinnerWhileLoading';
 import classes from '../user.scss';
 import AccountDetails from '../AccountDetails';
 import UserDetails from '../UserDetails';
@@ -11,14 +12,13 @@ import Subscriptions from '../Subscriptions';
 import Cards from '../Cards';
 import RootModal from 'components/Modals';
 
-import { Row, Col, Alert, Button, Loader } from 'components';
+import { Row, Col, Alert, Button, FlashMessage } from 'components';
+
+const withLoader = SpinnerWhileLoading(
+  props => props.isFetching
+)
 
 const User = props => {
-
-  const renderLoader = (
-    props.isFetching &&
-    <Loader />
-  )
 
   const renderHeader = (
     <div className={ `${classes.taskHeader} flex-space-between` }>
@@ -34,23 +34,9 @@ const User = props => {
     </div>
   )
 
-  const renderAlertMessage = (
-    props.notification.message &&
-      <Alert bsStyle={props.notification.status}>
-         <Button
-           bsStyle='link'
-           onClick={props.clearMessage}
-         >
-           <i className={`fa fa-times-circle fa-lg text-${props.notification.status} pull-right`}></i>
-         </Button>
-         {props.notification.message}
-      </Alert>
-  )
-
   const renderUserDetails = (
     !props.isFetching &&
       <div>
-        { renderAlertMessage }
         <Row>
           <Col lg={ 6 }>
             { renderHeader }
@@ -75,6 +61,7 @@ const User = props => {
               phones={props.user.phones}
               showModal={props.showModal}
               fetchAccount={props.fetchAccount}
+              handleKeywordSubmit={props.handleKeywordSubmit}
             />
           </Col>
         </Row>
@@ -108,14 +95,21 @@ const User = props => {
 
   return (
       <div className={classes.mainWrap}>
+
+        <FlashMessage
+          notification={props.notification}
+          clearMessage={props.clearMessage}
+        />
+
         { renderUserDetails }
-        { renderLoader }
+
         <RootModal
           user={props.user.details}
           account={props.user.account}
           cards={props.user.cards}
           notification={props.notification}
         />
+
       </div>
   )
 }
@@ -125,5 +119,5 @@ User.propTypes = {
   handlePasswordReset: PropTypes.func
 }
 
-export default User;
+export default compose(withLoader)(User);
 

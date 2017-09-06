@@ -127,6 +127,6 @@ const reduxProfileForm = reduxForm({
 
 export default connect(
   state => ({
-    initialValues: state.profile
+    initialValues: state.account.profile
   })
 )(reduxProfileForm)

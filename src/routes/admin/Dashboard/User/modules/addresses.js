@@ -1,5 +1,6 @@
 import clickadillyApi from 'services/clickadillyApi';
 import { ACCOUNT_SUCCESS } from './account';
+import { buildAddressParams } from 'utils/paramsHelper';
 
 export const UPDATE_ADDRESS_SUCCESS = 'UPDATE_ADDRESS_SUCCESS';
 export const UPDATE_ADDRESS_FAILURE = 'UPDATE_ADDRESS_FAILURE';
@@ -9,7 +10,7 @@ export const CREATE_ADDRESS_FAILURE = 'CREATE_ADDRESS_FAILURE';
 export const ADDRESS_REQUEST = '/admin/api/addresses';
 
 export const updateAddress = address => {
-  const payload = { address }
+  const payload = { address: buildAddressParams(address) }
   return dispatch => {
     return clickadillyApi.patch(`${ADDRESS_REQUEST}/${address.id}`, payload)
     .then( response => dispatch(updateAddressSuccess(response.data)))
@@ -18,7 +19,7 @@ export const updateAddress = address => {
 }
 
 export const createAddress = address => {
-  const payload = { address }
+  const payload = { address: buildAddressParams(address) }
   return dispatch => {
     return clickadillyApi.post(ADDRESS_REQUEST, payload)
     .then( response => dispatch(createAddressSuccess(response.data)))

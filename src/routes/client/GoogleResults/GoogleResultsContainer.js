@@ -5,7 +5,7 @@ import { RoutedComponent, connect } from 'routes/routedComponent';
 import GoogleResults from './components/GoogleResults';
 import { getMonitoring } from '../Monitoring/modules/monitoring';
 import { fetchGoogleResults, requestRemoval } from './modules/googleResults';
-import { updateCurrentKeyword } from 'routes/signup/Keywords/modules/keywords';
+import { updateCurrentKeyword } from 'routes/client/Account/modules/keywords';
 import { CONTENT_VIEW_STATIC } from 'layouts/DefaultLayout/modules/layout';
 
 class GoogleResultsContainer extends RoutedComponent {
@@ -116,7 +116,7 @@ const mapStateToProps = state => {
   return {
     googleResults: state.googleResults,
     currentUser: state.currentUser,
-    keywords: state.keywords
+    keywords: state.account.keywords
   }
 }
 

@@ -15,11 +15,11 @@ import { Row, Col, Panel, PageHeader } from 'components';
 import { Colors } from 'consts';
 import classes from './dashboard.scss';
 
-const enhancer1 = SpinnerWhileLoading(
+const withLoader = SpinnerWhileLoading(
   props => props.isFetching
 )
 
-const enhancer2 = hideIfNoData(
+const withNoData = hideIfNoData(
   props => !props.hasData
 )
 
@@ -92,4 +92,4 @@ Dashboard.propTypes = {
   hasData: PropTypes.bool.isRequired
 }
 
-export default compose(enhancer1, enhancer2)(Dashboard);
+export default compose(withLoader, withNoData)(Dashboard);

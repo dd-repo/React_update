@@ -1,11 +1,12 @@
 export const SHOW_MODAL = 'SHOW_MODAL';
 export const HIDE_MODAL = 'HIDE_MODAL';
 
-export const showModal = (modalType, modalProps) => (
+export const showModal = (modalType, modalProps, func) => (
   {
     type: SHOW_MODAL,
     modalType,
-    modalProps
+    modalProps,
+    func
   }
 )
 
@@ -20,7 +21,8 @@ const reducer = (state={}, action) => {
     case SHOW_MODAL:
       return {
         modalType: action.modalType,
-        modalProps: action.modalProps
+        modalProps: action.modalProps,
+        onSubmit: action.func
       }
     case HIDE_MODAL:
       return {

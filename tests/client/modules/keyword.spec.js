@@ -13,17 +13,22 @@ import {
   KEYWORD_REQUEST,
   RECEIVE_KEYWORDS_SUCCESS,
   RECEIVE_KEYWORDS_FAILURE,
+  KEYWORD_UPDATE_SUCCESS,
+  KEYWORD_UPDATE_FAILURE,
   KEYWORDS_REQUEST,
+  updateKeyword,
   fetchKeywords,
   receiveKeywords,
   rejectKeywords,
   updateCurrentKeyword,
+  receiveKeywordUpdateSuccess,
+  receieveKeywordUpdateFailure,
   postKeywords,
   postingKeywords,
   keywordSuccess,
   keywordFailure,
   default as reducer
-} from 'routes/signup/Keywords/modules/keywords';
+} from 'routes/client/Account/modules/keywords';
 
 const middlewares = [ thunk ]
 const mockStore = configureMockStore(middlewares)
@@ -67,6 +72,8 @@ describe('(Keyword module) "keyword"', () => {
     expect(CURRENT_KEYWORD_UPDATE).to.equal('CURRENT_KEYWORD_UPDATE')
     expect(RECEIVE_KEYWORDS_SUCCESS).to.equal('RECEIVE_KEYWORDS_SUCCESS')
     expect(RECEIVE_KEYWORDS_FAILURE).to.equal('RECEIVE_KEYWORDS_FAILURE')
+    expect(KEYWORD_UPDATE_SUCCESS).to.equal('KEYWORD_UPDATE_SUCCESS')
+    expect(KEYWORD_UPDATE_FAILURE).to.equal('KEYWORD_UPDATE_FAILURE')
     expect(KEYWORDS_REQUEST).to.equal('/dashboard/api/v1/accounts')
     expect(KEYWORD_REQUEST).to.equal('/dashboard/api/v1/users/sign-up/keyword')
   })
@@ -82,7 +89,7 @@ describe('(Keyword module) "keyword"', () => {
       expect(keywordSuccess()).to.have.property('type', KEYWORD_SUCCESS)
     })
 
-    it('Should return a action with type KEYWORD_SUCCESS', () => {
+    it('Should return a action with keywords', () => {
       expect(keywordSuccess(keywords)).to.have.property('keywords', keywords)
     })
   })
@@ -124,6 +131,27 @@ describe('(Keyword module) "keyword"', () => {
 
     it('should return an action with data', () => {
       expect(rejectKeywords(errorRes)).to.have.property('error', errorRes)
+    })
+  })
+
+  describe('(Action Creator) receiveKeywordUpdateSuccess', () => {
+    it('should return an action with type "KEYWORD_UPDATE_SUCCESS"', () => {
+      expect(receiveKeywordUpdateSuccess()).to.have.property('type', KEYWORD_UPDATE_SUCCESS)
+    })
+
+    it('should return an action with data', () => {
+      const updatedKeyword = { value: 'updated keyword', id: 5 }
+      expect(receiveKeywordUpdateSuccess(updatedKeyword)).to.have.property('data', updatedKeyword)
+    })
+  })
+
+  describe('(Action Creator) receieveKeywordUpdateFailure', () => {
+    it('should return an action with type "KEYWORD_UPDATE_FAILURE"', () => {
+      expect(receieveKeywordUpdateFailure()).to.have.property('type', KEYWORD_UPDATE_FAILURE)
+    })
+
+    it('should return an action with type error', () => {
+      expect(receieveKeywordUpdateFailure(errorRes)).to.have.property('error', errorRes)
     })
   })
 
@@ -210,7 +238,7 @@ describe('(Keyword module) "keyword"', () => {
         { type: RECEIVE_KEYWORDS_SUCCESS, data: keywords }
       ]
 
-      const store = mockStore({ dashboard: {} })
+      const store = mockStore({ keywords: {} })
 
       return store.dispatch(fetchKeywords())
       .then(() => {
@@ -227,9 +255,64 @@ describe('(Keyword module) "keyword"', () => {
         { type: RECEIVE_KEYWORDS_FAILURE, error: errorRes }
       ]
 
-      const store = mockStore({ dashboard: {} })
+      const store = mockStore({ keywords: {} })
 
       return store.dispatch(fetchKeywords())
+      .then(() => {
+        expect(store.getActions()).to.eql(expectedActions)
+        done();
+      })
+    })
+  })
+
+  describe('Async Action Creator updateKeyword', () => {
+    let keywordsApi;
+    const updatedKeyword = { value: 'updated keyword', id: 5 }
+
+    beforeEach(() => {
+      keywordsApi = sinon.stub(clickadillyApi, 'patch')
+    })
+
+    afterEach(() => {
+      keywordsApi.restore()
+    })
+
+    it('should be exported as a function', () => {
+      expect(updateKeyword).to.be.a('function')
+    })
+
+    it('should return a function (is a thunk)', () => {
+      expect(updateKeyword).to.be.a('function')
+    })
+
+    it('returns KEYWORD_UPDATE_SUCCESS when updating keyword', done => {
+      const resolved = new Promise(r => r({data: updatedKeyword}))
+      keywordsApi.returns(resolved)
+
+      const expectedActions = [
+        { type: KEYWORD_UPDATE_SUCCESS, data: updatedKeyword }
+      ]
+
+      const store = mockStore({ keywords: {} })
+
+      return store.dispatch(updateKeyword(updatedKeyword, 1))
+      .then(() => {
+        expect(store.getActions()).to.eql(expectedActions)
+        done();
+      })
+    })
+
+    it('returns KEYWORD_UPDATE_FAILURE when updating keyword', done => {
+      const rejected = new Promise((_, r) => r(errorRes))
+      keywordsApi.returns(rejected)
+
+      const expectedActions = [
+        { type: KEYWORD_UPDATE_FAILURE, error: errorRes }
+      ]
+
+      const store = mockStore({ keywords: {} })
+
+      return store.dispatch(updateKeyword(updatedKeyword, 1))
       .then(() => {
         expect(store.getActions()).to.eql(expectedActions)
         done();
@@ -327,6 +410,30 @@ describe('(Keyword module) "keyword"', () => {
       const expectedState = { all: expectedKeywords, currentKeyword }
 
       expect(state).to.eql(expectedState)
+    })
+
+    it('should handle KEYWORD_UPDATE_SUCCESS', () => {
+      const updatedKeyword = { id: 1, value: 'keyword 1 updated' }
+      const state = reducer(expected, { type: KEYWORD_UPDATE_SUCCESS, data: updatedKeyword })
+      const expectedKeywords = [
+        {
+          id: 1,
+          value: 1,
+          label: "keyword 1 updated",
+        },
+        {
+          id: 2,
+          value: 2,
+          label: "keyword 2",
+        },
+        {
+          id: 3,
+          value: 3,
+          label: "keyword 3",
+        }
+      ]
+
+      expect(state.all).to.eql(expectedKeywords)
     })
   })
 })

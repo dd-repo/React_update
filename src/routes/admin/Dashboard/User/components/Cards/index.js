@@ -6,7 +6,7 @@ import {
   Button
 } from 'components';
 
-import { formatDate } from 'utils/dateHelper';
+import { formatDate } from 'utils';
 import classes from '../user.scss';
 
 const Cards = ({ cards, showModal }) => {

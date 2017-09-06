@@ -1,7 +1,6 @@
 import React, { PropTypes } from 'react';
 
-import { formatDate } from 'utils/dateHelper';
-import currencyConverter from 'utils/currencyConverter';
+import { formatDate, formatPrice } from 'utils';
 import { Button, Label } from 'components';
 
 const STYLE = {
@@ -84,7 +83,7 @@ const Transaction = (props) => {
         </Label>
       </td>
       <td>
-        { currencyConverter(amount) }
+        { formatPrice(amount) }
       </td>
       <td>
         { renderButton }

@@ -107,7 +107,7 @@ describe('(Address module)', () => {
     })
 
     it('should return a function (is a thunk)', () => {
-      expect(updateAddress()).to.be.a('function')
+      expect(updateAddress(address)).to.be.a('function')
     })
 
     it('creates UPDATE_ADDRESS_SUCCESS', (done) => {
@@ -161,7 +161,7 @@ describe('(Address module)', () => {
     })
 
     it('should return a function (is a thunk)', () => {
-      expect(updateAddress()).to.be.a('function')
+      expect(updateAddress(address)).to.be.a('function')
     })
 
     it('created CREATE_ADDRESS_SUCCESS', done => {

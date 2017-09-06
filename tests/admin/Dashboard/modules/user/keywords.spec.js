@@ -5,6 +5,9 @@ import clickadillyApi from 'services/clickadillyApi';
 import {
   ACCOUNT_SUCCESS
 } from 'routes/admin/Dashboard/User/modules/account';
+import {
+  configKeywords
+} from 'routes/signup/Keywords/modules/keywords';
 
 import {
   UPDATE_KEYWORD_SUCCESS,
@@ -38,7 +41,7 @@ const errorRes = {
   response: {data: {errorMessage: 'error message'}}
 }
 
-describe('(Keyword module)', () => {
+describe('(Admin Keyword module)', () => {
 
   it('should export constants', () => {
     expect(UPDATE_KEYWORD_SUCCESS).to.equal('UPDATE_KEYWORD_SUCCESS')
@@ -104,7 +107,7 @@ describe('(Keyword module)', () => {
     })
 
     it('should return a function (is a thunk)', () => {
-      expect(updateKeyword()).to.be.a('function')
+      expect(updateKeyword(1)).to.be.a('function')
     })
 
     it('creates ACCOUNT_SUCCESS', (done) => {
@@ -158,7 +161,7 @@ describe('(Keyword module)', () => {
     })
 
     it('should return a function (is a thunk)', () => {
-      expect(addKeyword()).to.be.a('function')
+      expect(addKeyword(keyword)).to.be.a('function')
     })
 
     it('creates ADD_KEYWORD_SUCCESS', (done) => {
@@ -219,20 +222,23 @@ describe('(Keyword module)', () => {
 
     it('should handle ACCOUNT_SUCCESS', () => {
       const keywordState = reducer([], { type: ACCOUNT_SUCCESS, data: accountResponse})
+      const configuredKeywords = configKeywords([keyword])
 
-      expect(keywordState).to.eql([keyword])
+      expect(keywordState).to.eql(configuredKeywords)
     })
 
     it('should handle UPDATE_KEYWORD_SUCCESS', () => {
       const keywordState = reducer([], { type: UPDATE_KEYWORD_SUCCESS, data: keyword})
+      const configuredKeywords = configKeywords([keyword])
 
-      expect(keywordState).to.eql([keyword])
+      expect(keywordState).to.eql(configuredKeywords)
     })
 
     it('should handle ADD_KEYWORD_SUCCESS', () => {
       const keywordState = reducer([], { type: ADD_KEYWORD_SUCCESS, data: keyword})
+      const expected = configKeywords([keyword])
 
-      expect(keywordState).to.eql([keyword])
+      expect(keywordState).to.eql(expected)
     })
   })
 })

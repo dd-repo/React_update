@@ -3,18 +3,20 @@ import {
   USER_LOGIN_SUCCESS,
   USER_LOGOUT,
 } from 'routes/auth/modules/auth';
+import { buildKeywordParams } from 'utils/paramsHelper';
 
 // action types
 export const KEYWORD_POSTING = 'KEYWORD_POSTING';
 export const KEYWORD_SUCCESS = 'KEYWORD_SUCCESS';
 export const KEYWORD_FAILURE = 'KEYWORD_FAILURE';
 export const CURRENT_KEYWORD_UPDATE = 'CURRENT_KEYWORD_UPDATE';
-export const RECEIVE_KEYWORDS_SUCCESS = 'RECEIVE_KEYWORDS_SUCCESS'
-export const RECEIVE_KEYWORDS_FAILURE = 'RECEIVE_KEYWORDS_FAILURE'
+export const RECEIVE_KEYWORDS_SUCCESS = 'RECEIVE_KEYWORDS_SUCCESS';
+export const RECEIVE_KEYWORDS_FAILURE = 'RECEIVE_KEYWORDS_FAILURE';
+export const KEYWORD_UPDATE_SUCCESS = 'KEYWORD_UPDATE_SUCCESS';
+export const KEYWORD_UPDATE_FAILURE = 'KEYWORD_UPDATE_FAILURE';
 
 export const KEYWORD_REQUEST = '/dashboard/api/v1/users/sign-up/keyword';
 export const KEYWORDS_REQUEST = '/dashboard/api/v1/accounts'
-
 
 // actions
 export const updateCurrentKeyword = keyword => (
@@ -34,6 +36,16 @@ export const postKeywords = payload => {
     error => dispatch(keywordFailure(error))
     )
   }
+}
+
+export const updateKeyword = (keyword, accountId) => {
+ const path = `/dashboard/api/v1/accounts/${accountId}/keywords/${keyword.id}`
+ const payload = buildKeywordParams(keyword)
+ return dispatch => {
+   return clickadillyApi.patch(path, payload)
+   .then( response => dispatch(receiveKeywordUpdateSuccess(response.data)))
+   .catch( error => dispatch(receieveKeywordUpdateFailure(error)))
+ }
 }
 
 export const fetchKeywords = (account_id, params) => {
@@ -79,16 +91,30 @@ export const rejectKeywords = error => (
   }
 )
 
+export const receiveKeywordUpdateSuccess = data => (
+  {
+    type: KEYWORD_UPDATE_SUCCESS,
+    data
+  }
+)
+
+export const receieveKeywordUpdateFailure = error => (
+  {
+    type: KEYWORD_UPDATE_FAILURE,
+    error
+  }
+)
+
 // reducer
-const configKeywords = keywords => (
+export const configKeywords = keywords => (
   keywords.map(keyword => ({
     id: keyword.id,
     value: keyword.id,
     label: keyword.value
-    }))
+  }))
 )
 
-const configKeyword = keyword => {
+export const configKeyword = keyword => {
   if(keyword) {
     return ({
       id: keyword.id,
@@ -97,6 +123,15 @@ const configKeyword = keyword => {
     })
   }
   return {}
+}
+
+export const insertKeyword = (state, keyword) => {
+  const index = state.findIndex(k => k.id === keyword.id)
+  return [
+    ...state.slice(0, index),
+    configKeyword(keyword),
+    ...state.slice(index + 1)
+  ]
 }
 
 const reducer = (state = {}, action) => {
@@ -131,6 +166,10 @@ const reducer = (state = {}, action) => {
         all: configKeywords(action.data.keywords),
         currentKeyword: configKeyword(action.data.keywords[0]),
       });
+    case KEYWORD_UPDATE_SUCCESS:
+      return Object.assign({}, state, {
+        all: insertKeyword(state.all, action.data)
+      })
     case USER_LOGOUT:
       return {}
     default:

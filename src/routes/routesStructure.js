@@ -38,16 +38,10 @@ export const CONFIGS = {
       // children: getSidebarsMenuEntries()
     // },
     {
-      slug: 'profile',
-      title: 'Profile',
-      icon: 'fa fa-lock fa-lg',
-      url: '/dashboard/user-profile'
-    },
-    {
       slug: 'Account',
       title: 'Account',
       icon: 'fa fa-cog fa-lg',
-      url: '/dashboard/account-settings'
+      url: '/dashboard/account'
     },
     {
       slug: 'Feedback',

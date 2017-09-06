@@ -9,7 +9,7 @@ import {
   PROFILE_UPDATE_FAILURE,
   getProfile,
   updateUserProfile
-} from '../modules/profile';
+} from 'routes/client/Account/modules/profile';
 import getImageDataUrl from 'utils/imageHelper';
 
 
@@ -69,7 +69,7 @@ class ProfileEditContainer extends RoutedComponent {
   doNext(res) {
     switch(res.type) {
       case PROFILE_UPDATE_SUCCESS:
-        this.context.router.push('/dashboard/user-profile')
+        this.context.router.push('/dashboard/account')
         break;
       default:
        return null;
@@ -93,7 +93,7 @@ class ProfileEditContainer extends RoutedComponent {
 
 const mapStateToProps = state => ({
   currentUser: state.currentUser,
-  profile: state.profile
+  profile: state.account.profile
 });
 
 const mapActionCreators = {

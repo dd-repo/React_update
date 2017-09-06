@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 import { Field, reduxForm } from 'redux-form';
-import currencyConverter from 'utils/currencyConverter';
+import { formatPrice } from 'utils';
 
 import formFields from 'consts/data/formFields';
 import { checkValidation } from 'utils/formHelpers';
@@ -61,7 +61,7 @@ let PaymentForm = (props) => {
             </Label>
             <div>
               <p className={ classes.price }>
-                { currencyConverter(props.planPrice) }
+                { formatPrice(props.planPrice) }
               </p>
               <p>
                 / Month

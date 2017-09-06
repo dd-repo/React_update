@@ -16,13 +16,16 @@ export const FORGOT_USER_PASSWORD_POSTING = 'FORGOT_USET_PASSWORD_POSTING';
 export const FORGOT_USER_PASSWORD_SUCCESS = 'FORGOT_USER_PASSWORD_SUCCESS';
 export const FORGOT_USER_PASSWORD_FAILURE = 'FORGOT_USER_PASSWORD_FAILURE';
 
+export const PASSWORD_UPDATE_SUCCESS = 'PASSWORD_UPDATE_SUCCESS';
+export const PASSWORD_UPDATE_FAILURE = 'PASSWORD_UPDATE_FAILURE';
+
 export const USER_REMOVE_ERROR_MSG = 'USER_REMOVE_ERROR_MSG';
 export const USER_LOGOUT = 'USER_LOGOUT'
 
 const CLIENT_API = '/dashboard/api/v1/users';
 export const SIGNUP_REQUEST = `${CLIENT_API}/sign-up/create`;
 export const LOGIN_REQUEST = `${CLIENT_API}/sign-in`;
-export const UPDATE_PASSWORD_REQUEST = `${CLIENT_API}/password/update`;
+export const UPDATE_PASSWORD_REQUEST_WITH_TOKEN = `${CLIENT_API}/password/update`;
 export const RESET_PASSWORD_REQUEST = `${CLIENT_API}/password/forgot`
 
 
@@ -34,10 +37,8 @@ export const postUserSignup = payload => {
     return clickadillyApi.post(SIGNUP_REQUEST, payload)
     .then(
       response => dispatch(receiveUserSignup(response.data)))
-      //response => console.log('success', response.data))
       .catch(
         error => dispatch(receiveUserSignupFailure(error))
-        //error => console.log('error', error.response)
       )
   }
 }
@@ -81,12 +82,21 @@ export const fetchUser = () => {
 export const updateUserPassword = payload => {
   return dispatch => {
     dispatch(postingUserLogin())
-    return clickadillyApi.patch(UPDATE_PASSWORD_REQUEST, { user: payload })
+    return clickadillyApi.patch(UPDATE_PASSWORD_REQUEST_WITH_TOKEN, { user: payload })
     .then(
       response => dispatch(receiveClientLogin(response.data)))
       .catch(
         error =>
         dispatch(receiveUserLoginFailure(error)))
+  }
+}
+
+export const updatePassword = password => {
+  const payload = { user: { password } }
+  return dispatch => {
+    return clickadillyApi.patch(CLIENT_API, payload)
+    .then( response => dispatch(receievePasswordUpdateSuccess()))
+    .catch( error => dispatch(receievePasswordUpdateFailure()))
   }
 }
 
@@ -167,6 +177,18 @@ export const receiveForgotPasswordFailure = (error) => (
   {
     type: FORGOT_USER_PASSWORD_FAILURE,
     error
+  }
+)
+
+export const receievePasswordUpdateSuccess = () => (
+  {
+    type: PASSWORD_UPDATE_SUCCESS
+  }
+)
+
+export const receievePasswordUpdateFailure = () => (
+  {
+    type: PASSWORD_UPDATE_FAILURE
   }
 )
 

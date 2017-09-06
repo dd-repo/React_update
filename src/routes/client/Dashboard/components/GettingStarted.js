@@ -36,7 +36,7 @@ const enhance = compose(enhancer1, enhancer2)
 
 const GettingStarted = enhance((props) => {
 
-  const fullName = capitalize(getFullName(props.user))
+  const fullName = getFullName(props.user)
 
   const renderInstructions = (
     <div className='text-center'>

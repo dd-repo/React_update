@@ -8,17 +8,11 @@ import {
 const reducer = (state = [], action) => {
   switch(action.type) {
     case USER_SIGNUP_SUCCESS:
-      return Object.assign({}, state, {
-        accounts: action.data.user.accounts
-      });
+      return action.data.user.accounts
     case USER_LOGIN_SUCCESS:
-      return Object.assign({}, state, {
-        accounts: action.data.user.accounts
-      });
+      return action.data.user.accounts
     case USER_LOGOUT:
-      return Object.assign({}, state, {
-        accounts: []
-      });
+      return []
     default:
       return state
   }

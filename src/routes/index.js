@@ -23,7 +23,7 @@ const handleRouteOnEnter = (store, nextState, replace) => {
 
 const authTransition = ({store, nextState, replace, authToken}) => {
   const pathname = nextState.location.pathname
-  const { currentUser, keywords } = store.getState()
+  const { currentUser, account: { keywords } } = store.getState()
 
   if(pathname.startsWith('/dashboard')) {
     isValidClient(currentUser, replace, authToken) &&

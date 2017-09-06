@@ -5,7 +5,7 @@ import DatePicker from 'react-bootstrap-date-picker';
 
 import { checkValidation } from 'utils/formHelpers';
 import formFields from 'consts/data/formFields';
-import { formatDate } from 'utils/dateHelper';
+import { formatDate } from 'utils';
 
 import {
     Col,

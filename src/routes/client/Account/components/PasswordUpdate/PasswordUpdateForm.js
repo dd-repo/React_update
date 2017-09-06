@@ -4,6 +4,7 @@ import { reduxForm, Field } from 'redux-form';
 
 import { checkValidation, confirmPassword } from 'utils/formHelpers';
 import {
+  Panel,
   FormGroup,
   Form,
   Col,
@@ -11,6 +12,7 @@ import {
   FormControl,
   Button
 } from 'components';
+import classes from './styles.scss';
 
 const fields = {
   oldPassword: {
@@ -83,8 +85,8 @@ const renderField = ({ klass, name, type, placeHolder, label, maxLength, normali
     />
 )
 
-const UpdatePasswordForm = ({
-  submitForm,
+const PasswordUpdateForm = ({
+  onSubmit,
   handleSubmit,
   submitting,
   invalid,
@@ -92,53 +94,49 @@ const UpdatePasswordForm = ({
 }) => {
 
   return (
-    <div>
-      <Form onSubmit={handleSubmit(submitForm)} horizontal>
-        <FormGroup>
-          <Col componentClass={ControlLabel} sm={3}>
-            New Password
-          </Col>
-          <Col sm={6}>
+    <Panel
+      className='m-b-2'
+      header={
+        <h4 className='panel-title'>
+          Change Password
+        </h4>
+        }
+        >
+
+        <Form onSubmit={handleSubmit(onSubmit)} horizontal>
+          <FormGroup className='m-r-2 m-l-2'>
+            <label>
+              New Password
+            </label>
             {renderField(fields.newPassword)}
-          </Col>
-        </FormGroup>
-        <FormGroup>
-          <Col componentClass={ControlLabel} sm={3}>
-            Confirm New Password
-          </Col>
-          <Col sm={6}>
+          </FormGroup>
+          <FormGroup className='m-r-2 m-l-2'>
+            <label>
+              Confirm New Password
+            </label>
             {renderField(fields.passwordConfirmation)}
-          <span className='text-danger'>{passwordErrorMsg}</span>
-          </Col>
-        </FormGroup>
-        <FormGroup>
-          <Col smOffset={3} sm={6}>
+            <span className='text-danger'>{passwordErrorMsg}</span>
+          </FormGroup>
+          <FormGroup className='m-r-2 m-l-2'>
             <button
-              className='m-r-1'
+              className={`${classes.buttonClean} m-r-1`}
               disabled={invalid || submitting}
               action='submit'
             >
               Update Password
             </button>
-
-            {/* <LinkContainer to='/forgot-password'>
-              <Button bsStyle='link'>
-                Forgot Password?
-              </Button>
-              </LinkContainer> */}
-          </Col>
-        </FormGroup>
-      </Form>
-    </div>
+          </FormGroup>
+        </Form>
+      </Panel>
   )
 }
 
-UpdatePasswordForm.propTypes = {
-  submitForm: PropTypes.func.isRequired,
+PasswordUpdateForm.propTypes = {
+  onSubmit: PropTypes.func.isRequired,
   passwordErrorMsg: PropTypes.string,
 }
 
 export default reduxForm({
   form: 'updatePasswordForm',
   validate
-})(UpdatePasswordForm);
+})(PasswordUpdateForm);

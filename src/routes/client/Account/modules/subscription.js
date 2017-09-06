@@ -64,15 +64,19 @@ export const subscriptionCancelFailure = error => (
 )
 
 // reducer
-const subscription = (state, subscription) => (
-   Object.assign({}, state, {
+const addSubscription = (state, subscription) => (
+  Object.assign({}, state, {
     id: subscription.id,
+    card: subscription.card,
     cancelDate: subscription.cancel_date,
+    plan: subscription.plan,
+    planDescription: subscription.plan_description,
+    planPrice: subscription.plan_price,
     isActive: subscription.is_active,
     nextPayment: subscription.next_payment,
     startDate: subscription.start_date,
     isFetching: false
-   })
+  })
 )
 
 const reducer = (state = {}, action) => {
@@ -81,14 +85,18 @@ const reducer = (state = {}, action) => {
       return Object.assign({}, state, {
         isFetching: true
       })
+
     case SUBSCRIPTION_SUCCESS:
-      return subscription(state, action.subscription)
+      return addSubscription(state, action.subscription)
+
     case SUBSCRIPTION_FAILURE:
       return Object.assign({}, state, {
         error: action.error
       })
+
     case SUBSCRIPTION_CANCEL_SUCCESS:
-      return subscription(state, action.subscription)
+      return addSubscription(state, action.subscription)
+
     case USER_LOGOUT:
       return {}
     default:

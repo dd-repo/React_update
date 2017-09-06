@@ -103,7 +103,7 @@ const setUp = () => {
   }
 }
 
-describe.only('Dashboard Component', () => {
+describe('Dashboard Component', () => {
   const { wrapper } = setUp()
 
   it('should exist', () => {

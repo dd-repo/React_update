@@ -19,7 +19,7 @@ import {
   subscriptionCancelSuccess,
   subscriptionCancelFailure,
   default as reducer,
-} from 'routes/client/AccountEdit/modules/subscription';
+} from 'routes/client/Account/modules/subscription';
 
 const middlewares = [ thunk ]
 const mockStore = configureMockStore(middlewares)
@@ -169,7 +169,17 @@ describe( '(subscription module) subscriptions', () => {
   describe('(Reducer)', () => {
 
     const errorRes = {errorMessage: 'error'}
-    const subscriptionRes = { id: 1, cancel_date: 'now', is_active: true, next_payment: 'tomorrow', start_date: 'yesterday' }
+    const subscriptionRes = {
+      id: 1,
+      cancel_date: 'now',
+      card: '4242',
+      is_active: true,
+      next_payment: 'tomorrow',
+      start_date: 'yesterday',
+      plan: 'individual',
+      plan_description: 'Individual plan',
+      plan_price: '39'
+    }
 
     it('Should be a function.', () => {
       expect(reducer).to.be.a('function')
@@ -205,7 +215,7 @@ describe( '(subscription module) subscriptions', () => {
 
     it('should handle SUBSCRIPTION_CANCEL_SUCCESS', () => {
       const state = reducer({}, { type: SUBSCRIPTION_CANCEL_SUCCESS, subscription: subscriptionRes})
-      const expectedState = {id: 1, cancelDate: 'now', isActive: true, nextPayment: 'tomorrow', startDate: 'yesterday', isFetching: false}
+      const expectedState = {id: 1, cancelDate: 'now', isActive: true, card: '4242', nextPayment: 'tomorrow', startDate: 'yesterday', plan: 'individual', planPrice: '39', planDescription: 'Individual plan', isFetching: false}
       expect(state).to.eql(expectedState)
     })
   })

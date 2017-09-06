@@ -1,4 +1,4 @@
-import { formatDate } from 'utils/dateHelper';
+import { formatDate } from 'utils';
 
 describe('formatDate', () => {
 

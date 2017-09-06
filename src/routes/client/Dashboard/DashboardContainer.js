@@ -191,7 +191,7 @@ const mapStateToProps = state => ({
   completedRemovals: state.monitoring.completed,
   googleResults: state.googleResults.all,
   hasData: state.dashboard.hasData,
-  keywords: state.keywords
+  keywords: state.account.keywords
 })
 
 const mapActionCreators = {

@@ -19,10 +19,10 @@ const mockStore = configureMockStore(middlewares)
 
 const profile = {
   id: 1,
-  avatar_url: 'avatar url',
-  driver_license: 'driver license url',
-  maiden_name: 'maiden name',
-  middle_name: 'middle name'
+  avatar: 'avatar url',
+  driverLicense: 'driver license url',
+  maidenName: 'maiden name',
+  middleName: 'middle name'
 }
 
 const errorRes = {
@@ -115,7 +115,7 @@ describe('(Profile module)', () => {
       profile: {
         id: 1,
         avatar_url: 'avatar url',
-        driver_license: 'driver license url',
+        driver_license_url: 'driver license url',
         maiden_name: 'maiden name',
         middle_name: 'middle name'
         }
@@ -123,18 +123,26 @@ describe('(Profile module)', () => {
 
     const oldProfile = {
         id: 1,
+        avatar: 'avatar url',
+        driverLicense: 'driver license url',
+        maidenName: 'oldMaiden name',
+        middleName: 'oldMiddle name'
+    }
+
+    const newProfile = {
+        id: 1,
         avatar_url: 'avatar url',
-        driver_license: 'driver license url',
-        maiden_name: 'oldMaiden name',
-        middle_name: 'oldMiddle name'
+        driver_license_url: 'driver license url',
+        maiden_name: 'newMaiden name',
+        middle_name: 'newMiddle name'
     }
 
     const updatedProfile = {
         id: 1,
-        avatar_url: 'avatar url',
-        driver_license: 'driver license url',
-        maiden_name: 'newMaiden name',
-        middle_name: 'newMiddle name'
+        avatar: 'avatar url',
+        driverLicense: 'driver license url',
+        maidenName: 'newMaiden name',
+        middleName: 'newMiddle name'
     }
 
     it('Should be a function', () => {
@@ -150,8 +158,8 @@ describe('(Profile module)', () => {
       expect(profileState).to.eql(profile)
     })
 
-    it('should handle UPDATE_PROFILE_FAILURE', () => {
-      const profileState = reducer(oldProfile, { type: UPDATE_PROFILE_SUCCESS, data: updatedProfile})
+    it('should handle UPDATE_PROFILE_SUCCESS', () => {
+      const profileState = reducer(oldProfile, { type: UPDATE_PROFILE_SUCCESS, data: newProfile})
       expect(profileState).to.eql(updatedProfile)
     })
   })

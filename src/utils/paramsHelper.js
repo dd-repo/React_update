@@ -16,3 +16,20 @@ const sanitizeNums = value => {
   return value.replace(/[^\d]/gi, '')
 }
 
+export const buildAddressParams = address => (
+  {
+    address1: address.address1,
+    city: address.city,
+    state: address.state,
+    zip: address.zipcode,
+    account_id: address.account_id
+  }
+)
+
+export const buildKeywordParams = keyword => (
+  {
+    id: keyword.id,
+    value: keyword.label
+  }
+)
+

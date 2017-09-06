@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import Loading from 'react-loading';
-import { formatDate } from 'utils/dateHelper';
+import { formatDate } from 'utils';
 
 import Transaction from './Transaction';
 import RootModal from 'components/Modals';

@@ -51,7 +51,7 @@ describe('(Store) createStore', () => {
 
   describe('(profile)', () => {
     it('store should be initialized with an empty profile object', () => {
-      expect(store.getState().profile).to.be.an('object')
+      expect(store.getState().account.profile).to.be.an('object')
       expect(store.profile).to.be.empty
     })
   })

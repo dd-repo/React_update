@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 import { reduxForm, Field } from 'redux-form';
-import { formatDate } from 'utils/dateHelper';
+import { formatDate } from 'utils';
 
 import {
     Col,

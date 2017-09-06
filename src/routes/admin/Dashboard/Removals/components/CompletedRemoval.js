@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { formatDate } from 'utils/dateHelper';
+import { formatDate } from 'utils';
 
 const CompletedRemoval = ({ removal }) => {
   const {

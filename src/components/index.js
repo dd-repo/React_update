@@ -89,6 +89,7 @@ import Tooltip from './Tooltip';
 import TreeNavigator from './TreeNavigator';
 import SearchBar from './SearchBar';
 import Modals from './Modals';
+import FlashMessage from './FlashMessage';
 
 export {
     Accordion,
@@ -176,5 +177,6 @@ export {
     Timeline,
     Tooltip,
     TreeNavigator,
-    SearchBar
+    SearchBar,
+    FlashMessage
 };

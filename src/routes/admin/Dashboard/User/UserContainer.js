@@ -3,16 +3,17 @@ import clickadillyApi from 'services/clickadillyApi';
 
 import { RoutedComponent, connect } from 'routes/routedComponent';
 import { CONTENT_VIEW_FLUID } from 'layouts/DefaultLayout/modules/layout';
-import { showModal } from 'modules/modal';
+import { showModal, hideModal } from 'modules/modal';
 import User from './components/User';
 import { fetchUser } from './modules/user';
 import { fetchAccount } from './modules/account';
 import { fetchCards } from './modules/cards';
 import { resetUserPassword } from 'routes/auth/modules/auth';
-import { formatDate } from 'utils/dateHelper';
+import { formatDate } from 'utils';
 import { normalizePhone } from 'utils/formHelpers';
 import { clearNotification } from './modules/notifications';
 import { USERS_REQUEST } from 'routes/admin/Dashboard/Users/modules/users';
+import { submitKeyword } from 'routes/admin/Dashboard/User/modules/keywords';
 
 class UserContainer extends RoutedComponent {
   constructor(props) {
@@ -69,6 +70,11 @@ class UserContainer extends RoutedComponent {
     )
   }
 
+  handleKeywordSubmit = keyword => {
+    this.props.hideModal()
+    this.props.submitKeyword(keyword, this.props.user.account.id)
+  }
+
   fetchAdmin() {
     const params = {
       q: { group_eq: 'backend' }
@@ -95,6 +101,7 @@ class UserContainer extends RoutedComponent {
           clearMessage={this.props.clearNotification}
           notification={this.props.user.notifications}
           handleNewSubscription={this.handleNewSubscription}
+          handleKeywordSubmit={this.handleKeywordSubmit}
         />
     )
   }
@@ -111,6 +118,8 @@ const mapActionCreators = {
   fetchAccount,
   fetchCards,
   showModal,
+  hideModal,
+  submitKeyword,
   clearNotification
 }
 export default connect(mapStateToProps, mapActionCreators)(UserContainer);

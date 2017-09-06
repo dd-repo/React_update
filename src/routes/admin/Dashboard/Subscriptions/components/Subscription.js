@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
 
 import { Button, Label } from 'components';
-import { formatDate } from 'utils/dateHelper';
+import { formatDate } from 'utils';
 
 const Subscription = props => {
 

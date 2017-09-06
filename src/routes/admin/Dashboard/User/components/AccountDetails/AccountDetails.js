@@ -18,7 +18,7 @@ import Keywords from './components/Keywords';
 import Addresses from './components/Addresses';
 import Phones from './components/Phones';
 import Profile from './components/Profile';
-import { formatDate } from 'utils/dateHelper';
+import { formatDate } from 'utils';
 import classes from '../user.scss';
 
 const MODAL_TYPE = {
@@ -47,12 +47,15 @@ class AccountDetails extends React.Component {
     this.setState({tabKey: e.target.innerText})
   }
 
-  _handleClick(value = {}, type) {
-    if(type = 'edit') {
-      this.props.showModal(MODAL_TYPE[this.state.tabKey], value)
-    }
-    if(type = 'new') {
-      this.props.showModal(MODAL_TYPE[this.state.tabKey])
+  _handleClick(e) {
+    const text = e.target.innerText
+    const { tabKey } = this.state
+    const { showModal, handleKeywordSubmit } = this.props
+
+    if(text.includes('Keyword')) {
+      showModal('KEYWORD', {}, handleKeywordSubmit)
+    } else {
+      showModal(MODAL_TYPE[tabKey])
     }
   }
 
@@ -122,7 +125,7 @@ class AccountDetails extends React.Component {
                       {
                         (tabKey === 'Keywords' || tabKey === 'Addresses') &&
                           <Button
-                            onClick={() => {this.props.showModal(MODAL_TYPE[this.state.tabKey]) }}
+                            onClick={this._handleClick}
                             bsStyle='success'
                           >
                             Add {SINGULAR_RESOURCE[this.state.tabKey]} <i className='fa fa-plus fa-lg'></i>
@@ -160,6 +163,7 @@ class AccountDetails extends React.Component {
                               <Keywords
                                 keywords={keywords}
                                 showModal={this.props.showModal}
+                                handleKeywordSubmit={this.props.handleKeywordSubmit}
                               />
                             </Tab.Pane>
                             <Tab.Pane eventKey='addresses'>

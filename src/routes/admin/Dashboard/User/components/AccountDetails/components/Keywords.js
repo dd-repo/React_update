@@ -9,8 +9,8 @@ import {
 
 import classes from '../../user.scss';
 
-const Keywords = ({keywords, showModal}) => (
-  <div>
+const Keywords = ({keywords, showModal, handleKeywordSubmit}) => (
+  <div className={ classes.mainWrap} >
     <ListGroup className={ classes.taskDetails }>
       {
         keywords.map((keyword, i) => (
@@ -19,10 +19,10 @@ const Keywords = ({keywords, showModal}) => (
               Keyword { i + 1 }
             </h5>
             <div className={ classes.detailsValue }>
-              { keyword.value }
+              { keyword.label }
             </div>
             <Button
-              onClick={() => { showModal('KEYWORD', keyword) }}
+              onClick={() => { showModal('KEYWORD', keyword, handleKeywordSubmit) }}
               bsSize='small'
               bsStyle='link'
             >

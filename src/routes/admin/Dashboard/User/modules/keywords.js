@@ -1,6 +1,7 @@
 import clickadillyApi from 'services/clickadillyApi';
 import { ACCOUNT_SUCCESS } from './account';
 
+import { configKeywords, configKeyword, insertKeyword } from 'routes/client/Account/modules/keywords';
 export const UPDATE_KEYWORD_SUCCESS = 'UPDATE_KEYWORD_SUCCESS';
 export const UPDATE_KEYWORD_FAILURE = 'UPDATE_KEYWORD_FAILURE';
 export const ADD_KEYWORD_SUCCESS = 'ADD_KEYWORD_SUCCESS';
@@ -18,7 +19,7 @@ export const submitKeyword = (keyword, accountId) => {
 }
 
 export const updateKeyword = keyword => {
-  const payload = { keyword }
+  const payload = { keyword: { id: keyword.id, value: keyword.label }}
   return dispatch => {
     return clickadillyApi.patch(`${KEYWORD_REQUEST}/${keyword.id}`, payload)
     .then( response => dispatch(updateKeywordSuccess(response.data)))
@@ -27,7 +28,9 @@ export const updateKeyword = keyword => {
 }
 
 export const addKeyword = (keyword, account_id) => {
-  const payload = Object.assign({}, keyword, { account_id })
+  const payload = Object.assign({}, keyword, {
+    value: keyword.label, account_id
+  })
 
   return dispatch => {
     return clickadillyApi.post(KEYWORD_REQUEST, payload)
@@ -64,25 +67,16 @@ export const addKeywordFailure = error => (
   }
 )
 
-const insertKeyword = (state, keyword) => {
-  const index = state.findIndex(k => k.id === keyword.id)
-  return [
-    ...state.slice(0, index),
-    keyword,
-    ...state.slice(index + 1)
-  ]
-}
-
 const reducer = (state=[], action) => {
   switch(action.type) {
     case ACCOUNT_SUCCESS:
-      return action.data.keywords
+      return configKeywords(action.data.keywords)
     case UPDATE_KEYWORD_SUCCESS:
-      return insertKeyword(state, action.data)
+      return insertKeyword(state, configKeyword(action.data))
     case ADD_KEYWORD_SUCCESS:
       return [
         ...state,
-        action.data
+        configKeyword(action.data)
       ]
     default:
       return state

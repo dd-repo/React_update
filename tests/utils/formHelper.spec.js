@@ -122,23 +122,31 @@ describe('formHelper', () => {
       })
     })
 
-    describe('expiration date', () => {
-      it('should return an error when expiration date is blank', () => {
-        const exp = {expirationDate: ''}
+    describe('expiration Month', () => {
+      it('should return an error when expiration month is blank', () => {
+        const exp = {expirationMonth: ''}
         const errors = checkValidation(exp, fields)
-        expect(errors.expirationDate).to.eq('Please enter your Credit Card Expiration Date')
-      })
-
-      it('should return an error when expiration date is less then 7 charaters', () => {
-        const exp = {expirationDate: '0220'}
-        const errors = checkValidation(exp, fields)
-        expect(errors.expirationDate).to.eq('Invalid expiration date')
+        expect(errors.expirationMonth).to.eq('Required')
       })
 
       it('should return no erros', () => {
-        const exp = {expirationDate: '02/2020'}
+        const exp = {expirationMonth: '2'}
         const errors = checkValidation(exp, fields)
-        expect(errors.expirationDate).to.eq(undefined)
+        expect(errors.expirationMonth).to.eq(undefined)
+      })
+    })
+
+    describe('expiration Year', () => {
+      it('should return an error when expiration year is blank', () => {
+        const exp = {expirationYear: ''}
+        const errors = checkValidation(exp, fields)
+        expect(errors.expirationYear).to.eq('Required')
+      })
+
+      it('should return no erros', () => {
+        const exp = {expirationYear: '2020'}
+        const errors = checkValidation(exp, fields)
+        expect(errors.expirationYear).to.eq(undefined)
       })
     })
 

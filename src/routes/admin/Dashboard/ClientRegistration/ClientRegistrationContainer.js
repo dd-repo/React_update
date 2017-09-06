@@ -43,7 +43,6 @@ class ClientRegistrationContainer extends RoutedComponent {
 
   submitForm(user) {
     const payload = this.buildParams(user)
-    debugger
     this.setState({isFetching: true})
     clickadillyApi.post(CLIENT_SIGNUP_REQUEST, payload)
     .then(res => { this.handleSuccess() })

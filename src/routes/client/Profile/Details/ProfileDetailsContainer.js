@@ -6,7 +6,7 @@ import { CONTENT_VIEW_STATIC } from 'layouts/DefaultLayout/modules/layout';
 import {
   PROFILE_SUCCESS,
   getProfile
-} from '../modules/profile';
+} from 'routes/client/Account/modules/profile';
 
 class ProfileContainer extends RoutedComponent {
   constructor(props) {
@@ -50,7 +50,7 @@ class ProfileContainer extends RoutedComponent {
 
 const mapStateToProps = state => ({
   currentUser: state.currentUser,
-  profile: state.profile
+  profile: state.account.profile
 });
 
 const mapActionCreators = {

@@ -1,6 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { formatDate } from 'utils/dateHelper';
-import capitalize from 'utils/capitalize';
+import { formatDate, capitalize } from 'utils';
 
 import {
   Label,

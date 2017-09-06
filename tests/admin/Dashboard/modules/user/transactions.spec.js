@@ -2,7 +2,7 @@ import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import clickadillyApi from 'services/clickadillyApi';
 
-import { formatDate } from 'utils/dateHelper';
+import { formatDate } from 'utils';
 
 import {
   USER_SUCCESS,

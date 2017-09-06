@@ -80,14 +80,6 @@ export default [
       }
     },
     {
-      path: '/dashboard/user-profile',
-      getComponent: (nextState, cb) => {
-        require.ensure([], require => {
-          cb(null, require('./client/Profile/Details').default);
-        }, 'dashboard-profile-details');
-      }
-    },
-    {
       path: '/dashboard/user-profile/edit',
       getComponent: (nextState, cb) => {
         require.ensure([], require => {
@@ -104,11 +96,11 @@ export default [
         }
     },
     {
-      path: '/dashboard/account-settings',
+      path: '/dashboard/account',
       getComponent: (nextState, cb) => {
         require.ensure([], require => {
-              cb(null, require('./client/AccountEdit').default);
-        }, 'dashboard-account-settings');
+              cb(null, require('./client/Account').default);
+        }, 'dashboard-account');
       }
     },
     {

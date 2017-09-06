@@ -55,7 +55,7 @@ const ProfileEdit = (props) => {
             </Media.Left>
             <Media.Body>
               <p className='h3 m-y-0'>
-                <Link to='/dashboard/user-profile'>
+                <Link to='/dashboard/account'>
                   <span>{ currentUser.first_name }</span>  <span>{ currentUser.last_name }</span>
                 </Link>
                 <span className='text-muted m-x-1'>

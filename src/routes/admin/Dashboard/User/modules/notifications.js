@@ -79,7 +79,6 @@ const setErrorMessage = (state, error) => {
 }
 
 const setSuccessMessage = (state, item, verb) => {
-  console.log(`${item} Successfully ${verb}`)
   return Object.assign({}, state, {
     message: `${item} Successfully ${verb}`,
     status: 'success'
@@ -90,6 +89,7 @@ const reducer = (state=initialValues, action) => {
   switch(action.type) {
     case FORGOT_USER_PASSWORD_SUCCESS:
       return setSuccessMessage(state, 'Email', 'Sent')
+
     case UPDATE_TRANSACTION_SUCCESS:
       return setSuccessMessage(state, 'Transaction', 'Updated')
 

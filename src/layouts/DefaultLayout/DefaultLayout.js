@@ -610,7 +610,7 @@ const mapStateToProps = (state) => ({
     rawContent: state.layout.rawContent,
     notifications: state.notifications,
     currentUser: state.currentUser,
-    profile: state.profile,
+    profile: state.account.profile,
 });
 
 const mapActionCreators = {

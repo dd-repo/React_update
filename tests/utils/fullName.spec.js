@@ -1,10 +1,10 @@
 import getFullName from 'utils/fullName';
 
 describe('getFullName()', () => {
-  it('returns first and last name in a string', () => {
+  it('returns First and Last name in a string', () => {
     const user = { first_name: 'first', last_name: 'last' }
 
-    expect(getFullName(user)).to.eql('first last')
+    expect(getFullName(user)).to.eql('First Last')
   })
 
   it('returns value if not an object', () => {
