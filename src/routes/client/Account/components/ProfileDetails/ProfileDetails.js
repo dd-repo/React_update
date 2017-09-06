@@ -136,7 +136,7 @@ const UserDetails = ({ profile, account, address, phone }) => (
                         </OverlayTrigger>
                       </span>
                       <Image
-                        src={profile.driverLicense}
+                        src={profile.driver_license}
                         backgroundText='Driver License'
                         height={ 140 }
                         width={ 240 }
