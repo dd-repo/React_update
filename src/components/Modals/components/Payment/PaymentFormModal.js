@@ -33,7 +33,6 @@ const PaymentModal = props => {
           errorMessage={props.errorMessage}
           paymentSuccess={props.paymentSuccess}
           isFetching={props.isFetching}
-          planType={props.planType}
           planPrice={props.planPrice}
         />
       </Modal.Body>
