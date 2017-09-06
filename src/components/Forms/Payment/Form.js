@@ -26,8 +26,7 @@ let PaymentForm = (props) => {
   const {
     submitForm,
     errorMessage,
-    planType,
-    price,
+    planPrice,
     handleSubmit,
     invalid,
     submitting,
@@ -56,12 +55,9 @@ let PaymentForm = (props) => {
         { renderErrorMessage }
         {
           props.planType && <div className='text-center'>
-            <Label outline bsStyle='primary'>
-              { props.planType }
-            </Label>
             <div>
               <p className={ classes.price }>
-                { formatPrice(props.planPrice) }
+                { formatPrice(planPrice) }
               </p>
               <p>
                 / Month
@@ -69,10 +65,8 @@ let PaymentForm = (props) => {
             </div>
           </div>
           }
-          <Divider>
-            <h4 className='m-l-2'>
-              Credit Card
-            </h4>
+          <Divider className='m-l-2'>
+            Credit Card
           </Divider>
 
           <FormGroup controlId='formSizingColumn'>
@@ -118,10 +112,8 @@ let PaymentForm = (props) => {
           </FormGroup>
         </Row>
         <Row>
-          <Divider>
-            <h4 className='m-l-2'>
-              Billing Address
-            </h4>
+          <Divider className='m-l-2'>
+            Billing Address
           </Divider>
           <FormGroup controlId='formSizingColumn'>
             <Col lg={12}>
@@ -151,10 +143,7 @@ let PaymentForm = (props) => {
             </Col>
           </FormGroup>
         </Row>
-        <p>
-          All major credit cards are accepted through a secure payment process
-        </p>
-        <button className="full-width btn btn-success"
+        <button className="full-width btn btn-success m-t-2"
           disabled={submitting}
           action="submit">
           { renderButtonLabel }
