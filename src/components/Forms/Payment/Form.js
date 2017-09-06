@@ -53,18 +53,16 @@ let PaymentForm = (props) => {
       onSubmit={handleSubmit(submitForm)}>
       <Row>
         { renderErrorMessage }
-        {
-          props.planType && <div className='text-center'>
-            <div>
-              <p className={ classes.price }>
-                { formatPrice(planPrice) }
-              </p>
-              <p>
-                / Month
-              </p>
-            </div>
+        <div className='text-center'>
+          <div>
+            <p className={ classes.price }>
+              { formatPrice(planPrice) }
+            </p>
+            <p>
+              / Month
+            </p>
           </div>
-          }
+        </div>
           <Divider className='m-l-2'>
             Credit Card
           </Divider>
