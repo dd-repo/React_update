@@ -368,6 +368,9 @@ class DefaultLayout extends React.Component {
                                           <LinkContainer to='/dashboard/privacy'>
                                             <MenuItem eventKey={3.4}>Privacy</MenuItem>
                                           </LinkContainer>
+                                          <LinkContainer to='/dashboard/feedback'>
+                                          <MenuItem eventKey={3.5}>Feedback</MenuItem>
+                                        </LinkContainer>
                                           <LinkContainer to='/terms-of-service'>
                                           <MenuItem eventKey={3.5}>Terms Of Service</MenuItem>
                                         </LinkContainer>
