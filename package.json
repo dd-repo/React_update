@@ -20,6 +20,7 @@
     "deploy": "better-npm-run deploy",
     "deploy:dev": "better-npm-run deploy:dev",
     "deploy:prod": "better-npm-run deploy:prod",
+    "deploy:staging": "better-npm-run deploy:staging",
     "codecov": "cat coverage/*/lcov.info | codecov",
     "push": "./push.sh"
   },
@@ -47,6 +48,13 @@
       "command": "npm run deploy",
       "env": {
         "NODE_ENV": "development",
+        "DEBUG": "app:*"
+      }
+    },
+    "deploy:staging": {
+      "command": "npm run deploy",
+      "env": {
+        "NODE_ENV": "staging",
         "DEBUG": "app:*"
       }
     },
