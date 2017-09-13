@@ -8,8 +8,7 @@ import { CONTENT_VIEW_STATIC } from 'layouts/DefaultLayout/modules/layout';
 import {
   getRemovals,
   updateStatus,
-  UPDATE_STATUS_SUCCESS,
-  UPDATE_STATUS_FAILURE
+  clearNotification
 } from './modules/removalRequests'
 
 const removalStatus = {
@@ -120,6 +119,10 @@ class RequestedRemovalsContainer extends RoutedComponent {
           this.showModal(removal)
   }
 
+  clearNotification = () => {
+    this.props.clearNotification()
+  }
+
   render() {
     const { requestedRemovals } = this.props
     const { pagination } = requestedRemovals
@@ -144,6 +147,8 @@ class RequestedRemovalsContainer extends RoutedComponent {
     }else{
       return <RequestedRemovals
         removals={requestedRemovals.all}
+        notification={requestedRemovals.notification}
+        clearMessage={this.clearNotification}
         pageNum={this.state.pageNum}
         isFetching={this.props.requestedRemovals.isFetching}
         handleClick={this.handleClick}
@@ -168,6 +173,7 @@ const mapStateToProps = state => ({
 const mapActionCreators = {
   getRemovals,
   updateStatus,
+  clearNotification
 }
 
 export default connect(mapStateToProps, mapActionCreators)(RequestedRemovalsContainer)

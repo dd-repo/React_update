@@ -2,7 +2,7 @@ import React from 'react';
 
 import { RoutedComponent, connect } from 'routes/routedComponent';
 import { CONTENT_VIEW_STATIC } from 'layouts/DefaultLayout/modules/layout';
-import { getTransactions } from './modules/transactions'
+import { fetchTransactions, clearNotification } from './modules/transactions'
 import { showModal, hideModal } from 'modules/modal';
 import Transactions from './components/Transactions';
 
@@ -37,7 +37,7 @@ class TransactionsContainer extends RoutedComponent {
   }
 
   fetchTransactions(params={}, pageNum=1) {
-    this.props.getTransactions(params, pageNum)
+    this.props.fetchTransactions(params, pageNum)
   }
 
   getNextPage(pageNum) {
@@ -54,6 +54,10 @@ class TransactionsContainer extends RoutedComponent {
     }
     this.fetchTransactions(params)
     this.setState({ queryName })
+  }
+
+  clearNotification = () => {
+    this.props.clearNotification()
   }
 
   render() {
@@ -79,7 +83,8 @@ class TransactionsContainer extends RoutedComponent {
         queryName={this.state.queryName}
         limit={limit}
         total={total}
-        notification={this.state.notification}
+        notification={this.props.transactions.notification}
+        clearMessage={this.clearNotification}
       />
     )
   }
@@ -92,9 +97,10 @@ const mapStateToProps = state => {
 }
 
 const mapActionCreators = {
-  getTransactions,
+  fetchTransactions,
   showModal,
-  hideModal
+  hideModal,
+  clearNotification
 }
 
 export default connect(mapStateToProps, mapActionCreators)(TransactionsContainer)

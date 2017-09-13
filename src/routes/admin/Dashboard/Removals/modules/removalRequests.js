@@ -8,6 +8,7 @@ export const ADMIN_COMPLETED_REMOVALS_SUCCESS = 'ADMIN_COMPLETED_REMOVALS_SUCCES
 export const UPDATING_STATUS = 'UPDATING_STATUS';
 export const UPDATE_STATUS_SUCCESS = 'UPDATE_STATUS_SUCCESS';
 export const UPDATE_STATUS_FAILURE = 'UPDATE_STATUS_FAILURE';
+export const CLEAR_NOTIFICATION = 'CLEAR_NOTIFICATION';
 export const PAGE_NUMBER_UPDATE = 'PAGE_NUMBER_UPDATE';
 export const ADMIN_REMOVAL_REQUEST_PATH = '/admin/api/monitoring-requests';
 export const ADMIN_REMOVAL_COMPLETED_REQUEST = '/admin/api/monitoring-request-receipts/search';
@@ -98,6 +99,12 @@ export const rejectedUpdateStatus = error => (
   }
 )
 
+export const clearNotification = () => (
+  {
+    type: CLEAR_NOTIFICATION
+  }
+)
+
 // reducer
 
 export const updateRemovals = (requestedRemovals, action) => {
@@ -106,7 +113,7 @@ export const updateRemovals = (requestedRemovals, action) => {
   ]
 }
 
-const reducer = (state = {}, action) => {
+const reducer = (state = {notification: {}}, action) => {
   switch(action.type) {
     case ADMIN_REQUESTED_REMOVALS_PENDING:
       return Object.assign({}, state, {
@@ -135,8 +142,15 @@ const reducer = (state = {}, action) => {
       });
     case UPDATE_STATUS_FAILURE:
       return Object.assign({}, state, {
-        isFetching: false
-      });
+        notification: {
+          message: action.error.response.data.errorMessage,
+          status: 'danger'
+        }
+      })
+    case CLEAR_NOTIFICATION:
+      return Object.assign({}, state, {
+        notification: {}
+      })
     default:
       return state
   }

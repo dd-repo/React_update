@@ -12,11 +12,7 @@ import {
   receivePhonesSuccess,
   receivePhonesFailure,
   default as reducer
-<<<<<<< HEAD
 } from 'routes/client/Account/modules/phones';
-=======
-} from 'modules/phones';
->>>>>>> e697493f42167dc537bfebaf5bcc6284c70673ef
 
 const middlewares = [ thunk ]
 const mockStore = configureMockStore(middlewares)

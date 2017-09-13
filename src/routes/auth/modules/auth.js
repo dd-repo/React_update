@@ -22,6 +22,9 @@ export const PASSWORD_UPDATE_FAILURE = 'PASSWORD_UPDATE_FAILURE';
 export const USER_REMOVE_ERROR_MSG = 'USER_REMOVE_ERROR_MSG';
 export const USER_LOGOUT = 'USER_LOGOUT'
 
+export const PERMISSION_ERROR_MESSAGE = 'PERMISSION_ERROR_MESSAGE'
+export const PERMISSIONS_MESSAGE_CLEAR = 'PERMISSIONS_MESSAGE_CLEAR'
+
 const CLIENT_API = '/dashboard/api/v1/users';
 export const SIGNUP_REQUEST = `${CLIENT_API}/sign-up/create`;
 export const LOGIN_REQUEST = `${CLIENT_API}/sign-in`;
@@ -49,7 +52,7 @@ export const postUserLogin = payload => {
     return clickadillyApi.post(LOGIN_REQUEST, { user: payload })
     .then(
       response =>
-      response.data.user.role === 'admin'
+      response.data.user.group === 'backend'
         ?
           dispatch(receiveAdminLogin(response.data))
             :
@@ -67,7 +70,7 @@ export const fetchUser = () => {
     return clickadillyApi.get(`${CLIENT_API}/users/get`)
     .then(
       response =>
-      response.data.user.role === 'admin'
+      response.data.user.group === 'backend'
         ?
           dispatch(receiveAdminLogin(response.data))
             :
@@ -144,14 +147,14 @@ export const receiveClientLogin = data => (
     type: USER_LOGIN_SUCCESS,
     data
   }
-)
+);
 
 export const receiveAdminLogin = data => (
   {
     type: ADMIN_LOGIN_SUCCESS,
     data
   }
-)
+);
 
 export const receiveUserLoginFailure = error => (
   {
@@ -165,36 +168,49 @@ export const postingForgotPassword = email => (
     type: FORGOT_USER_PASSWORD_POSTING,
     email
   }
-)
+);
 
 export const receiveForgotPassword = () => (
   {
     type: FORGOT_USER_PASSWORD_SUCCESS
   }
-)
+);
 
 export const receiveForgotPasswordFailure = (error) => (
   {
     type: FORGOT_USER_PASSWORD_FAILURE,
     error
   }
-)
+);
 
 export const receievePasswordUpdateSuccess = () => (
   {
     type: PASSWORD_UPDATE_SUCCESS
   }
-)
+);
 
 export const receievePasswordUpdateFailure = () => (
   {
     type: PASSWORD_UPDATE_FAILURE
   }
-)
+);
 
 export const removeErrorMessage = () => (
   {
     type: USER_REMOVE_ERROR_MSG
+  }
+);
+
+export const receivePermissionsError = error => (
+  {
+    type: PERMISSION_ERROR_MESSAGE,
+    error
+  }
+)
+
+export const clearPermissionsMessage = () => (
+  {
+    type: PERMISSIONS_MESSAGE_CLEAR
   }
 )
 
@@ -202,7 +218,7 @@ export const logout = () => (
   {
     type: USER_LOGOUT
   }
-)
+);
 
 // reducer
 const setClient = (state, data) => {
@@ -233,7 +249,8 @@ const setAdmin = (state, data) => {
       role: data.user.role,
       group: data.user.group,
       authToken: data.auth_token,
-      errorMessage: null
+      errorMessage: null,
+      permissionsNotification: {}
     })
   )
 }
@@ -302,6 +319,17 @@ const reducer = (state = {}, action) => {
     case USER_REMOVE_ERROR_MSG:
       return Object.assign({}, state, {
         errorMessage: null
+      })
+    case PERMISSION_ERROR_MESSAGE:
+      return Object.assign({}, state, {
+        permissionsNotification: {
+          message: action.error.data.errorMessage,
+          status: 'danger'
+        }
+      })
+    case PERMISSIONS_MESSAGE_CLEAR:
+      return Object.assign({}, state, {
+        permissionsNotification: {}
       })
     case USER_LOGOUT:
       return removeUser(state)

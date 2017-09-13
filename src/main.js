@@ -3,16 +3,16 @@ import ReactDOM from 'react-dom'
 import createBrowserHistory from 'history/lib/createBrowserHistory'
 import { useRouterHistory } from 'react-router'
 import { syncHistoryWithStore } from 'react-router-redux'
-import createStore from './store/createStore'
+import { reduxStore, history } from './store/createStore'
 import AppContainer from './containers/AppContainer'
 import pace from 'pace';
 
 // ========================================================
 // Browser History Setup
 // ========================================================
-const browserHistory = useRouterHistory(createBrowserHistory)({
-  basename: __BASENAME__
-})
+//const browserHistory = useRouterHistory(createBrowserHistory)({
+  //basename: __BASENAME__
+//})
 
 // ========================================================
 // Store and History Instantiation
@@ -22,12 +22,12 @@ const browserHistory = useRouterHistory(createBrowserHistory)({
 // so we need to provide a custom `selectLocationState` to inform
 // react-router-redux of its location.
 
-const initialState = {}
+//const initialState = {}
 
-const store = createStore(initialState, browserHistory)
-const history = syncHistoryWithStore(browserHistory, store, {
-  selectLocationState: (state) => state.router
-})
+//const store = createStore(initialState, browserHistory)
+//const history = syncHistoryWithStore(browserHistory, store, {
+  //selectLocationState: (state) => state.router
+//})
 
 // ========================================================
 // Developer Tools Setup
@@ -44,11 +44,11 @@ const history = syncHistoryWithStore(browserHistory, store, {
 const MOUNT_NODE = document.getElementById('root')
 
 let render = (routerKey = null) => {
-  const routes = require('./routes/index').default(store)
+  const routes = require('./routes/index').default(reduxStore)
 
   ReactDOM.render(
     <AppContainer
-      store={store}
+      store={reduxStore}
       history={history}
       routes={routes}
       routerKey={routerKey}

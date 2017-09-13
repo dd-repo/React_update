@@ -2,8 +2,9 @@ import React from 'react';
 
 import { connect, RoutedComponent } from 'routes/routedComponent';
 import { CONTENT_VIEW_STATIC } from 'layouts/DefaultLayout/modules/layout';
-import { getAllUsers, becomeUser } from './modules/users';
+import { getAllUsers, becomeUser, clearNotification } from './modules/users';
 import { persistData } from 'localStorage';
+import { USER_LOGIN_SUCCESS } from 'routes/auth/modules/auth';
 import Users from './components/Users';
 
 const group = {
@@ -80,16 +81,28 @@ class UsersContainer extends RoutedComponent {
       case 'become':
         const params = { user: { id: id } }
         this.props.becomeUser(params)
-        .then( res => this.transitionToUser(res) )
+        .then( res => this.doNext(res) )
         break
       default:
         this.fetchUsers(this.getRole())
     }
   }
 
+  doNext = res => {
+    switch(res.type) {
+      case USER_LOGIN_SUCCESS:
+        this.transitionToUser(res)
+        break;
+    }
+  }
+
   transitionToUser(res) {
     persistData(res.data.auth_token, 'authToken' )
     this.context.router.push('/dashboard')
+  }
+
+  clearMessage = () => {
+    this.props.clearNotification()
   }
 
   render() {
@@ -104,6 +117,8 @@ class UsersContainer extends RoutedComponent {
 
     return (
       <Users
+        notification={this.props.users.notification}
+        clearMessage={this.clearMessage}
         users={all}
         paginationItems={paginationItems}
         pageNum={this.state.pageNum}
@@ -128,7 +143,8 @@ const mapStateToProps = state => {
 
 const mapActionCreators = {
   getAllUsers,
-  becomeUser
+  becomeUser,
+  clearNotification
 }
 
 export default connect(mapStateToProps, mapActionCreators)(UsersContainer);

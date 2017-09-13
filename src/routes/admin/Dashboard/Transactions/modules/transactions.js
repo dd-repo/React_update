@@ -10,11 +10,12 @@ import {
 export const TRANSACTIONS_PENDING = 'TRANSACTIONS_PENDING';
 export const TRANSACTIONS_SUCCESS = 'TRANSACTIONS_SUCCESS';
 export const TRANSACTIONS_FAILURE = 'TRANSACTIONS_FAILURE';
+export const CLEAR_NOTIFICATION = 'CLEAR_NOTIFICATION';
 export const TRANSACTIONS_REQUEST = '/admin/api/transactions/search';
 export const TRANSACTION_REFUND_REQUEST = '/admin/api/transactions/refund';
 
 // actions
-export const getTransactions = (params, pageNum) => {
+export const fetchTransactions = (params, pageNum) => {
   const path = `${TRANSACTIONS_REQUEST}/${pageNum}`
   return dispatch => {
     dispatch(gettingTransactions())
@@ -47,6 +48,12 @@ export const receiveTransactionsFailure = error => (
   }
 )
 
+export const clearNotification = () => (
+  {
+    type: CLEAR_NOTIFICATION
+  }
+)
+
 // reducer
 const updateTransaction = (state, transaction) => {
   const index = state.findIndex(t => t.id === transaction.id)
@@ -56,7 +63,7 @@ const updateTransaction = (state, transaction) => {
      ...state.slice(index + 1)
    ]
 }
-const reducer = (state={}, action) => {
+const reducer = (state={notification: {}}, action) => {
   switch(action.type) {
     case TRANSACTIONS_PENDING:
       return Object.assign({}, state, {
@@ -71,16 +78,30 @@ const reducer = (state={}, action) => {
     case TRANSACTIONS_FAILURE:
       return Object.assign({}, state, {
         isFetching: false,
-        error: action.error
+        notification: {
+          message: action.error.response.data.errorMessage,
+          status: 'danger'
+        }
       });
     case UPDATE_TRANSACTION_SUCCESS:
       return Object.assign({}, state, {
         all: insertTransaction(state.all, action.data),
+        notification: {
+          message: 'Transaction Successfully updated',
+          status: 'success'
+        }
       })
     case UPDATE_TRANSACTION_FAILURE:
       return Object.assign({}, state, {
-        error: action.error
+        notification: {
+          message: action.error.response.data.errorMessage,
+          status: 'danger'
+        }
       });
+    case CLEAR_NOTIFICATION:
+      return Object.assign({}, state, {
+        notification: {}
+      })
     default:
       return state
   }

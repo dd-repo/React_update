@@ -13,6 +13,7 @@ import {
   Pagination,
   SearchBar,
   Modal,
+  FlashMessage,
   Alert,
   Loader
 } from 'components';
@@ -97,7 +98,10 @@ const Transactions = (props) => {
 
   return (
     <Row>
-      { renderMessage() }
+      <FlashMessage
+        notification={props.notification}
+        clearMessage={props.clearMessage}
+      />
       { renderSearchBar }
       <Table>
         <thead>

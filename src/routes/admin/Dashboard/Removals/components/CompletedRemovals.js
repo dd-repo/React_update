@@ -12,7 +12,7 @@ import {
   FormControl,
   Col,
   ControlLabel,
-  Alert,
+  FlashMessage,
   SearchBar,
   Loader
 } from 'components';

@@ -9,7 +9,8 @@ import {
   Row,
   Pagination,
   Col,
-  SearchBar
+  SearchBar,
+  FlashMessage
 } from 'components';
 
 const Users = (props) => {
@@ -86,6 +87,12 @@ const Users = (props) => {
 
   return (
     <Row>
+      <Col lg={12}>
+        <FlashMessage
+          notification={props.notification}
+          clearMessage={props.clearMessage}
+        />
+      </Col>
       { renderSearch }
       <Table>
         <thead>
@@ -128,6 +135,7 @@ const Users = (props) => {
 }
 
 Users.propTypes = {
+  notification: PropTypes.object.isRequired,
   users: PropTypes.array,
   paginationItems: PropTypes.number,
   pageNum: PropTypes.number,

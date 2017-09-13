@@ -22,7 +22,6 @@ class SubscriptionsContainer extends RoutedComponent {
 
     this.getNextPage = this.getNextPage.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
-    this.handleClick = this.handleClick.bind(this);
   }
 
   getLayoutOptions() {
@@ -45,11 +44,6 @@ class SubscriptionsContainer extends RoutedComponent {
 
   fetchSubscriptions(params={}, pageNum=1) {
     this.props.getSubscriptions(params, pageNum)
-  }
-
-  handleClick(subscription) {
-    this.props.fetchCards(subscription.id)
-    .then( res => this.props.showModal('SUBSCRIPTION', subscription))
   }
 
   getNextPage(pageNum) {
@@ -86,7 +80,6 @@ class SubscriptionsContainer extends RoutedComponent {
         pageNum={this.state.pageNum}
         isFetching={this.props.subscriptions.isFetching}
         getNextPage={this.getNextPage}
-        handleClick={this.handleClick}
         queryName={this.state.queryName}
         handleSearch={this.handleSearch}
         resultCount={resultCount}

@@ -120,25 +120,25 @@ class DefaultLayout extends React.Component {
 
     constructor(props, context) {
         super(props, context);
-        this.state = { sidebarConfigs: this.setSidebarConfigs(this.props.currentUser.role) }
+        this.state = { sidebarConfigs: this.setSidebarConfigs(this.props.currentUser.group) }
         this.beforeSlimSidebarStyle = SIDEBAR_STYLE_DEFAULT;
         this.handleLogout = this.handleLogout.bind(this);
         this.setSidebarConfigs = this.setSidebarConfigs.bind(this);
     }
 
-    setSidebarConfigs(role) {
-        return assignKeys(CONFIGS[role])
+    setSidebarConfigs(group) {
+      return assignKeys(CONFIGS[group])
     }
 
     toggleSidebarSlim() {
-        const { sidebarStyle, setSidebarStyle } = this.props;
+      const { sidebarStyle, setSidebarStyle } = this.props;
 
-        if(sidebarStyle === SIDEBAR_STYLE_SLIM) {
-            setSidebarStyle(this.beforeSlimSidebarStyle)
-        } else {
-            this.beforeSlimSidebarStyle = sidebarStyle;
-            setSidebarStyle(SIDEBAR_STYLE_SLIM);
-        }
+      if(sidebarStyle === SIDEBAR_STYLE_SLIM) {
+        setSidebarStyle(this.beforeSlimSidebarStyle)
+      } else {
+        this.beforeSlimSidebarStyle = sidebarStyle;
+        setSidebarStyle(SIDEBAR_STYLE_SLIM);
+      }
     }
 
     componentDidMount() {
@@ -147,7 +147,7 @@ class DefaultLayout extends React.Component {
 
     componentWillReceiveProps(nextProps) {
       if(nextProps.currentUser.role !== this.props.currentUser.role) {
-        this.setState({ sidebarConfigs: this.setSidebarConfigs(nextProps.currentUser.role) })
+        this.setState({ sidebarConfigs: this.setSidebarConfigs(nextProps.currentUser.group) })
       }
     }
 
@@ -176,10 +176,10 @@ class DefaultLayout extends React.Component {
     }
 
     render() {
-      const { role } = this.props.currentUser
+      const { role, group } = this.props.currentUser
       const isLoggedIn = localStorage.getItem('isLoggedIn')
       const isClient = role === 'client' && isLoggedIn
-      const isAdmin = role === 'admin' && isLoggedIn
+      const isAdmin = group === 'backend' && isLoggedIn
 
       const homeLink = () => {
         if(isClient){ return '/dashboard' }
@@ -458,7 +458,6 @@ class DefaultLayout extends React.Component {
                           />
                           <Sidebar.Menu
                             currentUrl={ this.props.location.pathname }
-                            currentUserRole={ this.props.currentUser.role }
                             sidebarConfigs={this.state.sidebarConfigs}
                           />
                         </Sidebar>

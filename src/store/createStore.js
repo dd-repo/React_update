@@ -1,9 +1,16 @@
 import { applyMiddleware, compose, createStore } from 'redux'
 import { routerMiddleware } from 'react-router-redux'
+import createBrowserHistory from 'history/lib/createBrowserHistory'
+import { syncHistoryWithStore } from 'react-router-redux'
+import { useRouterHistory } from 'react-router'
 import thunk from 'redux-thunk'
 import makeRootReducer from './reducers'
 
-export default (initialState = {}, history) => {
+const browserHistory = useRouterHistory(createBrowserHistory)({
+  basename: __BASENAME__
+})
+
+export const store = (initialState = {}, history) => {
   // ======================================================
   // Middleware Configuration
   // ======================================================
@@ -23,7 +30,7 @@ export default (initialState = {}, history) => {
   // ======================================================
   // Store Instantiation and HMR Setup
   // ======================================================
-  const store = createStore(
+  const s = createStore(
     makeRootReducer(),
     initialState,
     compose(
@@ -31,7 +38,7 @@ export default (initialState = {}, history) => {
       ...enhancers
     )
   )
-  store.asyncReducers = {}
+  s.asyncReducers = {}
 
   if (module.hot) {
     module.hot.accept('./reducers', () => {
@@ -40,5 +47,9 @@ export default (initialState = {}, history) => {
     })
   }
 
-  return store
+  return s
 }
+export const reduxStore = store({}, browserHistory)
+export const history = syncHistoryWithStore(browserHistory, reduxStore, {
+  selectLocationState: (state) => state.router
+})

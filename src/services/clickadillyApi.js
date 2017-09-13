@@ -1,6 +1,8 @@
 import axios from 'axios';
+import { reduxStore as store } from 'store/createStore';
 
 import { getAuthToken } from 'localStorage';
+import { receivePermissionsError } from 'routes/auth/modules/auth';
 import BASE_URL from 'consts/baseUrl';
 
 class ClickadillyApi {
@@ -24,11 +26,12 @@ class ClickadillyApi {
     const expiredToken = error.response.status === 408
     const unauthorized = error.response.status === 401
     if(expiredToken) {
-      window.location.pathname.startsWith('/dashboard')
-        ||
-          window.location.pathname.startsWith('/admin')
-          &&
-            this.redirectTo(document, '/login')
+      window.location.pathname.includes('dashboard')
+      &&
+        this.redirectTo(document, '/login')
+    }
+    if(unauthorized) {
+      store.dispatch(receivePermissionsError(error.response))
     }
     return Promise.reject(error)
   }

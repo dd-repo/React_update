@@ -1,7 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import Loading from 'react-loading';
 
-import RootModal from 'components/Modals';
 import Subscription from './Subscription';
 import {
   Table,
@@ -16,12 +14,6 @@ import {
   Loader
 } from 'components';
 
-import { EditSubscriptionModal, CancelSubscriptionModal } from 'components/Modals'
-
-const button = {
-  label: <i className="fa fa-pencil"> Edit</i>,
-  style: 'link'
-}
 
 export default class Subscriptions extends Component {
   constructor(props) {
@@ -35,7 +27,6 @@ export default class Subscriptions extends Component {
       pageNum,
       getNextPage,
       isFetching,
-      handleClick,
       handleSearch,
       resultCount,
       queryName,
@@ -68,8 +59,6 @@ export default class Subscriptions extends Component {
           <Subscription
             subscription={subscription}
             key={subscription.id}
-            handleClick={handleClick}
-            button={button}
           />
         )
     )
@@ -133,9 +122,6 @@ export default class Subscriptions extends Component {
         </Table>
         { renderPagination }
         { renderLoader }
-
-        <RootModal />
-
       </Row>
     )
   }
@@ -147,7 +133,6 @@ Subscriptions.propTypes = {
   pageNum: PropTypes.number,
   isFetching: PropTypes.bool,
   getNextPage: PropTypes.func.isRequired,
-  handleClick: PropTypes.func.isRequired,
   queryName: PropTypes.string,
   handleSearch: PropTypes.func,
   resultCount: PropTypes.number,

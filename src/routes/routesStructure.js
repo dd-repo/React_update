@@ -10,7 +10,7 @@ import _ from 'underscore'
 // import { getMenuEntries as getSidebarsMenuEntries } from './Sidebars';
 
 export const CONFIGS = {
-  'client': [
+  'frontend': [
     {
       slug: 'Dashboard',
       title: 'Dashboard',
@@ -44,7 +44,7 @@ export const CONFIGS = {
       url: '/dashboard/account'
     },
   ],
-  'admin': [
+  'backend': [
     {
       slug: 'Users',
       title: 'Users',
@@ -108,11 +108,11 @@ export const CONFIGS = {
 
 // Add keys to the sidebar definitions
 const assignKeys = (input, level = 0) => _.map(input, (def) => {
-    const newObj = { key: uuid.v4(), subMenuLevel: level };
-    if(def.children) {
-        newObj.children = assignKeys(def.children, level + 1);
-    }
-    return Object.assign({}, def, newObj);
+  const newObj = { key: uuid.v4(), subMenuLevel: level };
+  if(def.children) {
+    newObj.children = assignKeys(def.children, level + 1);
+  }
+  return Object.assign({}, def, newObj);
 });
 
 export function urlMatcher(node, url) {

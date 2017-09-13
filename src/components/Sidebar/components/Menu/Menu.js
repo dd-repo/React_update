@@ -70,10 +70,8 @@ const animateCloseNode = (nodeElement, cbComplete, cbStart, animationSettings) =
 class Menu extends React.Component {
     static propTypes = {
         currentUrl: PropTypes.string,
-        currentUserRole: PropTypes.string,
         sidebarStyle: PropTypes.string,
         onHeightChange: PropTypes.func,
-
         animationDuration: PropTypes.node,
         animationEasing: PropTypes.string
     }

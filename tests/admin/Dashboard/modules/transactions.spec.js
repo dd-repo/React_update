@@ -8,7 +8,7 @@ import {
   TRANSACTIONS_FAILURE,
   TRANSACTIONS_REQUEST,
   TRANSACTION_REFUND_REQUEST,
-  getTransactions,
+  fetchTransactions,
   gettingTransactions,
   receiveTransactions,
   receiveTransactionsFailure,
@@ -79,7 +79,7 @@ describe('(Tranactions module)', () => {
     })
   })
 
-  describe('(Async Action Creator) getTransactions', () => {
+  describe('(Async Action Creator) fetchTransactions', () => {
     let transactionsRequestApi;
 
     beforeEach(() => {
@@ -91,11 +91,11 @@ describe('(Tranactions module)', () => {
     })
 
     it('Should be exported as a function', () => {
-      expect(getTransactions).to.be.a('function')
+      expect(fetchTransactions).to.be.a('function')
     })
 
     it('should return a function (is a thunk)', () => {
-      expect(getTransactions()).to.be.a('function')
+      expect(fetchTransactions()).to.be.a('function')
     })
 
     it('creates TRANSACTIONS_SUCCESS', (done) => {
@@ -110,7 +110,7 @@ describe('(Tranactions module)', () => {
 
       const store = mockStore({ transactions: {} })
 
-      return store.dispatch(getTransactions())
+      return store.dispatch(fetchTransactions())
       .then(() => {
         expect(store.getActions()).to.eql(expectedActions)
         done();
@@ -128,7 +128,7 @@ describe('(Tranactions module)', () => {
 
       const store = mockStore({ transactions: {} })
 
-      return store.dispatch(getTransactions())
+      return store.dispatch(fetchTransactions())
       .then(() => {
         expect(store.getActions()).to.eql(expectedActions)
         done();
@@ -173,13 +173,10 @@ describe('(Tranactions module)', () => {
     })
 
     it('should handle TRANSACTIONS_FAILURE', () => {
-      expect(reducer({}, {
-        type: TRANSACTIONS_FAILURE,
-        error: errRes
-      })).to.eql({
-        isFetching: false,
-        error: errRes
-      })
+      const state = reducer({}, { type: TRANSACTIONS_FAILURE, error: errRes })
+      const expected = { notification: { message: errRes.response.data.errorMessage, status: 'danger' }, isFetching: false}
+
+      expect(state).to.eql(expected)
     })
   })
 })

@@ -31,7 +31,7 @@ class AppContainer extends React.Component {
   }
 
   render () {
-    const { history, routes, routerKey, store, currentUser } = this.props
+    const { history, routes, routerKey, store } = this.props
 
     if(!this.state.isFetching) {
       return (

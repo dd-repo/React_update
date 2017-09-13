@@ -12,11 +12,7 @@ import {
   receiveAddressesSuccess,
   receiveAddressFailure,
   default as reducer
-<<<<<<< HEAD
 } from 'routes/client/Account/modules/addresses';
-=======
-} from 'modules/addresses';
->>>>>>> e697493f42167dc537bfebaf5bcc6284c70673ef
 
 const middlewares = [ thunk ]
 const mockStore = configureMockStore(middlewares)
@@ -58,11 +54,7 @@ describe('(Address module) "Addresses"', () => {
     })
   })
 
-<<<<<<< HEAD
   describe('(Async Action Creator) "fetchAddresses"', () => {
-=======
-  describe('(Async Action Creator) "fetchiAddresses"', () => {
->>>>>>> e697493f42167dc537bfebaf5bcc6284c70673ef
     let addressesApi;
 
     beforeEach(() => {

@@ -53,7 +53,7 @@ const isValidClient = (currentUser, replace, authToken) => {
 }
 
 const validateAdmin = (currentUser, replace, authToken) => {
-  const isAdmin = currentUser.role === 'admin'
+  const isAdmin = currentUser.group === 'backend'
 
   !authToken && replace('/login')
   !isAdmin && replace('/login')
@@ -75,7 +75,7 @@ const redirectToDashboardIfLoggedIn = (store, nextState, replace, authToken) => 
 
     if(pathname === '/' || pathname === '/login') {
       currentUser.role === 'client' && replace('/dashboard')
-      currentUser.role === 'admin' && replace('/admin/dashboard')
+      currentUser.group === 'backend' && replace('/admin/dashboard')
     }
   }
 }

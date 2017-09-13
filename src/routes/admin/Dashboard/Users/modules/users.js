@@ -5,9 +5,11 @@ import { receiveClientLogin } from 'routes/auth/modules/auth';
 export const USERS_SUCCESS = 'USERS_SUCCESS';
 export const USERS_FAILURE = 'USERS_FAILURE';
 export const USERS_PENDING = 'USERS_PENDING';
+export const BECOME_USER_FAILURE = 'BECOME_USER_FAILURE';
+export const CLEAR_NOTIFICATION = 'CLEAR_NOTIFICATION';
 
-export const USERS_REQUEST = '/admin/api/users_search'
-export const BECOME_USER_REQUEST = '/admin/api/users/become'
+export const USERS_REQUEST = '/admin/api/users_search';
+export const BECOME_USER_REQUEST = '/admin/api/users/become';
 
 // action
 export const getAllUsers = (params, pageNum) => {
@@ -26,12 +28,8 @@ export const getAllUsers = (params, pageNum) => {
 export const becomeUser = params => {
   return dispatch => {
     return clickadillyApi.patch(BECOME_USER_REQUEST, params)
-    .then(
-      response => dispatch(receiveClientLogin(response.data))
-    ).catch(
-    //error => dispatch()
-    error => console.log('become user error', error)
-    )
+    .then(response => dispatch(receiveClientLogin(response.data)))
+    .catch( error => dispatch(receiveBecomeUserFailure(error)))
   }
 }
 
@@ -55,8 +53,21 @@ export const receiveAllUsersFailure = error => (
   }
 )
 
+export const receiveBecomeUserFailure = error => (
+  {
+    type: BECOME_USER_FAILURE,
+    error
+  }
+)
+
+export const clearNotification = () => (
+  {
+    type: CLEAR_NOTIFICATION
+  }
+)
+
 // reducer
-const reducer = (state={}, action) => {
+const reducer = (state={notification: {}}, action) => {
   switch(action.type) {
     case USERS_PENDING:
       return Object.assign({}, state, {
@@ -70,9 +81,23 @@ const reducer = (state={}, action) => {
       });
     case USERS_FAILURE:
       return Object.assign({}, state, {
-        error: action.error,
+        notification: {
+          message: action.error.response.data.errorMessage,
+          status: 'danger'
+        },
         isFetching: false
       });
+    case BECOME_USER_FAILURE:
+      return Object.assign({}, state, {
+        notification: {
+          message: action.error.response.data.errorMessage,
+          status: 'danger'
+        }
+      })
+    case CLEAR_NOTIFICATION:
+      return Object.assign({}, state, {
+        notification: {}
+      })
     default:
       return state
   }

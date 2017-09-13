@@ -8,6 +8,8 @@ import {
   USERS_PENDING,
   USERS_REQUEST,
   BECOME_USER_REQUEST,
+  BECOME_USER_FAILURE,
+  CLEAR_NOTIFICATION,
   getAllUsers,
   becomeUser,
   gettingAllUsers,
@@ -72,6 +74,8 @@ describe('(Users module)', () => {
     expect(USERS_SUCCESS).to.equal('USERS_SUCCESS')
     expect(USERS_FAILURE).to.equal('USERS_FAILURE')
     expect(USERS_PENDING).to.equal('USERS_PENDING')
+    expect(BECOME_USER_FAILURE).to.equal('BECOME_USER_FAILURE')
+    expect(CLEAR_NOTIFICATION).to.equal('CLEAR_NOTIFICATION')
     expect(USERS_REQUEST).to.equal('/admin/api/users_search')
     expect(BECOME_USER_REQUEST).to.equal('/admin/api/users/become')
   })
@@ -232,13 +236,36 @@ describe('(Users module)', () => {
     })
 
     it('should handle USERS_FAILURE', () => {
-      expect(reducer({}, {
-        type: USERS_FAILURE,
-        error: errorRes
-      })).to.eql({
+      const state = reducer({}, { type: USERS_FAILURE, error: errorRes })
+      const expected = {
+        notification: {
+          message: errorRes.response.data.errorMessage,
+          status: 'danger'
+        },
         isFetching: false,
-        error: errorRes
-      })
+      }
+
+      expect(state).to.eql(expected)
+    })
+
+    it('should handle BECOME_USER_FAILURE', () => {
+      const state = reducer({}, { type: BECOME_USER_FAILURE, error: errorRes })
+      const expected = {
+        notification: {
+          message: errorRes.response.data.errorMessage,
+          status: 'danger'
+        }
+      }
+
+      expect(state).to.eql(expected)
+    })
+
+    it('should handle CLEAR_NOTIFICATION', () => {
+      const notification = { message: 'message', status: 'danger' }
+      const state = reducer({notification}, { type: CLEAR_NOTIFICATION })
+      const expected = {notification: {}}
+
+      expect(state).to.eql(expected)
     })
   })
 })

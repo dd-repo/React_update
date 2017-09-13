@@ -27,15 +27,19 @@ const Subscription = props => {
     props.handleClick(props.subscription)
   }
 
-  const renderButton = (
-      <Button
-        bsSize={props.button.size}
-        bsStyle={props.button.style}
-        onClick={_onClick}
-      >
-        { props.button.label }
-      </Button>
-  )
+  const renderButton = () => {
+    if(props.button) {
+      return (
+        <Button
+          bsSize={props.button.size}
+          bsStyle={props.button.style}
+          onClick={_onClick}
+        >
+          { props.button.label }
+        </Button>
+      )
+    }
+  }
 
   const salesRep = (
     sales_rep_name !== " " ? sales_rep_name : 'Web'
@@ -85,7 +89,7 @@ const Subscription = props => {
           { formatDate(next_payment) }
         </td>
         <td>
-          { renderButton }
+          { renderButton() }
         </td>
       </tr>
     </tbody>
@@ -94,7 +98,7 @@ const Subscription = props => {
 
 Subscription.propTypes = {
   subscription: PropTypes.object,
-  handleClick: PropTypes.func.isRequired,
+  handleClick: PropTypes.func,
   button: PropTypes.object
 }
 

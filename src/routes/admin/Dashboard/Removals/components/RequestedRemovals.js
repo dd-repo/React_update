@@ -14,9 +14,9 @@ import {
   FormControl,
   Col,
   ControlLabel,
-  Alert,
   SearchBar,
-  Loader
+  Loader,
+  FlashMessage
 } from 'components';
 
 class RequestedRemovals extends Component {
@@ -232,6 +232,10 @@ class RequestedRemovals extends Component {
 
     return (
       <Row>
+        <FlashMessage
+          notification={this.props.notification}
+          clearMessage={this.props.clearMessage}
+        />
         { renderSearchBar }
         { renderRequestedTable }
         { renderPagination }

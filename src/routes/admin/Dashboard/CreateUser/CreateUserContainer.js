@@ -11,7 +11,7 @@ const CREATE_USER_REQUEST = '/admin/api/create_user';
 class CreateUserContainer extends RoutedComponent {
   constructor(props) {
     super(props)
-    this.state = {}
+    this.state = {notification: {}}
 
     this.submitForm = this.submitForm.bind(this)
   }
@@ -38,10 +38,6 @@ class CreateUserContainer extends RoutedComponent {
     .catch(error => { this.handleFailure(error) })
   }
 
-  sanitizeNums(value) {
-    return value.replace(/[^\d]/gi, '')
-  }
-
   handleSuccess() {
     this.setState({
       isFetching: false,
@@ -61,17 +57,19 @@ class CreateUserContainer extends RoutedComponent {
     this.setState({
       notification:
         {
-          message: error.response.data.message,
+          message: error.response.data.errorMessage,
           status: 'danger'
         }})
   }
 
-  resetForm() {
-    this.context.store.dispatch(reset('createUserForm'));
+  clearMessage = () => {
+    this.setState({
+      notification: {}
+    })
   }
 
-  fullName(first, last) {
-    return `${first} ${last}`
+  resetForm() {
+    this.context.store.dispatch(reset('createUserForm'));
   }
 
   buildParams(user) {
@@ -95,6 +93,7 @@ class CreateUserContainer extends RoutedComponent {
         submitForm={this.submitForm}
         isFetching={this.state.isFetching || false}
         notification={this.state.notification}
+        clearMessage={this.clearMessage}
       />
     )
   }

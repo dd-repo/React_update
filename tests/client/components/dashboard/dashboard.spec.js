@@ -76,7 +76,6 @@ const pieData = getPieData(privacyRemovalStatus)
 
 const setUp = () => {
 
-
   const wrapper = shallow(
     <Dashboard
       keywords={keywords.all}

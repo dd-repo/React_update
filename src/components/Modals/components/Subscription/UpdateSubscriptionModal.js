@@ -20,7 +20,6 @@ const SubscriptionEditModal = props => {
     props.hideModal()
     props.dispatch(updateSubscription(data))
   }
-
   return (
     <Modal show={true} onHide={props.hideModal}>
       <Modal.Header closeButton>
