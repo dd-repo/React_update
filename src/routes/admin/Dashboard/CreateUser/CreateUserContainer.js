@@ -31,11 +31,37 @@ class CreateUserContainer extends RoutedComponent {
   }
 
   submitForm(user) {
+    this.clearMessage()
+
+    this.isFormValid(user) ?
+      this.sendForm(user)
+        :
+          this.setState({
+            notification: {
+              message: 'User Group and Role are not compatible',
+              status: 'danger'
+            }
+          })
+  }
+
+  sendForm = user => {
     const payload = this.buildParams(user)
     this.setState({isFetching: true})
     clickadillyApi.post(CREATE_USER_REQUEST, payload)
     .then(res => { this.handleSuccess(res) })
     .catch(error => { this.handleFailure(error) })
+  }
+
+  isFormValid(user) {
+    const { role, group } = user
+    switch(group.value) {
+      case 'backend':
+        return role.value !== 'client'
+        break;
+      case 'frontend':
+        return role.value === 'client'
+        break;
+    }
   }
 
   handleSuccess() {
@@ -80,8 +106,8 @@ class CreateUserContainer extends RoutedComponent {
         email: user.email,
         phone_number: user.phoneNumber,
         phone_type: 'mobile',
-        group: user.group,
-        role: user.role,
+        group: user.group.value,
+        role: user.role.value,
         password: 'password1'
       }
     }

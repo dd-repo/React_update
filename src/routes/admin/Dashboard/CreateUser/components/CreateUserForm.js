@@ -1,26 +1,43 @@
 import React, { PropTypes } from 'react';
+import Select from 'react-select';
 import { Field, reduxForm } from 'redux-form';
 
 import { checkValidation } from 'utils/formHelpers';
+import { ReduxFormSelect } from 'components/Forms/components';
 import fields from 'consts/data/formFields';
 import {
     FormGroup,
     FormControl,
     Col,
     Row,
+    Checkbox,
     ControlLabel
 } from 'components';
 
 const DROPDOWN_MENU = {
-  group: {
-    list: ['frontend', 'backend'],
-    label: 'Group'
+  'group': {
+    name: 'group',
+    placeHolder: 'Select user group',
+    list: [
+      { label: 'frontend', value: 'frontend' },
+      { label: 'backend', value: 'backend' }
+    ]
   },
-  role: {
-    list: ['client', 'admin'],
-    label: 'Role'
+  'role': {
+    name: 'role',
+    placeHolder: 'Select user role',
+    list: [
+      { label: 'client', value: 'client'},
+      { label: 'user', value: 'user'},
+      { label: 'manager', value: 'manager'},
+      { label: 'admin', value: 'admin'},
+      { label: 'super admin', value: 'super_admin'},
+    ]
   }
 }
+
+const roles = [
+]
 
 const validate = values => {
   return checkValidation(values, fields)
@@ -28,20 +45,16 @@ const validate = values => {
 
 const dropDownSelect = ({ input }) => {
   const { name } = input
-  const {
-    list,
-    label
-  } = DROPDOWN_MENU[[name]]
 
 
   return (
-    <FormControl {...input} componentClass='select'>
-      <option value=''>Select a {name}...</option>
-      {list.map(item =>
-                <option value={item} key={item}>{item}</option>
-                )
-      }
-    </FormControl>
+    <Select
+      options={ DROPDOWN_MENU[[name]] }
+      placeholder={`Select user ${name}`}
+      name='role'
+      searchable={false}
+      clearable={false}
+    />
   )
 }
 
@@ -151,19 +164,17 @@ let CreateUserForm = (props) => {
                     <label>
                       Group
                     </label>
-                  <Field
-                    name='group'
-                    component={dropDownSelect}
-                  />
+                    <ReduxFormSelect
+                      field={DROPDOWN_MENU['group']}
+                    />
                   </Col>
                   <Col sm={ 6 }>
                     <label>
                       Role
                     </label>
-                  <Field
-                    name='role'
-                    component={dropDownSelect}
-                  />
+                    <ReduxFormSelect
+                      field={DROPDOWN_MENU['role']}
+                    />
                   </Col>
                 </Row>
               </Col>
