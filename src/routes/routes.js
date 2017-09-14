@@ -181,8 +181,16 @@ export default [
       path: '/admin/dashboard/users/client/:id',
       getComponent: (nextState, cb) => {
         require.ensure([], require => {
-          cb(null, require('./admin/Dashboard/User').default);
+          cb(null, require('./admin/Dashboard/Users/Client').default);
         }, 'admin-dashboard-user-edit');
+      }
+    },
+    {
+      path: '/admin/dashboard/users/admin/:id',
+      getComponent: (nextState, cb) => {
+        require.ensure([], require => {
+          cb(null, require('./admin/Dashboard/Users/Admin').default);
+        }, 'admin-dashboard-admin-edit');
       }
     },
     {

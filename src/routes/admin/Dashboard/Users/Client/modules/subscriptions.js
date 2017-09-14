@@ -1,6 +1,6 @@
 import clickadillyApi from 'services/clickadillyApi';
 import _ from 'underscore';
-import { USER_SUCCESS } from './user';
+import { USER_SUCCESS } from './details';
 
 export const UPDATE_SUBSCRIPTION_SUCCESS = 'UPDATE_SUBSCRIPTION_SUCCESS'
 export const UPDATE_SUBSCRIPTION_FAILURE = 'UPDATE_SUBSCRIPTION_FAILURE'

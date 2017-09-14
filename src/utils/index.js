@@ -6,6 +6,7 @@ import fullName     from './fullName';
 import imageHelper  from './imageHelper';
 import paramsHelper from './paramsHelper';
 import formatCreditCard from './formatCreditCard';
+import createNotification from './createNotification';
 
 export {
   capitalize,
@@ -15,5 +16,6 @@ export {
   fullName,
   imageHelper,
   formatCreditCard,
-  paramsHelper
+  paramsHelper,
+  createNotification
 }

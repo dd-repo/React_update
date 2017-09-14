@@ -10,8 +10,8 @@ import {
 
 import classes from '../user.scss';
 
-const UserDetails = props => {
-  const { accounts , user, showModal, handlePasswordReset } = props
+const ClientDetails = props => {
+  const { accounts , client, showModal, handlePasswordReset } = props
   return (
     <Panel
       header={
@@ -22,7 +22,7 @@ const UserDetails = props => {
         footer={
           <div className='text-right'>
             <Button
-              onClick={() => { showModal('USER', user)}}
+              onClick={() => { showModal('USER', client)}}
               bsStyle='primary'
             >
               <i className="fa fa-pencil"></i> Edit Subscriber
@@ -36,7 +36,7 @@ const UserDetails = props => {
                 User Id
               </h5>
               <div className={ classes.detailsValue }>
-                { user.id }
+                { client.id }
               </div>
             </ListGroupItem>
             <ListGroupItem className='flex-space-between'>
@@ -47,8 +47,8 @@ const UserDetails = props => {
                 <Label
                   outline
                   className='text-uppercase'
-                  bsStyle={user.is_active ? 'success' : 'danger'}>
-                  {user.is_active ? 'Active' : 'Inactive'}
+                  bsStyle={client.is_active ? 'success' : 'danger'}>
+                  {client.is_active ? 'Active' : 'Inactive'}
                 </Label>
               </div>
             </ListGroupItem>
@@ -57,7 +57,7 @@ const UserDetails = props => {
                 Full Name
               </h5>
               <div className={ classes.detailsValue }>
-                { user.fullName }
+                { client.fullName }
               </div>
             </ListGroupItem>
             <ListGroupItem className='flex-space-between'>
@@ -65,7 +65,7 @@ const UserDetails = props => {
                 Email
               </h5>
               <div className={ classes.detailsValue }>
-                { user.email }
+                { client.email }
               </div>
             </ListGroupItem>
             <ListGroupItem className='flex-space-between'>
@@ -93,7 +93,7 @@ const UserDetails = props => {
                 Date Assigned
               </h5>
               <div className={ classes.detailsValue }>
-                {user.created_at}
+                {client.created_at}
               </div>
             </ListGroupItem>
             <ListGroupItem className='flex-space-between'>
@@ -101,7 +101,7 @@ const UserDetails = props => {
                 Active until
               </h5>
               <div className={ classes.detailsValue }>
-                {user.active_until}
+                {client.active_until}
               </div>
             </ListGroupItem>
           </ListGroup>
@@ -109,12 +109,12 @@ const UserDetails = props => {
   )
 }
 
-UserDetails.propsTypes = {
-  user: PropTypes.object,
+ClientDetails.propsTypes = {
+  client: PropTypes.object,
   accounts: PropTypes.array,
   showModal: PropTypes.func,
   handlePasswordReset: PropTypes.func,
   toggleModal: PropTypes.func
 }
 
-export default UserDetails;
+export default ClientDetails;

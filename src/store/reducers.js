@@ -16,7 +16,8 @@ import transactions from 'routes/admin/Dashboard/Transactions/modules/transactio
 import subscriptions from 'routes/admin/Dashboard/Subscriptions/modules/subscriptions';
 import users from 'routes/admin/Dashboard/Users/modules/users';
 import subscription from 'routes/client/Account/modules/subscription';
-import user from 'routes/admin/Dashboard/User/modules';
+import client from 'routes/admin/Dashboard/Users/Client/modules';
+import admin from 'routes/admin/Dashboard/Users/Admin/modules';
 import dashboard from 'routes/client/Dashboard/modules';
 
 
@@ -39,8 +40,9 @@ export const makeRootReducer = (asyncReducers) => {
     transactions,
     subscriptions,
     users,
+    admin,
     modal,
-    user,
+    client,
     ...asyncReducers
   })
 }

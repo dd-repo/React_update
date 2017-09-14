@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { reduxForm, Field } from 'redux-form';
-import { updateAddress } from 'routes/admin/Dashboard/User/modules/addresses';
+import { updateAddress } from 'routes/admin/Dashboard/Users/Client/modules/addresses';
 import states from 'consts/data/states';
 import { AddressForm } from 'components/Forms'
 import { Modal } from 'components';

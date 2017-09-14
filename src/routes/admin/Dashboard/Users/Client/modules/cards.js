@@ -1,5 +1,5 @@
 import clickadillyApi from 'services/clickadillyApi';
-import { USER_SUCCESS } from './user';
+import { USER_SUCCESS } from './details';
 
 export const CARDS_SUCCESS = 'CARDS_SUCCESS';
 export const CARDS_FAILURE = 'CARDS_FAILURE';

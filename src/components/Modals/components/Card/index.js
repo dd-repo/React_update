@@ -4,7 +4,7 @@ import { reduxForm, Field } from 'redux-form';
 import { buildCreditCardParams } from 'utils/paramsHelper';
 
 import { PaymentForm } from 'components/Forms';
-import { addCard, ADD_CARD_SUCCESS } from 'routes/admin/Dashboard/User/modules/cards';
+import { addCard, ADD_CARD_SUCCESS } from 'routes/admin/Dashboard/Users/Client/modules/cards';
 import {
     Col,
     Modal,

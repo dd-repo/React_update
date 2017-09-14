@@ -6,7 +6,7 @@ import capitalize from 'utils/capitalize';
 import SpinnerWhileLoading from 'HOC/SpinnerWhileLoading';
 import classes from '../user.scss';
 import AccountDetails from '../AccountDetails';
-import UserDetails from '../UserDetails';
+import ClientDetails from '../ClientDetails';
 import Transactions from '../Transactions';
 import Subscriptions from '../Subscriptions';
 import Cards from '../Cards';
@@ -28,7 +28,7 @@ const User = props => {
         </Link>
         <span className='text-muted m-x-1'>/</span>
         <span>
-          {capitalize(props.user.details.fullName)}
+          {capitalize(props.client.details.fullName)}
         </span>
       </h2>
     </div>
@@ -44,21 +44,21 @@ const User = props => {
         </Row>
         <Row className='m-t-3'>
           <Col lg={ 6 }>
-            <UserDetails
-              user={props.user.details}
-              accounts={props.user.accounts}
+            <ClientDetails
+              client={props.client.details}
+              accounts={props.client.accounts}
               showModal={props.showModal}
               handlePasswordReset={props.handlePasswordReset}
             />
           </Col>
           <Col lg={6}>
             <AccountDetails
-              accounts={props.user.accounts}
-              account={props.user.account}
-              keywords={props.user.keywords}
-              addresses={props.user.addresses}
-              profile={props.user.profile}
-              phones={props.user.phones}
+              accounts={props.client.accounts}
+              account={props.client.account}
+              keywords={props.client.keywords}
+              addresses={props.client.addresses}
+              profile={props.client.profile}
+              phones={props.client.phones}
               showModal={props.showModal}
               fetchAccount={props.fetchAccount}
               handleKeywordSubmit={props.handleKeywordSubmit}
@@ -68,7 +68,7 @@ const User = props => {
         <Row>
           <Col lg={12}>
             <Cards
-              cards={props.user.cards}
+              cards={props.client.cards}
               showModal={props.showModal}
             />
           </Col>
@@ -76,7 +76,7 @@ const User = props => {
         <Row>
           <Col lg={12}>
             <Transactions
-              transactions={props.user.transactions}
+              transactions={props.client.transactions}
               showModal={props.showModal}
             />
           </Col>
@@ -84,7 +84,7 @@ const User = props => {
         <Row>
           <Col lg={12}>
             <Subscriptions
-              subscriptions={props.user.subscriptions}
+              subscriptions={props.client.subscriptions}
               showModal={props.showModal}
               handleNewSubscription={props.handleNewSubscription}
             />
@@ -104,9 +104,9 @@ const User = props => {
         { renderUserDetails }
 
         <RootModal
-          user={props.user.details}
-          account={props.user.account}
-          cards={props.user.cards}
+          user={props.client.details}
+          account={props.client.account}
+          cards={props.client.cards}
           notification={props.notification}
         />
 
@@ -115,9 +115,8 @@ const User = props => {
 }
 
 User.propTypes = {
-  user: PropTypes.object,
+  client: PropTypes.object,
   handlePasswordReset: PropTypes.func
 }
 
 export default compose(withLoader)(User);
-

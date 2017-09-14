@@ -1,4 +1,5 @@
 import UserModal from './User';
+import AdminModal from './Admin';
 import AccountModal from './Account';
 import TransactionModal from './Transaction';
 import KeywordModal from './Keyword';
@@ -19,6 +20,7 @@ import PrivacyPolicyModal from './PrivacyPolicy';
 
 export {
   UserModal,
+  AdminModal,
   AccountModal,
   TransactionModal,
   KeywordModal,

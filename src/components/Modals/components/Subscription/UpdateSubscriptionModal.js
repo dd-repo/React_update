@@ -11,7 +11,7 @@ import {
     ControlLabel,
     Button
 } from 'components';
-import { updateSubscription } from 'routes/admin/Dashboard/User/modules/subscriptions';
+import { updateSubscription } from 'routes/admin/Dashboard/Users/Client/modules/subscriptions';
 import { UpdateSubscriptionForm } from 'components/Forms/Subscription';
 
 const SubscriptionEditModal = props => {

@@ -1,9 +1,11 @@
-import { USER_SUCCESS } from './user';
+import clickadillyApi from 'services/clickadillyApi';
+
+import { USER_SUCCESS } from './details';
 
 const reducer = (state=[], action) => {
   switch(action.type) {
     case USER_SUCCESS:
-      return action.data.client_merchant_profiles
+      return action.data.accounts
     default:
       return state
   }
@@ -11,3 +13,4 @@ const reducer = (state=[], action) => {
 }
 
 export default reducer;
+

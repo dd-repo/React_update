@@ -2,7 +2,7 @@ import {
   USER_FAILURE,
   UPDATE_USER_SUCCESS,
   UPDATE_USER_FAILURE
-} from './user';
+} from './details';
 
 import {
   ACCOUNT_FAILURE,

@@ -4,7 +4,7 @@ import {
   UPDATE_TRANSACTION_SUCCESS,
   UPDATE_TRANSACTION_FAILURE,
   insertTransaction
-} from 'routes/admin/Dashboard/User/modules/transactions';
+} from 'routes/admin/Dashboard/Users/Client/modules/transactions';
 
 // action types
 export const TRANSACTIONS_PENDING = 'TRANSACTIONS_PENDING';

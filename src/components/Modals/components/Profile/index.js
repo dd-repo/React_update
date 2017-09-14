@@ -11,7 +11,7 @@ import {
     ControlLabel,
     Button
 } from 'components';
-import { updateProfile } from 'routes/admin/Dashboard/User/modules/profile';
+import { updateProfile } from 'routes/admin/Dashboard/Users/Client/modules/profile';
 
 const renderInput = ({ input, type }) => {
   return (

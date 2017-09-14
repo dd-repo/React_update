@@ -190,7 +190,7 @@ class AccountDetails extends React.Component {
 }
 
 AccountDetails.propTypes = {
-  user: PropTypes.object,
+  client: PropTypes.object,
   account: PropTypes.object,
   accounts: PropTypes.array,
   fetchAccount: PropTypes.func,

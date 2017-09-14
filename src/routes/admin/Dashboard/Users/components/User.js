@@ -48,12 +48,14 @@ const User = (props) => {
   )
 
   const renderClientLink = (
-    role !== 'admin' ?
+    group === 'frontend' ?
         <Link to={`/admin/dashboard/users/client/${id}`}>
           { fullName }
         </Link>
-          :
-            fullName
+        :
+        <Link to={`/admin/dashboard/users/admin/${id}`}>
+          { fullName }
+        </Link>
 
   )
 

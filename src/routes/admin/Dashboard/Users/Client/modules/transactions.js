@@ -1,6 +1,6 @@
 import clickadillyApi from 'services/clickadillyApi';
 import _ from 'underscore';
-import { USER_SUCCESS } from './user';
+import { USER_SUCCESS } from './details';
 import {
   CREATE_SUBSCRIPTION_SUCCESS,
   CREATE_SUBSCRIPTION_FAILURE

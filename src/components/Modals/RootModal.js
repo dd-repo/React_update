@@ -19,11 +19,13 @@ import {
   TermsOfServiceModal,
   PrivacyPolicyModal,
   CancelSubscriptionModal,
-  CanceledSubscriptionModal
+  CanceledSubscriptionModal,
+  AdminModal
 } from './components'
 
 const MODAL_COMPONENTS = {
   'USER':                  UserModal,
+  'ADMIN_UPDATE':          AdminModal,
   'ACCOUNT':               AccountModal,
   'TRANSACTION':           TransactionModal,
   'KEYWORD':               KeywordModal,
