@@ -4,10 +4,10 @@ import { Provider } from 'react-redux';
 import configureMockStore from 'redux-mock-store';
 import clickadillyApi from 'services/clickadillyApi';
 
-import UserContainer from 'routes/admin/Dashboard/User/UserContainer'
-import User from 'routes/admin/Dashboard/User/components/User';
+import UserContainer from 'routes/admin/Dashboard/Users/Client/UserContainer'
+import User from 'routes/admin/Dashboard/Users/Client/components/Client';
 import Payment from 'routes/signup/Payment';
-import UserDetails from 'routes/admin/Dashboard/User/components/UserDetails';
+import UserDetails from 'routes/admin/Dashboard/Users/Client/components/ClientDetails';
 
 const response = {
   id:1,

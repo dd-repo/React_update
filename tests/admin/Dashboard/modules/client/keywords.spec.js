@@ -4,7 +4,7 @@ import clickadillyApi from 'services/clickadillyApi';
 
 import {
   ACCOUNT_SUCCESS
-} from 'routes/admin/Dashboard/User/modules/account';
+} from 'routes/admin/Dashboard/Users/Client/modules/account';
 import {
   configKeywords
 } from 'routes/signup/Keywords/modules/keywords';
@@ -23,7 +23,7 @@ import {
   addKeywordFailure,
   submitKeyword,
   default as reducer
-} from 'routes/admin/Dashboard/User/modules/keywords';
+} from 'routes/admin/Dashboard/Users/Client/modules/keywords';
 
 const middlewares = [ thunk ]
 const mockStore = configureMockStore(middlewares)

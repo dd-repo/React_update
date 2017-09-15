@@ -19,7 +19,7 @@ import {
   updateAccountSuccess,
   updateAccountFailure,
   default as reducer
-} from 'routes/admin/Dashboard/User/modules/account';
+} from 'routes/admin/Dashboard/Users/Client/modules/account';
 
 const middlewares = [ thunk ]
 const mockStore = configureMockStore(middlewares)

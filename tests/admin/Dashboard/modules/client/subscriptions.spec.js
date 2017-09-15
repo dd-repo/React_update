@@ -4,7 +4,7 @@ import clickadillyApi from 'services/clickadillyApi';
 
 import {
   USER_SUCCESS,
-} from 'routes/admin/Dashboard/User/modules/user';
+} from 'routes/admin/Dashboard/Users/Client/modules/details';
 
 import {
   CREATE_SUBSCRIPTION_SUCCESS,
@@ -21,7 +21,7 @@ import {
   insertSubscripiton,
   addSubscription,
   default as reducer
-} from 'routes/admin/Dashboard/User/modules/subscriptions';
+} from 'routes/admin/Dashboard/Users/Client/modules/subscriptions';
 
 const middlewares = [ thunk ]
 const mockStore = configureMockStore(middlewares)

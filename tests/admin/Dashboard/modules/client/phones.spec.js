@@ -4,7 +4,7 @@ import clickadillyApi from 'services/clickadillyApi';
 
 import {
   ACCOUNT_SUCCESS
-} from 'routes/admin/Dashboard/User/modules/account';
+} from 'routes/admin/Dashboard/Users/Client/modules/account';
 
 import {
   UPDATE_PHONE_SUCCESS,
@@ -14,7 +14,7 @@ import {
   updatePhoneFailure,
   updatePhone,
   default as reducer
-} from 'routes/admin/Dashboard/User/modules/phones';
+} from 'routes/admin/Dashboard/Users/Client/modules/phones';
 
 const middlewares = [ thunk ]
 const mockStore = configureMockStore(middlewares)

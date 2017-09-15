@@ -4,7 +4,7 @@ import clickadillyApi from 'services/clickadillyApi';
 
 import {
   ACCOUNT_SUCCESS
-} from 'routes/admin/Dashboard/User/modules/account';
+} from 'routes/admin/Dashboard/Users/Client/modules/account';
 
 import {
   UPDATE_ADDRESS_SUCCESS,
@@ -20,7 +20,7 @@ import {
   createAddressSuccess,
   createAddressFailure,
   default as reducer
-} from 'routes/admin/Dashboard/User/modules/addresses';
+} from 'routes/admin/Dashboard/Users/Client/modules/addresses';
 
 const middlewares = [ thunk ]
 const mockStore = configureMockStore(middlewares)

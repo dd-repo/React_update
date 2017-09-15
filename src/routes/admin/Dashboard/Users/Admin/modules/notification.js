@@ -6,7 +6,7 @@ import {
   RECEIVE_ADMIN_UPDATE_FAILURE
 } from './admin'
 
-const SUCCESS_RESPONSE = 'Admin was successfully updated'
+export const SUCCESS_RESPONSE = 'Admin was successfully updated'
 
 export const CLEAR_NOTIFICATION = 'CLEAR_NOTIFICATION';
 

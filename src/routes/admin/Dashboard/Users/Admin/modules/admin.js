@@ -8,7 +8,7 @@ export const RECEIVE_ADMIN_SUCCESS = 'RECEIVE_ADMIN_SUCCESS';
 export const RECEIVE_ADMIN_FAILURE = 'RECEIVE_ADMIN_FAILURE';
 export const RECEIVE_ADMIN_UPDATE_SUCCESS = 'RECEIVE_ADMIN_UPDATE_SUCCESS';
 export const RECEIVE_ADMIN_UPDATE_FAILURE = 'RECEIVE_ADMIN_UPDATE_FAILURE';
-export const CLEAR_NOTIFICATION = 'CLEAR_NOTIFICATION';
+
 export const FETCH_ADMIN_REQUEST = '/admin/api/user';
 
 // aciton
@@ -61,12 +61,6 @@ export const receiveAdminUpdateFailure = error => (
   {
     type: RECEIVE_ADMIN_UPDATE_FAILURE,
     error
-  }
-)
-
-export const clearNotification = () => (
-  {
-    type: CLEAR_NOTIFICATION
   }
 )
 

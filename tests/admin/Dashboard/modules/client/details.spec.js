@@ -20,7 +20,7 @@ import {
   updateUserSuccess,
   updateUser,
   default as reducer
-} from 'routes/admin/Dashboard/User/modules/user';
+} from 'routes/admin/Dashboard/Users/Client/modules/details';
 
 const middlewares = [ thunk ]
 const mockStore = configureMockStore(middlewares)

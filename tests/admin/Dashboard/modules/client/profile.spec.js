@@ -2,7 +2,7 @@ import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import clickadillyApi from 'services/clickadillyApi';
 
-import { ACCOUNT_SUCCESS } from 'routes/admin/Dashboard/User/modules/account';
+import { ACCOUNT_SUCCESS } from 'routes/admin/Dashboard/Users/Client/modules/account';
 
 import {
   UPDATE_PROFILE_SUCCESS,
@@ -12,7 +12,7 @@ import {
   updateProfileFailure,
   updateProfile,
   default as reducer
-} from 'routes/admin/Dashboard/User/modules/profile';
+} from 'routes/admin/Dashboard/Users/Client/modules/profile';
 
 const middlewares = [ thunk ]
 const mockStore = configureMockStore(middlewares)
