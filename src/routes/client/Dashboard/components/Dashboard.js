@@ -3,69 +3,92 @@ import { compose } from 'recompose';
 
 import SpinnerWhileLoading from 'HOC/SpinnerWhileLoading';
 import hideIfNoData from 'HOC/hideIfNoData';
-import KeywordSummary from './KeywordSummary';
-import PrivacyRemovalBarChart from './BarChart';
-import PrivacyRemovalPieChart from './PieChart';
+import Keywords from './Keywords';
 import CompletedRequests from 'routes/client/Monitoring/components/CompletedRequests';
-import ClientDetails from './ClientDetails';
+import Privacy from './Privacy';
+import PrivacySummary from './Privacy/Summary';
 import GoogleResults from './GoogleResults';
 import getFullName from 'utils/fullName';
 import capitalize from 'utils/capitalize';
-import { Row, Col, Panel, PageHeader } from 'components';
+import {
+  Row,
+  Col,
+  Panel,
+  ListGroup,
+  ListGroupItem,
+  OverlayTrigger,
+  Tooltip,
+  Button,
+  PageHeader
+} from 'components';
 import { Colors } from 'consts';
 import classes from './dashboard.scss';
+import RootModal from 'components/Modals';
 
 const withLoader = SpinnerWhileLoading(
   props => props.isFetching
 )
 
-const withNoData = hideIfNoData(
-  props => !props.hasData
-)
-
 export const Dashboard = (props) => {
   const {
     user,
-    chartData,
-    pieData,
-    completedRequests,
+    inProgress,
+    inQueue,
+    potentialRisks,
+    completed,
+    totalCount,
     googleResults,
     keywords,
     handleSearch,
+    showModal,
+    handleKeywordEdit,
     handlePrivacyRemovalButtonClick
   } = props
 
   const fullName = capitalize(getFullName(user))
-
   return (
     <div className={classes.mainWrap}>
-      <div>
-        <Row>
-          <Col md={ 12 }>
-            <div>
-              <PageHeader>
-                Welcome <small className='text-gray-lighter'>{fullName}</small>
-              </PageHeader>
-            </div>
+      <Row className={ classes.sectionRow }>
+        <Col lg={6}>
+          <Keywords
+            keywords={keywords.all}
+            showModal={showModal}
+            handleKeywordEdit={handleKeywordEdit}
+          />
+        </Col>
+        <Col lg={6}>
+          <ListGroup>
+            <ListGroupItem className='text-white' style={{background: Colors.brandDanger}}>
+              Your Privacy Removal Report
+              <OverlayTrigger
+                placement='top'
+                overlay={(
+                  <Tooltip>
+                    info
+                  </Tooltip>
+                  )}
+                >
+                  <Button
+                    className={classes.infoButton}
+                    bsStyle='link'
+                  >
+                    <i className='fa fa-question fa-fw fa-lg text-white'></i>
+                  </Button>
+                </OverlayTrigger>
+              </ListGroupItem>
+              <ListGroupItem style={{background: 'none'}}>
+                <PrivacySummary
+                  inProgressCount={inProgress.length}
+                  inQueueCount={inQueue.length}
+                  potentialRiskCount={potentialRisks.length}
+                  totalRemovalCount={totalCount}
+                />
+              </ListGroupItem>
+            </ListGroup>
           </Col>
         </Row>
-        <KeywordSummary keywords={keywords.all} />
         <Row className={ classes.sectionRow }>
-          <Col md={ 8 }>
-            <PrivacyRemovalBarChart chartData={chartData} />
-          </Col>
-          <Col md={ 4 }>
-            <PrivacyRemovalPieChart pieData={pieData} />
-          </Col>
-        </Row>
-        <Row className={ classes.sectionRow }>
-          <Col md={ 12 }>
-            <CompletedRequests
-              completed={completedRequests}
-              title='Most Recent Removals'
-            />
-          </Col>
-          <Col md={ 12 }>
+          <Col md={ 6 }>
             <GoogleResults
               results={googleResults}
               keywords={keywords}
@@ -73,23 +96,32 @@ export const Dashboard = (props) => {
               handlePrivacyRemovalButtonClick={handlePrivacyRemovalButtonClick}
             />
           </Col>
+          <Col md={ 6 }>
+            <Privacy
+              inProgress={inProgress}
+              inQueue={inQueue}
+              potentialRisks={potentialRisks}
+              completed={completed}
+            />
+          </Col>
+          <RootModal />
         </Row>
       </div>
-    </div>
   )
 }
 
 Dashboard.propTypes = {
   user: PropTypes.object.isRequired,
-  chartData: PropTypes.object,
-  pieData: PropTypes.object,
+  inProgress: PropTypes.array,
+  inQueue: PropTypes.array,
+  potentialRisks: PropTypes.array,
   completedRequests: PropTypes.array,
   googleResults: PropTypes.array,
-  keywords: PropTypes.array.isRequired,
+  keywords: PropTypes.object.isRequired,
+  handleKeywordEdit: PropTypes.func.isRequired,
   handleSearch: PropTypes.func,
   handlePrivacyRemovalButtonClick: PropTypes.func,
   isFetching: PropTypes.bool.isRequired,
-  hasData: PropTypes.bool.isRequired
 }
 
-export default compose(withLoader, withNoData)(Dashboard);
+export default compose(withLoader)(Dashboard);

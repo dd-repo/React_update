@@ -79,7 +79,11 @@ export const updateGoogleResults = (state, action) => {
   ]
 }
 
-const reducer = (state = {}, action) => {
+const initialState = {
+  all: []
+}
+
+const reducer = (state=initialState, action) => {
   switch(action.type) {
     case GOOGLE_RESULTS_POSTING:
       return Object.assign({}, state, {

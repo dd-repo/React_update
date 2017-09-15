@@ -3,7 +3,7 @@ import { Field, reduxForm } from 'redux-form';
 
 import { connect } from 'routes/routedComponent';
 import { checkValidation } from 'utils/formHelpers';
-import formFields from 'consts/data/formFields';
+import formFields from 'consts/formFields';
 import { ReduxFormSelect, ReduxFormInput } from 'components/Forms/components';
 import classes from './clientRegistration.scss';
 import {

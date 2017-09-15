@@ -17,7 +17,7 @@ class MonitoringSite extends Component {
   }
 
   _onClick() {
-    this.props.handleClick(this.props.monitoringSite.id)
+    this.props.handleRemovalRequest(this.props.monitoringSite.id)
   }
 
   render() {
@@ -52,7 +52,7 @@ class MonitoringSite extends Component {
   }
 MonitoringSite.propTypes = {
   monitoringSite: PropTypes.object.isRequired,
-  handleClick: PropTypes.func.isRequired
+  handleRemovalRequest: PropTypes.func.isRequired
 }
 export default MonitoringSite;
 

@@ -72,7 +72,7 @@ const reducer = (state=[], action) => {
     case ACCOUNT_SUCCESS:
       return configKeywords(action.data.keywords)
     case UPDATE_KEYWORD_SUCCESS:
-      return insertKeyword(state, configKeyword(action.data))
+      return insertKeyword(state, action.data)
     case ADD_KEYWORD_SUCCESS:
       return [
         ...state,

@@ -10,7 +10,7 @@ import {
   MONITORING_UPDATE_FAILURE,
   fetchMonitoringRequests,
   fetchMonitoringRequestsCompleted,
-  monitoringRequestRemoval
+  requestRemoval
 } from './modules/monitoring';
 import { showModal } from 'modules/modal';
 
@@ -39,7 +39,6 @@ class MonitoringContainer extends RoutedComponent {
     super(props)
     this.state = {}
 
-    this.handleClick = this.handleClick.bind(this);
   }
 
   getLayoutOptions() {
@@ -87,8 +86,8 @@ class MonitoringContainer extends RoutedComponent {
     this.props.fetchMonitoringRequestsCompleted(params)
   }
 
-  handleClick(request_id) {
-    this.props.monitoringRequestRemoval(request_id)
+  handleRemovalRequest = (requestId) => {
+    this.props.requestRemoval(requestId)
   }
 
   createNotification() {
@@ -107,7 +106,7 @@ class MonitoringContainer extends RoutedComponent {
   render() {
     return (
       <Privacy
-        handleClick={this.handleClick}
+        handleRemovalRequest={this.handleRemovalRequest}
         isFetching={this.props.isFetching}
         inProgress={this.props.inProgress}
         inQueue={this.props.inQueue}
@@ -134,7 +133,7 @@ const mapStateToProps = state => {
 const mapActionCreators = {
   fetchMonitoringRequests,
   fetchMonitoringRequestsCompleted,
-  monitoringRequestRemoval,
+  requestRemoval,
   showModal
 }
 

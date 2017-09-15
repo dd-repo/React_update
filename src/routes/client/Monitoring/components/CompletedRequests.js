@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react'
 
-import CompletedRequest from './CompletedRequest';
+import CompletedRemoval from './CompletedRequest';
 import classes from './Monitoring.scss';
 import {
   Panel,
@@ -71,3 +71,4 @@ CompletedRequests.propsTypes = {
 }
 
 export default CompletedRequests;
+

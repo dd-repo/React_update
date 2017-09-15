@@ -151,6 +151,7 @@
     "react-image-holder": "^2.0.1",
     "react-interval": "^1.3.1",
     "react-loading": "0.0.9",
+    "react-motion": "^0.5.1",
     "react-notification-system": "^0.2.15",
     "react-notification-system-redux": "^1.1.4",
     "react-overlays": "^0.6.3",

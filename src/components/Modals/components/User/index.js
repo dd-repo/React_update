@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { reduxForm, Field } from 'redux-form';
 
 import { ReduxFormSelect, ReduxFormDatePicker } from 'components/Forms/components';
-import formFields from 'consts/data/formFields';
+import formFields from 'consts/formFields';
 import { updateUser } from 'routes/admin/Dashboard/Users/Client/modules/details';
 import {
     Col,

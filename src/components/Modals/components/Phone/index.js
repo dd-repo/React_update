@@ -11,7 +11,7 @@ import {
     ControlLabel,
     Button
 } from 'components';
-import formFields from 'consts/data/formFields'
+import formFields from 'consts/formFields'
 
 import { updatePhone } from 'routes/admin/Dashboard/Users/Client/modules/phones';
 

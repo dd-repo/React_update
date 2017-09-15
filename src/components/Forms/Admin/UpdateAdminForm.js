@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import { ReduxFormSelect } from 'components/Forms/components';
 import { reduxForm, Field } from 'redux-form';
-import formFields from 'consts/data/formFields';
+import formFields from 'consts/formFields';
 import {
   Row,
   Col,

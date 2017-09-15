@@ -63,6 +63,7 @@ export default class AffixWrap extends React.Component {
       classNames('affix', affixAdditionalClass) :
         classNames('affix-top', affixTopAdditionalClass);
 
+
         return React.cloneElement(child, {
           className: classNames(className, affixClass)
         });

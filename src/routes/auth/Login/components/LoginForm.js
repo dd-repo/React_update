@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import { Field, reduxForm } from 'redux-form';
 import _ from 'lodash';
 
-import fields from 'consts/data/formFields';
+import fields from 'consts/formFields';
 import {
   FormGroup,
   FormControl

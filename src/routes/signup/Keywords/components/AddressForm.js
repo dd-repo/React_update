@@ -3,7 +3,7 @@ import React from 'react';
 import { FormGroup, FormControl } from 'components';
 import classes from './keywords.scss';
 import { ReduxFormInput, ReduxFormSelect } from 'components/Forms/components';
-import formFields from 'consts/data/formFields'
+import formFields from 'consts/formFields'
 
 const AddressForm = (props) => {
   const {

@@ -1,4 +1,4 @@
-import states from 'consts/data/states';
+import states from 'consts/states';
 import {
   onlyNums,
   checkValidation,

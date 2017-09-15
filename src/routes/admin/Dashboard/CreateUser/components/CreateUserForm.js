@@ -4,7 +4,7 @@ import { Field, reduxForm } from 'redux-form';
 
 import { checkValidation } from 'utils/formHelpers';
 import { ReduxFormSelect } from 'components/Forms/components';
-import fields from 'consts/data/formFields';
+import fields from 'consts/formFields';
 import {
     FormGroup,
     FormControl,

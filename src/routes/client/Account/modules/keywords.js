@@ -6,9 +6,9 @@ import {
 import { buildKeywordParams } from 'utils/paramsHelper';
 
 // action types
-export const KEYWORD_POSTING = 'KEYWORD_POSTING';
-export const KEYWORD_SUCCESS = 'KEYWORD_SUCCESS';
-export const KEYWORD_FAILURE = 'KEYWORD_FAILURE';
+export const CREATE_KEYWORD_POSTING = 'CREATE_KEYWORD_POSTING';
+export const CREATE_KEYWORD_SUCCESS = 'CREATE_KEYWORD_SUCCESS';
+export const CREATE_KEYWORD_FAILURE = 'CREATE_KEYWORD_FAILURE';
 export const CURRENT_KEYWORD_UPDATE = 'CURRENT_KEYWORD_UPDATE';
 export const RECEIVE_KEYWORDS_SUCCESS = 'RECEIVE_KEYWORDS_SUCCESS';
 export const RECEIVE_KEYWORDS_FAILURE = 'RECEIVE_KEYWORDS_FAILURE';
@@ -59,20 +59,20 @@ export const fetchKeywords = (account_id, params) => {
 
 export const postingKeywords = () => (
   {
-    type: KEYWORD_POSTING
+    type: CREATE_KEYWORD_POSTING
   }
 );
 
 export const keywordSuccess = keywords => (
   {
-    type: KEYWORD_SUCCESS,
+    type: CREATE_KEYWORD_SUCCESS,
     keywords
   }
 );
 
 export const keywordFailure = error => (
   {
-    type: KEYWORD_FAILURE,
+    type: CREATE_KEYWORD_FAILURE,
     error
   }
 );
@@ -114,7 +114,7 @@ export const configKeywords = keywords => (
   }))
 )
 
-export const configKeyword = keyword => {
+export const configKeyword = (keyword) => {
   if(keyword) {
     return ({
       id: keyword.id,
@@ -134,19 +134,26 @@ export const insertKeyword = (state, keyword) => {
   ]
 }
 
+export const updateCurrentKeywordValue = (currentKeyword, updatedKeyword) => {
+  return currentKeyword.id === updatedKeyword.id ?
+    configKeyword(updatedKeyword)
+      :
+        currentKeyword
+}
+
 const reducer = (state = {}, action) => {
   switch(action.type) {
-    case KEYWORD_POSTING:
+    case CREATE_KEYWORD_POSTING:
       return Object.assign({}, state, {
         isFetching: true
       });
-    case KEYWORD_SUCCESS:
+    case CREATE_KEYWORD_SUCCESS:
       return Object.assign({}, state, {
         all: configKeywords(action.keywords),
         currentKeyword: configKeyword(action.keywords[0]),
         isFetching: false,
       });
-    case KEYWORD_FAILURE:
+    case CREATE_KEYWORD_FAILURE:
       return Object.assign({}, state, {
         isFetching: false,
         error: action.error
@@ -168,7 +175,8 @@ const reducer = (state = {}, action) => {
       });
     case KEYWORD_UPDATE_SUCCESS:
       return Object.assign({}, state, {
-        all: insertKeyword(state.all, action.data)
+        all: insertKeyword(state.all, action.data),
+        currentKeyword: updateCurrentKeywordValue(state.currentKeyword, action.data)
       })
     case USER_LOGOUT:
       return {}

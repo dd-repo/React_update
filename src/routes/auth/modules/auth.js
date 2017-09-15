@@ -1,6 +1,5 @@
 import clickadillyApi from 'services/clickadillyApi';
 import { PAYMENT_SUCCESS } from 'routes/signup/Payment/modules/payment';
-import { KEYWORD_SUCCESS } from 'routes/signup/Keywords/modules/keywords';
 
 // constants
 export const USER_SIGNUP_SUCCESS = 'USER_SIGNUP_SUCCESS';

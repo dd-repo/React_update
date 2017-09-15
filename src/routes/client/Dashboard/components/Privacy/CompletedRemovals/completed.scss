@@ -1,0 +1,37 @@
+@import '~bootstrap-sass/assets/stylesheets/bootstrap/_variables.scss';
+@import '~@owczar/spin-template/src/scss/bootstrap/variables';
+
+.mostViewedItems {
+  .mostViewedItemsTable {
+    margin-top: 1.5rem;
+
+    td {
+      vertical-align: top;
+    }
+
+    th:last-child,
+    td:last-child {
+      text-align: left;
+    }
+
+    th {
+      text-transform: uppercase;
+      font-size: 76%;
+      color: $text-muted;
+    }
+
+    .mostViewedItemStatus {
+      margin-right: 1rem;
+      &.mostViewedItemStatusSuccess {
+        color: $brand-success;
+      }
+      &.mostViewedItemStatusWarning {
+        color: $brand-warning;
+      }
+      &.mostViewedItemStatusDanger {
+        color: $brand-danger
+      }
+    }
+  }
+}
+

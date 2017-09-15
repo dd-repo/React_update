@@ -1,6 +1,10 @@
 import capitalize   from './capitalize';
 import formatPrice  from './formatPrice';
-import formatDate   from './dateHelper';
+import {
+  formatDate,
+  addDays,
+  getNumberOfDays
+} from './dateHelper';
 import formHelpers   from './formHelpers';
 import fullName     from './fullName';
 import imageHelper  from './imageHelper';
@@ -12,6 +16,8 @@ export {
   capitalize,
   formatPrice,
   formatDate,
+  addDays,
+  getNumberOfDays,
   formHelpers,
   fullName,
   imageHelper,

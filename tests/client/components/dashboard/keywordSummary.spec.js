@@ -25,7 +25,7 @@ describe('KeywordSummary Component', () => {
 
   it('should render "Your Keywords"', () => {
     const { wrapper } = setUp()
-    expect(wrapper.html()).includes('Your Keywords')
+    expect(wrapper.html()).includes('Your Search Terms')
   })
 
   it('should render each keyword', () => {
