@@ -191,6 +191,22 @@ const fields = {
   plan: {
     name: 'plan',
     list: [{value: 'individual', label: 'individual'}, {value: '6-months', label: '6-months'}, {value: '1-year', label: '1-year' }, {value: 'testing', label: 'testing'}]
+  },
+  status: {
+    name: 'is_active',
+    list: [
+      { label: 'Active', value: true },
+      { label: 'Inactive', value: false }
+    ]
+  },
+  role: {
+    name: 'role',
+    list: [
+      { label: 'user', value: 'user'},
+      { label: 'manager', value: 'manager'},
+      { label: 'admin', value: 'admin'},
+      { label: 'super admin', value: 'super_admin'},
+    ]
   }
 }
 

@@ -1,108 +1,85 @@
 import React, { PropTypes } from 'react';
 import { reduxForm, Field } from 'redux-form';
-import DatePicker from 'react-bootstrap-date-picker';
-//import moment from 'moment';
 
 import { checkValidation } from 'utils/formHelpers';
 import formFields from 'consts/data/formFields';
-import { formatDate } from 'utils';
+import { ReduxFormSelect, ReduxFormDatePicker } from '../components';
+import { fullName, formatDate, formatCreditCard } from 'utils';
 
 import {
-    Col,
-    Form,
-    FormGroup,
-    FormControl,
-    ControlLabel,
-    Button
+  Row,
+  Col,
+  Form,
+  FormGroup,
+  FormControl,
+  ControlLabel,
+  Button
 } from 'components';
 
 const validate = values => {
   return checkValidation(values)
 }
 
-//const startDate = moment().toDate().toString()
-
-const dropDownSelect = ({ input, title, children, meta: {touched, error} }) => (
-  <FormControl className='m-b-1' {...input} componentClass='select'>
-    <option value=''>Select a {title}...</option>
-    { children }
-    {touched && error && <span>{error}</span>}
-  </FormControl>
-)
-
-const renderDatePicker = ({input, placeHolder, meta: {touched, error} }) => (
-  <div>
-    <DatePicker
-      {...input}
-      dateFormat='MM/DD/YYYY'
-      placeHolder='Select a start date'
-    />
-    {touched && error && <span>{error}</span>}
-  </div>
-)
-
 const NewSubscriptionForm = props => {
+  const formatedCards = {
+    name: 'card',
+    list: props.cards.map( card => ({
+      value: card.id, label: formatCreditCard(card.last_4)
+    }))
+  }
+
+  const formatedSalesReps = {
+    name: 'salesRep',
+    list: props.salesReps.map( rep => ({
+      value: rep.id, label: fullName(rep)
+    }))
+  }
 
   return (
     <Form onSubmit={props.handleSubmit(props._onSubmit)} horizontal>
       <FormGroup>
-        <Col componentClass={ControlLabel} sm={3}>
-          Plan
-        </Col>
-        <Col sm={9}>
-          <Field
-            name='plan'
-            component={dropDownSelect}
-            title='plan'
-          >
-            {
-              formFields.plan.list.map((plan, i) => (
-                <option value={plan.type} key={i}>{plan.type}</option>
-                ))
-            }
-          </Field>
-        </Col>
-        <Col componentClass={ControlLabel} sm={3}>
-          Sales Rep
-        </Col>
-        <Col sm={9}>
-          <Field
-            name='sales_rep_id'
-            component={dropDownSelect}
-            title='Sale Rep'
-          >
-            {
-              props.salesRep.map(user => (
-                <option value={user.id} key={user.id}>{user.first_name} {user.last_name}</option>
-                ))
-            }
-          </Field>
-        </Col>
-        <Col componentClass={ControlLabel} sm={3}>
-          Cards
-        </Col>
-        <Col sm={9}>
-          <Field
-            name='card_id'
-            component={dropDownSelect}
-            title='card'
-          >
-            {
-              props.cards.map((card, i) => (
-                <option value={card.id} key={i}>Last 4 ({card.last_4}) / Date added ({formatDate(card.created_at)})</option>
-                ))
-            }
-          </Field>
-        </Col>
-        <Col componentClass={ControlLabel} sm={3}>
-          Payment Start Date
-        </Col>
-        <Col sm={9}>
-          <Field
-            name='next_payment'
-            component={renderDatePicker}
-          />
-        </Col>
+        <Row>
+          <Col componentClass={ControlLabel} sm={3}>
+            Plan
+          </Col>
+          <Col sm={8}>
+            <ReduxFormSelect field={formFields.plan} />
+          </Col>
+        </Row>
+      </FormGroup>
+      <FormGroup>
+        <Row>
+          <Col componentClass={ControlLabel} sm={3}>
+            Sales Rep
+          </Col>
+          <Col sm={8}>
+            <ReduxFormSelect field={formatedSalesReps} />
+          </Col>
+        </Row>
+      </FormGroup>
+      <FormGroup>
+        <Row>
+          <Col componentClass={ControlLabel} sm={3}>
+            Cards
+          </Col>
+          <Col sm={8}>
+            <ReduxFormSelect field={formatedCards} />
+          </Col>
+        </Row>
+      </FormGroup>
+      <FormGroup>
+        <Row>
+          <Col componentClass={ControlLabel} sm={3}>
+            Payment Start Date
+          </Col>
+          <Col sm={8}>
+            <ReduxFormDatePicker
+              name='next_payment'
+              dateFormat='MM/DD/YYYY'
+              placeHolder='Select a start date'
+            />
+          </Col>
+        </Row>
       </FormGroup>
       <Button
         bsStyle='primary'
@@ -120,4 +97,3 @@ const reduxSubscriptionNew = reduxForm({
 })(NewSubscriptionForm)
 
 export default reduxSubscriptionNew;
-

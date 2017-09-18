@@ -75,7 +75,7 @@ const setUser = (state, user) => (
     email: user.email,
     is_active: user.is_active,
     created_at: formatDate(user.created_at),
-    active_until: formatDate(user.active_until)
+    active_until: user.active_until
   })
 )
 

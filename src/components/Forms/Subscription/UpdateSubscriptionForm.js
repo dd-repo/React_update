@@ -10,6 +10,7 @@ import {
     ControlLabel,
     Button
 } from 'components';
+import { formatCreditCard } from 'utils';
 
 const STATUS = [
   {
@@ -60,7 +61,7 @@ const UpdateSubscriptionForm = props => {
           >
             {
               props.cards.map((card, i) => (
-                <option value={card.id} key={i}>Last 4 - {card.last_4}  Date add - {formatDate(card.created_at)}</option>
+                <option value={card.id} key={i}>{formatCreditCard(card.last_4)}</option>
                 ))
             }
           </Field>

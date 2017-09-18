@@ -2,8 +2,9 @@ import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { reduxForm, Field } from 'redux-form';
 
+import { ReduxFormSelect, ReduxFormDatePicker } from 'components/Forms/components';
+import formFields from 'consts/data/formFields';
 import { updateUser } from 'routes/admin/Dashboard/Users/Client/modules/details';
-
 import {
     Col,
     Modal,
@@ -13,17 +14,6 @@ import {
     ControlLabel,
     Button
 } from 'components';
-
-const STATUS = [
-  {
-    status: 'Active',
-    is_active: true
-  },
-  {
-    status: 'Inactive',
-    is_active: false
-  }
-]
 
 const renderInput = ({ input, type }) => {
   return (
@@ -43,8 +33,16 @@ const dropDownSelect = ({ input, title, children }) => (
 const UpdateUser = props => {
 
   const _onSubmit = (data) => {
+    const params = {
+      active_until: data.active_until,
+      is_active: data.is_active.label ? data.is_active.value : data.is_active,
+      email: data.email,
+      first_name: data.first_name,
+      last_name: data.last_name,
+      id: data.id
+    }
     props.hideModal()
-    props.dispatch(updateUser(data))
+    props.dispatch(updateUser(params))
   }
 
 
@@ -62,16 +60,19 @@ const UpdateUser = props => {
               Status
             </Col>
             <Col sm={9}>
-              <Field
-                name='is_active'
-                component={dropDownSelect}
-              >
-                {
-                  STATUS.map((item, i) => (
-                    <option value={item.is_active} key={i}>{item.status}</option>
-                    ))
-                }
-              </Field>
+              <ReduxFormSelect
+                field={formFields.status}
+              />
+            </Col>
+          </FormGroup>
+          <FormGroup>
+            <Col componentClass={ControlLabel} sm={3}>
+              Active Until
+            </Col>
+            <Col sm={9}>
+              <ReduxFormDatePicker
+                name='active_until'
+              />
             </Col>
           </FormGroup>
           <FormGroup>

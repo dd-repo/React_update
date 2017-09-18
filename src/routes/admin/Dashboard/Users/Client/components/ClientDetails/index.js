@@ -7,11 +7,16 @@ import {
   Label,
   Button
 } from 'components';
+import { formatDate } from 'utils';
 
 import classes from '../user.scss';
 
-const ClientDetails = props => {
-  const { accounts , client, showModal, handlePasswordReset } = props
+const ClientDetails = ({
+  accounts,
+  client,
+  showModal,
+  handlePasswordReset
+})  => {
   return (
     <Panel
       header={
@@ -101,7 +106,7 @@ const ClientDetails = props => {
                 Active until
               </h5>
               <div className={ classes.detailsValue }>
-                {client.active_until}
+                {formatDate(client.active_until)}
               </div>
             </ListGroupItem>
           </ListGroup>
