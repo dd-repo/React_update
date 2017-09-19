@@ -9,8 +9,14 @@ import { NewSubscriptionForm } from 'components/Forms/Subscription';
 const CreateSubscriptionModal = props => {
 
   const _onSubmit = data => {
+    const params = {
+      card_id: data.card.value,
+      plan: data.plan.value,
+      sales_rep_id: data.salesRep.value,
+      next_payment: data.next_payment
+    }
     props.hideModal()
-    props.dispatch(createSubscription(data, props.user.id))
+    props.dispatch(createSubscription(params, props.user.id))
   }
 
   return (
@@ -24,7 +30,7 @@ const CreateSubscriptionModal = props => {
         <NewSubscriptionForm
           cards={props.cards}
           _onSubmit={_onSubmit}
-          salesRep={props.initialValues.users}
+          salesReps={props.initialValues.users}
         />
       </Modal.Body>
     </Modal>

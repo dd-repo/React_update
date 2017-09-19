@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react';
 import { ReduxFormSelect } from 'components/Forms/components';
 import { reduxForm, Field } from 'redux-form';
+import formFields from 'consts/data/formFields';
 import {
   Row,
   Col,
@@ -11,35 +12,6 @@ import {
   ControlLabel,
   Button
 } from 'components';
-
-const STATUS = [
-  {
-    status: 'Active',
-    is_active: true
-  },
-  {
-    status: 'Inactive',
-    is_active: false
-  }
-]
-
-const status = {
-  name: 'is_active',
-  list: [
-    { label: 'Active', value: true },
-    { label: 'Inactive', value: false }
-  ]
-}
-
-const role = {
-  name: 'role',
-  list: [
-    { label: 'user', value: 'user'},
-    { label: 'manager', value: 'manager'},
-    { label: 'admin', value: 'admin'},
-    { label: 'super admin', value: 'super_admin'},
-  ]
-}
 
 const renderInput = ({ input, type }) => {
   return (
@@ -59,7 +31,7 @@ const AdminUpdateForm = props => (
         </Col>
         <Col sm={9}>
           <ReduxFormSelect
-            field={status}
+            field={formFields.status}
           />
         </Col>
       </Row>
@@ -113,7 +85,7 @@ const AdminUpdateForm = props => (
         </Col>
         <Col sm={9}>
           <ReduxFormSelect
-            field={role}
+            field={formFields.role}
           />
         </Col>
       </Row>
