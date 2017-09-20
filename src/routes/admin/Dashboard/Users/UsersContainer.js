@@ -2,7 +2,7 @@ import React from 'react';
 
 import { connect, RoutedComponent } from 'routes/routedComponent';
 import { CONTENT_VIEW_STATIC } from 'layouts/DefaultLayout/modules/layout';
-import { getAllUsers, becomeUser, clearNotification } from './modules/users';
+import { getAllUsers, becomeUser, deleteUser, clearNotification } from './modules/users';
 import { persistData } from 'localStorage';
 import { USER_LOGIN_SUCCESS } from 'routes/auth/modules/auth';
 import Users from './components/Users';
@@ -23,7 +23,7 @@ class UsersContainer extends RoutedComponent {
 
     this.getNextPage = this.getNextPage.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
-    this.handleClick = this.handleClick.bind(this);
+    this.handleDropdownSelect = this.handleDropdownSelect.bind(this);
     this.transitionToUser = this.transitionToUser.bind(this);
   }
 
@@ -44,6 +44,9 @@ class UsersContainer extends RoutedComponent {
   componentWillReceiveProps(nextProps) {
     nextProps.route.path !== this.props.route.path &&
       this.fetchUsers(this.getRole(nextProps.route.path), this.state.pageNum)
+    if(nextProps.users) {
+      nextProps.users.notification.message && window.scrollTo(0,0)
+    }
   }
 
   componentWillMount() {
@@ -76,13 +79,16 @@ class UsersContainer extends RoutedComponent {
     this.setState({ queryName })
   }
 
-  handleClick(selector, id) {
+  handleDropdownSelect(id, selector) {
     switch(selector) {
       case 'become':
         const params = { user: { id: id } }
         this.props.becomeUser(params)
         .then( res => this.doNext(res) )
-        break
+        break;
+      case 'delete':
+        this.props.deleteUser(id)
+        break;
       default:
         this.fetchUsers(this.getRole())
     }
@@ -129,7 +135,7 @@ class UsersContainer extends RoutedComponent {
         results={results}
         limit={limit}
         isFrontend={isFrontend}
-        handleClick={this.handleClick}
+        handleDropdownSelect={this.handleDropdownSelect}
       />
     )
   }
@@ -144,6 +150,7 @@ const mapStateToProps = state => {
 const mapActionCreators = {
   getAllUsers,
   becomeUser,
+  deleteUser,
   clearNotification
 }
 

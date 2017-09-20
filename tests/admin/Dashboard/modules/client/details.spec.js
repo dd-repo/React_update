@@ -84,7 +84,7 @@ const errorRes = {
   response: {data: {errorMessage: 'error message'}}
 }
 
-describe('(User module)', () => {
+describe('(Admin User detail module)', () => {
 
   it('should export constants', () => {
     expect(USER_SUCCESS).to.equal('USER_SUCCESS')
@@ -278,7 +278,7 @@ describe('(User module)', () => {
         email: 'fred@email.com',
         is_active: true,
         created_at: formatDate("2017-07-17T08:47:42.858-07:00"),
-        active_until: formatDate("2017-07-17T08:47:42.858-07:00")
+        active_until: "2017-07-17T08:47:42.858-07:00"
       }
       expect(userState).to.eql(userDetails)
     })
