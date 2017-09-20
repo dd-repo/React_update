@@ -26,24 +26,24 @@ const User = (props) => {
     created_at,
   } = props.user
 
-  const _onSelect = (action) => {
-    props.handleClick(action, id)
+  const _onSelect = action => {
+    props.handleDropdownSelect(id, action)
   }
 
   const fullName = getFullName(props.user)
 
   const renderButton = (
-    <DropdownButton onSelect={_onSelect}
+    <DropdownButton
+      onSelect={_onSelect}
       title='Actions'
       bsStyle='danger'
       id='dropdown-basic-4'
       bsSize='lg'
       className='m-b-1'
+      disabled={group === 'backend'}
     >
       <MenuItem eventKey="become">Become</MenuItem>
-      {/*
-          <MenuItem eventKey="edit">Edit</MenuItem>
-          */}
+      <MenuItem disabled={role === 'client'} eventKey="delete">Delete</MenuItem>
     </DropdownButton>
   )
 

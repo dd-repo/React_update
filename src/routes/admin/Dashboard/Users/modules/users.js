@@ -7,9 +7,12 @@ export const USERS_FAILURE = 'USERS_FAILURE';
 export const USERS_PENDING = 'USERS_PENDING';
 export const BECOME_USER_FAILURE = 'BECOME_USER_FAILURE';
 export const CLEAR_NOTIFICATION = 'CLEAR_NOTIFICATION';
+export const DELETE_USER_SUCCESS = 'DELETE_USER_SUCCESS';
+export const DELETE_USER_FAILURE = 'DELETE_USER_FAILURE';
 
 export const USERS_REQUEST = '/admin/api/users_search';
 export const BECOME_USER_REQUEST = '/admin/api/users/become';
+export const DELETE_USER_REQUEST = '/admin/api/users/';
 
 // action
 export const getAllUsers = (params, pageNum) => {
@@ -30,6 +33,15 @@ export const becomeUser = params => {
     return clickadillyApi.patch(BECOME_USER_REQUEST, params)
     .then(response => dispatch(receiveClientLogin(response.data)))
     .catch( error => dispatch(receiveBecomeUserFailure(error)))
+  }
+}
+
+export const deleteUser = id => {
+  const path = `${DELETE_USER_REQUEST}/${id}/delete-client`
+  return dispatch => {
+    return clickadillyApi.patch(path)
+    .then( response => dispatch(receiveDeletedUserSuccess(response.data)))
+    .catch( error => dispatch(receiveDeletedUserfailure(error)))
   }
 }
 
@@ -66,7 +78,26 @@ export const clearNotification = () => (
   }
 )
 
+export const receiveDeletedUserSuccess = data => (
+  {
+    type: DELETE_USER_SUCCESS,
+    data
+  }
+)
+
+export const receiveDeletedUserfailure = error => (
+  {
+    type: DELETE_USER_FAILURE,
+    error
+  }
+)
+
 // reducer
+
+const removeUser = (state, deletedUser) => (
+  state.all.filter( user => user.id !== deletedUser.id)
+)
+
 const reducer = (state={notification: {}}, action) => {
   switch(action.type) {
     case USERS_PENDING:
@@ -88,6 +119,21 @@ const reducer = (state={notification: {}}, action) => {
         isFetching: false
       });
     case BECOME_USER_FAILURE:
+      return Object.assign({}, state, {
+        notification: {
+          message: action.error.response.data.errorMessage,
+          status: 'danger'
+        }
+      })
+    case DELETE_USER_SUCCESS:
+      return Object.assign({}, state, {
+        all: removeUser(state, action.data),
+        notification: {
+          message: 'User was successfully deleted',
+          status: 'success'
+        }
+      })
+    case DELETE_USER_FAILURE:
       return Object.assign({}, state, {
         notification: {
           message: action.error.response.data.errorMessage,

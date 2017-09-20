@@ -25,7 +25,7 @@ const Users = (props) => {
     results,
     limit,
     isFrontend,
-    handleClick
+    handleDropdownSelect
   } = props
 
   const renderLoader = (
@@ -65,7 +65,7 @@ const Users = (props) => {
           users.map(user => (
             <User
               user={user}
-              handleClick={handleClick}
+              handleDropdownSelect={handleDropdownSelect}
               key={user.id}
             />
             ))
@@ -142,6 +142,7 @@ Users.propTypes = {
   isFetching: PropTypes.bool,
   getNextPage: PropTypes.func.isRequired,
   handleSearch: PropTypes.func.isRequired,
+  handleDropdownSelect: PropTypes.func.isRequired,
   queryName: PropTypes.string,
   results: PropTypes.number,
   limit: PropTypes.number,
