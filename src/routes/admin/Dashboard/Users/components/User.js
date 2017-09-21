@@ -43,7 +43,7 @@ const User = (props) => {
       disabled={group === 'backend'}
     >
       <MenuItem eventKey="become">Become</MenuItem>
-      <MenuItem disabled={role === 'client'} eventKey="delete">Delete</MenuItem>
+      <MenuItem eventKey="delete">Delete</MenuItem>
     </DropdownButton>
   )
 
