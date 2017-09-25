@@ -141,7 +141,9 @@ export const updateCurrentKeywordValue = (currentKeyword, updatedKeyword) => {
         currentKeyword
 }
 
-const reducer = (state = {}, action) => {
+const initialState = { all: [] }
+
+const reducer = (state = initialState, action) => {
   switch(action.type) {
     case CREATE_KEYWORD_POSTING:
       return Object.assign({}, state, {
