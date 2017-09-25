@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react'
 
-import CompletedRequest from 'routes/client/Monitoring/components/CompletedRequest';
+import CompletedRemoval from 'routes/client/Monitoring/components/CompletedRequest';
 import classes from './completed.scss';
 import {
   Panel,
