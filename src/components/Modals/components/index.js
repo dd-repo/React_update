@@ -6,6 +6,7 @@ import KeywordModal from './Keyword';
 import { CreateAddressModal, UpdateAddressModal } from './Address';
 import PhoneModal from './Phone';
 import ProfileModal from './Profile';
+import { DashboardWelcome } from './Dashboard';
 import {
   UpdateSubscriptionModal,
   CreateSubscriptionModal,
@@ -38,5 +39,6 @@ export {
   PaymentSuccessModal,
   TermsOfServiceModal,
   PrivacyPolicyModal,
+  DashboardWelcome
 }
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Modal, Button } from 'components';
+import { Modal, Button, ScrollBarContainer } from 'components';
 import PrivacyPolicy from 'routes/Pages/PrivacyPolicy/PrivacyPolicy';
 
 const PrivacyPolicyModal = props => (
@@ -12,14 +12,15 @@ const PrivacyPolicyModal = props => (
       <Modal.Title>Privacy Policy</Modal.Title>
     </Modal.Header>
     <Modal.Body>
-
+      <ScrollBarContainer
+        style={{ maxHeight: '600px' }}
+      >
       <PrivacyPolicy />
-
-      <Modal.Footer>
-        <Button bsStyle='primary' onClick={props.hideModal}>Close</Button>
-      </Modal.Footer>
-
+    </ScrollBarContainer>
     </Modal.Body>
+    <Modal.Footer>
+      <Button bsStyle='primary' onClick={props.hideModal}>Close</Button>
+    </Modal.Footer>
   </Modal>
 )
 

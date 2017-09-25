@@ -14,71 +14,6 @@ import {
   monitoringRequestRemoval
 } from 'routes/client/Monitoring/modules/monitoring';
 
-const hasRemovals = data => {
-  const result = data.reduce((sum, obj) => (
-      sum + obj.value
-  ), 0)
-  return result > 0
-}
-
-const getChartData = (data, name) => {
-  const chartData = hasRemovals(data) ? data : fakeRemovalStatistics
-  return {
-    xAxis: {
-      categories: chartData.map(entry => entry.site)
-    },
-    yAxis: {
-      allowDecimals: false
-    },
-    chart: {
-      height: 300
-    },
-    series: [{
-      name: name,
-      data: chartData.map(entry => entry.value)
-    }]
-  }
-}
-
-const getPieData = data => {
-  const colorSequence = [
-    '#2E9BDA',
-    '#3BBDA8',
-    '#CB3E4B',
-    '#A072FC'
-  ];
-
-  const pieData = data.map((entry, index) => ({
-    name: entry.name,
-    y: entry.value,
-    color: colorSequence[index]
-  }))
-  return getPieChartConfig(pieData)
-}
-
-const getPieChartConfig = (data) => (
-  {
-    chart: {
-      height: 300
-    },
-    legend: {
-      enabled: true,
-      align: 'middle',
-      verticalAlign: 'bottom',
-      layout: 'vertical',
-    },
-    tooltip: {
-      shared: true,
-      useHTML: true,
-      pointFormat: '<h5>{point.y}</h5>',
-    },
-    series: [{
-      name: 'Value',
-      data
-    }]
-  }
-);
-
 class DashboardContainer extends RoutedComponent {
 
   static contextTypes = {
@@ -96,7 +31,7 @@ class DashboardContainer extends RoutedComponent {
       sidebarEnabled: true,
       navbarEnabled: true,
       footerEnabled: true,
-      headerEnabled: true
+      headerEnabled: false
     }
   }
 
@@ -184,6 +119,7 @@ class DashboardContainer extends RoutedComponent {
           handleKeywordEdit={this.handleKeywordEdit}
           handleSearch={this.handleSearch}
           showModal={this.props.showModal}
+          screenSize={this.props.screenSize}
         />
       </div>
     )
@@ -198,7 +134,8 @@ const mapStateToProps = state => ({
   completed: state.monitoring.completed,
   totalCount: state.monitoring.totalCount,
   googleResults: state.googleResults.all,
-  keywords: state.account.keywords
+  keywords: state.account.keywords,
+  screenSize: state.layout.currentScreenSize
 })
 
 const mapActionCreators = {

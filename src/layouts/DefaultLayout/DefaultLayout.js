@@ -173,7 +173,7 @@ class DefaultLayout extends React.Component {
 
 
     openFaqTab() {
-      window.open('http://blitzmonitoring.com/faq', '_blank')
+      window.open('https://www.infosweep.com/faq', '_blank')
     }
 
     render() {
@@ -222,7 +222,7 @@ class DefaultLayout extends React.Component {
 
                             { /* Mobile Actions */ }
                             {
-                                this.props.currentScreenSize === SCREEN_SIZE_XS && (
+                                this.props.currentScreenSize === SCREEN_SIZE_XS && isClient && (
                                     <div className='pull-right'>
                                         <button
                                             className='btn btn-outline navbar-toggle'

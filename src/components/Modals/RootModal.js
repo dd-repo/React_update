@@ -20,7 +20,8 @@ import {
   PrivacyPolicyModal,
   CancelSubscriptionModal,
   CanceledSubscriptionModal,
-  AdminModal
+  AdminModal,
+  DashboardWelcome
 } from './components'
 
 const MODAL_COMPONENTS = {
@@ -43,7 +44,8 @@ const MODAL_COMPONENTS = {
   'PRIVACY_POLICY':        PrivacyPolicyModal,
   'CANCEL_SUBSCRIPTION':   CancelSubscriptionModal,
   'CANCELED_SUBSCRIPTION': CanceledSubscriptionModal,
-  'REMOVAL_INSTRUCTIONS':  RemovalInstructionsModal
+  'REMOVAL_INSTRUCTIONS':  RemovalInstructionsModal,
+  'DASHBOARD_WELCOME':     DashboardWelcome
 }
 
 const ModalRoot = ({...otherProps, modalType, modalProps, dispatch }) => {

@@ -9,6 +9,10 @@
     background-color: $gray-dark;
 }
 
+.panelBgWhite {
+    background-color: transparent;
+}
+
 .panelBgGray {
     background-color: $gray-dark;
 }
@@ -30,4 +34,13 @@
 
 .titleReset {
     font-size: inherit !important;
+}
+
+.noBorder {
+  border: none !important;
+}
+
+.transparentFooter {
+  border: none !important;
+  background-color: transparent;
 }

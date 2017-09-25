@@ -12,14 +12,11 @@ const TermsOfServiceModal = props => (
       <Modal.Title>Our Terms Of Service</Modal.Title>
     </Modal.Header>
     <Modal.Body>
-
       <TermsOfService />
-
-      <Modal.Footer>
-        <Button bsStyle='primary' onClick={props.hideModal}>Close</Button>
-      </Modal.Footer>
-
     </Modal.Body>
+    <Modal.Footer>
+      <Button bsStyle='primary' onClick={props.hideModal}>Close</Button>
+    </Modal.Footer>
   </Modal>
 )
 

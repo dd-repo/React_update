@@ -72,13 +72,15 @@ class Panel extends React.Component {
 
     getTargetBorderWidth() {
         switch(this.props.borderStyle) {
-            case 'thin':
-                return 1;
-            case 'thick':
-                return 3;
-            case 'normal':
-            default:
-                return 2;
+          case 'none':
+            return 0;
+          case 'thin':
+            return 1;
+          case 'thick':
+            return 3;
+          case 'normal':
+          default:
+            return 2;
         }
     }
 
@@ -105,6 +107,7 @@ class Panel extends React.Component {
         // Add full body class if the content/footer should omit Panel padding
         bodyElement && bodyElement.classList.toggle(classes.fullBody, fullBody);
         footerElement && footerElement.classList.toggle(classes.fullFooter, fullBody);
+        footerElement && this.props.borderStyle === 'none' && footerElement.classList.toggle(classes.transparentFooter);
 
         // If maxHeight is provided, add overflow and perfectScroll
         if(bodyElement && Number.isInteger(maxHeight)) {
@@ -153,8 +156,6 @@ class Panel extends React.Component {
         switch(type) {
             case 'color-border-full':
                 parentElement.style.borderColor = targetColor;
-                parentElement.style.borderWidth = `${targetBorderWidth}px ${targetBorderWidth} ${targetBorderWidth} ${targetBorderWidth}`;
-            break;
 
             case 'color-border-left':
                 parentElement.style.borderLeftColor = targetColor;
@@ -211,7 +212,7 @@ class Panel extends React.Component {
         }
 
         if(!_.isEqual(_.pick(nextProps, typePropsKeys), _.pick(this.props, typePropsKeys))) {
-            this.adjustPanelType(nextProps.type, nextProps.bsStyle);
+          this.adjustPanelType(nextProps.type, nextProps.bsStyle);
         }
     }
 
@@ -242,8 +243,10 @@ class Panel extends React.Component {
 
         const panelClass = classNames({
             [`${classes.panelNoBg}`]: !background,
+            [`${classes.panelBgWhite}`]: background === 'white',
             [`${classes.panelBgLight}`]: background === 'light',
-            [`${classes.panelBgGray}`]: background === 'gray'
+            [`${classes.panelBgGray}`]: background === 'gray',
+            [`${classes.noBorder}`]: borderStyle === 'none'
         }, className);
         const panelStyle = typeof maxHeight !== 'undefined' ?
             { ...style, overflow: 'hidden' } : style;
