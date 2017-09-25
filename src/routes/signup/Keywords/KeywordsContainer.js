@@ -92,7 +92,7 @@ class KeywordContainer extends RoutedComponent {
 const mapStateToProps = state => {
   return {
     currentUser: state.currentUser,
-    keywords: state.keywords.all
+    keywords: state.account.keywords.all
   }
 }
 
