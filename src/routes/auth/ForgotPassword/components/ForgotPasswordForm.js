@@ -4,7 +4,7 @@ import { Field, reduxForm } from 'redux-form';
 
 import { connect } from 'routes/routedComponent';
 import { checkValidation } from 'utils/formHelpers';
-import fields from 'consts/data/formFields';
+import fields from 'consts/formFields';
 import {
     Form,
     FormGroup,

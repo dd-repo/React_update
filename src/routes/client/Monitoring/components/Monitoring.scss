@@ -11,25 +11,6 @@
       margin-bottom: 0;
     }
 
-    .summaryLargeValue {
-      font-weight: 300;
-      margin: 0 0 1rem 0;
-      font-size: 28px;
-      color: $brand-white;
-
-      small {
-        font-size: 65%;
-        color: $text-muted;
-      }
-
-      .summaryValueLess {
-        color: $brand-danger;
-      }
-
-      .summaryValueMore {
-        color: $brand-success;
-      }
-    }
 
     @media (max-width: $screen-md) {
       .summaryLargeValue{
@@ -293,5 +274,26 @@
         }
       }
     }
+  }
+}
+
+.summaryLargeValue {
+  text-align: center;
+  font-weight: 300;
+  margin: 0 0 1rem 0;
+  font-size: 28px;
+  color: $brand-white;
+
+  small {
+    font-size: 65%;
+    color: $text-muted;
+  }
+
+  .summaryValueLess {
+    color: $brand-danger;
+  }
+
+  .summaryValueMore {
+    color: $brand-success;
   }
 }

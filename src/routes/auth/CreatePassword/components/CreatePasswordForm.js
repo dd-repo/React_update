@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react'
 import { Field, reduxForm } from 'redux-form';
 
 import { checkValidation } from 'utils/formHelpers';
-import fields from 'consts/data/formFields';
+import fields from 'consts/formFields';
 import {
     Form,
     FormGroup,

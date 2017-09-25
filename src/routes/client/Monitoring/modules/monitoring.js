@@ -47,7 +47,7 @@ export const fetchMonitoringRequestsCompleted = params => {
   }
 }
 
-export const monitoringRequestRemoval = request_id => {
+export const requestRemoval = request_id => {
   const path = `/dashboard/api/v1/monitoring/${request_id}`
   const payload = { request_status: 'requested' }
 
@@ -114,6 +114,7 @@ export const addToStatusList = (state, removal) => {
 export const filterByStatus = (sites, selector) => {
   if(Array.isArray(selector)) {
     let filtered = []
+
     for(let i=0; i<selector.length; i++) {
       filtered.push(sites.filter(site => site.status === selector[i]))
     }
@@ -122,7 +123,14 @@ export const filterByStatus = (sites, selector) => {
   return sites.filter(site => site.status === selector)
 }
 
-const reducer = (state = {isFetching: true}, action) => {
+const initialState = {
+  inProgress: [],
+  inQueue: [],
+  potentialRisks: [],
+  isFetching: true
+}
+
+const reducer = (state = initialState, action) => {
   switch(action.type) {
     case MONITORING_SUCCESS:
       return Object.assign({}, state, {

@@ -21,7 +21,7 @@
 
         .boxHeaderTitle {
             margin: 0;
-            font-weight: 300;
+            /*font-weight: 300;*/
         }
     }
 
@@ -274,4 +274,26 @@
     font-size: 16px;
     padding-top: 10px;
     text-align: center;
+}
+
+.centerButton {
+  position: absolute;
+  width: 50%;
+  text-align: center;
+  z-index: 1000;
+  top: 25%;
+  left: 25%;
+}
+
+.infoButton {
+  float: right;
+  padding: 0 !important;
+}
+
+.keywords {
+  text-align: center;
+  font-weight: 300;
+  margin: 0 0 1rem 0;
+  font-size: 15px;
+  color: $brand-white;
 }

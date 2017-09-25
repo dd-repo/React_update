@@ -7,7 +7,6 @@ import accounts from 'modules/accounts';
 import account from 'routes/client/Account/modules';
 import modal from 'modules/modal';
 import payment from 'routes/signup/Payment/modules/payment';
-import keywords from 'routes/signup/Keywords/modules/keywords';
 import googleResults from 'routes/client/GoogleResults/modules/googleResults';
 import monitoring from 'routes/client/Monitoring/modules/monitoring';
 import layout from 'layouts/DefaultLayout/modules/layout';
@@ -30,7 +29,6 @@ export const makeRootReducer = (asyncReducers) => {
     monitoring,
     googleResults,
     accounts,
-    keywords,
     payment,
     layout,
     router,

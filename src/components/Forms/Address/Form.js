@@ -14,7 +14,7 @@ import {
   Row,
   Col
 } from 'components';
-import formFields from 'consts/data/formFields';
+import formFields from 'consts/formFields';
 
 const AddressForm = props => {
   const {

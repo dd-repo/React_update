@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
-import { bindActionCreators } from 'redux';
 
 import { RoutedComponent, connect } from 'routes/routedComponent';
-import { postKeywords } from './modules/keywords';
+import {
+  postKeywords,
+  CREATE_KEYWORD_SUCCESS,
+  KEYWORD_FAILURE
+} from 'routes/client/Account/modules/keywords';
 import Keywords from './components/Keywords';
 import { persistData } from 'localStorage';
-import { KEYWORD_SUCCESS, KEYWORD_FAILURE } from './modules/keywords';
 import { CONTENT_VIEW_STATIC } from 'layouts/DefaultLayout/modules/layout';
 
 const persistDataToLocalStorage = keywords => {
@@ -60,7 +62,7 @@ class KeywordContainer extends RoutedComponent {
 
   onNext(res) {
     switch(res.type) {
-      case KEYWORD_SUCCESS:
+      case CREATE_KEYWORD_SUCCESS:
         persistDataToLocalStorage(res.keywords)
         this.context.router.push('/dashboard')
         break;

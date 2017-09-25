@@ -6,9 +6,9 @@ import {
   USER_LOGIN_SUCCESS
 } from 'routes/auth/modules/auth';
 import {
-  KEYWORD_POSTING,
-  KEYWORD_SUCCESS,
-  KEYWORD_FAILURE,
+  CREATE_KEYWORD_POSTING,
+  CREATE_KEYWORD_SUCCESS,
+  CREATE_KEYWORD_FAILURE,
   CURRENT_KEYWORD_UPDATE,
   KEYWORD_REQUEST,
   RECEIVE_KEYWORDS_SUCCESS,
@@ -66,9 +66,9 @@ const userLoginInfo = {
 describe('(Keyword module) "keyword"', () => {
 
   it('Should export a constant.', () => {
-    expect(KEYWORD_POSTING).to.equal('KEYWORD_POSTING')
-    expect(KEYWORD_SUCCESS).to.equal('KEYWORD_SUCCESS')
-    expect(KEYWORD_FAILURE).to.equal('KEYWORD_FAILURE')
+    expect(CREATE_KEYWORD_POSTING).to.equal('CREATE_KEYWORD_POSTING')
+    expect(CREATE_KEYWORD_SUCCESS).to.equal('CREATE_KEYWORD_SUCCESS')
+    expect(CREATE_KEYWORD_FAILURE).to.equal('CREATE_KEYWORD_FAILURE')
     expect(CURRENT_KEYWORD_UPDATE).to.equal('CURRENT_KEYWORD_UPDATE')
     expect(RECEIVE_KEYWORDS_SUCCESS).to.equal('RECEIVE_KEYWORDS_SUCCESS')
     expect(RECEIVE_KEYWORDS_FAILURE).to.equal('RECEIVE_KEYWORDS_FAILURE')
@@ -79,14 +79,14 @@ describe('(Keyword module) "keyword"', () => {
   })
 
   describe('(Action Creator) "postingKeywords"', () => {
-    it('Should return a action with type KEYWORD_POSTING', () => {
-      expect(postingKeywords()).to.have.property('type', KEYWORD_POSTING)
+    it('Should return a action with type CREATE_KEYWORD_POSTING', () => {
+      expect(postingKeywords()).to.have.property('type', CREATE_KEYWORD_POSTING)
     })
   })
 
   describe('(Action Creator) "keywordSuccess"', () => {
-    it('Should return a action with type KEYWORD_SUCCESS', () => {
-      expect(keywordSuccess()).to.have.property('type', KEYWORD_SUCCESS)
+    it('Should return a action with type CREATE_KEYWORD_SUCCESS', () => {
+      expect(keywordSuccess()).to.have.property('type', CREATE_KEYWORD_SUCCESS)
     })
 
     it('Should return a action with keywords', () => {
@@ -95,11 +95,11 @@ describe('(Keyword module) "keyword"', () => {
   })
 
   describe('(Action Creator) "keywordFailure"', () => {
-    it('Should return a action with type KEYWORD_FAILURE', () => {
-      expect(keywordFailure()).to.have.property('type', KEYWORD_FAILURE)
+    it('Should return a action with type CREATE_KEYWORD_FAILURE', () => {
+      expect(keywordFailure()).to.have.property('type', CREATE_KEYWORD_FAILURE)
     })
 
-    it('Should return a action with type KEYWORD_SUCCESS', () => {
+    it('Should return a action with type CREATE_KEYWORD_SUCCESS', () => {
       expect(keywordFailure(errorRes)).to.have.property('error', errorRes)
     })
   })
@@ -174,13 +174,13 @@ describe('(Keyword module) "keyword"', () => {
       expect(postKeywords()).to.be.a('function')
     })
 
-    it('creates KEYWORD_SUCCESS when posting keywords', (done) => {
+    it('creates CREATE_KEYWORD_SUCCESS when posting keywords', (done) => {
       const resolved = new Promise((r) => r({ data: keywords }))
       keywordApi.returns(resolved)
 
       const expectedActions = [
-        { type: KEYWORD_POSTING },
-        { type: KEYWORD_SUCCESS, keywords }
+        { type: CREATE_KEYWORD_POSTING },
+        { type: CREATE_KEYWORD_SUCCESS, keywords }
       ]
 
       const store = mockStore({ keywords: {} })
@@ -192,13 +192,13 @@ describe('(Keyword module) "keyword"', () => {
       })
     })
 
-    it('creates KEYWORD_FAILURE when posting keywords', (done) => {
+    it('creates CREATE_KEYWORD_FAILURE when posting keywords', (done) => {
       const rejected = new Promise((_, r) => r(errorRes))
       keywordApi.returns(rejected)
 
       const expectedActions = [
-        { type: KEYWORD_POSTING },
-        { type: KEYWORD_FAILURE, error: errorRes }
+        { type: CREATE_KEYWORD_POSTING },
+        { type: CREATE_KEYWORD_FAILURE, error: errorRes }
       ]
 
       const store = mockStore({ keywords: {} })
@@ -353,22 +353,22 @@ describe('(Keyword module) "keyword"', () => {
     })
 
     it('Should return the previous state if an action was not matched.', () => {
-      let state = reducer({}, { type: KEYWORD_POSTING })
+      let state = reducer({}, { type: CREATE_KEYWORD_POSTING })
       expect(state).to.be.an('object')
       expect(state).to.have.property('isFetching', true)
       state = reducer(state, { type: 'NOT_ACTION' })
       expect(state).to.have.property('isFetching', true)
     })
 
-    it('should handle KEYWORD_SUCCESS', () => {
-      const state = reducer({}, { type: KEYWORD_SUCCESS, keywords })
+    it('should handle CREATE_KEYWORD_SUCCESS', () => {
+      const state = reducer({}, { type: CREATE_KEYWORD_SUCCESS, keywords })
 
       expect(state).to.eql(expected)
     })
 
-    it('should handle KEYWORD_FAILURE', () => {
+    it('should handle CREATE_KEYWORD_FAILURE', () => {
       expect(reducer({}, {
-        type: KEYWORD_FAILURE,
+        type: CREATE_KEYWORD_FAILURE,
         error: errorRes
       })).to.eql({
         error: errorRes,

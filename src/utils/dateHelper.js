@@ -7,4 +7,21 @@ const formatDate = date => {
   return date
 }
 
-export default formatDate
+const addDays = (date, days) => {
+  const d = new Date(date);
+  d.setDate(d.getDate() + days);
+  return d
+}
+
+const getNumberOfDays = (startDate, endDate) => {
+  const end = endDate || new Date().toDateString()
+  const start = formatDate(startDate)
+  const millisecondsPerDay = 24 * 60 * 60 * 1000
+  return Math.ceil((Date.parse(end) - Date.parse(start)) / millisecondsPerDay)
+}
+
+export {
+  formatDate,
+  addDays,
+  getNumberOfDays
+}

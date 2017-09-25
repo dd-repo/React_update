@@ -33,13 +33,6 @@ describe('(Store) createStore', () => {
     })
   })
 
-  describe('(keywords)', () => {
-    it('store should be initialized with an empty keyword object', () => {
-      expect(store.getState().keywords).to.be.an('object')
-      expect(store.keywords).to.be.empty
-    })
-  })
-
   describe('(monitoring)', () => {
     it('store should be initialized with an empty monitoring object', () => {
       expect(store.getState().monitoring).to.be.an('object')

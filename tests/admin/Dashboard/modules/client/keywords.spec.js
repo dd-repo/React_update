@@ -5,10 +5,7 @@ import clickadillyApi from 'services/clickadillyApi';
 import {
   ACCOUNT_SUCCESS
 } from 'routes/admin/Dashboard/Users/Client/modules/account';
-import {
-  configKeywords
-} from 'routes/signup/Keywords/modules/keywords';
-
+import { configKeywords } from 'routes/client/Account/modules/keywords';
 import {
   UPDATE_KEYWORD_SUCCESS,
   UPDATE_KEYWORD_FAILURE,
@@ -230,7 +227,6 @@ describe('(Admin Keyword module)', () => {
     it('should handle UPDATE_KEYWORD_SUCCESS', () => {
       const keywordState = reducer([], { type: UPDATE_KEYWORD_SUCCESS, data: keyword})
       const configuredKeywords = configKeywords([keyword])
-
       expect(keywordState).to.eql(configuredKeywords)
     })
 

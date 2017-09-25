@@ -19,7 +19,7 @@ const GoogleResults = props => {
 
   return  (
     <Panel
-      maxHeight={326}
+      maxHeight={500}
       header={(
         <SearchKeywords
           keywords={keywords}

@@ -12,7 +12,7 @@ import {
   MONITORING_COMPLETED_SUCCESS,
   fetchMonitoringRequests,
   fetchMonitoringRequestsCompleted,
-  monitoringRequestRemoval,
+  requestRemoval,
   removalRequestSuccess,
   receiveMonitoringCompleted,
   removalRequestFailure,
@@ -236,7 +236,7 @@ describe('(monitoring module) monitoring requests', () => {
     })
   })
 
-  describe('(Async Action Creator) "monitoringRequestRemoval"', () => {
+  describe('(Async Action Creator) "requestRemoval"', () => {
     let monitoringApi;
 
     beforeEach(() => {
@@ -248,11 +248,11 @@ describe('(monitoring module) monitoring requests', () => {
     })
 
     it('Should be exported as a function', () => {
-      expect(monitoringRequestRemoval).to.be.a('function')
+      expect(requestRemoval).to.be.a('function')
     })
 
     it('Should return a function (is a thunk)', () => {
-      expect(monitoringRequestRemoval()).to.be.a('function')
+      expect(requestRemoval()).to.be.a('function')
     })
 
     it('creates MONITORING_UPDATE_SUCCESS when fetching monitoring sites', (done) => {
@@ -265,7 +265,7 @@ describe('(monitoring module) monitoring requests', () => {
 
       const store = mockStore({ monitoring: {} })
 
-      return store.dispatch(monitoringRequestRemoval())
+      return store.dispatch(requestRemoval())
       .then(() => {
         expect(store.getActions()).to.eql(expectedActions);
         done();
@@ -282,7 +282,7 @@ describe('(monitoring module) monitoring requests', () => {
 
       const store = mockStore({ monitoring: {} })
 
-      return store.dispatch(monitoringRequestRemoval())
+      return store.dispatch(requestRemoval())
       .then(() => {
         expect(store.getActions()).to.eql(expectedActions);
         done();

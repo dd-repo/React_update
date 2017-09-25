@@ -1,27 +1,42 @@
 import React from 'react';
 import { connect, RoutedComponent } from 'routes/routedComponent';
 import { CONTENT_VIEW_STATIC } from 'layouts/DefaultLayout/modules/layout';
-import { fetchPrivacyRemovalStatistics } from './modules/privacyRemovalStats';
 import { fetchPrivacyRemovalStatus } from './modules/privacyRemovalStatus';
-import { fetchMonitoringRequestsCompleted } from 'routes/client/Monitoring/modules/monitoring';
 import { fetchGoogleResults } from 'routes/client/GoogleResults/modules/googleResults';
-import { updateCurrentKeyword } from 'routes/signup/Keywords/modules/keywords';
+import { updateKeyword, updateCurrentKeyword } from 'routes/client/Account/modules/keywords';
+import { showModal, hideModal } from 'modules/modal';
 import Dashboard from './components/Dashboard';
-import GettingStarted from './components/GettingStarted';
+import {
+  MONITORING_UPDATE_SUCCESS,
+  MONITORING_UPDATE_FAILURE,
+  fetchMonitoringRequestsCompleted,
+  fetchMonitoringRequests,
+  monitoringRequestRemoval
+} from 'routes/client/Monitoring/modules/monitoring';
+
+const hasRemovals = data => {
+  const result = data.reduce((sum, obj) => (
+      sum + obj.value
+  ), 0)
+  return result > 0
+}
 
 const getChartData = (data, name) => {
+  const chartData = hasRemovals(data) ? data : fakeRemovalStatistics
   return {
     xAxis: {
-      categories: data.map(entry => entry.site)
+      categories: chartData.map(entry => entry.site)
     },
     yAxis: {
       allowDecimals: false
     },
+    chart: {
+      height: 300
+    },
     series: [{
       name: name,
-      data: data.map(entry => entry.value)
+      data: chartData.map(entry => entry.value)
     }]
-
   }
 }
 
@@ -44,7 +59,7 @@ const getPieData = data => {
 const getPieChartConfig = (data) => (
   {
     chart: {
-      height: 405
+      height: 300
     },
     legend: {
       enabled: true,
@@ -64,7 +79,6 @@ const getPieChartConfig = (data) => (
   }
 );
 
-
 class DashboardContainer extends RoutedComponent {
 
   static contextTypes = {
@@ -73,16 +87,7 @@ class DashboardContainer extends RoutedComponent {
 
   constructor(props) {
     super(props)
-    this.state = {
-      isFetching: true,
-      hasData: false
-    }
-
-    this.fetchDashboardData = this.fetchDashboardData.bind(this);
-    this.fetchLastFiveCompletedRemovals = this.fetchLastFiveCompletedRemovals.bind(this);
-    this.fetchFirstPageGoogleResults = this.fetchFirstPageGoogleResults.bind(this);
-    this.handleSearch = this.handleSearch.bind(this);
-    this.handlePrivacyRemovalButtonClick = this.handlePrivacyRemovalButtonClick.bind(this);
+    this.state = { isFetching: true }
   }
 
   getLayoutOptions() {
@@ -98,8 +103,9 @@ class DashboardContainer extends RoutedComponent {
   componentWillMount() {
     const accountId = this.props.user.account_id
     const keyword_id = this.props.keywords.currentKeyword.id
+
     this.fetchDashboardData(accountId, keyword_id)
-    .then( res => this.hasData())
+    .then( res => this.setState({ isFetching: false }))
     .catch( error => console.log('dashboard error', error))
   }
 
@@ -111,41 +117,40 @@ class DashboardContainer extends RoutedComponent {
     }
   }
 
-  hasData() {
-    this.setState({ isFetching: false, hasData: this.props.hasData })
-  }
-
-  fetchDashboardData(account_id, keyword_id) {
+  fetchDashboardData = (account_id, keyword_id) => {
     return Promise.all([
-      this.props.fetchPrivacyRemovalStatistics(account_id),
       this.props.fetchPrivacyRemovalStatus(account_id),
       this.fetchFirstPageGoogleResults(account_id, keyword_id),
-      this.fetchLastFiveCompletedRemovals(account_id),
+      this.fetchMonitoringRequests(account_id),
+      this.fetchMonitoringCompleted(account_id)
     ])
   }
 
-  fetchLastFiveCompletedRemovals(id) {
+  fetchMonitoringRequests = (id) => {
+    this.props.fetchMonitoringRequests(id)
+  }
+
+  fetchMonitoringCompleted = (id) => {
     const params = {
       q: {
         completed_at_not_null: '1',
         s: 'completed_at desc',
-        monitoring_request_account_id_eq: id,
-        limit: 5
+        monitoring_request_account_id_eq: id
       }
     }
     this.props.fetchMonitoringRequestsCompleted(params)
   }
 
-  fetchFirstPageGoogleResults(account_id, keyword_id) {
+  fetchFirstPageGoogleResults = (account_id, keyword_id) => {
     const payload = { account_id, keyword_id }
     this.props.fetchGoogleResults(payload)
   }
 
-  handleSearch(keyword) {
+  handleSearch = (keyword) => {
     this.props.updateCurrentKeyword(keyword)
   }
 
-  handlePrivacyRemovalButtonClick(id, selector) {
+  handlePrivacyRemovalButtonClick = (id, selector) => {
     if(selector === 'removal') {
       const payload = { request: { search_result_id: id }}
       this.props.requestRemoval(payload)
@@ -156,28 +161,29 @@ class DashboardContainer extends RoutedComponent {
     }
   }
 
+  handleKeywordEdit = keyword => {
+    this.props.updateKeyword(keyword, this.props.user.account_id)
+    this.props.hideModal()
+  }
+
   render() {
-    const chartData = getChartData(this.props.privacyRemovalStats, 'Total Removals')
-    const pieData = getPieData(this.props.privacyRemovalStatus)
 
     return (
       <div>
         <Dashboard
           user={this.props.user}
-          chartData={chartData}
-          pieData={pieData}
-          completedRequests={this.props.completedRemovals || []}
-          googleResults={this.props.googleResults || []}
+          isFetching={this.state.isFetching}
+          inProgress={this.props.inProgress}
+          inQueue={this.props.inQueue}
+          potentialRisks={this.props.potentialRisks}
+          completed={this.props.completed}
+          totalCount={this.props.totalCount}
+          googleResults={this.props.googleResults}
           keywords={this.props.keywords}
-          handleSearch={this.handleSearch}
           handlePrivacyRemovalButtonClick={this.handlePrivacyRemovalButtonClick}
-          isFetching={this.state.isFetching}
-          hasData={this.props.hasData}
-        />
-        <GettingStarted
-          user={this.props.user}
-          isFetching={this.state.isFetching}
-          hasData={this.props.hasData}
+          handleKeywordEdit={this.handleKeywordEdit}
+          handleSearch={this.handleSearch}
+          showModal={this.props.showModal}
         />
       </div>
     )
@@ -186,20 +192,25 @@ class DashboardContainer extends RoutedComponent {
 
 const mapStateToProps = state => ({
   user: state.currentUser,
-  privacyRemovalStats: state.dashboard.privacyRemovalStats,
-  privacyRemovalStatus: state.dashboard.privacyRemovalStatus,
-  completedRemovals: state.monitoring.completed,
+  inProgress: state.monitoring.inProgress,
+  inQueue: state.monitoring.inQueue,
+  potentialRisks: state.monitoring.potentialRisks,
+  completed: state.monitoring.completed,
+  totalCount: state.monitoring.totalCount,
   googleResults: state.googleResults.all,
-  hasData: state.dashboard.hasData,
   keywords: state.account.keywords
 })
 
 const mapActionCreators = {
   fetchMonitoringRequestsCompleted,
-  fetchPrivacyRemovalStatistics,
   fetchPrivacyRemovalStatus,
+  fetchMonitoringRequests,
+  monitoringRequestRemoval,
   updateCurrentKeyword,
-  fetchGoogleResults
+  fetchGoogleResults,
+  updateKeyword,
+  hideModal,
+  showModal
 }
 
 export default connect(mapStateToProps, mapActionCreators)(DashboardContainer)

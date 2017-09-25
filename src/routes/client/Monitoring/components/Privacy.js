@@ -24,7 +24,7 @@ const Privacy = props => {
     inProgress,
     inQueue,
     potentialRisks,
-    handleClick,
+    handleRemovalRequest,
     totalCount,
     completed,
     isFetching
@@ -70,7 +70,7 @@ const Privacy = props => {
 
               <MonitoringSites
                 sites={potentialRisks}
-                handleClick={handleClick}
+                handleRemovalRequest={handleRemovalRequest}
                 isFetching={isFetching}
               />
 

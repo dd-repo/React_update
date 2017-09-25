@@ -3,7 +3,7 @@ import { Field, reduxForm } from 'redux-form';
 import _ from 'underscore';
 
 import { checkValidation } from 'utils/formHelpers';
-import fields from 'consts/data/formFields';
+import fields from 'consts/formFields';
 import {
     FormGroup,
     FormControl,

@@ -5,7 +5,7 @@ import {
   Table
 } from 'components';
 
-const MonitoringSites = ({ handleClick, isFetching, sites }) => (
+const MonitoringSites = ({ handleRemovalRequest, isFetching, sites }) => (
   !isFetching &&
     <Panel
       type='color-title-border'
@@ -38,7 +38,7 @@ const MonitoringSites = ({ handleClick, isFetching, sites }) => (
                 <MonitoringSite
                   monitoringSite={site}
                   key={site.id}
-                  handleClick={handleClick}
+                  handleRemovalRequest={handleRemovalRequest}
                 />
                 )
             }

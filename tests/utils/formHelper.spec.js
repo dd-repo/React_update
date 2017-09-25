@@ -1,4 +1,4 @@
-import fields from 'consts/data/formFields';
+import fields from 'consts/formFields';
 import {
   onlyNums,
   checkValidation,

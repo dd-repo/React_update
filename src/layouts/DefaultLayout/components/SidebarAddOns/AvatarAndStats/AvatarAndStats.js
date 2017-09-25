@@ -22,7 +22,7 @@ const AvatarAndStats = ({ fullName, colorSidebar, avatar }) => {
         <Sidebar.AddOnContent supportedStyle='default'>
             <Media>
                 <Media.Body className='text-center'>
-                  <Link to='/dashboard/user-profile'>
+                  <Link to='/dashboard/account'>
                         <AvatarImage
                             src={ avatar }
                             size='large'

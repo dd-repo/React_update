@@ -1,4 +1,4 @@
-import States from 'consts/data/states';
+import States from 'consts/states';
 
 describe('States', () => {
   it('should return an array', () => {

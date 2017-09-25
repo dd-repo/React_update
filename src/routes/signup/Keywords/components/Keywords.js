@@ -13,7 +13,7 @@ import { ReduxFormInput } from 'components/Forms/components';
 import classes from './keywords.scss';
 import AddressForm from './AddressForm';
 import DateOfBirthForm from './DateOfBirthForm';
-import fields from 'consts/data/formFields';
+import fields from 'consts/formFields';
 
 let title;
 let description;
