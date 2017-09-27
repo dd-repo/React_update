@@ -1,7 +1,7 @@
 {
-  "name": "clickadilly",
+  "name": "infosweep",
   "version": "1.0.0",
-  "description": "Clickadilly Dashboard",
+  "description": "monitoring online privacy",
   "main": "index.js",
   "engines": {
     "node": ">=4.2.0",

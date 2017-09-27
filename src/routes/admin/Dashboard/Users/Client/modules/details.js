@@ -1,4 +1,4 @@
-import clickadillyApi from 'services/clickadillyApi';
+import infosweepApi from 'services/infosweepApi';
 import getFullName from 'utils/fullName';
 import { formatDate } from 'utils';
 import { CARDS_SUCCESS } from './cards';
@@ -17,7 +17,7 @@ export const USER_UPDATE_REQUEST = '/admin/api/users';
 export const fetchUser = params => {
   return dispatch => {
     dispatch(gettingUser())
-    return clickadillyApi.get(USER_REQUEST, params)
+    return infosweepApi.get(USER_REQUEST, params)
     .then( response => dispatch(receiveUserSuccess(response.data)))
     .catch( error => dispatch(receiveUserFailure(error)))
   }
@@ -26,7 +26,7 @@ export const fetchUser = params => {
 export const updateUser = data => {
   const payload = { user : data }
   return dispatch => {
-    return clickadillyApi.patch(`${USER_UPDATE_REQUEST}/${data.id}`, payload)
+    return infosweepApi.patch(`${USER_UPDATE_REQUEST}/${data.id}`, payload)
     .then( response => dispatch(updateUserSuccess(response.data)))
     .catch( error => dispatch(updateUserFailure(error)))
   }

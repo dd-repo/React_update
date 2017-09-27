@@ -1,5 +1,5 @@
 import React from 'react';
-import clickadillyApi from 'services/clickadillyApi';
+import infosweepApi from 'services/infosweepApi';
 import { reset } from 'redux-form';
 
 import { RoutedComponent, connect } from 'routes/routedComponent';

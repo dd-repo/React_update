@@ -1,6 +1,6 @@
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
-import clickadillyApi from 'services/clickadillyApi';
+import infosweepApi from 'services/infosweepApi';
 
 import { formatDate } from 'utils';
 
@@ -89,7 +89,7 @@ describe('(Transaction module)', () => {
     let transactionApi;
 
     beforeEach(() => {
-      transactionApi = sinon.stub(clickadillyApi, 'patch')
+      transactionApi = sinon.stub(infosweepApi, 'patch')
     })
 
     afterEach(() => {

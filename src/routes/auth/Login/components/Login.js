@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
 
 import LoginForm from './LoginForm';
-import logo from 'static/logos/logo-big-light.png';
+import logo from 'static/logos/logo-white-sm.png';
 import classes from './Login.scss';
 import {
     Row,

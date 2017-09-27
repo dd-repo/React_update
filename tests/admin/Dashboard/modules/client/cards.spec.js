@@ -1,5 +1,5 @@
 import configureMockStore from 'redux-mock-store';
-import clickadillyApi from 'services/clickadillyApi';
+import infosweepApi from 'services/infosweepApi';
 import thunk from 'redux-thunk';
 
 import {
@@ -96,7 +96,7 @@ describe('(Cards module)', () => {
     let cardsApi;
 
     beforeEach(() => {
-      cardsApi = sinon.stub(clickadillyApi, 'get')
+      cardsApi = sinon.stub(infosweepApi, 'get')
     })
 
     afterEach(() => {
@@ -150,7 +150,7 @@ describe('(Cards module)', () => {
     let cardsApi;
 
     beforeEach(() => {
-      cardsApi = sinon.stub(clickadillyApi, 'post')
+      cardsApi = sinon.stub(infosweepApi, 'post')
     })
 
     afterEach(() => {

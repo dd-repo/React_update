@@ -1,7 +1,7 @@
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 
-import clickadillyApi from 'services/clickadillyApi';
+import infosweepApi from 'services/infosweepApi';
 import BASE_URL from 'consts/baseUrl';
 import { PAYMENT_SUCCESS } from 'routes/signup/Payment/modules/payment';
 import {
@@ -111,7 +111,7 @@ describe('(auth module) Auth', () => {
     let signupApi;
 
     beforeEach(() => {
-      signupApi = sinon.stub(clickadillyApi, 'post')
+      signupApi = sinon.stub(infosweepApi, 'post')
     })
 
     afterEach(() => {
@@ -216,7 +216,7 @@ describe('(auth module) Auth', () => {
     let loginApi;
 
     beforeEach(() => {
-    loginApi = sinon.stub(clickadillyApi, 'post')
+    loginApi = sinon.stub(infosweepApi, 'post')
     })
 
     afterEach(() => {
@@ -313,7 +313,7 @@ describe('(auth module) Auth', () => {
     let loginApi;
 
     beforeEach(() => {
-    loginApi = sinon.stub(clickadillyApi, 'get')
+    loginApi = sinon.stub(infosweepApi, 'get')
     })
 
     afterEach(() => {

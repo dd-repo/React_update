@@ -1,4 +1,4 @@
-import clickadillyApi from 'services/clickadillyApi';
+import infosweepApi from 'services/infosweepApi';
 import { ACCOUNT_SUCCESS } from './account';
 
 import { configKeywords, configKeyword, insertKeyword } from 'routes/client/Account/modules/keywords';
@@ -21,7 +21,7 @@ export const submitKeyword = (keyword, accountId) => {
 export const updateKeyword = keyword => {
   const payload = { keyword: { id: keyword.id, value: keyword.label }}
   return dispatch => {
-    return clickadillyApi.patch(`${KEYWORD_REQUEST}/${keyword.id}`, payload)
+    return infosweepApi.patch(`${KEYWORD_REQUEST}/${keyword.id}`, payload)
     .then( response => dispatch(updateKeywordSuccess(response.data)))
     .catch( error => dispatch(updateKeywordFailure(error)))
   }
@@ -33,7 +33,7 @@ export const addKeyword = (keyword, account_id) => {
   })
 
   return dispatch => {
-    return clickadillyApi.post(KEYWORD_REQUEST, payload)
+    return infosweepApi.post(KEYWORD_REQUEST, payload)
     .then( response => dispatch(addKeywordSuccess(response.data)))
     .catch( error => dispatch(addKeywordFailure(error)))
   }

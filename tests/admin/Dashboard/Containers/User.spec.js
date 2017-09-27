@@ -2,7 +2,7 @@ import React from 'react';
 import { mount, shallow } from 'enzyme';
 import { Provider } from 'react-redux';
 import configureMockStore from 'redux-mock-store';
-import clickadillyApi from 'services/clickadillyApi';
+import infosweepApi from 'services/infosweepApi';
 
 import UserContainer from 'routes/admin/Dashboard/Users/Client/UserContainer'
 import User from 'routes/admin/Dashboard/Users/Client/components/Client';

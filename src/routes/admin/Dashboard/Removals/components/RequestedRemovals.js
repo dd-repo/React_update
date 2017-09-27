@@ -84,7 +84,7 @@ class RequestedRemovals extends Component {
     const renderInput = (
       <FormGroup>
           Removal URL
-          <FormControl ref={(input) => this.input = input} type="text" placeholder='http://clickadilly.com/'/>
+          <FormControl ref={(input) => this.input = input} type="text" placeholder='http://removeMyInfo.com/'/>
           <span className='text-danger'>{this.state.validation}</span>
       </FormGroup>
     )

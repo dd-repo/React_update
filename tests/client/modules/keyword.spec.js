@@ -1,7 +1,7 @@
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 
-import clickadillyApi from 'services/clickadillyApi';
+import infosweepApi from 'services/infosweepApi';
 import {
   USER_LOGIN_SUCCESS
 } from 'routes/auth/modules/auth';
@@ -159,7 +159,7 @@ describe('(Keyword module) "keyword"', () => {
     let keywordApi;
 
     beforeEach(() => {
-      keywordApi = sinon.stub(clickadillyApi, 'post')
+      keywordApi = sinon.stub(infosweepApi, 'post')
     })
 
     afterEach(() => {
@@ -215,7 +215,7 @@ describe('(Keyword module) "keyword"', () => {
     let keywordsApi;
 
     beforeEach(() => {
-      keywordsApi = sinon.stub(clickadillyApi, 'get')
+      keywordsApi = sinon.stub(infosweepApi, 'get')
     })
 
     afterEach(() => {
@@ -270,7 +270,7 @@ describe('(Keyword module) "keyword"', () => {
     const updatedKeyword = { value: 'updated keyword', id: 5 }
 
     beforeEach(() => {
-      keywordsApi = sinon.stub(clickadillyApi, 'patch')
+      keywordsApi = sinon.stub(infosweepApi, 'patch')
     })
 
     afterEach(() => {

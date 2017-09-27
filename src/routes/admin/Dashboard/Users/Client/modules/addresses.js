@@ -1,4 +1,4 @@
-import clickadillyApi from 'services/clickadillyApi';
+import infosweepApi from 'services/infosweepApi';
 import { ACCOUNT_SUCCESS } from './account';
 import { buildAddressParams } from 'utils/paramsHelper';
 
@@ -12,7 +12,7 @@ export const ADDRESS_REQUEST = '/admin/api/addresses';
 export const updateAddress = address => {
   const payload = { address: buildAddressParams(address) }
   return dispatch => {
-    return clickadillyApi.patch(`${ADDRESS_REQUEST}/${address.id}`, payload)
+    return infosweepApi.patch(`${ADDRESS_REQUEST}/${address.id}`, payload)
     .then( response => dispatch(updateAddressSuccess(response.data)))
     .catch( error => dispatch(updateAddressFailure(error)))
   }
@@ -21,7 +21,7 @@ export const updateAddress = address => {
 export const createAddress = address => {
   const payload = { address: buildAddressParams(address) }
   return dispatch => {
-    return clickadillyApi.post(ADDRESS_REQUEST, payload)
+    return infosweepApi.post(ADDRESS_REQUEST, payload)
     .then( response => dispatch(createAddressSuccess(response.data)))
     .catch( error => dispatch(createAddressFailure(error)))
   }

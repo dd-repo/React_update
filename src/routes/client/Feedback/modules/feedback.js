@@ -1,4 +1,4 @@
-import clickadillyApi from 'services/clickadillyApi';
+import infosweepApi from 'services/infosweepApi';
 
 export const FEEDBACK_POSTING = 'FEEDBACK_POSTING';
 export const FEEDBACK_SUCCESS = 'FEEDBACK_SUCCESS';
@@ -14,7 +14,7 @@ export const sendFeedback = (data, user_id) => {
   }
   return dispatch => {
     dispatch(sendingFeedback())
-    return clickadillyApi.post(FEEDBACK_PATH, payload)
+    return infosweepApi.post(FEEDBACK_PATH, payload)
     .then( response => dispatch(sentFeedbackSuccess()))
     .catch( error => dispatch(sentFeedbackFailure(error)))
   }

@@ -1,6 +1,6 @@
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
-import clickadillyApi from 'services/clickadillyApi';
+import infosweepApi from 'services/infosweepApi';
 
 import {
   REQUESTED_REMOVAL_STATUS_SUCCESS,
@@ -59,7 +59,7 @@ describe('(Dashboard module) PrivacyRemovalStatus', () => {
     let removalStatusApi;
 
     beforeEach(() => {
-      removalStatusApi = sinon.stub(clickadillyApi, 'get')
+      removalStatusApi = sinon.stub(infosweepApi, 'get')
     })
 
     afterEach(() => {

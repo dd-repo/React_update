@@ -28,7 +28,7 @@ export const FeedbackForm = props => {
           Feedback
         </h2>
         <p className='text-center m-b-3'>
-          We value your feedback. Please tell us about your experiences with Clickadilly.
+          We value your feedback. Please tell us about your experiences with InfoSweep.
         </p>
         <form onSubmit={props.handleSubmit(props.submitFeedback)}>
           <Field

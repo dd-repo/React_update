@@ -1,6 +1,6 @@
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
-import clickadillyApi from 'services/clickadillyApi';
+import infosweepApi from 'services/infosweepApi';
 
 import getFullName from 'utils/fullName';
 import { formatDate } from 'utils';
@@ -112,12 +112,12 @@ describe('(Admin module)', () => {
       expect(receiveAdminUpdateFailure(errorRes)).to.have.property('error', errorRes)
     })
   })
-  
+
   describe('(Async Action Creator) "fetchAdmin"', () => {
     let adminApi;
 
     beforeEach(() => {
-      adminApi = sinon.stub(clickadillyApi, 'get')
+      adminApi = sinon.stub(infosweepApi, 'get')
     })
 
     afterEach(() => {
@@ -174,7 +174,7 @@ describe('(Admin module)', () => {
     let adminApi;
 
     beforeEach(() => {
-      adminApi = sinon.stub(clickadillyApi, 'patch')
+      adminApi = sinon.stub(infosweepApi, 'patch')
     })
 
     afterEach(() => {

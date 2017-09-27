@@ -1,6 +1,6 @@
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
-import clickadillyApi from 'services/clickadillyApi';
+import infosweepApi from 'services/infosweepApi';
 
 import {
   ACCOUNT_SUCCESS
@@ -95,7 +95,7 @@ describe('(Address module)', () => {
     let addressApi;
 
     beforeEach(() => {
-      addressApi = sinon.stub(clickadillyApi, 'patch')
+      addressApi = sinon.stub(infosweepApi, 'patch')
     })
 
     afterEach(() => {
@@ -149,7 +149,7 @@ describe('(Address module)', () => {
     let addressApi;
 
     beforeEach(() => {
-      addressApi = sinon.stub(clickadillyApi, 'post')
+      addressApi = sinon.stub(infosweepApi, 'post')
     })
 
     afterEach(() => {

@@ -1,4 +1,4 @@
-import clickadillyApi from 'services/clickadillyApi';
+import infosweepApi from 'services/infosweepApi';
 
 // action types
 export const PHONES_FETCHING = 'PHONES_FETCHING';
@@ -11,7 +11,7 @@ export const PHONES_REQUEST = '/dashboard/api/v1/accounts';
 export const fetchPhones = accountId => {
   const path = `${PHONES_REQUEST}/${accountId}/phones`
   return dispatch => {
-    return clickadillyApi.get(path)
+    return infosweepApi.get(path)
     .then( response => dispatch(receivePhonesSuccess(response.data)))
     .catch( error => dispatch(receivePhonesFailure(error)))
   }

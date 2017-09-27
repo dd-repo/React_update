@@ -1,8 +1,8 @@
-# clickadilly - React+Redux
+# infosweep - React+Redux
 
 ## Installation
 1. Make sure you have NodeJS >= 6.0.0 installed on your machine.
-2. Clone this repository to local directory - `git clone git@github.com:marca-development/clickadilly-frontend.git`
+2. Clone this repository to local directory - `git clone git@github.com:marca-development/infosweep-frontend.git`
 3. Run `npm install` to install nescessary NPM dependecies
 
 ## Usage
@@ -36,4 +36,4 @@ Attach SCSS files which shouldn't be modularized by Webpack (plugin style overri
 * [Babel ^6.3.19](https://babeljs.io/) - Provides support for ES2015+ and JSX
 
 ### Demo
-* [clickadilly](https://app.clickadilly.com)
+* [infosweep](https://staging-app.infosweep.com)

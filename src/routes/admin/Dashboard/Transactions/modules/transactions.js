@@ -1,4 +1,4 @@
-import clickadillyApi from 'services/clickadillyApi';
+import infosweepApi from 'services/infosweepApi';
 
 import {
   UPDATE_TRANSACTION_SUCCESS,
@@ -19,7 +19,7 @@ export const fetchTransactions = (params, pageNum) => {
   const path = `${TRANSACTIONS_REQUEST}/${pageNum}`
   return dispatch => {
     dispatch(gettingTransactions())
-    return clickadillyApi.get(path, params)
+    return infosweepApi.get(path, params)
     .then(
       response => dispatch(receiveTransactions(response.data)))
       .catch(

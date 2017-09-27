@@ -1,4 +1,4 @@
-import clickadillyApi from 'services/clickadillyApi';
+import infosweepApi from 'services/infosweepApi';
 import { USER_SUCCESS } from './details';
 
 export const ACCOUNT_SUCCESS = 'ACCOUNT_SUCCESS';
@@ -10,7 +10,7 @@ export const ACCOUNT_REQUEST = '/admin/api/accounts';
 
 export const fetchAccount = id => {
   return dispatch => {
-    return clickadillyApi.get(`${ACCOUNT_REQUEST}/${id}`)
+    return infosweepApi.get(`${ACCOUNT_REQUEST}/${id}`)
     .then( response => dispatch(receiveAccountSuccess(response.data)))
     .catch( error => dispatch(receiveAccountFailure(error)))
   }
@@ -19,7 +19,7 @@ export const fetchAccount = id => {
 export const updateAccount = account => {
   const payload = { account }
   return dispatch => {
-   return clickadillyApi.patch(`${ACCOUNT_REQUEST}/${account.id}`, payload)
+   return infosweepApi.patch(`${ACCOUNT_REQUEST}/${account.id}`, payload)
     .then( res => dispatch(updateAccountSuccess(res.data)))
     .catch( error => dispatch(updateAccountFailure(error)))
   }

@@ -1,4 +1,4 @@
-import clickadillyApi from 'services/clickadillyApi';
+import infosweepApi from 'services/infosweepApi';
 import { PAYMENT_SUCCESS } from 'routes/signup/Payment/modules/payment';
 
 // constants
@@ -36,7 +36,7 @@ export const RESET_PASSWORD_REQUEST = `${CLIENT_API}/password/forgot`
 export const postUserSignup = payload => {
   return dispatch => {
     dispatch(postingUserSignup())
-    return clickadillyApi.post(SIGNUP_REQUEST, payload)
+    return infosweepApi.post(SIGNUP_REQUEST, payload)
     .then(
       response => dispatch(receiveUserSignup(response.data)))
       .catch(
@@ -48,7 +48,7 @@ export const postUserSignup = payload => {
 export const postUserLogin = payload => {
   return dispatch => {
     dispatch(postingUserLogin())
-    return clickadillyApi.post(LOGIN_REQUEST, { user: payload })
+    return infosweepApi.post(LOGIN_REQUEST, { user: payload })
     .then(
       response =>
       response.data.user.group === 'backend'
@@ -66,7 +66,7 @@ export const postUserLogin = payload => {
 export const fetchUser = () => {
   return dispatch => {
     dispatch(postingUserLogin())
-    return clickadillyApi.get(`${CLIENT_API}/users/get`)
+    return infosweepApi.get(`${CLIENT_API}/users/get`)
     .then(
       response =>
       response.data.user.group === 'backend'
@@ -84,7 +84,7 @@ export const fetchUser = () => {
 export const updateUserPassword = payload => {
   return dispatch => {
     dispatch(postingUserLogin())
-    return clickadillyApi.patch(UPDATE_PASSWORD_REQUEST_WITH_TOKEN, { user: payload })
+    return infosweepApi.patch(UPDATE_PASSWORD_REQUEST_WITH_TOKEN, { user: payload })
     .then(
       response => dispatch(receiveClientLogin(response.data)))
       .catch(
@@ -96,7 +96,7 @@ export const updateUserPassword = payload => {
 export const updatePassword = password => {
   const payload = { user: { password } }
   return dispatch => {
-    return clickadillyApi.patch(CLIENT_API, payload)
+    return infosweepApi.patch(CLIENT_API, payload)
     .then( response => dispatch(receievePasswordUpdateSuccess()))
     .catch( error => dispatch(receievePasswordUpdateFailure()))
   }
@@ -105,7 +105,7 @@ export const updatePassword = password => {
 export const resetUserPassword = payload => {
   return dispatch => {
     dispatch(postingForgotPassword(payload.email))
-    return clickadillyApi.patch(RESET_PASSWORD_REQUEST, { user: payload })
+    return infosweepApi.patch(RESET_PASSWORD_REQUEST, { user: payload })
     .then(
       response =>
       dispatch(receiveForgotPassword()))

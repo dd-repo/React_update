@@ -14,7 +14,7 @@ import { RoutedComponent, connect } from 'routes/routedComponent';
 import { CONTENT_VIEW_FLUID } from 'layouts/DefaultLayout/modules/layout';
 
 import classes from './../Pages.scss';
-import logo from 'static/logos/logo-small.png';
+import logo from 'static/logos/logo-white-sm.png';
 
 const HOME_LINK = {
   'client': '/dashboard',

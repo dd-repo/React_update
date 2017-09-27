@@ -1,4 +1,4 @@
-import clickadillyApi from 'services/clickadillyApi';
+import infosweepApi from 'services/infosweepApi';
 
 import {
   USER_LOGOUT
@@ -20,7 +20,7 @@ export const fetchGoogleResults = params => {
 
   return dispatch => {
     dispatch(gettingGoogleResults())
-    return clickadillyApi.get(path)
+    return infosweepApi.get(path)
     .then( response => dispatch(googleResultSuccess(response.data)))
     .catch( error => dispatch(googleResultFailure(error)))
   }
@@ -28,7 +28,7 @@ export const fetchGoogleResults = params => {
 
 export const requestRemoval = payload => {
   return dispatch => {
-    return(clickadillyApi.post(REMOVAL_REQUEST, payload))
+    return infosweepApi.post(REMOVAL_REQUEST, payload)
     .then(
       response => dispatch(updateGoogleResultSuccess(response.data)))
       .catch(

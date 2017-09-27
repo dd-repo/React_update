@@ -1,7 +1,7 @@
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 
-import clickadillyApi from 'services/clickadillyApi';
+import infosweepApi from 'services/infosweepApi';
 import {
   ADMIN_REQUESTED_REMOVALS_PENDING,
   ADMIN_REQUESTED_REMOVALS_SUCCESS,
@@ -179,7 +179,7 @@ describe('(RequestedMovals module)', () => {
     let requestedRemovalsApi;
 
     beforeEach(() => {
-      requestedRemovalsApi = sinon.stub(clickadillyApi, 'get')
+      requestedRemovalsApi = sinon.stub(infosweepApi, 'get')
     })
 
     afterEach(() => {
@@ -239,7 +239,7 @@ describe('(RequestedMovals module)', () => {
     let requestedRemovalsApi;
 
     beforeEach(() => {
-      requestedRemovalsApi = sinon.stub(clickadillyApi, 'get')
+      requestedRemovalsApi = sinon.stub(infosweepApi, 'get')
     })
 
     afterEach(() => {
@@ -280,7 +280,7 @@ describe('(RequestedMovals module)', () => {
     let requestedRemovalsApi;
 
     beforeEach(() => {
-      requestedRemovalsApi = sinon.stub(clickadillyApi, 'patch')
+      requestedRemovalsApi = sinon.stub(infosweepApi, 'patch')
     })
 
     afterEach(() => {

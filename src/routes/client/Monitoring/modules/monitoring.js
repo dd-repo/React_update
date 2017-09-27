@@ -1,4 +1,4 @@
-import clickadillyApi from 'services/clickadillyApi';
+import infosweepApi from 'services/infosweepApi';
 import _ from 'underscore';
 
 const PREVIOUS_STATUS = {
@@ -28,7 +28,7 @@ export const fetchMonitoringRequests = account_id => {
 
   return dispatch => {
     dispatch(gettingMonitoring())
-    return clickadillyApi.get(path)
+    return infosweepApi.get(path)
     .then(
       response => dispatch(monitoringSuccess(response.data))
     ).catch(
@@ -41,7 +41,7 @@ export const fetchMonitoringRequestsCompleted = params => {
   const path = '/dashboard/api/v1/monitoring-request-receipts/search'
 
   return dispatch => {
-    return clickadillyApi.get(path, params)
+    return infosweepApi.get(path, params)
     .then( response => dispatch(receiveMonitoringCompleted(response.data)))
     .catch( error => dispatch(monitoringFailure(error)))
   }
@@ -52,7 +52,7 @@ export const requestRemoval = request_id => {
   const payload = { request_status: 'requested' }
 
   return dispatch => {
-    return clickadillyApi.patch(path, payload)
+    return infosweepApi.patch(path, payload)
     .then(
       response => dispatch(removalRequestSuccess(response.data))
     ).catch(

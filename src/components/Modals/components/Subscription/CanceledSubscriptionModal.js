@@ -7,7 +7,7 @@ import {
   Modal
 } from 'components'
 import { formatDate } from 'utils';
-import { clickadillyPhoneNumber } from 'consts/clickadillyInfo';
+import { infosweepPhoneNumber } from 'consts/infosweepInfo';
 
 const CanceledSubscription = props => {
   return (
@@ -26,7 +26,7 @@ const CanceledSubscription = props => {
             <i className='fa fa-check fa-5x text-success'></i>
             <p>
               Your account is active until {formatDate(props.modalProps.next_payment)}.
-              If you have any questions or would like to re-activate your subscription please call us at { clickadillyPhoneNumber }.
+              If you have any questions or would like to re-activate your subscription please call us at { infosweepPhoneNumber }.
             </p>
           </Col>
         </Row>
