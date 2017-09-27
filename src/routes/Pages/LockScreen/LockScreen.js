@@ -82,7 +82,7 @@ class LockScreenContainer extends RoutedComponent {
                                 </Form>
                             </Panel>
                             <p className='text-center text-gray-light'>
-                                <strong>Clickadilly</strong>
+                                <strong>InfoSweep</strong>
                                 <span className='text-gray-light'>
                                     © 2009 - 2016. Made by <i className="fa fa-fw fa-heart text-danger"></i> New York, US
                                 </span>

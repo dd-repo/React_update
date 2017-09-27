@@ -1,4 +1,4 @@
-import clickadillyApi from 'services/clickadillyApi';
+import infosweepApi from 'services/infosweepApi';
 
 import {
   UPDATE_SUBSCRIPTION_SUCCESS,
@@ -17,7 +17,7 @@ export const getSubscriptions = (params, pageNum) => {
   const path = `${SUBSCRIPTIONS_REQUEST}/search/${pageNum}`
   return dispatch => {
     dispatch(gettingSubscriptions())
-    return clickadillyApi.get(path, params)
+    return infosweepApi.get(path, params)
     .then(
       response => dispatch(receiveSubscriptions(response.data)))
       .catch(

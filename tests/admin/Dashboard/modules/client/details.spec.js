@@ -1,6 +1,6 @@
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
-import clickadillyApi from 'services/clickadillyApi';
+import infosweepApi from 'services/infosweepApi';
 
 import { formatDate } from 'utils';
 
@@ -146,7 +146,7 @@ describe('(Admin User detail module)', () => {
     let userApi;
 
     beforeEach(() => {
-      userApi = sinon.stub(clickadillyApi, 'get')
+      userApi = sinon.stub(infosweepApi, 'get')
     })
 
     afterEach(() => {
@@ -202,7 +202,7 @@ describe('(Admin User detail module)', () => {
     let updateUserApi;
 
     beforeEach(() => {
-      updateUserApi = sinon.stub(clickadillyApi, 'patch')
+      updateUserApi = sinon.stub(infosweepApi, 'patch')
     })
 
     afterEach(() => {

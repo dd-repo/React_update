@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router';
 import CreateUserForm from './CreateUserForm'
 
-import logo from 'static/logos/logo-small.png';
+import logo from 'static/logos/logo-white-sm.png';
 import classes from '../../ClientRegistration/components/clientRegistration.scss';
 import {
     Row,

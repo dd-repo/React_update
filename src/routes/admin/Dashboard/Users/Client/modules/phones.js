@@ -1,4 +1,4 @@
-import clickadillyApi from 'services/clickadillyApi';
+import infosweepApi from 'services/infosweepApi';
 
 import { ACCOUNT_SUCCESS } from './account';
 
@@ -9,7 +9,7 @@ export const UPDATE_PHONE_REQUEST = '/admin/api/phones';
 export const updatePhone = phone => {
   const payload = { phone }
   return dispatch => {
-    return clickadillyApi.patch(`${UPDATE_PHONE_REQUEST}/${phone.id}`, payload)
+    return infosweepApi.patch(`${UPDATE_PHONE_REQUEST}/${phone.id}`, payload)
     .then( response => dispatch(updatePhoneSuccess(response.data)))
     .catch( error => dispatch(updatePhoneFailure(error)))
   }

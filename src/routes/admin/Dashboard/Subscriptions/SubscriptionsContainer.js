@@ -1,6 +1,6 @@
 import React from 'react';
 import _ from 'underscore';
-import clickadillyApi from 'services/clickadillyApi';
+import infosweepApi from 'services/infosweepApi';
 
 import { RoutedComponent, connect } from 'routes/routedComponent';
 import { CONTENT_VIEW_STATIC } from 'layouts/DefaultLayout/modules/layout';

@@ -3,7 +3,7 @@ import { Link } from 'react-router';
 
 import SignupForm from './SignupForm';
 import RootModal from 'components/Modals';
-import logo from 'static/logos/logo-small.png';
+import logo from 'static/logos/logo-white-sm.png';
 import classes from './signup.scss';
 import {
     Row,

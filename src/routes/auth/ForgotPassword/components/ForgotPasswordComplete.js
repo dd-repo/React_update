@@ -13,7 +13,7 @@ import {
 
 import classes from './forgotPassword.scss';
 
-import logo from 'static/logos/logo-big-light.png';
+import logo from 'static/logos/logo-white-sm.png';
 
 const styles = {
   link: {
@@ -50,13 +50,13 @@ const ForgotPasswordComplete = ({ userEmail }) => {
                   <h2 className={ classes.panelHeader }>
                   </h2>
                   <p className='text-center m-b-3'>
-                   An email to { userEmail } from Clickadilly has been sent. Please follow the instructions in the email to reset your password.
+                   An email to { userEmail } from InfoSweep has been sent. Please follow the instructions in the email to reset your password.
                   </p>
 
                 </Panel>
                 <p className='text-center text-gray-light'>
                   <span className="text-gray-dark">
-                    © 2017 <strong className="m-r-1">Clickadilly.</strong>
+                    © 2017 <strong className="m-r-1">InfoSweep.</strong>
                     All rights reserved.
                   </span>
                 </p>

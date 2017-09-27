@@ -1,4 +1,4 @@
-import clickadillyApi from 'services/clickadillyApi';
+import infosweepApi from 'services/infosweepApi';
 
 // action types
 export const TRANSACTIONS_FETCHING = 'TRANSACTIONS_FETCHING';
@@ -17,7 +17,7 @@ export const fetchTransactions = subscriberId => {
   }
 
   return dispatch => {
-    return clickadillyApi.get(TRANSACTIONS_REQUEST, params)
+    return infosweepApi.get(TRANSACTIONS_REQUEST, params)
     .then( response => dispatch(receiveTransactionSuccess(response.data)))
     .catch( error => dispatch(receiveTransactionFailure(error)))
   }

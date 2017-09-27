@@ -1,7 +1,7 @@
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 
-import clickadillyApi from 'services/clickadillyApi';
+import infosweepApi from 'services/infosweepApi';
 
 import {
   MONITORING_PENDING,
@@ -147,7 +147,7 @@ describe('(monitoring module) monitoring requests', () => {
     let monitoringApi;
 
     beforeEach(() => {
-      monitoringApi = sinon.stub(clickadillyApi, 'get')
+      monitoringApi = sinon.stub(infosweepApi, 'get')
     })
 
     afterEach(() => {
@@ -203,7 +203,7 @@ describe('(monitoring module) monitoring requests', () => {
     let monitoringApi;
 
     beforeEach(() => {
-      monitoringApi = sinon.stub(clickadillyApi, 'get')
+      monitoringApi = sinon.stub(infosweepApi, 'get')
     })
 
     afterEach(() => {
@@ -240,7 +240,7 @@ describe('(monitoring module) monitoring requests', () => {
     let monitoringApi;
 
     beforeEach(() => {
-      monitoringApi = sinon.stub(clickadillyApi, 'patch')
+      monitoringApi = sinon.stub(infosweepApi, 'patch')
     })
 
     afterEach(() => {

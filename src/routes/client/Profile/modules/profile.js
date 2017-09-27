@@ -1,4 +1,4 @@
-import clickadillyApi from 'services/clickadillyApi';
+import infosweepApi from 'services/infosweepApi';
 
 import {
   USER_LOGIN_SUCCESS,
@@ -18,7 +18,7 @@ export const updateUserProfile = (payload, profile_id) => {
   const path = `/dashboard/api/v1/profiles/${profile_id}`
   return dispatch => {
     dispatch(postingProfile())
-    return clickadillyApi.patch(path, payload)
+    return infosweepApi.patch(path, payload)
     .then(
       response => dispatch(profileUpdateSuccess(response.data))
     ).catch(
@@ -30,7 +30,7 @@ export const updateUserProfile = (payload, profile_id) => {
 export const getProfile = (profile_id) => {
   const path = `/dashboard/api/v1/profiles/${profile_id}`
   return dispatch => {
-    return clickadillyApi.get(path)
+    return infosweepApi.get(path)
     .then(
       response => dispatch(profileSuccess(response.data))
     ).catch(

@@ -1,7 +1,7 @@
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 
-import clickadillyApi from 'services/clickadillyApi';
+import infosweepApi from 'services/infosweepApi';
 
 import {
   PHONES_FETCHING,
@@ -56,7 +56,7 @@ describe('(Phones module) "Phones"', () => {
     let phonesApi;
 
     beforeEach(() => {
-      phonesApi = sinon.stub(clickadillyApi, 'get')
+      phonesApi = sinon.stub(infosweepApi, 'get')
     })
 
     afterEach(() => {

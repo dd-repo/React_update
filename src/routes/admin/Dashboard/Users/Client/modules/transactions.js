@@ -1,4 +1,4 @@
-import clickadillyApi from 'services/clickadillyApi';
+import infosweepApi from 'services/infosweepApi';
 import _ from 'underscore';
 import { USER_SUCCESS } from './details';
 import {
@@ -15,7 +15,7 @@ export const updateTransaction = transaction => {
   const payload = { id: transaction.id }
 
   return dispatch => {
-    return clickadillyApi.patch(path, payload)
+    return infosweepApi.patch(path, payload)
     .then( response => dispatch(updateTransactionSuccess(response.data)))
     .catch( error => dispatch(updateTransactionFailure(error)))
   }

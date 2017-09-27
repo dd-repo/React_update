@@ -1,4 +1,4 @@
-import clickadillyApi from 'services/clickadillyApi';
+import infosweepApi from 'services/infosweepApi';
 
 // action types
 export const PRIVACY_REMOVAL_STATISTICS_SUCCESS = 'PRIVACY_REMOVAL_STATISTICS_SUCCESS'
@@ -8,7 +8,7 @@ export const PRIVACY_REMOVAL_STATISTICS_REQUEST = '/dashboard/api/v1/privacy-rem
 export const fetchPrivacyRemovalStatistics = account_id => {
   const path = `${PRIVACY_REMOVAL_STATISTICS_REQUEST}/${account_id}`
   return dispatch => {
-    return clickadillyApi.get(path)
+    return infosweepApi.get(path)
     .then( response => dispatch(receivePrivacyRemovalStatistics(response.data)))
     .catch( error => dispatch(rejectPrivacyRemovalStatistics(error)))
   }

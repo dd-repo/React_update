@@ -1,4 +1,4 @@
-import clickadillyApi from 'services/clickadillyApi';
+import infosweepApi from 'services/infosweepApi';
 import { receiveClientLogin } from 'routes/auth/modules/auth';
 
 // action types
@@ -19,7 +19,7 @@ export const getAllUsers = (params, pageNum) => {
   const path = `${USERS_REQUEST}/${pageNum}`
   return dispatch => {
     dispatch(gettingAllUsers())
-    return clickadillyApi.get(path, params)
+    return infosweepApi.get(path, params)
     .then(
       response => dispatch(receiveAllUsers(response.data))
     ).catch(
@@ -30,7 +30,7 @@ export const getAllUsers = (params, pageNum) => {
 
 export const becomeUser = params => {
   return dispatch => {
-    return clickadillyApi.patch(BECOME_USER_REQUEST, params)
+    return infosweepApi.patch(BECOME_USER_REQUEST, params)
     .then(response => dispatch(receiveClientLogin(response.data)))
     .catch( error => dispatch(receiveBecomeUserFailure(error)))
   }
@@ -39,7 +39,7 @@ export const becomeUser = params => {
 export const deleteUser = id => {
   const path = `${DELETE_USER_REQUEST}/${id}/delete-client`
   return dispatch => {
-    return clickadillyApi.patch(path)
+    return infosweepApi.patch(path)
     .then( response => dispatch(receiveDeletedUserSuccess(response.data)))
     .catch( error => dispatch(receiveDeletedUserfailure(error)))
   }

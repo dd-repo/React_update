@@ -1,4 +1,4 @@
-import clickadillyApi from 'services/clickadillyApi';
+import infosweepApi from 'services/infosweepApi';
 import getFullName from 'utils/fullName';
 import { formatDate, createNotification } from 'utils';
 
@@ -15,7 +15,7 @@ export const FETCH_ADMIN_REQUEST = '/admin/api/user';
 export const fetchAdmin = params => {
   return dispatch => {
     dispatch(gettingAdmin())
-    return clickadillyApi.get(FETCH_ADMIN_REQUEST, params)
+    return infosweepApi.get(FETCH_ADMIN_REQUEST, params)
     .then( response => dispatch(receiveAdminSuccess(response.data)))
     .catch( error => dispatch(receiveAdminFailure(error)))
   }
@@ -24,7 +24,7 @@ export const fetchAdmin = params => {
 export const updateAdminDetails = params => {
   const path = `/admin/api/users/${params.user.id}/update-backend-user`
   return dispatch => {
-    return clickadillyApi.patch(path, params)
+    return infosweepApi.patch(path, params)
     .then( response => dispatch(receieveAdminUpdateSuccess(response.data)))
     .catch( error => dispatch(receiveAdminUpdateFailure(error)))
   }

@@ -1,5 +1,5 @@
 import React from 'react';
-import logo from 'static/logos/logo-small-light.png'
+import logo from 'static/logos/logo-white-sm.png'
 import classes from './Spinner.scss'
 
 const Spinner = () => {

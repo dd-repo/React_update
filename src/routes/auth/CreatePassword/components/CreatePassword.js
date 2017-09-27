@@ -13,7 +13,7 @@ import {
 } from 'components';
 
 import classes from './createPassword.scss';
-import logo from 'static/logos/logo-big-light.png';
+import logo from 'static/logos/logo-white-sm.png';
 
 const CreatePassword = ({ submitForm, passwordErrorMsg, errorMessage, disableButton }) => {
 
@@ -61,7 +61,7 @@ const CreatePassword = ({ submitForm, passwordErrorMsg, errorMessage, disableBut
                 </Panel>
                 <p className='text-center text-gray-light'>
                   <span className="text-gray-dark">
-                    © 2017 <strong className="m-r-1">Clickadilly.</strong>
+                    © 2017 <strong className="m-r-1">infosweep.</strong>
                     All rights reserved.
                   </span>
                 </p>

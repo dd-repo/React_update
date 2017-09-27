@@ -1,6 +1,6 @@
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
-import clickadillyApi from 'services/clickadillyApi';
+import infosweepApi from 'services/infosweepApi';
 
 import {
   ACCOUNT_SUCCESS
@@ -92,7 +92,7 @@ describe('(Admin Keyword module)', () => {
     let keywordApi;
 
     beforeEach(() => {
-      keywordApi = sinon.stub(clickadillyApi, 'patch')
+      keywordApi = sinon.stub(infosweepApi, 'patch')
     })
 
     afterEach(() => {
@@ -146,7 +146,7 @@ describe('(Admin Keyword module)', () => {
     let keywordApi;
 
     beforeEach(() => {
-      keywordApi = sinon.stub(clickadillyApi, 'post')
+      keywordApi = sinon.stub(infosweepApi, 'post')
     })
 
     afterEach(() => {

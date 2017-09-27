@@ -1,4 +1,4 @@
-import clickadillyApi from 'services/clickadillyApi';
+import infosweepApi from 'services/infosweepApi';
 
 // action types
 export const ADMIN_REQUESTED_REMOVALS_PENDING = 'ADMIN_REQUESTED_REMOVALS_PENDING';
@@ -27,7 +27,7 @@ export const getRemovalsRequested = (pageNum, params) => {
   const path = `${ADMIN_REMOVAL_REQUEST_PATH}/search/${pageNum}`
   return dispatch => {
     dispatch(gettingRemovalRequests())
-    return clickadillyApi.get(path, params)
+    return infosweepApi.get(path, params)
     .then( response => dispatch(receivedRemovalRequests(response.data)))
     .catch( error => dispatch(rejectedRemovalRequests(error)))
   }
@@ -37,7 +37,7 @@ export const getRemovalsCompleted = (pageNum, params) => {
   const path = `${ADMIN_REMOVAL_COMPLETED_REQUEST}/${pageNum}`
   return dispatch => {
     dispatch(gettingRemovalRequests())
-    return clickadillyApi.get(path, params)
+    return infosweepApi.get(path, params)
     .then(response => dispatch(receivedRemovalsCompleted(response.data)))
     .catch(error => dispatch(rejectedRemovalRequests(error)))
   }
@@ -46,7 +46,7 @@ export const getRemovalsCompleted = (pageNum, params) => {
 export const updateStatus = payload => {
   return dispatch => {
     dispatch(updatingStatus())
-    return clickadillyApi.patch(ADMIN_REMOVAL_REQUEST_PATH, payload)
+    return infosweepApi.patch(ADMIN_REMOVAL_REQUEST_PATH, payload)
     .then( response => dispatch(receivedUpdateStatus(response.data)))
     .catch( error => dispatch(rejectedUpdateStatus(error)))
   }

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router';
 import _ from 'underscore';
+import { infosweepPhoneNumber, infosweepEmail } from 'consts/infosweepInfo';
 
 import {
   NavDropdown,
@@ -14,8 +15,8 @@ import {
 } from 'components';
 
 const contacts = [
-  { id: 1, icon: <i className="fa fa-phone" aria-hidden="true"></i>, info: '(844) 641-7829' },
-  { id: 2, icon: <i className="fa fa-envelope-o" aria-hidden="true"></i>, info: 'help@clickadilly.com' }
+  { id: 1, icon: <i className="fa fa-phone" aria-hidden="true"></i>, info: infosweepPhoneNumber },
+  { id: 2, icon: <i className="fa fa-envelope-o" aria-hidden="true"></i>, info: infosweepEmail }
 ]
 
 class ContactDropdown extends React.Component {

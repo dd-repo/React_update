@@ -1,4 +1,4 @@
-import clickadillyApi from 'services/clickadillyApi';
+import infosweepApi from 'services/infosweepApi';
 import { USER_SUCCESS } from './details';
 
 export const CARDS_SUCCESS = 'CARDS_SUCCESS';
@@ -11,7 +11,7 @@ export const CREATE_CARD_REQUEST = '/admin/api/cards';
 export const fetchCards = id => {
   const params = { q: { user_id_eq: id }}
   return dispatch => {
-    return clickadillyApi.get(CARDS_REQUEST, params)
+    return infosweepApi.get(CARDS_REQUEST, params)
     .then( response => dispatch(receiveCardsSuccess(response.data)))
     .catch( error => dispatch(receiveCardsFailure(error)))
   }
@@ -20,7 +20,7 @@ export const fetchCards = id => {
 export const addCard = (card, user_id) => {
   const payload = Object.assign({}, card, { user_id })
   return dispatch => {
-    return clickadillyApi.post(CREATE_CARD_REQUEST, payload)
+    return infosweepApi.post(CREATE_CARD_REQUEST, payload)
     .then( response => dispatch(receiveNewCardSuccess(response.data)))
     .catch( error => dispatch(receiveNewCardFailure(error)))
   }

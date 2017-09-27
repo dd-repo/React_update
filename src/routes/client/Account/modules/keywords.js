@@ -1,4 +1,4 @@
-import clickadillyApi from 'services/clickadillyApi';
+import infosweepApi from 'services/infosweepApi';
 import {
   USER_LOGIN_SUCCESS,
   USER_LOGOUT,
@@ -29,7 +29,7 @@ export const updateCurrentKeyword = keyword => (
 export const postKeywords = payload => {
   return dispatch => {
     dispatch(postingKeywords())
-    return clickadillyApi.post(KEYWORD_REQUEST, { signup_keyword: payload })
+    return infosweepApi.post(KEYWORD_REQUEST, { signup_keyword: payload })
     .then(
       response => dispatch(keywordSuccess(response.data))
     ).catch(
@@ -42,7 +42,7 @@ export const updateKeyword = (keyword, accountId) => {
  const path = `/dashboard/api/v1/accounts/${accountId}/keywords/${keyword.id}`
  const payload = buildKeywordParams(keyword)
  return dispatch => {
-   return clickadillyApi.patch(path, payload)
+   return infosweepApi.patch(path, payload)
    .then( response => dispatch(receiveKeywordUpdateSuccess(response.data)))
    .catch( error => dispatch(receieveKeywordUpdateFailure(error)))
  }
@@ -51,7 +51,7 @@ export const updateKeyword = (keyword, accountId) => {
 export const fetchKeywords = (account_id, params) => {
   const path = `${KEYWORDS_REQUEST}/${account_id}/keywords/search`
   return dispatch => {
-    return clickadillyApi.get(path, params)
+    return infosweepApi.get(path, params)
     .then( response => dispatch(receiveKeywords(response.data)))
     .catch( error => dispatch(rejectKeywords(error)))
   }

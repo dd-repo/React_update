@@ -1,6 +1,6 @@
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
-import clickadillyApi from 'services/clickadillyApi';
+import infosweepApi from 'services/infosweepApi';
 
 import {
   USERS_SUCCESS,
@@ -110,7 +110,7 @@ describe('(Users module)', () => {
     let usersApi;
 
     beforeEach(() => {
-     usersApi = sinon.stub(clickadillyApi, 'get')
+     usersApi = sinon.stub(infosweepApi, 'get')
     })
 
     afterEach(() => {
@@ -166,7 +166,7 @@ describe('(Users module)', () => {
     let userApi;
 
     beforeEach(() => {
-     userApi = sinon.stub(clickadillyApi, 'patch')
+     userApi = sinon.stub(infosweepApi, 'patch')
     })
 
     afterEach(() => {

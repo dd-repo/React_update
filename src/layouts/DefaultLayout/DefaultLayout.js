@@ -13,7 +13,8 @@ import { removePersistedData } from 'localStorage';
 import { logout } from 'routes/auth/modules/auth';
 
 import { Colors } from 'consts';
-import navbarLogo from 'static/logos/logo-big-dark.png'
+import navbarLogo from 'static/logos/logo-dark-md.png'
+import { infosweepEmail, infosweepPhoneNumber } from 'consts/infosweepInfo';
 
 // Components
 import {
@@ -215,7 +216,7 @@ class DefaultLayout extends React.Component {
                         <Navbar.Header>
                             <Navbar.Brand>
                                 <Link to={homeLink()}>
-                                  <img src={ navbarLogo } className={ classes.navbarLogo } height={ 40 } alt="Clickadilly Dashboard" />
+                                  <img src={ navbarLogo } className={ classes.navbarLogo } height={ 40 } alt="infosweep Dashboard" />
                                 </Link>
                             </Navbar.Brand>
 
@@ -312,14 +313,6 @@ class DefaultLayout extends React.Component {
                                 <Nav pullRight>
                                   { /* isClient && (
                                     <NavItem>
-                                      <i className="fa fa-phone m-r-1" aria-hidden="true"></i>
-                                      <span className='m-r-1'>
-                                        (844) 641-7829
-                                      </span>
-                                      <i className="fa fa-envelope m-r-1" aria-hidden="true"></i>
-                                      <span className='m-r-3'>
-                                        help@clickadilly.com
-                                      </span>
                                     </NavItem>
                                     )
                                     */ }
@@ -570,13 +563,13 @@ class DefaultLayout extends React.Component {
                       </span>
                       <i className="fa fa-envelope m-r-1" aria-hidden="true"></i>
                       <span className='m-r-3'>
-                        help@clickadilly.com
+                        { infosweepEmail }
                       </span>
                     </p>
                     <p className='text-center'>
                     </p>
                     <p className="text-gray-dark">
-                      © 2017 <strong>Clickadilly </strong>
+                      © 2017 <strong>infosweep </strong>
                       <span className={classes.footerAddress}>Denver, CO 80206, USA. All rights reserved.</span>
                     </p>
                   </Footer>

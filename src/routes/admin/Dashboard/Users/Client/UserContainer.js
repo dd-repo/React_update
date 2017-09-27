@@ -1,5 +1,5 @@
 import React from 'react';
-import clickadillyApi from 'services/clickadillyApi';
+import infosweepApi from 'services/infosweepApi';
 
 import { RoutedComponent, connect } from 'routes/routedComponent';
 import { CONTENT_VIEW_FLUID } from 'layouts/DefaultLayout/modules/layout';
@@ -83,7 +83,7 @@ class UserContainer extends RoutedComponent {
     const params = {
       q: { group_eq: 'backend' }
     }
-    return clickadillyApi.get(USERS_REQUEST, params)
+    return infosweepApi.get(USERS_REQUEST, params)
   }
 
 

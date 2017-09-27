@@ -5,7 +5,7 @@ import { getAuthToken } from 'localStorage';
 import { receivePermissionsError } from 'routes/auth/modules/auth';
 import BASE_URL from 'consts/baseUrl';
 
-class ClickadillyApi {
+class InfoSweepApi {
   constructor() {
 
     let client = axios.create({
@@ -68,4 +68,4 @@ class ClickadillyApi {
   }
 }
 
-export default new ClickadillyApi
+export default new InfoSweepApi

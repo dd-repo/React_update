@@ -1,4 +1,4 @@
-import clickadillyApi from 'services/clickadillyApi';
+import infosweepApi from 'services/infosweepApi';
 
 // action types
 export const REQUESTED_REMOVAL_STATUS_SUCCESS = 'REQUESTED_REMOVAL_STATUS_SUCCESS';
@@ -8,7 +8,7 @@ export const REQUESTED_REMOVAL_STATUS_REQUEST = '/dashboard/api/v1/requested-rem
 export const fetchPrivacyRemovalStatus = account_id => {
   const path = `${REQUESTED_REMOVAL_STATUS_REQUEST}/${account_id}`
   return dispatch => {
-    return clickadillyApi.get(path)
+    return infosweepApi.get(path)
     .then( response => dispatch(receivePrivacyRemovalStatus(response.data)))
     .catch( error => dispatch(rejectPrivacyRemovalStatus(error)))
   }

@@ -70,7 +70,7 @@ const PrivacyPolicy = () => (
     100 Fillmore St. 5th Floor
     Denver, Colorado 80206 USA
     (844) 641-7829
-    customercare@clickadilly.com
+    customercare@infosweep.com
 
   </div>
 )
