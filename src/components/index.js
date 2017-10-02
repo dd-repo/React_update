@@ -88,7 +88,7 @@ import Timeline from './Timeline';
 import Tooltip from './Tooltip';
 import TreeNavigator from './TreeNavigator';
 import SearchBar from './SearchBar';
-import Modals from './Modals';
+import RootModal from './Modals';
 import FlashMessage from './FlashMessage';
 
 export {
@@ -159,7 +159,7 @@ export {
     Layout,
     Media,
     Modal,
-    Modals,
+    RootModal,
     Navbar,
     OutsideClick,
     Panel,

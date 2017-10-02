@@ -1,5 +1,16 @@
-import React from 'react';
+import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
+import faker from 'faker';
+import { Motion, TransitionMotion, spring } from 'react-motion';
+import scrollToComponent from 'react-scroll-to-component';
+import classnames from 'classnames'
 
+import {
+  SCREEN_SIZE_LG,
+  SCREEN_SIZE_MD,
+  SCREEN_SIZE_SM,
+  SCREEN_SIZE_XS
+} from 'layouts/DefaultLayout/modules/layout';
 import {
   Row,
   Panel,
@@ -9,20 +20,110 @@ import {
   OverlayTrigger,
   ListGroup,
   ListGroupItem,
-  Tooltip
+  Overlay,
+  Popover,
+  Tooltip,
 } from 'components';
+
+import PopoverGuide from '../PopoverGuide';
+import { Colors } from 'consts';
 import classes from '../dashboard.scss';
 
+let buttonRef = {};
 
-const KeywordSummary = ({ keywords, showModal, handleKeywordEdit }) => (
-      <ListGroup>
-        <ListGroupItem active>
+const description = "Each of these phrases represents a Google search. You can edit these phrases as you see fit. We recommend that you use one phrase containing your full name, and one containing your address for the most complete privacy coverage. Other popular options include your maiden name or your name and age."
+
+const willLeave = () => ({
+  opacity: spring(0),
+  transform: spring(100)
+})
+
+const willEnter = () => ({
+  opacity: 0,
+  transform: 0,
+})
+
+const getStyles = () => ({
+  opacity: spring(1),
+  transform: spring(-100)
+})
+
+
+class KeywordSummary extends Component {
+  constructor(props) {
+    super(props)
+    this.state = { active: false }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if(nextProps.active) {
+      switch(this.props.screenSize) {
+        case SCREEN_SIZE_XS:
+          scrollToComponent(this.nodeRef, {offset: 0, align: 'bottom', duration: 1000})
+          break;
+        case SCREEN_SIZE_SM:
+          scrollToComponent(this.nodeRef, {offset: 0, align: 'bottom', duration: 1000})
+          break;
+        default:
+          scrollToComponent(this.nodeRef)
+      }
+    }
+  }
+  renderEditKeywordPopover = () => (
+    <TransitionMotion
+      styles={[{ key: 'key', style: getStyles() }]}
+      willLeave={willLeave}
+      willEnter={willEnter}
+    >
+      { interpolatedStyle =>
+        <div>
+          { interpolatedStyle.map(({ key, style, data }) => (
+            <Overlay
+              className={classes.fadeIn}
+              key={key}
+              style={{
+                opacity: style.opacity,
+                transform: style.transform,
+              }}
+              show={false}
+              placement='right'
+              target={() => ReactDOM.findDOMNode(buttonRef['button-0'])}
+            >
+              <Popover
+                id='popover-guide'
+              >
+                { faker.lorem.sentence() }
+              </Popover>
+            </Overlay>
+            ))}
+          </div>
+          }
+        </TransitionMotion>
+  )
+
+  render() {
+  const { active, styles, handleContinue, keywords, showModal, handleKeywordEdit } = this.props
+
+    return (
+      <ListGroup
+        ref={ node => this.nodeRef = node }
+        className={styles}
+      >
+        <PopoverGuide
+          active={active}
+          description={description}
+          title='Search Phrases'
+          placement='bottom'
+          nodeRef={this.nodeRef}
+          handleContinue={handleContinue}
+        />
+        <ListGroupItem className='text-white' style={{background: Colors.brandPrimary}}>
           Your Search Phrases
           <OverlayTrigger
-            placement='top'
+            placement='left'
             overlay={(
               <Tooltip>
-                info
+                { description }
               </Tooltip>
               )}
             >
@@ -34,92 +135,55 @@ const KeywordSummary = ({ keywords, showModal, handleKeywordEdit }) => (
               </Button>
             </OverlayTrigger>
           </ListGroupItem>
-        {
-          keywords.map( (keyword, i) => (
-            <ListGroupItem key={i} className={classes.keywords} style={{background: 'none'}}>
-              { keyword.label }
-              <ButtonGroup
-                className='pull-right'
-              >
-                <OverlayTrigger
-                  placement='top'
-                  overlay={(
-                    <Tooltip>
-                      Search
-                    </Tooltip>
-                    )}
+          {
+            keywords.map( (keyword, i) => (
+              <ListGroupItem key={i} className={classes.keywords} style={{background: 'none'}}>
+                <Row>
+                  { keyword.label }
+                  <ButtonGroup
+                    className='pull-right'
                   >
-                    <Button
-                      bsSize='small'
-                    >
-                        <i className='fa fa-search fa-fw fa-lg text-gray-lighter'></i>
-                    </Button>
-                  </OverlayTrigger>
-                  <OverlayTrigger
-                    placement='top'
-                    overlay={(
-                      <Tooltip>
-                        Edit
-                      </Tooltip>
-                      )}
-                    >
-                      <Button
-                        onClick={() => { showModal('KEYWORD', keyword, handleKeywordEdit) }}
-                        bsSize='small'
-                      >
-                        <i className='fa fa-pencil fa-fw fa-lg text-gray-lighter'></i>
-                      </Button>
-                    </OverlayTrigger>
-                  </ButtonGroup>
-                </ListGroupItem>
-                ))
-        }
-      </ListGroup>
-)
+                    { /*
+                         <OverlayTrigger
+                         placement='top'
+                         overlay={(
+                         <Tooltip>
+                         Search
+                         </Tooltip>
+                         )}
+                         >
+                         <Button
+                         bsSize='small'
+                         >
+                         <i className='fa fa-search fa-fw fa-lg text-gray-lighter'></i>
+                         </Button>
+                         </OverlayTrigger>
+                         */ }
+                         <OverlayTrigger
+                           placement='top'
+                           overlay={(
+                             <Tooltip id='keyword-edit'>
+                               Edit
+                             </Tooltip>
+                             )}
+                           >
+                             <Button
+                               ref={ button => buttonRef[`button-${i}`] = button }
+                               onClick={() => { showModal('KEYWORD', keyword, handleKeywordEdit) }}
+                               className={classes.standOut}
+                               bsSize='small'
+                             >
+                               <i className='fa fa-pencil fa-fw fa-lg text-gray-lighter'></i>
+                             </Button>
+                           </OverlayTrigger>
+                         </ButtonGroup>
+                       </Row>
+                       </ListGroupItem>
+                  ))
+          }
+        </ListGroup>
+    )
+  }
+}
 
 export default KeywordSummary;
-          //<Col lg={ 3 } sm={ 6 } key={ keyword.id }>
-            //<Panel
-              //className={ classes.keywordSummaryPanel }
-              //header={
-                //<div className='flex-space-between'>
-                  //<ButtonGroup
-                    //bsSize='xs'
-                  //>
-                    //<OverlayTrigger
-                      //placement='top'
-                      //overlay={(
-                        //<Tooltip id='option-collapse'>
-                          //Search
-                        //</Tooltip>
-                        //)}
-                      //>
-                        //<Button bsStyle='link'>
-                          //<i className='fa fa-search fa-fw fa-lg text-gray-lighter'></i>
-                        //</Button>
-                      //</OverlayTrigger>
-                      //<OverlayTrigger
-                        //placement='top'
-                        //overlay={(
-                          //<Tooltip id='option-delete'>
-                            //Edit
-                          //</Tooltip>
-                          //)}
-                        //>
-                          //<Button
-                            //onClick={() => { showModal('KEYWORD', keyword, handleKeywordEdit) }}
-                            //bsSize='small'
-                            //bsStyle='link'
-                          //>
-                            //<i className="fa fa-pencil fa-fw fa-lg text-gray-lighter"></i>
-                          //</Button>
-                        //</OverlayTrigger>
-                      //</ButtonGroup>
-                    //</div>
-              //}
-            //>
-              //<div className='text-center'>
-                //{keyword.label}
-              //</div>
-            //</Panel>
-          //</Col>
