@@ -33,10 +33,20 @@ class Summary extends Component {
     if(nextProps.active) {
       switch(this.props.screenSize) {
         case SCREEN_SIZE_XS:
-          scrollToComponent(this.nodeRef, {offset: -200, align: 'middle', duration: 1000})
+          scrollToComponent(
+            this.nodeRef, {
+              offset: -200,
+              align: 'middle',
+              duration: 1000
+            })
           break;
         case SCREEN_SIZE_SM:
-          scrollToComponent(this.nodeRef, {offset: 0, align: 'middle', duration: 1000})
+          scrollToComponent(
+            this.nodeRef, {
+              offset: 0,
+              align: 'middle',
+              duration: 1000
+            })
           break;
         default:
           scrollToComponent(this.nodeRef)

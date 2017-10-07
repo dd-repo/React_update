@@ -17,6 +17,13 @@ import {
 
 import { Colors } from 'consts';
 
+const MAX_DAYS = 30
+
+const getPercentageComplete = days => {
+  const percentageComplete = Math.floor((days / MAX_DAYS) * 100)
+  return percentageComplete < 100 ? percentageComplete : 99
+}
+
 const InProgress = ({ requests }) => {
   return (
     <ListGroup className={ classes.filledListGroup }>
@@ -24,7 +31,6 @@ const InProgress = ({ requests }) => {
         requests.map( request => {
           const url = `http://www.${request.site}`
           const numberOfDays = getNumberOfDays(request.current_requested_at)
-          const percentageComplete = Math.floor((numberOfDays / 30) * 100)
 
           return (
           <ListGroupItem className={ `${classes.filledListGroupItem} p-y-2` } key={ request.id }>
@@ -40,11 +46,11 @@ const InProgress = ({ requests }) => {
                 Active
               </Label>
             </div>
-            <SlimProgressBar now={ numberOfDays } max={30} className='m-y-1' />
+            <SlimProgressBar now={ numberOfDays } max={MAX_DAYS} className='m-y-1' />
             <div className='flex-space-between'>
               <div className='text-center'>
                 <p className='text-white h4 m-y-0'>
-                  { percentageComplete }%
+                  { getPercentageComplete(numberOfDays) }%
                 </p>
                 <p className=' m-y-0'>
                   Complete
