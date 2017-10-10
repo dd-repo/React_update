@@ -1,4 +1,4 @@
-# infosweep - React+Redux
+# InfoSweep - React+Redux
 
 ## Installation
 1. Make sure you have NodeJS >= 6.0.0 installed on your machine.
