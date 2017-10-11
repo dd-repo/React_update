@@ -25,29 +25,13 @@ import {
   Tooltip,
 } from 'components';
 
-import PopoverGuide from '../PopoverGuide';
+import DashboardPopover from '../DashboardPopover';
 import { Colors } from 'consts';
 import classes from '../dashboard.scss';
 
 let buttonRef = {};
 
 const description = "Each of these phrases represents a Google search. You can edit these phrases as you see fit. We recommend that you use one phrase containing your full name, and one containing your address for the most complete privacy coverage. Other popular options include your maiden name or your name and age."
-
-const willLeave = () => ({
-  opacity: spring(0),
-  transform: spring(100)
-})
-
-const willEnter = () => ({
-  opacity: 0,
-  transform: 0,
-})
-
-const getStyles = () => ({
-  opacity: spring(1),
-  transform: spring(-100)
-})
-
 
 class KeywordSummary extends Component {
   constructor(props) {
@@ -69,37 +53,6 @@ class KeywordSummary extends Component {
       }
     }
   }
-  renderEditKeywordPopover = () => (
-    <TransitionMotion
-      styles={[{ key: 'key', style: getStyles() }]}
-      willLeave={willLeave}
-      willEnter={willEnter}
-    >
-      { interpolatedStyle =>
-        <div>
-          { interpolatedStyle.map(({ key, style, data }) => (
-            <Overlay
-              className={classes.fadeIn}
-              key={key}
-              style={{
-                opacity: style.opacity,
-                transform: style.transform,
-              }}
-              show={false}
-              placement='right'
-              target={() => ReactDOM.findDOMNode(buttonRef['button-0'])}
-            >
-              <Popover
-                id='popover-guide'
-              >
-                { faker.lorem.sentence() }
-              </Popover>
-            </Overlay>
-            ))}
-          </div>
-          }
-        </TransitionMotion>
-  )
 
   render() {
   const { active, styles, handleContinue, keywords, showModal, handleKeywordEdit } = this.props
@@ -109,13 +62,13 @@ class KeywordSummary extends Component {
         ref={ node => this.nodeRef = node }
         className={styles}
       >
-        <PopoverGuide
+        <DashboardPopover
           active={active}
           description={description}
           title='Search Phrases'
           placement='bottom'
           nodeRef={this.nodeRef}
-          handleContinue={handleContinue}
+          handleClick={handleContinue}
         />
         <ListGroupItem className='text-white' style={{background: Colors.brandPrimary}}>
           Your Search Phrases

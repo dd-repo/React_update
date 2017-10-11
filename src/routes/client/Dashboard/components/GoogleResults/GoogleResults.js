@@ -5,7 +5,7 @@ import scrollToComponent from 'react-scroll-to-component';
 
 import GoogleResult from 'routes/client/GoogleResults/components/GoogleResult';
 import SearchKeywords from 'routes/client/GoogleResults/components/SearchKeywords';
-import PopoverGuide from '../PopoverGuide';
+import DashboardPopover from '../DashboardPopover';
 
 import {
   SCREEN_SIZE_LG,
@@ -58,13 +58,13 @@ class GoogleResults extends Component {
         className={styles}
         ref={ node => this.nodeRef = node }
       >
-        <PopoverGuide
+        <DashboardPopover
           active={active}
           description={description}
           title='Google Results'
           placement='top'
           nodeRef={this.nodeRef}
-          handleContinue={handleContinue}
+          handleClick={handleContinue}
         />
         <div>
           <SearchKeywords

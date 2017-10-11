@@ -26,8 +26,6 @@ const withLoader = SpinnerWhileLoading(
   props => props.isFetching
 )
 
-const nodes = {}
-
 class Dashboard extends Component {
 
   render() {
@@ -44,7 +42,8 @@ class Dashboard extends Component {
       showModal,
       handleKeywordEdit,
       handlePrivacyRemovalButtonClick,
-      screenSize
+      screenSize,
+      driverLicenseNotification
     } = this.props
 
     const fullName = capitalize(getFullName(user))
@@ -108,6 +107,7 @@ class Dashboard extends Component {
                         potentialRisks={potentialRisks}
                         completed={completed}
                         screenSize={screenSize}
+                        driverLicenseNotification={driverLicenseNotification}
                       />
                     </div>
                   </Col>

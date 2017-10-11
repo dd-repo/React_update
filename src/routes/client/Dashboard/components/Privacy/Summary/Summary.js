@@ -5,7 +5,7 @@ import scrollToComponent from 'react-scroll-to-component';
 
 import classes from '../privacy.scss';
 import SummaryResult from 'routes/client/Monitoring/components/SummaryResult';
-import PopoverGuide from '../../PopoverGuide';
+import DashboardPopover from '../../DashboardPopover';
 import {
   SCREEN_SIZE_LG,
   SCREEN_SIZE_MD,
@@ -72,13 +72,13 @@ class Summary extends Component {
         ref={ node => this.nodeRef = node }
         className={styles}
       >
-        <PopoverGuide
+        <DashboardPopover
           active={active}
           description={description}
           title='Privacy Report'
           placement={screenSize === SCREEN_SIZE_XS ? 'top' : 'bottom'}
           nodeRef={this.nodeRef}
-          handleContinue={handleContinue}
+          handleClick={handleContinue}
         />
         <ListGroupItem className='text-white' style={{background: Colors.brandDanger}}>
           Your Privacy Removal Report

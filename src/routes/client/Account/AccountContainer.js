@@ -15,7 +15,7 @@ import { fetchTransactions } from './modules/transactions';
 import { updateKeyword } from './modules/keywords';
 import { showModal, hideModal } from 'modules/modal';
 import { updatePassword } from 'routes/auth/modules/auth';
-import { clearNotification } from './modules/notification';
+import { clearFlashMessage } from './modules/flashMessage';
 import Keywords from './components/Keywords';
 import BillingInfo from './components/BillingInfo';
 import ProfileDetails from './components/ProfileDetails';
@@ -52,7 +52,7 @@ class AccountContainer extends RoutedComponent {
   }
 
   componentWillReceiveProps(nextProps) {
-    nextProps.notification.message && window.scrollTo(0,0)
+    nextProps.flashMessage.message && window.scrollTo(0,0)
   }
 
   handleSuccess(res) {
@@ -109,7 +109,7 @@ class AccountContainer extends RoutedComponent {
   }
 
   clearMessage = () => {
-    this.props.clearNotification()
+    this.props.clearFlashMessage()
   }
 
   doNext = res => {
@@ -126,7 +126,7 @@ class AccountContainer extends RoutedComponent {
     return (
       <Row>
         <FlashMessage
-          notification={this.props.notification}
+          flashMessage={this.props.flashMessage}
           clearMessage={this.clearMessage}
         />
         <Col lg={ 4 }>
@@ -174,7 +174,7 @@ const mapStateToProps = state => ({
   addresses: state.account.addresses,
   profile: state.account.profile,
   transactions: state.account.transactions,
-  notification: state.account.notification,
+  flashMessage: state.account.flashMessage,
   accounts: state.accounts
 })
 
@@ -186,7 +186,7 @@ const mapActionCreators = {
   fetchAddresses,
   updateKeyword,
   updatePassword,
-  clearNotification,
+  clearFlashMessage,
   showModal,
   hideModal
 }

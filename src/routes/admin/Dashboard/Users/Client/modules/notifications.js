@@ -37,7 +37,9 @@ import {
 
 import {
   UPDATE_PROFILE_SUCCESS,
-  UPDATE_PROFILE_FAILURE
+  UPDATE_PROFILE_FAILURE,
+  DRIVER_LICENSE_REQUEST_SUCCESS,
+  DRIVER_LICENSE_REQUEST_FAILURE
 } from './profile';
 
 import {
@@ -126,6 +128,9 @@ const reducer = (state=initialValues, action) => {
     case ADD_CARD_SUCCESS:
       return setSuccessMessage(state, 'Card', 'Added')
 
+    case DRIVER_LICENSE_REQUEST_SUCCESS:
+      return setSuccessMessage(state, 'Driver License', 'Requested')
+
     case ADD_CARD_FAILURE:
       return Object.assign({}, state, {
         message: action.error.response.data.message,
@@ -175,6 +180,9 @@ const reducer = (state=initialValues, action) => {
       return setErrorMessage(state, action.error)
 
     case ACCOUNT_FAILURE:
+      return setErrorMessage(state, action.error)
+
+    case DRIVER_LICENSE_REQUEST_FAILURE:
       return setErrorMessage(state, action.error)
 
     case CLEAR_NOTIFICATION:

@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react';
+import { connect } from 'react-redux';
 
 import {
   Panel,
@@ -12,6 +13,7 @@ import {
   Nav,
   NavItem,
 } from 'components'
+import { requestDriverLicense } from 'routes/admin/Dashboard/Users/Client/modules/profile';
 
 import Account from './components/Account';
 import Keywords from './components/Keywords';
@@ -66,6 +68,10 @@ class AccountDetails extends React.Component {
     if(this.state.tabKey === 'Profile') {
       return this.props.profile
     }
+  }
+
+  handleDriverLicenseRequest = () => {
+   this.props.dispatch(requestDriverLicense(this.props.account.id))
   }
 
   render() {
@@ -179,7 +185,10 @@ class AccountDetails extends React.Component {
                               />
                             </Tab.Pane>
                             <Tab.Pane eventKey='profile'>
-                              <Profile profile={profile} />
+                              <Profile
+                                profile={profile}
+                                handleDriverLicenseRequest={this.handleDriverLicenseRequest}_
+                              />
                             </Tab.Pane>
                           </Tab.Content>
                         </div>
@@ -197,4 +206,4 @@ AccountDetails.propTypes = {
   toggleModal: PropTypes.func
 }
 
-export default AccountDetails;
+export default connect()(AccountDetails);

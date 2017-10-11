@@ -13,11 +13,11 @@ import {
   SUBSCRIPTION_CANCEL_FAILURE
 } from 'routes/client/Account/modules/subscription';
 
-export const CLEAR_NOTIFICATION = 'CLEAR_NOTIFICATION'
+export const CLEAR_FLASH_MESSAGE = 'CLEAR_FLASH_MESSAGE'
 
-export const clearNotification = () => (
+export const clearFlashMessage = () => (
   {
-    type: CLEAR_NOTIFICATION
+    type: CLEAR_FLASH_MESSAGE
   }
 )
 
@@ -62,7 +62,7 @@ const reducer = (state=initialValues, action) => {
     case SUBSCRIPTION_CANCEL_FAILURE:
       return setErrorMessage(state, action.error)
 
-    case CLEAR_NOTIFICATION:
+    case CLEAR_FLASH_MESSAGE:
       return initialValues
     default:
       return state

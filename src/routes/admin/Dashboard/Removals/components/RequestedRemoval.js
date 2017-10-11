@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import { Link } from 'react-router';
 import { formatDate } from 'utils';
 
 import { DropdownButton, MenuItem, Button, Label } from 'components';
@@ -6,30 +7,19 @@ import { DropdownButton, MenuItem, Button, Label } from 'components';
 const REMOVAL_STATUS = {
   'requested': {
     style: 'danger',
-    buttonLabel: 'Mark as in progress',
-    nextStatus: 'inprogress'
   },
   'inprogress': {
     style:'info',
-    buttonLabel: 'Mark as complete',
-    nextStatus: 'completed'
   },
   'protected': {
     style:'success',
-    buttonLabel: 'Complete'
   }
 }
 
 export default class RemovalRequested extends Component {
-  constructor(props) {
-    super(props)
 
-    this._onSelect = this._onSelect.bind(this)
-  }
-
-  _onSelect(nextStatus) {
-    this.props.removal.nextStatus = nextStatus
-    this.props.handleClick(this.props.removal)
+  _onSelect = nextStatus => {
+    this.props.handleClick({...this.props.removal, nextStatus})
   }
 
   render() {
@@ -39,6 +29,7 @@ export default class RemovalRequested extends Component {
       status,
       status_label,
       client_name,
+      client_id,
       age,
       updated_at,
       addresses,
@@ -56,8 +47,8 @@ export default class RemovalRequested extends Component {
     const renderButton = (
         <DropdownButton onSelect={this._onSelect} title='Actions' bsStyle='danger' id='dropdown-basic-4' bsSize='lg' className='m-b-1'>
           { isRequested && <MenuItem eventKey="inprogress">In Progress</MenuItem> }
-          { isInProgress && <MenuItem eventKey="completed">Complete</MenuItem> }
           { isRequested && <MenuItem eventKey="protected">Record not found</MenuItem> }
+          { isInProgress && <MenuItem eventKey="completed">Complete</MenuItem> }
         </DropdownButton>
     )
 
@@ -67,7 +58,9 @@ export default class RemovalRequested extends Component {
           { id }
         </td>
         <td>
+        <Link to={`/admin/dashboard/users/client/${client_id}`}>
           { client_name }
+        </Link>
         </td>
         <td>
           { age }

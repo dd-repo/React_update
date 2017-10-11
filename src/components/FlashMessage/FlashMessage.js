@@ -6,23 +6,23 @@ import {
 } from 'components'
 
 const enhancer = hideIfNoData(
-  props => !props.notification.message
+  props => !props.flashMessage.message
 )
 
-const FlashMessage = enhancer(({ notification, clearMessage }) => (
-  <Alert bsStyle={notification.status}>
+const FlashMessage = enhancer(({ flashMessage, clearMessage }) => (
+  <Alert bsStyle={flashMessage.status}>
     <Button
       bsStyle='link'
       onClick={clearMessage}
     >
-      <i className={`fa fa-times-circle fa-lg text-${notification.status} pull-right`}></i>
+      <i className={`fa fa-times-circle fa-lg text-${flashMessage.status} pull-right`}></i>
     </Button>
-    {notification.message}
+    {flashMessage.message}
   </Alert>
 ))
 
 FlashMessage.propTypes = {
-  notification: PropTypes.object,
+  flashMessage: PropTypes.object,
   clearMessage: PropTypes.func
 }
 
