@@ -216,7 +216,7 @@ class DefaultLayout extends React.Component {
                         <Navbar.Header>
                             <Navbar.Brand>
                                 <Link to={homeLink()}>
-                                  <img src={ navbarLogo } className={ classes.navbarLogo } height={ 40 } alt="infosweep Dashboard" />
+                                  <img src={ navbarLogo } className={ classes.navbarLogo } height={ 60 } alt="infosweep Dashboard" />
                                 </Link>
                             </Navbar.Brand>
 
