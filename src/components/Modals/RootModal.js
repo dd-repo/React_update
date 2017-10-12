@@ -2,7 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { hideModal } from 'modules/modal';
 import {
-  UserModal,
+  UpdateUserModal,
+  DeleteUserModal,
   AccountModal,
   TransactionModal,
   KeywordModal,
@@ -25,7 +26,8 @@ import {
 } from './components'
 
 const MODAL_COMPONENTS = {
-  'USER':                  UserModal,
+  'USER':                  UpdateUserModal,
+  'DELETE_USER':           DeleteUserModal,
   'ADMIN_UPDATE':          AdminModal,
   'ACCOUNT':               AccountModal,
   'TRANSACTION':           TransactionModal,

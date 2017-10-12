@@ -5,6 +5,8 @@ import { CONTENT_VIEW_STATIC } from 'layouts/DefaultLayout/modules/layout';
 import { getAllUsers, becomeUser, deleteUser, clearNotification } from './modules/users';
 import { persistData } from 'localStorage';
 import { USER_LOGIN_SUCCESS } from 'routes/auth/modules/auth';
+import { showModal, hideModal } from 'modules/modal';
+import RootModal from 'components/Modals';
 import Users from './components/Users';
 
 const group = {
@@ -87,7 +89,8 @@ class UsersContainer extends RoutedComponent {
         .then( res => this.doNext(res) )
         break;
       case 'delete':
-        this.props.deleteUser(id)
+        const user = this.props.users.all.find((user) => ( user.id === id ))
+        this.props.showModal('DELETE_USER', user)
         break;
       default:
         this.fetchUsers(this.getRole())
@@ -107,6 +110,11 @@ class UsersContainer extends RoutedComponent {
     this.context.router.push('/dashboard')
   }
 
+  handleDeleteUser = id => {
+    this.props.deleteUser(id)
+    this.props.hideModal()
+  }
+
   clearMessage = () => {
     this.props.clearNotification()
   }
@@ -122,21 +130,26 @@ class UsersContainer extends RoutedComponent {
     )
 
     return (
-      <Users
-        notification={this.props.users.notification}
-        clearMessage={this.clearMessage}
-        users={all}
-        paginationItems={paginationItems}
-        pageNum={this.state.pageNum}
-        isFetching={this.props.users.isFetching}
-        getNextPage={this.getNextPage}
-        handleSearch={this.handleSearch}
-        queryName={this.state.queryName}
-        results={results}
-        limit={limit}
-        isFrontend={isFrontend}
-        handleDropdownSelect={this.handleDropdownSelect}
-      />
+      <div>
+        <Users
+          notification={this.props.users.notification}
+          clearMessage={this.clearMessage}
+          users={all}
+          paginationItems={paginationItems}
+          pageNum={this.state.pageNum}
+          isFetching={this.props.users.isFetching}
+          getNextPage={this.getNextPage}
+          handleSearch={this.handleSearch}
+          queryName={this.state.queryName}
+          results={results}
+          limit={limit}
+          isFrontend={isFrontend}
+          handleDropdownSelect={this.handleDropdownSelect}
+        />
+        <RootModal
+          handleDeleteUser={this.handleDeleteUser}
+        />
+      </div>
     )
   }
 }
@@ -151,7 +164,9 @@ const mapActionCreators = {
   getAllUsers,
   becomeUser,
   deleteUser,
-  clearNotification
+  clearNotification,
+  showModal,
+  hideModal
 }
 
 export default connect(mapStateToProps, mapActionCreators)(UsersContainer);
