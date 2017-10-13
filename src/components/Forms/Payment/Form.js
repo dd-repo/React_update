@@ -70,7 +70,7 @@ let PaymentForm = (props) => {
           <FormGroup controlId='formSizingColumn'>
             <Col lg={12}>
               <div className='m-b-1 text-center'>
-                <h5 className={ classes.paymentOtherLabel }>
+                <h5 className={ classes.paymentIcons }>
                   Accepted Cards
                 </h5>
                 <div>

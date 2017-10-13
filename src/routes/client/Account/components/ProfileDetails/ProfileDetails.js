@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import _ from 'underscore';
 import { LinkContainer } from 'react-router-bootstrap';
 
-import DriverLicense from '../DriverLicense';
+import Documents from '../Documents';
 import getFullName from 'utils/fullName';
 import { normalizePhone } from 'utils/formHelpers'
 import {
@@ -111,9 +111,7 @@ const UserDetails = ({ profile, account, address, phone }) => (
 
             <Tab eventKey='tab-2' title='Documents'>
                 <Nav className='p-t-1'>
-                  <DriverLicense
-                    driverLicense={profile.driver_license}
-                  />
+                  <Documents />
                 </Nav>
               </Tab>
         </Tabs>
