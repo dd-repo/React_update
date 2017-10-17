@@ -1,14 +1,11 @@
 import React from 'react';
 import { connect, RoutedComponent } from 'routes/routedComponent';
 import { CONTENT_VIEW_STATIC } from 'layouts/DefaultLayout/modules/layout';
-import { fetchPrivacyRemovalStatus } from './modules/privacyRemovalStatus';
 import { fetchGoogleResults } from 'routes/client/GoogleResults/modules/googleResults';
 import { updateKeyword, updateCurrentKeyword } from 'routes/client/Account/modules/keywords';
 import { showModal, hideModal } from 'modules/modal';
 import Dashboard from './components/Dashboard';
 import {
-  MONITORING_UPDATE_SUCCESS,
-  MONITORING_UPDATE_FAILURE,
   fetchMonitoringRequestsCompleted,
   fetchMonitoringRequests,
   monitoringRequestRemoval
@@ -54,7 +51,6 @@ class DashboardContainer extends RoutedComponent {
 
   fetchDashboardData = (account_id, keyword_id) => {
     return Promise.all([
-      this.props.fetchPrivacyRemovalStatus(account_id),
       this.fetchFirstPageGoogleResults(account_id, keyword_id),
       this.fetchMonitoringRequests(account_id),
       this.fetchMonitoringCompleted(account_id)
@@ -140,7 +136,6 @@ const mapStateToProps = state => ({
 
 const mapActionCreators = {
   fetchMonitoringRequestsCompleted,
-  fetchPrivacyRemovalStatus,
   fetchMonitoringRequests,
   monitoringRequestRemoval,
   updateCurrentKeyword,
