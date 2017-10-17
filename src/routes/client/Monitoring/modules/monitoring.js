@@ -23,7 +23,6 @@ export const MONITORING_UPDATE_FAILURE = 'MONITORING_UPDATE_FAILURE';
 
 //actions
 export const fetchMonitoringRequests = account_id => {
-
   const path = `dashboard/api/v1/accounts/${account_id}/monitoring`
 
   return dispatch => {
@@ -123,6 +122,10 @@ export const filterByStatus = (sites, selector) => {
   return sites.filter(site => site.status === selector)
 }
 
+const filterWhitePages = monitoringSites => ( monitoringSites.filter(
+  monitoringSite => monitoringSite.site !== 'whitepages.com'
+))
+
 const initialState = {
   inProgress: [],
   inQueue: [],
@@ -136,7 +139,7 @@ const reducer = (state = initialState, action) => {
       return Object.assign({}, state, {
         inProgress: filterByStatus(action.data.monitoring_requests, ['requested','inprogress']),
         inQueue: filterByStatus(action.data.monitoring_requests, 'queued'),
-        potentialRisks: filterByStatus(action.data.monitoring_requests, 'pending'),
+        potentialRisks: filterWhitePages(filterByStatus(action.data.monitoring_requests, 'pending')),
         totalCount: action.data.meta.total_count,
         isFetching: false
       });

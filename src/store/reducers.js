@@ -17,14 +17,12 @@ import users from 'routes/admin/Dashboard/Users/modules/users';
 import subscription from 'routes/client/Account/modules/subscription';
 import client from 'routes/admin/Dashboard/Users/Client/modules';
 import admin from 'routes/admin/Dashboard/Users/Admin/modules';
-import dashboard from 'routes/client/Dashboard/modules';
 
 
 export const makeRootReducer = (asyncReducers) => {
   return combineReducers({
     // Add sync reducers here
     account,
-    dashboard,
     currentUser,
     monitoring,
     googleResults,
