@@ -7,7 +7,7 @@ import InProgress from './InProgress';
 import InQueue from './InQueue/InQueue';
 import PrivacyRemovals from './PrivacyRemovals/PrivacyRemovals';
 import CompletedRemovals from './CompletedRemovals';
-import Documents from './Documents';
+import Documents from 'routes/client/Account/components/Documents';
 import { requestRemoval } from 'routes/client/Monitoring/modules/monitoring';
 import PopoverGuide from '../PopoverGuide';
 import {

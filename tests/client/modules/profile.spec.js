@@ -164,7 +164,7 @@ describe('(profile module) "profile"', () => {
 
       const expectedActions = [
         { type: PROFILE_UPDATE_POSTING },
-        { type: PROFILE_UPDATE_SUCCESS }
+        { type: PROFILE_UPDATE_SUCCESS, data: successfulProfileResponse }
       ]
 
       const store = mockStore({ profile: {} })
@@ -242,11 +242,15 @@ describe('(profile module) "profile"', () => {
     })
 
     it('should handle PROFILE_UPDATE_SUCCESS', () => {
-      expect(reducer({}, {
-        type: PROFILE_UPDATE_SUCCESS
-      })).to.eql({
-        isFetching:false
-      })
+      const state = reducer({}, { type: PROFILE_UPDATE_SUCCESS, data: successfulProfileResponse })
+      const expected = {
+        isFetching: false,
+        avatar: "avatar.png",
+        driver_license: "driverLicense.png",
+        maiden_name: 'maiden',
+        middle_name: 'middle'
+      }
+      expect(state).to.eql(expected)
     })
 
     it('should handle PROFILE_UPDATE_FAILURE', () => {

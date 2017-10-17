@@ -45,9 +45,10 @@ export const postingProfile = () => (
   }
 )
 
-export const profileUpdateSuccess = () => (
+export const profileUpdateSuccess = data => (
   {
     type: PROFILE_UPDATE_SUCCESS,
+    data
   }
 )
 
@@ -91,7 +92,11 @@ const reducer = (state = {}, action) => {
       })
     case PROFILE_UPDATE_SUCCESS:
       return Object.assign({}, state, {
-        isFetching: false
+        isFetching: false,
+        avatar: action.data.avatar_url,
+        driver_license: action.data.driver_license_url,
+        maiden_name: action.data.maiden_name,
+        middle_name: action.data.middle_name
       })
     case PROFILE_UPDATE_FAILURE:
       return Object.assign({}, state, {
