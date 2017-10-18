@@ -1,5 +1,6 @@
 import React from 'react';
 import Signup from './components/Signup';
+import ReactGA from 'react-ga';
 
 import { RoutedComponent, connect } from 'routes/routedComponent';
 import { CONTENT_VIEW_STATIC } from 'layouts/DefaultLayout/modules/layout';
@@ -125,8 +126,6 @@ class SignupContainer extends RoutedComponent {
     .catch(error => { console.log('error user signup', error) })
   }
 
-
-
   submitPaymentForm(formProps) {
     this.props.deletePaymentErrorMessage()
     let params = this.buildPaymentParams(formProps)
@@ -144,6 +143,7 @@ class SignupContainer extends RoutedComponent {
       case USER_SIGNUP_SUCCESS:
         persistDataToLocalStorage(res.data)
         this.props.removeErrorMessage()
+        ReactGA.ga('send', 'event', 'Form Interaction', 'Subscribe', 'Individual 39', 39);
         break;
       case PAYMENT_SUCCESS:
         this.props.hideModal()
