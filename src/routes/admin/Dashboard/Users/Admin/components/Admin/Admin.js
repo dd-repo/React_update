@@ -32,7 +32,7 @@ const Admin = ({
         </Col>
       </Row>
       <FlashMessage
-        notification={notification}
+        flashMessage={notification}
         clearMessage={clearMessage}
       />
       <AdminDetails

@@ -233,7 +233,7 @@ class RequestedRemovals extends Component {
     return (
       <Row>
         <FlashMessage
-          notification={this.props.notification}
+          flashMessage={this.props.notification}
           clearMessage={this.props.clearMessage}
         />
         { renderSearchBar }
