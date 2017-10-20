@@ -89,7 +89,7 @@ const Users = (props) => {
     <Row>
       <Col lg={12}>
         <FlashMessage
-          notification={props.notification}
+          flashMessage={props.notification}
           clearMessage={props.clearMessage}
         />
       </Col>

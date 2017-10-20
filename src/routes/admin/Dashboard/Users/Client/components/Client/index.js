@@ -97,7 +97,7 @@ const User = props => {
       <div className={classes.mainWrap}>
 
         <FlashMessage
-          notification={props.notification}
+          flashMessage={props.notification}
           clearMessage={props.clearMessage}
         />
 

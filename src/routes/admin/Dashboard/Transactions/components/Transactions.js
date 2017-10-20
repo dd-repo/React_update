@@ -99,7 +99,7 @@ const Transactions = (props) => {
   return (
     <Row>
       <FlashMessage
-        notification={props.notification}
+        flashMessage={props.notification}
         clearMessage={props.clearMessage}
       />
       { renderSearchBar }
