@@ -5,7 +5,8 @@ import addresses from  './addresses';
 import phones from './phones';
 import keywords from './keywords';
 import profile from './profile';
-import notification from './notification';
+import flashMessage from './flashMessage';
+import notifications from './notifications';
 
 export default combineReducers({
   transactions,
@@ -14,5 +15,6 @@ export default combineReducers({
   phones,
   profile,
   keywords,
-  notification
+  flashMessage,
+  notifications
 })

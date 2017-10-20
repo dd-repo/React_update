@@ -18,17 +18,6 @@ const getStatusBySelector = (state, selector) => {
   return _.where(state, {status: selector})
 }
 
-const notificationOpt = {
-  title: 'Privacy',
-  message: 'We notice that you do not have any requested removals in progress',
-  position: 'tr',
-  autoDismiss: 0,
-  action: {
-    label: 'Click here to get started',
-    callback: () => this.props.showModal('REMOVAL_INSTRUCTIONS')
-  }
-}
-
 
 class MonitoringContainer extends RoutedComponent {
   static contextTypes = {

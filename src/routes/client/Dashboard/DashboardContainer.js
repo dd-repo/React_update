@@ -10,11 +10,13 @@ import {
   fetchMonitoringRequests,
   monitoringRequestRemoval
 } from 'routes/client/Monitoring/modules/monitoring';
+import { fetchAccountNotifications } from 'routes/client/Account/modules/notifications';
 
 class DashboardContainer extends RoutedComponent {
 
   static contextTypes = {
-    router: React.PropTypes.object.isRequired
+    router: React.PropTypes.object.isRequired,
+    store: React.PropTypes.object
   }
 
   constructor(props) {
@@ -44,37 +46,18 @@ class DashboardContainer extends RoutedComponent {
   componentWillReceiveProps(nextProps) {
     if(nextProps.keywords) {
       if(nextProps.keywords.currentKeyword !== this.props.keywords.currentKeyword) {
-        this.fetchFirstPageGoogleResults(this.props.user.account_id, nextProps.keywords.currentKeyword.id)
+        this.fetchGoogleResults(this.props.user.account_id, nextProps.keywords.currentKeyword.id)
       }
     }
   }
 
   fetchDashboardData = (account_id, keyword_id) => {
     return Promise.all([
-      this.fetchFirstPageGoogleResults(account_id, keyword_id),
-      this.fetchMonitoringRequests(account_id),
-      this.fetchMonitoringCompleted(account_id)
+      this.props.fetchGoogleResults(account_id, keyword_id),
+      this.props.fetchMonitoringRequests(account_id),
+      this.props.fetchMonitoringRequestsCompleted(account_id),
+      this.props.fetchAccountNotifications(account_id)
     ])
-  }
-
-  fetchMonitoringRequests = (id) => {
-    this.props.fetchMonitoringRequests(id)
-  }
-
-  fetchMonitoringCompleted = (id) => {
-    const params = {
-      q: {
-        completed_at_not_null: '1',
-        s: 'completed_at desc',
-        monitoring_request_account_id_eq: id
-      }
-    }
-    this.props.fetchMonitoringRequestsCompleted(params)
-  }
-
-  fetchFirstPageGoogleResults = (account_id, keyword_id) => {
-    const payload = { account_id, keyword_id }
-    this.props.fetchGoogleResults(payload)
   }
 
   handleSearch = (keyword) => {
@@ -98,7 +81,6 @@ class DashboardContainer extends RoutedComponent {
   }
 
   render() {
-
     return (
       <div>
         <Dashboard
@@ -116,11 +98,18 @@ class DashboardContainer extends RoutedComponent {
           handleSearch={this.handleSearch}
           showModal={this.props.showModal}
           screenSize={this.props.screenSize}
+          driverLicenseNotification={this.props.driverLicenseNotification}
         />
       </div>
     )
   }
 }
+
+const getNotification = notifications => (
+  notifications.filter(
+    notification => notification.is_type === 'request_upload_driver_license'
+  )[0]
+)
 
 const mapStateToProps = state => ({
   user: state.currentUser,
@@ -131,12 +120,14 @@ const mapStateToProps = state => ({
   totalCount: state.monitoring.totalCount,
   googleResults: state.googleResults.all,
   keywords: state.account.keywords,
+  driverLicenseNotification: getNotification(state.account.notifications),
   screenSize: state.layout.currentScreenSize
 })
 
 const mapActionCreators = {
   fetchMonitoringRequestsCompleted,
   fetchMonitoringRequests,
+  fetchAccountNotifications,
   monitoringRequestRemoval,
   updateCurrentKeyword,
   fetchGoogleResults,

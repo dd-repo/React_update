@@ -55,9 +55,13 @@ class RequestedRemovalsContainer extends RoutedComponent {
   }
 
   componentWillReceiveProps(nextProps) {
-    nextProps.route.path !== this.props.route.path &&
-      this.fetchRemovals(this.state.pageNum, this.getParams(nextProps.route.path))
-      this.setState({queryName: this.getStatus(nextProps.route.path)})
+    if(nextProps.route.path !== this.props.route.path) {
+      this.fetchRemovals(1, this.getParams(nextProps.route.path))
+      this.setState({
+        queryName: this.getStatus(nextProps.route.path),
+        pageNum: 1
+      })
+    }
   }
 
   fetchRemovals(pageNum, params) {

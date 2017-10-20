@@ -98,4 +98,3 @@ class DashboardWidgetWrapper extends Component {
 }
 
 export default connect()(DashboardWidgetWrapper);
-

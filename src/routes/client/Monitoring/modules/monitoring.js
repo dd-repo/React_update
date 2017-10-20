@@ -36,8 +36,15 @@ export const fetchMonitoringRequests = account_id => {
   }
 }
 
-export const fetchMonitoringRequestsCompleted = params => {
+export const fetchMonitoringRequestsCompleted = account_id => {
   const path = '/dashboard/api/v1/monitoring-request-receipts/search'
+    const params = {
+      q: {
+        completed_at_not_null: '1',
+        s: 'completed_at desc',
+        monitoring_request_account_id_eq: account_id
+      }
+    }
 
   return dispatch => {
     return infosweepApi.get(path, params)
