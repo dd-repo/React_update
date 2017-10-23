@@ -98,18 +98,11 @@ class DashboardContainer extends RoutedComponent {
           handleSearch={this.handleSearch}
           showModal={this.props.showModal}
           screenSize={this.props.screenSize}
-          driverLicenseNotification={this.props.driverLicenseNotification}
         />
       </div>
     )
   }
 }
-
-const getNotification = notifications => (
-  notifications.filter(
-    notification => notification.is_type === 'request_upload_driver_license'
-  )[0]
-)
 
 const mapStateToProps = state => ({
   user: state.currentUser,
@@ -120,7 +113,6 @@ const mapStateToProps = state => ({
   totalCount: state.monitoring.totalCount,
   googleResults: state.googleResults.all,
   keywords: state.account.keywords,
-  driverLicenseNotification: getNotification(state.account.notifications),
   screenSize: state.layout.currentScreenSize
 })
 

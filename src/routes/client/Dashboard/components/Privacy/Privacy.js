@@ -10,6 +10,7 @@ import PrivacyRemovals from './PrivacyRemovals/PrivacyRemovals';
 import CompletedRemovals from './CompletedRemovals';
 import Documents from 'routes/client/Account/components/Documents';
 import { requestRemoval } from 'routes/client/Monitoring/modules/monitoring';
+import { updateAccountNotificationStatus } from 'routes/client/Account/modules/notifications';
 import DashboardPopover from '../DashboardPopover';
 import {
   SCREEN_SIZE_LG,
@@ -37,8 +38,8 @@ class Privacy extends Component {
   componentDidMount() {
     this.props.inProgress.length > 0 &&
       this.setState({activeTab: 'inProgress'})
-    this.props.driverLicenseNotification && !this.state.notificationMounted &&
-      this.props.dispatch(this.createNotification())
+    this.props.driverLicenseNotification && this.props.driverLicenseNotification.is_active &&
+      this.createNotification()
   }
 
   componentWillReceiveProps(nextProps) {
@@ -46,7 +47,7 @@ class Privacy extends Component {
   }
 
   componentWillUnmount() {
-    this.props.dispatch(removeAll())
+    this.props.removeAll()
   }
 
   handleScroll = () => {
@@ -64,13 +65,14 @@ class Privacy extends Component {
   }
 
   handleNotificationAction = () => {
+    this.props.updateAccountNotificationStatus(this.props.driverLicenseNotification.id)
     this.setState({ activeTab: 'documents', popoverActive: true })
     this.handleScroll()
   }
 
   createNotification = () => {
     const { driverLicenseNotification } = this.props
-    return info({
+    this.props.info({
       title: driverLicenseNotification.message_title,
       message: driverLicenseNotification.message_body,
       position: 'tr',
@@ -114,7 +116,7 @@ class Privacy extends Component {
   }
 
   handleRemovalRequest = removalId => {
-    this.props.dispatch(requestRemoval(removalId))
+    this.props.requestRemoval(removalId)
   }
 
   render() {
@@ -201,4 +203,16 @@ Privacy.propTypes = {
   screenSize: PropTypes.string
 }
 
-export default connect()(Privacy);
+const mapStateToProps = (state) => ({
+  driverLicenseNotification: state.account.notifications.request_upload_driver_license,
+})
+
+const mapActionCreators = ({
+  info,
+  removeAll,
+  requestRemoval,
+  updateAccountNotificationStatus
+})
+
+
+export default connect(mapStateToProps, mapActionCreators)(Privacy);
