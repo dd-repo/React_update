@@ -43,7 +43,9 @@ import {
 
 import {
   UPDATE_PROFILE_SUCCESS,
-  UPDATE_PROFILE_FAILURE
+  UPDATE_PROFILE_FAILURE,
+  DRIVER_LICENSE_REQUEST_SUCCESS,
+  DRIVER_LICENSE_REQUEST_FAILURE
 } from 'routes/admin/Dashboard/Users/Client/modules/profile';
 
 import {
@@ -123,6 +125,12 @@ describe('(Notification module)', () => {
       expect(notificationState).to.eql(expected)
     })
 
+    it('should handle DRIVER_LICENSE_REQUEST_SUCCESS', () => {
+      const notificationState = reducer(initialValue, { type: DRIVER_LICENSE_REQUEST_SUCCESS })
+      const expected = { message: 'Driver License Successfully Requested', status: 'success' }
+      expect(notificationState).to.eql(expected)
+    })
+
     it('should handle UPDATE_PHONE_SUCCESS', () => {
       const notificationState = reducer(initialValue, { type: UPDATE_PHONE_SUCCESS })
       const expected = { message: 'Phone Successfully Updated', status: 'success' }
@@ -197,6 +205,12 @@ describe('(Notification module)', () => {
 
     it('should handle UPDATE_PROFILE_FAILURE', () => {
       const notificationState = reducer(initialValue, { type: UPDATE_PROFILE_FAILURE, error })
+      const expected = { message: error.response.data.errorMessage, status: 'danger' }
+      expect(notificationState).to.eql(expected)
+    })
+
+    it('should handle DRIVER_LICENSE_REQUEST_FAILURE', () => {
+      const notificationState = reducer(initialValue, { type: DRIVER_LICENSE_REQUEST_FAILURE, error })
       const expected = { message: error.response.data.errorMessage, status: 'danger' }
       expect(notificationState).to.eql(expected)
     })
