@@ -352,10 +352,7 @@ class DefaultLayout extends React.Component {
                                           <LinkContainer to='/dashboard'>
                                             <MenuItem eventKey={3.1}>Home</MenuItem>
                                           </LinkContainer>
-                                          <LinkContainer to='/dashboard/user-profile'>
-                                            <MenuItem eventKey={3.2}>Profile</MenuItem>
-                                          </LinkContainer>
-                                          <LinkContainer to='/dashboard/account-settings'>
+                                          <LinkContainer to='/dashboard/account'>
                                             <MenuItem eventKey={3.3}>Account</MenuItem>
                                           </LinkContainer>
                                           <LinkContainer to='/dashboard/privacy'>
