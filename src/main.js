@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import createBrowserHistory from 'history/lib/createBrowserHistory';
 import { useRouterHistory } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
+import ReactGA from 'react-ga';
 import { reduxStore, history } from './store/createStore';
 import AppContainer from './containers/AppContainer';
 import pace from 'pace';
@@ -45,6 +46,12 @@ const MOUNT_NODE = document.getElementById('root')
 
 let render = (routerKey = null) => {
   const routes = require('./routes/index').default(reduxStore)
+  ReactGA.initialize('UA-108221574-1');
+
+  const logPageView = () => {
+    ReactGA.set({ page: window.location.pathname + window.location.search });
+    ReactGA.pageview(window.location.pathname + window.location.search);
+  }
 
   ReactDOM.render(
     <AppContainer
@@ -52,6 +59,7 @@ let render = (routerKey = null) => {
       history={history}
       routes={routes}
       routerKey={routerKey}
+      logPageView={logPageView}
     />,
     MOUNT_NODE
   )
