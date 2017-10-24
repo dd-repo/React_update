@@ -56,7 +56,7 @@ export const receiveNotificationUpdateSuccess = data => (
 )
 
 const updateNotification = (state, data) => (
-  Object.assign({}, state, { [data.id]: data })
+  Object.assign({}, state, { [data.is_type]: data })
 )
 
 const toObject = notifications => {
