@@ -49,8 +49,10 @@ let render = (routerKey = null) => {
   ReactGA.initialize('UA-108221574-1');
 
   const logPageView = () => {
-    ReactGA.set({ page: window.location.pathname + window.location.search });
-    ReactGA.pageview(window.location.pathname + window.location.search);
+    if(__PROD__) {
+      ReactGA.set({ page: window.location.pathname + window.location.search });
+      ReactGA.pageview(window.location.pathname + window.location.search);
+    }
   }
 
   ReactDOM.render(
