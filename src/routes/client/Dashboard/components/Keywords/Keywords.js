@@ -1,7 +1,6 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import ReactDOM from 'react-dom';
 import faker from 'faker';
-import { Motion, TransitionMotion, spring } from 'react-motion';
 import scrollToComponent from 'react-scroll-to-component';
 import classnames from 'classnames'
 
@@ -25,7 +24,6 @@ import {
   Tooltip,
 } from 'components';
 
-import DashboardPopover from '../DashboardPopover';
 import { Colors } from 'consts';
 import classes from '../dashboard.scss';
 
@@ -34,10 +32,6 @@ let buttonRef = {};
 const description = "Each of these phrases represents a Google search. You can edit these phrases as you see fit. We recommend that you use one phrase containing your full name, and one containing your address for the most complete privacy coverage. Other popular options include your maiden name or your name and age."
 
 class KeywordSummary extends Component {
-  constructor(props) {
-    super(props)
-    this.state = { active: false }
-  }
 
   componentWillReceiveProps(nextProps) {
     if(nextProps.active) {
@@ -55,28 +49,28 @@ class KeywordSummary extends Component {
   }
 
   render() {
-  const { active, styles, handleContinue, keywords, showModal, handleKeywordEdit } = this.props
+    const {
+      tutorialIsActive,
+      configs,
+      keywords,
+      showModal,
+      handleKeywordEdit
+    } = this.props
+
+    const highlightStyles = classnames({[`${classes.highlight}`]: tutorialIsActive && configs.active})
 
     return (
       <ListGroup
         ref={ node => this.nodeRef = node }
-        className={styles}
+        className={highlightStyles}
       >
-        <DashboardPopover
-          active={active}
-          description={description}
-          title='Search Phrases'
-          placement='bottom'
-          nodeRef={this.nodeRef}
-          handleClick={handleContinue}
-        />
         <ListGroupItem className='text-white' style={{background: Colors.brandPrimary}}>
           Your Search Phrases
           <OverlayTrigger
             placement='left'
             overlay={(
-              <Tooltip>
-                { description }
+              <Tooltip id='searchPhraseDescription'>
+                { configs.description || '' }
               </Tooltip>
               )}
             >
@@ -139,4 +133,15 @@ class KeywordSummary extends Component {
   }
 }
 
+KeywordSummary.defaultProps = {
+  keywords: []
+}
+
+KeywordSummary.propTypes = {
+  tutorialIsActive: PropTypes.bool,
+  configs: PropTypes.object,
+  keywords: PropTypes.array,
+  showModal: PropTypes.func,
+  handleKeywordEdit: PropTypes.func
+}
 export default KeywordSummary;

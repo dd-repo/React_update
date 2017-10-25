@@ -7,7 +7,11 @@ const description = "Your dashboard provides a wealth of information about your 
 
 const DashboardWelcomeModal = props => {
   return (
-      <Modal show={ true } onHide={props.hideModal}>
+    <Modal
+      show={ true }
+      onHide={props.hideModal}
+      backdrop='static'
+    >
         <Modal.Header closeButton>
           <Modal.Title>{ 'Welcome To Your InfoSweep Dashboard' }</Modal.Title>
         </Modal.Header>

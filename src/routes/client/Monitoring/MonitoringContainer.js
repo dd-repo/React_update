@@ -64,15 +64,7 @@ class MonitoringContainer extends RoutedComponent {
 
   fetchMonitoringCompleted() {
     const { account_id } = this.props.currentUser
-    const params = {
-      q: {
-        completed_at_not_null: '1',
-        s: 'completed_at desc',
-        monitoring_request_account_id_eq: account_id
-      }
-    }
-
-    this.props.fetchMonitoringRequestsCompleted(params)
+    this.props.fetchMonitoringRequestsCompleted(account_id)
   }
 
   handleRemovalRequest = (requestId) => {

@@ -47,6 +47,7 @@ class AccountContainer extends RoutedComponent {
   }
 
   componentWillMount() {
+    this.clearMessage()
     this.fetchAccountData()
     .then( res => this.handleSuccess(res) )
   }
@@ -133,8 +134,8 @@ class AccountContainer extends RoutedComponent {
           <ProfileDetails
             profile={this.props.profile}
             account={this.props.account}
-            address={this.props.addresses.all[0] || {}}
-            phone={this.props.phones.all[0] || {}}
+            address={this.props.addresses[0]}
+            phone={this.props.phones[0]}
           />
           <PasswordUpdateForm
             disableButton={this.props.disableButton}

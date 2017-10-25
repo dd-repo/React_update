@@ -7,7 +7,7 @@ import hideIfNoData from 'HOC/hideIfNoData';
 import Keywords from './Keywords';
 import CompletedRequests from 'routes/client/Monitoring/components/CompletedRequests';
 import DashboardWrapper from './DashboardWrapper';
-import Privacy from './Privacy';
+import PrivacyRemovals from './Privacy';
 import PrivacyReport from './Privacy/Summary';
 import GoogleResults from './GoogleResults';
 import getFullName from 'utils/fullName';
@@ -20,7 +20,7 @@ import {
 } from 'layouts/DefaultLayout/modules/layout';
 import { Row, Col, Overlay, Popover, Divider } from 'components';
 import classes from './dashboard.scss';
-import RootModal from 'components/Modals';
+import DashboardPopover from './DashboardPopover';
 
 const withLoader = SpinnerWhileLoading(
   props => props.isFetching
@@ -30,7 +30,7 @@ class Dashboard extends Component {
 
   render() {
     const {
-      user,
+      account,
       inProgress,
       inQueue,
       potentialRisks,
@@ -46,21 +46,30 @@ class Dashboard extends Component {
       driverLicenseNotification
     } = this.props
 
-    const fullName = capitalize(getFullName(user))
+    const fullName = capitalize(getFullName(account))
     return (
       <div className={classes.mainWrap}>
-        <DashboardWrapper screenSize={screenSize}>
-          { (widgets, handleStart, handleContinue) => {
+        <DashboardWrapper signInCount={account.sign_in_count} screenSize={screenSize}>
+          { ( props, handleContinue, handleExitTutorial ) => {
             return (
               <div>
+                { props.isActive &&
+                  <DashboardPopover
+                    active={props.isActive}
+                    configs={props[props.activeWidget]}
+                    nodeRef={this[props.activeWidget]}
+                    handleClick={handleContinue}
+                    handleExit={handleExitTutorial}
+                  />
+                  }
                 <Row className={ classes.sectionRow }>
                   <Col sm={6} md={6} lg={6}>
                     <div className={classes.container}>
-                      <div className={widgets.keywords.overlay}></div>
+                      <div className={!props.keywords.active && classes.overlay}></div>
                       <Keywords
-                        styles={widgets.keywords.highlight}
-                        active={widgets.keywords.status}
-                        handleContinue={handleContinue}
+                        tutorialIsActive={props.isActive}
+                        ref={ ref => this.keywords = ref }
+                        configs={props.keywords}
                         keywords={keywords.all}
                         showModal={showModal}
                         handleKeywordEdit={handleKeywordEdit}
@@ -68,11 +77,11 @@ class Dashboard extends Component {
                       />
                     </div>
                     <div className={classes.container}>
-                      <div className={widgets.googleResults.overlay}></div>
+                      <div className={!props.googleResults.active && classes.overlay}></div>
                       <GoogleResults
-                        styles={widgets.googleResults.highlight}
-                        active={widgets.googleResults.status}
-                        handleContinue={handleContinue}
+                        tutorialIsActive={props.isActive}
+                        ref={ ref => this.googleResults = ref }
+                        configs={props.googleResults}
                         results={googleResults}
                         keywords={keywords}
                         handleSearch={handleSearch}
@@ -84,11 +93,11 @@ class Dashboard extends Component {
                   { screenSize === SCREEN_SIZE_XS && <Divider className='m-t-3 m-b-3'/> }
                   <Col sm={6} md={6} lg={6}>
                     <div className={classes.container}>
-                      <div className={widgets.privacyReport.overlay}></div>
+                      <div className={!props.privacyReport.active && classes.overlay}></div>
                       <PrivacyReport
-                        styles={widgets.privacyReport.highlight}
-                        active={widgets.privacyReport.status}
-                        handleContinue={handleContinue}
+                        tutorialIsActive={props.isActive}
+                        ref={ ref => this.privacyReport = ref }
+                        configs={props.privacyReport}
                         inProgressCount={inProgress.length}
                         inQueueCount={inQueue.length}
                         potentialRiskCount={potentialRisks.length}
@@ -97,11 +106,11 @@ class Dashboard extends Component {
                       />
                     </div>
                     <div className={classes.container}>
-                      <div className={widgets.privacyRemovals.overlay}></div>
-                      <Privacy
-                        styles={widgets.privacyRemovals.highlight}
-                        active={widgets.privacyRemovals.status}
-                        handleContinue={handleContinue}
+                      <div className={!props.privacyRemovals.active && classes.overlay}></div>
+                      <PrivacyRemovals
+                        tutorialIsActive={props.isActive}
+                        ref={ ref => this.privacyRemovals = ref }
+                        configs={props.privacyRemovals}
                         inProgress={inProgress}
                         inQueue={inQueue}
                         potentialRisks={potentialRisks}
@@ -112,7 +121,6 @@ class Dashboard extends Component {
                     </div>
                   </Col>
                 </Row>
-                <RootModal handleClick={handleStart} />
               </div>
               )}}
             </DashboardWrapper>
@@ -121,8 +129,18 @@ class Dashboard extends Component {
   }
 }
 
+Dashboard.defaultProps = {
+  account: {},
+  inProgress: [],
+  inQueue: [],
+  potentialRisks: [],
+  completedRequests: [],
+  googleResults: [],
+  keywords: {}
+}
+
 Dashboard.propTypes = {
-  user: PropTypes.object.isRequired,
+  account: PropTypes.object,
   inProgress: PropTypes.array,
   inQueue: PropTypes.array,
   potentialRisks: PropTypes.array,

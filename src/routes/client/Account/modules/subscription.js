@@ -1,10 +1,8 @@
 import infosweepApi from 'services/infosweepApi';
 
-// action types
-import {
-  USER_LOGOUT
-} from 'routes/auth/modules/auth';
+import { USER_LOGOUT } from 'routes/auth/modules/auth';
 
+// action types
 export const SUBSCRIPTION_PENDING = 'SUBSCRIPTION_PENDING';
 export const SUBSCRIPTION_SUCCESS = 'SUBSCRIPTION_SUCCESS';
 export const SUBSCRIPTION_FAILURE = 'SUBSCRIPTION_FAILURE';

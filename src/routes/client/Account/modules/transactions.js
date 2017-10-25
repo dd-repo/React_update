@@ -1,4 +1,5 @@
 import infosweepApi from 'services/infosweepApi';
+import { USER_LOGOUT } from 'routes/auth/modules/auth';
 
 // action types
 export const TRANSACTIONS_FETCHING = 'TRANSACTIONS_FETCHING';
@@ -41,6 +42,8 @@ const reducer = (state=[], action) => {
   switch(action.type) {
     case TRANSACTIONS_SUCCESS:
       return action.data.transactions
+    case USER_LOGOUT:
+      return []
     default:
       return state
   }

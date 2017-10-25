@@ -65,9 +65,8 @@ class GoogleResultsContainer extends RoutedComponent {
   getResults(keyword, pageNum=1) {
     const { account_id } = this.props.currentUser
     const keyword_id = keyword.id
-    const payload = { pageNum, keyword_id, account_id }
     this.props.updateCurrentKeyword(keyword)
-    this.props.fetchGoogleResults(payload);
+    this.props.fetchGoogleResults(account_id, keyword_id, pageNum);
     this.setState({ pageNum: parseInt(pageNum) })
   }
 

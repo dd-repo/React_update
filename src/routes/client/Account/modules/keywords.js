@@ -141,7 +141,7 @@ export const updateCurrentKeywordValue = (currentKeyword, updatedKeyword) => {
         currentKeyword
 }
 
-const initialState = { all: [] }
+const initialState = { all: [], currentKeyword: {} }
 
 const reducer = (state = initialState, action) => {
   switch(action.type) {
@@ -181,7 +181,7 @@ const reducer = (state = initialState, action) => {
         currentKeyword: updateCurrentKeywordValue(state.currentKeyword, action.data)
       })
     case USER_LOGOUT:
-      return {}
+      return initialState
     default:
       return state
   }

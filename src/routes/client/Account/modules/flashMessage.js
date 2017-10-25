@@ -13,6 +13,8 @@ import {
   SUBSCRIPTION_CANCEL_FAILURE
 } from 'routes/client/Account/modules/subscription';
 
+import { USER_LOGOUT } from 'routes/auth/modules/auth';
+
 export const CLEAR_FLASH_MESSAGE = 'CLEAR_FLASH_MESSAGE'
 
 export const clearFlashMessage = () => (
@@ -63,6 +65,8 @@ const reducer = (state=initialValues, action) => {
       return setErrorMessage(state, action.error)
 
     case CLEAR_FLASH_MESSAGE:
+      return initialValues
+    case USER_LOGOUT:
       return initialValues
     default:
       return state

@@ -1,5 +1,6 @@
 import infosweepApi from 'services/infosweepApi';
 import _ from 'underscore';
+import { USER_LOGOUT } from 'routes/auth/modules/auth';
 
 const PREVIOUS_STATUS = {
   'inProgress': 'inQueue',
@@ -167,6 +168,8 @@ const reducer = (state = initialState, action) => {
         [currentStatus]: addToStatusList(state[currentStatus], action.removal),
         [previousStatus]: removeFromStatusList(state[previousStatus], action.removal)
       });
+    case USER_LOGOUT:
+      return {}
     default:
       return state
   }
