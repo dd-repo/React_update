@@ -1,4 +1,5 @@
 import infosweepApi from 'services/infosweepApi';
+import { USER_LOGOUT } from 'routes/auth/modules/auth';
 
 // action types
 export const PHONES_FETCHING = 'PHONES_FETCHING';
@@ -31,11 +32,7 @@ export const receivePhonesFailure = error => (
   }
 )
 
-const initialState = {
-  all: []
-}
-
-const reducer = (state=initialState, action) => {
+const reducer = (state=[], action) => {
   switch(action.type) {
     case PHONES_SUCCESS:
       return Object.assign({}, state, {
@@ -45,6 +42,8 @@ const reducer = (state=initialState, action) => {
       return Object.assign({}, state, {
         errorMessage: error.response.data.errorMessage
       })
+    case USER_LOGOUT:
+      return []
     default:
       return state
   }

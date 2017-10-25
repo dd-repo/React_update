@@ -1,4 +1,5 @@
 import infosweepApi from 'services/infosweepApi';
+import { USER_LOGOUT } from 'routes/auth/modules/auth';
 
 export const NOTIFICATIONS_SUCCESS = 'NOTIFICATIONS_SUCCESS';
 export const NOTIFICATIONS_FAILURE = 'NOTIFICATIONS_FAILURE';
@@ -74,6 +75,8 @@ const reducer = (state={}, action) => {
       return toObject(action.data.account_system_notifications)
     case NOTIFICATIONS_UPDATE_SUCCESS:
       return updateNotification(state, action.data)
+    case USER_LOGOUT:
+      return {}
     default:
       return state
   }

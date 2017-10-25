@@ -1,8 +1,6 @@
 import infosweepApi from 'services/infosweepApi';
 
-import {
-  USER_LOGOUT
-} from 'routes/auth/modules/auth';
+import { USER_LOGOUT } from 'routes/auth/modules/auth';
 
 // action types
 export const GOOGLE_RESULTS_SUCCESS = 'GOOGLE_RESULTS_SUCCESS';
@@ -109,9 +107,7 @@ const reducer = (state=initialState, action) => {
         errorMessage: action.error.response.data.errorMessage
       })
     case USER_LOGOUT:
-      return Object.assign({}, state, {
-        all: []
-      })
+      return initialState
     default:
       return state
   }

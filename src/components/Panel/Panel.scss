@@ -1,8 +1,8 @@
 @import '~@owczar/spin-template/src/scss/bootstrap/variables';
 
 .panelNoBg {
-    border: 2px solid $gray-dark;
-    background: $body-bg;
+  border: 2px solid $gray-dark;
+  background: $body-bg;
 }
 
 .panelBgLight {
@@ -10,11 +10,11 @@
 }
 
 .panelBgWhite {
-    background-color: transparent;
+  background-color: transparent;
 }
 
 .panelBgGray {
-    background-color: $gray-dark;
+  background-color: $gray-dark;
 }
 
 .flexHeader {
@@ -33,11 +33,12 @@
 }
 
 .titleReset {
-    font-size: inherit !important;
+  font-size: inherit !important;
 }
 
 .noBorder {
   border: none !important;
+  box-shadow: none !important;
 }
 
 .transparentFooter {

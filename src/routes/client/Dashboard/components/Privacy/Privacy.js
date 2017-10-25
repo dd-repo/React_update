@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import scrollToComponent from 'react-scroll-to-component';
+import classnames from 'classnames';
 import { info, removeAll } from 'react-notification-system-redux';
 
 import RequestedRemovals from 'routes/client/Monitoring/components/MonitoringRequests';
@@ -12,6 +13,7 @@ import Documents from 'routes/client/Account/components/Documents';
 import { requestRemoval } from 'routes/client/Monitoring/modules/monitoring';
 import { updateAccountNotificationStatus } from 'routes/client/Account/modules/notifications';
 import DashboardPopover from '../DashboardPopover';
+import classes from '../dashboard.scss';
 import {
   SCREEN_SIZE_LG,
   SCREEN_SIZE_MD,
@@ -27,7 +29,13 @@ import {
 } from 'components';
 
 const description = "This is a list of sites which are notorious for spreading your private information around the web. You can request removal of your information from any or all of these sites. As soon as you click “Request Removal,” your request will enter your queue, and our team of experts will get to work protecting your privacy."
-const dlDescription = 'To upload you driver license drag n drop your image or simply click browse'
+
+const driverLicensePopoverConfigs = {
+  description: 'To upload you driver license drag n drop your image or simply click browse',
+  title: 'Upload Driver License',
+  placement: 'top',
+  buttonTitle: 'close'
+}
 
 class Privacy extends Component {
   constructor(props) {
@@ -66,7 +74,7 @@ class Privacy extends Component {
 
   handleNotificationAction = () => {
     this.props.updateAccountNotificationStatus(this.props.driverLicenseNotification.id)
-    this.setState({ activeTab: 'documents', popoverActive: true })
+    this.setState({ activeTab: 'documents', configs: driverLicensePopoverConfigs,  popoverActive: true })
     this.handleScroll()
   }
 
@@ -91,25 +99,11 @@ class Privacy extends Component {
   }
 
   renderPopover = () => {
-    if(this.props.active) {
-      return <DashboardPopover
-        active={this.props.active}
-        description={description}
-        title='Privacy Removals'
-        placement='top'
-        nodeRef={this.nodeRef}
-        buttonTitle='Continue'
-        handleClick={this.props.handleContinue}
-      />
-    }
     if(this.state.popoverActive) {
       return <DashboardPopover
         active={this.state.popoverActive}
-        description={dlDescription}
-        title='Upload Driver License'
-        placement='top'
+        configs={this.state.configs}
         nodeRef={this.documentsRef}
-        buttonTitle='close'
         handleClick={this.closePopover}
       />
     }
@@ -121,9 +115,8 @@ class Privacy extends Component {
 
   render() {
     const {
-      active,
-      styles,
-      handleContinue,
+      tutorialIsActive,
+      configs,
       inProgress,
       inQueue,
       potentialRisks,
@@ -131,8 +124,10 @@ class Privacy extends Component {
       screenSize
     } = this.props
 
+    const highlightStyles = classnames({[`${classes.highlight}`]: tutorialIsActive && configs.active})
+
     return (
-      <div className={styles}
+      <div className={highlightStyles}
         ref={ node => this.nodeRef = node }
       >
         { this.renderPopover() }
