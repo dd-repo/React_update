@@ -60,6 +60,8 @@ const setAccount = (state, account) => (
     last_name: account.last_name,
     id: account.id,
     is_active: account.is_active,
+    sign_in_count: account.sign_in_count,
+    last_time_sign_in: account.last_time_sign_in,
   })
 )
 

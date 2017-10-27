@@ -42,6 +42,22 @@ const Account = ({account}) => (
         { account.email }
       </div>
     </ListGroupItem>
+    <ListGroupItem className='flex-space-between'>
+      <h5 className={ classes.detailsKey }>
+    Signin Count
+      </h5>
+      <div className={ classes.detailsValue }>
+        { account.sign_in_count }
+      </div>
+    </ListGroupItem>
+    <ListGroupItem className='flex-space-between'>
+      <h5 className={ classes.detailsKey }>
+    Last Time Sign In
+      </h5>
+      <div className={ classes.detailsValue }>
+        { account.last_time_sign_in }
+      </div>
+    </ListGroupItem>
   </ListGroup>
 )
 

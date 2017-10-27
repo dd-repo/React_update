@@ -30,6 +30,8 @@ const accountResponse = {
   email: 'email.com',
   first_name: 'first',
   last_name: 'last',
+  sign_in_count: 0,
+  last_time_sign_in: null,
 }
 
 const errorRes = {
@@ -207,6 +209,8 @@ describe('(Account module)', () => {
         email: 'oldEmail.com',
         first_name: 'oldFirst',
         last_name: 'oldLast',
+        sign_in_count: 0,
+        last_time_sign_in: null,
       }
 
       const updatedAccount = {
@@ -215,6 +219,8 @@ describe('(Account module)', () => {
         email: 'newEmail.com',
         first_name: 'newFirst',
         last_name: 'newLast',
+        sign_in_count: 0,
+        last_time_sign_in: null,
       }
       const userState = reducer(account, { type: UPDATE_ACCOUNT_SUCCESS, data: updatedAccount})
 
