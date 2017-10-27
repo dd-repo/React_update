@@ -97,7 +97,7 @@ import {
 
 //import rightSidebarDataRaw from 'consts/data/right-sidebar.json';
 
-const titleBase = 'Blitz Monitoring ';
+const titleBase = 'InfoSweep ';
 
 const sidebarAddOns = {
     [SIDEBAR_ADDON_PROGRESS]: (props) => ( <SidebarAddOns.ProgressAddOn { ...props } /> ),
@@ -162,8 +162,12 @@ class DefaultLayout extends React.Component {
             )) ? 'hidden' : 'auto';
 
         // Update page title
-        //const activeRoute = _.first(findActiveNodes(ROUTES, this.props.location.pathname));
-        //document.title = titleBase + activeRoute.title;
+            const routes = assignKeys(CONFIGS['frontend'])
+            const activeRoute = _.first(findActiveNodes(routes, this.props.location.pathname));
+            activeRoute ?
+              document.title = titleBase + activeRoute.title
+                :
+                  document.title = titleBase
     }
 
     handleLogout() {
