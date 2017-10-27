@@ -254,22 +254,6 @@ const setAdmin = (state, data) => {
   )
 }
 
-const removeUser = state => {
-  return (
-    Object.assign({}, state, {
-      id: null,
-      first_name: null,
-      last_name: null,
-      email: null,
-      role: null,
-      group: null,
-      account_id: null,
-      authToken: null,
-      errorMessage: null
-    })
-  )
-}
-
 const handleError = error => {
   const errorMessage = (
     error.response ?
@@ -331,7 +315,7 @@ const reducer = (state = {}, action) => {
         permissionsNotification: {}
       })
     case USER_LOGOUT:
-      return removeUser(state)
+      return {}
     default:
       return state
   }

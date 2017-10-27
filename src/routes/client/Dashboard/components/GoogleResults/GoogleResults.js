@@ -19,14 +19,9 @@ import {
   Col,
   ScrollBarContainer
 } from 'components';
-
-const description = "This is a snapshot of the Google results for your chosen search phrases. This is the information that someone would see if they entered your search phrase into Google and clicked search. We include this information so that you’re aware of what the internet shows when searching for your information."
+import classes from '../dashboard.scss';
 
 class GoogleResults extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {}
-  }
 
   componentWillReceiveProps(nextProps) {
     if(nextProps.active) {
@@ -43,34 +38,28 @@ class GoogleResults extends Component {
 
   render() {
     const {
+      tutorialIsActive,
+      configs,
       results,
-      active,
-      styles,
-      handleContinue,
       keywords,
       handleSearch,
       handlePrivacyRemovalButtonClick,
       screenSize
     } = this.props
 
+    const highlightStyles = classnames({[`${classes.highlight}`]: tutorialIsActive && configs.active})
+
     return  (
       <div
-        className={styles}
+        className={highlightStyles}
         ref={ node => this.nodeRef = node }
       >
-        <DashboardPopover
-          active={active}
-          description={description}
-          title='Google Results'
-          placement='top'
-          nodeRef={this.nodeRef}
-          handleClick={handleContinue}
-        />
         <div>
           <SearchKeywords
             keywords={keywords}
             getResults={handleSearch}
           />
+          <div className='m-b-3'></div>
           <ScrollBarContainer
             style={{ maxHeight: screenSize === SCREEN_SIZE_LG ? '500px' : '300px' }}
           >

@@ -44,9 +44,9 @@ class DashboardContainer extends RoutedComponent {
   }
 
   componentWillReceiveProps(nextProps) {
-    if(nextProps.keywords) {
-      if(nextProps.keywords.currentKeyword !== this.props.keywords.currentKeyword) {
-        this.fetchGoogleResults(this.props.user.account_id, nextProps.keywords.currentKeyword.id)
+    if(nextProps.keywords && nextProps.keywords.currentKeyword) {
+      if(nextProps.keywords.currentKeyword.label !== this.props.keywords.currentKeyword.label) {
+        this.props.fetchGoogleResults(this.props.user.account_id, nextProps.keywords.currentKeyword.id)
       }
     }
   }
@@ -85,6 +85,7 @@ class DashboardContainer extends RoutedComponent {
       <div>
         <Dashboard
           user={this.props.user}
+          account={this.props.account}
           isFetching={this.state.isFetching}
           inProgress={this.props.inProgress}
           inQueue={this.props.inQueue}
@@ -106,6 +107,7 @@ class DashboardContainer extends RoutedComponent {
 
 const mapStateToProps = state => ({
   user: state.currentUser,
+  account: state.accounts.find(account => account.id === state.currentUser.account_id),
   inProgress: state.monitoring.inProgress,
   inQueue: state.monitoring.inQueue,
   potentialRisks: state.monitoring.potentialRisks,
