@@ -66,8 +66,7 @@ class DashboardWidgetWrapper extends Component {
   }
 
   componentDidMount() {
-    console.log('signInCount', this.props.signInCount)
-    if(this.props.signInCount < 1) {
+    if(this.props.signInCount < 2) {
       this.props.dispatch(showModal('DASHBOARD_WELCOME'))
     }
   }
