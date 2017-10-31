@@ -1,36 +1,27 @@
-import React, { PropTypes } from 'react';
-import _ from 'underscore';
-import { info, removeAll } from 'react-notification-system-redux';
+import React, { PropTypes } from 'react'
+import { info, removeAll } from 'react-notification-system-redux'
 
-import Privacy from './components/Privacy';
-import { CONTENT_VIEW_STATIC } from 'layouts/DefaultLayout/modules/layout';
-import { RoutedComponent, connect } from 'routes/routedComponent';
+import Privacy from './components/Privacy'
+import { CONTENT_VIEW_STATIC } from 'layouts/DefaultLayout/modules/layout'
+import { RoutedComponent, connect } from 'routes/routedComponent'
 import {
-  MONITORING_UPDATE_SUCCESS,
-  MONITORING_UPDATE_FAILURE,
   fetchMonitoringRequests,
   fetchMonitoringRequestsCompleted,
   requestRemoval
-} from './modules/monitoring';
-import { showModal } from 'modules/modal';
-
-const getStatusBySelector = (state, selector) => {
-  return _.where(state, {status: selector})
-}
-
+} from './modules/monitoring'
+import { showModal } from 'modules/modal'
 
 class MonitoringContainer extends RoutedComponent {
   static contextTypes = {
     store: PropTypes.object
   }
 
-  constructor(props) {
+  constructor (props) {
     super(props)
     this.state = {}
-
   }
 
-  getLayoutOptions() {
+  getLayoutOptions () {
     return {
       contentView: CONTENT_VIEW_STATIC,
       sidebarEnabled: true,
@@ -40,29 +31,29 @@ class MonitoringContainer extends RoutedComponent {
     }
   }
 
-  componentWillMount() {
+  componentWillMount () {
     this.fetchMonitoringRequests()
     this.fetchMonitoringCompleted()
   }
 
-  componentWillReceiveProps(nextProps) {
-    if(nextProps.inProgress) {
+  componentWillReceiveProps (nextProps) {
+    if (nextProps.inProgress) {
       nextProps.inProgress.length === 0 && !this.state.notified &&
         this.context.store.dispatch(this.createNotification())
-        this.setState({notified: true})
+      this.setState({notified: true})
     }
   }
 
-  componentWillUnmount() {
+  componentWillUnmount () {
     this.context.store.dispatch(removeAll())
   }
 
-  fetchMonitoringRequests() {
+  fetchMonitoringRequests () {
     const { account_id } = this.props.currentUser
     this.props.fetchMonitoringRequests(account_id)
   }
 
-  fetchMonitoringCompleted() {
+  fetchMonitoringCompleted () {
     const { account_id } = this.props.currentUser
     this.props.fetchMonitoringRequestsCompleted(account_id)
   }
@@ -71,7 +62,7 @@ class MonitoringContainer extends RoutedComponent {
     this.props.requestRemoval(requestId)
   }
 
-  createNotification() {
+  createNotification () {
     return info({
       title: 'Privacy',
       message: 'We notice that you do not have any requested removals in progress',
@@ -84,7 +75,7 @@ class MonitoringContainer extends RoutedComponent {
     })
   }
 
-  render() {
+  render () {
     return (
       <Privacy
         handleRemovalRequest={this.handleRemovalRequest}
@@ -118,4 +109,4 @@ const mapActionCreators = {
   showModal
 }
 
-export default connect(mapStateToProps, mapActionCreators)(MonitoringContainer);
+export default connect(mapStateToProps, mapActionCreators)(MonitoringContainer)

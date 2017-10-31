@@ -319,3 +319,20 @@
 .highlight {
   border: 1px solid white;
 }
+
+.hide {
+  opacity: 0.6
+}
+
+.mainDiv {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  z-index: 1;
+}
+
+.mainSpinnerDiv {
+  position: relative;
+  top: 40%;
+  left: 40%;
+}
