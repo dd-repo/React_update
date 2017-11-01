@@ -1,6 +1,7 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import { hideModal } from 'modules/modal';
+import React from 'react'
+import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
+import { hideModal } from 'modules/modal'
 import {
   UpdateUserModal,
   DeleteUserModal,
@@ -26,37 +27,36 @@ import {
 } from './components'
 
 const MODAL_COMPONENTS = {
-  'USER':                  UpdateUserModal,
-  'DELETE_USER':           DeleteUserModal,
-  'ADMIN_UPDATE':          AdminModal,
-  'ACCOUNT':               AccountModal,
-  'TRANSACTION':           TransactionModal,
-  'KEYWORD':               KeywordModal,
-  'UPDATE_ADDRESS':        UpdateAddressModal,
-  'CREATE_ADDRESS':        CreateAddressModal,
-  'PHONE':                 PhoneModal,
-  'PROFILE':               ProfileModal,
-  'UPDATE_SUBSCRIPTION':   UpdateSubscriptionModal,
-  'CREATE_SUBSCRIPTION':   CreateSubscriptionModal,
-  'CARD':                  CardModal,
-  'REMOVAL_INSTRUCTIONS':  RemovalInstructionsModal,
-  'PAYMENT_FORM':          PaymentFormModal,
-  'PAYMENT_SUCCESS':       PaymentSuccessModal,
-  'TOS':                   TermsOfServiceModal,
-  'PRIVACY_POLICY':        PrivacyPolicyModal,
-  'CANCEL_SUBSCRIPTION':   CancelSubscriptionModal,
+  'USER': UpdateUserModal,
+  'DELETE_USER': DeleteUserModal,
+  'ADMIN_UPDATE': AdminModal,
+  'ACCOUNT': AccountModal,
+  'TRANSACTION': TransactionModal,
+  'KEYWORD': KeywordModal,
+  'UPDATE_ADDRESS': UpdateAddressModal,
+  'CREATE_ADDRESS': CreateAddressModal,
+  'PHONE': PhoneModal,
+  'PROFILE': ProfileModal,
+  'UPDATE_SUBSCRIPTION': UpdateSubscriptionModal,
+  'CREATE_SUBSCRIPTION': CreateSubscriptionModal,
+  'CARD': CardModal,
+  'REMOVAL_INSTRUCTIONS': RemovalInstructionsModal,
+  'PAYMENT_FORM': PaymentFormModal,
+  'PAYMENT_SUCCESS': PaymentSuccessModal,
+  'TOS': TermsOfServiceModal,
+  'PRIVACY_POLICY': PrivacyPolicyModal,
+  'CANCEL_SUBSCRIPTION': CancelSubscriptionModal,
   'CANCELED_SUBSCRIPTION': CanceledSubscriptionModal,
-  'REMOVAL_INSTRUCTIONS':  RemovalInstructionsModal,
-  'DASHBOARD_WELCOME':     DashboardWelcome
+  'DASHBOARD_WELCOME': DashboardWelcome
 }
 
-const ModalRoot = ({...otherProps, modalType, modalProps, dispatch }) => {
-  if(!modalType) {
-    return <span />
-  }
-
+const ModalRoot = ({ ...otherProps, modalType, modalProps, dispatch }) => {
   const _hideModal = () => {
     dispatch(hideModal())
+  }
+
+  if (!modalType) {
+    return <span />
   }
 
   const SpecificModal = MODAL_COMPONENTS[modalType]
@@ -65,6 +65,12 @@ const ModalRoot = ({...otherProps, modalType, modalProps, dispatch }) => {
     hideModal={_hideModal}
     {...otherProps}
     />
+}
+
+ModalRoot.propTypes = {
+  modalType: PropTypes.string,
+  modalProps: PropTypes.object,
+  dispatch: PropTypes.func
 }
 
 export default connect(
