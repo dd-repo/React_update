@@ -1,14 +1,11 @@
-import React, { Component, PropTypes } from 'react';
-import { Field, reduxForm } from 'redux-form';
-import _ from 'underscore';
+import React from 'react'
+import PropTypes from 'prop-types'
+import { Field, reduxForm } from 'redux-form'
+import _ from 'underscore'
 
-import { checkValidation } from 'utils/formHelpers';
-import fields from 'consts/formFields';
-import {
-    FormGroup,
-    FormControl,
-    Button
-} from 'components';
+import { checkValidation } from 'utils/formHelpers'
+import fields from 'consts/formFields'
+import { FormGroup, FormControl } from 'components'
 
 const formFields = [
   'firstName',
@@ -36,51 +33,47 @@ const renderInput = (props) => {
   } = props
 
   let message = touched && (error && <span className='text-danger'><strong>Opps!</strong> {error}</span>)
-  let validationState = touched && ( error && 'error') || null
+  let validationState = touched && (error && 'error') || null
   return (
-      <FormGroup validationState={validationState}>
-        <label>
-          {label}
-        </label>
+    <FormGroup validationState={validationState}>
+      <label>
+        {label}
+      </label>
       <FormControl {...input}
         placeholder={placeHolder}
         maxLength={maxLength}
         type={type} />
       {message}
-      </FormGroup>
+    </FormGroup>
   )
 }
 
 const renderFields = () => {
   const fieldKeys = Object.keys(signupFormFields)
-  return fieldKeys.map(function(key, i) {
-    const { name, type, placeHolder, label, maxLength, normalize, value } = fields[key]
+  return fieldKeys.map(function (key, i) {
+    const { name, type, placeHolder, label, normalize, value } = fields[key]
     return (
-            <Field
-              key={i}
-              name={name}
-              type={type}
-              component={renderInput}
-              placeHolder={placeHolder}
-              label={label}
-              value={value}
-              normalize={normalize}
-            />
-           )
+      <Field
+        key={i}
+        name={name}
+        type={type}
+        component={renderInput}
+        placeHolder={placeHolder}
+        label={label}
+        value={value}
+        normalize={normalize}
+      />
+    )
   })
 }
 
 let SignupForm = props => {
-
   const {
-    price,
     submitForm,
     handleSubmit,
     invalid,
     submitting,
     passwordErrorMsg,
-    passwordSuccessMsg,
-    disableButton,
     showModal
   } = props
 
@@ -94,18 +87,17 @@ let SignupForm = props => {
       {renderFields()}
 
       <span className='text-danger'>{passwordErrorMsg}</span>
-      <span className='text-success'>{passwordSuccessMsg}</span>
-       <p>
-         By clicking Register, you agree to
-         our <a name='TOS' onClick={_onClick}> Terms </a>
-         and that you have read
-         our <a name='PRIVACY_POLICY' onClick={_onClick}> Privacy Policy</a>,
-         including our Cookie Use.
+      <p>
+        By clicking Register, you agree to
+        our <a name='TOS' onClick={_onClick}> Terms </a>
+        and that you have read
+        our <a name='PRIVACY_POLICY' onClick={_onClick}> Privacy Policy</a>,
+        including our Cookie Use.
       </p>
 
       <button
         className='full-width btn btn-primary m-b-2'
-        disabled={disableButton || disableButton && invalid || submitting}
+        disabled={invalid || submitting}
         action="submit"
       >
         Register
@@ -115,7 +107,12 @@ let SignupForm = props => {
 }
 
 SignupForm.propTypes = {
-  submitForm: PropTypes.func.isRequired,
+  handleSubmit: PropTypes.func,
+  invalid: PropTypes.bool,
+  submitting: PropTypes.bool,
+  passwordErrorMsg: PropTypes.string,
+  showModal: PropTypes.func,
+  submitForm: PropTypes.func.isRequired
 }
 
 SignupForm = reduxForm({
@@ -123,4 +120,4 @@ SignupForm = reduxForm({
   validate                // <--- validation function given to redux-form
 })(SignupForm)
 
-export default SignupForm;
+export default SignupForm
