@@ -58,9 +58,9 @@ class DashboardWidgetWrapper extends Component {
   }
 
   componentDidMount () {
-    // if (this.props.signInCount < 2) {
-    //   this.props.dispatch(showModal('DASHBOARD_WELCOME'))
-    // }
+    if (this.props.signInCount < 2) {
+      this.props.dispatch(showModal('DASHBOARD_WELCOME'))
+    }
   }
 
   componentWillUpdate (nextProps, nextState) {
