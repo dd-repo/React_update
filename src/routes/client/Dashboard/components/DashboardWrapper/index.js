@@ -1,26 +1,18 @@
-import React, { Component, PropTypes} from 'react';
-import { connect } from 'react-redux';
-import reactDOM from 'react-dom';
-import classNames from 'classnames';
-import scrollToComponent from 'react-scroll-to-component';
-import faker from 'faker';
-import RootModal from 'components/Modals';
+import React, {Component} from 'react'
+import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
+import scrollToComponent from 'react-scroll-to-component'
+import RootModal from 'components/Modals'
 
-import {
-  SCREEN_SIZE_LG,
-  SCREEN_SIZE_MD,
-  SCREEN_SIZE_SM,
-  SCREEN_SIZE_XS
-} from 'layouts/DefaultLayout/modules/layout';
 import {
   setSidebarStyle,
   SIDEBAR_STYLE_SLIM,
-  SIDEBAR_STYLE_DEFAULT
-} from 'layouts/DefaultLayout/modules/layout';
-import { showModal, hideModal } from 'modules/modal';
-import { Button } from 'components';
-import classes from './dashboardWrapper.scss';
-import CONFIGS from './configs';
+  SIDEBAR_STYLE_DEFAULT,
+  SCREEN_SIZE_LG
+} from 'layouts/DefaultLayout/modules/layout'
+import { showModal, hideModal } from 'modules/modal'
+import classes from './dashboardWrapper.scss'
+import CONFIGS from './configs'
 
 const WIDGETS_SET = [
   'keywords',
@@ -60,25 +52,23 @@ const updateWidgetStates = prevState => {
 }
 
 class DashboardWidgetWrapper extends Component {
-  constructor(props)  {
+  constructor (props) {
     super(props)
     this.state = initialState
   }
 
-  componentDidMount() {
-    if(this.props.signInCount < 2) {
-      this.props.dispatch(showModal('DASHBOARD_WELCOME'))
-    }
+  componentDidMount () {
+    // if (this.props.signInCount < 2) {
+    //   this.props.dispatch(showModal('DASHBOARD_WELCOME'))
+    // }
   }
 
-  componentWillUpdate(nextProps, nextState) {
-    if(this.state.step > 2) {
-     this.props.screenSize !== SCREEN_SIZE_LG
-       ?
-         scrollToComponent(this.dashboardRef, {offset: 500, align: 'bottom', duration: 1000})
-           :
-             this.props.dispatch(setSidebarStyle(SIDEBAR_STYLE_DEFAULT))
-   }
+  componentWillUpdate (nextProps, nextState) {
+    if (this.state.step > 2) {
+      this.props.screenSize !== SCREEN_SIZE_LG
+       ? scrollToComponent(this.dashboardRef, {offset: 500, align: 'bottom', duration: 1000})
+        : this.props.dispatch(setSidebarStyle(SIDEBAR_STYLE_DEFAULT))
+    }
   }
 
   handleStart = () => {
@@ -88,9 +78,9 @@ class DashboardWidgetWrapper extends Component {
   }
 
   handleContinue = () => {
-    if(this.state.step > 2) {
+    if (this.state.step > 2) {
       this.setState(initialState)
-    }else{
+    } else {
       this.setState(updateWidgetStates)
     }
   }
@@ -100,17 +90,24 @@ class DashboardWidgetWrapper extends Component {
     this.props.dispatch(setSidebarStyle(SIDEBAR_STYLE_DEFAULT))
   }
 
-  render() {
+  render () {
     return (
       <div
         className={classes.mainWrap}
-        ref={ ref => this.dashboardRef = ref }
+        ref={ref => { this.dashboardRef = ref }}
       >
-        { this.props.children(this.state, this.handleContinue, this.handleExitTutorial) }
+        {this.props.children(this.state, this.handleContinue, this.handleExitTutorial)}
         <RootModal handleClick={this.handleStart} />
       </div>
     )
   }
 }
 
-export default connect()(DashboardWidgetWrapper);
+DashboardWidgetWrapper.propTypes = {
+  children: PropTypes.func,
+  dispatch: PropTypes.func,
+  screenSize: PropTypes.string,
+  signInCount: PropTypes.number
+}
+
+export default connect()(DashboardWidgetWrapper)

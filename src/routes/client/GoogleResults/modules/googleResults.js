@@ -1,26 +1,26 @@
-import infosweepApi from 'services/infosweepApi';
+import infosweepApi from 'services/infosweepApi'
 
-import { USER_LOGOUT } from 'routes/auth/modules/auth';
+import { USER_LOGOUT } from 'routes/auth/modules/auth'
 
 // action types
-export const GOOGLE_RESULTS_SUCCESS = 'GOOGLE_RESULTS_SUCCESS';
-export const GOOGLE_RESULTS_POSTING = 'GOOGLE_RESULTS_POSTING';
-export const GOOGLE_RESULTS_FAILURE = 'GOOGLE_RESULTS_FAILURE';
+export const GOOGLE_RESULTS_SUCCESS = 'GOOGLE_RESULTS_SUCCESS'
+export const GOOGLE_RESULTS_POSTING = 'GOOGLE_RESULTS_POSTING'
+export const GOOGLE_RESULTS_FAILURE = 'GOOGLE_RESULTS_FAILURE'
 export const UPDATE_GOOGLE_RESULT_SUCCESS = 'UPDATE_GOOGLE_RESULT_SUCCESS'
 export const UPDATE_GOOGLE_RESULT_FAILURE = 'UPDATE_GOOGLE_RESULT_FAILURE'
 
-export const REMOVAL_REQUEST = '/dashboard/api/v1/removal_requests';
+export const REMOVAL_REQUEST = '/dashboard/api/v1/removal_requests'
 
 // actions
-export const fetchGoogleResults = (account_id, keyword_id, pageNum=1)=> {
+export const fetchGoogleResults = (account_id, keyword_id, pageNum = 1) => {
   const payload = { account_id, keyword_id }
   const path = `/dashboard/api/v1/accounts/${account_id}/keywords/${keyword_id}/search_results/${pageNum}`
 
   return dispatch => {
     dispatch(gettingGoogleResults())
     return infosweepApi.get(path)
-    .then( response => dispatch(googleResultSuccess(response.data)))
-    .catch( error => dispatch(googleResultFailure(error)))
+    .then(response => dispatch(googleResultSuccess(response.data)))
+    .catch(error => dispatch(googleResultFailure(error)))
   }
 }
 
@@ -38,21 +38,21 @@ export const gettingGoogleResults = () => (
   {
     type: GOOGLE_RESULTS_POSTING
   }
-);
+)
 
 export const googleResultSuccess = results => (
   {
     type: GOOGLE_RESULTS_SUCCESS,
     results
   }
-);
+)
 
 export const googleResultFailure = error => (
   {
     type: GOOGLE_RESULTS_FAILURE,
     error
   }
-);
+)
 
 export const updateGoogleResultSuccess = result => (
   {
@@ -73,7 +73,7 @@ export const updateGoogleResultFailure = error => (
 export const updateGoogleResults = (state, action) => {
   return [
     ...state.filter(removal => removal.id !== action.result.id),
-      Object.assign({}, action.result)
+    Object.assign({}, action.result)
   ]
 }
 
@@ -81,37 +81,37 @@ const initialState = {
   all: []
 }
 
-const reducer = (state=initialState, action) => {
-  switch(action.type) {
-    case GOOGLE_RESULTS_POSTING:
-      return Object.assign({}, state, {
-        isFetching: true
-      });
-    case GOOGLE_RESULTS_SUCCESS:
-      return Object.assign({}, state, {
-        all: action.results.search_results,
-        pagination: action.results.meta.pagination,
-        isFetching: false,
-      });
-    case GOOGLE_RESULTS_FAILURE:
-      return Object.assign({}, state, {
-        isFetching: false,
-        errorMessage: action.error.response.data.errorMessage
-      })
-    case UPDATE_GOOGLE_RESULT_SUCCESS:
-      return Object.assign({}, state, {
-         all: updateGoogleResults(state.all, action)
-      })
-    case UPDATE_GOOGLE_RESULT_FAILURE:
-      return Object.assign({}, state, {
-        errorMessage: action.error.response.data.errorMessage
-      })
-    case USER_LOGOUT:
-      return initialState
-    default:
-      return state
+const reducer = (state = initialState, action) => {
+  switch (action.type) {
+  case GOOGLE_RESULTS_POSTING:
+    return Object.assign({}, state, {
+      isFetching: true
+    })
+  case GOOGLE_RESULTS_SUCCESS:
+    return Object.assign({}, state, {
+      all: action.results.search_results,
+      pagination: action.results.meta.pagination,
+      isFetching: false
+    })
+  case GOOGLE_RESULTS_FAILURE:
+    return Object.assign({}, state, {
+      isFetching: false,
+      errorMessage: action.error.response.data.errorMessage
+    })
+  case UPDATE_GOOGLE_RESULT_SUCCESS:
+    return Object.assign({}, state, {
+      all: updateGoogleResults(state.all, action)
+    })
+  case UPDATE_GOOGLE_RESULT_FAILURE:
+    return Object.assign({}, state, {
+      errorMessage: action.error.response.data.errorMessage
+    })
+  case USER_LOGOUT:
+    return initialState
+  default:
+    return state
   }
   return state
 }
 
-export default reducer;
+export default reducer

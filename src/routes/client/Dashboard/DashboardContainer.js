@@ -1,16 +1,16 @@
-import React from 'react';
-import { connect, RoutedComponent } from 'routes/routedComponent';
-import { CONTENT_VIEW_STATIC } from 'layouts/DefaultLayout/modules/layout';
-import { fetchGoogleResults } from 'routes/client/GoogleResults/modules/googleResults';
-import { updateKeyword, updateCurrentKeyword } from 'routes/client/Account/modules/keywords';
-import { showModal, hideModal } from 'modules/modal';
-import Dashboard from './components/Dashboard';
+import React from 'react'
+import { connect, RoutedComponent } from 'routes/routedComponent'
+import { CONTENT_VIEW_STATIC } from 'layouts/DefaultLayout/modules/layout'
+import { fetchGoogleResults } from 'routes/client/GoogleResults/modules/googleResults'
+import { updateKeyword, updateCurrentKeyword } from 'routes/client/Account/modules/keywords'
+import { showModal, hideModal } from 'modules/modal'
+import Dashboard from './components/Dashboard'
 import {
   fetchMonitoringRequestsCompleted,
   fetchMonitoringRequests,
   monitoringRequestRemoval
-} from 'routes/client/Monitoring/modules/monitoring';
-import { fetchAccountNotifications } from 'routes/client/Account/modules/notifications';
+} from 'routes/client/Monitoring/modules/monitoring'
+import { fetchAccountNotifications } from 'routes/client/Account/modules/notifications'
 
 class DashboardContainer extends RoutedComponent {
 
@@ -19,12 +19,12 @@ class DashboardContainer extends RoutedComponent {
     store: React.PropTypes.object
   }
 
-  constructor(props) {
+  constructor (props) {
     super(props)
     this.state = { isFetching: true }
   }
 
-  getLayoutOptions() {
+  getLayoutOptions () {
     return {
       contentView: CONTENT_VIEW_STATIC,
       sidebarEnabled: true,
@@ -34,29 +34,29 @@ class DashboardContainer extends RoutedComponent {
     }
   }
 
-  componentWillMount() {
+  componentWillMount () {
     const accountId = this.props.user.account_id
-    const keyword_id = this.props.keywords.currentKeyword.id
+    const keywordId = this.props.keywords.currentKeyword.id
 
-    this.fetchDashboardData(accountId, keyword_id)
-    .then( res => this.setState({ isFetching: false }))
-    .catch( error => console.log('dashboard error', error))
+    this.fetchDashboardData(accountId, keywordId)
+    .then(res => this.setState({ isFetching: false }))
+    .catch(error => console.log('dashboard error', error))
   }
 
-  componentWillReceiveProps(nextProps) {
-    if(nextProps.keywords && nextProps.keywords.currentKeyword) {
-      if(nextProps.keywords.currentKeyword.label !== this.props.keywords.currentKeyword.label) {
+  componentWillReceiveProps (nextProps) {
+    if (nextProps.keywords && nextProps.keywords.currentKeyword) {
+      if (nextProps.keywords.currentKeyword.label !== this.props.keywords.currentKeyword.label) {
         this.props.fetchGoogleResults(this.props.user.account_id, nextProps.keywords.currentKeyword.id)
       }
     }
   }
 
-  fetchDashboardData = (account_id, keyword_id) => {
+  fetchDashboardData = (accountId, keywordId) => {
     return Promise.all([
-      this.props.fetchGoogleResults(account_id, keyword_id),
-      this.props.fetchMonitoringRequests(account_id),
-      this.props.fetchMonitoringRequestsCompleted(account_id),
-      this.props.fetchAccountNotifications(account_id)
+      this.props.fetchGoogleResults(accountId, keywordId),
+      this.props.fetchMonitoringRequests(accountId),
+      this.props.fetchMonitoringRequestsCompleted(accountId),
+      this.props.fetchAccountNotifications(accountId)
     ])
   }
 
@@ -65,12 +65,12 @@ class DashboardContainer extends RoutedComponent {
   }
 
   handlePrivacyRemovalButtonClick = (id, selector) => {
-    if(selector === 'removal') {
-      const payload = { request: { search_result_id: id }}
+    if (selector === 'removal') {
+      const payload = { request: { search_result_id: id } }
       this.props.requestRemoval(payload)
-      .then( (res) => this.showAlertMessage())
-      .catch( (error) => this.showAlertMessage())
-    }else{
+      .then((res) => this.showAlertMessage())
+      .catch((error) => this.showAlertMessage())
+    } else {
       this.context.router.push('/dashboard/privacy')
     }
   }
@@ -80,7 +80,7 @@ class DashboardContainer extends RoutedComponent {
     this.props.hideModal()
   }
 
-  render() {
+  render () {
     return (
       <div>
         <Dashboard
@@ -113,7 +113,7 @@ const mapStateToProps = state => ({
   potentialRisks: state.monitoring.potentialRisks,
   completed: state.monitoring.completed,
   totalCount: state.monitoring.totalCount,
-  googleResults: state.googleResults.all,
+  googleResults: state.googleResults,
   keywords: state.account.keywords,
   screenSize: state.layout.currentScreenSize
 })

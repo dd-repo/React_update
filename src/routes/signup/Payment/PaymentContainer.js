@@ -21,7 +21,7 @@ class PaymentContainer extends RoutedComponent {
     router: React.PropTypes.object.isRequired
   }
 
-  getLayoutOptions() {
+  getLayoutOptions () {
     return {
       contentView: CONTENT_VIEW_STATIC,
       sidebarEnabled: false,

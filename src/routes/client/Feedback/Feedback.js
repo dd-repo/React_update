@@ -1,9 +1,9 @@
-import React from 'react';
-import { RoutedComponent, connect } from 'routes/routedComponent';
-import { CONTENT_VIEW_STATIC } from 'layouts/DefaultLayout/modules/layout';
+import React from 'react'
+import { RoutedComponent, connect } from 'routes/routedComponent'
+import { CONTENT_VIEW_STATIC } from 'layouts/DefaultLayout/modules/layout'
 
-import { sendFeedback } from './modules/feedback';
-import FeedbackForm from './components/FeedbackForm';
+import { sendFeedback } from './modules/feedback'
+import FeedbackForm from './components/FeedbackForm'
 import FeedbackSuccess from './components/FeedbackSuccess';
 import {
   FEEDBACK_SUCCESS,

@@ -1,41 +1,37 @@
-import React, { Component, PropTypes } from 'react';
-import { Link } from 'react-router';
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 
 import {
   Alert,
   Row,
   Col,
-  Panel,
   Button,
   Pagination,
   Divider,
   Modal,
   Loader
-} from 'components';
+} from 'components'
 
-import SearchKeywords from './SearchKeywords';
-import GoogleResult from './GoogleResult';
-import renderSection from 'modules/sectionRender';
-import { CONTENT_VIEW_STATIC } from 'layouts/DefaultLayout/modules/layout';
+import SearchKeywords from './SearchKeywords'
+import GoogleResult from './GoogleResult'
 
 export default class GoogleResults extends Component {
-  constructor(props) {
+  constructor (props) {
     super(props)
 
-    this._onClick = this._onClick.bind(this);
+    this._onClick = this._onClick.bind(this)
   }
 
-  _onClick() {
+  _onClick () {
     this.props.getResults(this.props.keywords.currentKeyword)
   }
 
-  render() {
+  render () {
     const {
       results,
       paginationItems,
       paginationTotal,
       keywords,
-      currentKeyword,
       getResults,
       getNextPage,
       isFetching,
@@ -43,7 +39,7 @@ export default class GoogleResults extends Component {
       pageNum,
       removalAlert,
       showModal,
-      hideModal,
+      hideModal
     } = this.props
 
     const renderModal = (
@@ -58,32 +54,32 @@ export default class GoogleResults extends Component {
       </Modal>
     )
 
-      const renderSpinner = (
+    const renderSpinner = (
         isFetching &&
           <Loader />
       )
 
-      const renderPagination = (
-        <div className="text-center">
-          <Pagination
-            bsSize="medium"
-            items={paginationItems}
-            activePage={pageNum}
-            boundaryLinks
-            prev
-            next
-            first
-            last
-            ellipsis
-            onSelect={getNextPage}
-          />
-        </div>
-      )
+    const renderPagination = (
+      <div className="text-center">
+        <Pagination
+          bsSize="medium"
+          items={paginationItems}
+          activePage={pageNum}
+          boundaryLinks
+          prev
+          next
+          first
+          last
+          ellipsis
+          onSelect={getNextPage}
+        />
+      </div>
+    )
 
-      const renderResults = (
+    const renderResults = (
         results && !isFetching &&
           <div>
-            { results.map((result, i) => (
+            {results.map((result, i) => (
               <GoogleResult
                 result={result}
                 key={i}
@@ -92,11 +88,11 @@ export default class GoogleResults extends Component {
               />
               ))
             }
-            { renderPagination }
+            {renderPagination}
           </div>
       )
 
-      const renderPopupAlert = (
+    const renderPopupAlert = (
         !results && !isFetching &&
           <Alert bsStyle='danger' noBackground>
             <h5 className='m-y-0'>We're Sorry!</h5>
@@ -107,33 +103,34 @@ export default class GoogleResults extends Component {
           </Alert>
       )
 
-      return (
-        <Row>
-          <Col lg={ 10 }>
-            <SearchKeywords
-              keywords={keywords}
-              getResults={getResults}
-              paginationTotal={paginationTotal}
-            />
-          </Col>
-          <Col lg={ 12 }>
-            {' '}
-            <Divider className='m-t-3 m-b-2'>
-              All Results
-            </Divider>
-            { renderSpinner }
-            { renderResults }
-            { renderPopupAlert }
-            { renderModal }
-          </Col>
-        </Row>
-      )
+    return (
+      <Row>
+        <Col lg={10}>
+          <SearchKeywords
+            keywords={keywords}
+            getResults={getResults}
+            paginationTotal={paginationTotal}
+          />
+        </Col>
+        <Col lg={12}>
+          {' '}
+          <Divider className='m-t-3 m-b-2'>
+            All Results
+          </Divider>
+          {renderSpinner}
+          {renderResults}
+          {renderPopupAlert}
+          {renderModal}
+        </Col>
+      </Row>
+    )
   }
 }
 
 GoogleResults.propTypes = {
   results: PropTypes.array,
   keywords: PropTypes.object,
+  removalAlert: PropTypes.object,
   currentKeyword: PropTypes.object,
   getResults: PropTypes.func,
   getNextPage: PropTypes.func,
