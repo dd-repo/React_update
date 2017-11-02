@@ -1,37 +1,36 @@
-import infosweepApi from 'services/infosweepApi';
-import { PAYMENT_SUCCESS } from 'routes/signup/Payment/modules/payment';
+import infosweepApi from 'services/infosweepApi'
+import { PAYMENT_SUCCESS } from 'routes/signup/Payment/modules/payment'
 
 // constants
-export const USER_SIGNUP_SUCCESS = 'USER_SIGNUP_SUCCESS';
-export const USER_SIGNUP_FAILURE = 'USER_SIGNUP_FAILURE';
-export const USER_SIGNUP_POSTING = 'USER_SIGNUP_POSTING';
+export const USER_SIGNUP_SUCCESS = 'USER_SIGNUP_SUCCESS'
+export const USER_SIGNUP_FAILURE = 'USER_SIGNUP_FAILURE'
+export const USER_SIGNUP_POSTING = 'USER_SIGNUP_POSTING'
 
-export const USER_LOGIN_SUCCESS = 'USER_LOGIN_SUCCESS';
+export const USER_LOGIN_SUCCESS = 'USER_LOGIN_SUCCESS'
 export const ADMIN_LOGIN_SUCCESS = 'ADMIN_LOGIN_SUCCESS'
-export const USER_LOGIN_FAILURE = 'USER_LOGIN_FAILURE';
-export const USER_LOGIN_POSTING = 'USER_LOGIN_POSTING';
+export const USER_LOGIN_FAILURE = 'USER_LOGIN_FAILURE'
+export const USER_LOGIN_POSTING = 'USER_LOGIN_POSTING'
 
-export const FORGOT_USER_PASSWORD_POSTING = 'FORGOT_USET_PASSWORD_POSTING';
-export const FORGOT_USER_PASSWORD_SUCCESS = 'FORGOT_USER_PASSWORD_SUCCESS';
-export const FORGOT_USER_PASSWORD_FAILURE = 'FORGOT_USER_PASSWORD_FAILURE';
+export const FORGOT_USER_PASSWORD_POSTING = 'FORGOT_USET_PASSWORD_POSTING'
+export const FORGOT_USER_PASSWORD_SUCCESS = 'FORGOT_USER_PASSWORD_SUCCESS'
+export const FORGOT_USER_PASSWORD_FAILURE = 'FORGOT_USER_PASSWORD_FAILURE'
 
-export const PASSWORD_UPDATE_SUCCESS = 'PASSWORD_UPDATE_SUCCESS';
-export const PASSWORD_UPDATE_FAILURE = 'PASSWORD_UPDATE_FAILURE';
+export const PASSWORD_UPDATE_SUCCESS = 'PASSWORD_UPDATE_SUCCESS'
+export const PASSWORD_UPDATE_FAILURE = 'PASSWORD_UPDATE_FAILURE'
 
-export const USER_REMOVE_ERROR_MSG = 'USER_REMOVE_ERROR_MSG';
+export const USER_REMOVE_ERROR_MSG = 'USER_REMOVE_ERROR_MSG'
 export const USER_LOGOUT = 'USER_LOGOUT'
 
 export const PERMISSION_ERROR_MESSAGE = 'PERMISSION_ERROR_MESSAGE'
 export const PERMISSIONS_MESSAGE_CLEAR = 'PERMISSIONS_MESSAGE_CLEAR'
 
-const CLIENT_API = '/dashboard/api/v1/users';
-export const SIGNUP_REQUEST = `${CLIENT_API}/sign-up/create`;
-export const LOGIN_REQUEST = `${CLIENT_API}/sign-in`;
-export const UPDATE_PASSWORD_REQUEST_WITH_TOKEN = `${CLIENT_API}/password/update`;
+const CLIENT_API = '/dashboard/api/v1/users'
+export const SIGNUP_REQUEST = `${CLIENT_API}/sign-up/create`
+export const LOGIN_REQUEST = `${CLIENT_API}/sign-in`
+export const UPDATE_PASSWORD_REQUEST_WITH_TOKEN = `${CLIENT_API}/password/update`
 export const RESET_PASSWORD_REQUEST = `${CLIENT_API}/password/forgot`
 
-
-//actions
+// actions
 
 export const postUserSignup = payload => {
   return dispatch => {
@@ -52,10 +51,8 @@ export const postUserLogin = payload => {
     .then(
       response =>
       response.data.user.group === 'backend'
-        ?
-          dispatch(receiveAdminLogin(response.data))
-            :
-              dispatch(receiveClientLogin(response.data))
+      ? dispatch(receiveAdminLogin(response.data))
+      : dispatch(receiveClientLogin(response.data))
     ).catch(
     error =>
     dispatch(receiveUserLoginFailure(error))
@@ -70,10 +67,8 @@ export const fetchUser = () => {
     .then(
       response =>
       response.data.user.group === 'backend'
-        ?
-          dispatch(receiveAdminLogin(response.data))
-            :
-              dispatch(receiveClientLogin(response.data))
+      ? dispatch(receiveAdminLogin(response.data))
+      : dispatch(receiveClientLogin(response.data))
     ).catch(
     error =>
     dispatch(receiveUserLoginFailure(error))
@@ -97,8 +92,8 @@ export const updatePassword = password => {
   const payload = { user: { password } }
   return dispatch => {
     return infosweepApi.patch(CLIENT_API, payload)
-    .then( response => dispatch(receievePasswordUpdateSuccess()))
-    .catch( error => dispatch(receievePasswordUpdateFailure()))
+    .then(response => dispatch(receievePasswordUpdateSuccess()))
+    .catch(error => dispatch(receievePasswordUpdateFailure()))
   }
 }
 
@@ -119,86 +114,86 @@ export const postingUserSignup = data => (
   {
     type: USER_SIGNUP_POSTING
   }
-);
+)
 
 export const receiveUserSignup = data => (
   {
     type: USER_SIGNUP_SUCCESS,
     data
   }
-);
+)
 
 export const receiveUserSignupFailure = error => (
   {
     type: USER_SIGNUP_FAILURE,
     error
   }
-);
+)
 
 export const postingUserLogin = () => (
   {
-    type: USER_LOGIN_POSTING,
+    type: USER_LOGIN_POSTING
   }
-);
+)
 
 export const receiveClientLogin = data => (
   {
     type: USER_LOGIN_SUCCESS,
     data
   }
-);
+)
 
 export const receiveAdminLogin = data => (
   {
     type: ADMIN_LOGIN_SUCCESS,
     data
   }
-);
+)
 
 export const receiveUserLoginFailure = error => (
   {
     type: USER_LOGIN_FAILURE,
     error
   }
-);
+)
 
 export const postingForgotPassword = email => (
   {
     type: FORGOT_USER_PASSWORD_POSTING,
     email
   }
-);
+)
 
 export const receiveForgotPassword = () => (
   {
     type: FORGOT_USER_PASSWORD_SUCCESS
   }
-);
+)
 
 export const receiveForgotPasswordFailure = (error) => (
   {
     type: FORGOT_USER_PASSWORD_FAILURE,
     error
   }
-);
+)
 
 export const receievePasswordUpdateSuccess = () => (
   {
     type: PASSWORD_UPDATE_SUCCESS
   }
-);
+)
 
 export const receievePasswordUpdateFailure = () => (
   {
     type: PASSWORD_UPDATE_FAILURE
   }
-);
+)
 
 export const removeErrorMessage = () => (
   {
     type: USER_REMOVE_ERROR_MSG
   }
-);
+)
 
 export const receivePermissionsError = error => (
   {
@@ -217,7 +212,7 @@ export const logout = () => (
   {
     type: USER_LOGOUT
   }
-);
+)
 
 // reducer
 const setClient = (state, data) => {
@@ -256,71 +251,69 @@ const setAdmin = (state, data) => {
 
 const handleError = error => {
   const errorMessage = (
-    error.response ?
-      error.response.data.errorMessage
-        :
-          undefined
+    error.response
+    ? error.response.data.errorMessage
+    : undefined
   )
   return errorMessage === 'expired' ? undefined : errorMessage
 }
 
 const reducer = (state = {}, action) => {
-  switch(action.type) {
-    case USER_SIGNUP_POSTING:
-      return Object.assign({}, state, {
-        isFetching: true
-      });
-    case USER_SIGNUP_SUCCESS:
-      return setClient(state, action.data)
-    case USER_SIGNUP_FAILURE:
-      return Object.assign({}, state, {
-        isFetching: false,
-        errorMessage: action.error.response.data.errorMessage
-      });
-    case USER_LOGIN_POSTING:
-      return Object.assign({}, state, {
-        isFetching: true
-      });
-    case USER_LOGIN_SUCCESS:
-      return setClient(state, action.data)
-    case ADMIN_LOGIN_SUCCESS:
-      return setAdmin(state, action.data)
-    case USER_LOGIN_FAILURE:
-      return Object.assign({}, state, {
-        isFetching: false,
-        errorMessage: handleError(action.error)
-      });
-    case FORGOT_USER_PASSWORD_POSTING:
-      return Object.assign({}, state, {
-        isFetching: true,
-        email: action.email
-      });
-    case PAYMENT_SUCCESS:
-      return Object.assign({}, state, {
-        role: action.user.role
-      });
-    case USER_REMOVE_ERROR_MSG:
-      return Object.assign({}, state, {
-        errorMessage: null
-      })
-    case PERMISSION_ERROR_MESSAGE:
-      return Object.assign({}, state, {
-        permissionsNotification: {
-          message: action.error.data.errorMessage,
-          status: 'danger'
-        }
-      })
-    case PERMISSIONS_MESSAGE_CLEAR:
-      return Object.assign({}, state, {
-        permissionsNotification: {}
-      })
-    case USER_LOGOUT:
-      return {}
-    default:
-      return state
+  switch (action.type) {
+  case USER_SIGNUP_POSTING:
+    return Object.assign({}, state, {
+      isFetching: true
+    })
+  case USER_SIGNUP_SUCCESS:
+    return setClient(state, action.data)
+  case USER_SIGNUP_FAILURE:
+    return Object.assign({}, state, {
+      isFetching: false,
+      errorMessage: action.error.response.data.errorMessage
+    })
+  case USER_LOGIN_POSTING:
+    return Object.assign({}, state, {
+      isFetching: true
+    })
+  case USER_LOGIN_SUCCESS:
+    return setClient(state, action.data)
+  case ADMIN_LOGIN_SUCCESS:
+    return setAdmin(state, action.data)
+  case USER_LOGIN_FAILURE:
+    return Object.assign({}, state, {
+      isFetching: false,
+      errorMessage: handleError(action.error)
+    })
+  case FORGOT_USER_PASSWORD_POSTING:
+    return Object.assign({}, state, {
+      isFetching: true,
+      email: action.email
+    })
+  case PAYMENT_SUCCESS:
+    return Object.assign({}, state, {
+      role: action.user.role
+    })
+  case USER_REMOVE_ERROR_MSG:
+    return Object.assign({}, state, {
+      errorMessage: null
+    })
+  case PERMISSION_ERROR_MESSAGE:
+    return Object.assign({}, state, {
+      permissionsNotification: {
+        message: action.error.data.errorMessage,
+        status: 'danger'
+      }
+    })
+  case PERMISSIONS_MESSAGE_CLEAR:
+    return Object.assign({}, state, {
+      permissionsNotification: {}
+    })
+  case USER_LOGOUT:
+    return {}
+  default:
+    return state
   }
   return state
 }
 
-export default reducer;
-
+export default reducer

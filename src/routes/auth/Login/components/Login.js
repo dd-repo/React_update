@@ -1,30 +1,29 @@
-import React, { PropTypes } from 'react';
-import { Link } from 'react-router';
+import React from 'react'
+import PropTypes from 'prop-types'
+import { Link } from 'react-router'
 
-import LoginForm from './LoginForm';
-import logo from 'static/logos/logo-white-sm.png';
-import classes from './Login.scss';
+import LoginForm from './LoginForm'
+import logo from 'static/logos/logo-white-sm.png'
+import classes from './Login.scss'
 import {
     Row,
     Col,
     Panel,
-    Button,
     Alert
-} from 'components';
+} from 'components'
 
 const Login = ({ errorMessage, submitForm }) => {
-
   const renderErrorMessage = (
    errorMessage &&
-  <Alert bsStyle='danger'>
-    <i className="fa fa-fw text-danger m-r-1"></i>
-    {errorMessage}
-  </Alert>
+     <Alert bsStyle='danger'>
+       <i className="fa fa-fw text-danger m-r-1"></i>
+       {errorMessage}
+     </Alert>
   )
 
   return (
     <Row>
-      <Col lg={ 12 }>
+      <Col lg={12}>
         { /* <Button className='m-t-2 m-b-1' onClick={ () => this.props.history.goBack() }>
           <i className='fa fa-angle-left m-r-1'></i>
           Back
@@ -32,40 +31,40 @@ const Login = ({ errorMessage, submitForm }) => {
           {renderErrorMessage}
 
         <Row>
-          <Col className={ classes.centerCol } md={ 4 }>
+          <Col className={classes.centerCol} md={4}>
             <Panel
               header={(
-                <Link to='/' className={ classes.toHomeLink }>
-                  <img src={ logo } height={ 50 } alt='Back to Home' />
+                <Link to='/' className={classes.toHomeLink}>
+                  <img src={logo} height={50} alt='Back to Home' />
                 </Link>
-                )}
-                footer={(
-                  <div>
-                    <Link to='/forgot-password'>
-                      Forgot Password?
-                    </Link>
-                    <Link to='/signup' className='pull-right'>
-                      Register
-                    </Link>
-                  </div>
-                  )}
-                >
-                  <h2 className={ classes.panelHeader }>
-                    Login
-                  </h2>
-                  <p className='text-center m-b-3'>
-                    Enter the email address and password that you chose at signup to access your online privacy portal
-                  </p>
+              )}
+              footer={(
+                <div>
+                  <Link to='/forgot-password'>
+                    Forgot Password?
+                  </Link>
+                  <Link to='/signup' className='pull-right'>
+                    Register
+                  </Link>
+                </div>
+              )}
+            >
+              <h2 className={classes.panelHeader}>
+                Login
+              </h2>
+              <p className='text-center m-b-3'>
+                Enter the email address and password that you chose at signup to access your online privacy portal
+              </p>
 
-                  <LoginForm
-                    submitForm={submitForm}
-                    errorMessage={errorMessage}
-                  />
-                </Panel>
-              </Col>
-            </Row>
+              <LoginForm
+                submitForm={submitForm}
+                errorMessage={errorMessage}
+              />
+            </Panel>
           </Col>
         </Row>
+      </Col>
+    </Row>
   )
 }
 
@@ -74,4 +73,4 @@ Login.propTypes = {
   errorMessage: PropTypes.string
 }
 
-export default Login;
+export default Login
