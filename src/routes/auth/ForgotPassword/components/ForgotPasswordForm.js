@@ -1,15 +1,10 @@
-import React, { PropTypes } from 'react'
-import { Field, reduxForm } from 'redux-form';
+import React from 'react'
+import PropTypes from 'prop-types'
+import { Field, reduxForm } from 'redux-form'
 
-
-import { connect } from 'routes/routedComponent';
-import { checkValidation } from 'utils/formHelpers';
-import fields from 'consts/formFields';
-import {
-    Form,
-    FormGroup,
-    FormControl
-} from 'components';
+import { checkValidation } from 'utils/formHelpers'
+import fields from 'consts/formFields'
+import { FormGroup, FormControl } from 'components'
 
 const validate = values => {
   return checkValidation(values, fields)
@@ -25,8 +20,8 @@ const renderInput = ({ input, placeHolder, type, maxLength, field, meta: { touch
     {
       touched &&
       (
-       (error && <span className='text-danger'>{error}</span>)
-         || (warning && <span>{warning}</span>)
+        (error && <span className='text-danger'>{error}</span>) ||
+        (warning && <span>{warning}</span>)
       )
     }
   </div>
@@ -69,7 +64,10 @@ const ForgotPasswordForm = (props) => {
 }
 
 ForgotPasswordForm.propTypes = {
-  submitForm: PropTypes.func.isRequired
+  submitForm: PropTypes.func.isRequired,
+  handleSubmit: PropTypes.func.isRequired,
+  invalid: PropTypes.bool,
+  submitting: PropTypes.bool
 }
 
 export default reduxForm({
