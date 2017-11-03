@@ -1,10 +1,10 @@
-import React from 'react';
-import _ from 'underscore';
+import React from 'react'
+import _ from 'underscore'
 
-import RequestedRemovals from './components/RequestedRemovals';
-import CompletedRemovals from './components/CompletedRemovals';
-import { RoutedComponent, connect } from 'routes/routedComponent';
-import { CONTENT_VIEW_STATIC } from 'layouts/DefaultLayout/modules/layout';
+import RequestedRemovals from './components/RequestedRemovals'
+import CompletedRemovals from './components/CompletedRemovals'
+import { RoutedComponent, connect } from 'routes/routedComponent'
+import { CONTENT_VIEW_STATIC } from 'layouts/DefaultLayout/modules/layout'
 import {
   getRemovals,
   updateStatus,
@@ -19,7 +19,7 @@ const removalStatus = {
 }
 
 class RequestedRemovalsContainer extends RoutedComponent {
-  constructor(props) {
+  constructor (props) {
     super(props)
     this.state = {
       showModal: false,
@@ -28,15 +28,15 @@ class RequestedRemovalsContainer extends RoutedComponent {
       queryName: this.getStatus()
     }
 
-    this.handleClick = this.handleClick.bind(this);
-    this.getNextPage = this.getNextPage.bind(this);
-    this.updateRemovalStatus = this.updateRemovalStatus.bind(this);
+    this.handleClick = this.handleClick.bind(this)
+    this.getNextPage = this.getNextPage.bind(this)
+    this.updateRemovalStatus = this.updateRemovalStatus.bind(this)
     this.hideModal = this.hideModal.bind(this)
     this.showModal = this.showModal.bind(this)
-    this.handleSearch = this.handleSearch.bind(this);
+    this.handleSearch = this.handleSearch.bind(this)
   }
 
-  getLayoutOptions() {
+  getLayoutOptions () {
     return {
       contentView: CONTENT_VIEW_STATIC,
       sidebarEnabled: true,
@@ -50,12 +50,12 @@ class RequestedRemovalsContainer extends RoutedComponent {
     router: React.PropTypes.object.isRequired
   }
 
-  componentWillMount() {
+  componentWillMount () {
     this.fetchRemovals(this.state.pageNum, this.getParams())
   }
 
-  componentWillReceiveProps(nextProps) {
-    if(nextProps.route.path !== this.props.route.path) {
+  componentWillReceiveProps (nextProps) {
+    if (nextProps.route.path !== this.props.route.path) {
       this.fetchRemovals(1, this.getParams(nextProps.route.path))
       this.setState({
         queryName: this.getStatus(nextProps.route.path),
@@ -64,44 +64,42 @@ class RequestedRemovalsContainer extends RoutedComponent {
     }
   }
 
-  fetchRemovals(pageNum, params) {
+  fetchRemovals (pageNum, params) {
     this.props.getRemovals(pageNum, params)
   }
 
-  getParams(path = this.props.route.path) {
+  getParams (path = this.props.route.path) {
     const status = this.getStatus(path)
-    return status !== 'completed' ?
-      { q: { request_status_is_type_eq: status} }
-        :
-          { q: { completed_at_not_null: '1', s: 'completed_at desc' } }
-
+    return status !== 'completed'
+      ? { q: { request_status_is_type_eq: status } }
+      : { q: { completed_at_not_null: '1', s: 'completed_at desc' } }
   }
 
-  getStatus(path = this.props.route.path) {
+  getStatus (path = this.props.route.path) {
     const status = path.split('/').pop()
     return removalStatus[status]
   }
 
-  getNextPage(pageNum) {
+  getNextPage (pageNum) {
     this.setState({ pageNum: parseInt(pageNum) })
     this.fetchRemovals(pageNum, this.getParams())
   }
 
-  hideModal() {
+  hideModal () {
     this.setState({showModal: !this.state.showModal, removal: {}})
   }
 
-  showModal(removal) {
+  showModal (removal) {
     this.setState({showModal: true, removalInProcess: removal})
   }
 
-  updateRemovalStatus(removal, removed_url) {
+  updateRemovalStatus (removal, removed_url) {
     const { id, nextStatus } = removal
     const payload = { request_id: id, status: nextStatus, removed_url }
     this.props.updateStatus(payload)
   }
 
-  handleSearch(input) {
+  handleSearch (input) {
     const queryName = input !== '' ? input : this.getStatus()
     const status = this.getStatus()
     const params = {
@@ -115,29 +113,27 @@ class RequestedRemovalsContainer extends RoutedComponent {
     this.setState({queryName})
   }
 
-  handleClick(removal) {
+  handleClick (removal) {
     removal.nextStatus === 'protected'
-      ?
-        this.updateRemovalStatus(removal)
-        :
-          this.showModal(removal)
+      ? this.updateRemovalStatus(removal)
+      : this.showModal(removal)
   }
 
   clearNotification = () => {
     this.props.clearNotification()
   }
 
-  render() {
+  render () {
     const { requestedRemovals } = this.props
     const { pagination } = requestedRemovals
     const resultCount = pagination && pagination.total
     const paginationItems = (
       pagination &&
-        Math.ceil( pagination.total / pagination.limit )
+        Math.ceil(pagination.total / pagination.limit)
     )
     const isCompleted = this.state.queryName === 'completed'
 
-    if(isCompleted) {
+    if (isCompleted) {
       return <CompletedRemovals
         removals={requestedRemovals.completed}
         pageNum={this.state.pageNum}
@@ -148,7 +144,7 @@ class RequestedRemovalsContainer extends RoutedComponent {
         queryName={this.state.queryName}
         resultCount={resultCount}
       />
-    }else{
+    } else {
       return <RequestedRemovals
         removals={requestedRemovals.all}
         notification={requestedRemovals.notification}

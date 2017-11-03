@@ -1,11 +1,11 @@
-import React, { Component, PropTypes } from 'react';
-import ReactDOM from 'react-dom';
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
+import ReactDOM from 'react-dom'
 
-import RequestedRemoval from './RequestedRemoval';
+import RequestedRemoval from './RequestedRemoval'
 
 import {
   Table,
-  Label,
   Button,
   Row,
   Pagination,
@@ -13,46 +13,44 @@ import {
   FormGroup,
   FormControl,
   Col,
-  ControlLabel,
   SearchBar,
   Loader,
   FlashMessage
-} from 'components';
+} from 'components'
 
 class RequestedRemovals extends Component {
-  constructor(props) {
+  constructor (props) {
     super(props)
     this.state = {}
 
-    this._handleClick = this._handleClick.bind(this);
-    this.updateRemovalStatus = this.updateRemovalStatus.bind(this);
-    this.validateUrlInput = this.validateUrlInput.bind(this);
+    this._handleClick = this._handleClick.bind(this)
+    this.updateRemovalStatus = this.updateRemovalStatus.bind(this)
+    this.validateUrlInput = this.validateUrlInput.bind(this)
   }
 
-  _handleClick() {
-    const removed_url = ReactDOM.findDOMNode(this.input)
+  _handleClick () {
+    const removedUrl = ReactDOM.findDOMNode(this.input)
 
-    removed_url && this.validateUrlInput(removed_url.value)
+    removedUrl && this.validateUrlInput(removedUrl.value)
 
-    !removed_url && this.updateRemovalStatus()
+    !removedUrl && this.updateRemovalStatus()
   }
 
-  validateUrlInput(url) {
-    url !== '' ?
-      (
-       this.updateRemovalStatus(url),
-       this.setState({validation: null})
+  validateUrlInput (url) {
+    url !== ''
+      ? (
+        this.updateRemovalStatus(url),
+        this.setState({validation: null})
       )
-        :
-          this.setState({validation:'Please enter the removal url'})
+      : this.setState({validation: 'Please enter the removal url'})
   }
 
-  updateRemovalStatus(url) {
+  updateRemovalStatus (url) {
     this.props.updateRemovalStatus(this.props.removalInProcess, url)
     this.props.hideModal()
   }
 
-  render() {
+  render () {
     const {
       removals,
       isFetching,
@@ -75,22 +73,27 @@ class RequestedRemovals extends Component {
       addresses,
       site,
       nextStatus,
-      status,
+      status
     } = removalInProcess
 
-    const renderTitle = status === 'inprogress' ? 'Please confirm that this removal is complete' : 'Please provide the removal url'
-
+    const renderTitle = status === 'inprogress'
+      ? 'Please confirm that this removal is complete'
+      : 'Please provide the removal url'
 
     const renderInput = (
       <FormGroup>
-          Removal URL
-          <FormControl ref={(input) => this.input = input} type="text" placeholder='http://removeMyInfo.com/'/>
-          <span className='text-danger'>{this.state.validation}</span>
+        Removal URL
+        <FormControl
+          ref={(input) => { this.input = input }}
+          type="text"
+          placeholder='http://removeMyInfo.com/'
+        />
+        <span className='text-danger'>{this.state.validation}</span>
       </FormGroup>
     )
 
     const renderModal = (
-      <Modal  show={showModal} onHide={hideModal}>
+      <Modal show={showModal} onHide={hideModal}>
         <Modal.Header>
           <Modal.Title>{renderTitle}</Modal.Title>
         </Modal.Header>
@@ -119,24 +122,24 @@ class RequestedRemovals extends Component {
             <tbody>
               <tr className='bg-gray-dark'>
                 <td>
-                  { id }
+                  {id}
                 </td>
                 <td>
-                  { client_name }
+                  {client_name}
                 </td>
                 <td>
-                  { age }
+                  {age}
                 </td>
                 <td>
-                  { addresses ? addresses[0].address1 : ''}
+                  {addresses ? addresses[0].address1 : ''}
                 </td>
                 <td>
-                  { site }
+                  {site}
                 </td>
               </tr>
             </tbody>
           </Table>
-          { nextStatus === 'inprogress' && renderInput }
+          {nextStatus === 'inprogress' && renderInput}
         </Modal.Body>
 
         <Modal.Footer>
@@ -170,14 +173,13 @@ class RequestedRemovals extends Component {
         <tbody>
           {
             removals.map(
-              removal =>
-              <RequestedRemoval
+              removal => <RequestedRemoval
                 removal={removal}
                 key={removal.id}
                 handleClick={handleClick}
               />
-              )}
-            </tbody>
+            )}
+        </tbody>
     )
 
     const renderRequestedTable = (
@@ -210,7 +212,7 @@ class RequestedRemovals extends Component {
             </th>
           </tr>
         </thead>
-        { renderRemovals }
+        {renderRemovals}
       </Table>
     )
 
@@ -236,11 +238,11 @@ class RequestedRemovals extends Component {
           flashMessage={this.props.notification}
           clearMessage={this.props.clearMessage}
         />
-        { renderSearchBar }
-        { renderRequestedTable }
-        { renderPagination }
-        { renderLoader }
-        { renderModal }
+        {renderSearchBar}
+        {renderRequestedTable}
+        {renderPagination}
+        {renderLoader}
+        {renderModal}
       </Row>
     )
   }
@@ -257,7 +259,9 @@ RequestedRemovals.propTypes = {
   hideModal: PropTypes.func.isRequired,
   removalInProcess: PropTypes.object,
   updateRemovalStatus: PropTypes.func.isRequired,
-  queryName: PropTypes.string
+  queryName: PropTypes.string,
+  resultCount: PropTypes.number,
+  handleSearch: PropTypes.func
 }
 
-export default RequestedRemovals;
+export default RequestedRemovals
