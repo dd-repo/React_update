@@ -115,7 +115,7 @@ describe('(Address module) "Addresses"', () => {
     })
 
     it('Should initilaize with an object.', () => {
-      expect(reducer(undefined, {})).to.be.an('object')
+      expect(reducer(undefined, {})).to.be.an('array')
     })
 
     it('Should return the previous state if an action was not matched', () => {

@@ -10,8 +10,8 @@ import { showModal, hideModal } from 'modules/modal'
 import {
   postUserSignup,
   removeErrorMessage,
-  USER_SIGNUP_SUCCESS,
-} from '../modules/auth'
+  USER_SIGNUP_SUCCESS
+} from 'routes/auth/modules/auth'
 import RootModal from 'components/Modals'
 
 const persistDataToLocalStorage = data => {

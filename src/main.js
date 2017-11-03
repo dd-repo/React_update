@@ -1,19 +1,16 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import createBrowserHistory from 'history/lib/createBrowserHistory';
-import { useRouterHistory } from 'react-router';
-import { syncHistoryWithStore } from 'react-router-redux';
-import ReactGA from 'react-ga';
-import { reduxStore, history } from './store/createStore';
-import AppContainer from './containers/AppContainer';
-import pace from 'pace';
+import React from 'react'
+import ReactDOM from 'react-dom'
+import ReactGA from 'react-ga'
+import { reduxStore, history } from './store/createStore'
+import AppContainer from './containers/AppContainer'
+import pace from 'pace'
 
 // ========================================================
 // Browser History Setup
 // ========================================================
-//const browserHistory = useRouterHistory(createBrowserHistory)({
-  //basename: __BASENAME__
-//})
+// const browserHistory = useRouterHistory(createBrowserHistory)({
+  // basename: __BASENAME__
+// })
 
 // ========================================================
 // Store and History Instantiation
@@ -23,21 +20,21 @@ import pace from 'pace';
 // so we need to provide a custom `selectLocationState` to inform
 // react-router-redux of its location.
 
-//const initialState = {}
+// const initialState = {}
 
-//const store = createStore(initialState, browserHistory)
-//const history = syncHistoryWithStore(browserHistory, store, {
-  //selectLocationState: (state) => state.router
-//})
+// const store = createStore(initialState, browserHistory)
+// const history = syncHistoryWithStore(browserHistory, store, {
+  // selectLocationState: (state) => state.router
+// })
 
 // ========================================================
 // Developer Tools Setup
 // ========================================================
-//if (__DEBUG__) {
-  //if (window.devToolsExtension) {
-    //window.devToolsExtension.open()
-  //}
-//}
+// if (__DEBUG__) {
+  // if (window.devToolsExtension) {
+    // window.devToolsExtension.open()
+  // }
+// }
 
 // ========================================================
 // Render Setup
@@ -46,12 +43,12 @@ const MOUNT_NODE = document.getElementById('root')
 
 let render = (routerKey = null) => {
   const routes = require('./routes/index').default(reduxStore)
-  ReactGA.initialize('UA-108221574-1');
+  ReactGA.initialize('UA-108221574-1')
 
   const logPageView = () => {
-    if(__PROD__) {
-      ReactGA.set({ page: window.location.pathname + window.location.search });
-      ReactGA.pageview(window.location.pathname + window.location.search);
+    if (__PROD__) {
+      ReactGA.set({ page: window.location.pathname + window.location.search })
+      ReactGA.pageview(window.location.pathname + window.location.search)
     }
   }
 
@@ -89,5 +86,5 @@ if (__DEV__ && module.hot) {
 // ========================================================
 // Go!
 // ========================================================
-pace.start();
+pace.start()
 render()

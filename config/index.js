@@ -33,7 +33,8 @@ const config = {
   // Compiler Configuration
   // ----------------------------------
   compiler_css_modules     : true,
-  compiler_devtool         : 'eval-cheap-module-source-map',
+  compiler_dev_devtool     : 'eval-cheap-module-source-map',
+  compiler_prod_devtool    : 'source-map',
   compiler_hash_type       : 'hash',
   compiler_fail_on_warning : false,
   compiler_quiet           : false,
@@ -51,15 +52,15 @@ const config = {
     'react-router-redux',
     'redux',
     'ismobilejs',
-    'moment',
-    'node-uuid',
     'perfect-scrollbar',
     'react-bootstrap',
     'react-router-bootstrap',
     'react-overlays',
     'tinycolor2',
     'underscore',
-    'velocity-animate'
+    // 'moment',
+    // 'node-uuid',
+    // 'velocity-animate',
   ],
 
   // ----------------------------------
