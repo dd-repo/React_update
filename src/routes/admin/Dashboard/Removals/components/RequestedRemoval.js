@@ -1,18 +1,19 @@
-import React, { Component, PropTypes } from 'react';
-import { Link } from 'react-router';
-import { formatDate } from 'utils';
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
+import { Link } from 'react-router'
+import { formatDate } from 'utils'
 
-import { DropdownButton, MenuItem, Button, Label } from 'components';
+import { DropdownButton, MenuItem, Label } from 'components'
 
 const REMOVAL_STATUS = {
   'requested': {
-    style: 'danger',
+    style: 'danger'
   },
   'inprogress': {
-    style:'info',
+    style: 'info'
   },
   'protected': {
-    style:'success',
+    style: 'success'
   }
 }
 
@@ -22,18 +23,16 @@ export default class RemovalRequested extends Component {
     this.props.handleClick({...this.props.removal, nextStatus})
   }
 
-  render() {
+  render () {
     const {
       id,
       site,
       status,
-      status_label,
       client_name,
       client_id,
       age,
       updated_at,
-      addresses,
-      is_active,
+      addresses
     } = this.props.removal
 
     const siteURL = `http://www.${site}`
@@ -45,36 +44,36 @@ export default class RemovalRequested extends Component {
     const isInProgress = status === 'inprogress'
 
     const renderButton = (
-        <DropdownButton onSelect={this._onSelect} title='Actions' bsStyle='danger' id='dropdown-basic-4' bsSize='lg' className='m-b-1'>
-          { isRequested && <MenuItem eventKey="inprogress">In Progress</MenuItem> }
-          { isRequested && <MenuItem eventKey="protected">Record not found</MenuItem> }
-          { isInProgress && <MenuItem eventKey="completed">Complete</MenuItem> }
-        </DropdownButton>
+      <DropdownButton onSelect={this._onSelect} title='Actions' bsStyle='danger' id='dropdown-basic-4' bsSize='lg' className='m-b-1'>
+        {isRequested && <MenuItem eventKey="inprogress">In Progress</MenuItem>}
+        {isRequested && <MenuItem eventKey="protected">Record not found</MenuItem>}
+        {isInProgress && <MenuItem eventKey="completed">Complete</MenuItem>}
+      </DropdownButton>
     )
 
     return (
       <tr className='bg-gray-darker' key={id}>
         <td>
-          { id }
+          {id}
         </td>
         <td>
-        <Link to={`/admin/dashboard/users/client/${client_id}`}>
-          { client_name }
-        </Link>
+          <Link to={`/admin/dashboard/users/client/${client_id}`}>
+            {client_name}
+          </Link>
         </td>
         <td>
-          { age }
+          {age}
         </td>
         <td>
-          { address }
+          {address}
         </td>
         <td className='text-white'>
           <a href={siteURL} target='_blank'>
-            { friendlyURL }
+            {friendlyURL}
           </a>
         </td>
         <td>
-          { formatDate(updated_at) }
+          {formatDate(updated_at)}
         </td>
         <td className='text-right'>
           <Label
@@ -82,11 +81,11 @@ export default class RemovalRequested extends Component {
             className='text-uppercase'
             bsStyle={removalStatus.style}
           >
-            { renderStatus }
+            {renderStatus}
           </Label>
         </td>
         <td>
-          { renderButton }
+          {renderButton}
         </td>
       </tr>
     )
@@ -95,5 +94,5 @@ export default class RemovalRequested extends Component {
 
 RemovalRequested.propTypes = {
   removal: PropTypes.object,
-  handleClick: PropTypes.func.isRequired,
+  handleClick: PropTypes.func.isRequired
 }

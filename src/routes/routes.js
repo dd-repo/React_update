@@ -118,7 +118,7 @@ export default [
     getComponent: (location, cb) => {
       require.ensure([], require => {
         cb(null, require('./admin/Dashboard/Users').default);
-      }, 'admin-dashboard-removals-pending');
+      }, 'admin-dashboard-users');
     }
   },
   {
@@ -126,7 +126,7 @@ export default [
     getComponent: (location, cb) => {
       require.ensure([], require => {
         cb(null, require('./admin/Dashboard/Removals').default);
-      }, 'admin-dashboard-removals-pending');
+      }, 'admin-dashboard-removals');
     }
   },
   {
@@ -134,7 +134,7 @@ export default [
     getComponent: (location, cb) => {
       require.ensure([], require => {
         cb(null, require('./admin/Dashboard/Removals').default);
-      }, 'admin-dashboard-removals-pending');
+      }, 'admin-dashboard-removals');
     }
   },
   {
@@ -142,7 +142,7 @@ export default [
     getComponent: (location, cb) => {
       require.ensure([], require => {
         cb(null, require('./admin/Dashboard/Removals').default);
-      }, 'admin-dashboard-removals-pending');
+      }, 'admin-dashboard-removals');
     }
   },
   {
