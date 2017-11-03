@@ -1,8 +1,7 @@
 // We only need to import the modules necessary for initial render
-import DefaultLayout from '../layouts/DefaultLayout';
-import Home from './Home';
-import { injectReducer } from '../store/reducers';
-import ROUTES from './routes';
+import DefaultLayout from '../layouts/DefaultLayout'
+import Home from './Home'
+import ROUTES from './routes'
 
 /*  Note: Instead of using JSX, we recommend using react-router
     PlainRoute objects to build route definitions.   */
@@ -25,20 +24,20 @@ const authTransition = ({store, nextState, replace, authToken}) => {
   const pathname = nextState.location.pathname
   const { currentUser, account: { keywords } } = store.getState()
 
-  if(pathname.startsWith('/dashboard')) {
+  if (pathname.startsWith('/dashboard')) {
     isValidClient(currentUser, replace, authToken) &&
       validateKeywords(keywords, replace)
   }
 
-  if(pathname.startsWith('/admin/dashboard')) {
+  if (pathname.startsWith('/admin/dashboard')) {
     validateAdmin(currentUser, replace, authToken)
   }
 
-  if(pathname.startsWith('/login')) {
+  if (pathname.startsWith('/login')) {
     redirectToDashboardIfLoggedIn(store, nextState, replace, authToken)
   }
 
-  if(pathname.startsWith('/keywords')) {
+  if (pathname.startsWith('/keywords')) {
     currentUser.role === 'prospect' && replace('/signup')
   }
 }
@@ -60,20 +59,20 @@ const validateAdmin = (currentUser, replace, authToken) => {
 }
 
 const validateKeywords = (keywords, replace) => {
-  if(keywords.all) {
+  if (keywords.all) {
     keywords.all.length === 0 && replace('/keywords')
   }
-  if(!keywords.all) {
+  if (!keywords.all) {
     replace('/login')
   }
 }
 
 const redirectToDashboardIfLoggedIn = (store, nextState, replace, authToken) => {
-  if(authToken) {
+  if (authToken) {
     const pathname = nextState.location.pathname
     const { currentUser } = store.getState()
 
-    if(pathname === '/' || pathname === '/login') {
+    if (pathname === '/' || pathname === '/login') {
       currentUser.role === 'client' && replace('/dashboard')
       currentUser.group === 'backend' && replace('/admin/dashboard')
     }

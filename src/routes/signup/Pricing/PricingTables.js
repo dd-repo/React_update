@@ -1,18 +1,16 @@
 import React from 'react'
-import uid from 'node-uuid'
-import hash from 'object-hash'
 import _ from 'underscore'
 import numeral from 'numeral'
 import PropTypes from 'prop-types'
 
 import {
-    Row,
-    Col,
-    Table,
-    Panel,
-    Button,
-    Label,
-    Divider
+  Row,
+  Col,
+  Table,
+  Panel,
+  Button,
+  Label,
+  Divider
 } from 'components'
 
 import { Colors } from 'consts'
@@ -21,7 +19,7 @@ import classes from './PricingTables.scss'
 
 const tablesData = [
   {
-    id: uid.v4(),
+    id: 1,
     type: 'Individual',
     bsStyle: 'info',
     description: 'Individual Plan',
@@ -35,16 +33,16 @@ const tablesData = [
     active: true
   },
   {
-    id: uid.v4(),
+    id: 2,
     type: 'Family',
     bsStyle: 'primary',
     description: 'Family Plan',
     price: 49.00,
     capabilities: [
-      { key: 'Monitors Google'},
-      { key: 'Alerts You To New Results'},
-      { key: 'Removes Your Private Information'},
-      { key: 'Protects Up To 4 Family Members'}
+      { key: 'Monitors Google' },
+      { key: 'Alerts You To New Results' },
+      { key: 'Removes Your Private Information' },
+      { key: 'Protects Up To 4 Family Members' }
     ],
     active: true
   }
@@ -64,108 +62,108 @@ const typeToColor = style => {
 }
 
 const PricingTableClean = props => (
-    <div className={classes.tableClean}>
-        <Label outline bsStyle={props.bsStyle}>
-            {props.type}
-        </Label>
-        <div>
-            <p className={classes.price}>
-                ${numeral(props.price).format('0.00')}
-            </p>
-            <p>
-                / month
-            </p>
-        </div>
-        <Divider textPosition='center'>
-            Description
-        </Divider>
-        <p className={classes.description}>
-            {props.description}
-        </p>
-        <Divider textPosition='center'>
-            Capabilities
-        </Divider>
-        <Table className={classes.capabilitiesTable}>
-            <tbody>
-                {
-                    _.map(props.capabilities, capability => (
-                        <tr key={hash(capability)}>
-                            <td>
-                                {capability.key}
-                            </td>
-                            <td>
-                                {capability.value}
-                            </td>
-                        </tr>
-                    ))
-                }
-            </tbody>
-        </Table>
-        {
-            (props.active ? (
-                <Button bsStyle='primary'>
-                    <i className='fa fa-check m-r-1'></i>
-                    Signup
-                </Button>
-            ) : (
-                <Button block>
-                    Upgrade
-                </Button>
-            ))
-        }
+  <div className={classes.tableClean}>
+    <Label outline bsStyle={props.bsStyle}>
+      {props.type}
+    </Label>
+    <div>
+      <p className={classes.price}>
+        ${numeral(props.price).format('0.00')}
+      </p>
+      <p>
+        / month
+      </p>
     </div>
+    <Divider textPosition='center'>
+      Description
+    </Divider>
+    <p className={classes.description}>
+      {props.description}
+    </p>
+    <Divider textPosition='center'>
+      Capabilities
+    </Divider>
+    <Table className={classes.capabilitiesTable}>
+      <tbody>
+        {
+          _.map(props.capabilities, capability => (
+            <tr key={capability}>
+              <td>
+                {capability.key}
+              </td>
+              <td>
+                {capability.value}
+              </td>
+            </tr>
+          ))
+        }
+      </tbody>
+    </Table>
+    {
+      (props.active ? (
+        <Button bsStyle='primary'>
+          <i className='fa fa-check m-r-1'></i>
+          Signup
+        </Button>
+      ) : (
+        <Button block>
+          Upgrade
+        </Button>
+      ))
+    }
+  </div>
 )
 
 const PricingTable = props => (
-    <Panel
-      header={
-            <div
-              className={classes.header}
-              style={{ backgroundColor: typeToColor(props.bsStyle) }}
-            >
-                <Label outline bsStyle='custom' customColor={Colors.brandWhite}>
-                    {props.type}
-                </Label>
-                <div>
-                    <p className={classes.price}>
-                        ${numeral(props.price).format('0.00')}
-                    </p>
-                    <p>
-                        / month
-                    </p>
-                </div>
-            </div>
+  <Panel
+    header={
+      <div
+        className={classes.header}
+        style={{ backgroundColor: typeToColor(props.bsStyle) }}
+      >
+        <Label outline bsStyle='custom' customColor={Colors.brandWhite}>
+          {props.type}
+        </Label>
+        <div>
+          <p className={classes.price}>
+            ${numeral(props.price).format('0.00')}
+          </p>
+          <p>
+            / month
+          </p>
+        </div>
+      </div>
+    }
+  >
+    <Divider>
+      Description
+    </Divider>
+    <p className={classes.description}>
+      {props.description}
+    </p>
+    <Divider>
+      Capabilities
+    </Divider>
+    <Table className={classes.capabilitiesTable}>
+      <tbody>
+        {
+          _.map(props.capabilities, capability => (
+            <tr key={capability}>
+              <td>
+                {capability.key}
+              </td>
+              <td>
+                {capability.value}
+              </td>
+            </tr>
+          ))
         }
-    >
-        <Divider>
-            Description
-        </Divider>
-        <p className={classes.description}>
-            {props.description}
-        </p>
-        <Divider>
-            Capabilities
-        </Divider>
-        <Table className={classes.capabilitiesTable}>
-            <tbody>
-                {
-                    _.map(props.capabilities, capability => (
-                        <tr key={hash(capability)}>
-                            <td>
-                                {capability.key}
-                            </td>
-                            <td>
-                                {capability.value}
-                            </td>
-                        </tr>
-                    ))
-                }
-            </tbody>
-        </Table>
-        <Button block>
-            Upgrade
-        </Button>
-    </Panel>
+      </tbody>
+    </Table>
+    <Button block>
+      Upgrade
+    </Button>
+  </Panel>
 )
 
 const PricingTables = props => {
@@ -175,14 +173,14 @@ const PricingTables = props => {
         <Row>
           {
             _.map(tablesData, data => (
-              <Col md={4} key={hash(data)}>
+              <Col md={4} key={data}>
                 <PricingTableClean
                   handleClick={props.handleClick}
-                  key={hash(data)}
+                  key={data}
                   {...data}
                 />
               </Col>
-              ))
+            ))
           }
         </Row>
       </Col>

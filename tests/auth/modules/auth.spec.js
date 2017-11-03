@@ -12,6 +12,14 @@ import {
   USER_LOGIN_FAILURE,
   USER_LOGIN_POSTING,
   USER_LOGOUT,
+  FORGOT_USER_PASSWORD_POSTING,
+  FORGOT_USER_PASSWORD_SUCCESS,
+  FORGOT_USER_PASSWORD_FAILURE,
+  PASSWORD_UPDATE_SUCCESS,
+  PASSWORD_UPDATE_FAILURE,
+  USER_REMOVE_ERROR_MSG,
+  PERMISSION_ERROR_MESSAGE,
+  PERMISSIONS_MESSAGE_CLEAR,
   postUserSignup,
   postUserLogin,
   postingUserSignup,
@@ -23,8 +31,11 @@ import {
   receiveUserLoginFailure,
   logout,
   fetchUser,
+  CLIENT_API,
   SIGNUP_REQUEST,
   LOGIN_REQUEST,
+  UPDATE_PASSWORD_REQUEST_WITH_TOKEN,
+  RESET_PASSWORD_REQUEST,
   default as reducer
 } from 'routes/auth/modules/auth'
 
@@ -41,6 +52,20 @@ describe('(auth module) Auth', () => {
     expect(USER_LOGIN_FAILURE).to.equal('USER_LOGIN_FAILURE')
     expect(USER_LOGIN_POSTING).to.equal('USER_LOGIN_POSTING')
     expect(USER_LOGOUT).to.equal('USER_LOGOUT')
+    expect(FORGOT_USER_PASSWORD_POSTING).to.equal('FORGOT_USER_PASSWORD_POSTING')
+    expect(FORGOT_USER_PASSWORD_SUCCESS).to.equal('FORGOT_USER_PASSWORD_SUCCESS')
+    expect(FORGOT_USER_PASSWORD_FAILURE).to.equal('FORGOT_USER_PASSWORD_FAILURE')
+    expect(PASSWORD_UPDATE_SUCCESS).to.equal('PASSWORD_UPDATE_SUCCESS')
+    expect(PASSWORD_UPDATE_FAILURE).to.equal('PASSWORD_UPDATE_FAILURE')
+    expect(USER_REMOVE_ERROR_MSG).to.equal('USER_REMOVE_ERROR_MSG')
+    expect(PERMISSION_ERROR_MESSAGE).to.equal('PERMISSION_ERROR_MESSAGE')
+    expect(PERMISSIONS_MESSAGE_CLEAR).to.equal('PERMISSIONS_MESSAGE_CLEAR')
+    expect(CLIENT_API).to.equal('/dashboard/api/v1/users')
+    expect(SIGNUP_REQUEST).to.equal(`${CLIENT_API}/sign-up/create`)
+    expect(SIGNUP_REQUEST).to.equal(`${CLIENT_API}/sign-up/create`)
+    expect(LOGIN_REQUEST).to.equal(`${CLIENT_API}/sign-in`)
+    expect(UPDATE_PASSWORD_REQUEST_WITH_TOKEN).to.equal(`${CLIENT_API}/password/update`)
+    expect(RESET_PASSWORD_REQUEST).to.equal(`${CLIENT_API}/password/forgot`)
   })
 
   describe('(Action Creator) postingUserSignup', () => {
@@ -552,7 +577,7 @@ describe('(auth module) Auth', () => {
       expect(reducer(currentUserSuccess, {
         type: USER_LOGOUT
       }))
-      .to.eql(loggedOutUser)
+      .to.eql({})
     })
   })
 })

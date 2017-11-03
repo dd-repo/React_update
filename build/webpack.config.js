@@ -15,7 +15,9 @@ debug('Create configuration.')
 const webpackConfig = {
   name: 'client',
   target: 'web',
-  devtool: config.compiler_devtool,
+  devtool: __PROD__
+  ? config.compiler_prod_devtool
+  : config.compiler_dev_devtool,
   resolve: {
     root: paths.client(),
     extensions: ['', '.js', '.jsx', '.json'],
@@ -24,7 +26,11 @@ const webpackConfig = {
         path.resolve('./src')
     ]
   },
-  module: {}
+  module: {
+    noParse: [
+      /node_modules\/object-hash\/dist\/object_hash.js/
+    ]
+  }
 }
 // ------------------------------------
 // Entry Points

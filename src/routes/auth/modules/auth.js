@@ -11,7 +11,7 @@ export const ADMIN_LOGIN_SUCCESS = 'ADMIN_LOGIN_SUCCESS'
 export const USER_LOGIN_FAILURE = 'USER_LOGIN_FAILURE'
 export const USER_LOGIN_POSTING = 'USER_LOGIN_POSTING'
 
-export const FORGOT_USER_PASSWORD_POSTING = 'FORGOT_USET_PASSWORD_POSTING'
+export const FORGOT_USER_PASSWORD_POSTING = 'FORGOT_USER_PASSWORD_POSTING'
 export const FORGOT_USER_PASSWORD_SUCCESS = 'FORGOT_USER_PASSWORD_SUCCESS'
 export const FORGOT_USER_PASSWORD_FAILURE = 'FORGOT_USER_PASSWORD_FAILURE'
 
@@ -24,14 +24,13 @@ export const USER_LOGOUT = 'USER_LOGOUT'
 export const PERMISSION_ERROR_MESSAGE = 'PERMISSION_ERROR_MESSAGE'
 export const PERMISSIONS_MESSAGE_CLEAR = 'PERMISSIONS_MESSAGE_CLEAR'
 
-const CLIENT_API = '/dashboard/api/v1/users'
+export const CLIENT_API = '/dashboard/api/v1/users'
 export const SIGNUP_REQUEST = `${CLIENT_API}/sign-up/create`
 export const LOGIN_REQUEST = `${CLIENT_API}/sign-in`
 export const UPDATE_PASSWORD_REQUEST_WITH_TOKEN = `${CLIENT_API}/password/update`
 export const RESET_PASSWORD_REQUEST = `${CLIENT_API}/password/forgot`
 
 // actions
-
 export const postUserSignup = payload => {
   return dispatch => {
     dispatch(postingUserSignup())

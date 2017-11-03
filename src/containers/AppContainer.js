@@ -1,12 +1,12 @@
-import React, { PropTypes } from 'react';
-import { connect } from 'react-redux';
-import { Router } from 'react-router';
-import { Provider } from 'react-redux';
-import { fetchUser } from 'routes/auth/modules/auth';
-import { Spinner } from 'components';
+import React from 'react'
+import PropTypes from 'prop-types'
+import { connect, Provider } from 'react-redux'
+import { Router } from 'react-router'
+import { fetchUser } from 'routes/auth/modules/auth'
+import { Spinner } from 'components'
 
 class AppContainer extends React.Component {
-  constructor() {
+  constructor () {
     super()
     this.state = {isFetching: true}
   }
@@ -14,18 +14,18 @@ class AppContainer extends React.Component {
     history: PropTypes.object.isRequired,
     routes: PropTypes.object.isRequired,
     routerKey: PropTypes.number,
-    store: PropTypes.object.isRequired
+    store: PropTypes.object.isRequired,
+    logPageView: PropTypes.func
   }
 
-  componentWillMount() {
+  componentWillMount () {
     const authToken = localStorage.getItem('authToken')
-    authToken !== null ?
-      this.props.fetchUser()
-        :
-          this.setState({isFetching: false})
+    authToken !== null
+      ? this.props.fetchUser()
+      : this.setState({isFetching: false})
   }
 
-  componentWillReceiveProps(nextProps) {
+  componentWillReceiveProps (nextProps) {
     nextProps.currentUser.isFetching === false &&
       this.setState({isFetching: nextProps.currentUser.isFetching})
   }
@@ -33,31 +33,29 @@ class AppContainer extends React.Component {
   render () {
     const { history, routes, routerKey, store, logPageView } = this.props
 
-    if(!this.state.isFetching) {
+    if (!this.state.isFetching) {
       return (
-      <Provider store={store}>
-        <div style={{ height: '100%' }}>
-          <Router
-
-            history={history}
-            children={routes}
-            key={routerKey}
-            onUpdate={logPageView}
-          />
-        </div>
-      </Provider>
-    )
-    }else{
+        <Provider store={store}>
+          <div style={{ height: '100%' }}>
+            <Router
+              history={history}
+              children={routes}
+              key={routerKey}
+              onUpdate={logPageView}
+            />
+          </div>
+        </Provider>
+      )
+    } else {
       return <Spinner />
     }
   }
 }
 
-const mapStateToProps = state => {
-  return {
-    currentUser: state.currentUser
-  }
-}
+const mapStateToProps = state => ({
+  currentUser: state.currentUser
+})
+
 const mapActionCreators = {
   fetchUser
 }
