@@ -1,24 +1,24 @@
-import React from 'react';
+import React from 'react'
 
-import { RoutedComponent, connect } from 'routes/routedComponent';
-import { CONTENT_VIEW_STATIC } from 'layouts/DefaultLayout/modules/layout';
+import { RoutedComponent, connect } from 'routes/routedComponent'
+import { CONTENT_VIEW_STATIC } from 'layouts/DefaultLayout/modules/layout'
 import { fetchTransactions, clearNotification } from './modules/transactions'
-import { showModal, hideModal } from 'modules/modal';
-import Transactions from './components/Transactions';
+import { showModal, hideModal } from 'modules/modal'
+import Transactions from './components/Transactions'
 
 class TransactionsContainer extends RoutedComponent {
-  constructor(props) {
+  constructor (props) {
     super(props)
     this.state = {
       pageNum: 1,
-      queryName: 'All Transactions',
+      queryName: 'All Transactions'
     }
 
-    this.getNextPage = this.getNextPage.bind(this);
-    this.handleSearch = this.handleSearch.bind(this);
+    this.getNextPage = this.getNextPage.bind(this)
+    this.handleSearch = this.handleSearch.bind(this)
   }
 
-  getLayoutOptions() {
+  getLayoutOptions () {
     return {
       contentView: CONTENT_VIEW_STATIC,
       sidebarEnabled: true,
@@ -32,24 +32,24 @@ class TransactionsContainer extends RoutedComponent {
     router: React.PropTypes.object.isRequired
   }
 
-  componentWillMount() {
+  componentWillMount () {
     this.fetchTransactions()
   }
 
-  fetchTransactions(params={}, pageNum=1) {
+  fetchTransactions (params = {}, pageNum = 1) {
     this.props.fetchTransactions(params, pageNum)
   }
 
-  getNextPage(pageNum) {
+  getNextPage (pageNum) {
     this.setState({ pageNum: parseInt(pageNum) })
     this.fetchTransactions({}, pageNum)
   }
 
-  handleSearch(input) {
+  handleSearch (input) {
     const queryName = input !== '' ? input : 'All Transactions'
     const params = {
       q: {
-         id_eq: input
+        id_eq: input
       }
     }
     this.fetchTransactions(params)
@@ -60,7 +60,7 @@ class TransactionsContainer extends RoutedComponent {
     this.props.clearNotification()
   }
 
-  render() {
+  render () {
     const { pagination } = this.props.transactions
 
     const paginationItems = (
