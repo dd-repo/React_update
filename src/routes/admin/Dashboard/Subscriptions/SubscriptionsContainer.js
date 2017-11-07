@@ -1,30 +1,28 @@
-import React from 'react';
-import _ from 'underscore';
-import infosweepApi from 'services/infosweepApi';
+import React from 'react'
 
-import { RoutedComponent, connect } from 'routes/routedComponent';
-import { CONTENT_VIEW_STATIC } from 'layouts/DefaultLayout/modules/layout';
-import Subscriptions from './components/Subscriptions';
-import { showModal } from 'modules/modal';
-import { fetchCards } from 'routes/admin/Dashboard/Users/Client/modules/cards';
+import { RoutedComponent, connect } from 'routes/routedComponent'
+import { CONTENT_VIEW_STATIC } from 'layouts/DefaultLayout/modules/layout'
+import Subscriptions from './components/Subscriptions'
+import { showModal } from 'modules/modal'
+import { fetchCards } from 'routes/admin/Dashboard/Users/Client/modules/cards'
 import {
   getSubscriptions,
   updateSubscription
 } from './modules/subscriptions'
 
 class SubscriptionsContainer extends RoutedComponent {
-  constructor(props) {
+  constructor (props) {
     super(props)
     this.state = {
       pageNum: 1,
       queryName: 'All Subscriptions'
     }
 
-    this.getNextPage = this.getNextPage.bind(this);
-    this.handleSearch = this.handleSearch.bind(this);
+    this.getNextPage = this.getNextPage.bind(this)
+    this.handleSearch = this.handleSearch.bind(this)
   }
 
-  getLayoutOptions() {
+  getLayoutOptions () {
     return {
       contentView: CONTENT_VIEW_STATIC,
       sidebarEnabled: true,
@@ -38,20 +36,20 @@ class SubscriptionsContainer extends RoutedComponent {
     router: React.PropTypes.object.isRequired
   }
 
-  componentWillMount() {
+  componentWillMount () {
     this.fetchSubscriptions()
   }
 
-  fetchSubscriptions(params={}, pageNum=1) {
+  fetchSubscriptions (params = {}, pageNum = 1) {
     this.props.getSubscriptions(params, pageNum)
   }
 
-  getNextPage(pageNum) {
+  getNextPage (pageNum) {
     this.setState({ pageNum: pageNum })
     this.fetchSubscriptions({}, pageNum)
   }
 
-  handleSearch(input) {
+  handleSearch (input) {
     const queryName = input !== '' ? input : 'All Subscriptions'
     const params = {
       q: {
@@ -62,7 +60,7 @@ class SubscriptionsContainer extends RoutedComponent {
     this.setState({ queryName })
   }
 
-  render() {
+  render () {
     const { pagination } = this.props.subscriptions
 
     const paginationItems = (

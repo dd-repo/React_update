@@ -1,14 +1,18 @@
 import React from 'react'
-
+import _ from 'underscore'
 import { connect, RoutedComponent } from 'routes/routedComponent'
 import { CONTENT_VIEW_STATIC } from 'layouts/DefaultLayout/modules/layout'
-import { getAllUsers, 
+import {
+  getAllUsers,
   becomeUser,
   deleteUser,
   clearNotification
 } from './modules/users'
 import { persistData } from 'localStorage'
-import { USER_LOGIN_SUCCESS, USER_LOGIN_FAILURE } from 'routes/auth/modules/auth'
+import {
+  USER_LOGIN_SUCCESS,
+  USER_LOGIN_FAILURE
+} from 'routes/auth/modules/auth'
 import { showModal, hideModal } from 'modules/modal'
 import RootModal from 'components/Modals'
 import Users from './components/Users'
@@ -62,7 +66,7 @@ class UsersContainer extends RoutedComponent {
   getRole (path) {
     if (!path) { path = this.props.route.path }
     const role = path.split('/').pop()
-    return { q: { group_eq: group[role] }}
+    return { q: { group_eq: group[role] } }
   }
 
   fetchUsers (params, pageNum = 1) {
@@ -106,9 +110,6 @@ class UsersContainer extends RoutedComponent {
     case USER_LOGIN_SUCCESS:
       this.transitionToUser(res)
       break
-      case USER_LOGIN_FAILURE:
-
-        break
     }
   }
 
@@ -130,7 +131,7 @@ class UsersContainer extends RoutedComponent {
     const { pagination, all } = this.props.users
     const results = pagination && pagination.total
     const limit = pagination && pagination.limit
-    const isFrontend = all && all[0].group === 'frontend'
+    const isFrontend = _.isEmpty(all) || all[0].group === 'frontend'
     const paginationItems = (
       pagination &&
         Math.ceil(pagination.total / pagination.limit)

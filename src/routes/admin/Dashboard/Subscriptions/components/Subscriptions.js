@@ -1,69 +1,62 @@
-import React, { Component, PropTypes } from 'react';
+import React from 'react'
+import PropTypes from 'prop-types'
+import _ from 'underscore'
 
-import Subscription from './Subscription';
+import Subscription from './Subscription'
+import ResultsNotFound from 'routes/admin/Dashboard/components/resultsNotFound'
 import {
   Table,
   Col,
-  Label,
-  Panel,
-  Button,
   Row,
   Pagination,
-  Modal,
   SearchBar,
   Loader
-} from 'components';
+} from 'components'
 
+const Subscriptions = props => {
+  const {
+    subscriptions,
+    paginationItems,
+    pageNum,
+    getNextPage,
+    isFetching,
+    handleSearch,
+    resultCount,
+    queryName,
+    limit
+  } = props
 
-export default class Subscriptions extends Component {
-  constructor(props) {
-    super(props)
-  }
+  const renderPagination = (
+    !isFetching && (resultCount > limit) &&
+    <div className="text-center">
+      <Pagination
+        bsSize="medium"
+        items={paginationItems}
+        activePage={pageNum}
+        boundaryLinks
+        maxButtons={5}
+        prev
+        next
+        first
+        last
+        ellipsis
+        onSelect={getNextPage}
+      />
+    </div>
+  )
 
-  render() {
-    const {
-      subscriptions,
-      paginationItems,
-      pageNum,
-      getNextPage,
-      isFetching,
-      handleSearch,
-      resultCount,
-      queryName,
-      limit
-    } = this.props
-
-    const renderPagination = (
-      !isFetching && (resultCount > limit) &&
-        <div className="text-center">
-          <Pagination
-            bsSize="medium"
-            items={paginationItems}
-            activePage={pageNum}
-            boundaryLinks
-            maxButtons={5}
-            prev
-            next
-            first
-            last
-            ellipsis
-            onSelect={getNextPage}
-          />
-        </div>
+  const renderSubscriptions = (
+    !isFetching && subscriptions &&
+    subscriptions.map(
+      subscription =>
+        <Subscription
+          subscription={subscription}
+          key={subscription.id}
+        />
     )
+  )
 
-    const renderSubscriptions = (
-      !isFetching && subscriptions &&
-        subscriptions.map(
-          subscription =>
-          <Subscription
-            subscription={subscription}
-            key={subscription.id}
-          />
-        )
-    )
-
-    const renderLoader = isFetching && <Loader />
+  const renderLoader = isFetching && <Loader />
 
     const renderSearchBar = (
       <Col lg={6} lgOffset={3} className='m-b-2' >
@@ -75,60 +68,63 @@ export default class Subscriptions extends Component {
       </Col>
     )
 
-    return (
-      <Row>
-        { renderSearchBar }
-        <Table>
-          <thead>
-            <tr>
-              <th>
-                subscription id
-              </th>
-              <th>
-                client name
-              </th>
-              <th>
-                user id
-              </th>
-              <th>
-                start date
-              </th>
-              <th>
-                end date
-              </th>
-              <th>
-                plan id
-              </th>
-              <th>
-                plan description
-              </th>
-              <th>
-                sales rep
-              </th>
-              <th>
-                Card id
-              </th>
-              <th>
-                account status
-              </th>
-              <th>
-                next payment
-              </th>
-              <th>
-              </th>
-            </tr>
-          </thead>
-          { renderSubscriptions }
-        </Table>
-        { renderPagination }
-        { renderLoader }
-      </Row>
-    )
-  }
+  return (
+    <Row>
+      {renderSearchBar}
+      <Table>
+        <thead>
+          <tr>
+            <th>
+              subscription id
+            </th>
+            <th>
+              client name
+            </th>
+            <th>
+              user id
+            </th>
+            <th>
+              start date
+            </th>
+            <th>
+              end date
+            </th>
+            <th>
+              plan id
+            </th>
+            <th>
+              plan description
+            </th>
+            <th>
+              sales rep
+            </th>
+            <th>
+              Card id
+            </th>
+            <th>
+              account status
+            </th>
+            <th>
+              next payment
+            </th>
+            <th>
+            </th>
+          </tr>
+        </thead>
+        {renderSubscriptions}
+      </Table>
+      {
+        _.isEmpty(subscriptions) && !isFetching &&
+          <ResultsNotFound queryName={queryName} />
+      }
+      {renderPagination}
+      {renderLoader}
+    </Row>
+  )
 }
 
 Subscriptions.propTypes = {
-  subscription: PropTypes.array,
+  subscriptions: PropTypes.array,
   paginationItems: PropTypes.number,
   pageNum: PropTypes.number,
   isFetching: PropTypes.bool,
@@ -138,3 +134,5 @@ Subscriptions.propTypes = {
   resultCount: PropTypes.number,
   limit: PropTypes.number
 }
+
+export default Subscriptions

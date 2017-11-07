@@ -1,7 +1,8 @@
-import React, { PropTypes } from 'react';
-import Loading from 'react-loading';
-
-import User from './User';
+import React, { PropTypes } from 'react'
+import Loading from 'react-loading'
+import _ from 'underscore'
+import User from './User'
+import ResultsNotFound from 'routes/admin/Dashboard/components/resultsNotFound'
 import {
   Table,
   Label,
@@ -11,7 +12,7 @@ import {
   Col,
   SearchBar,
   FlashMessage
-} from 'components';
+} from 'components'
 
 const Users = (props) => {
   const {
@@ -93,7 +94,7 @@ const Users = (props) => {
           clearMessage={props.clearMessage}
         />
       </Col>
-      { renderSearch }
+      {renderSearch}
       <Table>
         <thead>
           <tr>
@@ -126,10 +127,14 @@ const Users = (props) => {
             </th>
           </tr>
         </thead>
-        { renderUsers }
+        {renderUsers}
       </Table>
-      { renderPagination }
-      { renderLoader }
+      {
+        _.isEmpty(users) && !isFetching &&
+          <ResultsNotFound queryName={queryName} />
+      }
+      {renderPagination}
+      {renderLoader}
     </Row>
   )
 }

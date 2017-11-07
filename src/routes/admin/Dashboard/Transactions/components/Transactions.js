@@ -1,22 +1,19 @@
-import React, { Component, PropTypes } from 'react';
-import Loading from 'react-loading';
-import { formatDate } from 'utils';
+import React from 'react'
+import PropTypes from 'prop-types'
+import _ from 'underscore'
 
-import Transaction from './Transaction';
-import RootModal from 'components/Modals';
+import Transaction from './Transaction'
+import ResultsNotFound from 'routes/admin/Dashboard/components/resultsNotFound'
+import RootModal from 'components/Modals'
 import {
   Table,
-  Label,
   Col,
-  Button,
   Row,
   Pagination,
   SearchBar,
-  Modal,
   FlashMessage,
-  Alert,
   Loader
-} from 'components';
+} from 'components'
 
 const Transactions = (props) => {
   const {
@@ -30,8 +27,7 @@ const Transactions = (props) => {
     limit,
     total,
     showModal,
-    hideModal,
-    errorMessage,
+    clearMessage,
     notification
   } = props
 
@@ -81,28 +77,13 @@ const Transactions = (props) => {
     </Col>
   )
 
-
-  const renderMessage = () => {
-    if(errorMessage || notification) {
-      let status;
-      let message;
-      errorMessage && (status = 'danger', message = errorMessage)
-      notification && (status = 'success', message = notification.message)
-
-      return  <Alert bsStyle={status}>
-        <i className="fa fa-fw text-danger m-r-1"></i>
-        {message}
-      </Alert>
-    }
-  }
-
   return (
     <Row>
       <FlashMessage
-        flashMessage={props.notification}
-        clearMessage={props.clearMessage}
+        flashMessage={notification}
+        clearMessage={clearMessage}
       />
-      { renderSearchBar }
+      {renderSearchBar}
       <Table>
         <thead>
           <tr>
@@ -144,18 +125,21 @@ const Transactions = (props) => {
             </th>
           </tr>
         </thead>
-        { renderTransactions }
+        {renderTransactions}
       </Table>
 
       <RootModal />
-
-      { renderPagination }
-      { renderLoader }
+      {
+        _.isEmpty(transactions) && !isFetching &&
+          <ResultsNotFound queryName={queryName} />
+      }
+      {renderPagination}
+      {renderLoader}
     </Row>
   )
 }
 
-Transactions.PropTypes = {
+Transactions.propTypes = {
   transactions: PropTypes.array,
   paginationItems: PropTypes.number,
   pageNum: PropTypes.number,
@@ -164,7 +148,12 @@ Transactions.PropTypes = {
   handleSearch: PropTypes.func,
   queryName: PropTypes.string,
   limit: PropTypes.number,
+  handleSeach: PropTypes.func,
+  showModal: PropTypes.func,
+  errorMessage: PropTypes.string,
+  notification: PropTypes.object,
+  clearMessage: PropTypes.func,
   total: PropTypes.number
 }
 
-export default Transactions;
+export default Transactions
