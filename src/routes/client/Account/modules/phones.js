@@ -34,18 +34,12 @@ export const receivePhonesFailure = error => (
 
 const reducer = (state = [], action) => {
   switch (action.type) {
-  case PHONES_SUCCESS:
-    return Object.assign({}, state, {
-      all: action.data
-    })
-  case PHONES_FAILURE:
-    return Object.assign({}, state, {
-      errorMessage: error.response.data.errorMessage
-    })
-  case USER_LOGOUT:
-    return []
-  default:
-    return state
+    case PHONES_SUCCESS:
+      return  action.data
+    case USER_LOGOUT:
+      return []
+    default:
+      return state
   }
   return state
 }
