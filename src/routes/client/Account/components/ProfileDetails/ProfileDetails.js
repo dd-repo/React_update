@@ -1,8 +1,9 @@
-import React, { PropTypes } from 'react';
-import { LinkContainer } from 'react-router-bootstrap';
+import React from 'react'
+import PropTypes from 'prop-types'
+import { LinkContainer } from 'react-router-bootstrap'
 
-import Documents from '../Documents';
-import getFullName from 'utils/fullName';
+import Documents from '../Documents'
+import getFullName from 'utils/fullName'
 import { normalizePhone } from 'utils/formHelpers'
 import {
     Panel,
@@ -12,25 +13,25 @@ import {
     Tab,
     Nav,
     AvatarImage,
-    Divider,
-} from 'components';
-import classes from './profileDetails.scss';
+    Divider
+} from 'components'
+import classes from './profileDetails.scss'
 
 const ProfileDetails = ({ profile, account, address, phone }) => {
   return (
     <Panel>
-      <div className={ classes.userDetails }>
+      <div className={classes.userDetails}>
         <Media>
           <Media.Left align='middle'>
             <AvatarImage
               size='large'
-              src={ profile.avatar }
+              src={profile.avatar}
             />
           </Media.Left>
           <Media.Body>
-            <div className={ classes.userPanelName }>
+            <div className={classes.userPanelName}>
               <h4>
-                { getFullName(account) }
+                {getFullName(account)}
               </h4>
             </div>
             <p>
@@ -44,34 +45,34 @@ const ProfileDetails = ({ profile, account, address, phone }) => {
                   <i className='fa fa-pencil'></i> Edit Profile
                 </Button>
               </LinkContainer>
-              { ' ' }
+              {' '}
             </div>
           </Media.Body>
         </Media>
 
         <Tabs defaultActiveKey='tab-1' className='m-t-3' id='user-panel-info'>
-          <Tab eventKey='tab-1' title='Profile Details' className={ classes.detailsTab }>
+          <Tab eventKey='tab-1' title='Profile Details' className={classes.detailsTab}>
             <Divider className='m-t-1'>
               Contact
             </Divider>
             <dl className={classes.horizontal}>
               <dt>First Name</dt>
               <dd className='text-white'>
-                { account.first_name }
+                {account.first_name}
               </dd>
               <dt>Last Name</dt>
               <dd className='text-white'>
-                { account.last_name }
+                {account.last_name}
               </dd>
               <dt>Email</dt>
               <dd>
                 <a href='javascript:void(0)'>
-                  { account.email }
+                  {account.email}
                 </a>
               </dd>
               <dt>Phone</dt>
               <dd className='text-white'>
-                { normalizePhone(phone.phone_number) }
+                {normalizePhone(phone.phone_number)}
               </dd>
             </dl>
 
@@ -81,19 +82,19 @@ const ProfileDetails = ({ profile, account, address, phone }) => {
             <dl className={classes.horizontal}>
               <dt>Street</dt>
               <dd className='text-white'>
-                { address.address1 }
+                {address.address1}
               </dd>
               <dt>City</dt>
               <dd className='text-white'>
-                { address.city }
+                {address.city}
               </dd>
               <dt>State</dt>
               <dd className='text-white'>
-                { address.state }
+                {address.state}
               </dd>
               <dt>Zip</dt>
               <dd className='text-white'>
-                { address.zip }
+                {address.zip}
               </dd>
             </dl>
           </Tab>
@@ -106,7 +107,7 @@ const ProfileDetails = ({ profile, account, address, phone }) => {
         </Tabs>
       </div>
     </Panel>
-  );
+  )
 }
 
 ProfileDetails.defaultProps = {
@@ -123,4 +124,4 @@ ProfileDetails.propTypes = {
   phone: PropTypes.object
 }
 
-export default ProfileDetails;
+export default ProfileDetails
