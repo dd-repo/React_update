@@ -1,5 +1,6 @@
 import React from 'react';
 import { Modal } from 'components';
+import { infosweepPhoneNumber, infosweepAddress } from 'consts/infosweepInfo'
 import { PaymentForm } from 'components/Forms';
 import classes from './paymentModal.scss';
 import { branch } from 'recompose';
@@ -40,7 +41,7 @@ const PaymentModal = props => {
         <p className="text-center text-gray-dark">
           <strong>InfoSweep </strong>
           <span className={classes.footerAddress}>
-            6312 S. Fiddlers Green Cir 550N Greenwood Village, CO 80111 USA. (844) 641-7829
+            {infosweepAddress} {infosweepPhoneNumber}
           </span>
         </p>
       </Modal.Footer>
