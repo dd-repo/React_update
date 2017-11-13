@@ -1,20 +1,20 @@
-import React from 'react';
-import _ from 'underscore';
-import { connect } from 'react-redux';
-import { Link } from 'react-router';
-import faker from 'faker';
-import { LinkContainer } from 'react-router-bootstrap';
-import Notifications from 'react-notification-system-redux';
+import React from 'react'
+import _ from 'underscore'
+import { connect } from 'react-redux'
+import { Link } from 'react-router'
+import faker from 'faker'
+import { LinkContainer } from 'react-router-bootstrap'
+import Notifications from 'react-notification-system-redux'
 
-import treeRandomizer from 'modules/treeRandomizer';
-import getLogoBySkin from './getLogoBySkin.js';
-import assignKeys, { findActiveNodes, CONFIGS } from './../../routes/routesStructure';
-import { removePersistedData } from 'localStorage';
-import { logout } from 'routes/auth/modules/auth';
+import treeRandomizer from 'modules/treeRandomizer'
+import getLogoBySkin from './getLogoBySkin.js'
+import assignKeys, { findActiveNodes, CONFIGS } from './../../routes/routesStructure'
+import { removePersistedData } from 'localStorage'
+import { logout } from 'routes/auth/modules/auth'
 
-import { Colors } from 'consts';
+import { Colors } from 'consts'
 import navbarLogo from 'static/logos/logo-dark-md.png'
-import { infosweepEmail, infosweepPhoneNumber } from 'consts/infosweepInfo';
+import { infosweepEmail, infosweepPhoneNumber } from 'consts/infosweepInfo'
 
 // Components
 import {
@@ -37,9 +37,9 @@ import {
     Footer,
     Button,
     Media
-} from 'components';
+} from 'components'
 
-import classes from './DefaultLayout.scss';
+import classes from './DefaultLayout.scss'
 
 // Redux Module imports
 import {
@@ -81,7 +81,7 @@ import {
     SCREEN_SIZE_MD,
     SCREEN_SIZE_SM,
     SCREEN_SIZE_XS
-} from './modules/layout.js';
+} from './modules/layout.js'
 
 // Sub Components
 import {
@@ -93,159 +93,158 @@ import {
     NotificationsDropdown,
     ContactDropdown,
     RightSidebarTabs
-} from './components';
+} from './components'
 
-//import rightSidebarDataRaw from 'consts/data/right-sidebar.json';
+// import rightSidebarDataRaw from 'consts/data/right-sidebar.json';
 
-const titleBase = 'InfoSweep ';
+const titleBase = 'InfoSweep '
 
 const sidebarAddOns = {
-    [SIDEBAR_ADDON_PROGRESS]: (props) => ( <SidebarAddOns.ProgressAddOn { ...props } /> ),
-    [SIDEBAR_ADDON_MENU]: (props) => ( <SidebarAddOns.MenuAddOn { ...props } /> ),
-    [SIDEBAR_ADDON_BARS]: (props) => ( <SidebarAddOns.BarsAddOn { ...props } /> ),
-    [SIDEBAR_ADDON_AVATAR_AND_BARS]: (props) => ( <SidebarAddOns.AvatarAndBarsAddOn { ...props } /> ),
-    [SIDEBAR_ADDON_AVATAR_AND_NUMBERS]: (props) => ( <SidebarAddOns.AvatarAndNumbersAddOn { ...props } /> ),
-    [SIDEBAR_ADDON_AVATAR_AND_STATS]: (props) => ( <SidebarAddOns.AvatarAndStatsAddOn { ...props } /> )
+  [SIDEBAR_ADDON_PROGRESS]: (props) => (<SidebarAddOns.ProgressAddOn {...props} />),
+  [SIDEBAR_ADDON_MENU]: (props) => (<SidebarAddOns.MenuAddOn {...props} />),
+  [SIDEBAR_ADDON_BARS]: (props) => (<SidebarAddOns.BarsAddOn {...props} />),
+  [SIDEBAR_ADDON_AVATAR_AND_BARS]: (props) => (<SidebarAddOns.AvatarAndBarsAddOn {...props} />),
+  [SIDEBAR_ADDON_AVATAR_AND_NUMBERS]: (props) => (<SidebarAddOns.AvatarAndNumbersAddOn {...props} />),
+  [SIDEBAR_ADDON_AVATAR_AND_STATS]: (props) => (<SidebarAddOns.AvatarAndStatsAddOn {...props} />)
 }
 
-//const rightSidebarData = treeRandomizer(rightSidebarDataRaw);
+// const rightSidebarData = treeRandomizer(rightSidebarDataRaw);
 
 let rightSidebarTriggerRef,
-    sidebarTriggerRef,
-    navbarTriggerRef;
+  sidebarTriggerRef,
+  navbarTriggerRef
 
 class DefaultLayout extends React.Component {
-    static propTypes = {
-        sidebarAddon: React.PropTypes.string
-    };
+  static propTypes = {
+    sidebarAddon: React.PropTypes.string
+  };
 
-    constructor(props, context) {
-        super(props, context);
-        this.state = { sidebarConfigs: this.setSidebarConfigs(this.props.currentUser.group) }
-        this.beforeSlimSidebarStyle = SIDEBAR_STYLE_DEFAULT;
-        this.handleLogout = this.handleLogout.bind(this);
-        this.setSidebarConfigs = this.setSidebarConfigs.bind(this);
+  constructor (props, context) {
+    super(props, context)
+    this.state = { sidebarConfigs: this.setSidebarConfigs(this.props.currentUser.group) }
+    this.beforeSlimSidebarStyle = SIDEBAR_STYLE_DEFAULT
+    this.handleLogout = this.handleLogout.bind(this)
+    this.setSidebarConfigs = this.setSidebarConfigs.bind(this)
+  }
+
+  setSidebarConfigs (group) {
+    return assignKeys(CONFIGS[group])
+  }
+
+  toggleSidebarSlim () {
+    const { sidebarStyle, setSidebarStyle } = this.props
+
+    if (sidebarStyle === SIDEBAR_STYLE_SLIM) {
+      setSidebarStyle(this.beforeSlimSidebarStyle)
+    } else {
+      this.beforeSlimSidebarStyle = sidebarStyle
+      setSidebarStyle(SIDEBAR_STYLE_SLIM)
     }
+  }
 
-    setSidebarConfigs(group) {
-      return assignKeys(CONFIGS[group])
+  componentDidMount () {
+    this.bodyElement = document.querySelector('body')
+  }
+
+  componentWillReceiveProps (nextProps) {
+    if (nextProps.currentUser.role !== this.props.currentUser.role) {
+      this.setState({ sidebarConfigs: this.setSidebarConfigs(nextProps.currentUser.group) })
     }
+  }
 
-    toggleSidebarSlim() {
-      const { sidebarStyle, setSidebarStyle } = this.props;
-
-      if(sidebarStyle === SIDEBAR_STYLE_SLIM) {
-        setSidebarStyle(this.beforeSlimSidebarStyle)
-      } else {
-        this.beforeSlimSidebarStyle = sidebarStyle;
-        setSidebarStyle(SIDEBAR_STYLE_SLIM);
-      }
-    }
-
-    componentDidMount() {
-        this.bodyElement = document.querySelector('body');
-    }
-
-    componentWillReceiveProps(nextProps) {
-      if(nextProps.currentUser.role !== this.props.currentUser.role) {
-        this.setState({ sidebarConfigs: this.setSidebarConfigs(nextProps.currentUser.group) })
-      }
-    }
-
-    componentDidUpdate(prevProps) {
+  componentDidUpdate (prevProps) {
         // Set Overflow: Hidden on body when overlay mode is enabled
-        this.bodyElement.style.overflow = (this.props.currentScreenSize === SCREEN_SIZE_XS &&
+    this.bodyElement.style.overflow = (this.props.currentScreenSize === SCREEN_SIZE_XS &&
             (
                 this.props.navbarExpanded ||
                 this.props.overlaySidebarOpen ||
                 this.props.rightSidebarEnabled
-            )) ? 'hidden' : 'auto';
+            )) ? 'hidden' : 'auto'
 
         // Update page title
-            const routes = assignKeys(CONFIGS['frontend'])
-            const activeRoute = _.first(findActiveNodes(routes, this.props.location.pathname));
-            activeRoute ?
+    const routes = assignKeys(CONFIGS['frontend'])
+    const activeRoute = _.first(findActiveNodes(routes, this.props.location.pathname))
+    activeRoute ?
               document.title = titleBase + activeRoute.title
                 :
                   document.title = titleBase
+  }
+
+  handleLogout () {
+    removePersistedData()
+    this.props.logout()
+  }
+
+  openFaqTab () {
+    window.open('https://www.infosweep.com/faq', '_blank')
+  }
+
+  render () {
+    const { role, group } = this.props.currentUser
+    const isLoggedIn = localStorage.getItem('isLoggedIn')
+    const isClient = role === 'client' && isLoggedIn
+    const isAdmin = group === 'backend' && isLoggedIn
+
+    const homeLink = () => {
+      if (isClient) { return '/dashboard' }
+      if (isAdmin) { return '/admin/dashboard' }
+      if (!isLoggedIn) { return '/login' }
     }
 
-    handleLogout() {
-      removePersistedData();
-      this.props.logout();
-    }
+    const fullName = `${this.props.currentUser.first_name} ${this.props.currentUser.last_name}`
 
+    const staticFootNavContainer =
+        !this.props.sidebarEnabled && this.props.contentView === CONTENT_VIEW_STATIC
 
-    openFaqTab() {
-      window.open('https://www.infosweep.com/faq', '_blank')
-    }
+        // const navbarLogo = getLogoBySkin.navbar(this.props.navbarSkin, this.props.skinColor),
+    const sidebarOverlayLogo = getLogoBySkin.sidebar(this.props.sidebarSkin, 'overlay', this.props.skinColor),
+      sidebarBigLogo = getLogoBySkin.sidebar(this.props.sidebarSkin, 'big', this.props.skinColor),
+      sidebarSlimLogo = getLogoBySkin.sidebar(this.props.sidebarSkin, 'slim', this.props.skinColor)
 
-    render() {
-      const { role, group } = this.props.currentUser
-      const isLoggedIn = localStorage.getItem('isLoggedIn')
-      const isClient = role === 'client' && isLoggedIn
-      const isAdmin = group === 'backend' && isLoggedIn
-
-      const homeLink = () => {
-        if(isClient){ return '/dashboard' }
-        if(isAdmin){ return '/admin/dashboard' }
-        if(!isLoggedIn){ return '/login' }
-      }
-
-      const fullName = `${this.props.currentUser.first_name} ${this.props.currentUser.last_name}`
-
-      const staticFootNavContainer =
-        !this.props.sidebarEnabled && this.props.contentView === CONTENT_VIEW_STATIC;
-
-        //const navbarLogo = getLogoBySkin.navbar(this.props.navbarSkin, this.props.skinColor),
-        const sidebarOverlayLogo = getLogoBySkin.sidebar(this.props.sidebarSkin, 'overlay', this.props.skinColor),
-          sidebarBigLogo = getLogoBySkin.sidebar(this.props.sidebarSkin, 'big', this.props.skinColor),
-            sidebarSlimLogo = getLogoBySkin.sidebar(this.props.sidebarSkin, 'slim', this.props.skinColor);
-
-        return (
+    return (
             <Layout
-                { ...this.props }
-                screenSizeChanged={
+              {...this.props}
+              screenSizeChanged={
                     newScreenSize => this.props.setCurrentScreenSize(newScreenSize)
                 }
             >
                 <Layout.Navigation>
                     <Navbar
-                        fluid={ !staticFootNavContainer }
-                        inverse
-                        componentClass='div'
-                        expanded={ this.props.navbarExpanded }
-                        onToggle={ () => { } }
+                      fluid={!staticFootNavContainer}
+                      inverse
+                      componentClass='div'
+                      expanded={this.props.navbarExpanded}
+                      onToggle={() => { }}
                     >
                         <Navbar.Header>
                             <Navbar.Brand>
                                 <Link to={homeLink()}>
-                                  <img src={ navbarLogo } className={ classes.navbarLogo } height={ 60 } alt="infosweep Dashboard" />
+                                  <img src={navbarLogo} className={classes.navbarLogo} height={60} alt="infosweep Dashboard" />
                                 </Link>
                             </Navbar.Brand>
 
-                            { /* Mobile Actions */ }
+                            {}
                             {
                                 this.props.currentScreenSize === SCREEN_SIZE_XS && isClient && (
                                     <div className='pull-right'>
                                         <button
-                                            className='btn btn-outline navbar-toggle'
-                                            onClick={ () => this.props.toggleRightSidebar(!this.props.rightSidebarEnabled) }
-                                            ref={ ref => { rightSidebarTriggerRef = ref } }
+                                          className='btn btn-outline navbar-toggle'
+                                          onClick={() => this.props.toggleRightSidebar(!this.props.rightSidebarEnabled)}
+                                          ref={ref => { rightSidebarTriggerRef = ref }}
                                         >
                                             <i className='fa fa-fw fa-align-right text-black'></i>
                                         </button>
                                         <button
-                                            className='btn btn-outline navbar-toggle'
-                                            onClick={ () => this.props.toggleNavbarExpanded(!this.props.navbarExpanded) }
-                                            ref={ ref => { navbarTriggerRef = ref } }
+                                          className='btn btn-outline navbar-toggle'
+                                          onClick={() => this.props.toggleNavbarExpanded(!this.props.navbarExpanded)}
+                                          ref={ref => { navbarTriggerRef = ref }}
                                         >
                                             <i className='fa fa-fw fa-user text-black'></i>
                                         </button>
                                         <button
-                                            className='btn btn-outline navbar-toggle'
-                                            onClick={ () => this.props.toggleOverlaySidebarOpen(!this.props.overlaySidebarOpen) }
-                                            ref={ ref => { sidebarTriggerRef = ref } }
+                                          className='btn btn-outline navbar-toggle'
+                                          onClick={() => this.props.toggleOverlaySidebarOpen(!this.props.overlaySidebarOpen)}
+                                          ref={ref => { sidebarTriggerRef = ref }}
                                         >
                                             <i className='fa fa-fw fa-bars text-black'></i>
                                         </button>
@@ -255,13 +254,13 @@ class DefaultLayout extends React.Component {
                         </Navbar.Header>
 
                         <OutsideClick
-                            onClickOutside={ () => {
-                                this.props.toggleNavbarExpanded(false);
-                            } }
-                            excludedElements={ [navbarTriggerRef] }
+                          onClickOutside={() => {
+                            this.props.toggleNavbarExpanded(false)
+                          }}
+                          excludedElements={[navbarTriggerRef]}
                         >
                             <Navbar.Collapse>
-                                { /* ============= Left Nav ============== */ }
+                                {}
                                 { /*
                                     !this.props.sidebarEnabled && (
                                         <Navbar.Menu currentPath={ this.props.location.pathname }>
@@ -304,36 +303,36 @@ class DefaultLayout extends React.Component {
                                     {
                                         this.props.sidebarEnabled && this.props.currentScreenSize !== SCREEN_SIZE_XS && (
                                             <NavItem
-                                                onClick={ () => this.toggleSidebarSlim() }
+                                              onClick={() => this.toggleSidebarSlim()}
                                             >
                                                 <i className="fa fa-lg fa-bars"></i>
                                             </NavItem>
                                         )
                                     }
-                                    { /*  <SearchBoxMobile /> */ }
+                                    {}
                                 </Nav>
 
-                                { /* ============= Right Nav ============== */ }
+                                {}
                                 <Nav pullRight>
                                   { /* isClient && (
                                     <NavItem>
                                     </NavItem>
                                     )
                                     */ }
-                                  { /* <ContactDropdown /> */ }
-                                  { /* <NotificationsDropdown /> */ }
-                                  { /*  <MessagesDropdown /> */ }
+                                  {}
+                                  {}
+                                  {}
                                   {
                                     isClient && (
                                       <NavDropdown
                                         title={
-                                          <div className={ classes.buttonUser }>
+                                          <div className={classes.buttonUser}>
                                             <span className="m-r-1 v-a-m">
-                                              { fullName }
+                                              {fullName}
                                             </span>
                                             <AvatarImage
                                               size='small'
-                                              src={ this.props.profile.avatar }
+                                              src={this.props.profile.avatar}
                                               style={{
                                                 width: '19px',
                                                 height: '19px'
@@ -341,8 +340,8 @@ class DefaultLayout extends React.Component {
                                             />
                                           </div>
                                           }
-                                          id="user-profile-dropdown"
-                                          eventKey={ 3 }
+                                        id="user-profile-dropdown"
+                                        eventKey={3}
                                         >
                                           <MenuItem
                                             header
@@ -352,7 +351,7 @@ class DefaultLayout extends React.Component {
                                               Account
                                             </strong>
                                           </MenuItem>
-                                          <MenuItem divider className='hidden-xs'/>
+                                          <MenuItem divider className='hidden-xs' />
                                           <LinkContainer to='/dashboard'>
                                             <MenuItem eventKey={3.1}>Home</MenuItem>
                                           </LinkContainer>
@@ -383,14 +382,14 @@ class DefaultLayout extends React.Component {
                                     isAdmin && (
                                       <NavDropdown
                                         title={
-                                          <div className={ classes.buttonUser }>
+                                          <div className={classes.buttonUser}>
                                             <span className="m-r-1 v-a-m">
-                                              { fullName }
+                                              {fullName}
                                             </span>
                                           </div>
                                           }
-                                          id="user-profile-dropdown"
-                                          eventKey={ 3 }
+                                        id="user-profile-dropdown"
+                                        eventKey={3}
                                         >
                                           <MenuItem
                                             header
@@ -400,7 +399,7 @@ class DefaultLayout extends React.Component {
                                               Account
                                             </strong>
                                           </MenuItem>
-                                          <MenuItem divider className='hidden-xs'/>
+                                          <MenuItem divider className='hidden-xs' />
                                           <LinkContainer to='/login'>
                                             <MenuItem onClick={this.handleLogout} eventKey={3.4}>Sign Out</MenuItem>
                                           </LinkContainer>
@@ -422,36 +421,36 @@ class DefaultLayout extends React.Component {
                     </Navbar>
 
                     <OutsideClick
-                      active={ this.props.currentScreenSize === SCREEN_SIZE_XS }
-                      onClickOutside={ () => { this.props.toggleOverlaySidebarOpen(false) } }
-                      excludedElements={ [sidebarTriggerRef] }
+                      active={this.props.currentScreenSize === SCREEN_SIZE_XS}
+                      onClickOutside={() => { this.props.toggleOverlaySidebarOpen(false) }}
+                      excludedElements={[sidebarTriggerRef]}
                     >
                       <Sidebar
                         className='p-b-3'
-                        affixOffset={ this.props.navbarEnabled ? 50 : 0 }
-                        overlay={ this.props.currentScreenSize === SCREEN_SIZE_XS }
-                        overlayVisible={ this.props.overlaySidebarOpen }
+                        affixOffset={this.props.navbarEnabled ? 50 : 0}
+                        overlay={this.props.currentScreenSize === SCREEN_SIZE_XS}
+                        overlayVisible={this.props.overlaySidebarOpen}
                         header={(
                           <div>
-                            <img src={ sidebarOverlayLogo } width={ 90 } alt="Logo" />
+                            <img src={sidebarOverlayLogo} width={90} alt="Logo" />
                             <a
                               href="javascript:void(0)"
                               className="sidebar-switch"
-                              onClick={ () => this.props.toggleOverlaySidebarOpen(false) }
+                              onClick={() => this.props.toggleOverlaySidebarOpen(false)}
                             >
                               <i className="fa fa-times"></i>
                             </a>
                           </div>
                           )}
                         >
-                          { /* Renders SidebarAddOn */ }
+                          {}
                           <SidebarAddOns.AvatarAndStatsAddOn
                             avatar={this.props.profile.avatar}
                             fullName={fullName}
                             colorSidebar={this.props.sidebarSkin === SKIN_COLOR}
                           />
                           <Sidebar.Menu
-                            currentUrl={ this.props.location.pathname }
+                            currentUrl={this.props.location.pathname}
                             sidebarConfigs={this.state.sidebarConfigs}
                           />
                         </Sidebar>
@@ -462,21 +461,21 @@ class DefaultLayout extends React.Component {
                     // RawContent - displays the content directly without the header nor container
                     this.props.rawContent ? (
                         <Layout.Content>
-                            { this.props.children }
+                            {this.props.children}
                         </Layout.Content>
                     ) : (
                     <Layout.Content
-                      style={ { paddingTop: !this.props.headerEnabled ? '19px' : '0' } }
+                      style={{ paddingTop: !this.props.headerEnabled ? '19px' : '0' }}
                     >
                             <Header
-                                style={ this.props.headerStyle }
-                                fluid={ this.props.contentView !== CONTENT_VIEW_STATIC }
-                                currentUrl={ this.props.location.pathname }
-                                sidebarConfigs={this.state.sidebarConfigs}
-                                currentUser={ this.props.currentUser }
+                              style={this.props.headerStyle}
+                              fluid={this.props.contentView !== CONTENT_VIEW_STATIC}
+                              currentUrl={this.props.location.pathname}
+                              sidebarConfigs={this.state.sidebarConfigs}
+                              currentUser={this.props.currentUser}
                             />
-                            <Grid fluid={ this.props.contentView !== CONTENT_VIEW_STATIC }>
-                                { this.props.children }
+                            <Grid fluid={this.props.contentView !== CONTENT_VIEW_STATIC}>
+                                {this.props.children}
                             </Grid>
                         </Layout.Content>
                     )
@@ -553,9 +552,9 @@ class DefaultLayout extends React.Component {
                 </OutsideClick>
                 */ }
 
-                { /* right sidebar <LayoutOptions /> */ }
+                {}
 
-                <Footer fluid={ !staticFootNavContainer }>
+                <Footer fluid={!staticFootNavContainer}>
                     <p className="text-gray-dark pull-right">
                       <span className="text-gray-dark p-r-1"><strong className="m-r-1">Need Help?</strong></span>
                       <i className="fa fa-phone m-r-1" aria-hidden="true"></i>
@@ -564,59 +563,61 @@ class DefaultLayout extends React.Component {
                       </span>
                       <i className="fa fa-envelope m-r-1" aria-hidden="true"></i>
                       <span className='m-r-3'>
-                        { infosweepEmail }
+                        {infosweepEmail}
                       </span>
                     </p>
                     <p className='text-center'>
                     </p>
                     <p className="text-gray-dark">
-                      © 2017 <strong>infosweep </strong>
-                      <span className={classes.footerAddress}>Denver, CO 80206, USA. All rights reserved.</span>
+                      © 2017 <strong>InfoSweep </strong>
+                      <span className={classes.footerAddress}>
+                        6312 S. Fiddlers Green Cir 550N Greenwood Village, CO 80111 USA. All rights reserved.
+                      </span>
                     </p>
                   </Footer>
 
                 <Notifications
-                    notifications={ this.props.notifications }
+                  notifications={this.props.notifications}
                 />
             </Layout>
         )
-    };
+  };
 }
 
 const mapStateToProps = (state) => ({
-    navbarEnabled: state.layout.navbarEnabled,
-    navbarFixed: state.layout.navbarFixed,
-    navbarExpanded: state.layout.navbarExpanded,
-    navbarSkin: state.layout.navbarSkin,
-    sidebarEnabled: state.layout.sidebarEnabled,
-    sidebarStyle: state.layout.sidebarStyle,
-    sidebarFixed: state.layout.sidebarFixed,
-    sidebarAside: state.layout.sidebarAside,
-    sidebarAddon: state.layout.sidebarAddon,
-    sidebarSkin: state.layout.sidebarSkin,
-    overlaySidebarOpen: state.layout.overlaySidebarOpen,
-    contentView: state.layout.contentView,
-    footerEnabled: state.layout.footerEnabled,
-    footerFixed: state.layout.footerFixed,
-    rightSidebarEnabled: state.layout.rightSidebarEnabled,
-    headerStyle: state.layout.headerStyle,
-    headerEnabled: state.layout.headerEnabled,
-    currentScreenSize: state.layout.currentScreenSize,
-    skinColor: state.layout.skinColor,
-    rawContent: state.layout.rawContent,
-    notifications: state.notifications,
-    currentUser: state.currentUser,
-    profile: state.account.profile,
-});
+  navbarEnabled: state.layout.navbarEnabled,
+  navbarFixed: state.layout.navbarFixed,
+  navbarExpanded: state.layout.navbarExpanded,
+  navbarSkin: state.layout.navbarSkin,
+  sidebarEnabled: state.layout.sidebarEnabled,
+  sidebarStyle: state.layout.sidebarStyle,
+  sidebarFixed: state.layout.sidebarFixed,
+  sidebarAside: state.layout.sidebarAside,
+  sidebarAddon: state.layout.sidebarAddon,
+  sidebarSkin: state.layout.sidebarSkin,
+  overlaySidebarOpen: state.layout.overlaySidebarOpen,
+  contentView: state.layout.contentView,
+  footerEnabled: state.layout.footerEnabled,
+  footerFixed: state.layout.footerFixed,
+  rightSidebarEnabled: state.layout.rightSidebarEnabled,
+  headerStyle: state.layout.headerStyle,
+  headerEnabled: state.layout.headerEnabled,
+  currentScreenSize: state.layout.currentScreenSize,
+  skinColor: state.layout.skinColor,
+  rawContent: state.layout.rawContent,
+  notifications: state.notifications,
+  currentUser: state.currentUser,
+  profile: state.account.profile
+})
 
 const mapActionCreators = {
-    setSidebarStyle,
-    toggleRightSidebar,
-    toggleOverlaySidebarOpen,
-    toggleNavbarExpanded,
-    setCurrentScreenSize,
-    changeSidebarAddOn,
-    logout
-};
+  setSidebarStyle,
+  toggleRightSidebar,
+  toggleOverlaySidebarOpen,
+  toggleNavbarExpanded,
+  setCurrentScreenSize,
+  changeSidebarAddOn,
+  logout
+}
 
-export default connect(mapStateToProps, mapActionCreators)(DefaultLayout);
+export default connect(mapStateToProps, mapActionCreators)(DefaultLayout)

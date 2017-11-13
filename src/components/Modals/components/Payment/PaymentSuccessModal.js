@@ -1,15 +1,15 @@
-import React from 'react';
-import classes from './paymentModal.scss';
+import React from 'react'
+import classes from './paymentModal.scss'
 import {
   Button,
   Row,
   Modal,
   Col
-} from 'components';
+} from 'components'
 
 const PaymentSuccess = props => (
   <Modal
-    show={true}
+    show
     onHide={props.hideModal}
   >
     <Modal.Header closeButton>
@@ -17,7 +17,7 @@ const PaymentSuccess = props => (
     </Modal.Header>
     <Modal.Body>
       <Row className='text-center'>
-        <Col lg={ 12 }>
+        <Col lg={12}>
           <br />
           <h2 className={classes.successHeader}>
             Success
@@ -32,6 +32,14 @@ const PaymentSuccess = props => (
         </Col>
       </Row>
     </Modal.Body>
+    <Modal.Footer>
+      <p className="text-center text-gray-dark">
+        <strong>InfoSweep </strong>
+        <span className={classes.footerAddress}>
+          6312 S. Fiddlers Green Cir 550N Greenwood Village, CO 80111 USA. (844) 641-7829
+        </span>
+      </p>
+    </Modal.Footer>
   </Modal>
 )
 
