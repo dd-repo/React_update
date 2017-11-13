@@ -2,11 +2,10 @@ import React from 'react'
 import _ from 'underscore'
 import { connect } from 'react-redux'
 import { Link } from 'react-router'
-import faker from 'faker'
 import { LinkContainer } from 'react-router-bootstrap'
 import Notifications from 'react-notification-system-redux'
+import classNames from 'classnames'
 
-import treeRandomizer from 'modules/treeRandomizer'
 import getLogoBySkin from './getLogoBySkin.js'
 import assignKeys, { findActiveNodes, CONFIGS } from './../../routes/routesStructure'
 import { removePersistedData } from 'localStorage'
@@ -14,7 +13,11 @@ import { logout } from 'routes/auth/modules/auth'
 
 import { Colors } from 'consts'
 import navbarLogo from 'static/logos/logo-dark-md.png'
-import { infosweepEmail, infosweepPhoneNumber } from 'consts/infosweepInfo'
+import {
+  infosweepEmail,
+  infosweepPhoneNumber,
+  infosweepAddress
+} from 'consts/infosweepInfo'
 
 // Components
 import {
@@ -164,10 +167,9 @@ class DefaultLayout extends React.Component {
         // Update page title
     const routes = assignKeys(CONFIGS['frontend'])
     const activeRoute = _.first(findActiveNodes(routes, this.props.location.pathname))
-    activeRoute ?
-              document.title = titleBase + activeRoute.title
-                :
-                  document.title = titleBase
+    activeRoute
+      ? document.title = titleBase + activeRoute.title
+      : document.title = titleBase
   }
 
   handleLogout () {
@@ -200,6 +202,12 @@ class DefaultLayout extends React.Component {
     const sidebarOverlayLogo = getLogoBySkin.sidebar(this.props.sidebarSkin, 'overlay', this.props.skinColor),
       sidebarBigLogo = getLogoBySkin.sidebar(this.props.sidebarSkin, 'big', this.props.skinColor),
       sidebarSlimLogo = getLogoBySkin.sidebar(this.props.sidebarSkin, 'slim', this.props.skinColor)
+
+    const footerAddressClass = this.props.currentScreenSize !== SCREEN_SIZE_XS &&
+      classNames(`${classes.footerAddress}`)
+
+    const footerClass = this.props.currentScreenSize === SCREEN_SIZE_XS &&
+      classNames(`${classes.footerSmall}`)
 
     return (
             <Layout
@@ -554,24 +562,26 @@ class DefaultLayout extends React.Component {
 
                 {}
 
-                <Footer fluid={!staticFootNavContainer}>
+                <Footer fluid={!staticFootNavContainer} className={footerClass}>
+                  { this.props.currentScreenSize !== SCREEN_SIZE_XS &&
                     <p className="text-gray-dark pull-right">
                       <span className="text-gray-dark p-r-1"><strong className="m-r-1">Need Help?</strong></span>
                       <i className="fa fa-phone m-r-1" aria-hidden="true"></i>
                       <span className='m-r-1'>
-                        (844) 641-7829
+                        {infosweepPhoneNumber}
                       </span>
                       <i className="fa fa-envelope m-r-1" aria-hidden="true"></i>
                       <span className='m-r-3'>
                         {infosweepEmail}
                       </span>
                     </p>
+                  }
                     <p className='text-center'>
                     </p>
                     <p className="text-gray-dark">
                       © 2017 <strong>InfoSweep </strong>
-                      <span className={classes.footerAddress}>
-                        6312 S. Fiddlers Green Cir 550N Greenwood Village, CO 80111 USA. All rights reserved.
+                      <span className={footerAddressClass}>
+                        {infosweepAddress} USA. All rights reserved.
                       </span>
                     </p>
                   </Footer>
