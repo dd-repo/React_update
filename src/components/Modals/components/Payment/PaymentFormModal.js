@@ -36,6 +36,14 @@ const PaymentModal = props => {
           planPrice={props.planPrice}
         />
       </Modal.Body>
+      <Modal.Footer>
+        <p className="text-center text-gray-dark">
+          <strong>InfoSweep </strong>
+          <span className={classes.footerAddress}>
+            6312 S. Fiddlers Green Cir 550N Greenwood Village, CO 80111 USA. (844) 641-7829
+          </span>
+        </p>
+      </Modal.Footer>
     </Modal>
   )
 }
