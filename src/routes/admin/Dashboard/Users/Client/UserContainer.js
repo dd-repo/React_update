@@ -1,30 +1,28 @@
-import React from 'react';
-import infosweepApi from 'services/infosweepApi';
+import React from 'react'
+import infosweepApi from 'services/infosweepApi'
 
-import { RoutedComponent, connect } from 'routes/routedComponent';
-import { CONTENT_VIEW_FLUID } from 'layouts/DefaultLayout/modules/layout';
-import { showModal, hideModal } from 'modules/modal';
-import Client from './components/Client';
-import { fetchUser } from './modules/details';
-import { fetchAccount } from './modules/account';
-import { fetchCards } from './modules/cards';
-import { resetUserPassword } from 'routes/auth/modules/auth';
-import { formatDate } from 'utils';
-import { normalizePhone } from 'utils/formHelpers';
-import { clearNotification } from './modules/notifications';
-import { USERS_REQUEST } from 'routes/admin/Dashboard/Users/modules/users';
-import { submitKeyword } from 'routes/admin/Dashboard/Users/Client/modules/keywords';
+import { RoutedComponent, connect } from 'routes/routedComponent'
+import { CONTENT_VIEW_FLUID } from 'layouts/DefaultLayout/modules/layout'
+import { showModal, hideModal } from 'modules/modal'
+import Client from './components/Client'
+import { fetchUser } from './modules/details'
+import { fetchAccount } from './modules/account'
+import { fetchCards } from './modules/cards'
+import { resetUserPassword } from 'routes/auth/modules/auth'
+import { clearNotification } from './modules/notifications'
+import { USERS_REQUEST } from 'routes/admin/Dashboard/Users/modules/users'
+import { submitKeyword } from 'routes/admin/Dashboard/Users/Client/modules/keywords'
 
 class UserContainer extends RoutedComponent {
-  constructor(props) {
+  constructor (props) {
     super(props)
 
-    this.fetchAccount = this.fetchAccount.bind(this);
-    this.handlePasswordReset = this.handlePasswordReset.bind(this);
-    this.handleNewSubscription = this.handleNewSubscription.bind(this);
+    this.fetchAccount = this.fetchAccount.bind(this)
+    this.handlePasswordReset = this.handlePasswordReset.bind(this)
+    this.handleNewSubscription = this.handleNewSubscription.bind(this)
   }
 
-  getLayoutOptions() {
+  getLayoutOptions () {
     return {
       contentView: CONTENT_VIEW_FLUID,
       sidebarEnabled: true,
@@ -34,43 +32,43 @@ class UserContainer extends RoutedComponent {
     }
   }
 
-  componentWillReceiveProps(nextProps) {
-    if(nextProps.client.notifications !== this.props.client.notifications) {
-      window.scrollTo(0,0)
+  componentWillReceiveProps (nextProps) {
+    if (nextProps.client.notifications !== this.props.client.notifications) {
+      window.scrollTo(0, 0)
     }
   }
 
-  componentWillMount() {
+  componentWillMount () {
     this.props.fetchUser(this.props.params)
-    .then( res => this.fetchAccountAndCards(res.data))
+    .then(res => this.fetchAccountAndCards(res.data))
   }
 
-  componentWillUnmount() {
+  componentWillUnmount () {
     this.props.clearNotification()
   }
 
-  fetchAccountAndCards(client) {
+  fetchAccountAndCards (client) {
     this.props.fetchAccount(client.accounts[0].id)
     this.props.fetchCards(client.id)
   }
 
-  fetchAccount(id) {
+  fetchAccount (id) {
     this.props.fetchAccount(id)
   }
 
-  handlePasswordReset() {
+  handlePasswordReset () {
     const payload = { email: this.props.client.details.email }
     this.props.resetUserPassword(payload)
   }
 
-  handleNewSubscription() {
+  handleNewSubscription () {
     this.fetchAdmin()
     .then(
           res => {
             this.props.showModal(
               'CREATE_SUBSCRIPTION',
               res.data
-            )}
+            ) }
     )
   }
 
@@ -79,27 +77,26 @@ class UserContainer extends RoutedComponent {
     this.props.submitKeyword(keyword, this.props.client.account.id)
   }
 
-  fetchAdmin() {
+  fetchAdmin () {
     const params = {
       q: { group_eq: 'backend' }
     }
     return infosweepApi.get(USERS_REQUEST, params)
   }
 
-
-  render() {
+  render () {
     return (
-        <Client
-          client={this.props.client}
-          isFetching={this.props.isFetching}
-          fetchAccount={this.fetchAccount}
-          showModal={this.props.showModal}
-          handlePasswordReset={this.handlePasswordReset}
-          clearMessage={this.props.clearNotification}
-          notification={this.props.client.notifications}
-          handleNewSubscription={this.handleNewSubscription}
-          handleKeywordSubmit={this.handleKeywordSubmit}
-        />
+      <Client
+        client={this.props.client}
+        isFetching={this.props.isFetching}
+        fetchAccount={this.fetchAccount}
+        showModal={this.props.showModal}
+        handlePasswordReset={this.handlePasswordReset}
+        clearMessage={this.props.clearNotification}
+        notification={this.props.client.notifications}
+        handleNewSubscription={this.handleNewSubscription}
+        handleKeywordSubmit={this.handleKeywordSubmit}
+      />
     )
   }
 }
@@ -119,4 +116,4 @@ const mapActionCreators = {
   submitKeyword,
   clearNotification
 }
-export default connect(mapStateToProps, mapActionCreators)(UserContainer);
+export default connect(mapStateToProps, mapActionCreators)(UserContainer)

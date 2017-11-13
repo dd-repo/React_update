@@ -1,16 +1,14 @@
-import React from 'react';
+import React from 'react'
+import PropTypes from 'prop-types'
 import {
   Panel,
   Table,
-  Label,
   Button
-} from 'components';
+} from 'components'
 
-import { formatDate } from 'utils';
-import classes from '../user.scss';
+import { formatDate } from 'utils'
 
 const Cards = ({ cards, showModal }) => {
-
   const _onClick = () => {
     showModal('CARD')
   }
@@ -22,91 +20,89 @@ const Cards = ({ cards, showModal }) => {
           <h4 className='panel-title'>
             Cards
           </h4>
+          <Button
+            onClick={_onClick}
+            bsSize='small'
+            bsStyle='success'
+          >
+            Add Card <i className='fa fa-plus'></i>
+          </Button>
         </span>
+      }
+    >
+      <Table responsive>
+        <thead>
+          <tr>
+            <th>
+              id
+            </th>
+            <th>
+              third party id
+            </th>
+            <th>
+              Card holder name
+            </th>
+            <th>
+              card month
+            </th>
+            <th>
+              card year
+            </th>
+            <th>
+              last 4
+            </th>
+            <th>
+              source
+            </th>
+            <th>
+              updated
+            </th>
+          </tr>
+        </thead>
+        {
+          cards.map(cards => {
+            return renderCards(cards)
+          })
         }
-      >
-        <Button
-          onClick={_onClick}
-          className='pull-right'
-          bsSize='small'
-          bsStyle='success'
-        >
-          Add Card <i className='fa fa-plus'></i>
-        </Button>
-        <Table>
-          <thead>
-            <tr>
-              <th>
-                id
-              </th>
-              <th>
-                third party id
-              </th>
-              <th>
-                Card holder name
-              </th>
-              <th>
-                card month
-              </th>
-              <th>
-                card year
-              </th>
-              <th>
-                last 4
-              </th>
-              <th>
-                source
-              </th>
-              <th>
-                updated
-              </th>
-            </tr>
-          </thead>
-          {
-            cards.map(cards => {
-              return renderCards(cards)
-            })
-          }
-        </Table>
-      </Panel>
+      </Table>
+    </Panel>
   )
 }
-
 
 const renderCards = card => (
   <tbody key={card.id}>
     <tr className='bg-gray-darker'>
       <td>
-        { card.id }
+        {card.id}
       </td>
       <td>
-        { card.third_party_id }
+        {card.third_party_id}
       </td>
       <td>
-        { card.card_holder_name }
+        {card.card_holder_name}
       </td>
       <td>
-        { card.card_month }
+        {card.card_month}
       </td>
       <td>
-        { card.card_year }
+        {card.card_year}
       </td>
       <td>
-        { card.last_4 }
+        {card.last_4}
       </td>
       <td>
-        { card.source }
+        {card.source}
       </td>
       <td>
-        { formatDate(card.updated_at) }
+        {formatDate(card.updated_at)}
       </td>
     </tr>
   </tbody>
 )
 
-const STYLE = {
-  'completed': 'success',
-  'refunded':  'warning',
-  'declined':  'danger'
+Cards.propTypes = {
+  cards: PropTypes.array,
+  showModal: PropTypes.func
 }
-export default Cards;
+
+export default Cards
