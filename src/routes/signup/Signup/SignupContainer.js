@@ -63,7 +63,7 @@ class SignupContainer extends RoutedComponent {
         phone_number: user.phoneNumber,
         password: user.password,
         phone_type: 'mobile',
-        plan: 'individual'
+        plan: 'trial'
       }
     }
   }
