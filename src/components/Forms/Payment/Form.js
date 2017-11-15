@@ -1,9 +1,10 @@
-import React, { PropTypes } from 'react';
-import { Field, reduxForm } from 'redux-form';
-import { formatPrice } from 'utils';
+import React from 'react'
+import PropTypes from 'prop-types'
+import { reduxForm } from 'redux-form'
+import { formatPrice } from 'utils'
 
-import formFields from 'consts/formFields';
-import { checkValidation } from 'utils/formHelpers';
+import formFields from 'consts/formFields'
+import { checkValidation } from 'utils/formHelpers'
 import {
   ReduxFormInput,
   ReduxFormSelect
@@ -15,8 +16,8 @@ import {
   Alert,
   Label,
   Divider
-} from 'components';
-import classes from './paymentForm.scss';
+} from 'components'
+import classes from './paymentForm.scss'
 
 const validate = values => {
   return checkValidation(values, formFields)
@@ -28,17 +29,13 @@ let PaymentForm = (props) => {
     errorMessage,
     planPrice,
     handleSubmit,
-    invalid,
     submitting,
     isFetching
   } = props
 
-  const renderButtonLabel = (
-    isFetching ?
-      "Submitting Subscription..."
-        :
-          props.buttonLabel
-  )
+  const renderButtonLabel = isFetching
+    ? 'Submitting Subscription...'
+    : props.buttonLabel
 
   const renderErrorMessage = (
     errorMessage &&
@@ -48,110 +45,118 @@ let PaymentForm = (props) => {
       </Alert>
   )
 
-  return(
+  return (
     <form
       onSubmit={handleSubmit(submitForm)}>
       <Row>
-        { renderErrorMessage }
+        {renderErrorMessage}
         <div className='text-center'>
           <div>
-            <p className={ classes.price }>
-              { formatPrice(planPrice) }
+            <p className={classes.price}>
+              {formatPrice(planPrice)}
             </p>
             <p>
               / Month
             </p>
+            <Label bsStyle='danger' className='m-t-1' outline>
+              First Month Free
+            </Label>
           </div>
         </div>
-          <Divider className='m-l-2'>
-            Credit Card
-          </Divider>
+        <Divider className='m-l-2'>
+          Credit Card
+        </Divider>
 
-          <FormGroup controlId='formSizingColumn'>
-            <Col lg={12}>
-              <div className='m-b-1 text-center'>
-                <h5 className={ classes.paymentIcons }>
-                  Accepted Cards
-                </h5>
-                <div>
-                  <i className="fa fa-fw fa-cc-visa fa-2x m-r-1 text-white"></i>
-                  <i className="fa fa-fw fa-cc-mastercard fa-2x m-r-1 text-white"></i>
-                  <i className="fa fa-fw fa-cc-discover fa-2x m-r-1 text-white"></i>
-                  <i className="fa fa-fw fa-cc-amex fa-2x m-r-1 text-white"></i>
-                </div>
+        <FormGroup controlId='formSizingColumn'>
+          <Col lg={12}>
+            <div className='m-b-1 text-center'>
+              <h5 className={classes.paymentIcons}>
+                Accepted Cards
+              </h5>
+              <div>
+                <i className="fa fa-fw fa-cc-visa fa-2x m-r-1 text-white"></i>
+                <i className="fa fa-fw fa-cc-mastercard fa-2x m-r-1 text-white"></i>
+                <i className="fa fa-fw fa-cc-discover fa-2x m-r-1 text-white"></i>
+                <i className="fa fa-fw fa-cc-amex fa-2x m-r-1 text-white"></i>
               </div>
-              <Row>
-                <Col sm={6}>
-                  <ReduxFormInput field={formFields.fullName} />
-                </Col>
-                <Col sm={6}>
-                  <ReduxFormInput field={formFields.creditCardNumber} />
-                </Col>
-              </Row>
-            </Col>
-          </FormGroup>
-          <FormGroup controlId='formSizingColumn'>
-            <Col lg={12}>
-              <Row>
-                <Col sm={6}>
-                  <label>
-                    Expiration
-                  </label>
-                  <div className={ classes.inlineInputs }>
-                    <ReduxFormSelect field={formFields.expirationMonth} />
-                    <ReduxFormSelect field={formFields.expirationYear} />
-                  </div>
-                </Col>
-                <Col sm={6}>
-                  <ReduxFormInput field={formFields.cvCode} />
-                </Col>
-              </Row>
-            </Col>
-          </FormGroup>
-        </Row>
-        <Row>
-          <Divider className='m-l-2'>
-            Billing Address
-          </Divider>
-          <FormGroup controlId='formSizingColumn'>
-            <Col lg={12}>
-              <Row>
-                <Col sm={8}>
-                  <ReduxFormInput field={formFields.address} />
-                </Col>
-                <Col sm={4}>
-                  <ReduxFormInput field={formFields.city} />
-                </Col>
-              </Row>
-            </Col>
-          </FormGroup>
-          <FormGroup controlId='formSizingColumn'>
-            <Col lg={12}>
-              <Row>
-                <Col sm={6}>
-                  <ReduxFormInput field={formFields.zipcode} />
-                </Col>
-                <Col sm={6}>
-                  <label>
-                    State
-                  </label>
-                  <ReduxFormSelect field={formFields.state} />
-                </Col>
-              </Row>
-            </Col>
-          </FormGroup>
-        </Row>
-        <button className="full-width btn btn-success m-t-2"
-          disabled={submitting}
-          action="submit">
-          { renderButtonLabel }
-        </button>
-      </form>
+            </div>
+            <Row>
+              <Col sm={6}>
+                <ReduxFormInput field={formFields.fullName} />
+              </Col>
+              <Col sm={6}>
+                <ReduxFormInput field={formFields.creditCardNumber} />
+              </Col>
+            </Row>
+          </Col>
+        </FormGroup>
+        <FormGroup controlId='formSizingColumn'>
+          <Col lg={12}>
+            <Row>
+              <Col sm={6}>
+                <label>
+                  Expiration
+                </label>
+                <div className={classes.inlineInputs}>
+                  <ReduxFormSelect field={formFields.expirationMonth} />
+                  <ReduxFormSelect field={formFields.expirationYear} />
+                </div>
+              </Col>
+              <Col sm={6}>
+                <ReduxFormInput field={formFields.cvCode} />
+              </Col>
+            </Row>
+          </Col>
+        </FormGroup>
+      </Row>
+      <Row>
+        <Divider className='m-l-2'>
+          Billing Address
+        </Divider>
+        <FormGroup controlId='formSizingColumn'>
+          <Col lg={12}>
+            <Row>
+              <Col sm={8}>
+                <ReduxFormInput field={formFields.address} />
+              </Col>
+              <Col sm={4}>
+                <ReduxFormInput field={formFields.city} />
+              </Col>
+            </Row>
+          </Col>
+        </FormGroup>
+        <FormGroup controlId='formSizingColumn'>
+          <Col lg={12}>
+            <Row>
+              <Col sm={6}>
+                <ReduxFormInput field={formFields.zipcode} />
+              </Col>
+              <Col sm={6}>
+                <label>
+                  State
+                </label>
+                <ReduxFormSelect field={formFields.state} />
+              </Col>
+            </Row>
+          </Col>
+        </FormGroup>
+      </Row>
+      <button className="full-width btn btn-success m-t-2"
+        disabled={submitting}
+        action="submit">
+        {renderButtonLabel}
+      </button>
+    </form>
   )
 }
 
 PaymentForm.propTypes = {
-  submitForm: PropTypes.func
+  submitForm: PropTypes.func,
+  errorMessage: PropTypes.string,
+  planPrice: PropTypes.string,
+  handleSubmit: PropTypes.func,
+  submitting: PropTypes.bool,
+  isFetching: PropTypes.bool
 }
 
 PaymentForm.defaultProps = {
@@ -162,6 +167,6 @@ PaymentForm.defaultProps = {
 PaymentForm = reduxForm({
   form: 'payment',  // a unique identifier for this form
   validate                // <--- validation function given to redux-form
-})(PaymentForm);
+})(PaymentForm)
 
-export default PaymentForm;
+export default PaymentForm

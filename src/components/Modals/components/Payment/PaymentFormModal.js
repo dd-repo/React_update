@@ -1,13 +1,11 @@
-import React from 'react';
-import { Modal } from 'components';
+import React from 'react'
+import { Modal } from 'components'
 import { infosweepPhoneNumber, infosweepAddress } from 'consts/infosweepInfo'
-import { PaymentForm } from 'components/Forms';
-import classes from './paymentModal.scss';
-import { branch } from 'recompose';
-import Loading from 'react-loading';
+import { PaymentForm } from 'components/Forms'
+import classes from './paymentModal.scss'
+import Loading from 'react-loading'
 
 const PaymentModal = props => {
-
   const renderLoader = (
     props.isFetching &&
       <div className='container'>
@@ -21,10 +19,10 @@ const PaymentModal = props => {
 
   return (
     <Modal
-      show={true}
+      show
       onHide={props.hideModal}
     >
-      { renderLoader }
+      {renderLoader}
       <Modal.Header closeButton>
         <Modal.Title>Payment Details</Modal.Title>
       </Modal.Header>
@@ -49,5 +47,5 @@ const PaymentModal = props => {
   )
 }
 
-export default PaymentModal;
+export default PaymentModal
 
