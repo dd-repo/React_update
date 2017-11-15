@@ -80,7 +80,7 @@ class SignupContainer extends RoutedComponent {
       city: values.city,
       state: values.state.value,
       zip: values.zipcode,
-      plan: 'individual'
+      plan: 'trial'
     }
   }
 
