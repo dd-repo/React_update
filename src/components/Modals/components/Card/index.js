@@ -1,41 +1,21 @@
-import React, { PropTypes } from 'react';
-import { connect } from 'react-redux';
-import { reduxForm, Field } from 'redux-form';
-import { buildCreditCardParams } from 'utils/paramsHelper';
+import React from 'react'
+import { connect } from 'react-redux'
+import { buildCreditCardParams } from 'utils/paramsHelper'
 
-import { PaymentForm } from 'components/Forms';
-import { addCard, ADD_CARD_SUCCESS } from 'routes/admin/Dashboard/Users/Client/modules/cards';
-import {
-    Col,
-    Modal,
-    Form,
-    FormGroup,
-    FormControl,
-    ControlLabel,
-    Button,
-    Alert
-} from 'components';
-
-const renderInput = ({ input, type }) => {
-  return (
-    <FormControl
-      {...input}
-      type={type}
-    />
-  )
-}
+import { PaymentForm } from 'components/Forms'
+import { addCard, ADD_CARD_SUCCESS } from 'routes/admin/Dashboard/Users/Client/modules/cards'
+import { Modal, Alert } from 'components'
 
 const CardModal = props => {
-
   const _onSubmit = (data) => {
     props.dispatch(addCard(buildCreditCardParams(data), props.user.id))
-    .then( res => handleResponse(res))
+    .then(res => handleResponse(res))
   }
 
   const handleResponse = res => {
-    switch(res.type) {
-     case ADD_CARD_SUCCESS:
-       props.hideModal()
+    switch (res.type) {
+    case ADD_CARD_SUCCESS:
+      props.hideModal()
     }
   }
 
@@ -47,21 +27,21 @@ const CardModal = props => {
   )
 
   return (
-      <Modal show={true} onHide={props.hideModal}>
-        <Modal.Header closeButton>
-          <Modal.Title>
-            { 'Add Card ' }
-          </Modal.Title>
-          { renderAlertMessage }
-        </Modal.Header>
-        <Modal.Body>
-          <PaymentForm
-            submitForm={_onSubmit}
-            buttonLabel='Add Card'
-          />
-        </Modal.Body>
-      </Modal>
-  );
+    <Modal show onHide={props.hideModal}>
+      <Modal.Header closeButton>
+        <Modal.Title>
+          {'Add Card '}
+        </Modal.Title>
+        {renderAlertMessage}
+      </Modal.Header>
+      <Modal.Body>
+        <PaymentForm
+          submitForm={_onSubmit}
+          buttonLabel='Add Card'
+        />
+      </Modal.Body>
+    </Modal>
+  )
 }
 
-export default connect()(CardModal);
+export default connect()(CardModal)

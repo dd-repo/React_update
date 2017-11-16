@@ -1,20 +1,20 @@
-import infosweepApi from 'services/infosweepApi';
-import { ACCOUNT_SUCCESS } from './account';
-import { buildAddressParams } from 'utils/paramsHelper';
+import infosweepApi from 'services/infosweepApi'
+import { ACCOUNT_SUCCESS } from './account'
+import { buildAddressParams } from 'utils/paramsHelper'
 
-export const UPDATE_ADDRESS_SUCCESS = 'UPDATE_ADDRESS_SUCCESS';
-export const UPDATE_ADDRESS_FAILURE = 'UPDATE_ADDRESS_FAILURE';
-export const CREATE_ADDRESS_SUCCESS = 'CREATE_ADDRESS_SUCCESS';
-export const CREATE_ADDRESS_FAILURE = 'CREATE_ADDRESS_FAILURE';
+export const UPDATE_ADDRESS_SUCCESS = 'UPDATE_ADDRESS_SUCCESS'
+export const UPDATE_ADDRESS_FAILURE = 'UPDATE_ADDRESS_FAILURE'
+export const CREATE_ADDRESS_SUCCESS = 'CREATE_ADDRESS_SUCCESS'
+export const CREATE_ADDRESS_FAILURE = 'CREATE_ADDRESS_FAILURE'
 
-export const ADDRESS_REQUEST = '/admin/api/addresses';
+export const ADDRESS_REQUEST = '/admin/api/addresses'
 
 export const updateAddress = address => {
   const payload = { address: buildAddressParams(address) }
   return dispatch => {
     return infosweepApi.patch(`${ADDRESS_REQUEST}/${address.id}`, payload)
-    .then( response => dispatch(updateAddressSuccess(response.data)))
-    .catch( error => dispatch(updateAddressFailure(error)))
+    .then(response => dispatch(updateAddressSuccess(response.data)))
+    .catch(error => dispatch(updateAddressFailure(error)))
   }
 }
 
@@ -22,8 +22,8 @@ export const createAddress = address => {
   const payload = { address: buildAddressParams(address) }
   return dispatch => {
     return infosweepApi.post(ADDRESS_REQUEST, payload)
-    .then( response => dispatch(createAddressSuccess(response.data)))
-    .catch( error => dispatch(createAddressFailure(error)))
+    .then(response => dispatch(createAddressSuccess(response.data)))
+    .catch(error => dispatch(createAddressFailure(error)))
   }
 }
 
@@ -63,19 +63,19 @@ const insertAddress = (state, address) => {
     ...state.slice(index + 1)
   ]
 }
-const reducer = (state=[], action) => {
-  switch(action.type) {
-    case ACCOUNT_SUCCESS:
-      return action.data.addresses
-    case UPDATE_ADDRESS_SUCCESS:
-      return insertAddress(state, action.data)
-    case CREATE_ADDRESS_SUCCESS:
-      return [
-        action.data,
-        ...state
-      ]
-    default:
-      return state
+const reducer = (state = [], action) => {
+  switch (action.type) {
+  case ACCOUNT_SUCCESS:
+    return action.data.addresses
+  case UPDATE_ADDRESS_SUCCESS:
+    return insertAddress(state, action.data)
+  case CREATE_ADDRESS_SUCCESS:
+    return [
+      action.data,
+      ...state
+    ]
+  default:
+    return state
   }
   return state
 }

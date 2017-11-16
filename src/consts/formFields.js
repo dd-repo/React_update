@@ -190,7 +190,13 @@ const fields = {
   },
   plan: {
     name: 'plan',
-    list: [{value: 'individual', label: 'individual'}, {value: '6-months', label: '6-months'}, {value: '1-year', label: '1-year' }, {value: 'testing', label: 'testing'}]
+    list: [
+      {value: 'individual', label: 'individual'},
+      {value: 'trial', label: 'trial (first month free)'},
+      {value: '6-months', label: '6-months'},
+      {value: '1-year', label: '1-year' },
+      {value: 'testing', label: 'testing'}
+    ]
   },
   status: {
     name: 'is_active',

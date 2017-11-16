@@ -12,7 +12,7 @@ export const buildCreditCardParams = card => (
   }
 )
 
-const sanitizeNums = value => {
+export const sanitizeNums = value => {
   return value.replace(/[^\d]/gi, '')
 }
 
