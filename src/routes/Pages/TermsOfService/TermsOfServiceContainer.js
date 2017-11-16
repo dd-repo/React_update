@@ -1,13 +1,13 @@
-import React from 'react';
-import { RoutedComponent, connect } from 'routes/routedComponent';
-import TOS from './TermsOfService';
-import { CONTENT_VIEW_FLUID } from 'layouts/DefaultLayout/modules/layout';
+import React from 'react'
+import { RoutedComponent, connect } from 'routes/routedComponent'
+import TOS from './TermsOfService'
+import { CONTENT_VIEW_FLUID } from 'layouts/DefaultLayout/modules/layout'
 import {
     Row,
     Col,
     Panel,
     Button
-} from 'components';
+} from 'components'
 
 class TermsOfServiceContainer extends RoutedComponent {
 
@@ -15,7 +15,7 @@ class TermsOfServiceContainer extends RoutedComponent {
     router: React.PropTypes.object.isRequired
   }
 
-  getLayoutOptions() {
+  getLayoutOptions () {
     return {
       contentView: CONTENT_VIEW_FLUID,
       navbarEnabled: true,
@@ -25,20 +25,20 @@ class TermsOfServiceContainer extends RoutedComponent {
     }
   }
 
-  render() {
+  render () {
     return (
       <Row>
-        <Col lg={ 12 }>
+        <Col lg={12}>
           <Row>
-            <Col md={ 2 }>
+            <Col md={2}>
             </Col>
-            <Col md={ 8 }>
+            <Col md={8}>
               <Panel
                 header={(
                   <div>Our Terms Of Service</div>
                   )}
                 footer={(
-                    <Button onClick={ () => this.context.router.goBack() }>
+                    <Button onClick={() => this.context.router.goBack()}>
                       <i className='fa fa-angle-left m-r-1'></i>
                       Back
                     </Button>
@@ -56,4 +56,4 @@ class TermsOfServiceContainer extends RoutedComponent {
   }
 }
 
-export default connect()(TermsOfServiceContainer);
+export default connect()(TermsOfServiceContainer)

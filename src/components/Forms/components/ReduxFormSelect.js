@@ -1,11 +1,7 @@
-import React, { PropTypes } from 'react';
-import Select from 'react-select';
+import React, { PropTypes } from 'react'
+import Select from 'react-select'
 
-import { Field } from 'redux-form';
-import {
-  FormGroup,
-  FormControl
-} from 'components'
+import { Field } from 'redux-form'
 
 const ReduxFormSelect = ({ field, searchable, clearable }) => {
   const {
@@ -50,18 +46,18 @@ const renderSelect = props => {
     )
 
   return (
-    <div style={{width:'100%'}}>
+    <div style={{width: '100%'}}>
       <Select
         options={list}
         value={value}
         placeholder={placeholder}
-        onBlur={() => onBlur(value)}
-        onChange={ val => onChange(val)}
+        inputProps={{readOnly: true}}
+        onChange={val => onChange(val)}
         name={name}
         searchable={searchable}
         clearable={clearable}
       />
-      { message }
+      {message}
     </div>
   )
 }
@@ -76,4 +72,4 @@ ReduxFormSelect.propTypes = {
   field: PropTypes.object.isRequired
 }
 
-export default ReduxFormSelect;
+export default ReduxFormSelect

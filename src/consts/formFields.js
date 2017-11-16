@@ -117,6 +117,7 @@ const fields = {
   },
   state: {
     name: 'state',
+    type: 'select',
     placeHolder: 'Select State...',
     errorMessage: 'Please select a State',
     list: states
