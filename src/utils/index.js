@@ -1,16 +1,16 @@
-import capitalize   from './capitalize';
-import formatPrice  from './formatPrice';
+import capitalize from './capitalize'
+import formatPrice from './formatPrice'
 import {
   formatDate,
   addDays,
   getNumberOfDays
-} from './dateHelper';
-import formHelpers   from './formHelpers';
-import fullName     from './fullName';
-import imageHelper  from './imageHelper';
-import paramsHelper from './paramsHelper';
-import formatCreditCard from './formatCreditCard';
-import createNotification from './createNotification';
+} from './dateHelper'
+import formHelpers from './formHelpers'
+import fullName from './fullName'
+import imageHelper from './imageHelper'
+import { sanitizeNums } from './paramsHelper'
+import formatCreditCard from './formatCreditCard'
+import createNotification from './createNotification'
 
 export {
   capitalize,
@@ -22,6 +22,6 @@ export {
   fullName,
   imageHelper,
   formatCreditCard,
-  paramsHelper,
+  sanitizeNums,
   createNotification
 }

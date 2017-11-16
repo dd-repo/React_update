@@ -1,23 +1,24 @@
-import React from 'react';
-import ClientRegistration from './components/ClientRegistration';
-import { reset } from 'redux-form';
+import React from 'react'
+import ClientRegistration from './components/ClientRegistration'
+import { reset } from 'redux-form'
 
-import { RoutedComponent, connect } from 'routes/routedComponent';
-import { CONTENT_VIEW_STATIC } from 'layouts/DefaultLayout/modules/layout';
-import infosweepApi from 'services/infosweepApi';
+import { RoutedComponent, connect } from 'routes/routedComponent'
+import { CONTENT_VIEW_STATIC } from 'layouts/DefaultLayout/modules/layout'
+import infosweepApi from 'services/infosweepApi'
+import { sanitizeNums } from 'utils'
 
-const CLIENT_SIGNUP_REQUEST = '/admin/api/signup';
+const CLIENT_SIGNUP_REQUEST = '/admin/api/signup'
 
 class ClientRegistrationContainer extends RoutedComponent {
-  constructor(props) {
+  constructor (props) {
     super(props)
 
     this.state = {isFetching: false}
 
-    this.submitForm = this.submitForm.bind(this);
-    this.resetForm = this.resetForm.bind(this);
-    this.handleSuccess = this.handleSuccess.bind(this);
-    this.handleFailure = this.handleFailure.bind(this);
+    this.submitForm = this.submitForm.bind(this)
+    this.resetForm = this.resetForm.bind(this)
+    this.handleSuccess = this.handleSuccess.bind(this)
+    this.handleFailure = this.handleFailure.bind(this)
   }
 
   static contextTypes = {
@@ -25,7 +26,7 @@ class ClientRegistrationContainer extends RoutedComponent {
     store: React.PropTypes.object.isRequired
   }
 
-  getLayoutOptions() {
+  getLayoutOptions () {
     return {
       contentView: CONTENT_VIEW_STATIC,
       sidebarEnabled: true,
@@ -35,13 +36,13 @@ class ClientRegistrationContainer extends RoutedComponent {
     }
   }
 
-  componentWillUpdate(nextProps, nextState) {
-    if(nextState.notification !== this.state.notification) {
-      window.scrollTo(0,0)
+  componentWillUpdate (nextProps, nextState) {
+    if (nextState.notification !== this.state.notification) {
+      window.scrollTo(0, 0)
     }
   }
 
-  submitForm(user) {
+  submitForm (user) {
     const payload = this.buildParams(user)
     this.setState({isFetching: true})
     infosweepApi.post(CLIENT_SIGNUP_REQUEST, payload)
@@ -49,7 +50,7 @@ class ClientRegistrationContainer extends RoutedComponent {
     .catch(error => { this.handleFailure(error) })
   }
 
-  handleSuccess() {
+  handleSuccess () {
     this.setState({
       isFetching: false,
       notification: {
@@ -57,35 +58,27 @@ class ClientRegistrationContainer extends RoutedComponent {
         status: 'success'
       }
     })
-    this.resetForm();
+    this.resetForm()
     setTimeout(() => {
-      this.setState({notification: null});
+      this.setState({notification: null})
     }, 5000)
   }
 
-  handleFailure(error) {
+  handleFailure (error) {
     this.setState({isFetching: false})
     this.setState({
       notification:
-        {
-          message: error.response.data.message,
-          status: 'danger'
-        }})
+      {
+        message: error.response.data.message,
+        status: 'danger'
+      }})
   }
 
-  resetForm() {
-    this.context.store.dispatch(reset('ClientRegistrationForm'));
+  resetForm () {
+    this.context.store.dispatch(reset('ClientRegistrationForm'))
   }
 
-  sanitizeNums(value) {
-    return value.replace(/[^\d]/gi, '')
-  }
-
-  fullName(first, last) {
-    return `${first} ${last}`
-  }
-
-  buildParams(user) {
+  buildParams (user) {
     return {
       signup: {
         first_name: user.firstName,
@@ -95,7 +88,7 @@ class ClientRegistrationContainer extends RoutedComponent {
         phone_type: 'home',
         plan: user.plan.value.toLowerCase(),
         card_holder_name: user.fullName,
-        card_number: this.sanitizeNums(user.creditCardNumber),
+        card_number: sanitizeNums(user.creditCardNumber),
         card_month: user.expirationMonth.value,
         card_year: user.expirationYear.value,
         card_cvc: user.cvCode,
@@ -115,7 +108,7 @@ class ClientRegistrationContainer extends RoutedComponent {
     }
   }
 
-  render() {
+  render () {
     return (
       <ClientRegistration
         submitForm={this.submitForm}
@@ -134,4 +127,4 @@ const mapActionCreators = {
   reset
 }
 
-export default connect(mapStateToProps, mapActionCreators)(ClientRegistrationContainer);
+export default connect(mapStateToProps, mapActionCreators)(ClientRegistrationContainer)

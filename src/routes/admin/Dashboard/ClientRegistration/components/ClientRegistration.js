@@ -1,57 +1,56 @@
-import React, { PropTypes } from 'react';
-import { Link } from 'react-router';
+import React from 'react'
+import PropTypes from 'prop-types'
+import { Link } from 'react-router'
 
-import ClientRegistrationForm from './ClientRegistrationForm';
-import logo from 'static/logos/logo-white-sm.png';
-import classes from './clientRegistration.scss';
+import ClientRegistrationForm from './ClientRegistrationForm'
+import classes from './clientRegistration.scss'
 import {
-    Row,
-    Col,
-    Panel,
-    Button,
-    Alert
-} from 'components';
+  Row,
+  Col,
+  Panel,
+  Alert
+} from 'components'
 
 const ClientRegistration = ({ notification, submitForm, isFetching }) => {
-
   const renderMessage = notification &&
     <Alert bsStyle={notification.status}>
-      { notification.message }
+      {notification.message}
     </Alert>
 
-  return (
-    <Row>
-      <Col lg={ 12 }>
+    return (
+      <Row>
+        <Col lg={12}>
           {renderMessage}
-        <Row>
-          <Col className={ classes.centerCol } lg={ 9 }>
-            <Panel
-              className={ classes.registerPanel }
-              header={(
-                <Link to='#' className={ classes.toHomeLink }>
-                  <h2 className={ classes.panelHeader }>
-                    Client Registration Form
-                  </h2>
-                </Link>
+          <Row>
+            <Col className={classes.centerCol} lg={9}>
+              <Panel
+                className={classes.registerPanel}
+                header={(
+                  <Link to='#' className={classes.toHomeLink}>
+                    <h2 className={classes.panelHeader}>
+                      Client Registration Form
+                    </h2>
+                  </Link>
                 )}
-                >
+              >
 
-                  <ClientRegistrationForm
-                    submitForm={submitForm}
-                    isFetching={isFetching}
-                  />
+              <ClientRegistrationForm
+                submitForm={submitForm}
+                isFetching={isFetching}
+              />
 
-                </Panel>
-              </Col>
-            </Row>
-          </Col>
-        </Row>
-  )
+          </Panel>
+        </Col>
+      </Row>
+    </Col>
+  </Row>
+    )
 }
 
 ClientRegistration.propTypes = {
   submitForm: PropTypes.func.isRequired,
-  errorMessage: PropTypes.string
+  notification: PropTypes.object,
+  isFetching: PropTypes.bool
 }
 
-export default ClientRegistration;
+export default ClientRegistration
