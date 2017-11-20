@@ -1,4 +1,4 @@
-import states from 'consts/states';
+import states from 'consts/states'
 import {
   onlyNums,
   checkValidation,
@@ -7,7 +7,7 @@ import {
   normalizeCreditCard,
   normalizeExDate,
   normalizeNums
-} from 'utils/formHelpers';
+} from 'utils/formHelpers'
 
 const fields = {
   firstName: {
@@ -15,21 +15,21 @@ const fields = {
     type: 'text',
     label: 'First Name',
     errorMessage: 'Please enter your First Name',
-    placeHolder: 'Enter your first name...',
+    placeHolder: 'Enter your first name...'
   },
   lastName: {
     name: 'lastName',
     type: 'text',
     label: 'Last Name',
     errorMessage: 'Please enter your Last Name',
-    placeHolder: 'Enter your last name',
+    placeHolder: 'Enter your last name'
   },
   email: {
     name: 'email',
     type: 'email',
     label: 'Email',
     errorMessage: 'Please enter your Email Address',
-    placeHolder: 'Enter your email...',
+    placeHolder: 'Enter your email...'
   },
   password: {
     name: 'password',
@@ -37,14 +37,14 @@ const fields = {
     label: 'Password',
     errorMessage: 'Please enter a Password',
     placeHolder: 'Enter a password...',
-    maxLength: '25',
+    maxLength: '25'
   },
   passwordConfirmation: {
     name: 'passwordConfirmation',
     type: 'password',
     label: 'Password Confirmation',
     errorMessage: 'Please confirm your Password',
-    placeHolder: 'Re-enter password...',
+    placeHolder: 'Re-enter password...'
   },
   phoneNumber: {
     name: 'phoneNumber',
@@ -65,7 +65,7 @@ const fields = {
     type: 'text',
     placeHolder: 'Enter Name On Card...',
     errorMessage: 'Please enter the full name...',
-    label: 'Name on Card',
+    label: 'Name on Card'
   },
   creditCardNumber: {
     name: 'creditCardNumber',
@@ -80,10 +80,10 @@ const fields = {
     type: 'select',
     label: 'Expiration',
     placeHolder: 'Select Month...',
-    list: Array.from((function*(){
-      for(let i = 1; i <= 12; i++)
-      yield { value: i, label: i };
-    }) ()),
+    list: Array.from((function*() {
+      for (let i = 1; i <= 12; i++)
+        yield { value: i, label: i }
+    })()),
     errorMessage: 'Please enter Expiration Month',
     normalize: normalizeExDate
   },
@@ -92,12 +92,12 @@ const fields = {
     type: 'select',
     placeHolder: 'Select Year...',
     errorMessage: 'Please enter Expiration Year',
-    list: Array.from((function*(){
-      for(let i = 0; i < 10; i++) {
+    list: Array.from((function*() {
+      for (let i = 0; i < 10; i++) {
         let date = new Date().getFullYear() + i
-        yield {value: date, label: date};
+        yield {value: date, label: date}
       }
-    }) ())
+    })())
   },
   cvCode: {
     name: 'cvCode',
@@ -192,10 +192,11 @@ const fields = {
   plan: {
     name: 'plan',
     list: [
-      {value: 'individual', label: 'individual'},
+      {value: 'individual', label: 'individual $39'},
+      {value: 'legacy', label: 'legacy $29'},
       {value: 'trial', label: 'trial (first month free)'},
       {value: '6-months', label: '6-months'},
-      {value: '1-year', label: '1-year' },
+      {value: '1-year', label: '1-year'},
       {value: 'testing', label: 'testing'}
     ]
   },
@@ -209,12 +210,12 @@ const fields = {
   role: {
     name: 'role',
     list: [
-      { label: 'user', value: 'user'},
-      { label: 'manager', value: 'manager'},
-      { label: 'admin', value: 'admin'},
-      { label: 'super admin', value: 'super_admin'},
+      {label: 'user', value: 'user'},
+      {label: 'manager', value: 'manager'},
+      {label: 'admin', value: 'admin'},
+      {label: 'super admin', value: 'super_admin'}
     ]
   }
 }
 
-export default fields;
+export default fields

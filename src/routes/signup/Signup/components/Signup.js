@@ -17,6 +17,7 @@ const Signup = props => {
     errorMessage,
     passwordErrorMsg,
     submitForm,
+    scrollTop,
     showModal
   } = props
 
@@ -58,6 +59,7 @@ const Signup = props => {
                 submitForm={submitForm}
                 passwordErrorMsg={passwordErrorMsg}
                 showModal={showModal}
+                scrollTop={scrollTop}
               />
 
             </Panel>
@@ -73,7 +75,8 @@ Signup.propTypes = {
   passwordErrorMsg: PropTypes.string,
   showModal: PropTypes.func.isRequired,
   submitForm: PropTypes.func.isRequired,
-  errorMessage: PropTypes.string
+  errorMessage: PropTypes.string,
+  scrollTop: PropTypes.func
 }
 
 export default Signup

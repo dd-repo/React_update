@@ -1,34 +1,34 @@
-import React, { Component, PropTypes } from 'react';
-import { connect } from 'react-redux';
-import scrollToComponent from 'react-scroll-to-component';
-import classnames from 'classnames';
-import { info, removeAll } from 'react-notification-system-redux';
+import React, { Component, PropTypes } from 'react'
+import { connect } from 'react-redux'
+import scrollToComponent from 'react-scroll-to-component'
+import classnames from 'classnames'
+import { info, removeAll } from 'react-notification-system-redux'
 
-import RequestedRemovals from 'routes/client/Monitoring/components/MonitoringRequests';
-import InProgress from './InProgress';
-import InQueue from './InQueue/InQueue';
-import PrivacyRemovals from './PrivacyRemovals/PrivacyRemovals';
-import CompletedRemovals from './CompletedRemovals';
-import Documents from 'routes/client/Account/components/Documents';
-import { requestRemoval } from 'routes/client/Monitoring/modules/monitoring';
-import { updateAccountNotificationStatus } from 'routes/client/Account/modules/notifications';
-import DashboardPopover from '../DashboardPopover';
-import classes from '../dashboard.scss';
+import RequestedRemovals from 'routes/client/Monitoring/components/MonitoringRequests'
+import InProgress from './InProgress'
+import InQueue from './InQueue/InQueue'
+import PrivacyRemovals from './PrivacyRemovals/PrivacyRemovals'
+import CompletedRemovals from './CompletedRemovals'
+import Documents from 'routes/client/Account/components/Documents'
+import { requestRemoval } from 'routes/client/Monitoring/modules/monitoring'
+import { updateAccountNotificationStatus } from 'routes/client/Account/modules/notifications'
+import DashboardPopover from '../DashboardPopover'
+import classes from '../dashboard.scss'
 import {
   SCREEN_SIZE_LG,
   SCREEN_SIZE_MD,
   SCREEN_SIZE_SM,
   SCREEN_SIZE_XS
-} from 'layouts/DefaultLayout/modules/layout';
+} from 'layouts/DefaultLayout/modules/layout'
 import {
     Tabs,
     Tab,
     Nav,
     NavItem,
     ScrollBarContainer
-} from 'components';
+} from 'components'
 
-const description = "This is a list of sites which are notorious for spreading your private information around the web. You can request removal of your information from any or all of these sites. As soon as you click “Request Removal,” your request will enter your queue, and our team of experts will get to work protecting your privacy."
+const description = 'This is a list of sites which are notorious for spreading your private information around the web. You can request removal of your information from any or all of these sites. As soon as you click “Request Removal,” your request will enter your queue, and our team of experts will get to work protecting your privacy.'
 
 const driverLicensePopoverConfigs = {
   description: 'To upload you driver license drag n drop your image or simply click browse',
@@ -38,43 +38,43 @@ const driverLicensePopoverConfigs = {
 }
 
 class Privacy extends Component {
-  constructor(props) {
+  constructor (props) {
     super(props)
     this.state = {activeTab: 'potentialThreats'}
   }
 
-  componentDidMount() {
+  componentDidMount () {
     this.props.inProgress.length > 0 &&
       this.setState({activeTab: 'inProgress'})
     this.props.driverLicenseNotification && this.props.driverLicenseNotification.is_active &&
       this.createNotification()
   }
 
-  componentWillReceiveProps(nextProps) {
-    nextProps.active && this.handleScroll()
+  componentWillReceiveProps (nextProps) {
+    nextProps.configs.active && this.handleScroll()
   }
 
-  componentWillUnmount() {
+  componentWillUnmount () {
     this.props.removeAll()
   }
 
   handleScroll = () => {
-    switch(this.props.screenSize) {
-      case SCREEN_SIZE_XS:
-        scrollToComponent(this.nodeRef, { offset: -350, align:'top', duration: 1000})
-        break;
-      case SCREEN_SIZE_SM:
-        scrollToComponent(this.nodeRef, { offset: 0, align:'middle', duration: 1000})
-        break;
-      case SCREEN_SIZE_MD:
-        scrollToComponent(this.nodeRef, { offset: 200, align:'bottom', duration: 1000})
-        break;
+    switch (this.props.screenSize) {
+    case SCREEN_SIZE_XS:
+      scrollToComponent(this.nodeRef, { offset: -350, align: 'top', duration: 1000})
+      break
+    case SCREEN_SIZE_SM:
+      scrollToComponent(this.nodeRef, { offset: 0, align: 'middle', duration: 1000})
+      break
+    case SCREEN_SIZE_MD:
+      scrollToComponent(this.nodeRef, { offset: 200, align: 'bottom', duration: 1000})
+      break
     }
   }
 
   handleNotificationAction = () => {
     this.props.updateAccountNotificationStatus(this.props.driverLicenseNotification.id)
-    this.setState({ activeTab: 'documents', configs: driverLicensePopoverConfigs,  popoverActive: true })
+    this.setState({ activeTab: 'documents', configs: driverLicensePopoverConfigs, popoverActive: true })
     this.handleScroll()
   }
 
@@ -99,7 +99,7 @@ class Privacy extends Component {
   }
 
   renderPopover = () => {
-    if(this.state.popoverActive) {
+    if (this.state.popoverActive) {
       return <DashboardPopover
         active={this.state.popoverActive}
         configs={this.state.configs}
@@ -113,7 +113,7 @@ class Privacy extends Component {
     this.props.requestRemoval(removalId)
   }
 
-  render() {
+  render () {
     const {
       tutorialIsActive,
       configs,
@@ -128,14 +128,14 @@ class Privacy extends Component {
 
     return (
       <div className={highlightStyles}
-        ref={ node => this.nodeRef = node }
+        ref={node => this.nodeRef = node}
       >
-        { this.renderPopover() }
+        {this.renderPopover()}
         <Tab.Container
           id="profile-tabs"
           activeKey={this.state.activeTab}
           defaultActiveKey={this.state.activeTab}
-          onSelect={(activeTab) => { this.setState({activeTab})}}
+          onSelect={(activeTab) => { this.setState({activeTab}) }}
         >
           <div>
             <Nav bsStyle='tabs'>
@@ -151,7 +151,7 @@ class Privacy extends Component {
               <NavItem eventKey='completed'>
                 Total Removals
               </NavItem>
-              <NavItem ref={ ref => this.documentsRef = ref } eventKey='documents'>
+              <NavItem ref={ref => this.documentsRef = ref} eventKey='documents'>
                 Documents
               </NavItem>
             </Nav>
@@ -183,7 +183,7 @@ class Privacy extends Component {
           </div>
         </Tab.Container>
       </div>
-    );
+    )
   };
 }
 
@@ -199,7 +199,7 @@ Privacy.propTypes = {
 }
 
 const mapStateToProps = (state) => ({
-  driverLicenseNotification: state.account.notifications.request_upload_driver_license,
+  driverLicenseNotification: state.account.notifications.request_upload_driver_license
 })
 
 const mapActionCreators = ({
@@ -209,5 +209,4 @@ const mapActionCreators = ({
   updateAccountNotificationStatus
 })
 
-
-export default connect(mapStateToProps, mapActionCreators)(Privacy);
+export default connect(mapStateToProps, mapActionCreators)(Privacy)

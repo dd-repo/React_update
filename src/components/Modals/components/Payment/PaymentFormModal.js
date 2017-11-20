@@ -33,6 +33,7 @@ const PaymentModal = props => {
           paymentSuccess={props.paymentSuccess}
           isFetching={props.isFetching}
           planPrice={props.planPrice}
+          scrollTop={props.scrollTop}
         />
       </Modal.Body>
       <Modal.Footer>

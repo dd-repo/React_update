@@ -74,11 +74,16 @@ let SignupForm = props => {
     invalid,
     submitting,
     passwordErrorMsg,
+    scrollTop,
     showModal
   } = props
 
   const _onClick = e => {
     showModal(e.target.name)
+  }
+
+  const _onButtonClick = () => {
+    invalid && scrollTop()
   }
 
   return (
@@ -97,7 +102,8 @@ let SignupForm = props => {
 
       <button
         className='full-width btn btn-primary m-b-2'
-        disabled={invalid || submitting}
+        disabled={submitting}
+        onClick={_onButtonClick}
         action="submit"
       >
         Register
@@ -112,6 +118,7 @@ SignupForm.propTypes = {
   submitting: PropTypes.bool,
   passwordErrorMsg: PropTypes.string,
   showModal: PropTypes.func,
+  scrollTop: PropTypes.func,
   submitForm: PropTypes.func.isRequired
 }
 
