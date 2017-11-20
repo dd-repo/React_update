@@ -1,7 +1,7 @@
-import React, { Component, PropTypes } from 'react';
-import ReactDOM from 'react-dom';
-import faker from 'faker';
-import scrollToComponent from 'react-scroll-to-component';
+import React, { Component, PropTypes } from 'react'
+import ReactDOM from 'react-dom'
+import faker from 'faker'
+import scrollToComponent from 'react-scroll-to-component'
 import classnames from 'classnames'
 
 import {
@@ -9,7 +9,7 @@ import {
   SCREEN_SIZE_MD,
   SCREEN_SIZE_SM,
   SCREEN_SIZE_XS
-} from 'layouts/DefaultLayout/modules/layout';
+} from 'layouts/DefaultLayout/modules/layout'
 import {
   Row,
   Panel,
@@ -21,34 +21,34 @@ import {
   ListGroupItem,
   Overlay,
   Popover,
-  Tooltip,
-} from 'components';
+  Tooltip
+} from 'components'
 
-import { Colors } from 'consts';
-import classes from '../dashboard.scss';
+import { Colors } from 'consts'
+import classes from '../dashboard.scss'
 
-let buttonRef = {};
+let buttonRef = {}
 
-const description = "Each of these phrases represents a Google search. You can edit these phrases as you see fit. We recommend that you use one phrase containing your full name, and one containing your address for the most complete privacy coverage. Other popular options include your maiden name or your name and age."
+const description = 'Each of these phrases represents a Google search. You can edit these phrases as you see fit. We recommend that you use one phrase containing your full name, and one containing your address for the most complete privacy coverage. Other popular options include your maiden name or your name and age.'
 
 class KeywordSummary extends Component {
 
-  componentWillReceiveProps(nextProps) {
-    if(nextProps.active) {
-      switch(this.props.screenSize) {
-        case SCREEN_SIZE_XS:
-          scrollToComponent(this.nodeRef, {offset: 0, align: 'bottom', duration: 1000})
-          break;
-        case SCREEN_SIZE_SM:
-          scrollToComponent(this.nodeRef, {offset: 0, align: 'bottom', duration: 1000})
-          break;
-        default:
-          scrollToComponent(this.nodeRef)
+  componentWillReceiveProps (nextProps) {
+    if (nextProps.active) {
+      switch (this.props.screenSize) {
+      case SCREEN_SIZE_XS:
+        scrollToComponent(this.nodeRef, {offset: 0, align: 'bottom', duration: 1000})
+        break
+      case SCREEN_SIZE_SM:
+        scrollToComponent(this.nodeRef, {offset: 0, align: 'bottom', duration: 1000})
+        break
+      default:
+        scrollToComponent(this.nodeRef)
       }
     }
   }
 
-  render() {
+  render () {
     const {
       tutorialIsActive,
       configs,
@@ -61,7 +61,7 @@ class KeywordSummary extends Component {
 
     return (
       <ListGroup
-        ref={ node => this.nodeRef = node }
+        ref={node => this.nodeRef = node}
         className={highlightStyles}
       >
         <ListGroupItem className='text-white' style={{background: Colors.brandPrimary}}>
@@ -70,7 +70,7 @@ class KeywordSummary extends Component {
             placement='left'
             overlay={(
               <Tooltip id='searchPhraseDescription'>
-                { configs.description || '' }
+                {configs.description || ''}
               </Tooltip>
               )}
             >
@@ -83,10 +83,10 @@ class KeywordSummary extends Component {
             </OverlayTrigger>
           </ListGroupItem>
           {
-            keywords.map( (keyword, i) => (
+            keywords.map((keyword, i) => (
               <ListGroupItem key={i} className={classes.keywords} style={{background: 'none'}}>
                 <Row>
-                  { keyword.label }
+                  {keyword.label}
                   <ButtonGroup
                     className='pull-right'
                   >
@@ -115,7 +115,7 @@ class KeywordSummary extends Component {
                              )}
                            >
                              <Button
-                               ref={ button => buttonRef[`button-${i}`] = button }
+                               ref={button => buttonRef[`button-${i}`] = button}
                                onClick={() => { showModal('KEYWORD', keyword, handleKeywordEdit) }}
                                className={classes.standOut}
                                bsSize='small'
@@ -144,4 +144,4 @@ KeywordSummary.propTypes = {
   showModal: PropTypes.func,
   handleKeywordEdit: PropTypes.func
 }
-export default KeywordSummary;
+export default KeywordSummary

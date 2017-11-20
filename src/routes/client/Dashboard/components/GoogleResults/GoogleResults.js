@@ -17,7 +17,7 @@ import classes from '../dashboard.scss'
 class GoogleResultsWidget extends Component {
 
   componentWillReceiveProps (nextProps) {
-    if (nextProps.active) {
+    if (nextProps.configs.active) {
       switch (this.props.screenSize) {
       case SCREEN_SIZE_XS:
         scrollToComponent(this.nodeRef, {offset: -200, align: 'bottom', duration: 1000})

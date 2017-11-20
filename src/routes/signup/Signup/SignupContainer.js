@@ -5,11 +5,17 @@ import ReactGA from 'react-ga'
 import { RoutedComponent, connect } from 'routes/routedComponent'
 import { CONTENT_VIEW_STATIC } from 'layouts/DefaultLayout/modules/layout'
 import { persistData } from 'localStorage'
-import { postPayment, PAYMENT_SUCCESS, deletePaymentErrorMessage } from 'routes/signup/Payment/modules/payment'
+import {
+  postPayment,
+  PAYMENT_SUCCESS,
+  PAYMENT_FAILURE,
+  deletePaymentErrorMessage
+} from 'routes/signup/Payment/modules/payment'
 import { showModal, hideModal } from 'modules/modal'
 import {
   postUserSignup,
   removeErrorMessage,
+  USER_SIGNUP_FAILURE,
   USER_SIGNUP_SUCCESS
 } from 'routes/auth/modules/auth'
 import RootModal from 'components/Modals'
@@ -88,15 +94,11 @@ class SignupContainer extends RoutedComponent {
     return value.replace(/[^\d]/gi, '')
   }
 
-  toLowerCase (name) {
-    return name.toLowerCase()
-  }
-
   submitForm (user) {
     if (user.password !== user.passwordConfirmation) {
       this.setState({passwordErrorMsg: 'Passwords Do Not Match'})
     } else {
-      this.setState({passwordErrorMsg: null})
+      this.state.passwordErrorMsg && this.setState({passwordErrorMsg: null})
       const payload = this.buildParams(user)
       this.props.postUserSignup(payload)
         .then(res => { this.doNext(res) })
@@ -118,17 +120,32 @@ class SignupContainer extends RoutedComponent {
 
   doNext (res) {
     switch (res.type) {
-    case USER_SIGNUP_SUCCESS:
-      persistDataToLocalStorage(res.data)
-      this.props.removeErrorMessage()
-      ReactGA.ga('send', 'event', 'Form Interaction', 'Subscribe', 'Individual 39', 39)
-      break
-    case PAYMENT_SUCCESS:
-      this.props.hideModal()
-      this.props.showModal('PAYMENT_SUCCESS')
-      break
-    default:
-      return null
+      case USER_SIGNUP_SUCCESS:
+        persistDataToLocalStorage(res.data)
+        this.props.removeErrorMessage()
+        ReactGA.ga('send', 'event', 'Form Interaction', 'Subscribe', 'Individual 39', 39)
+        break
+      case USER_SIGNUP_FAILURE:
+        this.scrollTop()
+        break
+      case PAYMENT_SUCCESS:
+        this.props.hideModal()
+        this.props.showModal('PAYMENT_SUCCESS')
+        break
+      case PAYMENT_FAILURE:
+        this.scrollTop()
+        break
+      default:
+        return null
+    }
+  }
+
+  scrollTop () {
+    let node = document.getElementsByClassName('modal')[1]
+    if (node) {
+      node.scrollTop = 0
+    } else {
+      window.scrollTo(0, 0)
     }
   }
 
@@ -140,6 +157,7 @@ class SignupContainer extends RoutedComponent {
           errorMessage={this.props.currentUser.errorMessage}
           passwordErrorMsg={this.state.passwordErrorMsg}
           showModal={this.props.showModal}
+          scrollTop={this.scrollTop}
         />
         <RootModal
           submitForm={this.submitPaymentForm}
@@ -149,6 +167,7 @@ class SignupContainer extends RoutedComponent {
           planType='Individual'
           planPrice='39'
           handleClick={this.handleClick}
+          scrollTop={this.scrollTop}
         />
       </div>
     )

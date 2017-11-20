@@ -28,14 +28,21 @@ let PaymentForm = (props) => {
     submitForm,
     errorMessage,
     planPrice,
+    invalid,
     handleSubmit,
     submitting,
+    buttonLabel,
+    scrollTop,
     isFetching
   } = props
 
+  const _onClick = () => {
+    invalid && scrollTop()
+  }
+
   const renderButtonLabel = isFetching
     ? 'Submitting Subscription...'
-    : props.buttonLabel
+    : buttonLabel
 
   const renderErrorMessage = (
     errorMessage &&
@@ -143,7 +150,9 @@ let PaymentForm = (props) => {
       </Row>
       <button className="full-width btn btn-success m-t-2"
         disabled={submitting}
-        action="submit">
+        onClick={_onClick}
+        action="submit"
+      >
         {renderButtonLabel}
       </button>
     </form>
@@ -156,6 +165,8 @@ PaymentForm.propTypes = {
   planPrice: PropTypes.string,
   handleSubmit: PropTypes.func,
   submitting: PropTypes.bool,
+  buttonLabel: PropTypes.string,
+  scrollTop: PropTypes.func,
   isFetching: PropTypes.bool
 }
 
