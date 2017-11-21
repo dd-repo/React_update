@@ -21,8 +21,8 @@ class ForgotPasswordContainer extends RoutedComponent {
     return {
       contentView: CONTENT_VIEW_STATIC,
       sidebarEnabled: false,
-      navbarEnabled: false,
-      footerEnabled: false,
+      navbarEnabled: true,
+      footerEnabled: true,
       headerEnabled: false
     }
   }

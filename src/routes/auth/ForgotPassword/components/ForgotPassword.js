@@ -6,7 +6,6 @@ import ForgotPasswordForm from './ForgotPasswordForm'
 import { Row, Col, Panel } from 'components'
 
 import classes from './forgotPassword.scss'
-import logo from 'static/logos/logo-white-sm.png'
 
 const ForgotPassword = ({ submitForm }) => {
   return (
@@ -15,11 +14,6 @@ const ForgotPassword = ({ submitForm }) => {
         <Row>
           <Col className={classes.centerCol} md={4}>
             <Panel
-              header={(
-                <Link to='/login' className={classes.toHomeLink}>
-                  <img src={logo} height={50} alt='Back to Home' />
-                </Link>
-              )}
               footer={(
                 <div>
                   <Link to='/login'>
@@ -41,14 +35,7 @@ const ForgotPassword = ({ submitForm }) => {
               <ForgotPasswordForm
                 submitForm={submitForm}
               />
-
             </Panel>
-            <p className='text-center text-gray-light'>
-              <span className="text-gray-dark">
-                © 2017 <strong className="m-r-1">InfoSweep.</strong>
-                All rights reserved.
-              </span>
-            </p>
           </Col>
         </Row>
       </Col>
