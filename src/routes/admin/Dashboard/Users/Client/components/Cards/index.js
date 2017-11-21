@@ -14,58 +14,61 @@ const Cards = ({ cards, showModal }) => {
   }
 
   return (
-    <Panel
-      header={
-        <span>
-          <h4 className='panel-title'>
-            Cards
-          </h4>
-          <Button
-            onClick={_onClick}
-            bsSize='small'
-            bsStyle='success'
-          >
-            Add Card <i className='fa fa-plus'></i>
-          </Button>
-        </span>
-      }
-    >
-      <Table responsive>
-        <thead>
-          <tr>
-            <th>
-              id
-            </th>
-            <th>
-              third party id
-            </th>
-            <th>
-              Card holder name
-            </th>
-            <th>
-              card month
-            </th>
-            <th>
-              card year
-            </th>
-            <th>
-              last 4
-            </th>
-            <th>
-              source
-            </th>
-            <th>
-              updated
-            </th>
-          </tr>
-        </thead>
-        {
-          cards.map(cards => {
-            return renderCards(cards)
-          })
+    <div>
+      <Button
+        onClick={_onClick}
+        bsSize='small'
+        bsStyle='success'
+        className='pull-right m-t-1 m-r-1'
+      >
+        Add Card <i className='fa fa-plus'></i>
+      </Button>
+      <Panel
+        header={
+          <div>
+            <h4 className='panel-title'>
+              Cards
+            </h4>
+          </div>
         }
-      </Table>
-    </Panel>
+      >
+        <Table responsive>
+          <thead>
+            <tr>
+              <th>
+                id
+              </th>
+              <th>
+                third party id
+              </th>
+              <th>
+                Card holder name
+              </th>
+              <th>
+                card month
+              </th>
+              <th>
+                card year
+              </th>
+              <th>
+                last 4
+              </th>
+              <th>
+                source
+              </th>
+              <th>
+                updated
+              </th>
+            </tr>
+          </thead>
+          {
+            cards.map(cards => {
+              return renderCards(cards)
+            })
+          }
+        </Table>
+      </Panel>
+    </div>
   )
 }
 

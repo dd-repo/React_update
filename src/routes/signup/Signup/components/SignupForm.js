@@ -51,7 +51,7 @@ const renderInput = (props) => {
 const renderFields = () => {
   const fieldKeys = Object.keys(signupFormFields)
   return fieldKeys.map(function (key, i) {
-    const { name, type, placeHolder, label, normalize, value } = fields[key]
+    const { name, type, placeHolder, label, maxLength, normalize, value } = fields[key]
     return (
       <Field
         key={i}
@@ -60,6 +60,7 @@ const renderFields = () => {
         component={renderInput}
         placeHolder={placeHolder}
         label={label}
+        maxLength={maxLength}
         value={value}
         normalize={normalize}
       />

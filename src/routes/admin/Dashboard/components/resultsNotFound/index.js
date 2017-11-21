@@ -9,7 +9,7 @@ const ResultsNotFound = ({ queryName }) => (
 )
 
 ResultsNotFound.propTypes = {
-  queryName: PropTypes.queryName
+  queryName: PropTypes.string
 }
 
 export default ResultsNotFound

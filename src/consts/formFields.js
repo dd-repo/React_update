@@ -52,6 +52,7 @@ const fields = {
     label: 'Phone Number',
     errorMessage: 'Please enter your Phone Number',
     placeHolder: 'Enter your phone number...',
+    maxLength: 10,
     normalize: normalizePhone
   },
   authnetId: {
@@ -71,6 +72,7 @@ const fields = {
     name: 'creditCardNumber',
     type: 'text',
     label: 'Credit Card Number',
+    maxLength: 16,
     placeHolder: 'Enter Your Credit Card Number...',
     errorMessage: 'Please enter your Credit Card Number',
     normalize: normalizeCreditCard
