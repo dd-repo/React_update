@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 import { Link } from 'react-router'
 
 import LoginForm from './LoginForm'
-import logo from 'static/logos/logo-white-sm.png'
 import classes from './Login.scss'
 import {
     Row,
@@ -33,11 +32,6 @@ const Login = ({ errorMessage, submitForm }) => {
         <Row>
           <Col className={classes.centerCol} md={4}>
             <Panel
-              header={(
-                <Link to='/' className={classes.toHomeLink}>
-                  <img src={logo} height={50} alt='Back to Home' />
-                </Link>
-              )}
               footer={(
                 <div>
                   <Link to='/forgot-password'>

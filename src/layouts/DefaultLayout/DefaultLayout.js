@@ -181,6 +181,11 @@ class DefaultLayout extends React.Component {
     window.open('https://www.infosweep.com/faq', '_blank')
   }
 
+  openHomePage () {
+    const isLoggedIn = localStorage.getItem('isLoggedIn')
+    !isLoggedIn && window.open('https://www.infosweep.com', '_self')
+  }
+
   render () {
     const { role, group } = this.props.currentUser
     const isLoggedIn = localStorage.getItem('isLoggedIn')
@@ -190,7 +195,7 @@ class DefaultLayout extends React.Component {
     const homeLink = () => {
       if (isClient) { return '/dashboard' }
       if (isAdmin) { return '/admin/dashboard' }
-      if (!isLoggedIn) { return '/login' }
+      if (!isLoggedIn) { return null }
     }
 
     const fullName = `${this.props.currentUser.first_name} ${this.props.currentUser.last_name}`
@@ -227,7 +232,13 @@ class DefaultLayout extends React.Component {
                         <Navbar.Header>
                             <Navbar.Brand>
                                 <Link to={homeLink()}>
-                                  <img src={navbarLogo} className={classes.navbarLogo} height={60} alt="infosweep Dashboard" />
+                                  <img
+                                    onClick={this.openHomePage}
+                                    src={navbarLogo}
+                                    className={classes.navbarLogo}
+                                    height={60}
+                                    alt="infosweep Dashboard"
+                                  />
                                 </Link>
                             </Navbar.Brand>
 
