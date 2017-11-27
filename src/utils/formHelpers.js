@@ -42,8 +42,8 @@ export const checkValidation = (values, fields = {}, omittedFields) => {
   } else if (values.password && !/^(?=.*\d)(?=.*[a-z]).{8,}$/.test(values.password)) {
     errors.password = 'Password should contain atleast one number'
   }
-  if (values.creditCardNumber && values.creditCardNumber.length < 16) {
-    errors.creditCardNumber = 'Credit card number must be 16 digits long'
+  if (values.creditCardNumber && values.creditCardNumber.length < 15) {
+    errors.creditCardNumber = 'Invalid credit card number'
   }
   if (values.cvCode && values.cvCode.length < 3) {
     errors.cvCode = 'Invalid CVC'
