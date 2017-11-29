@@ -123,12 +123,12 @@ class SignupContainer extends RoutedComponent {
       case USER_SIGNUP_SUCCESS:
         persistDataToLocalStorage(res.data)
         this.props.removeErrorMessage()
-        ReactGA.ga('send', 'event', 'Form Interaction', 'Subscribe', 'Individual 39', 39)
         break
       case USER_SIGNUP_FAILURE:
         this.scrollTop()
         break
       case PAYMENT_SUCCESS:
+        ReactGA.ga('send', 'event', 'Form Interaction', 'Subscribe', 'Individual 39', 39)
         this.props.hideModal()
         this.props.showModal('PAYMENT_SUCCESS')
         break
