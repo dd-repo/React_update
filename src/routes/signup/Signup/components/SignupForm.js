@@ -1,116 +1,96 @@
-import React from 'react'
+import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { Field, reduxForm } from 'redux-form'
 import _ from 'underscore'
-
+import Toggle from 'react-toggle'
+import 'react-toggle/style.css'
+import { ReduxFormInput } from 'components/forms/components'
 import { checkValidation } from 'utils/formHelpers'
-import fields from 'consts/formFields'
-import { FormGroup, FormControl } from 'components'
+import formFields from 'consts/formFields'
+import { Row, Col, FormGroup, FormControl } from 'components'
 
-const formFields = [
-  'firstName',
-  'lastName',
-  'email',
-  'phoneNumber',
-  'password',
-  'passwordConfirmation'
-]
-
-const signupFormFields = _.pick(fields, formFields)
 
 const validate = values => {
-  return checkValidation(values, fields)
+  return checkValidation(values, formFields)
 }
 
-const renderInput = (props) => {
-  const {
-    label,
-    input,
-    placeHolder,
-    type,
-    maxLength,
-    meta: { touched, error, warning }
-  } = props
+class SignupForm extends Component {
+  constructor() {
+    super()
+    this.state = {
+      passwordField: formFields.password,
+      hidePassword: true
+    }
+  }
 
-  let message = touched && (error && <span className='text-danger'><strong>Opps!</strong> {error}</span>)
-  let validationState = touched && (error && 'error') || null
-  return (
-    <FormGroup validationState={validationState}>
-      <label>
-        {label}
-      </label>
-      <FormControl {...input}
-        placeholder={placeHolder}
-        maxLength={maxLength}
-        type={type} />
-      {message}
-    </FormGroup>
-  )
-}
+  _onClick = (e) => {
+    this.props.showModal(e.target.name)
+  }
 
-const renderFields = () => {
-  const fieldKeys = Object.keys(signupFormFields)
-  return fieldKeys.map(function (key, i) {
-    const { name, type, placeHolder, label, maxLength, normalize, value } = fields[key]
+  _onButtonClick = () => {
+    this.props.invalid && this.props.scrollTop()
+  }
+
+  showPassword = () => {
+    const type = this.state.hidePassword ? 'text' : 'password'
+    this.setState({
+      passwordField: { ...this.state.passwordField, type },
+      hidePassword: !this.state.hidePassword
+    })
+  }
+
+  render () {
+    const {
+      submitForm,
+      handleSubmit,
+      invalid,
+      submitting,
+      scrollTop,
+      showModal
+    } = this.props
+
     return (
-      <Field
-        key={i}
-        name={name}
-        type={type}
-        component={renderInput}
-        placeHolder={placeHolder}
-        label={label}
-        maxLength={maxLength}
-        value={value}
-        normalize={normalize}
-      />
+      <Row>
+        <Col md={10}>
+          <form onSubmit={handleSubmit(submitForm)}>
+            <ReduxFormInput field={formFields.fullName} />
+            <ReduxFormInput field={formFields.email} />
+            <ReduxFormInput field={this.state.passwordField} />
+            <label>
+              <Toggle
+                className="v-a-m"
+                defaultChecked={!this.state.hidePassword}
+                onChange={this.showPassword}
+              />
+              <span className="m-l-1">
+                {this.state.hidePassword ? 'Show Password' : 'Hide Password'}
+              </span>
+            </label>
+            <p className='text-center m-t-3'>
+              By clicking Register, you agree to
+              our <a name='TOS' onClick={this._onClick}> Terms </a>
+              and that you have read
+              our <a name='PRIVACY_POLICY' onClick={this._onClick}> Privacy Policy</a>,
+              including our Cookie Use.
+            </p>
+
+            <span className='m-r-1'>
+              <button
+                className='btn btn-primary m-b-2'
+                disabled={submitting}
+                onClick={this._onButtonClick}
+                action="submit"
+              >
+                Continue
+              </button>
+            </span>
+            <i className='fa fa-lock m-r-1' />
+            Secure Server
+          </form>
+        </Col>
+      </Row>
     )
-  })
-}
-
-let SignupForm = props => {
-  const {
-    submitForm,
-    handleSubmit,
-    invalid,
-    submitting,
-    passwordErrorMsg,
-    scrollTop,
-    showModal
-  } = props
-
-  const _onClick = e => {
-    showModal(e.target.name)
   }
-
-  const _onButtonClick = () => {
-    invalid && scrollTop()
-  }
-
-  return (
-    <form onSubmit={handleSubmit(submitForm)}>
-
-      {renderFields()}
-
-      <span className='text-danger'>{passwordErrorMsg}</span>
-      <p>
-        By clicking Register, you agree to
-        our <a name='TOS' onClick={_onClick}> Terms </a>
-        and that you have read
-        our <a name='PRIVACY_POLICY' onClick={_onClick}> Privacy Policy</a>,
-        including our Cookie Use.
-      </p>
-
-      <button
-        className='full-width btn btn-primary m-b-2'
-        disabled={submitting}
-        onClick={_onButtonClick}
-        action="submit"
-      >
-        Register
-      </button>
-    </form>
-  )
 }
 
 SignupForm.propTypes = {

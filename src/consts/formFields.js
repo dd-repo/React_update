@@ -24,6 +24,13 @@ const fields = {
     errorMessage: 'Please enter your Last Name',
     placeHolder: 'Enter your last name'
   },
+  fullName: {
+    name: 'fullName',
+    type: 'text',
+    label: 'Full Name',
+    errorMessage: 'Please enter your Full Name',
+    placeHolder: 'Enter your first and last name...'
+  },
   email: {
     name: 'email',
     type: 'email',
@@ -61,19 +68,19 @@ const fields = {
     label: 'Authnet Id',
     placeHolder: 'Enter clients authroize.net id...'
   },
-  fullName: {
+  ccFullName: {
     name: 'fullName',
     type: 'text',
-    placeHolder: 'Enter Name On Card...',
+    placeHolder: 'First and Last...',
     errorMessage: 'Please enter the full name...',
-    label: 'Name on Card'
+    label: 'Card Holder Name'
   },
   creditCardNumber: {
     name: 'creditCardNumber',
     type: 'text',
     label: 'Credit Card Number',
     maxLength: 16,
-    placeHolder: 'Enter Your Credit Card Number...',
+    placeHolder: 'Credit Card Number...',
     errorMessage: 'Please enter your Credit Card Number',
     normalize: normalizeCreditCard
   },
@@ -81,7 +88,7 @@ const fields = {
     name: 'expirationMonth',
     type: 'select',
     label: 'Expiration',
-    placeHolder: 'Select Month...',
+    placeHolder: 'Month',
     list: Array.from((function*() {
       for (let i = 1; i <= 12; i++)
         yield { value: i, label: i }
@@ -92,7 +99,7 @@ const fields = {
   expirationYear: {
     name: 'expirationYear',
     type: 'select',
-    placeHolder: 'Select Year...',
+    placeHolder: 'Year',
     errorMessage: 'Please enter Expiration Year',
     list: Array.from((function*() {
       for (let i = 0; i < 10; i++) {
@@ -105,7 +112,7 @@ const fields = {
     name: 'cvCode',
     type: 'text',
     label: 'CVC',
-    placeHolder: 'Enter CVC Code...',
+    placeHolder: 'CVC Code...',
     errorMessage: 'Please enter your Credit Card CVC Number',
     maxLength: '4',
     normalize: normalizeNums
@@ -114,7 +121,7 @@ const fields = {
     name: 'address',
     type: 'text',
     label: 'Street Address',
-    placeHolder: 'Enter Billing Street Address...',
+    placeHolder: 'Billing Street Address...',
     errorMessage: 'Please enter a Street Address'
   },
   state: {
@@ -128,16 +135,16 @@ const fields = {
     name: 'city',
     type: 'text',
     label: 'City / Town',
-    placeHolder: 'Enter Billing City/Town...',
+    placeHolder: 'City/Town...',
     errorMessage: 'Please enter a City or Town'
   },
   zipcode: {
     name: 'zipcode',
     type: 'text',
-    label: 'Zipcode',
+    label: 'Zip',
     normalize: normalizeNums,
-    placeHolder: 'Enter Your Billing Zipcode...',
-    errorMessage: 'Please enter a Zipcode',
+    placeHolder: 'Billing Zip...',
+    errorMessage: 'Please enter a Zip',
     maxLength: 5
   },
   kwFirstName: {

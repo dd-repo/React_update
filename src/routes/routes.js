@@ -46,11 +46,11 @@ export default [
 
   // client signup process
   {
-    path: '/payment-info',
+    path: '/payment',
     getComponent: (location, cb) => {
       require.ensure([], require => {
         cb(null, require('./signup/Payment').default);
-      }, 'payment-info');
+      }, 'payment');
     }
   },
   {

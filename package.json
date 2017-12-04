@@ -165,6 +165,7 @@
     "react-scroll-to-component": "^1.0.1",
     "react-select": "^1.0.0-rc.5",
     "react-sparklines": "^1.5.2",
+    "react-toggle": "^4.0.2",
     "recompose": "^0.24.0",
     "redux": "^3.0.0",
     "redux-form": "^6.5.0",

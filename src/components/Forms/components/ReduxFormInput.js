@@ -1,5 +1,5 @@
-import React from 'react';
-import { Field } from 'redux-form';
+import React from 'react'
+import { Field } from 'redux-form'
 import {
   FormGroup,
   FormControl
@@ -44,12 +44,12 @@ const renderInput = props => {
         <strong>Opps!</strong> {error}
     </span>
     )
-  let validationState = touched && ( error && 'error') || null
+  let validationState = touched && (error && 'error') || null
 
   return (
     <FormGroup validationState={validationState}>
       <label>
-        { label }
+        {label}
       </label>
       <FormControl {...input}
         placeholder={placeholder}
@@ -60,4 +60,4 @@ const renderInput = props => {
   )
 }
 
-export default ReduxFormInput;
+export default ReduxFormInput
