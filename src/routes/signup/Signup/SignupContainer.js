@@ -164,8 +164,8 @@ class SignupContainer extends RoutedComponent {
           errorMessage={this.props.payment.errorMessage}
           paymentSuccess={this.props.payment.success}
           isFetching={this.props.payment.isFetching}
-          planType='Individual'
-          planPrice='39'
+          planType='Trial'
+          planPrice='19'
           handleClick={this.handleClick}
           scrollTop={this.scrollTop}
         />
