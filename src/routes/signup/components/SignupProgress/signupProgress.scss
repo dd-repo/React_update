@@ -1,0 +1,47 @@
+@import '~@owczar/spin-template/src/scss/bootstrap/variables';
+
+.steps {
+  margin-left: 30px;
+
+  li {
+    margin: 0 !important;
+    background: $gray-dark;
+    a {
+      padding: 0px 10px 0px 10px !important;
+      color: $brand-white;
+      .link {
+        background-color: $brand-danger;
+      }
+    }
+  }
+}
+
+.lastStep {
+  margin-right: 0px !important;
+}
+
+.complete {
+  a {
+    background-color: $brand-success !important;
+  }
+}
+
+.active {
+  a {
+    background-color: $brand-primary !important;
+  }
+}
+
+.arrows {
+  font-size: 20px;
+  margin-right: 5px;
+  font-weight: 600;
+}
+@media (max-width: 768px) {
+ .steps {
+   margin: 0px;
+   li {
+     width: 100%;
+   }
+ }
+}

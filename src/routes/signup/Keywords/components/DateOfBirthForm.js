@@ -18,6 +18,7 @@ const DateOfBirthForm = (props) => {
     <form onSubmit={handleSubmit(submitForm)}>
       <FormGroup>
         <ReduxFormInput field={fields.dob} />
+        <ReduxFormInput field={fields.phoneNumber} />
       </FormGroup>
       <button
         className="full-width btn btn-success"

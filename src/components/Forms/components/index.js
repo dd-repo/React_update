@@ -1,6 +1,6 @@
-import ReduxFormInput from './ReduxFormInput';
-import ReduxFormSelect from './ReduxFormSelect';
-import ReduxFormDatePicker from './ReduxFormDatePicker';
+import ReduxFormInput from './ReduxFormInput'
+import ReduxFormSelect from './ReduxFormSelect'
+import ReduxFormDatePicker from './ReduxFormDatePicker'
 
 export {
   ReduxFormInput,

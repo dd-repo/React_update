@@ -1,7 +1,25 @@
 @import '~@owczar/spin-template/src/scss/bootstrap/variables';
 
+.registrationPanel {
+  background: $gray;
+  padding: 41px;
+  overflow: hidden;
+
+  p {
+    color: $brand-white;
+  }
+  label {
+    color: $brand-white;
+  }
+  input {
+    background: $brand-white !important;
+    color: black;
+    border-radius: 4px;
+    height: 36px;
+  }
+}
 .panelHeader {
-    text-align: center;
+    text-align: left;
     margin-bottom: 0;
     font-weight: 300;
 }
@@ -11,29 +29,39 @@
     float: none;
 }
 
-.toHomeLink {
-    display: block;
-    min-height: 80px;
-    position: relative;
+.topPortion{
+  text-align:center;
 
-    > img {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
+  h5{
+    font-size: 19px;
+  }
+
+  p{
+    border-bottom: 1px solid #636262;
+    padding-bottom: 24px;
+    span {
+      font-size: 11px;
     }
+  }
 }
 
-.panelWhite {
-    background-color: $brand-white;
+.membershipSection {
+  background: $gray-darker;
+  text-align: center;
 }
 
-.invoiceTable {
-    th {
-        font-size: 10px;
-        text-transform: uppercase;
-        color: $text-muted;
-    }
+.contact {
+  text-align: center;
+  font-size: 15px;
+  font-weight: 100;
+  margin-bottom: 10px;
 
-    border-bottom: 1px solid $gray-dark;
+  .number {
+    font-size: 21px;
+  }
+}
+
+.bbbImg {
+  margin-top: 2em !important;
+  margin-bottom: 3em !important;
 }

@@ -25,7 +25,7 @@ export const PERMISSION_ERROR_MESSAGE = 'PERMISSION_ERROR_MESSAGE'
 export const PERMISSIONS_MESSAGE_CLEAR = 'PERMISSIONS_MESSAGE_CLEAR'
 
 export const CLIENT_API = '/dashboard/api/v1/users'
-export const SIGNUP_REQUEST = `${CLIENT_API}/sign-up/create`
+export const SIGNUP_REQUEST = `${CLIENT_API}/sign-up`
 export const LOGIN_REQUEST = `${CLIENT_API}/sign-in`
 export const UPDATE_PASSWORD_REQUEST_WITH_TOKEN = `${CLIENT_API}/password/update`
 export const RESET_PASSWORD_REQUEST = `${CLIENT_API}/password/forgot`
@@ -35,11 +35,8 @@ export const postUserSignup = payload => {
   return dispatch => {
     dispatch(postingUserSignup())
     return infosweepApi.post(SIGNUP_REQUEST, payload)
-    .then(
-      response => dispatch(receiveUserSignup(response.data)))
-      .catch(
-        error => dispatch(receiveUserSignupFailure(error))
-      )
+      .then(response => dispatch(receiveUserSignup(response.data)))
+      .catch( error => dispatch(receiveUserSignupFailure(error)))
   }
 }
 
@@ -100,12 +97,8 @@ export const resetUserPassword = payload => {
   return dispatch => {
     dispatch(postingForgotPassword(payload.email))
     return infosweepApi.patch(RESET_PASSWORD_REQUEST, { user: payload })
-    .then(
-      response =>
-      dispatch(receiveForgotPassword()))
-      .catch(
-        error =>
-        dispatch(receiveForgotPasswordFailure(error)))
+      .then( response => dispatch(receiveForgotPassword()))
+      .catch( error => dispatch(receiveForgotPasswordFailure(error)))
   }
 }
 
@@ -220,6 +213,7 @@ const setClient = (state, data) => {
       id: data.user.id,
       first_name: data.user.first_name,
       last_name: data.user.last_name,
+      fullName: data.user.name,
       email: data.user.email,
       isFetching: false,
       account_id: data.user.accounts[0].id,

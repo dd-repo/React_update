@@ -5,17 +5,20 @@ import { Link } from 'react-router'
 import SignupForm from './SignupForm'
 import RootModal from 'components/Modals'
 import classes from './signup.scss'
+import SignupProgress from '../../components/SignupProgress'
+import trialImg from 'static/freeTrialRed.png'
+import bbb from 'static/bbb.png'
 import {
   Row,
   Col,
   Panel,
+  Divider,
   Alert
 } from 'components'
 
 const Signup = props => {
   const {
     errorMessage,
-    passwordErrorMsg,
     submitForm,
     scrollTop,
     showModal
@@ -33,38 +36,54 @@ const Signup = props => {
     <Row>
       <Col lg={12}>
         {renderErrorMessage}
-        <Row>
-          <Col className={classes.centerCol} md={4}>
+          <Col className={classes.centerCol} md={8}>
             <Panel
-              className={classes.registerPanel}
-              footer={(
-                <div>
-                  <Link to='/login'>
-                    Login
-                  </Link>
-                  <Link to='/login' className='pull-right' />
-                </div>
+              className={classes.registrationPanel}
+              header={(
+                <SignupProgress currentStep={1} />
               )}
             >
-              <h2 className={classes.panelHeader}>
-                Signup
-              </h2>
-              <p className='text-center m-b-3'>
-                Please enter the name and email address that you'd like to protect.
-                Don't worry, you'll be able to protect additional information after
-                signing up, and of course, we never share this information with anyone.
-              </p>
+              <Row>
+                <Col md={8}>
+                  <h2 className={classes.panelHeader}>
+                    Create your account
+                  </h2>
+                  <p>
+                    Already have an account?
+                    <Link className='m-l-1' to='/login'>
+                      Login
+                    </Link>
+                  </p>
+                  <Divider />
+                  <SignupForm
+                    submitForm={submitForm}
+                    scrollTop={scrollTop}
+                    showModal={showModal}
+                  />
+                </Col>
+                <Col className={classes.membershipSection} md={4}>
+                  <div className={classes.topPortion}>
 
-              <SignupForm
-                submitForm={submitForm}
-                passwordErrorMsg={passwordErrorMsg}
-                showModal={showModal}
-                scrollTop={scrollTop}
-              />
+                    <h5>Your Membership:</h5>
+                    <p>Free Monitoring Trial
+                      <br/>
+                      <span>$19 per month, after your free trial</span>
+                    </p>
+                    <img src={trialImg} />
+                  </div>
+                  <div className={classes.contact}>
+                    <p>You can also contact us by phone:</p>
+                    <p className={classes.number}>877-804-7293 </p>
+                  </div>
 
+                  <div className="last_footer">
+                    <p>Your privacy is our top priority. For more information read our <a onClick={() => showModal('PRIVACY_POLICY')}>Privacy Policy.</a></p>
+                    <img style={{height: '40px'}} className={classes.bbbImg} src={bbb} />
+                  </div>
+                </Col>
+              </Row>
             </Panel>
           </Col>
-        </Row>
       </Col>
       <RootModal />
     </Row>
@@ -72,11 +91,10 @@ const Signup = props => {
 }
 
 Signup.propTypes = {
-  passwordErrorMsg: PropTypes.string,
-  showModal: PropTypes.func.isRequired,
   submitForm: PropTypes.func.isRequired,
   errorMessage: PropTypes.string,
   scrollTop: PropTypes.func
 }
 
 export default Signup
+

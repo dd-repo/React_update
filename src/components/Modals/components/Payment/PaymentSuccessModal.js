@@ -10,7 +10,7 @@ import {
 const PaymentSuccess = props => (
   <Modal
     show
-    onHide={props.hideModal}
+    onHide={props.handleClick}
   >
     <Modal.Header closeButton>
       <Modal.Title>Payment Details</Modal.Title>

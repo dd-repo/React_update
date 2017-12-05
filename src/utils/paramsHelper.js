@@ -1,5 +1,6 @@
-export const buildCreditCardParams = card => (
+export const buildCreditCardParams = (card, userId) => (
   {
+    user: userId,
     card_holder_name: card.fullName,
     card_number: sanitizeNums(card.creditCardNumber),
     card_month: card.expirationMonth.value,
@@ -9,6 +10,7 @@ export const buildCreditCardParams = card => (
     city: card.city,
     state: card.state.value,
     zip: card.zipcode,
+    plan: 'trial'
   }
 )
 
@@ -33,3 +35,17 @@ export const buildKeywordParams = keyword => (
   }
 )
 
+export const buildSignupParams = user => {
+  const userName = user.fullName.split(' ')
+  const first = userName[0]
+  const last = userName[userName.length - 1]
+  return {
+    user: {
+      first_name: first,
+      last_name: last,
+      email: user.email,
+      password: user.password,
+      plan: 'trial'
+    }
+  }
+}

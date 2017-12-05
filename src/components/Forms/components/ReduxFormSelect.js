@@ -3,7 +3,7 @@ import Select from 'react-select'
 
 import { Field } from 'redux-form'
 
-const ReduxFormSelect = ({ field, searchable, clearable }) => {
+const ReduxFormSelect = ({ field, searchable, clearable, customStyle }) => {
   const {
     name,
     type,
@@ -24,6 +24,7 @@ const ReduxFormSelect = ({ field, searchable, clearable }) => {
       component={renderSelect}
       seachable={searchable}
       clearable={clearable}
+      customStyle={customStyle}
     />
   )
 }
@@ -35,6 +36,7 @@ const renderSelect = props => {
     searchable,
     clearable,
     placeholder,
+    customStyle,
     meta: { touched, error }
   } = props
 
@@ -56,6 +58,7 @@ const renderSelect = props => {
         name={name}
         searchable={searchable}
         clearable={clearable}
+        style={customStyle}
       />
       {message}
     </div>

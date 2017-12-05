@@ -37,8 +37,12 @@ const authTransition = ({store, nextState, replace, authToken}) => {
     redirectToDashboardIfLoggedIn(store, nextState, replace, authToken)
   }
 
+  if (pathname.startsWith('/signup')) {
+    currentUser.role === 'prospect' && replace('/payment')
+  }
+
   if (pathname.startsWith('/keywords')) {
-    currentUser.role === 'prospect' && replace('/signup')
+    currentUser.role !== 'client' && replace('/signup')
   }
 }
 
@@ -47,7 +51,7 @@ const isValidClient = (currentUser, replace, authToken) => {
   const isClient = currentUser.role === 'client'
 
   !authToken && replace('/login')
-  authToken && isProspect && replace('/signup')
+  authToken && isProspect && replace('/payment')
   return isClient
 }
 
