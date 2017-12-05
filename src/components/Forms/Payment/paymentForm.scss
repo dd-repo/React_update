@@ -41,3 +41,26 @@
   height: 30px;
   padding-right: 5px;
 }
+
+.customSelect {
+  color: black !important;
+  div {
+    background: white !important;
+    color: black !important;
+    &:hover {
+      // background: $brand-primary !important;
+    }
+    &:focus {
+      background: white !important;
+    }
+    span {
+      div {
+        color: $gray-lighter !important;
+        font-size: 13px !important;
+        span {
+          color: black !important;
+        }
+      }
+    }
+  }
+}
