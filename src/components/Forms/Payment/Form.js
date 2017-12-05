@@ -8,7 +8,7 @@ import masterCard from 'static/creditCards/mastercard.png'
 import visa from 'static/creditCards/visa.png'
 import formFields from 'consts/formFields'
 import { checkValidation } from 'utils/formHelpers'
-import 'react-select/dist/react-select.css';
+
 import {
   ReduxFormInput,
   ReduxFormSelect
@@ -26,7 +26,6 @@ import classes from './paymentForm.scss'
 const validate = values => {
   return checkValidation(values, formFields)
 }
-
 
 let PaymentForm = (props) => {
   const {
@@ -82,9 +81,11 @@ let PaymentForm = (props) => {
                     </label>
                     <div className={classes.inlineInputs}>
                       <ReduxFormSelect
+                        className={classes.customSelect}
                         field={formFields.expirationMonth}
                       />
                       <ReduxFormSelect
+                        className={classes.customSelect}
                         field={formFields.expirationYear} 
                       />
                     </div>
@@ -118,6 +119,7 @@ let PaymentForm = (props) => {
                       State
                     </label>
                     <ReduxFormSelect
+                      className={classes.customSelect}
                       field={formFields.state}
                     />
                   </Col>
