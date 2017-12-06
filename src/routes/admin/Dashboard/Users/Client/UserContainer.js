@@ -79,7 +79,10 @@ class UserContainer extends RoutedComponent {
 
   fetchAdmin () {
     const params = {
-      q: { group_eq: 'backend' }
+      q: { 
+        group_eq: 'backend',
+        is_active_eq: true
+      }
     }
     return infosweepApi.get(USERS_REQUEST, params)
   }
