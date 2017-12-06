@@ -38,8 +38,8 @@ class PaymentContainer extends RoutedComponent {
   }
 
   componentWillMount () {
-    // this.props.currentUser.role !== 'prospect' &&
-    //   this.context.router.push('/signup')
+    this.props.currentUser.role !== 'prospect' &&
+      this.context.router.push('/signup')
   }
 
   submitForm (formProps) {
