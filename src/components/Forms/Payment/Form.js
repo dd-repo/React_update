@@ -32,23 +32,17 @@ let PaymentForm = (props) => {
     submitForm,
     planPrice,
     invalid,
+    buttonLabel,
     handleSubmit,
     submitting,
-    scrollTop,
     isFetching
   } = props
 
-  const _onClick = () => {
-    invalid && scrollTop()
-  }
-
   const renderButtonLabel = isFetching
     ? 'Submitting payment...'
-    : 'Start your free trial'
+    : buttonLabel
 
   return (
-    <Row>
-      <Col md={10}>
         <form
           onSubmit={handleSubmit(submitForm)}>
           <Row>
@@ -130,7 +124,6 @@ let PaymentForm = (props) => {
           <span className='m-r-1'>
             <button className="btn btn-primary m-b-2"
               disabled={submitting}
-              onClick={_onClick}
               action="submit"
             >
               {renderButtonLabel}
@@ -139,8 +132,6 @@ let PaymentForm = (props) => {
           <i className='fa fa-lock m-r-1' />
           Secure Server
         </form>
-      </Col>
-    </Row>
   )
 }
 
