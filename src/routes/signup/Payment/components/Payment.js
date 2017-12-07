@@ -40,7 +40,11 @@ const Payment = (props) => {
             <Row>
               <Col md={8}>
                 <PaymentForm
-                  {...props}
+                  submitForm={props.submitForm}
+                  errorMessage={props.errorMessage}
+                  isFetching={props.isFetching}
+                  planPrice={props.planPrice}
+                  buttonLabel={'Start your free trial'}
                 />
               </Col>
               <Col className={classes.membershipSection} md={4}>
