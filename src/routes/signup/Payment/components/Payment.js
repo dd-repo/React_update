@@ -39,13 +39,17 @@ const Payment = (props) => {
           >
             <Row>
               <Col md={8}>
-                <PaymentForm
-                  submitForm={props.submitForm}
-                  errorMessage={props.errorMessage}
-                  isFetching={props.isFetching}
-                  planPrice={props.planPrice}
-                  buttonLabel={'Start your free trial'}
-                />
+                <Row>
+                  <Col md={10}>
+                    <PaymentForm
+                      submitForm={props.submitForm}
+                      errorMessage={props.errorMessage}
+                      isFetching={props.isFetching}
+                      planPrice={props.planPrice}
+                      buttonLabel={'Start your free trial'}
+                    />
+                  </Col>
+                </Row>
               </Col>
               <Col className={classes.membershipSection} md={4}>
                 <div className={classes.topPortion}>
@@ -65,7 +69,7 @@ const Payment = (props) => {
                   </div>
 
                   <div className="last_footer">
-                    <p>We take your privacy seriously. For more information read our <a onClick={() => showModal('PRIVACY_POLICY')}>Privacy Policy.</a></p>
+                    <p>We take your privacy seriously. For more information read our <a onClick={() => props.showModal('PRIVACY_POLICY')}>Privacy Policy.</a></p>
                     <img style={{height: '40px'}} className={classes.bbbImg} src={bbb} />
                   </div>
                 </div>

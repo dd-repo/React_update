@@ -81,6 +81,7 @@ class PaymentContainer extends RoutedComponent {
         <Payment
           submitForm={this.submitForm}
           errorMessage={this.props.payment.errorMessage}
+          showModal={this.props.showModal}
           isFetching={this.props.payment.isFetching}
           planPrice='19'
         />
