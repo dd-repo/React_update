@@ -132,10 +132,8 @@ const reducer = (state=initialValues, action) => {
       return setSuccessMessage(state, 'Driver License', 'Requested')
 
     case ADD_CARD_FAILURE:
-      return Object.assign({}, state, {
-        message: action.error.response.data.message,
-        status: 'danger'
-      })
+     case FORGOT_USER_PASSWORD_FAILURE:
+      return setErrorMessage(state, action.error)
 
      case FORGOT_USER_PASSWORD_FAILURE:
       return setErrorMessage(state, action.error)
