@@ -39,7 +39,8 @@ const UpdateUser = props => {
       email: data.email,
       first_name: data.first_name,
       last_name: data.last_name,
-      id: data.id
+      id: data.id,
+      password: data.password
     }
     props.hideModal()
     props.dispatch(updateUser(params))
