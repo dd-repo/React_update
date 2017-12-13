@@ -2,7 +2,7 @@ import React from 'react';
 import _ from 'underscore';
 import num from 'numeral';
 import uid from 'node-uuid';
-import moment from 'moment';
+// import moment from 'moment';
 import {
     Table,
     ListGroup,
@@ -29,10 +29,10 @@ const renderWeather = (weather) => (
         </h6>
         <div className={ classes.sectionContainer }>
             <p className={ classes.dayLarge }>
-                { moment().format('dddd') }
+                {/* { moment().format('dddd') } */}
             </p>
             <span className='text-white lead'>
-                { moment().format('DD MMMM') }
+                {/* { moment().format('DD MMMM') } */}
             </span>
             <p className='m-t-2'>
                 { weather.Status }
@@ -114,7 +114,7 @@ const renderEmails = (emails) => (
                                         <h5 className='m-b-0'>
                                             { email.Name }
                                             <small className='m-l-1'>
-                                                { moment(email.Time).format('HH:mm a') }
+                                                {/* { moment(email.Time).format('HH:mm a') } */}
                                             </small>
                                         </h5>
                                         <p className='m-y-0'>
@@ -165,7 +165,7 @@ const renderTasks = (tasks) => (
                             </Link>
                             <span className='small'>
                                 <i className='fa fa-history small text-gray-light'></i>
-                                {` ${ moment(task.Date).format('DD-MMM-YYYY HH:mm a')}`}
+                                {/* {` ${ moment(task.Date).format('DD-MMM-YYYY HH:mm a')}`} */}
                             </span>
                         </Checkbox>
                     </ListGroupItem>

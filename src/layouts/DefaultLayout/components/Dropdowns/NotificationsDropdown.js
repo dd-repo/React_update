@@ -2,7 +2,7 @@ import React from 'react';
 import uid from 'node-uuid';
 import faker from 'faker';
 import _ from 'underscore';
-import moment from 'moment';
+// import moment from 'moment';
 import { Link } from 'react-router';
 import { LinkContainer } from 'react-router-bootstrap';
 
@@ -26,7 +26,7 @@ const notifications = [
             </span>
         ),
         title: faker.hacker.phrase(),
-        date: moment(faker.date.recent()).format('DD-MMM-YYYY, HH:mm')
+        // date: moment(faker.date.recent()).format('DD-MMM-YYYY, HH:mm')
     },
     {
         id: uid.v4(),
@@ -37,7 +37,7 @@ const notifications = [
             </span>
         ),
         title: faker.hacker.phrase(),
-        date: moment(faker.date.recent()).format('DD-MMM-YYYY, HH:mm')
+        // date: moment(faker.date.recent()).format('DD-MMM-YYYY, HH:mm')
     },
     {
         id: uid.v4(),
@@ -48,7 +48,7 @@ const notifications = [
             </span>
         ),
         title: faker.hacker.phrase(),
-        date: moment(faker.date.recent()).format('DD-MMM-YYYY, HH:mm')
+        // date: moment(faker.date.recent()).format('DD-MMM-YYYY, HH:mm')
     },
     {
         id: uid.v4(),
@@ -59,7 +59,7 @@ const notifications = [
             </span>
         ),
         title: faker.hacker.phrase(),
-        date: moment(faker.date.recent()).format('DD-MMM-YYYY, HH:mm')
+        // date: moment(faker.date.recent()).format('DD-MMM-YYYY, HH:mm')
     }
 ];
 

@@ -1,6 +1,6 @@
 import _ from 'underscore';
 import faker from 'faker';
-import moment from 'moment';
+// import moment from 'moment';
 import uid from 'node-uuid';
 
 const pad = (num, size) => {
@@ -53,8 +53,8 @@ const commandHandler = (params) => {
 
     if(params.length >= 2 && params[0] == 'dateDiff') {
         const monthsDiff = parseInt(params[1]);
-        const targetDate = moment().subtract(monthsDiff, 'months');
-        return targetDate.format();
+        // const targetDate = moment().subtract(monthsDiff, 'months');
+        // return targetDate.format();
     }
 
     return false;

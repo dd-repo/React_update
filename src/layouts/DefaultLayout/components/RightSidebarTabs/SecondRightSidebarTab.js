@@ -2,7 +2,7 @@ import React from 'react';
 import _ from 'underscore';
 import num from 'numeral';
 import uid from 'node-uuid';
-import moment from 'moment';
+// import moment from 'moment';
 import {
     Table,
     ListGroup,

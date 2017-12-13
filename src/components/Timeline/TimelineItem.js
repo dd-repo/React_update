@@ -3,7 +3,7 @@ import uid from 'node-uuid';
 import { Row, Col, Timeline } from 'components';
 import _ from 'underscore';
 import classNames from 'classnames';
-import moment from 'moment';
+// import moment from 'moment';
 
 import { Colors } from './../../consts';
 
@@ -22,7 +22,8 @@ const findItemOfType = (children, type) => {
 }
 
 const reformatDate = (date, format) => {
-    const formattedDate = moment(date).format(format);
+    // const formattedDate = moment(date).format(format);
+    const formattedDate = date
     const dateParts = formattedDate.split('\n');
 
     return _.map(dateParts, (part, index) => (

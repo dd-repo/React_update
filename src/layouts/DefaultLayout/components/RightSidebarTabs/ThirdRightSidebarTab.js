@@ -2,7 +2,7 @@ import React from 'react';
 import _ from 'underscore';
 import num from 'numeral';
 import uid from 'node-uuid';
-import moment from 'moment';
+// import moment from 'moment';
 import {
     Table,
     Nav,
@@ -162,7 +162,7 @@ class ThirdRightSidebarTab extends React.Component {
                                                 <h6 className='m-y-1'>
                                                     { message.User.Name }
                                                     <small className='m-l-1'>
-                                                        { moment(message.Time).format('HH:mm a') }
+                                                        {/* { moment(message.Time).format('HH:mm a') } */}
                                                     </small>
                                                 </h6>
                                             </Media.Body>
@@ -179,7 +179,7 @@ class ThirdRightSidebarTab extends React.Component {
                                                 <h6 className='m-y-1'>
                                                     { message.User.Name }
                                                     <small className='m-l-1'>
-                                                        { moment(message.Time).format('HH:mm a') }
+                                                        {/* { moment(message.Time).format('HH:mm a') } */}
                                                     </small>
                                                 </h6>
                                             </Media.Body>

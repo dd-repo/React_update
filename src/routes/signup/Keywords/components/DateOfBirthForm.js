@@ -6,19 +6,19 @@ import classes from './keywords.scss';
 
 const DateOfBirthForm = (props) => {
   const {
-    fields,
+    formFields,
     renderField,
     handleSubmit,
-    submitForm,
+    renderNextFormOrSubmit,
     invalid,
     submitting
   } = props
 
   return (
-    <form onSubmit={handleSubmit(submitForm)}>
+    <form onSubmit={handleSubmit(renderNextFormOrSubmit)}>
       <FormGroup>
-        <ReduxFormInput field={fields.dob} />
-        <ReduxFormInput field={fields.phoneNumber} />
+        <ReduxFormInput field={formFields.dob} />
+        <ReduxFormInput field={formFields.phoneNumber} />
       </FormGroup>
       <button
         className="full-width btn btn-success"

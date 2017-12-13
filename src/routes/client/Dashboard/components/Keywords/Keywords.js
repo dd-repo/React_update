@@ -1,6 +1,5 @@
 import React, { Component, PropTypes } from 'react'
 import ReactDOM from 'react-dom'
-import faker from 'faker'
 import scrollToComponent from 'react-scroll-to-component'
 import classnames from 'classnames'
 

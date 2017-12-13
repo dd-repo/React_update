@@ -2,7 +2,7 @@ import React from 'react';
 import uid from 'node-uuid';
 import faker from 'faker';
 import _ from 'underscore';
-import moment from 'moment';
+// import moment from 'moment';
 import { Link } from 'react-router';
 import { LinkContainer } from 'react-router-bootstrap';
 
@@ -31,7 +31,8 @@ const messages = Array.from((function*() {
             userName: `${faker.name.firstName()} ${faker.name.lastName()}`,
             userStatusColor: statusColors[i],
             message: faker.lorem.sentence(),
-            date: moment(faker.date.recent()).format('HH:mm')
+            // date: moment(faker.date.recent()).format('HH:mm')
+            date: faker.date.recent()
         }
     }
 })());

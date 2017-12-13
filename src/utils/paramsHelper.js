@@ -28,13 +28,6 @@ export const buildAddressParams = address => (
   }
 )
 
-export const buildKeywordParams = keyword => (
-  {
-    id: keyword.id,
-    value: keyword.label
-  }
-)
-
 export const buildSignupParams = user => {
   const userName = user.fullName.split(' ')
   const first = userName[0]

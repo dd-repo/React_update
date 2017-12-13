@@ -7,24 +7,17 @@ import {
   KEYWORD_FAILURE
 } from 'routes/client/Account/modules/keywords'
 import Keywords from './components/Keywords'
-import { persistData } from 'localStorage'
+import { persistData as persistDataToLocalStorage } from 'localStorage'
 import { CONTENT_VIEW_STATIC } from 'layouts/DefaultLayout/modules/layout'
 
-const persistDataToLocalStorage = keywords => {
-  persistData(true, 'isLoggedIn')
-}
 
 class KeywordContainer extends RoutedComponent {
   constructor (props) {
     super(props)
-    this.state = {
-      currentForm: 'address'
-    }
 
     this.submitForm = this.submitForm.bind(this)
     this.buildParams = this.buildParams.bind(this)
     this.onNext = this.onNext.bind(this)
-    this.renderNextForm = this.renderNextForm.bind(this)
   }
 
   static contextTypes = {
@@ -64,31 +57,20 @@ class KeywordContainer extends RoutedComponent {
 
   onNext (res) {
     switch (res.type) {
-    case CREATE_KEYWORD_SUCCESS:
-      persistDataToLocalStorage(res.keywords)
-      this.context.router.push('/dashboard')
-      break
-    case KEYWORD_FAILURE:
-      this.setState({ errorMessage: res.error })
+      case CREATE_KEYWORD_SUCCESS:
+        persistDataToLocalStorage(true, 'isLoggedIn')
+        this.context.router.push('/dashboard')
       break
     default:
       this.props.router.push('/keywords')
     }
   }
 
-  renderNextForm () {
-    this.setState({currentForm: 'dob'})
-  }
-
   render () {
     return (
-      <div>
-        <Keywords
-          submitForm={this.submitForm}
-          renderNextForm={this.renderNextForm}
-          currentForm={this.state.currentForm}
-        />
-      </div>
+      <Keywords
+        submitForm={this.submitForm}
+      />
     )
   }
 }

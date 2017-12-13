@@ -3,7 +3,6 @@ import {
   USER_LOGIN_SUCCESS,
   USER_LOGOUT
 } from 'routes/auth/modules/auth'
-import { buildKeywordParams } from 'utils/paramsHelper'
 
 // action types
 export const CREATE_KEYWORD_POSTING = 'CREATE_KEYWORD_POSTING'
@@ -40,7 +39,7 @@ export const postKeywords = payload => {
 
 export const updateKeyword = (keyword, accountId) => {
   const path = `/dashboard/api/v1/accounts/${accountId}/keywords/${keyword.id}`
-  const payload = buildKeywordParams(keyword)
+  const payload = { id: keyword.id, value: keyword.label }
   return dispatch => {
     return infosweepApi.patch(path, payload)
    .then(response => dispatch(receiveKeywordUpdateSuccess(response.data)))
