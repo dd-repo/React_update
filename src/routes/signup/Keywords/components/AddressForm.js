@@ -3,20 +3,18 @@ import React from 'react';
 import { FormGroup, FormControl } from 'components';
 import classes from './keywords.scss';
 import { ReduxFormInput, ReduxFormSelect } from 'components/Forms/components';
-import formFields from 'consts/formFields'
 
 const AddressForm = (props) => {
   const {
-    Field,
-    renderField,
+    formFields,
     handleSubmit,
-    renderNextForm,
+    renderNextFormOrSubmit,
     invalid,
     submitting
   } = props
 
   return (
-    <form onSubmit={handleSubmit(renderNextForm)}>
+    <form onSubmit={handleSubmit(renderNextFormOrSubmit)}>
       <FormGroup>
         <ReduxFormInput field={formFields.address} />
       </FormGroup>

@@ -1,4 +1,4 @@
-import _ from 'lodash'
+import _ from 'underscore'
 
 export const onlyNums = value => (value.replace(/[^\d]/g, ''))
 
