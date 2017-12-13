@@ -8,7 +8,7 @@ import {
   PAYMENT_SUCCESS,
   PAYMENT_FAILURE,
   deletePaymentErrorMessage
-} from 'routes/signup/Payment/modules/payment'
+} from './modules/payment'
 import { showModal, hideModal } from 'modules/modal'
 import { buildCreditCardParams } from 'utils/paramsHelper'
 import { CONTENT_VIEW_STATIC } from 'layouts/DefaultLayout/modules/layout'
