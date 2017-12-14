@@ -16,7 +16,7 @@ import {
   receiveAllUsers,
   receiveAllUsersFailure,
   default as reducer
-} from 'routes/admin/Dashboard/Users/modules/users';
+} from 'routes/admin/Users/modules/users';
 import {
   USER_LOGIN_SUCCESS,
   USER_LOGIN_FAILURE,

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import _ from 'underscore'
 
 import Transaction from './Transaction'
-import ResultsNotFound from 'routes/admin/Dashboard/components/resultsNotFound'
+import ResultsNotFound from 'routes/admin/components/resultsNotFound'
 import RootModal from 'components/Modals'
 import {
   Table,

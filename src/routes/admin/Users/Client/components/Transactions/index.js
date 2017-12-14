@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Panel, Table } from 'components'
 
-import Transaction from 'routes/admin/Dashboard/Transactions/components/Transaction'
+import Transaction from 'routes/admin/Transactions/components/Transaction'
 
 const Transactions = ({ transactions, showModal }) => {
   return (

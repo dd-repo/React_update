@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react'
 import Loading from 'react-loading'
 import _ from 'underscore'
 import User from './User'
-import ResultsNotFound from 'routes/admin/Dashboard/components/resultsNotFound'
+import ResultsNotFound from 'routes/admin/components/resultsNotFound'
 import {
   Table,
   Label,

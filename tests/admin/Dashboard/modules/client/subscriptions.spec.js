@@ -4,7 +4,7 @@ import infosweepApi from 'services/infosweepApi';
 
 import {
   USER_SUCCESS,
-} from 'routes/admin/Dashboard/Users/Client/modules/details';
+} from 'routes/admin/Users/Client/modules/details';
 
 import {
   CREATE_SUBSCRIPTION_SUCCESS,
@@ -21,7 +21,7 @@ import {
   insertSubscripiton,
   addSubscription,
   default as reducer
-} from 'routes/admin/Dashboard/Users/Client/modules/subscriptions';
+} from 'routes/admin/Users/Client/modules/subscriptions';
 
 const middlewares = [ thunk ]
 const mockStore = configureMockStore(middlewares)

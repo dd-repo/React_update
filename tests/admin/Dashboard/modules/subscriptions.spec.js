@@ -13,7 +13,7 @@ import {
   receiveSubscriptions,
   rejectSubscriptions,
   default as reducer
-} from 'routes/admin/Dashboard/Subscriptions/modules/subscriptions';
+} from 'routes/admin/Subscriptions/modules/subscriptions';
 
 const middlewares = [ thunk ]
 const mockStore = configureMockStore(middlewares)

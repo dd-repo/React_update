@@ -11,7 +11,7 @@ import {
   Nav,
   NavItem
 } from 'components'
-import { requestDriverLicense } from 'routes/admin/Dashboard/Users/Client/modules/profile'
+import { requestDriverLicense } from 'routes/admin/Users/Client/modules/profile'
 import Account from './components/Account'
 import Keywords from './components/Keywords'
 import Addresses from './components/Addresses'

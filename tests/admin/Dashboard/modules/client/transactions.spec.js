@@ -6,7 +6,7 @@ import { formatDate } from 'utils';
 
 import {
   USER_SUCCESS,
-} from 'routes/admin/Dashboard/Users/Client/modules/details';
+} from 'routes/admin/Users/Client/modules/details';
 
 import {
   UPDATE_TRANSACTION_SUCCESS,
@@ -16,12 +16,12 @@ import {
   updateTransactionSuccess,
   updateTransactionFailure,
   default as reducer
-} from 'routes/admin/Dashboard/Users/Client/modules/transactions';
+} from 'routes/admin/Users/Client/modules/transactions';
 
 import {
   CREATE_SUBSCRIPTION_SUCCESS,
   CREATE_SUBSCRIPTION_FAILURE
-} from 'routes/admin/Dashboard/Users/Client/modules/subscriptions';
+} from 'routes/admin/Users/Client/modules/subscriptions';
 
 const middlewares = [ thunk ]
 const mockStore = configureMockStore(middlewares)

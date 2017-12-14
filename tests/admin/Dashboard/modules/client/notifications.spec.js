@@ -2,63 +2,63 @@ import {
   CLEAR_NOTIFICATION,
   clearNotification,
   default as reducer
-} from 'routes/admin/Dashboard/Users/Client/modules/notifications';
+} from 'routes/admin/Users/Client/modules/notifications';
 
 import {
   USER_FAILURE,
   UPDATE_USER_SUCCESS,
   UPDATE_USER_FAILURE
-} from 'routes/admin/Dashboard/Users/Client/modules/details';
+} from 'routes/admin/Users/Client/modules/details';
 
 import {
   ACCOUNT_FAILURE,
   UPDATE_ACCOUNT_SUCCESS,
   UPDATE_ACCOUNT_FAILURE
-} from 'routes/admin/Dashboard/Users/Client/modules/account';
+} from 'routes/admin/Users/Client/modules/account';
 
 import {
   UPDATE_ADDRESS_SUCCESS,
   UPDATE_ADDRESS_FAILURE,
   CREATE_ADDRESS_SUCCESS,
   CREATE_ADDRESS_FAILURE
-} from 'routes/admin/Dashboard/Users/Client/modules/addresses';
+} from 'routes/admin/Users/Client/modules/addresses';
 
 import {
   CARDS_FAILURE,
   ADD_CARD_FAILURE,
   ADD_CARD_SUCCESS
-} from 'routes/admin/Dashboard/Users/Client/modules/cards';
+} from 'routes/admin/Users/Client/modules/cards';
 
 import {
   UPDATE_KEYWORD_SUCCESS,
   UPDATE_KEYWORD_FAILURE,
   ADD_KEYWORD_SUCCESS,
   ADD_KEYWORD_FAILURE
-} from 'routes/admin/Dashboard/Users/Client/modules/keywords';
+} from 'routes/admin/Users/Client/modules/keywords';
 
 import {
   UPDATE_PHONE_SUCCESS,
   UPDATE_PHONE_FAILURE
-} from 'routes/admin/Dashboard/Users/Client/modules/phones';
+} from 'routes/admin/Users/Client/modules/phones';
 
 import {
   UPDATE_PROFILE_SUCCESS,
   UPDATE_PROFILE_FAILURE,
   DRIVER_LICENSE_REQUEST_SUCCESS,
   DRIVER_LICENSE_REQUEST_FAILURE
-} from 'routes/admin/Dashboard/Users/Client/modules/profile';
+} from 'routes/admin/Users/Client/modules/profile';
 
 import {
   UPDATE_SUBSCRIPTION_SUCCESS,
   UPDATE_SUBSCRIPTION_FAILURE,
   CREATE_SUBSCRIPTION_SUCCESS,
   CREATE_SUBSCRIPTION_FAILURE
-} from 'routes/admin/Dashboard/Users/Client/modules/subscriptions';
+} from 'routes/admin/Users/Client/modules/subscriptions';
 
 import {
   UPDATE_TRANSACTION_SUCCESS,
   UPDATE_TRANSACTION_FAILURE
-} from 'routes/admin/Dashboard/Users/Client/modules/transactions';
+} from 'routes/admin/Users/Client/modules/transactions';
 
 const initialValue = {
   message: null,

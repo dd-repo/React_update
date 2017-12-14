@@ -13,7 +13,7 @@ import {
   receiveTransactions,
   receiveTransactionsFailure,
   default as reducer
-} from 'routes/admin/Dashboard/Transactions/modules/transactions';
+} from 'routes/admin/Transactions/modules/transactions';
 
 const middlewares = [ thunk ]
 const mockStore = configureMockStore(middlewares)

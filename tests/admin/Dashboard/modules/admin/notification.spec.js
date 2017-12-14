@@ -2,14 +2,14 @@ import {
   RECEIVE_ADMIN_FAILURE,
   RECEIVE_ADMIN_UPDATE_SUCCESS,
   RECEIVE_ADMIN_UPDATE_FAILURE
-} from 'routes/admin/Dashboard/Users/Admin/modules/admin'
+} from 'routes/admin/Users/Admin/modules/admin'
 
 import {
   CLEAR_NOTIFICATION,
   SUCCESS_RESPONSE,
   clearNotification,
   default as reducer
-} from 'routes/admin/Dashboard/Users/Admin/modules/notification'
+} from 'routes/admin/Users/Admin/modules/notification'
 
 const error = {
   response: {

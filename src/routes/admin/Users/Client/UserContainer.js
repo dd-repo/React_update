@@ -10,8 +10,8 @@ import { fetchAccount } from './modules/account'
 import { fetchCards } from './modules/cards'
 import { resetUserPassword } from 'routes/auth/modules/auth'
 import { clearNotification } from './modules/notifications'
-import { USERS_REQUEST } from 'routes/admin/Dashboard/Users/modules/users'
-import { submitKeyword } from 'routes/admin/Dashboard/Users/Client/modules/keywords'
+import { USERS_REQUEST } from 'routes/admin/Users/modules/users'
+import { submitKeyword } from 'routes/admin/Users/Client/modules/keywords'
 
 class UserContainer extends RoutedComponent {
   constructor (props) {

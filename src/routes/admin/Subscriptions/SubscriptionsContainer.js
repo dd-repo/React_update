@@ -4,7 +4,7 @@ import { RoutedComponent, connect } from 'routes/routedComponent'
 import { CONTENT_VIEW_STATIC } from 'layouts/DefaultLayout/modules/layout'
 import Subscriptions from './components/Subscriptions'
 import { showModal } from 'modules/modal'
-import { fetchCards } from 'routes/admin/Dashboard/Users/Client/modules/cards'
+import { fetchCards } from 'routes/admin/Users/Client/modules/cards'
 import {
   getSubscriptions,
   updateSubscription

@@ -16,7 +16,7 @@ import {
   receiveNewCardSuccess,
   receiveNewCardFailure,
   default as reducer
-} from 'routes/admin/Dashboard/Users/Client/modules/cards';
+} from 'routes/admin/Users/Client/modules/cards';
 
 const middlewares = [ thunk ]
 const mockStore = configureMockStore(middlewares)

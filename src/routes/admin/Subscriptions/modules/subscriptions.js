@@ -4,7 +4,7 @@ import {
   UPDATE_SUBSCRIPTION_SUCCESS,
   UPDATE_SUBSCRIPTION_FAILURE,
   insertSubscription
-} from 'routes/admin/Dashboard/Users/Client/modules/subscriptions';
+} from 'routes/admin/Users/Client/modules/subscriptions';
 
 // action types
 export const SUBSCRIPTIONS_PENDING = 'SUBSCRIPTIONS_PENDING';

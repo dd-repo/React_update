@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { reduxForm, Field } from 'redux-form';
 
 import { Modal } from 'components';
-import { createSubscription } from 'routes/admin/Dashboard/Users/Client/modules/subscriptions';
+import { createSubscription } from 'routes/admin/Users/Client/modules/subscriptions';
 import { NewSubscriptionForm } from 'components/Forms/Subscription';
 
 const CreateSubscriptionModal = props => {

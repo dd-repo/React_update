@@ -6,10 +6,10 @@ import { PaymentForm } from 'components/Forms'
 import { 
   addCard,
   ADD_CARD_SUCCESS
-} from 'routes/admin/Dashboard/Users/Client/modules/cards'
+} from 'routes/admin/Users/Client/modules/cards'
 import { 
   clearNotification
-} from 'routes/admin/Dashboard/Users/Client/modules/notifications'
+} from 'routes/admin/Users/Client/modules/notifications'
 import { Modal, Alert } from 'components'
 import classes from './cardModal.scss'
 
