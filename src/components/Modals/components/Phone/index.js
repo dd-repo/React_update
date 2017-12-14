@@ -13,7 +13,7 @@ import {
 } from 'components';
 import formFields from 'consts/formFields'
 
-import { updatePhone } from 'routes/admin/Dashboard/Users/Client/modules/phones';
+import { updatePhone } from 'routes/admin/Users/Client/modules/phones';
 
 const renderInput = ({ input, type, maxLength }) => {
   return (

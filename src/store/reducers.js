@@ -10,13 +10,13 @@ import payment from 'routes/signup/Payment/modules/payment';
 import googleResults from 'routes/client/GoogleResults/modules/googleResults';
 import monitoring from 'routes/client/Monitoring/modules/monitoring';
 import layout from 'layouts/DefaultLayout/modules/layout';
-import requestedRemovals from 'routes/admin/Dashboard/Removals/modules/removalRequests';
-import transactions from 'routes/admin/Dashboard/Transactions/modules/transactions';
-import subscriptions from 'routes/admin/Dashboard/Subscriptions/modules/subscriptions';
-import users from 'routes/admin/Dashboard/Users/modules/users';
+import requestedRemovals from 'routes/admin/Removals/modules/removalRequests';
+import transactions from 'routes/admin/Transactions/modules/transactions';
+import subscriptions from 'routes/admin/Subscriptions/modules/subscriptions';
+import users from 'routes/admin/Users/modules/users';
 import subscription from 'routes/client/Account/modules/subscription';
-import client from 'routes/admin/Dashboard/Users/Client/modules';
-import admin from 'routes/admin/Dashboard/Users/Admin/modules';
+import client from 'routes/admin/Users/Client/modules';
+import admin from 'routes/admin/Users/Admin/modules';
 
 
 export const makeRootReducer = (asyncReducers) => {

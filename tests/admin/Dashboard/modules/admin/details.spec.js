@@ -21,7 +21,7 @@ import {
   receiveAdminSuccess,
   receiveAdminFailure,
   default as reducer
-} from 'routes/admin/Dashboard/Users/Admin/modules/admin';
+} from 'routes/admin/Users/Admin/modules/admin';
 
 const middlewares = [ thunk ]
 const mockStore = configureMockStore(middlewares)

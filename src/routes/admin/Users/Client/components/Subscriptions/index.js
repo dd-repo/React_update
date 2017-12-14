@@ -7,7 +7,7 @@ import {
   Button
 } from 'components'
 
-import Subscription from 'routes/admin/Dashboard/Subscriptions/components/Subscription'
+import Subscription from 'routes/admin/Subscriptions/components/Subscription'
 
 const button = {
   label: <i className="fa fa-pencil"> Edit</i>,

@@ -4,7 +4,7 @@ import infosweepApi from 'services/infosweepApi';
 
 import {
   ACCOUNT_SUCCESS
-} from 'routes/admin/Dashboard/Users/Client/modules/account';
+} from 'routes/admin/Users/Client/modules/account';
 import { configKeywords } from 'routes/client/Account/modules/keywords';
 import {
   UPDATE_KEYWORD_SUCCESS,
@@ -20,7 +20,7 @@ import {
   addKeywordFailure,
   submitKeyword,
   default as reducer
-} from 'routes/admin/Dashboard/Users/Client/modules/keywords';
+} from 'routes/admin/Users/Client/modules/keywords';
 
 const middlewares = [ thunk ]
 const mockStore = configureMockStore(middlewares)

@@ -4,7 +4,7 @@ import infosweepApi from 'services/infosweepApi';
 
 import {
   ACCOUNT_SUCCESS
-} from 'routes/admin/Dashboard/Users/Client/modules/account';
+} from 'routes/admin/Users/Client/modules/account';
 
 import {
   UPDATE_PHONE_SUCCESS,
@@ -14,7 +14,7 @@ import {
   updatePhoneFailure,
   updatePhone,
   default as reducer
-} from 'routes/admin/Dashboard/Users/Client/modules/phones';
+} from 'routes/admin/Users/Client/modules/phones';
 
 const middlewares = [ thunk ]
 const mockStore = configureMockStore(middlewares)

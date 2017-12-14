@@ -1,21 +1,20 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { Field, reduxForm } from 'redux-form'
-import _ from 'underscore'
+import { reduxForm } from 'redux-form'
 import Toggle from 'react-toggle'
 import 'react-toggle/style.css'
+
 import { ReduxFormInput } from 'components/Forms/components'
 import { checkValidation } from 'utils/formHelpers'
 import formFields from 'consts/formFields'
-import { Row, Col, FormGroup, FormControl } from 'components'
-
+import { Row, Col } from 'components'
 
 const validate = values => {
   return checkValidation(values, formFields)
 }
 
 class SignupForm extends Component {
-  constructor() {
+  constructor () {
     super()
     this.state = {
       passwordField: formFields.password,

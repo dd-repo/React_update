@@ -25,7 +25,7 @@ import {
   rejectedUpdateStatus,
   updateRemovals,
   default as reducer
-} from 'routes/admin/Dashboard/Removals/modules/removalRequests';
+} from 'routes/admin/Removals/modules/removalRequests';
 
 const middlewares = [ thunk ]
 const mockStore = configureMockStore(middlewares)

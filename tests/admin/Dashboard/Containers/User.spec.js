@@ -4,10 +4,10 @@ import { Provider } from 'react-redux';
 import configureMockStore from 'redux-mock-store';
 import infosweepApi from 'services/infosweepApi';
 
-import UserContainer from 'routes/admin/Dashboard/Users/Client/UserContainer'
-import User from 'routes/admin/Dashboard/Users/Client/components/Client';
+import UserContainer from 'routes/admin/Users/Client/UserContainer'
+import User from 'routes/admin/Users/Client/components/Client';
 import Payment from 'routes/signup/Payment';
-import UserDetails from 'routes/admin/Dashboard/Users/Client/components/ClientDetails';
+import UserDetails from 'routes/admin/Users/Client/components/ClientDetails';
 
 const response = {
   id:1,

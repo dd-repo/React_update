@@ -7,7 +7,7 @@ import {
   Modal
 } from 'components'
 
-import { updateTransaction } from 'routes/admin/Dashboard/Users/Client/modules/transactions';
+import { updateTransaction } from 'routes/admin/Users/Client/modules/transactions';
 
 const TransactionUpdateModal = ({
   initialValues: transaction,

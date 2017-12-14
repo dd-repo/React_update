@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { reduxForm, Field } from 'redux-form';
 
-import { updateAccount } from 'routes/admin/Dashboard/Users/Client/modules/account';
+import { updateAccount } from 'routes/admin/Users/Client/modules/account';
 
 import {
     Col,

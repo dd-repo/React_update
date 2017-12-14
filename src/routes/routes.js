@@ -117,7 +117,7 @@ export default [
     path: '/admin/dashboard',
     getComponent: (location, cb) => {
       require.ensure([], require => {
-        cb(null, require('./admin/Dashboard/Users').default);
+        cb(null, require('./admin/Users').default);
       }, 'admin-dashboard-users');
     }
   },
@@ -125,7 +125,7 @@ export default [
     path: '/admin/dashboard/removals/requested',
     getComponent: (location, cb) => {
       require.ensure([], require => {
-        cb(null, require('./admin/Dashboard/Removals').default);
+        cb(null, require('./admin/Removals').default);
       }, 'admin-dashboard-removals');
     }
   },
@@ -133,7 +133,7 @@ export default [
     path: '/admin/dashboard/removals/in-progress',
     getComponent: (location, cb) => {
       require.ensure([], require => {
-        cb(null, require('./admin/Dashboard/Removals').default);
+        cb(null, require('./admin/Removals').default);
       }, 'admin-dashboard-removals');
     }
   },
@@ -141,7 +141,7 @@ export default [
     path: '/admin/dashboard/removals/completed',
     getComponent: (location, cb) => {
       require.ensure([], require => {
-        cb(null, require('./admin/Dashboard/Removals').default);
+        cb(null, require('./admin/Removals').default);
       }, 'admin-dashboard-removals');
     }
   },
@@ -149,7 +149,7 @@ export default [
     path: '/admin/dashboard/client-registration',
     getComponent: (location, cb) => {
       require.ensure([], require => {
-        cb(null, require('./admin/Dashboard/ClientRegistration').default);
+        cb(null, require('./admin/ClientRegistration').default);
       }, 'admin-dashboard-client-registration');
     }
   },
@@ -157,7 +157,7 @@ export default [
     path: '/admin/dashboard/transactions',
     getComponent: (location, cb) => {
       require.ensure([], require => {
-        cb(null, require('./admin/Dashboard/Transactions').default);
+        cb(null, require('./admin/Transactions').default);
       }, 'admin-dashboard-transactions');
     }
   },
@@ -165,7 +165,7 @@ export default [
     path: '/admin/dashboard/users/clients',
     getComponent: (location, cb) => {
       require.ensure([], require => {
-        cb(null, require('./admin/Dashboard/Users').default);
+        cb(null, require('./admin/Users').default);
       }, 'admin-dashboard-users-clients');
     }
   },
@@ -173,7 +173,7 @@ export default [
     path: '/admin/dashboard/users/admin',
     getComponent: (location, cb) => {
       require.ensure([], require => {
-        cb(null, require('./admin/Dashboard/Users').default);
+        cb(null, require('./admin/Users').default);
       }, 'admin-dashboard-users-admin');
     }
   },
@@ -181,7 +181,7 @@ export default [
     path: '/admin/dashboard/users/client/:id',
     getComponent: (location, cb) => {
       require.ensure([], require => {
-        cb(null, require('./admin/Dashboard/Users/Client').default);
+        cb(null, require('./admin/Users/Client').default);
       }, 'admin-dashboard-user-edit');
     }
   },
@@ -189,7 +189,7 @@ export default [
     path: '/admin/dashboard/users/admin/:id',
     getComponent: (location, cb) => {
       require.ensure([], require => {
-        cb(null, require('./admin/Dashboard/Users/Admin').default);
+        cb(null, require('./admin/Users/Admin').default);
       }, 'admin-dashboard-admin-edit');
     }
   },
@@ -197,7 +197,7 @@ export default [
     path: '/admin/dashboard/subscriptions',
     getComponent: (location, cb) => {
       require.ensure([], require => {
-        cb(null, require('./admin/Dashboard/Subscriptions').default);
+        cb(null, require('./admin/Subscriptions').default);
       }, 'admin-dashboard-subscriptions');
     }
   },
@@ -205,7 +205,7 @@ export default [
     path: '/admin/dashboard/create-user',
     getComponent: (location, cb) => {
       require.ensure([], require => {
-        cb(null, require('./admin/Dashboard/CreateUser').default);
+        cb(null, require('./admin/CreateUser').default);
       }, 'admin-dashboard-create-user');
     }
   },

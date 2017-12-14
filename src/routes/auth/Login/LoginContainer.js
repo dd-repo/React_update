@@ -19,13 +19,6 @@ const persistDataToLocalStorage = data => {
 }
 
 class LoginContainer extends RoutedComponent {
-  constructor (props) {
-    super(props)
-
-    this.submitForm = this.submitForm.bind(this)
-    this.state = {}
-    this.doNext = this.doNext.bind(this)
-  }
 
   static contextTypes = {
     router: React.PropTypes.object.isRequired
@@ -41,13 +34,13 @@ class LoginContainer extends RoutedComponent {
     }
   }
 
-  submitForm (user) {
+  submitForm = (user) => {
     this.props.postUserLogin(user)
     .then(res => { this.doNext(res) })
     .catch(error => { console.log('error user Login', error) })
   }
 
-  doNext (res) {
+  doNext = (res) => {
     switch (res.type) {
     case USER_LOGIN_SUCCESS:
       persistDataToLocalStorage(res.data)

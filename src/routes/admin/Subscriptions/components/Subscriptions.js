@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import _ from 'underscore'
 
 import Subscription from './Subscription'
-import ResultsNotFound from 'routes/admin/Dashboard/components/resultsNotFound'
+import ResultsNotFound from 'routes/admin/components/resultsNotFound'
 import {
   Table,
   Col,
