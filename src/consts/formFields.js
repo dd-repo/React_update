@@ -206,6 +206,7 @@ const fields = {
       {value: 'trial', label: 'trial (first month free)'},
       {value: '6-months', label: '6-months'},
       {value: '1-year', label: '1-year'},
+      {value: '19-plan', label: 'individual $19'},
       {value: 'testing', label: 'testing'}
     ]
   },
