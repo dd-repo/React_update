@@ -207,6 +207,9 @@ const fields = {
       {value: '6-months', label: '6-months'},
       {value: '1-year', label: '1-year'},
       {value: '19-plan', label: 'individual $19'},
+      {value: '228-19-plan', label: 'Infosweep $228 12 month'},
+      {value: '144-12-plan', label: 'Infosweep $144 12 month'},
+      {value: '90-6-plan', label: 'Infosweep $90 6 month'},
       {value: 'testing', label: 'testing'}
     ]
   },
