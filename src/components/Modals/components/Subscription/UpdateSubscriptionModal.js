@@ -15,7 +15,6 @@ import { updateSubscription } from 'routes/admin/Users/Client/modules/subscripti
 import { UpdateSubscriptionForm } from 'components/Forms/Subscription';
 
 const SubscriptionEditModal = props => {
-
   const _onSubmit = data => {
     props.hideModal()
     props.dispatch(updateSubscription(data))

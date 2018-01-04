@@ -12,7 +12,7 @@ const CreateSubscriptionModal = props => {
     const params = {
       card_id: data.card.value,
       plan: data.plan.value,
-      sales_rep_id: data.salesRep.value,
+      sales_rep_id: data.sales_rep_id.value,
       next_payment: data.next_payment
     }
     props.hideModal()
@@ -30,7 +30,6 @@ const CreateSubscriptionModal = props => {
         <NewSubscriptionForm
           cards={props.cards}
           _onSubmit={_onSubmit}
-          salesReps={props.initialValues.users}
         />
       </Modal.Body>
     </Modal>
