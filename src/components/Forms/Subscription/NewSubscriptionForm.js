@@ -1,20 +1,19 @@
-import React, { PropTypes } from 'react';
-import { reduxForm, Field } from 'redux-form';
+import React from 'react'
+import { reduxForm } from 'redux-form'
 
-import { checkValidation } from 'utils/formHelpers';
-import formFields from 'consts/formFields';
-import { ReduxFormSelect, ReduxFormDatePicker } from '../components';
-import { fullName, formatDate, formatCreditCard } from 'utils';
+import { checkValidation } from 'utils/formHelpers'
+import formFields from 'consts/formFields'
+import { ReduxFormSelect, ReduxFormDatePicker, AdminSelect } from '../components'
+import { formatCreditCard } from 'utils'
 
 import {
   Row,
   Col,
   Form,
   FormGroup,
-  FormControl,
   ControlLabel,
   Button
-} from 'components';
+} from 'components'
 
 const validate = values => {
   return checkValidation(values)
@@ -23,15 +22,8 @@ const validate = values => {
 const NewSubscriptionForm = props => {
   const formatedCards = {
     name: 'card',
-    list: props.cards.map( card => ({
+    list: props.cards.map(card => ({
       value: card.id, label: formatCreditCard(card.last_4)
-    }))
-  }
-
-  const formatedSalesReps = {
-    name: 'salesRep',
-    list: props.salesReps.map( rep => ({
-      value: rep.id, label: fullName(rep)
     }))
   }
 
@@ -53,7 +45,7 @@ const NewSubscriptionForm = props => {
             Sales Rep
           </Col>
           <Col sm={8}>
-            <ReduxFormSelect field={formatedSalesReps} />
+            <AdminSelect />
           </Col>
         </Row>
       </FormGroup>
@@ -93,7 +85,7 @@ const NewSubscriptionForm = props => {
 
 const reduxSubscriptionNew = reduxForm({
   form: 'subscriptionNew',
-	validate
+	                    validate
 })(NewSubscriptionForm)
 
-export default reduxSubscriptionNew;
+export default reduxSubscriptionNew

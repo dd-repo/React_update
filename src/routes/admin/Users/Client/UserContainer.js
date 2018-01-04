@@ -62,29 +62,12 @@ class UserContainer extends RoutedComponent {
   }
 
   handleNewSubscription () {
-    this.fetchAdmin()
-    .then(
-          res => {
-            this.props.showModal(
-              'CREATE_SUBSCRIPTION',
-              res.data
-            ) }
-    )
+    this.props.showModal('CREATE_SUBSCRIPTION')
   }
 
   handleKeywordSubmit = keyword => {
     this.props.hideModal()
     this.props.submitKeyword(keyword, this.props.client.account.id)
-  }
-
-  fetchAdmin () {
-    const params = {
-      q: { 
-        group_eq: 'backend',
-        is_active_eq: true
-      }
-    }
-    return infosweepApi.get(USERS_REQUEST, params)
   }
 
   render () {
