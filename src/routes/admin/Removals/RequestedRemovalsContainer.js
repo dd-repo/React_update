@@ -14,8 +14,7 @@ import {
 const removalStatus = {
   'requested': 'requested',
   'in-progress': 'inprogress',
-  'completed': 'completed',
-  'dashboard': 'requested'
+  'completed': 'completed'
 }
 
 class RequestedRemovalsContainer extends RoutedComponent {
@@ -86,7 +85,7 @@ class RequestedRemovalsContainer extends RoutedComponent {
   }
 
   hideModal () {
-    this.setState({showModal: !this.state.showModal, removal: {}})
+    this.setState({showModal: false, removal: {}})
   }
 
   showModal (removal) {
@@ -96,6 +95,7 @@ class RequestedRemovalsContainer extends RoutedComponent {
   updateRemovalStatus (removal, removed_url) {
     const { id, nextStatus } = removal
     const payload = { request_id: id, status: nextStatus, removed_url }
+    this.hideModal()
     this.props.updateStatus(payload)
   }
 
@@ -114,7 +114,7 @@ class RequestedRemovalsContainer extends RoutedComponent {
   }
 
   handleClick (removal) {
-    removal.nextStatus === 'protected'
+    (removal.nextStatus === 'protected' || removal.nextStatus === 'skip')
       ? this.updateRemovalStatus(removal)
       : this.showModal(removal)
   }

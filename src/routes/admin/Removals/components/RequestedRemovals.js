@@ -24,7 +24,6 @@ class RequestedRemovals extends Component {
     this.state = {}
 
     this._handleClick = this._handleClick.bind(this)
-    this.updateRemovalStatus = this.updateRemovalStatus.bind(this)
     this.validateUrlInput = this.validateUrlInput.bind(this)
   }
 
@@ -33,21 +32,16 @@ class RequestedRemovals extends Component {
 
     removedUrl && this.validateUrlInput(removedUrl.value)
 
-    !removedUrl && this.updateRemovalStatus()
+    !removedUrl && this.props.updateRemovalStatus(this.props.removalInProcess)
   }
 
   validateUrlInput (url) {
     url !== ''
       ? (
-        this.updateRemovalStatus(url),
+        this.props.updateRemovalStatus(this.props.removalInProcess, url),
         this.setState({validation: null})
       )
       : this.setState({validation: 'Please enter the removal url'})
-  }
-
-  updateRemovalStatus (url) {
-    this.props.updateRemovalStatus(this.props.removalInProcess, url)
-    this.props.hideModal()
   }
 
   render () {
@@ -216,32 +210,23 @@ class RequestedRemovals extends Component {
       </Table>
     )
 
-    const renderSearchBar = (
-      <Col lg={6} lgOffset={3} className='m-b-2' >
-        <SearchBar
-          placeHolder='Enter removal id...'
-          query={queryName}
-          resultCount={resultCount}
-          handleSearch={handleSearch}
-        />
-      </Col>
-    )
-
-    const renderLoader = (
-      isFetching &&
-        <Loader />
-    )
-
     return (
       <Row>
+        {isFetching && <Loader />}
         <FlashMessage
           flashMessage={this.props.notification}
           clearMessage={this.props.clearMessage}
         />
-        {renderSearchBar}
+        <Col lg={6} lgOffset={3} className='m-b-2' >
+          <SearchBar
+            placeHolder='Enter removal id...'
+            query={queryName}
+            resultCount={resultCount}
+            handleSearch={handleSearch}
+          />
+        </Col>
         {renderRequestedTable}
         {renderPagination}
-        {renderLoader}
         {renderModal}
       </Row>
     )

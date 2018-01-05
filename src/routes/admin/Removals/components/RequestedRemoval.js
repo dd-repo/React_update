@@ -42,14 +42,34 @@ export default class RemovalRequested extends Component {
     const renderStatus = status === 'protected' ? 'completed' : status
     const isRequested = status === 'requested'
     const isInProgress = status === 'inprogress'
+    let renderButton = null
 
-    const renderButton = (
-      <DropdownButton onSelect={this._onSelect} title='Actions' bsStyle='danger' id='dropdown-basic-4' bsSize='lg' className='m-b-1'>
-        {isRequested && <MenuItem eventKey="inprogress">In Progress</MenuItem>}
-        {isRequested && <MenuItem eventKey="protected">Record not found</MenuItem>}
-        {isInProgress && <MenuItem eventKey="completed">Complete</MenuItem>}
-      </DropdownButton>
-    )
+    if (isRequested) {
+        renderButton = <DropdownButton 
+          onSelect={this._onSelect}
+          title='Actions'
+          bsStyle='danger'
+          id='dropdown-basic-4'
+          bsSize='lg'
+          className='m-b-1'
+        >
+          <MenuItem eventKey="inprogress">In Progress</MenuItem>
+          <MenuItem eventKey="protected">Record not found</MenuItem>
+          <MenuItem eventKey="skip">Skip Record</MenuItem>
+        </DropdownButton>
+      } else {
+        renderButton = <DropdownButton
+          onSelect={this._onSelect}
+          title='Actions'
+          bsStyle='danger'
+          id='dropdown-basic-4'
+          bsSize='lg'
+          className='m-b-1'
+        >
+          <MenuItem eventKey="completed">Complete</MenuItem>
+          <MenuItem eventKey="skip">Skip Record</MenuItem>
+        </DropdownButton>
+      }
 
     return (
       <tr className='bg-gray-darker' key={id}>
