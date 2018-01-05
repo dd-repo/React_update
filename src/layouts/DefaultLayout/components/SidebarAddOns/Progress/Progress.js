@@ -2,7 +2,7 @@ import React from 'react';
 import {
     Media
 } from 'react-bootstrap';
-import faker from 'faker';
+// import faker from 'faker';
 import { Link } from 'react-router';
 
 import {
@@ -14,7 +14,8 @@ import {
 //import avatarImage from 'static/avatars/avatar-34.jpg';
 import { Colors } from 'consts';
 
-const UserName = `${faker.name.firstName()} ${faker.name.lastName()}`;
+// const UserName = `${faker.name.firstName()} ${faker.name.lastName()}`;
+const UserName = 'Test User';
 
 const Progress = (props) => (
     <Sidebar.AddOn>

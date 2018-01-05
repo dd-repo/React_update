@@ -1,5 +1,4 @@
 import React from 'react';
-import faker from 'faker';
 import _ from 'underscore';
 import { Link } from 'react-router';
 import { formatPrice, formatDate, formatCreditCard } from 'utils';

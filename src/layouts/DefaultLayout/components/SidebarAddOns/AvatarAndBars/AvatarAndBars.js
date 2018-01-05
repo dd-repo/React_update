@@ -2,7 +2,7 @@ import React from 'react';
 import {
     Media
 } from 'react-bootstrap';
-import faker from 'faker';
+// import faker from 'faker';
 import classNames from 'classnames';
 import { Link } from 'react-router';
 
@@ -16,7 +16,8 @@ import classes from './../AddOns.scss';
 //import avatarImage from 'static/avatars/avatar-50.jpg';
 import { Colors } from 'consts';
 
-const UserName = `${faker.name.firstName()} ${faker.name.lastName()}`;
+// const UserName = `${faker.name.firstName()} ${faker.name.lastName()}`;
+const UserName = 'test user'
 
 const AvatarAndBars = (props) => (
     <Sidebar.AddOn>

@@ -1,6 +1,6 @@
 import React from 'react';
 import uid from 'node-uuid';
-import faker from 'faker';
+// import faker from 'faker';
 import _ from 'underscore';
 // import moment from 'moment';
 import { Link } from 'react-router';
@@ -25,7 +25,7 @@ const notifications = [
                 <i className="fa fa-close fa-stack-1x fa-fw text-danger"></i>
             </span>
         ),
-        title: faker.hacker.phrase(),
+        // title: faker.hacker.phrase(),
         // date: moment(faker.date.recent()).format('DD-MMM-YYYY, HH:mm')
     },
     {
@@ -36,7 +36,7 @@ const notifications = [
                 <i className="fa fa-info fa-stack-1x text-primary"></i>
             </span>
         ),
-        title: faker.hacker.phrase(),
+        // title: faker.hacker.phrase(),
         // date: moment(faker.date.recent()).format('DD-MMM-YYYY, HH:mm')
     },
     {
@@ -47,7 +47,7 @@ const notifications = [
                 <i className="fa fa-check fa-stack-1x text-success"></i>
             </span>
         ),
-        title: faker.hacker.phrase(),
+        // title: faker.hacker.phrase(),
         // date: moment(faker.date.recent()).format('DD-MMM-YYYY, HH:mm')
     },
     {
@@ -58,7 +58,7 @@ const notifications = [
                 <i className="fa fa-exclamation fa-stack-1x fa-fw text-warning"></i>
             </span>
         ),
-        title: faker.hacker.phrase(),
+        // title: faker.hacker.phrase(),
         // date: moment(faker.date.recent()).format('DD-MMM-YYYY, HH:mm')
     }
 ];

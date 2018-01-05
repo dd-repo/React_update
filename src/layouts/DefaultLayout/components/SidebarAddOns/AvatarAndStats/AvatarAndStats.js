@@ -2,7 +2,7 @@ import React from 'react';
 import {
     Media
 } from 'react-bootstrap';
-import faker from 'faker';
+// import faker from 'faker';
 import { Link } from 'react-router';
 
 import {
