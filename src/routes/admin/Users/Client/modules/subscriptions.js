@@ -15,7 +15,7 @@ export const updateSubscription = subscription => {
     subscription: {
       card_id: card_id.value,
       is_active: is_active.value,
-      sales_rep_id: sales_rep_id.value
+      sales_rep_id: sales_rep_id ? sales_rep_id.value : undefined
     }
   }
   return dispatch => {
