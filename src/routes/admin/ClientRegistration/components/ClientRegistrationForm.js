@@ -27,7 +27,7 @@ let ClientRegistrationForm = (props) => {
     submitForm,
     handleSubmit,
     invalid,
-    submitting,
+    disableButton,
     initialValues
   } = props
 
@@ -216,7 +216,7 @@ let ClientRegistrationForm = (props) => {
           </Row>
           <button
             className='btn btn-primary btn-lg pull-right m-b-2'
-            disabled={invalid || submitting}
+            disabled={invalid || disableButton}
             action="submit"
           >
             {renderbuttonLabel}

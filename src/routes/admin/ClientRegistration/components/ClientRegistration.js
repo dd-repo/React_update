@@ -11,7 +11,14 @@ import {
   Alert
 } from 'components'
 
-const ClientRegistration = ({ notification, submitForm, isFetching }) => {
+const ClientRegistration = (props) => {
+  const { 
+    notification,
+    submitForm,
+    isFetching,
+    disableButton
+  } = props
+
   const renderMessage = notification &&
     <Alert bsStyle={notification.status}>
       {notification.message}
@@ -37,6 +44,7 @@ const ClientRegistration = ({ notification, submitForm, isFetching }) => {
               <ClientRegistrationForm
                 submitForm={submitForm}
                 isFetching={isFetching}
+                disableButton={disableButton}
               />
 
           </Panel>

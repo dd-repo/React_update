@@ -44,7 +44,7 @@ class ClientRegistrationContainer extends RoutedComponent {
 
   submitForm (user) {
     const payload = this.buildParams(user)
-    this.setState({isFetching: true})
+    this.setState({isFetching: true, disableButton: true})
     infosweepApi.post(CLIENT_SIGNUP_REQUEST, payload)
     .then(res => { this.handleSuccess() })
     .catch(error => { this.handleFailure(error) })
@@ -53,6 +53,7 @@ class ClientRegistrationContainer extends RoutedComponent {
   handleSuccess () {
     this.setState({
       isFetching: false,
+      disableButton: false,
       notification: {
         message: 'Client was successfully created',
         status: 'success'
@@ -65,8 +66,9 @@ class ClientRegistrationContainer extends RoutedComponent {
   }
 
   handleFailure (error) {
-    this.setState({isFetching: false})
     this.setState({
+      isFetching: false,
+      disableButton: false,
       notification:
       {
         message: error.response.data.message,
@@ -114,6 +116,7 @@ class ClientRegistrationContainer extends RoutedComponent {
         submitForm={this.submitForm}
         isFetching={this.state.isFetching}
         notification={this.state.notification}
+        disableButton={this.state.disableButton}
       />
     )
   }
