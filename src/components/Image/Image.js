@@ -117,7 +117,7 @@ class Image extends React.Component {
                     display: this.props.block ? 'block' : 'inline-block'
                 } }
             >
-                { (!this.state.imageLoaded ? (
+                { (!this.state.imageLoaded || !this.props.src ? (
                     this._renderPlaceholder()
                 ) : null) }
                 <img

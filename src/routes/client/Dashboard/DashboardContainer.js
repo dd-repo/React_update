@@ -64,16 +64,6 @@ class DashboardContainer extends RoutedComponent {
     this.props.updateCurrentKeyword(keyword)
   }
 
-  handlePrivacyRemovalButtonClick = (id, selector) => {
-    if (selector === 'removal') {
-      const payload = { request: { search_result_id: id } }
-      this.props.requestRemoval(payload)
-      .then((res) => this.showAlertMessage())
-      .catch((error) => this.showAlertMessage())
-    } else {
-      this.context.router.push('/dashboard/privacy')
-    }
-  }
 
   handleKeywordEdit = keyword => {
     this.props.updateKeyword(keyword, this.props.user.account_id)
@@ -94,7 +84,6 @@ class DashboardContainer extends RoutedComponent {
           totalCount={this.props.totalCount}
           googleResults={this.props.googleResults}
           keywords={this.props.keywords}
-          handlePrivacyRemovalButtonClick={this.handlePrivacyRemovalButtonClick}
           handleKeywordEdit={this.handleKeywordEdit}
           handleSearch={this.handleSearch}
           showModal={this.props.showModal}
@@ -115,7 +104,8 @@ const mapStateToProps = state => ({
   totalCount: state.monitoring.totalCount,
   googleResults: state.googleResults,
   keywords: state.account.keywords,
-  screenSize: state.layout.currentScreenSize
+  screenSize: state.layout.currentScreenSize,
+  monitoringError: state.monitoring.errorMessage
 })
 
 const mapActionCreators = {

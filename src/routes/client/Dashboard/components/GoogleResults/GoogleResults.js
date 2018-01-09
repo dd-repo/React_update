@@ -48,7 +48,6 @@ class GoogleResultsWidget extends Component {
       results,
       keywords,
       handleSearch,
-      handlePrivacyRemovalButtonClick,
       screenSize
     } = this.props
 
@@ -80,7 +79,6 @@ class GoogleResultsWidget extends Component {
                 <GoogleResult
                   result={result}
                   key={i}
-                  handleRemoval={handlePrivacyRemovalButtonClick}
                 />
                 ))
               }
@@ -98,7 +96,6 @@ GoogleResultsWidget.propTypes = {
   results: PropTypes.object,
   keywords: PropTypes.object,
   handleSearch: PropTypes.func,
-  handlePrivacyRemovalButtonClick: PropTypes.func,
   screenSize: PropTypes.string
 }
 

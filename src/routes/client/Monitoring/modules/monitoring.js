@@ -174,16 +174,20 @@ const reducer = (state = initialState, action) => {
       isFetching: false,
       errorMessage: action.error
     })
-  case MONITORING_UPDATE_SUCCESS:
-    const currentStatus = CURRENT_STATUS[action.removal.status]
-    const previousStatus = state.inProgress.length === 3 ? PREVIOUS_STATUS[currentStatus] : 'potentialRisks'
+    case MONITORING_UPDATE_SUCCESS:
+      const currentStatus = CURRENT_STATUS[action.removal.status]
+      const previousStatus = state.inProgress.length === 3 ? PREVIOUS_STATUS[currentStatus] : 'potentialRisks'
 
-    return Object.assign({}, state, {
-      [currentStatus]: addToStatusList(state[currentStatus], action.removal),
-      [previousStatus]: removeFromStatusList(state[previousStatus], action.removal)
-    })
-  case USER_LOGOUT:
-    return {}
+      return Object.assign({}, state, {
+        [currentStatus]: addToStatusList(state[currentStatus], action.removal),
+        [previousStatus]: removeFromStatusList(state[previousStatus], action.removal)
+      })
+    case MONITORING_UPDATE_FAILURE:
+      return Object.assign({}, state, {
+        errorMessage: action.error
+      })
+    case USER_LOGOUT:
+      return {}
   default:
     return state
   }

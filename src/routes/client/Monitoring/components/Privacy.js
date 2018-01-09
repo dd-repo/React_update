@@ -3,7 +3,7 @@ import _ from 'underscore';
 
 import RootModal from 'components/Modals';
 import MonitoringRequests from './MonitoringRequests';
-import MonitoringSites from './MonitoringSites';
+import PotentialRisks from './MonitoringSites';
 import MonitoringSite from './MonitoringSite';
 import Summary from './Summary';
 import CompletedRequests from './CompletedRequests';
@@ -68,11 +68,21 @@ const Privacy = props => {
                 </Col>
               </Row>
 
-              <MonitoringSites
-                sites={potentialRisks}
-                handleRemovalRequest={handleRemovalRequest}
-                isFetching={isFetching}
-              />
+              <Panel
+                type='color-title-border'
+                bsStyle='danger'
+                background='default'
+                header={
+                  <h4 className='panel-title'>
+                    Potential Risks
+                  </h4>
+                }
+              >
+                <PotentialRisks
+                  potentialRisks={potentialRisks}
+                  isFetching={isFetching}
+                />
+              </Panel>
 
             <CompletedRequests
               completed={completed}

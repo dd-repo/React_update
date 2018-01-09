@@ -5,7 +5,6 @@ import KeywordModal from './Keyword';
 import PhoneModal from './Phone';
 import ProfileModal from './Profile';
 import CardModal from './Card';
-import RemovalInstructionsModal from './Monitoring/RemovalInstructions';
 import TermsOfServiceModal from './TOS';
 import PrivacyPolicyModal from './PrivacyPolicy';
 import { DashboardWelcome } from './Dashboard';
@@ -18,6 +17,10 @@ import {
   CancelSubscriptionModal,
   CanceledSubscriptionModal
 } from './Subscription';
+import {
+  RemovalInstructionsModal,
+  IdRequiredModal
+} from './Monitoring';
 
 export {
   UpdateUserModal,
@@ -40,6 +43,7 @@ export {
   PaymentSuccessModal,
   TermsOfServiceModal,
   PrivacyPolicyModal,
-  DashboardWelcome
+  DashboardWelcome,
+  IdRequiredModal
 }
 

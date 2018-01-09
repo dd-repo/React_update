@@ -8,49 +8,9 @@ import { updateUserProfile } from 'routes/client/Account/modules/profile';
 import classes from '../documents.scss';
 
 class Upload extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {}
-  }
-
-  componentDidMount() {
-    this.setState({
-      driverLicense: this.props.profile.driver_license,
-      isFetching: this.props.profile.isFetching,
-      disabled: true
-    })
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if(nextProps.profile) {
-      !nextProps.profile.isFetching && setTimeout(() => (
-        this.setState({isFetching: nextProps.profile.isFetching })
-      ), 3000)
-      nextProps.profile.isFetching && (
-        this.setState({isFetching: nextProps.profile.isFetching})
-      )
-    }
-  }
-
-  handleUpload = file => {
-    if(!file[0]) { return }
-    this.setState({driverLicense: file[0].preview})
-
-    getImageDataUrl(file[0])
-    .then(dataUrl => {
-      const params = { driver_license: dataUrl }
-      this.props.updateUserProfile(params, this.props.profile.id)
-    })
-  }
-
-  handleButtonClick = () => {
-    this.setState({driverLicense: null})
-  }
-
   render() {
-
     const dlClasses = classNames({
-      [`${classes.transparent}`]: this.state.isFetching
+      [`${classes.transparent}`]: this.props.isFetching
     }, 'text-center', classes.uploadPanel)
 
     const renderSpinner = isFetching => (
@@ -66,9 +26,9 @@ class Upload extends Component {
 
     return (
       <div>
-        { renderSpinner(this.state.isFetching) }
+        { renderSpinner(this.props.isFetching) }
         <Dropzone className={dlClasses}
-          onDrop={this.handleUpload}
+          onDrop={this.props.handleUpload}
           accept='image/*'
           multiple={false}
           preventDropOnDocument={true}
@@ -84,10 +44,10 @@ class Upload extends Component {
                     </p>
                     }
                     <div>
-                      { this.props.children(this.state) }
+                      { this.props.children() }
                       <p>
                         Drag a file here or
-                        <a href="javascript:;" onClick={this.handleUpload}> browse </a>
+                        <a href="javascript:;" onClick={this.props.handleUpload}> browse </a>
                         for a file to upload.
                       </p>
                       <p className='small'>
@@ -102,12 +62,4 @@ class Upload extends Component {
   }
 }
 
-const mapStateToProps = state => ({
-  profile: state.account.profile
-})
-
-const mapActionCreators = {
-  updateUserProfile
-}
-
-export default connect(mapStateToProps, mapActionCreators)(Upload)
+export default Upload
