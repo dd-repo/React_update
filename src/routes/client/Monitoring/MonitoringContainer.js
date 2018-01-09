@@ -58,8 +58,8 @@ class MonitoringContainer extends RoutedComponent {
     this.props.fetchMonitoringRequestsCompleted(account_id)
   }
 
-  handleRemovalRequest = (requestId) => {
-    this.props.requestRemoval(requestId)
+  handleRemovalRequest = (removalId) => {
+    this.props.requestRemoval(removalId)
   }
 
   createNotification () {

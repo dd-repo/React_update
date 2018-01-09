@@ -37,7 +37,6 @@ class Dashboard extends Component {
       handleSearch,
       showModal,
       handleKeywordEdit,
-      handlePrivacyRemovalButtonClick,
       screenSize,
       driverLicenseNotification
     } = this.props
@@ -81,7 +80,6 @@ class Dashboard extends Component {
                         results={googleResults}
                         keywords={keywords}
                         handleSearch={handleSearch}
-                        handlePrivacyRemovalButtonClick={handlePrivacyRemovalButtonClick}
                         screenSize={screenSize}
                       />
                     </div>
@@ -102,7 +100,11 @@ class Dashboard extends Component {
                       />
                     </div>
                     <div className={classes.container}>
-                      <div className={!props.privacyRemovals.active && classes.overlay}></div>
+                      <div 
+                        className={
+                          !props.privacyRemovals.active && classes.overlay
+                        }>
+                      </div>
                       <PrivacyRemovals
                         tutorialIsActive={props.isActive}
                         ref={ref => { this.privacyRemovals = ref }}
@@ -145,7 +147,6 @@ Dashboard.propTypes = {
   keywords: PropTypes.object.isRequired,
   handleKeywordEdit: PropTypes.func.isRequired,
   handleSearch: PropTypes.func,
-  handlePrivacyRemovalButtonClick: PropTypes.func,
   isFetching: PropTypes.bool.isRequired,
   screenSize: PropTypes.string,
   driverLicenseNotification: PropTypes.object,

@@ -17,41 +17,40 @@ class MonitoringSite extends Component {
   }
 
   _onClick() {
-    this.props.handleRemovalRequest(this.props.monitoringSite.id)
+    this.props.handleRemovalRequest(this.props.potentialRisk)
   }
 
   render() {
-    const { current_requested_at, updated_at, id, site, status, total_count } = this.props.monitoringSite
+    const { current_requested_at, updated_at, id, site, status, total_count } = this.props.potentialRisk
     const siteURL = `http://www.${site}`
     const siteName = capitalize(site.slice(0, -4))
-
-      return (
-        <tr className='bg-gray-darker' key={id}>
-          <td className='text-white'>
-            <a href={siteURL} target='_blank'>
-              { siteName }
-            </a>
-          </td>
-          <td>
-            <h4 className="m-t-0 f-w-300 m-b-0">
-              { total_count }
-            </h4>
-          </td>
-          <td>
-            <Button
-              ref='target'
-              bsStyle='danger'
-              onClick={this._onClick}
-            >
-              Request Removal
-            </Button>
-          </td>
-        </tr>
-      )
-    }
+    return (
+      <tr className='bg-gray-darker' key={id}>
+        <td className='text-white'>
+          <a href={siteURL} target='_blank'>
+            { siteName }
+          </a>
+        </td>
+        <td>
+          <h4 className="m-t-0 f-w-300 m-b-0">
+            { total_count }
+          </h4>
+        </td>
+        <td>
+          <Button
+            ref='target'
+            bsStyle='danger'
+            onClick={this._onClick}
+          >
+            Request Removal
+          </Button>
+        </td>
+      </tr>
+    )
   }
+}
 MonitoringSite.propTypes = {
-  monitoringSite: PropTypes.object.isRequired,
+  potentialRisk: PropTypes.object.isRequired,
   handleRemovalRequest: PropTypes.func.isRequired
 }
 export default MonitoringSite;

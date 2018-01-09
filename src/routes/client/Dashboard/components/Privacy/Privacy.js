@@ -7,7 +7,7 @@ import { info, removeAll } from 'react-notification-system-redux'
 import RequestedRemovals from 'routes/client/Monitoring/components/MonitoringRequests'
 import InProgress from './InProgress'
 import InQueue from './InQueue/InQueue'
-import PrivacyRemovals from './PrivacyRemovals/PrivacyRemovals'
+import PotentialRisks from 'routes/client/Monitoring/components/MonitoringSites'
 import CompletedRemovals from './CompletedRemovals'
 import Documents from 'routes/client/Account/components/Documents'
 import { requestRemoval } from 'routes/client/Monitoring/modules/monitoring'
@@ -146,7 +146,7 @@ class Privacy extends Component {
                 In Queue
               </NavItem>
               <NavItem eventKey='potentialThreats'>
-                Potential Threats
+                Potential Risks
               </NavItem>
               <NavItem eventKey='completed'>
                 Total Removals
@@ -166,9 +166,8 @@ class Privacy extends Component {
                   <CompletedRemovals completed={completed} />
                 </Tab.Pane>
                 <Tab.Pane eventKey='potentialThreats'>
-                  <PrivacyRemovals
-                    privacyRemovals={potentialRisks}
-                    handleRemovalRequest={this.handleRemovalRequest}
+                  <PotentialRisks
+                    potentialRisks={potentialRisks}
                   />
                 </Tab.Pane>
                 <Tab.Pane eventKey='inQueue'>
