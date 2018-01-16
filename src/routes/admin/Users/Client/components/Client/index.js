@@ -48,6 +48,7 @@ const User = props => {
               client={props.client.details}
               accounts={props.client.accounts}
               showModal={props.showModal}
+              updateUserStatus={props.updateUserStatus}
               handlePasswordReset={props.handlePasswordReset}
             />
           </Col>

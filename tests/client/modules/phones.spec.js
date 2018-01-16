@@ -124,7 +124,7 @@ describe('(Phones module) "Phones"', () => {
 
     it('should handle PHONES_FAILURE', () => {
       const state = reducer({}, {type: PHONES_SUCCESS, data: phones })
-      const expectedState = { all: phones }
+      const expectedState = phones
 
       expect(state).to.eql(expectedState)
     })

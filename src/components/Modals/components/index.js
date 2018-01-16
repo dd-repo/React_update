@@ -10,7 +10,7 @@ import PrivacyPolicyModal from './PrivacyPolicy';
 import { DashboardWelcome } from './Dashboard';
 import { CreateAddressModal, UpdateAddressModal } from './Address';
 import { PaymentFormModal, PaymentSuccessModal } from './Payment';
-import { UpdateUserModal, DeleteUserModal } from './User';
+import { UpdateUserModal, DeleteUserModal, UpdateUserStatusModal } from './User';
 import {
   UpdateSubscriptionModal,
   CreateSubscriptionModal,
@@ -25,6 +25,7 @@ import {
 export {
   UpdateUserModal,
   DeleteUserModal,
+  UpdateUserStatusModal,
   AdminModal,
   AccountModal,
   TransactionModal,

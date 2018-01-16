@@ -126,7 +126,7 @@ describe('(Address module) "Addresses"', () => {
 
     it('Should handle ADDRESSES_SUCCESS', () => {
       const state = reducer({}, {type: ADDRESSES_SUCCESS, data: addresses})
-      const expectedState = { all: addresses }
+      const expectedState = addresses 
 
       expect(state).to.eql(expectedState)
     })

@@ -35,7 +35,6 @@ const UpdateUser = props => {
   const _onSubmit = (data) => {
     const params = {
       active_until: data.active_until,
-      is_active: data.is_active.label ? data.is_active.value : data.is_active,
       email: data.email,
       first_name: data.first_name,
       last_name: data.last_name,
@@ -56,16 +55,6 @@ const UpdateUser = props => {
       </Modal.Header>
       <Modal.Body>
         <Form onSubmit={props.handleSubmit(_onSubmit)} horizontal>
-          <FormGroup>
-            <Col componentClass={ControlLabel} sm={3}>
-              Status
-            </Col>
-            <Col sm={9}>
-              <ReduxFormSelect
-                field={formFields.status}
-              />
-            </Col>
-          </FormGroup>
           <FormGroup>
             <Col componentClass={ControlLabel} sm={3}>
               Active Until

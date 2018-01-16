@@ -61,8 +61,7 @@ describe('(auth module) Auth', () => {
     expect(PERMISSION_ERROR_MESSAGE).to.equal('PERMISSION_ERROR_MESSAGE')
     expect(PERMISSIONS_MESSAGE_CLEAR).to.equal('PERMISSIONS_MESSAGE_CLEAR')
     expect(CLIENT_API).to.equal('/dashboard/api/v1/users')
-    expect(SIGNUP_REQUEST).to.equal(`${CLIENT_API}/sign-up/create`)
-    expect(SIGNUP_REQUEST).to.equal(`${CLIENT_API}/sign-up/create`)
+    expect(SIGNUP_REQUEST).to.equal(`${CLIENT_API}/sign-up`)
     expect(LOGIN_REQUEST).to.equal(`${CLIENT_API}/sign-in`)
     expect(UPDATE_PASSWORD_REQUEST_WITH_TOKEN).to.equal(`${CLIENT_API}/password/update`)
     expect(RESET_PASSWORD_REQUEST).to.equal(`${CLIENT_API}/password/forgot`)
@@ -163,14 +162,15 @@ describe('(auth module) Auth', () => {
       }
 
       const fakeResponse = {
-            id: 1,
-            first_name: 'Fred',
-            last_name: 'Flintstone',
-            email: 'fred@email.com',
-            role: 'client',
-            authToken: '1:aaaaaaaaaaa',
-            account_id: 1,
-            isFetching: false
+        id: 1,
+        first_name: 'Fred',
+        last_name: 'Flintstone',
+        name: 'Fred Flintstone',
+        email: 'fred@email.com',
+        role: 'client',
+        authToken: '1:aaaaaaaaaaa',
+        account_id: 1,
+        isFetching: false
       }
 
       const resolved = new Promise((r) => r({ data: fakeResponse }));
@@ -431,6 +431,7 @@ describe('(auth module) Auth', () => {
         id: 1,
         first_name: 'Fred',
         last_name: 'Flintstone',
+        name: 'Fred Flintstone',
         email: 'fred@email.com',
         role: 'client',
         group: 'frontend',
@@ -443,6 +444,7 @@ describe('(auth module) Auth', () => {
       id: 1,
       first_name: 'Fred',
       last_name: 'Flintstone',
+      name: 'Fred Flintstone',
       email: 'fred@email.com',
       role: 'client',
       group: 'frontend',
@@ -453,6 +455,7 @@ describe('(auth module) Auth', () => {
       id,
       first_name,
       last_name,
+      name,
       email,
       role,
       group,
@@ -462,6 +465,7 @@ describe('(auth module) Auth', () => {
       id,
       first_name,
       last_name,
+      fullName: name,
       email,
       role,
       group,
@@ -488,6 +492,7 @@ describe('(auth module) Auth', () => {
       id,
       first_name,
       last_name,
+      fullName: name,
       email,
       role: 'prospect',
       group,

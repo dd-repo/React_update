@@ -112,7 +112,7 @@ describe('formHelper', () => {
       it('should return an error when less then 16 charaters', () => {
         const ccn = {creditCardNumber: '424242424242'}
         const errors = checkValidation(ccn, fields)
-        expect(errors.creditCardNumber).to.eq('Credit card number must be 16 digits long')
+        expect(errors.creditCardNumber).to.eq('Invalid credit card number')
       })
 
       it('should return no errors', () => {
@@ -180,7 +180,7 @@ describe('formHelper', () => {
       it('should return error when zipcode is blank', () => {
         const zip = {zipcode: ''}
         const errors = checkValidation(zip, fields)
-        expect(errors.zipcode).to.eql('Please enter a Zipcode')
+        expect(errors.zipcode).to.eql('Please enter a Zip')
       })
 
       it('should return error when zipcode is less then 5 digits', () => {
@@ -243,32 +243,11 @@ describe('formHelper', () => {
       expect(result).to.eql('')
     })
 
-    it('should return a dash after 3 digits when typing', () => {
-      const value = '123'
-      const previousValue = ''
-      const result = normalizePhone(value, previousValue)
-      expect(result).to.eql('123-')
-    })
-
-    it('should return 2 dash after 6 digits when typing', () => {
-      const value = '123-456'
-      const previousValue = '123-45'
-      const result = normalizePhone(value, previousValue)
-      expect(result).to.eql('123-456-')
-    })
-
     it('should not return a dash when backspacing', () => {
       const value = '123'
       const previousValue = '123-4'
       const result = normalizePhone(value, previousValue)
       expect(result).to.eql('123')
-    })
-
-    it('should not return 2 dash when backspacing', () => {
-      const value = '123-456'
-      const previousValue = '123-456-7'
-      const result = normalizePhone(value, previousValue)
-      expect(result).to.eql('123-456')
     })
   })
 
@@ -310,32 +289,11 @@ describe('formHelper', () => {
       expect(result).to.eql('123')
     })
 
-    it('should return 4 digits with hyphen', () => {
-      const value = '4242'
-      const previousValue = '424'
-      const result = normalizeCreditCard(value, previousValue)
-      expect(result).to.eql('4242-')
-    })
-
-    it('should return hyphen after 8 digits', () => {
-      const value = '4242-4242'
-      const previousValue = '4242-424'
-      const result = normalizeCreditCard(value, previousValue)
-      expect(result).to.eql('4242-4242-')
-    })
-
-    it('should return hyphen after 12 digits', () => {
-      const value = '4242-4242-4242'
-      const previousValue = '4242-4242-424'
-      const result = normalizeCreditCard(value, previousValue)
-      expect(result).to.eql('4242-4242-4242-')
-    })
-
     it('should only return 16 digits', () => {
-      const value = '4242-4242-4242-42424242'
+      const value = '4242-4242-4242-4242'
       const previousValue = '4242-4242-4242-4242'
       const result = normalizeCreditCard(value, previousValue)
-      expect(result).to.eql('4242-4242-4242-4242')
+      expect(result).to.eql('4242424242424242')
     })
   })
 

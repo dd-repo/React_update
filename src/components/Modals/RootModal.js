@@ -24,6 +24,7 @@ import {
   CancelSubscriptionModal,
   CanceledSubscriptionModal,
   AdminModal,
+  UpdateUserStatusModal,
   DashboardWelcome
 } from './components'
 
@@ -49,7 +50,8 @@ const MODAL_COMPONENTS = {
   'PRIVACY_POLICY': PrivacyPolicyModal,
   'CANCEL_SUBSCRIPTION': CancelSubscriptionModal,
   'CANCELED_SUBSCRIPTION': CanceledSubscriptionModal,
-  'DASHBOARD_WELCOME': DashboardWelcome
+  'DASHBOARD_WELCOME': DashboardWelcome,
+  'UPDATE_USER_STATUS': UpdateUserStatusModal
 }
 
 const ModalRoot = ({ ...otherProps, modalType, modalProps, dispatch }) => {
