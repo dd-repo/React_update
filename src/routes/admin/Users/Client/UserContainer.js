@@ -5,13 +5,13 @@ import { RoutedComponent, connect } from 'routes/routedComponent'
 import { CONTENT_VIEW_FLUID } from 'layouts/DefaultLayout/modules/layout'
 import { showModal, hideModal } from 'modules/modal'
 import Client from './components/Client'
-import { fetchUser } from './modules/details'
+import { fetchUser, updateUserStatus } from './modules/details'
 import { fetchAccount } from './modules/account'
 import { fetchCards } from './modules/cards'
 import { resetUserPassword } from 'routes/auth/modules/auth'
 import { clearNotification } from './modules/notifications'
-import { USERS_REQUEST } from 'routes/admin/Users/modules/users'
 import { submitKeyword } from 'routes/admin/Users/Client/modules/keywords'
+import { USERS_REQUEST } from 'routes/admin/Users/modules/users'
 
 class UserContainer extends RoutedComponent {
   constructor (props) {
@@ -82,6 +82,7 @@ class UserContainer extends RoutedComponent {
         notification={this.props.client.notifications}
         handleNewSubscription={this.handleNewSubscription}
         handleKeywordSubmit={this.handleKeywordSubmit}
+        updateUserStatus={this.props.updateUserStatus}
       />
     )
   }
@@ -100,6 +101,7 @@ const mapActionCreators = {
   showModal,
   hideModal,
   submitKeyword,
-  clearNotification
+  clearNotification,
+  updateUserStatus
 }
 export default connect(mapStateToProps, mapActionCreators)(UserContainer)

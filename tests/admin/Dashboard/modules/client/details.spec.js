@@ -10,15 +10,20 @@ import {
   USER_PENDING,
   UPDATE_USER_SUCCESS,
   UPDATE_USER_FAILURE,
+  UPDATE_USER_STATUS_SUCCESS,
+  UPDATE_USER_STATUS_FAILURE,
   USER_REQUEST,
   USER_UPDATE_REQUEST,
   fetchUser,
   gettingUser,
+  updateUser,
+  updateUserStatus,
   receiveUserSuccess,
   receiveUserFailure,
   updateUserFailure,
   updateUserSuccess,
-  updateUser,
+  updateUserStatusSuccess,
+  updateUserStatusFailure,
   default as reducer
 } from 'routes/admin/Users/Client/modules/details';
 
@@ -92,6 +97,8 @@ describe('(Admin User detail module)', () => {
     expect(USER_PENDING).to.equal('USER_PENDING')
     expect(UPDATE_USER_SUCCESS).to.equal('UPDATE_USER_SUCCESS')
     expect(UPDATE_USER_FAILURE).to.equal('UPDATE_USER_FAILURE')
+    expect(UPDATE_USER_STATUS_SUCCESS).to.equal('UPDATE_USER_STATUS_SUCCESS')
+    expect(UPDATE_USER_STATUS_FAILURE).to.equal('UPDATE_USER_STATUS_FAILURE')
     expect(USER_REQUEST).to.equal('/admin/api/user')
     expect(USER_UPDATE_REQUEST).to.equal('/admin/api/users')
   })
@@ -139,6 +146,26 @@ describe('(Admin User detail module)', () => {
 
     it('should return propery error', () => {
       expect(updateUserFailure(errorRes)).to.have.property('error', errorRes)
+    })
+  })
+
+  describe('(Action Creator) "updateUserStatusSuccess"', () => {
+    it('should return a type with "UPDATE_USER_STATUS_SUCCESS"', () => {
+      expect(updateUserStatusSuccess()).to.have.property('type', UPDATE_USER_STATUS_SUCCESS)
+    })
+    
+    it('should return data', () => {
+      expect(updateUserStatusSuccess(userResponse)).to.have.property('data', userResponse)
+    })
+  })
+
+  describe('(Action Creator) "updateUserStatusFailure"', () => {
+    it('should return a type with "UPDATE_USER_FAILURE"', () => {
+      expect(updateUserStatusFailure()).to.have.property('type', UPDATE_USER_STATUS_FAILURE)
+    })
+
+    it('should return propery error', () => {
+      expect(updateUserStatusFailure(errorRes)).to.have.property('error', errorRes)
     })
   })
 
@@ -191,6 +218,61 @@ describe('(Admin User detail module)', () => {
       const store = mockStore({ user: {} })
 
       return store.dispatch(fetchUser())
+      .then(() => {
+        expect(store.getActions()).to.eql(expectedActions)
+        done();
+      })
+    })
+  })
+
+  describe('(Async Action Creator) "updateUserStatus"', () => {
+    const user = {id: 1, is_active: true}
+    let updateUserStatusApi;
+
+    beforeEach(() => {
+      updateUserStatusApi = sinon.stub(infosweepApi, 'patch')
+    })
+
+    afterEach(() => {
+      updateUserStatusApi.restore()
+    })
+
+    it('should be exported as a function', () => {
+      expect(updateUserStatus).to.be.a('function')
+    })
+
+    it('should return a function (is a thunk)', () => {
+      expect(updateUserStatus).to.be.a('function')
+    })
+
+    it('creates UPDATE_USER_STATUS_SUCCESS', (done) => {
+      const resolved = new Promise((r) => r({data: userResponse}));
+      updateUserStatusApi.returns(resolved)
+
+      const expectedActions = [
+        { type: UPDATE_USER_STATUS_SUCCESS, data: userResponse }
+      ]
+
+      const store = mockStore({ user: {} })
+
+      return store.dispatch(updateUserStatus(user))
+      .then(() => {
+        expect(store.getActions()).to.eql(expectedActions)
+        done();
+      })
+    })
+
+    it('created UPDATE_USER_STATUS_FAILURE', done => {
+      const rejected = new Promise((_, r) => r(errorRes));
+      updateUserStatusApi.returns(rejected)
+
+      const expectedActions = [
+        { type: UPDATE_USER_STATUS_FAILURE, error: errorRes }
+      ]
+
+      const store = mockStore({ user: {} })
+
+      return store.dispatch(updateUserStatus(user))
       .then(() => {
         expect(store.getActions()).to.eql(expectedActions)
         done();
@@ -254,6 +336,28 @@ describe('(Admin User detail module)', () => {
 
   describe('(Reducer)', () => {
 
+    const user = {
+      id: 1,
+      first_name: 'Fred',
+      last_name: 'Flintstone',
+      fullName: 'Fred Flintstone',
+      email: 'fred@email.com',
+      is_active: true,
+      created_at: "2017-07-17T08:47:42.858-07:00",
+      active_until: "2017-07-17T08:47:42.858-07:00",
+    }
+
+    const newDetails = {
+      id: 1,
+      first_name: 'Fred',
+      last_name: 'Flintstone',
+      fullName: 'Fred Flintstone',
+      email: 'fred@email.com',
+      is_active: false,
+      created_at: formatDate("2017-07-17T08:47:42.858-07:00"),
+      active_until: formatDate("2017-07-17T08:47:42.858-07:00")
+    }
+
     it('Should be a function', () => {
       expect(reducer).to.be.a('function')
     })
@@ -284,27 +388,16 @@ describe('(Admin User detail module)', () => {
     })
 
     it('should handle UPDATE_USER_SUCCESS', () => {
-      const newDetails = {
-        id: 1,
-        first_name: 'Fred',
-        last_name: 'Flintstone',
-        fullName: 'Fred Flintstone',
-        email: 'fred@email.com',
-        is_active: false,
-        created_at: formatDate("2017-07-17T08:47:42.858-07:00"),
-        active_until: formatDate("2017-07-17T08:47:42.858-07:00")
-      }
-      const oldDetails = {
-        id: 1,
-        first_name: 'Fred',
-        last_name: 'Flintstone',
-        fullName: 'Fred Flintstone',
-        email: 'fred@email.com',
-        is_active: true,
-        created_at: "2017-07-17T08:47:42.858-07:00",
-        active_until: "2017-07-17T08:47:42.858-07:00",
-      }
-      const userState = reducer(oldDetails, { type: UPDATE_USER_SUCCESS, data: newDetails })
+      const userState = reducer(user, {
+        type: UPDATE_USER_SUCCESS, data: newDetails
+      })
+      expect(userState).to.eql(newDetails)
+    })
+
+    it('should handle UPDATE_USER_STATUS_SUCCESS', () => {
+      const userState = reducer(user, {
+        type: UPDATE_USER_STATUS_SUCCESS, data: newDetails
+      })
       expect(userState).to.eql(newDetails)
     })
   })

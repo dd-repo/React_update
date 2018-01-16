@@ -37,7 +37,7 @@ const subscription = {
   sales_rep_name: "admin",
   plan_description: "individual plan",
   client_name: "first last",
-  card_id: 1,
+  card_id: { value: 1 },
 }
 
 const errorRes = {
@@ -111,7 +111,7 @@ describe('(Subscripiton module)', () => {
     })
 
     it('should return a function (is a thunk)', () => {
-      expect(updateSubscription({id: 1})).to.be.a('function')
+      expect(updateSubscription(subscription)).to.be.a('function')
      })
 
     it('creates UPDATE_SUBSCRIPTION_SUCCESS', (done) => {

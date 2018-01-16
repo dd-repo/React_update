@@ -9,6 +9,7 @@ export const CREATE_SUBSCRIPTION_FAILURE = 'CREATE_SUBSCRIPTION_FAILURE'
 export const SUBSCRIPTION_REQUEST = '/admin/api/subscriptions'
 
 export const updateSubscription = subscription => {
+  console.log('card_id', subscription)
   const path = `${SUBSCRIPTION_REQUEST}/${subscription.id}`
   const { is_active, card_id, sales_rep_id } = subscription
   const payload = {
