@@ -15,7 +15,7 @@ const CancelSubscription = props => {
       <Modal.Body>
         <p>Are you sure you want to cancel your subscription?</p>
         <p>
-          Once you cancel your subscription you can re-activated any time
+          Once you cancel your subscription you can re-activate at any time by giving us a call
         </p>
       </Modal.Body>
       <Modal.Footer>

@@ -9,16 +9,17 @@ export const CREATE_SUBSCRIPTION_FAILURE = 'CREATE_SUBSCRIPTION_FAILURE'
 export const SUBSCRIPTION_REQUEST = '/admin/api/subscriptions'
 
 export const updateSubscription = subscription => {
-  console.log('card_id', subscription)
   const path = `${SUBSCRIPTION_REQUEST}/${subscription.id}`
-  const { is_active, card_id, sales_rep_id } = subscription
+  const { is_active, card_id, sales_rep_id, next_payment } = subscription
   const payload = {
     subscription: {
       card_id: card_id.value,
       is_active: is_active.value,
-      sales_rep_id: sales_rep_id ? sales_rep_id.value : undefined
+      sales_rep_id: sales_rep_id.value,
+      next_payment
     }
   }
+  debugger
   return dispatch => {
     return infosweepApi.patch(path, payload)
     .then( response => dispatch(updateSubscriptionSuccess(response.data)))

@@ -9,7 +9,11 @@ import {
   Button
 } from 'components'
 import formFields from 'consts/formFields'
-import { ReduxFormSelect, AdminSelect } from '../components'
+import { 
+  ReduxFormSelect,
+  ReduxFormDatePicker,
+  AdminSelect
+} from '../components'
 import { formatCreditCard } from 'utils'
 
 const UpdateSubscriptionForm = props => {
@@ -44,14 +48,22 @@ const UpdateSubscriptionForm = props => {
             Sales Rep
           </label>
           <AdminSelect />
+          <label>
+            Payment Start Date
+          </label>
+          <ReduxFormDatePicker
+            name='next_payment'
+            dateFormat='MM/DD/YYYY'
+            placeHolder='Select a start date'
+          />
         </Col>
       </FormGroup>
-    <Button
-      bsStyle='primary'
-      type='submit'>
-      Save
-    </Button>
-  </Form>
+      <Button
+        bsStyle='primary'
+        type='submit'>
+        Save
+      </Button>
+    </Form>
   )
 }
 
