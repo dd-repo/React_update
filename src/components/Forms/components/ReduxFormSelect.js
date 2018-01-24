@@ -62,7 +62,7 @@ const renderSelect = props => {
         searchable={searchable}
         clearable={clearable}
         style={{}}
-        menuStyle={{'background': 'white'}}
+        menuStyle={{}}
         menuContainerStyle={{'background': 'white'}}
       />
       {message}

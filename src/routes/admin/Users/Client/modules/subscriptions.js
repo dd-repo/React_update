@@ -19,11 +19,10 @@ export const updateSubscription = subscription => {
       next_payment
     }
   }
-  debugger
   return dispatch => {
     return infosweepApi.patch(path, payload)
-    .then( response => dispatch(updateSubscriptionSuccess(response.data)))
-    .catch( error => dispatch(updateSubscriptionFailure(error)))
+      .then( response => dispatch(updateSubscriptionSuccess(response.data)))
+      .catch( error => dispatch(updateSubscriptionFailure(error)))
   }
 }
 

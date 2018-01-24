@@ -51,7 +51,9 @@ import {
 
 import {
   UPDATE_TRANSACTION_SUCCESS,
-  UPDATE_TRANSACTION_FAILURE
+  UPDATE_TRANSACTION_FAILURE,
+  CREATE_TRANSACTION_SUCCESS,
+  CREATE_TRANSACTION_FAILURE
 } from './transactions';
 
 import {
@@ -94,6 +96,9 @@ const reducer = (state=initialValues, action) => {
 
     case UPDATE_TRANSACTION_SUCCESS:
       return setSuccessMessage(state, 'Transaction', 'Updated')
+
+    case CREATE_TRANSACTION_SUCCESS:
+      return setSuccessMessage(state, 'Transaction', 'Created')
 
     case UPDATE_SUBSCRIPTION_SUCCESS:
       return setSuccessMessage(state, 'Subscription', 'Updated')
@@ -141,6 +146,9 @@ const reducer = (state=initialValues, action) => {
       return setErrorMessage(state, action.error)
 
     case UPDATE_TRANSACTION_FAILURE:
+      return setErrorMessage(state, action.error)
+
+    case CREATE_TRANSACTION_FAILURE:
       return setErrorMessage(state, action.error)
 
     case UPDATE_SUBSCRIPTION_FAILURE:

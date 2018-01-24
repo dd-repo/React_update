@@ -11,6 +11,7 @@ export const checkValidation = (values, fields = {}, omittedFields) => {
       errors[field] = type.errorMessage
     }
   })
+
   if (!values.sales_rep_id) {
     errors.sales_rep_id = 'Required'
   }

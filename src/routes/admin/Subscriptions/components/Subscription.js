@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
 
-import { Button, Label } from 'components';
+import { ButtonGroup, Button, Label } from 'components';
 import { formatDate } from 'utils';
 
 const Subscription = props => {
@@ -25,20 +25,6 @@ const Subscription = props => {
 
   const _onClick = () => {
     props.handleClick(props.subscription)
-  }
-
-  const renderButton = () => {
-    if(props.button) {
-      return (
-        <Button
-          bsSize={props.button.size}
-          bsStyle={props.button.style}
-          onClick={_onClick}
-        >
-          { props.button.label }
-        </Button>
-      )
-    }
   }
 
   const salesRep = (
@@ -88,9 +74,19 @@ const Subscription = props => {
         <td>
           { formatDate(next_payment) }
         </td>
-        <td>
-          { renderButton() }
-        </td>
+        {
+          props.buttons.map((button, i) => (
+            <td key={i}>
+              <Button
+                bsSize={button.size}
+                bsStyle={button.style}
+                onClick={() => button.onClick(props.subscription)}
+              >
+                { button.label }
+              </Button>
+            </td>
+          ))
+        }
       </tr>
     </tbody>
   )

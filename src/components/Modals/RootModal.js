@@ -13,6 +13,7 @@ import {
   ProfileModal,
   PhoneModal,
   UpdateSubscriptionModal,
+  ChargeSubscriptionModal,
   CreateSubscriptionModal,
   CardModal,
   RemovalInstructionsModal,
@@ -51,7 +52,8 @@ const MODAL_COMPONENTS = {
   'CANCEL_SUBSCRIPTION': CancelSubscriptionModal,
   'CANCELED_SUBSCRIPTION': CanceledSubscriptionModal,
   'DASHBOARD_WELCOME': DashboardWelcome,
-  'UPDATE_USER_STATUS': UpdateUserStatusModal
+  'UPDATE_USER_STATUS': UpdateUserStatusModal,
+  'CHARGE_SUBSCRIPTION': ChargeSubscriptionModal
 }
 
 const ModalRoot = ({ ...otherProps, modalType, modalProps, dispatch }) => {

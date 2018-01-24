@@ -7,7 +7,6 @@ import ip from 'ip'
 const localip = ip.address()
 const debug = _debug('app:config')
 debug('Creating default configuration.')
-
 // ========================================================
 // Default Configuration
 // ========================================================

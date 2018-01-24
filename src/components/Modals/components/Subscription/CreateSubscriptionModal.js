@@ -1,13 +1,11 @@
-import React, { PropTypes } from 'react';
-import { connect } from 'react-redux';
-import { reduxForm, Field } from 'redux-form';
+import React from 'react'
+import { connect } from 'react-redux'
 
-import { Modal } from 'components';
-import { createSubscription } from 'routes/admin/Users/Client/modules/subscriptions';
-import { NewSubscriptionForm } from 'components/Forms/Subscription';
+import { Modal } from 'components'
+import { createSubscription } from 'routes/admin/Users/Client/modules/subscriptions'
+import { NewSubscriptionForm } from 'components/Forms/Subscription'
 
 const CreateSubscriptionModal = props => {
-
   const _onSubmit = data => {
     const params = {
       card_id: data.card.value,
@@ -20,10 +18,10 @@ const CreateSubscriptionModal = props => {
   }
 
   return (
-    <Modal show={true} onHide={props.hideModal}>
+    <Modal show onHide={props.hideModal}>
       <Modal.Header closeButton>
         <Modal.Title>
-          { 'Create Subscription' }
+          {'Create Subscription'}
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
@@ -33,13 +31,12 @@ const CreateSubscriptionModal = props => {
         />
       </Modal.Body>
     </Modal>
-  );
+  )
 }
 
 const mapActionCreators = {
   createSubscription
 }
 
-export default connect()(CreateSubscriptionModal);
-
+export default connect()(CreateSubscriptionModal)
 
