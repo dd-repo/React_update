@@ -17,8 +17,6 @@ import {
   FormGroup,
   Col,
   Row,
-  Alert,
-  Label,
   Divider
 } from 'components'
 import classes from './paymentForm.scss'
@@ -30,7 +28,6 @@ const validate = values => {
 let PaymentForm = (props) => {
   const {
     submitForm,
-    planPrice,
     invalid,
     buttonLabel,
     handleSubmit,

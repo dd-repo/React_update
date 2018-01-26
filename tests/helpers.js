@@ -66,12 +66,18 @@ const privacyRemovalStatus = [
  {name: 'Potential Risks', value: 11}
 ]
 
+const errorRes = {
+  status: 400,
+  response: {data: {errorMessage: 'error message'}}
+}
+
 export {
   keywords,
   user,
   googleResults,
   completedRequests,
   privacyRemovalStats,
-  privacyRemovalStatus
+  privacyRemovalStatus,
+  errorRes
 }
 

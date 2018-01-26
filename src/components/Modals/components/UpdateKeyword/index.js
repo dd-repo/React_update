@@ -1,8 +1,8 @@
-import React, { PropTypes } from 'react';
-import { connect } from 'react-redux';
-import { reduxForm, Field } from 'redux-form';
+import React, { PropTypes } from 'react'
+import { connect } from 'react-redux'
+import { reduxForm, Field } from 'redux-form'
 
-import { submitKeyword } from 'routes/admin/User/modules/keywords';
+import { submitKeyword } from 'routes/admin/User/modules/keywords'
 import {
     Col,
     Modal,
@@ -11,7 +11,7 @@ import {
     FormControl,
     ControlLabel,
     Button
-} from 'components';
+} from 'components'
 
 const renderInput = ({ input, type }) => {
   return (
@@ -23,17 +23,16 @@ const renderInput = ({ input, type }) => {
 }
 
 const KeywordFormModal = props => {
-
   const _onSubmit = (data) => {
     props.hideModal()
     props.dispatch(submitKeyword(data, props.accountId))
   }
 
   return (
-      <Modal show={ true } onHide={props.hideModal}>
+      <Modal show onHide={props.hideModal}>
         <Modal.Header closeButton>
           <Modal.Title>
-            { 'Edit Keyword ' }
+            {'Edit Keyword '}
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
@@ -57,7 +56,7 @@ const KeywordFormModal = props => {
           </Form>
         </Modal.Body>
       </Modal>
-  );
+  )
 }
 
 const reduxUserEdit = reduxForm({
@@ -71,4 +70,4 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps
-)(reduxUserEdit);
+)(reduxUserEdit)

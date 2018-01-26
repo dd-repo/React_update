@@ -1,18 +1,9 @@
-import React, { PropTypes } from 'react';
-import { connect } from 'react-redux';
-import { reduxForm, Field } from 'redux-form';
+import React, { PropTypes } from 'react'
+import { connect } from 'react-redux'
 
-import {
-    Col,
-    Modal,
-    Form,
-    FormGroup,
-    FormControl,
-    ControlLabel,
-    Button
-} from 'components';
-import { updateSubscription } from 'routes/admin/Users/Client/modules/subscriptions';
-import { UpdateSubscriptionForm } from 'components/Forms/Subscription';
+import { Modal } from 'components'
+import { updateSubscription } from 'routes/admin/Users/Client/modules/subscriptions'
+import { UpdateSubscriptionForm } from 'components/Forms/Subscription'
 
 const SubscriptionEditModal = props => {
   const _onSubmit = data => {
@@ -20,10 +11,10 @@ const SubscriptionEditModal = props => {
     props.dispatch(updateSubscription(data))
   }
   return (
-    <Modal show={true} onHide={props.hideModal}>
+    <Modal show onHide={props.hideModal}>
       <Modal.Header closeButton>
         <Modal.Title>
-          { 'Edit Subscription' }
+          {'Edit Subscription'}
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
@@ -31,12 +22,11 @@ const SubscriptionEditModal = props => {
           initialValues={props.initialValues}
           cards={props.cards}
           _onSubmit={_onSubmit}
-
         />
       </Modal.Body>
     </Modal>
-  );
+  )
 }
 
-export default connect()(SubscriptionEditModal);
+export default connect()(SubscriptionEditModal)
 

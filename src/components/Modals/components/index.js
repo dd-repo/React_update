@@ -13,6 +13,7 @@ import { PaymentFormModal, PaymentSuccessModal } from './Payment';
 import { UpdateUserModal, DeleteUserModal, UpdateUserStatusModal } from './User';
 import {
   UpdateSubscriptionModal,
+  ChargeSubscriptionModal,
   CreateSubscriptionModal,
   CancelSubscriptionModal,
   CanceledSubscriptionModal
@@ -35,6 +36,7 @@ export {
   ProfileModal,
   PhoneModal,
   UpdateSubscriptionModal,
+  ChargeSubscriptionModal,
   CreateSubscriptionModal,
   CancelSubscriptionModal,
   CanceledSubscriptionModal,

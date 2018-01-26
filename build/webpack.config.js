@@ -55,7 +55,9 @@ webpackConfig.entry = {
 webpackConfig.output = {
   filename: `[name].[${config.compiler_hash_type}].js`,
   path: paths.dist(),
-  publicPath: config.compiler_public_path
+  publicPath: config.compiler_public_path,
+  hotUpdateChunkFilename: 'hot/hot-update.js',
+  hotUpdateMainFilename: 'hot/hot-update.json'
 }
 
 // ------------------------------------

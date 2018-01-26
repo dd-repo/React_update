@@ -13,6 +13,7 @@ export default function (compiler, publicPath) {
     publicPath,
     contentBase: paths.client(),
     hot: true,
+    headers: { "Access-Control-Allow-Origin": "*" },
     quiet: config.compiler_quiet,
     noInfo: config.compiler_quiet,
     lazy: false,
