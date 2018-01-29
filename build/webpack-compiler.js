@@ -10,6 +10,7 @@ export default function webpackCompiler (webpackConfig, statsFormat = DEFAULT_ST
     const compiler = webpack(webpackConfig)
 
     compiler.run((err, stats) => {
+      debug('webpack stats ' + stats)
       const jsonStats = stats.toJson()
 
       debug('Webpack compile completed.')
