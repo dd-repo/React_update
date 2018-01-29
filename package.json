@@ -89,6 +89,7 @@
     "@owczar/spin-template": "^1.4.8",
     "autocast": "0.0.4",
     "axios": "^0.17.1",
+    "babel-cli": "^6.26.0",
     "babel-core": "^6.26.0",
     "babel-loader": "^6.2.5",
     "babel-plugin-transform-runtime": "^6.3.13",
@@ -176,7 +177,6 @@
     "yargs": "^4.0.0"
   },
   "devDependencies": {
-    "babel-cli": "^6.26.0",
     "chai": "^3.4.1",
     "chai-as-promised": "^5.1.0",
     "chai-enzyme": "^0.4.0",
