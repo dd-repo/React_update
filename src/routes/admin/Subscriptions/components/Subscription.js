@@ -75,7 +75,7 @@ const Subscription = props => {
           { formatDate(next_payment) }
         </td>
         {
-          props.buttons.map((button, i) => (
+         props.buttons && props.buttons.map((button, i) => (
             <td key={i}>
               <Button
                 bsSize={button.size}

@@ -18,10 +18,8 @@ export const getSubscriptions = (params, pageNum) => {
   return dispatch => {
     dispatch(gettingSubscriptions())
     return infosweepApi.get(path, params)
-    .then(
-      response => dispatch(receiveSubscriptions(response.data)))
-      .catch(
-        error => dispatch(receiveSubscriptionsFailure(error)))
+      .then(response => dispatch(receiveSubscriptions(response.data)))
+      .catch(error => dispatch(receiveSubscriptionsFailure(error)))
   }
 }
 
