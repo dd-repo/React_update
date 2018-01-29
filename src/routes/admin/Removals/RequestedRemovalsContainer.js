@@ -104,7 +104,7 @@ class RequestedRemovalsContainer extends RoutedComponent {
     const status = this.getStatus()
     const params = {
       q: {
-        id_eq: input,
+        account_full_name_cont: input,
         request_status_is_type_eq: status
       }
     }
