@@ -6,6 +6,5 @@
 // within webpack helps prevent unexpected errors.
 {
   "presets": ["react", "es2015", "stage-0"],
-  "passPerPreset": true,
   "plugins": ["transform-runtime"]
 }
