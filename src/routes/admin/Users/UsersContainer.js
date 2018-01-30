@@ -82,7 +82,7 @@ class UsersContainer extends RoutedComponent {
     const queryName = input !== '' ? input : 'All Users'
     const params = {
       q: {
-        first_name_or_last_name_or_email_cont: input,
+        full_name_or_email_cont: input,
         group_eq: 'frontend'
       }}
     this.fetchUsers(params)
