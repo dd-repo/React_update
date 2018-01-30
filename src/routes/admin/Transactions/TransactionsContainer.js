@@ -49,7 +49,7 @@ class TransactionsContainer extends RoutedComponent {
     const queryName = input !== '' ? input : 'All Transactions'
     const params = {
       q: {
-        id_eq: input
+        subscription_user_full_name_cont: input
       }
     }
     this.fetchTransactions(params)
