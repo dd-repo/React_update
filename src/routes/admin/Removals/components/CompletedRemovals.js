@@ -91,7 +91,7 @@ const CompletedRemovals = props => {
   const renderSearchBar = (
     <Col lg={6} lgOffset={3} className='m-b-2' >
       <SearchBar
-        placeHolder='Enter removal id...'
+        placeHolder='Enter client name...'
         query={queryName}
         resultCount={resultCount}
         handleSearch={handleSearch}
