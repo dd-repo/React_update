@@ -69,7 +69,7 @@ const Transactions = (props) => {
   const renderSearchBar = (
     <Col lg={6} lgOffset={3} className='m-b-2' >
       <SearchBar
-        placeHolder='Search by id...'
+        placeHolder='search by client name...'
         query={queryName}
         resultCount={total}
         handleSearch={handleSearch}

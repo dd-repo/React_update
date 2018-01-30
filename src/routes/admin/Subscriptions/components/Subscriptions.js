@@ -61,6 +61,7 @@ const Subscriptions = props => {
     const renderSearchBar = (
       <Col lg={6} lgOffset={3} className='m-b-2' >
         <SearchBar
+          placeHolder='search by client name...'
           query={queryName}
           resultCount={resultCount}
           handleSearch={handleSearch}

@@ -53,7 +53,7 @@ class SubscriptionsContainer extends RoutedComponent {
     const queryName = input !== '' ? input : 'All Subscriptions'
     const params = {
       q: {
-        user_first_name_or_user_last_name_or_id_eq: input
+        user_full_name_cont: input
       }
     }
     this.fetchSubscriptions(params)

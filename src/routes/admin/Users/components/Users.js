@@ -78,7 +78,7 @@ const Users = (props) => {
     isFrontend &&
       <Col lg={6} lgOffset={3} className='m-b-2' >
         <SearchBar
-          placeHolder='Search by name or email...'
+          placeHolder='search by client name or email...'
           query={queryName}
           resultCount={results}
           handleSearch={handleSearch}
