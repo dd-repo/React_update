@@ -11,11 +11,13 @@ import imageHelper from './imageHelper'
 import { sanitizeNums } from './paramsHelper'
 import formatCreditCard from './formatCreditCard'
 import createNotification from './createNotification'
+import formatPhone from './formatPhone'
 
 export {
   capitalize,
   formatPrice,
   formatDate,
+  formatPhone,
   addDays,
   getNumberOfDays,
   formHelpers,

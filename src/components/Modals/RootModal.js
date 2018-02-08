@@ -7,6 +7,7 @@ import {
   DeleteUserModal,
   AccountModal,
   TransactionModal,
+  TransactionReceiptModal,
   KeywordModal,
   CreateAddressModal,
   UpdateAddressModal,
@@ -53,7 +54,8 @@ const MODAL_COMPONENTS = {
   'CANCELED_SUBSCRIPTION': CanceledSubscriptionModal,
   'DASHBOARD_WELCOME': DashboardWelcome,
   'UPDATE_USER_STATUS': UpdateUserStatusModal,
-  'CHARGE_SUBSCRIPTION': ChargeSubscriptionModal
+  'CHARGE_SUBSCRIPTION': ChargeSubscriptionModal,
+  'TRANSACTION_RECEIPT': TransactionReceiptModal,
 }
 
 const ModalRoot = ({ ...otherProps, modalType, modalProps, dispatch }) => {

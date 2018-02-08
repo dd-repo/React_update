@@ -1,7 +1,7 @@
-import configureMockStore from 'redux-mock-store';
-import thunk from 'redux-thunk';
-
-import infosweepApi from 'services/infosweepApi';
+// import configureMockStore from 'redux-mock-store';
+// import thunk from 'redux-thunk';
+//
+// import infosweepApi from 'services/infosweepApi';
 
 import {
   PROFILE_UPDATE_POSTING,
@@ -19,8 +19,8 @@ import {
   default as reducer
 } from 'routes/client/Account/modules/profile';
 
-const middlewares = [ thunk ]
-const mockStore = configureMockStore(middlewares)
+// const middlewares = [ thunk ]
+// const mockStore = configureMockStore(middlewares)
 
 const successfulProfileResponse = {
   avatar_url: "avatar.png",
@@ -32,7 +32,7 @@ const successfulProfileResponse = {
 
 const errorRes = {errorMessage: 'error'}
 
-describe('(profile module) "profile"', () => {
+describe('(client profile module) "profile"', () => {
 
   it('Should export a constant.', () => {
     expect(PROFILE_UPDATE_POSTING).to.equal('PROFILE_UPDATE_POSTING')

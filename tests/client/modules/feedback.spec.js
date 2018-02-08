@@ -1,7 +1,6 @@
-import configureMockStore from 'redux-mock-store';
-import thunk from 'redux-thunk';
-import infosweepApi from 'services/infosweepApi';
-
+// import configureMockStore from 'redux-mock-store';
+// import thunk from 'redux-thunk';
+// import infosweepApi from 'services/infosweepApi';
 import {
   FEEDBACK_POSTING,
   FEEDBACK_SUCCESS,
@@ -14,8 +13,8 @@ import {
   default as reducer
 } from 'routes/client/Feedback/modules/feedback';
 
-const middlewares = [ thunk ]
-const mockStore = configureMockStore(middlewares)
+// const middlewares = [ thunk ]
+// const mockStore = configureMockStore(middlewares)
 
 const errorRes = {
   response: {
@@ -25,7 +24,7 @@ const errorRes = {
   }
 }
 
-describe('(Feedback module) Feedback', () => {
+describe('(client Feedback module) Feedback', () => {
   it('Should export a constant', () => {
     expect(FEEDBACK_POSTING).to.equal('FEEDBACK_POSTING')
     expect(FEEDBACK_SUCCESS).to.equal('FEEDBACK_SUCCESS')

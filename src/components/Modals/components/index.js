@@ -1,6 +1,5 @@
 import AdminModal from './Admin';
 import AccountModal from './Account';
-import TransactionModal from './Transaction';
 import KeywordModal from './Keyword';
 import PhoneModal from './Phone';
 import ProfileModal from './Profile';
@@ -11,6 +10,11 @@ import { DashboardWelcome } from './Dashboard';
 import { CreateAddressModal, UpdateAddressModal } from './Address';
 import { PaymentFormModal, PaymentSuccessModal } from './Payment';
 import { UpdateUserModal, DeleteUserModal, UpdateUserStatusModal } from './User';
+import {
+  TransactionModal,
+  TransactionReceiptModal
+}
+from './Transaction';
 import {
   UpdateSubscriptionModal,
   ChargeSubscriptionModal,
@@ -30,6 +34,7 @@ export {
   AdminModal,
   AccountModal,
   TransactionModal,
+  TransactionReceiptModal,
   KeywordModal,
   CreateAddressModal,
   UpdateAddressModal,

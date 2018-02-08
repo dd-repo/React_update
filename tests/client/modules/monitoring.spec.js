@@ -1,7 +1,7 @@
-import configureMockStore from 'redux-mock-store';
-import thunk from 'redux-thunk';
-
-import infosweepApi from 'services/infosweepApi';
+// import configureMockStore from 'redux-mock-store';
+// import thunk from 'redux-thunk';
+//
+// import infosweepApi from 'services/infosweepApi';
 
 import {
   MONITORING_PENDING,
@@ -23,8 +23,8 @@ import {
   default as reducer
 } from 'routes/client/Monitoring/modules/monitoring.js';
 
-const middlewares = [ thunk ]
-const mockStore = configureMockStore(middlewares)
+// const middlewares = [ thunk ]
+// const mockStore = configureMockStore(middlewares)
 
 const successfulResponse = {
   monitoring_requests: [
@@ -75,7 +75,7 @@ const errRes = {
   response: { data: { errorMessage: 'error message' } },
 }
 
-describe('(monitoring module) monitoring requests', () => {
+describe('(client monitoring module) monitoring requests', () => {
 
   it('Should export a constant.', () => {
     expect(MONITORING_PENDING).to.equal('MONITORING_PENDING')

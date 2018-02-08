@@ -1,7 +1,7 @@
-import configureMockStore from 'redux-mock-store';
-import thunk from 'redux-thunk';
-
-import infosweepApi from 'services/infosweepApi';
+// import configureMockStore from 'redux-mock-store';
+// import thunk from 'redux-thunk';
+//
+// import infosweepApi from 'services/infosweepApi';
 
 import {
   ADDRESSES_FETCHING,
@@ -14,8 +14,8 @@ import {
   default as reducer
 } from 'routes/client/Account/modules/addresses';
 
-const middlewares = [ thunk ]
-const mockStore = configureMockStore(middlewares)
+// const middlewares = [ thunk ]
+// const mockStore = configureMockStore(middlewares)
 const errorRes = {errorMessage: 'error message'}
 
 const addresses = [{
@@ -25,7 +25,7 @@ const addresses = [{
   state: 'CO'
 }]
 
-describe('(Address module) "Addresses"', () => {
+describe('(client Address module) "Addresses"', () => {
 
   it('Should export a constant.', () => {
     expect(ADDRESSES_FETCHING).to.equal('ADDRESSES_FETCHING')

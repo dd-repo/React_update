@@ -9,6 +9,7 @@ import {
   SUBSCRIPTION_CANCEL_SUCCESS,
   cancelSubscription
 } from './modules/subscription'
+import { sendTransactionReceipt } from './modules/transactions'
 import { fetchAddresses } from './modules/addresses'
 import { fetchPhones } from './modules/phones'
 import { fetchTransactions } from './modules/transactions'
@@ -100,6 +101,21 @@ class AccountContainer extends RoutedComponent {
     .then(res => this.doNext(res))
   }
 
+  handleReceiptClick = (transaction) => {
+    const data = {
+      transaction,
+      subscription: this.props.subscription,
+      phone: this.props.phones[0],
+      address: this.props.addresses[0],
+      user: this.props.user
+    }
+    this.props.showModal('TRANSACTION_RECEIPT', data, this.sendReceiptToClient)
+  }
+
+  sendReceiptToClient = (transactionId) => {
+    this.props.sendTransactionReceipt(this.props.subscription.id, transactionId)
+  }
+
   handleCancelSubscription = () => {
     this.props.showModal('CANCEL_SUBSCRIPTION', {}, this.cancelSubscription)
   }
@@ -157,6 +173,7 @@ class AccountContainer extends RoutedComponent {
           <Transactions
             subscription={this.props.subscription}
             transactions={this.props.transactions}
+            handleReceiptClick={this.handleReceiptClick}
           />
         </Col>
         <RootModal />
@@ -181,6 +198,7 @@ const mapStateToProps = state => ({
 
 const mapActionCreators = {
   getSubscription,
+  sendTransactionReceipt,
   cancelSubscription,
   fetchPhones,
   fetchTransactions,

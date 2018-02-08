@@ -1,7 +1,7 @@
-import configureMockStore from 'redux-mock-store';
-import thunk from 'redux-thunk';
-
-import infosweepApi from 'services/infosweepApi';
+// import configureMockStore from 'redux-mock-store';
+// import thunk from 'redux-thunk';
+//
+// import infosweepApi from 'services/infosweepApi';
 import BASE_URL from 'consts/baseUrl';
 import {
   GOOGLE_RESULTS_SUCCESS,
@@ -19,8 +19,8 @@ import {
   default as reducer,
 } from 'routes/client/GoogleResults/modules/googleResults';
 
-const middlewares = [ thunk ]
-const mockStore = configureMockStore(middlewares)
+// const middlewares = [ thunk ]
+// const mockStore = configureMockStore(middlewares)
 
 const googleResults = {
   search_results: [
@@ -76,7 +76,7 @@ const errRes = {
   response: { data: { errorMessage: 'error message' } },
 }
 
-describe( '(googleResults module) googleResults', () => {
+describe( '(client googleResults module) googleResults', () => {
 
   it('Should export a constant.', () => {
     expect(GOOGLE_RESULTS_SUCCESS).to.equal('GOOGLE_RESULTS_SUCCESS')

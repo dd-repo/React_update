@@ -1,7 +1,7 @@
-import configureMockStore from 'redux-mock-store';
-import thunk from 'redux-thunk';
-
-import infosweepApi from 'services/infosweepApi';
+// import configureMockStore from 'redux-mock-store';
+// import thunk from 'redux-thunk';
+//
+// import infosweepApi from 'services/infosweepApi';
 
 import {
   PAYMENT_POSTING,
@@ -15,8 +15,8 @@ import {
   default as reducer
 } from 'routes/signup/Payment/modules/payment';
 
-const middlewares = [ thunk ]
-const mockStore = configureMockStore(middlewares)
+// const middlewares = [ thunk ]
+// const mockStore = configureMockStore(middlewares)
 
 const errorRes = {
   response: {
@@ -26,7 +26,7 @@ const errorRes = {
   }
 }
 
-describe('(profile module) "profile"', () => {
+describe('(client profile module) "profile"', () => {
 
   it('Should export a constant.', () => {
     expect(PAYMENT_SUCCESS).to.equal('PAYMENT_SUCCESS')
