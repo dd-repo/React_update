@@ -1,7 +1,7 @@
-import configureMockStore from 'redux-mock-store';
-import thunk from 'redux-thunk';
+// import configureMockStore from 'redux-mock-store';
+// import thunk from 'redux-thunk';
 
-import infosweepApi from 'services/infosweepApi';
+// import infosweepApi from 'services/infosweepApi';
 
 import {
   NOTIFICATIONS_SUCCESS,
@@ -15,8 +15,8 @@ import {
   default as reducer
 } from 'routes/client/Account/modules/notifications';
 
-const middlewares = [ thunk ]
-const mockStore = configureMockStore(middlewares)
+// const middlewares = [ thunk ]
+// const mockStore = configureMockStore(middlewares)
 
 const notifications = {
   account_system_notifications: [
@@ -40,7 +40,7 @@ const updatedNotification = {
 
 const error = { errorMessage: 'error message' }
 
-describe( '(Account Notifications module)', () => {
+describe( '(client Account Notifications module)', () => {
   it('should export a constant', () => {
     expect(NOTIFICATIONS_SUCCESS).to.equal('NOTIFICATIONS_SUCCESS'),
     expect(NOTIFICATIONS_FAILURE).to.equal('NOTIFICATIONS_FAILURE'),

@@ -7,7 +7,7 @@ import {
 import Transaction from '../Transaction';
 
 
-const Transactions = ({ transactions }) => {
+const Transactions = ({ transactions, handleReceiptClick }) => {
 
   return (
     <Panel
@@ -27,12 +27,17 @@ const Transactions = ({ transactions }) => {
               <th>Amount</th>
               <th>Description</th>
               <th>Payment Method</th>
+              <th>Receipt</th>
             </tr>
           </thead>
           <tbody>
             {
               transactions.map( (transaction, i) => (
-                <Transaction transaction={transaction} key={i} />
+                <Transaction 
+                  transaction={transaction}
+                  key={i} 
+                  handleReceiptClick={handleReceiptClick}
+                />
                 ))
             }
           </tbody>

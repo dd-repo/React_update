@@ -1,7 +1,7 @@
-import configureMockStore from 'redux-mock-store';
-import thunk from 'redux-thunk';
-
-import infosweepApi from 'services/infosweepApi';
+// import configureMockStore from 'redux-mock-store';
+// import thunk from 'redux-thunk';
+//
+// import infosweepApi from 'services/infosweepApi';
 
 import {
   PHONES_FETCHING,
@@ -14,8 +14,8 @@ import {
   default as reducer
 } from 'routes/client/Account/modules/phones';
 
-const middlewares = [ thunk ]
-const mockStore = configureMockStore(middlewares)
+// const middlewares = [ thunk ]
+// const mockStore = configureMockStore(middlewares)
 const errorRes = {errorMessage: 'error message'}
 
 const phones = [{
@@ -23,7 +23,7 @@ const phones = [{
   value: '5555555555',
 }]
 
-describe('(Phones module) "Phones"', () => {
+describe('(client Phones module) "Phones"', () => {
 
   it('Should export a constants', () => {
     expect(PHONES_FETCHING).to.equal('PHONES_FETCHING')

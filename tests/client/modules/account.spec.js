@@ -1,7 +1,7 @@
-import configureMockStore from 'redux-mock-store';
-import thunk from 'redux-thunk';
-
-import infosweepApi from 'services/infosweepApi';
+// import configureMockStore from 'redux-mock-store';
+// import thunk from 'redux-thunk';
+//
+// import infosweepApi from 'services/infosweepApi';
 
 import {
   SUBSCRIPTION_PENDING,
@@ -21,10 +21,10 @@ import {
   default as reducer,
 } from 'routes/client/Account/modules/subscription';
 
-const middlewares = [ thunk ]
-const mockStore = configureMockStore(middlewares)
+// const middlewares = [ thunk ]
+// const mockStore = configureMockStore(middlewares)
 
-describe( '(subscription module) subscriptions', () => {
+describe( '(client subscription module) subscriptions', () => {
 
   it('Should export a constant.', () => {
     expect(SUBSCRIPTION_PENDING).to.equal('SUBSCRIPTION_PENDING')
@@ -121,10 +121,10 @@ describe( '(subscription module) subscriptions', () => {
       const store = mockStore({ subscription: {} })
 
       return store.dispatch(getSubscription())
-      .then(() => {
-        expect(store.getActions()).to.eql(expectedActions);
-        done();
-      });
+        .then(() => {
+          expect(store.getActions()).to.eql(expectedActions);
+          done();
+        });
     })
   })
 

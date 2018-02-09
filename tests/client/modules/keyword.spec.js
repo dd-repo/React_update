@@ -1,7 +1,7 @@
-import configureMockStore from 'redux-mock-store';
-import thunk from 'redux-thunk';
-
-import infosweepApi from 'services/infosweepApi';
+// import configureMockStore from 'redux-mock-store';
+// import thunk from 'redux-thunk';
+//
+// import infosweepApi from 'services/infosweepApi';
 import {
   USER_LOGIN_SUCCESS
 } from 'routes/auth/modules/auth';
@@ -30,8 +30,8 @@ import {
   default as reducer
 } from 'routes/client/Account/modules/keywords';
 
-const middlewares = [ thunk ]
-const mockStore = configureMockStore(middlewares)
+// const middlewares = [ thunk ]
+// const mockStore = configureMockStore(middlewares)
 
 const keywords = [
   {
@@ -63,7 +63,7 @@ const userLoginInfo = {
   account: { keywords }
 }
 
-describe('(Keyword module) "keyword"', () => {
+describe('(client Keyword module) "keyword"', () => {
 
   it('Should export a constant.', () => {
     expect(CREATE_KEYWORD_POSTING).to.equal('CREATE_KEYWORD_POSTING')

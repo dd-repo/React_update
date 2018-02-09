@@ -8,10 +8,19 @@ import chaiAsPromised from 'chai-as-promised';
 import chaiEnzyme from 'chai-enzyme';
 import 'intl/locale-data/jsonp/en.js';
 
+import configureMockStore from 'redux-mock-store';
+import thunk from 'redux-thunk';
+import infosweepApi from 'services/infosweepApi';
+
 chai.use(sinonChai)
 chai.use(chaiAsPromised)
 chai.use(chaiEnzyme())
 
+const middlewares = [ thunk ]
+const mockStore = configureMockStore(middlewares)
+
+global.infosweepApi = infosweepApi
+global.mockStore = mockStore
 global.chai = chai
 global.sinon = sinon
 global.expect = chai.expect

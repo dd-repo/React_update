@@ -13,6 +13,11 @@ import {
   SUBSCRIPTION_CANCEL_FAILURE
 } from 'routes/client/Account/modules/subscription';
 
+import {
+  TRANSACTION_RECEIPT_SUCCESS,
+  TRANSACTION_RECEIPT_FAILURE
+} from 'routes/client/Account/modules/transactions';
+
 import { USER_LOGOUT } from 'routes/auth/modules/auth';
 
 export const CLEAR_FLASH_MESSAGE = 'CLEAR_FLASH_MESSAGE'
@@ -55,7 +60,13 @@ const reducer = (state=initialValues, action) => {
     case PASSWORD_UPDATE_SUCCESS:
       return setSuccessMessage(state, 'Password', 'Updated')
 
+    case TRANSACTION_RECEIPT_SUCCESS:
+      return setSuccessMessage(state, 'Receipt', 'sent')
+
     case PASSWORD_UPDATE_FAILURE:
+      return setErrorMessage(state, action.error)
+
+    case TRANSACTION_RECEIPT_FAILURE:
       return setErrorMessage(state, action.error)
 
     //case SUBSCRIPTION_CANCEL_SUCCESS:

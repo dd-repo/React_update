@@ -1,6 +1,7 @@
 import React from 'react';
 import {
   OverlayTrigger,
+  Button,
   Label,
   Tooltip
 } from 'components'
@@ -12,7 +13,9 @@ const TRANSACTION_STATUS = {
       'declined': <i className='fa fa-close text-danger'></i>
 }
 
-const Transaction = ({ transaction }) => {
+const Transaction = ({ transaction, handleReceiptClick }) => {
+  const _handleReceiptClick = () => { handleReceiptClick(transaction) }
+
   return (
     <tr>
       <td>
@@ -45,6 +48,19 @@ const Transaction = ({ transaction }) => {
           <span className='text-white'>
             { formatCreditCard(transaction.card) }
           </span>
+        </td>
+        <td>
+          <OverlayTrigger
+            overlay={
+              <Tooltip id='transaction-receipt-tooltip'>
+                Download
+              </Tooltip>
+            }
+          >
+            <Button bsStyle='link' onClick={_handleReceiptClick}>
+              <i className='fa fa-cloud-download'></i>
+            </Button>
+          </OverlayTrigger>
         </td>
         </tr>
   )
