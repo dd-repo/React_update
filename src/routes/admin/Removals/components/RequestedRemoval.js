@@ -56,6 +56,7 @@ export default class RemovalRequested extends Component {
           <MenuItem eventKey="inprogress">In Progress</MenuItem>
           <MenuItem eventKey="protected">Record not found</MenuItem>
           <MenuItem eventKey="skip">Skip Record</MenuItem>
+          <MenuItem eventKey="completed">completed</MenuItem>
         </DropdownButton>
       } else {
         renderButton = <DropdownButton
