@@ -86,6 +86,11 @@ class RequestedRemovals extends Component {
       </FormGroup>
     )
 
+    const isUrlRequired = (
+      nextStatus === 'inprogress' 
+      || nextStatus === 'completed' && status === 'requested'
+    )
+
     const renderModal = (
       <Modal show={showModal} onHide={hideModal}>
         <Modal.Header>
@@ -133,7 +138,7 @@ class RequestedRemovals extends Component {
               </tr>
             </tbody>
           </Table>
-          {nextStatus === 'inprogress' && renderInput}
+          {isUrlRequired && renderInput}
         </Modal.Body>
 
         <Modal.Footer>
