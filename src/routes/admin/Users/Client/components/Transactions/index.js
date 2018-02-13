@@ -16,7 +16,7 @@ const Transactions = ({ transactions, showModal }) => {
       <ScrollBarContainer
         noXScrollBar
         style={{
-          maxHeight: '200px'
+          maxHeight: '400px'
         }}
       >
         <Table responsive>

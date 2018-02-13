@@ -44,7 +44,6 @@ const Transaction = (props) => {
   const renderButton = (
     status !== 'refunded' &&
       <DropdownButton
-        dropup
         onSelect={handleDropdownSelect}
         title='Actions'
         bsStyle="danger"
