@@ -12,7 +12,8 @@ import { PaymentFormModal, PaymentSuccessModal } from './Payment';
 import { UpdateUserModal, DeleteUserModal, UpdateUserStatusModal } from './User';
 import {
   TransactionModal,
-  TransactionReceiptModal
+  TransactionReceiptModal,
+  TransactionConfirmSendReceiptModal
 }
 from './Transaction';
 import {
@@ -35,6 +36,7 @@ export {
   AccountModal,
   TransactionModal,
   TransactionReceiptModal,
+  TransactionConfirmSendReceiptModal,
   KeywordModal,
   CreateAddressModal,
   UpdateAddressModal,

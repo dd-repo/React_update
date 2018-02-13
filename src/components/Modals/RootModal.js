@@ -8,6 +8,7 @@ import {
   AccountModal,
   TransactionModal,
   TransactionReceiptModal,
+  TransactionConfirmSendReceiptModal,
   KeywordModal,
   CreateAddressModal,
   UpdateAddressModal,
@@ -56,6 +57,7 @@ const MODAL_COMPONENTS = {
   'UPDATE_USER_STATUS': UpdateUserStatusModal,
   'CHARGE_SUBSCRIPTION': ChargeSubscriptionModal,
   'TRANSACTION_RECEIPT': TransactionReceiptModal,
+  'CONFIRM_SEND_RECEIPT': TransactionConfirmSendReceiptModal
 }
 
 const ModalRoot = ({ ...otherProps, modalType, modalProps, dispatch }) => {
