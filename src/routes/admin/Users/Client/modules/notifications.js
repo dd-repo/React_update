@@ -53,8 +53,13 @@ import {
   UPDATE_TRANSACTION_SUCCESS,
   UPDATE_TRANSACTION_FAILURE,
   CREATE_TRANSACTION_SUCCESS,
-  CREATE_TRANSACTION_FAILURE
+  CREATE_TRANSACTION_FAILURE,
 } from './transactions';
+
+import {
+  SEND_CLIENT_RECEIPT_SUCCESS,
+  SEND_CLIENT_RECEIPT_FAILURE
+} from 'routes/admin/modules/receiptEmail'
 
 import {
   FORGOT_USER_PASSWORD_SUCCESS,
@@ -99,6 +104,9 @@ const reducer = (state=initialValues, action) => {
 
     case CREATE_TRANSACTION_SUCCESS:
       return setSuccessMessage(state, 'Transaction', 'Created')
+
+    case SEND_CLIENT_RECEIPT_SUCCESS:
+      return setSuccessMessage(state, 'Client email', 'sent')
 
     case UPDATE_SUBSCRIPTION_SUCCESS:
       return setSuccessMessage(state, 'Subscription', 'Updated')
@@ -149,6 +157,9 @@ const reducer = (state=initialValues, action) => {
       return setErrorMessage(state, action.error)
 
     case CREATE_TRANSACTION_FAILURE:
+      return setErrorMessage(state, action.error)
+
+    case SEND_CLIENT_RECEIPT_FAILURE:
       return setErrorMessage(state, action.error)
 
     case UPDATE_SUBSCRIPTION_FAILURE:

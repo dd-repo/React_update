@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 
 import { formatDate, formatPrice } from 'utils';
-import { Button, Label } from 'components';
+import { DropdownButton, MenuItem, Label } from 'components';
 
 const STYLE = {
   'completed': 'success',
@@ -14,6 +14,10 @@ const BUTTON_LABEL = {
   'declined':  'Charge'
 }
 
+const MODAL_ACTION = {
+  'receipt': 'CONFIRM_SEND_RECEIPT',
+  'Refund': 'TRANSACTION'
+}
 const Transaction = (props) => {
   const {
     id,
@@ -30,14 +34,26 @@ const Transaction = (props) => {
     status
   } = props.transaction
 
+  const buttonLabel = BUTTON_LABEL[status] 
+
+  const handleDropdownSelect = action => {
+    const modalAction = MODAL_ACTION[action]
+    props.showModal(modalAction, props.transaction)
+  }
+
   const renderButton = (
     status !== 'refunded' &&
-      <Button
+      <DropdownButton
+        dropup
+        onSelect={handleDropdownSelect}
+        title='Actions'
         bsStyle="danger"
-        onClick={() => { props.showModal('TRANSACTION', props.transaction) }}
+        id='dropdown-basic'
+        bsSize='lg'
       >
-        { BUTTON_LABEL[status] }
-      </Button>
+        <MenuItem eventKey={buttonLabel}>{buttonLabel}</MenuItem>
+        <MenuItem eventKey="receipt">Send Receipt</MenuItem>
+      </DropdownButton>
   )
 
   const salesRep = (
