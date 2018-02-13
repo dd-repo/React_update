@@ -70,6 +70,7 @@ const Transactions = ({ transactions, showModal }) => {
             })
           }
         </Table>
+        <div className='m-t-3'></div>
       </ScrollBarContainer>
     </Panel>
   )
