@@ -51,7 +51,7 @@ const Transaction = (props) => {
         bsSize='lg'
       >
         <MenuItem eventKey={buttonLabel}>{buttonLabel}</MenuItem>
-        <MenuItem eventKey="receipt">Send Receipt</MenuItem>
+        { status !== 'declined' && <MenuItem eventKey="receipt">Send Receipt</MenuItem> }
       </DropdownButton>
   )
 
