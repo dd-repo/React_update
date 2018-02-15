@@ -7,8 +7,6 @@ import thunk from 'redux-thunk'
 import makeRootReducer from './reducers'
 import createRavenMiddleware from 'raven-for-redux'
 
-const RAVEN_DSN = 'https://02166c399b7d4708ab5ff97d0e1dcb34@sentry.io/252851'
-Raven.config(RAVEN_DSN).install()
 
 const browserHistory = useRouterHistory(createBrowserHistory)({
   basename: __BASENAME__
@@ -20,9 +18,14 @@ export const store = (initialState = {}, history) => {
   // ======================================================
   const middleware = [
     thunk,
-    routerMiddleware(history),
-    createRavenMiddleware(Raven)
+    routerMiddleware(history)
   ]
+
+  if (__PROD__) {
+    const RAVEN_DSN = 'https://02166c399b7d4708ab5ff97d0e1dcb34@sentry.io/252851'
+    Raven.config(RAVEN_DSN).install()
+    middleware.push(createRavenMiddleware(Raven))
+  }
 
   // ======================================================
   // Store Enhancers

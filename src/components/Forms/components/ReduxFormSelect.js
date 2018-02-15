@@ -56,7 +56,6 @@ const renderSelect = props => {
         options={list}
         value={value}
         placeholder={placeholder}
-        inputProps={{readOnly: true}}
         onChange={val => onChange(val)}
         name={name}
         searchable={searchable}
