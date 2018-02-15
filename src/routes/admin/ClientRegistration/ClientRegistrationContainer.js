@@ -36,6 +36,7 @@ class ClientRegistrationContainer extends RoutedComponent {
     }
   }
 
+
   componentWillUpdate (nextProps, nextState) {
     if (nextState.notification !== this.state.notification) {
       window.scrollTo(0, 0)
@@ -71,7 +72,7 @@ class ClientRegistrationContainer extends RoutedComponent {
       disableButton: false,
       notification:
       {
-        message: error.response.data.message,
+        message: error.response.data.errorMessage,
         status: 'danger'
       }})
   }
