@@ -53,7 +53,7 @@ const Transaction = ({ transaction, handleReceiptClick }) => {
           <OverlayTrigger
             overlay={
               <Tooltip id='transaction-receipt-tooltip'>
-                Download
+                View
               </Tooltip>
             }
           >
