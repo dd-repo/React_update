@@ -23,8 +23,8 @@ export default class AdminSelect extends Component {
   }
 
   formatSalesReps (res) {
-    const { users } = res.data
-    return {
+   const { users } = res.data
+  return {
       name: 'sales_rep_id',
       list: users.map( user => ({
         value: user.id,

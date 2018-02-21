@@ -1,4 +1,7 @@
 import states from 'consts/states'
+import years from 'consts/years'
+import daysOfMonth from 'consts/daysOfMonth'
+import monthsOfYear from 'consts/monthsOfYear'
 import {
   onlyNums,
   checkValidation,
@@ -89,10 +92,7 @@ const fields = {
     type: 'select',
     label: 'Expiration',
     placeHolder: 'Month',
-    list: Array.from((function*() {
-      for (let i = 1; i <= 12; i++)
-        yield { value: i, label: i }
-    })()),
+    list: monthsOfYear,
     errorMessage: 'Please enter Expiration Month',
     normalize: normalizeExDate
   },
@@ -103,8 +103,8 @@ const fields = {
     errorMessage: 'Please enter Expiration Year',
     list: Array.from((function*() {
       for (let i = 0; i < 10; i++) {
-        let date = new Date().getFullYear() + i
-        yield {value: date, label: date}
+        let year = new Date().getFullYear() + i
+        yield {value: year, label: year}
       }
     })())
   },
@@ -191,6 +191,30 @@ const fields = {
     placeHolder: 'Enter DOB...',
     errorMessage: 'Please enter a Date of Birth',
     normalize: normalizeDate
+  },
+  dobMonth: {
+    name: 'dobMonth',
+    type: 'select',
+    label: 'Month',
+    placeHolder: 'Month',
+    errorMessage: 'Please select month',
+    list: monthsOfYear 
+  },
+  dobDay: {
+    name: 'dobDay',
+    type: 'select',
+    label: 'Day',
+    errorMessage: 'Please select day',
+    placeHolder: 'Day',
+    list:  daysOfMonth
+  },
+  dobYear: {
+    name: 'dobYear',
+    type: 'select',
+    label: 'Year',
+    placeHolder: 'Year',
+    errorMessage: 'Please select year',
+    list: years
   },
   kwState: {
     name: 'kwState',

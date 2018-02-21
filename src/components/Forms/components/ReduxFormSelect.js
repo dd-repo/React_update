@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react'
 import Select from 'react-select'
-
 import { Field } from 'redux-form'
+import classes from './classes.scss'
 
 const ReduxFormSelect = ({ field, searchable, clearable, className, customStyle }) => {
   const {
@@ -72,7 +72,8 @@ const renderSelect = props => {
 ReduxFormSelect.defaultProps = {
   searchable: true,
   clearable: false,
-  list: []
+  list: [],
+  className: classes.defaultStyles
 }
 
 ReduxFormSelect.propTypes = {

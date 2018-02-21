@@ -1,24 +1,29 @@
 import React from 'react'
 import ClientRegistration from './components/ClientRegistration'
 import { reset } from 'redux-form'
-
 import { RoutedComponent, connect } from 'routes/routedComponent'
 import { CONTENT_VIEW_STATIC } from 'layouts/DefaultLayout/modules/layout'
 import infosweepApi from 'services/infosweepApi'
-import { sanitizeNums } from 'utils'
+import { sanitizeNums, formatDate } from 'utils'
 
-const CLIENT_SIGNUP_REQUEST = '/admin/api/signup'
+// const CLIENT_SIGNUP_REQUEST = '/admin/api/signup'
+const PROSPECT_CREATE_REQUEST = '/admin/api/create-prospect'
+const PAYMENT_REQUEST = '/admin/api/create-subscription'
+const KEYWORDS_UPDATE_REQUEST = '/admin/api/update-keywords'
 
 class ClientRegistrationContainer extends RoutedComponent {
   constructor (props) {
     super(props)
 
-    this.state = {isFetching: false}
+    this.state = {
+      isFetching: false,
+      client: {},
+      keywords: {},
+      notification: {},
+      nextStep: 'client'
+    }
 
-    this.submitForm = this.submitForm.bind(this)
-    this.resetForm = this.resetForm.bind(this)
     this.handleSuccess = this.handleSuccess.bind(this)
-    this.handleFailure = this.handleFailure.bind(this)
   }
 
   static contextTypes = {
@@ -35,89 +40,173 @@ class ClientRegistrationContainer extends RoutedComponent {
       headerEnabled: false
     }
   }
+  
 
+  handleProspectSelect = data => {
+    this.toggleIsFetching()
+    this.handleSuccess({user_id: data.prospect.value}, 'client')
+  }
 
-  componentWillUpdate (nextProps, nextState) {
-    if (nextState.notification !== this.state.notification) {
-      window.scrollTo(0, 0)
+  handleNewClient = data => {
+    this.toggleIsFetching()
+    const payload = {
+      first_name: data.firstName,
+      last_name: data.lastName,
+      email: data.email,
+      dob: this.formatDateOfBirth(data),
+      phone_number: data.phoneNumber,
+      phone_type: 'mobile',
+      role: 'prospect',
+      group: 'frontend'
+    }
+    this.sendClient(payload)
+  }
+
+  formatDateOfBirth = ({ dobMonth, dobDay, dobYear })  => {
+    if (dobMonth && dobDay && dobYear) {
+      return `${dobDay.value}-${dobMonth.value}-${dobYear.value}`
+    } else {
+      return null
     }
   }
 
-  submitForm (user) {
-    const payload = this.buildParams(user)
-    this.setState({isFetching: true, disableButton: true})
-    infosweepApi.post(CLIENT_SIGNUP_REQUEST, payload)
-    .then(res => { this.handleSuccess() })
-    .catch(error => { this.handleFailure(error) })
+  handlePayment = (data) => {
+    const payload = {
+      user: this.state.client.user_id,
+      plan: data.plan.value,
+      card_holder_name: data.fullName,
+      card_number: sanitizeNums(data.creditCardNumber),
+      card_month: data.expirationMonth.value,
+      card_year: data.expirationYear.value,
+      card_cvc: data.cvCode,
+      address: data.address,
+      city: data.city,
+      state: data.state.value,
+      zip: data.zipcode
+    }
+    this.sendPaymentDetails(payload)
   }
 
-  handleSuccess () {
+  sendClient = (payload) => {
+    infosweepApi.post(PROSPECT_CREATE_REQUEST, payload)
+      .then( response => this.handleSuccess(response.data, 'client'))
+      .catch(error => this.handleErrors(error))
+  }
+
+  sendPaymentDetails = payload => {
+    this.toggleIsFetching()
+    infosweepApi.post(PAYMENT_REQUEST, payload)
+      .then( response => this.handleSuccess(response.data, 'payment'))
+      .catch( error => this.handleErrors(error))
+  }
+
+  handleKeywords = keywords => {
+    this.toggleIsFetching()
+    infosweepApi.post(KEYWORDS_UPDATE_REQUEST, this.formatKeywordParams(keywords))
+      .then( response => this.handleSuccess(response, 'keywords'))
+      .catch( error => this.handleErrors(error))
+  }
+
+  formatKeywordParams = keywords => {
+    return Object.keys(keywords).map(id => ({
+      id, value: keywords[id]
+    }))
+  }
+
+  formatKeywords = keywords => {
+    const keywordValues = {}
+    for(let keyword of keywords) {
+      keywordValues[keyword.id] = keyword.value
+    }
+    return keywordValues
+  }
+
+  handleSuccess (data, type) {
+    switch (type) {
+      case 'client':
+        this.setState({
+          client: data,
+          nextStep: 'payment',
+          isFetching: false,
+          notification: {}
+        })
+        break;
+      case 'payment':
+        this.setState({
+          keywords: this.formatKeywords(data.keywords),
+          nextStep: 'keywords',
+          isFetching: false,
+          notification: {}
+        })
+        break;
+      case 'keywords':
+        this.setState({
+          notification: {
+            message: 'Registration Successfully Completed',
+            status: 'success'
+          },
+          nextStep: 'client',
+          client: {},
+          keywords: {},
+          isFetching: false
+        })
+        this.resetNotification()
+    }
+  }
+
+  handleErrors (error) {
+    this.toggleIsFetching()
     this.setState({
-      isFetching: false,
-      disableButton: false,
-      notification: {
-        message: 'Client was successfully created',
-        status: 'success'
-      }
+      notification: { message: this.formatErrorMessages(error), status: 'danger' },
+      isFetching: false
     })
-    this.resetForm()
-    setTimeout(() => {
-      this.setState({notification: null})
-    }, 5000)
   }
 
-  handleFailure (error) {
-    this.setState({
-      isFetching: false,
-      disableButton: false,
-      notification:
-      {
-        message: error.response.data.errorMessage,
-        status: 'danger'
-      }})
-  }
-
-  resetForm () {
-    this.context.store.dispatch(reset('ClientRegistrationForm'))
-  }
-
-  buildParams (user) {
-    return {
-      signup: {
-        first_name: user.firstName,
-        last_name: user.lastName,
-        email: user.email,
-        phone_number: user.phoneNumber,
-        phone_type: 'home',
-        plan: user.plan.value.toLowerCase(),
-        card_holder_name: user.fullName,
-        card_number: sanitizeNums(user.creditCardNumber),
-        card_month: user.expirationMonth.value,
-        card_year: user.expirationYear.value,
-        card_cvc: user.cvCode,
-        address: user.address,
-        city: user.city,
-        state: user.state.value,
-        zip: user.zipcode,
-        kw_first_name: user.kwFirstName,
-        kw_last_name: user.kwLastName,
-        kw_address: user.kwAddress,
-        kw_city: user.kwCity,
-        kw_state: user.kwState.value,
-        kw_zip: user.kwZipcode,
-        kw_country: 'US',
-        dob: user.dob
-      }
+  formatErrorMessages (error) {
+    if(this.hasErrorMessage(error)) {
+      const { errorMessage } = error.response.data
+      console.log('client registration errors', errorMessage)
+      return this.parseErrorMessage(errorMessage)
+    }else{
+      return 'Oops something went wrong'
     }
+  }
+
+  hasErrorMessage (error) {
+    return (
+      error.response
+      || error.response.data 
+      || error.response.data.errorMessage
+    )
+  }
+
+  parseErrorMessage (errorMessage) {
+    if (typeof errorMessage === 'string') { return errorMessage }
+    if (typeof errorMessage === 'object') {
+      const errorMessageArray = Object.keys(errorMessage).map( key => (
+        errorMessage[key]
+      ))
+      return errorMessageArray.join(' ')
+    }
+  }
+
+  toggleIsFetching = () => {
+    const { isFetching } = this.state
+    this.setState({ isFetching: !isFetching })
+  }
+
+  resetNotification = () => {
+    setTimeout( () => { this.setState({ notification: {} }) }, 5000)
   }
 
   render () {
     return (
       <ClientRegistration
-        submitForm={this.submitForm}
-        isFetching={this.state.isFetching}
-        notification={this.state.notification}
-        disableButton={this.state.disableButton}
+        handleNewClient={this.handleNewClient}
+        handleProspectSelect={this.handleProspectSelect}
+        handlePayment={this.handlePayment}
+        handleKeywords={this.handleKeywords}
+        {...this.state}
       />
     )
   }
