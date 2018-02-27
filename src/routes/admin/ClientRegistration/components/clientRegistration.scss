@@ -45,3 +45,11 @@
         margin-right: 5px;
     }
 }
+.customSelect {
+  div {
+    background: $gray-dark !important;
+    &:hover {
+      background: $gray-lighter !important;
+    }
+  }
+}

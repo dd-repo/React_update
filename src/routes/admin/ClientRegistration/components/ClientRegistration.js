@@ -4,6 +4,10 @@ import { Link } from 'react-router'
 
 import ClientRegistrationForm from './ClientRegistrationForm'
 import classes from './clientRegistration.scss'
+import ClientForm from './CreateClientForm'
+import ProspectSelectForm from './SelectProspectForm'
+import PaymentForm from './PaymentForm'
+import KeywordsForm from './KeywordsForm'
 import {
   Row,
   Col,
@@ -12,17 +16,28 @@ import {
 } from 'components'
 
 const ClientRegistration = (props) => {
-  const { 
+  const {
     notification,
-    submitForm,
+    handleNewClient,
+    handleProspectSelect,
+    handlePayment,
+    handleKeywords,
     isFetching,
-    disableButton
+    client,
+    keywords,
+    nextStep,
   } = props
 
-  const renderMessage = notification &&
+  const renderMessage = notification.message &&
     <Alert bsStyle={notification.status}>
       {notification.message}
     </Alert>
+
+    const formTitle = {
+      'client': 'Client Registration Form',
+      'payment': 'Credit Card Form',
+      'keywords': 'Keywords Form'
+    }
 
     return (
       <Row>
@@ -33,32 +48,56 @@ const ClientRegistration = (props) => {
               <Panel
                 className={classes.registerPanel}
                 header={(
-                  <Link to='#' className={classes.toHomeLink}>
+                  <div className={classes.toHomeLink}>
                     <h2 className={classes.panelHeader}>
-                      Client Registration Form
+                      { formTitle[nextStep] }
                     </h2>
-                  </Link>
+                  </div>
                 )}
               >
-
-              <ClientRegistrationForm
-                submitForm={submitForm}
-                isFetching={isFetching}
-                disableButton={disableButton}
-              />
-
-          </Panel>
+                { nextStep == 'client' &&
+                    <div>
+                      <ProspectSelectForm
+                        handleProspectSelect={handleProspectSelect}
+                        isFetching={isFetching}
+                      />
+                      <ClientForm
+                        handleNewClient={handleNewClient}
+                        isFetching={isFetching}
+                      />
+                    </div>
+                }
+                { nextStep == 'payment' &&
+                    <PaymentForm
+                      handlePayment={handlePayment}
+                      isFetching={isFetching}
+                    />
+                }
+                { nextStep == 'keywords' &&
+                    <KeywordsForm
+                      handleKeywords={handleKeywords}
+                      initialValues={keywords}
+                      isFetching={isFetching}
+                    />
+                }
+              </Panel>
+            </Col>
+          </Row>
         </Col>
       </Row>
-    </Col>
-  </Row>
     )
 }
 
 ClientRegistration.propTypes = {
-  submitForm: PropTypes.func.isRequired,
   notification: PropTypes.object,
-  isFetching: PropTypes.bool
+  isFetching: PropTypes.bool,
+  handleNewClient: PropTypes.func.isRequired,
+  handleProspectSelect: PropTypes.func.isRequired,
+  handlePayment: PropTypes.func.isRequired,
+  handleKeywords: PropTypes.func.isRequired,
+  client: PropTypes.object.isRequired,
+  keywords: PropTypes.object.isRequired,
+  nextStep: PropTypes.string.isRequired
 }
 
 export default ClientRegistration
