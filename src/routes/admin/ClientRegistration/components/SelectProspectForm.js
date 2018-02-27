@@ -42,6 +42,8 @@ const ProspectSelectForm = props => {
                       name='prospect'
                       group='frontend'
                       role='prospect'
+                      targetValue='id'
+                      targetLabel='email'
                       placeholder='Select prospect...'
                     />
                   </Col>
