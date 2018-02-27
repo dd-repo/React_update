@@ -26,7 +26,7 @@ class PlanSelect extends Component {
       placeholder: 'Select a plan...',
       list: plans.map( plan => ({
         value: plan.is_type,
-        label: plan.description
+        label: `${plan.description} - $${plan.price}`
       }))
     }
   }

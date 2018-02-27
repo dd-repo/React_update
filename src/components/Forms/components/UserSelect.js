@@ -30,24 +30,21 @@ class UserSelect extends Component {
 
   formatUser = res => {
     const { users } = res.data
+    const { name, placeholder, targetValue, targetLabel } = this.props
     this.setState({
       user: {
-        name: this.props.name,
-        placeHolder: this.props.placeholder,
+        name,
+        placeHolder: placeholder,
         list: users.map( user => ({
-          value: user.id,
-          label: user.name
+          value: user[targetValue],
+          label: user[targetLabel]
         }))
       }
     })
   }
 
   render () {
-    if (this.state.user) {
-      return <ReduxFormSelect field={this.state.user} />
-    } else {
-      return <ReduxFormSelect field={this.state.loading} />
-    }
+    return <ReduxFormSelect field={this.state.user || this.state.loading} />
   }
 }
 
@@ -61,7 +58,9 @@ UserSelect.propsTypes = {
   role: PropTypes.string,
   isActive: PropTypes.string,
   group: PropTypes.string.isRequired,
-  name: PropTypes.string
+  name: PropTypes.string,
+  targetValue: PropTypes.string.isRequired,
+  targetLabel: PropTypes.string.isRequired
 }
 
 export default UserSelect
