@@ -40,15 +40,15 @@ class UserContainer extends RoutedComponent {
 
   componentWillMount () {
     this.props.fetchUser(this.props.params)
-    .then(res => this.fetchAccountAndCards(res.data))
+    .then(res => this.fetchUserDetails(res.data))
   }
 
   componentWillUnmount () {
     this.props.clearNotification()
   }
 
-  fetchAccountAndCards (client) {
-    this.props.fetchAccount(client.accounts[0].id)
+  fetchUserDetails (client) {
+    this.fetchAccount(client.accounts[0].id)
     this.props.fetchCards(client.id)
   }
 

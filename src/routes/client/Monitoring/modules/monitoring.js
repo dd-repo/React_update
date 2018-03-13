@@ -15,11 +15,8 @@ const CURRENT_STATUS = {
 }
 
 const inActiveSites = [
-  'whitepages.com',
-  'radaris.com',
-  'DobSearch.com',
+  'dobsearch.com',
   'peoplelooker.com',
-  'peeepls.com',
   'OneRep.com'
 ]
 

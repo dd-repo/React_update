@@ -29,7 +29,7 @@ class Upload extends Component {
         { renderSpinner(this.props.isFetching) }
         <Dropzone className={dlClasses}
           onDrop={this.props.handleUpload}
-          accept='image/*'
+          accept='application/pdf, image/*'
           multiple={false}
           preventDropOnDocument={true}
         >
