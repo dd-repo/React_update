@@ -1,7 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Panel, Table, ScrollBarContainer } from 'components'
-
 import Transaction from 'routes/admin/Transactions/components/Transaction'
 
 const Transactions = ({ transactions, showModal }) => {
