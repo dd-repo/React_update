@@ -7,7 +7,6 @@ import {
   Button,
   AvatarImage
 } from 'components'
-
 import classes from '../../user.scss';
 
 const Profile = ({ profile, handleDriverLicenseRequest }) => {
@@ -37,16 +36,12 @@ const Profile = ({ profile, handleDriverLicenseRequest }) => {
           </a>
         </div>
         <div className={ classes.detailsValue }>
-          <a href={profile.driverLicense} download>
-            <Image
-              src={profile.driverLicense}
-              backgroundText='Driver License'
-              height={ 140 }
-              width={ 240 }
-              shape='rounded'
-              className='m-r-1'
-            />
-          </a>
+          {
+            profile.driverLicense &&
+              <a href={profile.driverLicense} target='_blank'>
+                view driver license
+              </a>
+          }
         </div>
       </ListGroupItem>
       <ListGroupItem className='flex-space-between'>

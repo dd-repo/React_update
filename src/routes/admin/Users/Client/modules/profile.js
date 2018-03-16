@@ -54,22 +54,30 @@ export const requestDriverLicenseRequestFailure = error => (
   }
 )
 
-const setProfile = (state, profile) => (
-  Object.assign({}, state, {
+const setProfile = (state, profile) => {
+ return Object.assign({}, state, {
     avatar: profile.avatar_url,
     driverLicense: profile.driver_license_url,
     id: profile.id,
     maidenName: profile.maiden_name,
     middleName: profile.middle_name
   })
-)
+}
+
+const mergeProfileUpdate = (state, profile) => {
+ return Object.assign({}, state, {
+    driverLicense: profile.driver_license.url,
+    maidenName: profile.maiden_name,
+    middleName: profile.middle_name
+  })
+}
 
 const reducer = (state={}, action) => {
   switch(action.type) {
     case ACCOUNT_SUCCESS:
       return setProfile(state, action.data.profile)
     case UPDATE_PROFILE_SUCCESS:
-      return setProfile(state, action.data)
+      return mergeProfileUpdate(state, action.data)
     default:
       return state
   }
