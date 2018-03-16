@@ -12,6 +12,7 @@ import { sanitizeNums } from './paramsHelper'
 import formatCreditCard from './formatCreditCard'
 import createNotification from './createNotification'
 import formatPhone from './formatPhone'
+import getDataUrl from './imageHelper'
 
 export {
   capitalize,
@@ -25,5 +26,6 @@ export {
   imageHelper,
   formatCreditCard,
   sanitizeNums,
+  getDataUrl,
   createNotification
 }

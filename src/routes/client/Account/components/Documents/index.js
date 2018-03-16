@@ -43,7 +43,7 @@ class Documents extends Component {
       <div className='m-t-2'>
         <Upload
           handleUpload={this.handleUpload}
-          isFetching={this.state.isFetching}
+          isFetching={this.props.profile.isFetching}
         >
           { ( ) => {
             return (

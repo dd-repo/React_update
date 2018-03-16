@@ -1,0 +1,23 @@
+@import '~@owczar/spin-template/src/scss/bootstrap/variables';
+@import '~bootstrap-sass/assets/stylesheets/bootstrap/_variables.scss';
+
+.fileUploader {
+  width: 0.1px;
+	height: 0.1px;
+	opacity: 0;
+	overflow: hidden;
+	position: absolute;
+	z-index: -1;
+}
+
+.fileUploaderLabel {
+  background: $brand-danger;
+  color: $brand-white;
+  font-weight: 400;
+  vertical-align: middle;
+  text-align: center;
+  padding: 6px 12px;
+  font-size: 13px;
+  border-radius: 2px;
+  margin-right: 10px;
+}
