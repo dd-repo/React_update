@@ -1,8 +1,11 @@
 import React, { PropTypes } from 'react'
+import infosweepApi from 'services/infosweepApi'
 
 import {
   Panel,
   ListGroup,
+  DropdownButton,
+  MenuItem,
   ListGroupItem,
   Label,
   Button
@@ -26,6 +29,18 @@ const ClientDetails = ({
       : updateUserStatus(client)
   }
 
+  const _handleAccountOptions = target => {
+    switch(target) {
+      case 'passwordReset':
+        handlePasswordReset()
+        break;
+      case 'introEmail':
+        const payload = { user_id: client.id }
+        infosweepApi.patch('admin/api/emails/send-intro-email', payload)
+        break;
+    }
+  }
+
   return (
     <Panel
       header={
@@ -34,14 +49,32 @@ const ClientDetails = ({
         </h4>
         }
       footer={
-          <div className='text-right'>
+        <div>
+          <DropdownButton
+            bsStyle='primary'
+            title='Account options'
+            onSelect={target => { _handleAccountOptions(target) }}
+          >
+            <MenuItem
+              eventKey='passwordReset'
+            >
+              Send Password Reset
+            </MenuItem>
+            <MenuItem
+              eventKey='introEmail'
+            >
+              Send Intro Email
+            </MenuItem>
+          </DropdownButton>
+          <span className='pull-right'>
             <Button
               onClick={() => { showModal('USER', client) }}
               bsStyle='primary'
             >
               <i className="fa fa-pencil"></i> Edit Subscriber
             </Button>
-          </div>
+          </span>
+        </div>
           }
         >
           <ListGroup className={classes.taskDetails}>
@@ -87,18 +120,6 @@ const ClientDetails = ({
               <div className={classes.detailsValue}>
                 {client.email}
               </div>
-            </ListGroupItem>
-            <ListGroupItem className='flex-space-between'>
-              <h5 className={classes.detailsKey}>
-                Password
-              </h5>
-              <Button
-                className='userDetailEditButton'
-                onClick={handlePasswordReset}
-                bsStyle='link'
-              >
-                <icon className='fa fa-share'></icon> Send Password Reset
-              </Button>
             </ListGroupItem>
             <ListGroupItem className='flex-space-between'>
               <h5 className={classes.detailsKey}>
