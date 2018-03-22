@@ -18,9 +18,13 @@ import { formatDate } from 'utils'
 
 import classes from '../user.scss'
 
+const passwordReset = 'passwordReset'
+const introEmail = 'introEmail'
+const createSOLead = 'createSOLead'
 const ACCOUNT_OPTIONS_CONFIG = {
-  'passwordReset': 'send password reset email to client',
-  'introEmail': 'send intro email to client'
+  passwordReset: 'send password reset email to client',
+  introEmail: 'send intro email to client',
+  createSOLead: 'create a Sales Optima lead'
 }
 
 class ClientDetails extends Component {
@@ -49,13 +53,18 @@ class ClientDetails extends Component {
 
   _handleAccountOptions () {
     this.hideModal()
+    let payload;
     switch(this.state.target) {
-      case 'passwordReset':
+      case passwordReset:
         this.props.handlePasswordReset()
         break;
-      case 'introEmail':
-        const payload = { user_id: this.props.client.id }
+      case introEmail:
+        payload = { user_id: this.props.client.id }
         infosweepApi.patch('admin/api/emails/send-intro-email', payload)
+        break;
+      case createSOLead:
+        payload = { user_id: this.props.client.id }
+        infosweepApi.patch('/admin/api/create-lead', payload)
         break;
     }
   }
@@ -104,14 +113,19 @@ class ClientDetails extends Component {
               id='accountOptions'
             >
               <MenuItem
-                eventKey='passwordReset'
+                eventKey={passwordReset}
               >
                 Send Password Reset
               </MenuItem>
               <MenuItem
-                eventKey='introEmail'
+                eventKey={introEmail}
               >
                 Send Intro Email
+              </MenuItem>
+              <MenuItem
+                eventKey={createSOLead}
+              >
+              Create SO Lead
               </MenuItem>
             </DropdownButton>
             <span className='pull-right'>
