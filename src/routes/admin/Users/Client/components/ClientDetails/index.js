@@ -48,7 +48,7 @@ class ClientDetails extends Component {
   _handleStatusUpdate () {
     this.props.client.is_active
       ? this.props.showModal('UPDATE_USER_STATUS')
-      : this.props.updateUserStatus(client)
+      : this.props.updateUserStatus(this.props.client)
   }
 
   _handleAccountOptions () {
