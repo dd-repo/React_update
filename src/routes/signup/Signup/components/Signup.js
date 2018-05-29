@@ -65,11 +65,9 @@ const Signup = props => {
                   <div className={classes.topPortion}>
 
                     <h5>Your Membership:</h5>
-                    <p>Free Monitoring Trial
-                      <br/>
-                      <span>$19 per month, after your free trial</span>
+                    <p>
+                      $29 per month
                     </p>
-                    <img src={trialImg} />
                   </div>
                   <div className={classes.contact}>
                     <p>You can also contact us by phone:</p>
