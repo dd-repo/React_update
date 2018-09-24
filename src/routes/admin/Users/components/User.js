@@ -42,6 +42,10 @@ const User = (props) => {
       className='m-b-1'
       disabled={group === 'backend'}
     >
+    {
+    role === 'prospect' ?
+      <MenuItem eventKey="prospect_to_client">Convert To Client</MenuItem> : null
+    }
       <MenuItem eventKey="become">Become</MenuItem>
       <MenuItem eventKey="delete">Delete</MenuItem>
     </DropdownButton>

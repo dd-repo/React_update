@@ -6,7 +6,8 @@ import {
   getAllUsers,
   becomeUser,
   deleteUser,
-  clearNotification
+  clearNotification,
+  prospectToClient
 } from './modules/users'
 import { persistData } from 'localStorage'
 import {
@@ -90,15 +91,18 @@ class UsersContainer extends RoutedComponent {
   }
 
   handleDropdownSelect (id, selector) {
+    const params = { user: { id: id } }
     switch (selector) {
     case 'become':
-      const params = { user: { id: id } }
       this.props.becomeUser(params)
         .then(res => this.doNext(res))
       break
     case 'delete':
       const user = this.props.users.all.find((user) => (user.id === id))
       this.props.showModal('DELETE_USER', user)
+      break
+    case 'prospect_to_client':
+      this.props.prospectToClient(params)
       break
     default:
       this.fetchUsers(this.getRole())
@@ -174,7 +178,8 @@ const mapActionCreators = {
   deleteUser,
   clearNotification,
   showModal,
-  hideModal
+  hideModal,
+  prospectToClient
 }
 
 export default connect(mapStateToProps, mapActionCreators)(UsersContainer)
