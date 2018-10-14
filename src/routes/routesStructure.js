@@ -17,12 +17,13 @@ export const CONFIGS = {
       icon: 'fa fa-tachometer fa-lg',
       url: '/dashboard'
     },
-    {
-      slug: 'Google Results',
-      title: 'Google Results',
-      icon: 'fa fa-google fa-lg',
-      url: '/dashboard/google-results'
-    },
+    // @catherine remove from side menu
+    // {
+    //   slug: 'Google Results',
+    //   title: 'Google Results',
+    //   icon: 'fa fa-google fa-lg',
+    //   url: '/dashboard/google-results'
+    // },
     {
       slug: 'Privacy',
       title: 'Privacy',
