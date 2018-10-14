@@ -71,6 +71,7 @@ class Dashboard extends Component {
                         screenSize={screenSize}
                       />
                     </div>
+                    {/* @catherine remove google results widget from dashboard
                     <div className={classes.container}>
                       <div className={!props.googleResults.active && classes.overlay}></div>
                       <GoogleResults
@@ -82,7 +83,7 @@ class Dashboard extends Component {
                         handleSearch={handleSearch}
                         screenSize={screenSize}
                       />
-                    </div>
+                    </div> */}
                   </Col>
                   {screenSize === SCREEN_SIZE_XS && <Divider className='m-t-3 m-b-3' />}
                   <Col sm={6} md={6} lg={6}>
