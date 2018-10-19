@@ -8,6 +8,8 @@ import DashboardWrapper from './DashboardWrapper'
 import PrivacyRemovals from './Privacy'
 import PrivacyReport from './Privacy/Summary'
 import GoogleResults from './GoogleResults'
+import ProfileDetails from 'routes/client/account/components/ProfileDetails' //* @catherine - accountcontainer does not have an account js like dashboardcontainer has dashboard.js
+
 import {
   SCREEN_SIZE_LG,
   SCREEN_SIZE_MD,
@@ -71,6 +73,15 @@ class Dashboard extends Component {
                         screenSize={screenSize}
                       />
                     </div>
+                    <div className={classes.container}>
+                      <ProfileDetails
+                        profile={this.props.profile}
+                        account={this.props.account}
+                        address={this.props.addresses[0]}
+                        phone={this.props.phones[0]}
+                      /> 
+                    </div>
+
                     {/* @catherine remove google results widget from dashboard
                     <div className={classes.container}>
                       <div className={!props.googleResults.active && classes.overlay}></div>

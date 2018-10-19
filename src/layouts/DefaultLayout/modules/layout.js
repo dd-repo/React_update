@@ -78,7 +78,7 @@ export const DEFAULT_SETTINGS = {
     sidebarFixed: true,
     sidebarAside: false,
     sidebarAddon: SIDEBAR_ADDON_AVATAR_AND_STATS,
-    sidebarSkin: SKIN_DARK,
+    sidebarSkin: SKIN_LIGHT,
     contentView: CONTENT_VIEW_FLUID,
     footerEnabled: true,
     footerFixed: false,
