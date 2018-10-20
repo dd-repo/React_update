@@ -17,7 +17,7 @@ const MonitoringRequest = ({ request }) => {
   const siteName = capitalize(site.slice(0, -4))
 
   return (
-    <tr className='bg-gray-darker' key={id}>
+    <tr key={id}>
       <td className='text-white'>
         <a href={siteURL} target='_blank'>
           { siteName }

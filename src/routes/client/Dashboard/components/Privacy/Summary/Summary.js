@@ -69,7 +69,7 @@ class Summary extends Component {
         ref={node => this.nodeRef = node}
         className={highlightStyles}
       >
-        <ListGroupItem className='text-white' style={{background: Colors.brandDanger}}>
+        <ListGroupItem className='text-white' style={{background: Colors.themeBlue}}>
           Your Privacy Removal Report
           <OverlayTrigger
             placement='left'

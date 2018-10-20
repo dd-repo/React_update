@@ -25,7 +25,7 @@ class MonitoringSite extends Component {
     const siteURL = `http://www.${site}`
     const siteName = capitalize(site.slice(0, -4))
     return (
-      <tr className='bg-gray-darker' key={id}>
+      <tr key={id}>
         <td className='text-white'>
           <a href={siteURL} target='_blank'>
             { siteName }
@@ -39,7 +39,7 @@ class MonitoringSite extends Component {
         <td>
           <Button
             ref='target'
-            bsStyle='danger'
+            bsStyle='primary'
             onClick={this._onClick}
           >
             Request Removal

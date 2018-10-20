@@ -74,7 +74,7 @@ class Layout extends React.Component {
         headerStyle: HEADER_STYLE_BREADCRUMBS,
         headerEnabled: true,
 
-        sidebarSkin: SKIN_LIGHT,
+        sidebarSkin: SKIN_DARK,
         navbarSkin: SKIN_DARK,
         skinColor: SKIN_COLOR_PRIMARY
     };

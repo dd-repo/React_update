@@ -484,7 +484,7 @@ class DefaultLayout extends React.Component {
                         </Layout.Content>
                     ) : (
                     <Layout.Content
-                      style={{ paddingTop: !this.props.headerEnabled ? '19px' : '0' }}
+                      style={{ backgroundColor: 'white', paddingTop: !this.props.headerEnabled ? '19px' : '0' }}
                     >
                             <Header
                               style={this.props.headerStyle}
@@ -496,7 +496,7 @@ class DefaultLayout extends React.Component {
                             <Grid fluid={this.props.contentView !== CONTENT_VIEW_STATIC}>
                                 {this.props.children}
                             </Grid>
-                        </Layout.Content>
+                    </Layout.Content>
                     )
                 }
 

@@ -7,12 +7,12 @@ import {
 } from 'components';
 
 
-const MonitoringRequests = ({ requests, style, header }) => (
+const MonitoringRequests = ({ requests, style, header, className }) => (
   requests.length > 0 ?
     <Panel
-      type='color-title-border'
       bsStyle={style}
       background='default'
+      className={className}
       header={
         <h4 className='panel-title'>
           { header }

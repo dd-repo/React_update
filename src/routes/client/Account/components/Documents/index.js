@@ -58,6 +58,7 @@ class Documents extends Component {
             <Button 
               className='pull-right m-t-2 m-l-1'
               onClick={this.handleButtonClear}
+              bsStyle='primary'
             >
               clear
             </Button>
@@ -65,6 +66,7 @@ class Documents extends Component {
               className='pull-right m-t-2'
               disabled={!this.state.image}
               onClick={this.handleButtonSave}
+              bsStyle='primary'
             >
               Save
             </Button>

@@ -4,7 +4,7 @@ import classes from './Monitoring.scss';
 
 const SummaryResult = props => (
   <div>
-    <Divider textPosition="center">
+    <Divider textPosition="center" className={classes.summaryResultTitle}>
       { props.title }
     </Divider>
     <p className={classes.summaryLargeValue}>

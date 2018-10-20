@@ -57,6 +57,7 @@ const Privacy = props => {
                     requests={inProgress}
                     style='primary'
                     header='In Progress'
+                    className='in-progress'
                   />
                 </Col>
                 <Col lg={6}>
@@ -64,6 +65,7 @@ const Privacy = props => {
                     requests={inQueue}
                     style='info'
                     header='In Queue'
+                    className='in-queue'
                   />
                 </Col>
               </Row>
@@ -72,6 +74,7 @@ const Privacy = props => {
                 type='color-title-border'
                 bsStyle='danger'
                 background='default'
+                className='potential-risks'
                 header={
                   <h4 className='panel-title'>
                     Potential Risks

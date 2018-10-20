@@ -19,7 +19,7 @@ import classes from './profileDetails.scss'
 
 const ProfileDetails = ({ profile, account, address, phone }) => {
   return (
-    <Panel>
+    <Panel className={classes.userDetailsContainer}>
       <div className={classes.userDetails}>
         <Media>
           <Media.Left align='middle'>
@@ -57,11 +57,11 @@ const ProfileDetails = ({ profile, account, address, phone }) => {
             </Divider>
             <dl className={classes.horizontal}>
               <dt>First Name</dt>
-              <dd className='text-white'>
+              <dd className='text-dark'>
                 {account.first_name}
               </dd>
               <dt>Last Name</dt>
-              <dd className='text-white'>
+              <dd className='text-dark'>
                 {account.last_name}
               </dd>
               <dt>Email</dt>
@@ -71,7 +71,7 @@ const ProfileDetails = ({ profile, account, address, phone }) => {
                 </a>
               </dd>
               <dt>Phone</dt>
-              <dd className='text-white'>
+              <dd className='text-dark'>
                 {normalizePhone(phone.phone_number)}
               </dd>
             </dl>
@@ -81,19 +81,19 @@ const ProfileDetails = ({ profile, account, address, phone }) => {
             </Divider>
             <dl className={classes.horizontal}>
               <dt>Street</dt>
-              <dd className='text-white'>
+              <dd className='text-dark'>
                 {address.address1}
               </dd>
               <dt>City</dt>
-              <dd className='text-white'>
+              <dd className='text-dark'>
                 {address.city}
               </dd>
               <dt>State</dt>
-              <dd className='text-white'>
+              <dd className='text-dark'>
                 {address.state}
               </dd>
               <dt>Zip</dt>
-              <dd className='text-white'>
+              <dd className='text-dark'>
                 {address.zip}
               </dd>
             </dl>

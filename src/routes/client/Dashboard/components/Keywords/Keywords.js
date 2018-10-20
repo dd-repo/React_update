@@ -63,7 +63,7 @@ class KeywordSummary extends Component {
         ref={node => this.nodeRef = node}
         className={highlightStyles}
       >
-        <ListGroupItem className='text-white' style={{background: Colors.brandPrimary}}>
+        <ListGroupItem className='text-white' style={{background: Colors.themeBlue}}>
           Your Search Phrases
           <OverlayTrigger
             placement='left'
@@ -118,8 +118,9 @@ class KeywordSummary extends Component {
                                onClick={() => { showModal('KEYWORD', keyword, handleKeywordEdit) }}
                                className={classes.standOut}
                                bsSize='small'
+                               bsStyle='primary'
                              >
-                               <i className='fa fa-pencil fa-fw fa-lg text-gray-lighter'></i>
+                               <i className='fa fa-pencil fa-fw fa-lg text-white'></i>
                              </Button>
                            </OverlayTrigger>
                          </ButtonGroup>

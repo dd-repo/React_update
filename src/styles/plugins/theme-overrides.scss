@@ -1,0 +1,103 @@
+/* Global / Bootstrap */
+body {
+	background-color: $theme-light-gray;
+}
+
+.btn-primary {
+	background-color: $theme-green !important;
+	border: none !important;
+}
+
+.h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
+	color: $theme-dark-gray;
+}
+
+.content {
+	border-left: none;
+}
+
+.ps-container {
+	padding: 10px;
+}
+
+/* sidebar */
+.navigation .sidebar {
+	background-color: $theme-light-gray !important;
+	min-height: 100%;
+}
+
+/* Application Sub Navbar */
+.sub-navbar {
+	background-color: $theme-light-gray !important;
+}
+
+/* Side Menu */
+.side-menu {
+	li.active > a {
+		background: $theme-blue !important;
+
+		i, span {
+			color: white !important;
+		}
+	}
+}
+
+/* Nav Tabs */
+ul.nav-tabs {
+
+	li {
+
+		a {
+			color: $theme-dark-gray;
+
+			&:hover {
+				color: white;
+			}
+		}
+
+		&.active a {
+			background-color: $theme-blue !important;
+			color: white;
+		}
+		
+	}
+}
+
+/* HR Text */
+.hr-text>:first-child {
+	background-color: $theme-dark-gray;
+	color: white;
+	padding-left: 10px;
+}
+
+/* Panel */
+.panel {
+	background-color: $theme-light-gray;
+}
+
+.panel-default > .panel-heading {
+	color: white;
+	background-color: $theme-blue;
+}
+
+.panel-footer {
+	background-color: $theme-light-gray;
+}
+
+/* This is used to display some panels in the dashboard */
+.list-group-item {
+	border: none;
+}
+
+/* Forms */
+input.form-control {
+	&::placeholder {
+		color: white;
+	}
+}
+
+/* Footer */
+#application .main-wrap>footer {
+	background-color: $theme-light-gray;
+	border-left: none;
+}

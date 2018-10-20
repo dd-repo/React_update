@@ -55,7 +55,7 @@ class DashboardContainer extends RoutedComponent {
 
   fetchDashboardData = (accountId, keywordId) => {
     return Promise.all([
-      this.props.fetchGoogleResults(accountId, keywordId),
+      //this.props.fetchGoogleResults(accountId, keywordId), @catherine find out why this is making the dashboard fail. 
       this.props.fetchMonitoringRequests(accountId),
       this.props.fetchMonitoringRequestsCompleted(accountId),
       this.props.fetchAccountNotifications(accountId)

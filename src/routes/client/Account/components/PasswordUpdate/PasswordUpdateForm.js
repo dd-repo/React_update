@@ -119,7 +119,7 @@ const PasswordUpdateForm = ({
           </FormGroup>
           <FormGroup className='m-r-2 m-l-2'>
             <button
-              className={`${classes.buttonClean} m-r-1`}
+              className={`${classes.buttonClean} m-r-1 btn-primary btn`}
               disabled={invalid || submitting}
               action='submit'
             >

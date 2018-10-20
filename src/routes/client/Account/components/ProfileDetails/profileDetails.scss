@@ -1,27 +1,31 @@
 @import '~@owczar/spin-template/src/scss/bootstrap/variables';
 
-.userDetails {
-    .userPanelName {
-        display: flex;
-        align-items: center;
+.userDetailsContainer {
+    
+    
+    .userDetails {
+        .userPanelName {
+            display: flex;
+            align-items: center;
+        }
+
+        .detailsTab {
+            max-height: 600px;
+            overflow-y: auto;
+        }
+
+      }
+
+    .horizontal {
+      dt {
+        float: left;
+        width: 100px;
+        clear: left;
+        text-align: right;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        margin-right: 10px;
+      }
     }
-
-    .detailsTab {
-        max-height: 600px;
-        overflow-y: auto;
-    }
-
-  }
-
-.horizontal {
-  dt {
-    float: left;
-    width: 100px;
-    clear: left;
-    text-align: right;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    margin-right: 10px;
-  }
 }
