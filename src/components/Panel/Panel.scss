@@ -1,8 +1,9 @@
 @import '~@owczar/spin-template/src/scss/bootstrap/variables';
+@import 'src/styles/plugins/colors.scss';
 
 .panelNoBg {
-  border: 2px solid $gray-dark;
-  background: $body-bg;
+  border: 2px solid $theme-light-gray;
+  background: #F1F1F1;
 }
 
 .panelBgLight {

@@ -33,6 +33,11 @@ const colors = {
     brandCaper:                              '#AECA89',
     brandChelseaCucumber:                    '#88B152',
     brandGreenDarker:                        '#2b2f26',
+
+    themeGreen:                              '#47B758',
+    themeBlue:                               '#004A73',
+    themeLightGray:                          '#F7F7F7',
+    themeDarkGray:                           '#333333',
 };
 
 export default colors;

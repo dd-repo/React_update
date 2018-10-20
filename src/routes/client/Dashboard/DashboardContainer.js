@@ -4,6 +4,8 @@ import { CONTENT_VIEW_STATIC } from 'layouts/DefaultLayout/modules/layout'
 import { fetchGoogleResults } from 'routes/client/GoogleResults/modules/googleResults'
 import { updateKeyword, updateCurrentKeyword } from 'routes/client/Account/modules/keywords'
 import { showModal, hideModal } from 'modules/modal'
+import { fetchAddresses } from 'routes/client/account/modules/addresses'
+import { fetchPhones } from 'routes/client/account/modules/phones'
 import Dashboard from './components/Dashboard'
 import {
   fetchMonitoringRequestsCompleted,
@@ -53,7 +55,7 @@ class DashboardContainer extends RoutedComponent {
 
   fetchDashboardData = (accountId, keywordId) => {
     return Promise.all([
-      this.props.fetchGoogleResults(accountId, keywordId),
+      //this.props.fetchGoogleResults(accountId, keywordId), @catherine find out why this is making the dashboard fail. 
       this.props.fetchMonitoringRequests(accountId),
       this.props.fetchMonitoringRequestsCompleted(accountId),
       this.props.fetchAccountNotifications(accountId)
@@ -88,6 +90,9 @@ class DashboardContainer extends RoutedComponent {
           handleSearch={this.handleSearch}
           showModal={this.props.showModal}
           screenSize={this.props.screenSize}
+          addresses={this.props.addresses}
+          phones={this.props.phones}
+          profile={this.props.profile}
         />
       </div>
     )
@@ -105,7 +110,10 @@ const mapStateToProps = state => ({
   googleResults: state.googleResults,
   keywords: state.account.keywords,
   screenSize: state.layout.currentScreenSize,
-  monitoringError: state.monitoring.errorMessage
+  monitoringError: state.monitoring.errorMessage,
+  profile: state.account.profile,
+  addresses: state.account.addresses,
+  phones: state.account.phones,
 })
 
 const mapActionCreators = {
@@ -117,7 +125,9 @@ const mapActionCreators = {
   fetchGoogleResults,
   updateKeyword,
   hideModal,
-  showModal
+  showModal,
+  fetchPhones,
+  fetchAddresses
 }
 
 export default connect(mapStateToProps, mapActionCreators)(DashboardContainer)

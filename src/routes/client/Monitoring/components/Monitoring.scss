@@ -1,7 +1,22 @@
 @import '~bootstrap-sass/assets/stylesheets/bootstrap/_variables.scss';
 @import '~@owczar/spin-template/src/scss/bootstrap/variables';
+@import 'src/styles/plugins/colors.scss';
+
+:global .panel {
+
+  &.in-progress {
+
+    .panel-heading {
+      background-color: $theme-green;
+    }
+    .panel-body {
+      border-color: $theme-green;
+    }
+  }
+}
 
 .mainWrap {
+
   .summary {
     > * {
       margin-bottom: 10px;
@@ -282,7 +297,7 @@
   font-weight: 300;
   margin: 0 0 1rem 0;
   font-size: 28px;
-  color: $brand-white;
+  color: "black";
 
   small {
     font-size: 65%;
@@ -295,5 +310,11 @@
 
   .summaryValueMore {
     color: $brand-success;
+  }
+}
+
+.summaryResultTitle {
+  h6 {
+    color: white !important;
   }
 }

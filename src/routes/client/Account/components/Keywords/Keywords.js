@@ -39,7 +39,7 @@ const Keywords = props => {
                     <Button
                       onClick={() => { showModal('KEYWORD', keyword, handleKeywordEdit) }}
                       bsSize='small'
-                      bsStyle='link'
+                      bsStyle='primary'
                     >
                       <i className="fa fa-pencil"></i> Edit
                     </Button>

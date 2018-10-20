@@ -156,7 +156,7 @@ class Privacy extends Component {
               </NavItem>
             </Nav>
             <ScrollBarContainer
-              style={{ maxHeight: screenSize === SCREEN_SIZE_LG ? '500px' : '300px' }}
+              style={{ maxHeight: screenSize === SCREEN_SIZE_LG ? '500px' : '350px' }}
             >
               <Tab.Content animation>
                 <Tab.Pane eventKey='inProgress'>

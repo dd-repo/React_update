@@ -23,8 +23,8 @@ const InQueue = ({ inQueue }) => {
         {
           inQueue.map(
             request =>
-            <tr className='bg-gray-darker' key={request.id}>
-              <td className='text-white'>
+            <tr key={request.id}>
+              <td className='text-dark'>
                 <a href={`http://www.${request.site}`} target='_blank'>
                   { request.site }
                 </a>

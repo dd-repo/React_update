@@ -6,8 +6,10 @@ import SpinnerWhileLoading from 'HOC/SpinnerWhileLoading'
 import Keywords from './Keywords'
 import DashboardWrapper from './DashboardWrapper'
 import PrivacyRemovals from './Privacy'
-import PrivacyReport from './Privacy/Summary'
+import PrivacyReport from './Privacy/Summary' //* @catherine Summary is a bad name. Needs to be PrivacySummary
 import GoogleResults from './GoogleResults'
+import ProfileDetails from 'routes/client/account/components/ProfileDetails' //* @catherine - accountcontainer does not have an account js like dashboardcontainer has dashboard.js
+
 import {
   SCREEN_SIZE_LG,
   SCREEN_SIZE_MD,
@@ -59,7 +61,7 @@ class Dashboard extends Component {
                 }
                 <Row className={classes.sectionRow}>
                   <Col sm={6} md={6} lg={6}>
-                    <div className={classes.container}>
+                    <div className={`${classes.container} ${classes.keywordsContainer}`}>
                       <div className={!props.keywords.active && classes.overlay}></div>
                       <Keywords
                         tutorialIsActive={props.isActive}
@@ -71,6 +73,15 @@ class Dashboard extends Component {
                         screenSize={screenSize}
                       />
                     </div>
+                    <div className={`classes`.container}>
+                      <ProfileDetails
+                        profile={this.props.profile}
+                        account={this.props.account}
+                        address={this.props.addresses[0]}
+                        phone={this.props.phones[0]}
+                      /> 
+                    </div>
+
                     {/* @catherine remove google results widget from dashboard
                     <div className={classes.container}>
                       <div className={!props.googleResults.active && classes.overlay}></div>
@@ -87,7 +98,7 @@ class Dashboard extends Component {
                   </Col>
                   {screenSize === SCREEN_SIZE_XS && <Divider className='m-t-3 m-b-3' />}
                   <Col sm={6} md={6} lg={6}>
-                    <div className={classes.container}>
+                    <div className={`${classes.container} ${classes.privacyReportContainer}`}> 
                       <div className={!props.privacyReport.active && classes.overlay}></div>
                       <PrivacyReport
                         tutorialIsActive={props.isActive}
@@ -100,7 +111,7 @@ class Dashboard extends Component {
                         screenSize={screenSize}
                       />
                     </div>
-                    <div className={classes.container}>
+                    <div className={`${classes.container} ${classes.privacyRemovalsContainer}`}>
                       <div 
                         className={
                           !props.privacyRemovals.active && classes.overlay

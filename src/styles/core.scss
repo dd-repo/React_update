@@ -1,8 +1,10 @@
 :global {
   @import '~normalize.css/normalize';
+  @import 'plugins/colors.scss';
   @import 'plugins/notifications';
   @import 'plugins/react-grid-layout';
   @import 'plugins/forms-extended.scss';
+  @import 'plugins/theme-overrides.scss';
 
   // Some best-practice CSS that's useful for most apps
   // Just remove them if they're not what you want

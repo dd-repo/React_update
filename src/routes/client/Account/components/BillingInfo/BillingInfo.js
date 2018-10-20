@@ -110,7 +110,7 @@ class BillingEdit extends React.Component {
                                           <dt>
                                             Price
                                           </dt>
-                                          <dd className='text-white'>
+                                          <dd>
                                             { price } / Month
                                           </dd>
                                         </dl>
@@ -137,14 +137,14 @@ class BillingEdit extends React.Component {
                                     <Col sm={9}>
                                         <p className='m-b-1'>
                                             <i className="fa fa-fw fa-credit-card-alt text-primary m-r-1 m-y-1"></i>
-                                            <span className='text-white'>Credit Card</span> - { formatCreditCard(card) }
+                                            <span>Credit Card</span> - { formatCreditCard(card) }
                                         </p>
                                         <dl className="dl-horizontal">
                                             <dt>Next Payment Due</dt>
-                                            <dd className="text-white"> { formatDate(nextPayment) } </dd>
+                                            <dd> { formatDate(nextPayment) } </dd>
 
                                             <dt>Amount</dt>
-                                            <dd className="text-white">{ price }</dd>
+                                            <dd>{ price }</dd>
                                         </dl>
                                     </Col>
                                 </FormGroup>
