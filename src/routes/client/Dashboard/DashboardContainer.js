@@ -4,8 +4,8 @@ import { CONTENT_VIEW_STATIC } from 'layouts/DefaultLayout/modules/layout'
 import { fetchGoogleResults } from 'routes/client/GoogleResults/modules/googleResults'
 import { updateKeyword, updateCurrentKeyword } from 'routes/client/Account/modules/keywords'
 import { showModal, hideModal } from 'modules/modal'
-import { fetchAddresses } from 'routes/client/account/modules/addresses'
-import { fetchPhones } from 'routes/client/account/modules/phones'
+import { fetchAddresses } from 'routes/client/Account/modules/addresses'
+import { fetchPhones } from 'routes/client/Account/modules/phones'
 import Dashboard from './components/Dashboard'
 import {
   fetchMonitoringRequestsCompleted,

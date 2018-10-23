@@ -8,7 +8,7 @@ import DashboardWrapper from './DashboardWrapper'
 import PrivacyRemovals from './Privacy'
 import PrivacyReport from './Privacy/Summary' //* @catherine Summary is a bad name. Needs to be PrivacySummary
 import GoogleResults from './GoogleResults'
-import ProfileDetails from 'routes/client/account/components/ProfileDetails' //* @catherine - accountcontainer does not have an account js like dashboardcontainer has dashboard.js
+import ProfileDetails from 'routes/client/Account/components/ProfileDetails' //* @catherine - accountcontainer does not have an account js like dashboardcontainer has dashboard.js
 
 import {
   SCREEN_SIZE_LG,
