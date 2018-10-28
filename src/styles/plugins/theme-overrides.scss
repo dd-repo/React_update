@@ -92,7 +92,7 @@ ul.nav-tabs {
 /* Forms */
 input.form-control {
 	&::placeholder {
-		color: white;
+		color: white !important;
 	}
 }
 
