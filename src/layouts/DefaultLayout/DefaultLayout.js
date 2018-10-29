@@ -12,7 +12,7 @@ import { removePersistedData } from 'localStorage'
 import { logout } from 'routes/auth/modules/auth'
 
 import { Colors } from 'consts'
-import navbarLogo from 'static/logos/logo-dark-md.png'
+import navbarLogo from 'static/logos/infosweep-new-logo-transparent.png'
 import {
   infosweepEmail,
   infosweepPhoneNumber,
@@ -236,7 +236,7 @@ class DefaultLayout extends React.Component {
                                     onClick={this.openHomePage}
                                     src={navbarLogo}
                                     className={classes.navbarLogo}
-                                    height={60}
+                                    height={50}
                                     alt="infosweep Dashboard"
                                   />
                                 </Link>
