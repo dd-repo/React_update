@@ -29,7 +29,7 @@ const CompletedRequest = ({ record }) => {
           </Media.Left>
           <Media.Body className={ classes.mediaFix }>
             <Media.Heading componentClass='div'>
-              <span className='text-white'>
+              <span >
                 { siteName }
               </span>
             </Media.Heading>
