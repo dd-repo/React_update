@@ -42,12 +42,12 @@ const CompletedRequest = ({ record }) => {
         </a>
       </td>
       <td>
-        <span className='text-white'>
+        <span>
         { formatDate(requested_at) }
         </span>
       </td>
       <td>
-        <span className='text-white'>
+        <span>
         { formatDate(completed_at) }
         </span>
       </td>
