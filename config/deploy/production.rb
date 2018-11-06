@@ -1,4 +1,4 @@
-server "52.41.99.157", user: "ubuntu", roles: %w{app db web}
+server "54.201.73.115", user: "ubuntu", roles: %w{app db web}
 
 set :branch, 'development'
 set :deploy_to, '/home/ubuntu'
