@@ -1,8 +1,8 @@
 import React, { PropTypes } from 'react';
-import Ps from 'perfect-scrollbar';
+import PerfectScrollbar from 'perfect-scrollbar';
 import _ from 'underscore';
 
-import 'perfect-scrollbar/dist/css/perfect-scrollbar.css';
+import "perfect-scrollbar/css/perfect-scrollbar.css";
 
 class ScrollBarContainer extends React.Component {
     static propTypes = {
@@ -26,6 +26,8 @@ class ScrollBarContainer extends React.Component {
 
     constructor(props, context) {
         super(props, context);
+
+        this.ps = null;
 
         this.initialized = false;
         this.timeout = null;
@@ -53,7 +55,7 @@ class ScrollBarContainer extends React.Component {
             // Make a 20ms debounce
             clearTimeout(this.timeout);
             this.timeout = setTimeout(() => {
-                Ps.update(this.scrollContainer);
+                this.ps.update(this.scrollContainer);
             }, 20);
         }
     }
@@ -63,7 +65,7 @@ class ScrollBarContainer extends React.Component {
             if(!this.props.notRelative) {
                 this.scrollContainer.style.position = 'relative';
             }
-            Ps.initialize(this.scrollContainer, {
+            this.ps = new PerfectScrollbar(this.scrollContainer, {
                 suppressScrollX: this.props.noXScrollBar,
                 suppressScrollY: this.props.noYScrollBar
             });
@@ -82,7 +84,7 @@ class ScrollBarContainer extends React.Component {
 
     destroyPerfectScroll() {
         if(this.scrollContainer && this.initialized) {
-            Ps.destroy(this.scrollContainer);
+            this.ps.destroy(this.scrollContainer);
             this.mutationObserver.disconnect();
             this.initialized = false;
         }
