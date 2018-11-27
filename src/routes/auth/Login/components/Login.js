@@ -36,8 +36,7 @@ const Login = ({ errorMessage, submitForm }) => {
                     Register
                   </Link>
                 </div>
-              )}
-            >
+              )}>
               <h2 className={classes.panelHeader}>
                 Login
               </h2>

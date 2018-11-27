@@ -1,0 +1,10 @@
+@import '~@owczar/spin-template/src/scss/bootstrap/variables';
+
+.defaultStyles {
+  div {
+    background: $gray-dark !important;
+    &:hover {
+      background: $gray-dark !important;
+    }
+  }
+}

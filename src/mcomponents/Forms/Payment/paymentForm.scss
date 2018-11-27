@@ -1,0 +1,66 @@
+@import '~bootstrap-sass/assets/stylesheets/bootstrap/_variables.scss';
+@import '~@owczar/spin-template/src/scss/bootstrap/variables';
+
+.inlineInputs {
+    display: flex;
+
+    > *:not(:last-child) {
+        margin-right: 5px;
+    }
+}
+
+.paymentIcons {
+  color: $gray-lighter;
+  font-weight: bold;
+  margin: 0 0 5px 0;
+}
+
+.paymentSubmitting {
+  background: transparent;
+}
+
+.price {
+  font-size: 3.5rem;
+  font-weight: 300;
+  margin-bottom: 0;
+  margin-top: 1rem;
+  color: white;
+}
+
+.sectionTitle {
+  margin-left: 1em;
+  color: #fff;
+  font-weight: 600;
+  border-bottom: 1px solid #4d4d4d;
+  padding: 7px 0;
+  margin-right: 20px;
+  margin-bottom: 15px;
+}
+
+.creditCardImg {
+  height: 30px;
+  padding-right: 5px;
+}
+
+.customSelect {
+  color: black !important;
+  div {
+    background: white !important;
+    color: black !important;
+    &:hover {
+      // background: $brand-primary !important;
+    }
+    &:focus {
+      background: white !important;
+    }
+    span {
+      div {
+        color: $gray-lighter !important;
+        font-size: 13px !important;
+        span {
+          color: black !important;
+        }
+      }
+    }
+  }
+}
