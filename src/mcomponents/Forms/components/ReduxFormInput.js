@@ -72,7 +72,7 @@ const ReduxFormInput = ({ field, ...props }) => {
 
 const renderInput = props => {
   const {
-    /* old */
+    /* OLD */
     name,
     input,
     label,
@@ -81,7 +81,7 @@ const renderInput = props => {
     maxLength,
     meta: { touched, error, warning },
 
-    /* new */
+    /* NEW */
     classes,
     formControlProps,
     labelText,
@@ -95,7 +95,7 @@ const renderInput = props => {
     helpText
   } = props
 
-  /* old */
+  /* OLD */
   let message = touched &&
     (
       error && <span className='text-danger'>
@@ -104,7 +104,7 @@ const renderInput = props => {
     )
   let validationState = touched && (error && 'error') || null
 
-  /* new */
+  /* NEW */
   const labelClasses = classNames({
     [" " + classes.labelRootError]: error,
     [" " + classes.labelRootSuccess]: success && !error
@@ -147,7 +147,7 @@ const renderInput = props => {
           {labelText}
         </InputLabel>
       ) : null}
-      <Input
+      <Input {...input}
         name={id}
         id={id}
         classes={{
@@ -158,15 +158,15 @@ const renderInput = props => {
         }}
         {...inputProps}
       />
-      {helpText !== undefined ? (
+      {message !== undefined ? (
         <FormHelperText id={id + "-text"} className={helpTextClasses}>
-          {helpText}
+          {message}
         </FormHelperText>
       ) : null}
     </FormControl>
   );
 
-  /*
+  /* OLD
   return (
     <FormGroup validationState={validationState}>
       <label>
