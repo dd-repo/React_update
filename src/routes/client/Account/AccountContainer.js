@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react'
 import infosweepApi from 'services/infosweepApi'
 import { reset } from 'redux-form'
@@ -44,7 +45,7 @@ class AccountContainer extends RoutedComponent {
   }
 
   static contextTypes = {
-    store: React.PropTypes.object.isRequired
+    store: PropTypes.object.isRequired
   }
 
   componentWillMount () {

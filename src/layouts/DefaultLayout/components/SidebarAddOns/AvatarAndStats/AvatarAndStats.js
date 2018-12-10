@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import {
     Media
@@ -79,9 +80,9 @@ const AvatarAndStats = ({ fullName, colorSidebar, avatar }) => {
 }
 
 AvatarAndStats.propTypes = {
-  colorSidebar: React.PropTypes.bool,
-  fullName: React.PropTypes.string.isRequired,
-  avatar: React.PropTypes.string
+  colorSidebar: PropTypes.bool,
+  fullName: PropTypes.string.isRequired,
+  avatar: PropTypes.string
 };
 
 export default AvatarAndStats;

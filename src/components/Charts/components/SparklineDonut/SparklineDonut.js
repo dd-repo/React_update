@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import Chartist from 'chartist';
 import _ from 'underscore';
@@ -68,14 +69,14 @@ const createSimpleDonutAnimation = (animationDuration, animationPlayed = false) 
 
 export default class SparklineDonut extends SparklinePie {
     static propTypes = {
-        radius: React.PropTypes.number,
-        innerRadius: React.PropTypes.any,
-        data: React.PropTypes.array,
-        value: React.PropTypes.number,
-        colors: React.PropTypes.array,
-        color: React.PropTypes.string,
-        animated: React.PropTypes.bool,
-        animationDuration: React.PropTypes.number
+        radius: PropTypes.number,
+        innerRadius: PropTypes.any,
+        data: PropTypes.array,
+        value: PropTypes.number,
+        colors: PropTypes.array,
+        color: PropTypes.string,
+        animated: PropTypes.bool,
+        animationDuration: PropTypes.number
     }
 
     static defaultProps = {

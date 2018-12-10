@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { Sparklines, SparklinesLine } from 'react-sparklines';
 import { Colors } from './../../../../consts';
@@ -5,16 +6,16 @@ import _ from 'underscore';
 
 export default class SparklineLine extends React.Component{
     static propTypes = {
-        width: React.PropTypes.number,
-        height: React.PropTypes.number,
-        children: React.PropTypes.array,
-        data: React.PropTypes.array,
-        color: React.PropTypes.string,
-        limit: React.PropTypes.number,
-        block: React.PropTypes.bool,
-        style: React.PropTypes.object,
-        chartStyle: React.PropTypes.object,
-        fullWidth: React.PropTypes.bool
+        width: PropTypes.number,
+        height: PropTypes.number,
+        children: PropTypes.array,
+        data: PropTypes.array,
+        color: PropTypes.string,
+        limit: PropTypes.number,
+        block: PropTypes.bool,
+        style: PropTypes.object,
+        chartStyle: PropTypes.object,
+        fullWidth: PropTypes.bool
     }
 
     static defaultProps = {

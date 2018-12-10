@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react'
+import React from 'react';
+import PropTypes from 'prop-types';
 import { info, removeAll } from 'react-notification-system-redux'
 
 import Privacy from './components/Privacy'

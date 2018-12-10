@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react'
 import ClientRegistration from './components/ClientRegistration'
 import { reset } from 'redux-form'
@@ -27,8 +28,8 @@ class ClientRegistrationContainer extends RoutedComponent {
   }
 
   static contextTypes = {
-    router: React.PropTypes.object.isRequired,
-    store: React.PropTypes.object.isRequired
+    router: PropTypes.object.isRequired,
+    store: PropTypes.object.isRequired
   }
 
   getLayoutOptions () {

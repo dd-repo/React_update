@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import uid from 'node-uuid';
 import { Link } from 'react-router';
@@ -25,7 +26,7 @@ const HOME_LINK = {
 class NotFoundContainer extends RoutedComponent {
 
   static contextTypes = {
-    router: React.PropTypes.object.isRequired
+    router: PropTypes.object.isRequired
   }
 
     getLayoutOptions() {

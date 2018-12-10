@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react'
 import _ from 'underscore'
 
@@ -46,7 +47,7 @@ class RequestedRemovalsContainer extends RoutedComponent {
   }
 
   static contextTypes = {
-    router: React.PropTypes.object.isRequired
+    router: PropTypes.object.isRequired
   }
 
   componentWillMount () {

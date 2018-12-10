@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import CreateUser from './components/CreateUser';
 import { reset } from 'redux-form';
@@ -16,8 +17,8 @@ class CreateUserContainer extends RoutedComponent {
     this.submitForm = this.submitForm.bind(this)
   }
   static contextTypes = {
-    router: React.PropTypes.object.isRequired,
-    store: React.PropTypes.object.isRequired
+    router: PropTypes.object.isRequired,
+    store: PropTypes.object.isRequired
   }
 
   getLayoutOptions() {

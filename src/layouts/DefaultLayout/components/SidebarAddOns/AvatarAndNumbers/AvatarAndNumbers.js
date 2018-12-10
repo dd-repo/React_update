@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import {
     Media
@@ -100,7 +101,7 @@ const AvatarAndNumbers = (props) => (
 );
 
 AvatarAndNumbers.propTypes = {
-    colorSidebar: React.PropTypes.bool
+    colorSidebar: PropTypes.bool
 };
 
 export default AvatarAndNumbers;

@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react'
 
 import { RoutedComponent, connect } from 'routes/routedComponent'
@@ -33,7 +34,7 @@ class SubscriptionsContainer extends RoutedComponent {
   }
 
   static contextTypes = {
-    router: React.PropTypes.object.isRequired
+    router: PropTypes.object.isRequired
   }
 
   componentWillMount () {

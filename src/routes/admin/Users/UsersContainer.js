@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react'
 import _ from 'underscore'
 import { connect, RoutedComponent } from 'routes/routedComponent'
@@ -49,7 +50,7 @@ class UsersContainer extends RoutedComponent {
   }
 
   static contextTypes = {
-    router: React.PropTypes.object.isRequired
+    router: PropTypes.object.isRequired
   }
 
   componentWillReceiveProps (nextProps) {

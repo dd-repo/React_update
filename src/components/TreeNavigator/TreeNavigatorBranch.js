@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import uid from 'node-uuid';
 import _ from 'underscore';
 import classNames from 'classnames';

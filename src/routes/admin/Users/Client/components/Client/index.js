@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import { compose } from 'recompose';
 import { Link } from 'react-router';
 import capitalize from 'utils/capitalize';

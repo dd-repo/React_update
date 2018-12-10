@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import deepAssign from 'deep-assign';
 import _ from 'underscore';
 import ReactHighstock from 'react-highcharts/bundle/ReactHighstock';

@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React, { Component } from 'react'
 
 import { RoutedComponent, connect } from 'routes/routedComponent'
@@ -21,7 +22,7 @@ class KeywordContainer extends RoutedComponent {
   }
 
   static contextTypes = {
-    router: React.PropTypes.object.isRequired
+    router: PropTypes.object.isRequired
   }
 
   getLayoutOptions () {

@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react'
 import Signup from './components/Signup'
 import ReactGA from 'react-ga'
@@ -31,7 +32,7 @@ class SignupContainer extends RoutedComponent {
   }
 
   static contextTypes = {
-    router: React.PropTypes.object.isRequired
+    router: PropTypes.object.isRequired
   }
 
   getLayoutOptions () {

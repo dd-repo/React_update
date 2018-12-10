@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import classNames from 'classnames';
 import {
@@ -21,7 +22,7 @@ const Table = props => {
 };
 
 Table.propTypes = {
-    standard: React.PropTypes.bool
+    standard: PropTypes.bool
 };
 
 Table.defaultProps = {

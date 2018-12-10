@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import HighchartBase, { connect } from './../HighchartBase';
 import { Colors } from './../../../../consts';
 import tinycolor from 'tinycolor2';

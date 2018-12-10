@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import _ from 'underscore';
 import num from 'numeral';
@@ -96,7 +97,7 @@ class ThirdRightSidebarTab extends React.Component {
     }
 
     static propTypes = {
-        data: React.PropTypes.object.isRequired
+        data: PropTypes.object.isRequired
     }
 
     renderChat(chat) {

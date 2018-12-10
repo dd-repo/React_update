@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import {
     Media
@@ -107,7 +108,7 @@ const Menu = (props) => (
 );
 
 Menu.propTypes = {
-    colorSidebar: React.PropTypes.bool
+    colorSidebar: PropTypes.bool
 };
 
 export default Menu;

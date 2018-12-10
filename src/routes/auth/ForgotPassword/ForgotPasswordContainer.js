@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react'
 import ForgotPassword from './components/ForgotPassword'
 import ForgotPasswordComplete from './components/ForgotPasswordComplete'
@@ -14,7 +15,7 @@ class ForgotPasswordContainer extends RoutedComponent {
   }
 
   static contexttypes = {
-    router: React.PropTypes.object.isRequired
+    router: PropTypes.object.isRequired
   }
 
   getLayoutOptions () {

@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react'
+import React from 'react';
+import PropTypes from 'prop-types';
 
 import CompletedRemoval from 'routes/client/Monitoring/components/CompletedRequest';
 import classes from './completed.scss';

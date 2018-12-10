@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import _ from 'underscore'
 import { Sparklines } from 'react-sparklines';
@@ -6,12 +7,12 @@ import { Colors } from 'consts';
 
 export default class SparklineBar extends React.Component {
     static propTypes = {
-        width: React.PropTypes.number,
-        height: React.PropTypes.number,
-        children: React.PropTypes.array,
-        data: React.PropTypes.array,
-        color: React.PropTypes.string,
-        block: React.PropTypes.bool
+        width: PropTypes.number,
+        height: PropTypes.number,
+        children: PropTypes.array,
+        data: PropTypes.array,
+        color: PropTypes.string,
+        block: PropTypes.bool
     }
 
     static defaultProps = {

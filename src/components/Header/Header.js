@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { IndexLink, Link } from 'react-router';
 import uid from 'node-uuid';
@@ -112,12 +113,12 @@ const Header = (props) => {
 }
 
 Header.propTypes = {
-    currentUrl: React.PropTypes.string.isRequired,
-    style: React.PropTypes.string.isRequired,
-    fluid: React.PropTypes.bool.isRequired,
-    children: React.PropTypes.node,
-    sidebarConfigs: React.PropTypes.array,
-    currentUserRole: React.PropTypes.string
+    currentUrl: PropTypes.string.isRequired,
+    style: PropTypes.string.isRequired,
+    fluid: PropTypes.bool.isRequired,
+    children: PropTypes.node,
+    sidebarConfigs: PropTypes.array,
+    currentUserRole: PropTypes.string
 }
 
 Header.defaultProps = {

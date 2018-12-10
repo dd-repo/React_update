@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import Loading from 'react-loading';
 import Dropzone from 'react-dropzone';
 import classNames from 'classnames';

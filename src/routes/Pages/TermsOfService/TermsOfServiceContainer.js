@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react'
 import { RoutedComponent, connect } from 'routes/routedComponent'
 import TOS from './TermsOfService'
@@ -12,7 +13,7 @@ import {
 class TermsOfServiceContainer extends RoutedComponent {
 
   static contextTypes = {
-    router: React.PropTypes.object.isRequired
+    router: PropTypes.object.isRequired
   }
 
   getLayoutOptions () {

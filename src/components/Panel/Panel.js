@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
 import { Panel as ReactBootstrapPanel } from 'react-bootstrap';
 import _ from 'underscore';

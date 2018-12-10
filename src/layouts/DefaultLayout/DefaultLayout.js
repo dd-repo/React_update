@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react'
 import _ from 'underscore'
 import { connect } from 'react-redux'
@@ -119,7 +120,7 @@ let rightSidebarTriggerRef,
 
 class DefaultLayout extends React.Component {
   static propTypes = {
-    sidebarAddon: React.PropTypes.string
+    sidebarAddon: PropTypes.string
   };
 
   constructor (props, context) {

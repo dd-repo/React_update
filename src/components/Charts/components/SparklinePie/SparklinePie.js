@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import _ from 'underscore';
@@ -11,14 +12,14 @@ import { Colors } from './../../../../consts';
 
 export default class SparklinePie extends React.Component {
     static propTypes = {
-        radius: React.PropTypes.number,
-        children: React.PropTypes.array,
-        data: React.PropTypes.array,
-        value: React.PropTypes.number,
-        colors: React.PropTypes.array,
-        color: React.PropTypes.string,
-        animated: React.PropTypes.bool,
-        animationDuration: React.PropTypes.number
+        radius: PropTypes.number,
+        children: PropTypes.array,
+        data: PropTypes.array,
+        value: PropTypes.number,
+        colors: PropTypes.array,
+        color: PropTypes.string,
+        animated: PropTypes.bool,
+        animationDuration: PropTypes.number
     }
 
     static defaultProps = {

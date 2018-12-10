@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react'
 import { connect, RoutedComponent } from 'routes/routedComponent'
 import { CONTENT_VIEW_STATIC } from 'layouts/DefaultLayout/modules/layout'
@@ -17,8 +18,8 @@ import { fetchAccountNotifications } from 'routes/client/Account/modules/notific
 class DashboardContainer extends RoutedComponent {
 
   static contextTypes = {
-    router: React.PropTypes.object.isRequired,
-    store: React.PropTypes.object
+    router: PropTypes.object.isRequired,
+    store: PropTypes.object
   }
 
   constructor (props) {
