@@ -1,3 +1,4 @@
+/* File looks to be unused
 import React from 'react';
 import {TableHeaderColumn} from 'react-bootstrap-table';
 
@@ -23,3 +24,4 @@ CustomTableHeaderColumn.propTypes = {
 }
 
 export default CustomTableHeaderColumn;
+*/

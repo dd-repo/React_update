@@ -1,3 +1,4 @@
+/* This file looks like it's unused 
 import BootstrapTable from './customBootstrapTable';
 import TableHeaderColumn from './customTableHeaderColumn';
 
@@ -30,3 +31,4 @@ export {
     ButtonGroup,
     SizePerPageDropDown
 };
+*/

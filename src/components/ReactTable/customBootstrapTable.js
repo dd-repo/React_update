@@ -1,3 +1,4 @@
+/* File looks to be unused 
 import React from 'react';
 import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
@@ -53,3 +54,4 @@ CustomBootstrapTable.propTypes = {
 }
 
 export default CustomBootstrapTable;
+*/

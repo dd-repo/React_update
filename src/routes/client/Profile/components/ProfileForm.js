@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { reduxForm, Field } from 'redux-form';
 
 import { connect } from 'routes/routedComponent';
-import  Upload  from './Upload';
+import  Upload  from '../Edit/components/Upload';
 import { checkValidation, normalizePhone } from 'utils/formHelpers';
 import {
   FormGroup,

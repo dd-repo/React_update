@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux'
 import { reduxForm, Field } from 'redux-form'
 
-import { submitKeyword } from 'routes/admin/User/modules/keywords'
+import { submitKeyword } from 'routes/admin/Users/Client/modules/keywords'
 import {
     Col,
     Modal,

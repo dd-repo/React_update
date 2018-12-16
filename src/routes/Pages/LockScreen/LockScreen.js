@@ -19,8 +19,6 @@ import { Colors } from 'consts'
 
 import classes from './../Pages.scss'
 
-import logo from 'static/spin-logo-inverted.png'
-
 class LockScreenContainer extends RoutedComponent {
   getLayoutOptions () {
     return {

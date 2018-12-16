@@ -10,7 +10,7 @@ import ProfileDetails from './ProfileDetails';
 
 import { Colors } from 'consts';
 
-import classes from './profile.scss';
+import classes from '../profile.scss';
 
 const Profile = ({ profile }) => {
   return (

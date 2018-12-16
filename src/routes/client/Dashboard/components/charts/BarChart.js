@@ -1,5 +1,5 @@
 import React from 'react';
-import classes from './dashboard.scss';
+import classes from '../dashboard.scss';
 
 import {
   Panel,
