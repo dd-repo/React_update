@@ -3,6 +3,8 @@ import config from '../config'
 import webpackConfig from './webpack.config'
 import _debug from 'debug'
 
+require('puppeteer').executablePath()
+
 const debug = _debug('app:karma')
 debug('Create configuration.')
 
@@ -15,7 +17,7 @@ const karmaConfig = {
       served: true,
       included: true
     },
-    'node_modules/babel-polyfill/dist/polyfill.js'
+    'node_modules/@babel/polyfill/dist/polyfill.js'
   ],
   singleRun: !argv.watch,
   frameworks: ['mocha', 'intl-shim'],
@@ -23,7 +25,7 @@ const karmaConfig = {
   preprocessors: {
     [`${config.dir_test}/test-bundler.js`]: ['webpack']
   },
-  browsers: ['PhantomJS'],
+  browsers: ['ChromeHeadless'],//['PhantomJS'],
   webpack: {
     devtool: 'cheap-module-source-map',
     resolve: {
@@ -60,7 +62,12 @@ const karmaConfig = {
   },
   coverageReporter: {
     reporters: config.coverage_reporters
-  }
+  },
+  /*
+  plugins: [
+    'babel-polyfill'
+  ]
+  */
 }
 
 if (config.globals.__COVERAGE__) {
