@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Holder from 'react-image-holder';
+//import Holder from 'react-image-holder';
 import classNames from 'classnames';
 import _ from 'underscore';
 
@@ -83,6 +83,8 @@ class Image extends React.Component {
             );
         } else {
             return (
+                <p>Image Placeholder Goes Here</p>
+                /*
                 <Holder
                     src='#'
                     width={ this.props.width || '100p' }
@@ -96,6 +98,7 @@ class Image extends React.Component {
                         text: this.props.backgroundText
                     }}
                 />
+                */
             );
         }
     }
